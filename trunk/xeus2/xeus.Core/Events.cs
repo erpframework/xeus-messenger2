@@ -25,6 +25,12 @@ namespace xeus2.xeus.Core
 		public void OnEvent( Event myEvent )
 		{
 			Add( myEvent ) ;
+#if DEBUG
+			if ( myEvent.Severity >= Event.EventSeverity.Error )
+			{
+				throw new XeusException( myEvent.Message ) ;
+			}
+#endif
 		}
 	}
 }

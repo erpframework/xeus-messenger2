@@ -1,6 +1,7 @@
 using agsXMPP ;
 using agsXMPP.protocol.Base ;
 using agsXMPP.protocol.client ;
+using agsXMPP.Xml.Dom ;
 
 namespace xeus2.xeus.Core
 {
@@ -43,6 +44,19 @@ namespace xeus2.xeus.Core
 				_presence = value ;
 
 				NotifyPropertyChanged( "Presence" ) ;
+			}
+		}
+
+		public string Group
+		{
+			get
+			{
+				foreach ( Element element in _rosterItem.GetGroups() )
+				{
+					return element.Value ;
+				}
+
+				return "Ungrouped" ;
 			}
 		}
 

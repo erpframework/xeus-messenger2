@@ -22,7 +22,7 @@ namespace xeus2.xeus.Core
 			get
 			{
 				return string.Format( "Contact {0} changed presence from '{1}' to '{2}'",
-				                      Contact.DisplayName, OldPresence.Status, NewPresence.Status ) ;
+				                      Contact.DisplayName, OldPresence.Show, NewPresence.Show ) ;
 			}
 		}
 
