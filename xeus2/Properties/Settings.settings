@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="xeus2.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="XmppResource" Type="System.String" Scope="User">
+      <Value Profile="(Default)">xeus</Value>
+    </Setting>
+    <Setting Name="XmppPriority" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="XmppUserName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">xeus</Value>
+    </Setting>
+    <Setting Name="XmppPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-3koblihy</Value>
+    </Setting>
+    <Setting Name="XmppServer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">jabber.cz</Value>
+    </Setting>
+    <Setting Name="XmppMyPresence" Type="agsXMPP.protocol.client.ShowType" Scope="User">
+      <Value Profile="(Default)">NONE</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
