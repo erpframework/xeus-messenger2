@@ -38,7 +38,7 @@ namespace xeus2.xeus.Core
 
 				if ( contact == null )
 				{
-					throw new XeusException( "Presence sent to unknown contact" ) ;
+					Events.Instance.OnEvent( this, new EventError( "Presence sent to unknown contact" ) );
 				}
 				else
 				{
