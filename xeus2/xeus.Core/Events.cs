@@ -24,6 +24,7 @@ namespace xeus2.xeus.Core
 
 		public void OnEvent( Event myEvent )
 		{
+			Add( myEvent ) ;
 		}
 	}
 }

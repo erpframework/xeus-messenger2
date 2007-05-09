@@ -1,18 +1,26 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using agsXMPP ;
 using agsXMPP.protocol.Base ;
+using agsXMPP.protocol.client ;
 
 namespace xeus2.xeus.Core
 {
 	internal class Contact : NotifyInfoDispatcher
 	{
 		private RosterItem _rosterItem = null ;
+		private Presence _presence = new Presence() ;
 
 		public Contact( RosterItem rosterItem )
 		{
 			_rosterItem = rosterItem ;
+		}
+
+		public string DisplayName
+		{
+			get
+			{
+				// todo:
+				return "Disp. name" ;
+			}
 		}
 
 		public Jid Jid
@@ -23,9 +31,24 @@ namespace xeus2.xeus.Core
 			}
 		}
 
+		public Presence Presence
+		{
+			get
+			{
+				return _presence ;
+			}
+
+			set
+			{
+				_presence = value ;
+
+				NotifyPropertyChanged( "Presence" ) ;
+			}
+		}
+
 		public override string ToString()
 		{
-			return Jid.ToString() ;
+			return string.Format( "{0} / {1}", Jid, Presence.Status ) ;
 		}
 	}
 }

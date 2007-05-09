@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace xeus2.xeus.Core
 {
 	internal abstract class Event
@@ -23,7 +19,7 @@ namespace xeus2.xeus.Core
 			_eventSeverity = eventSeverity ;
 		}
 
-		public string Message
+		virtual public string Message
 		{
 			get
 			{
@@ -41,7 +37,7 @@ namespace xeus2.xeus.Core
 
 		public override string ToString()
 		{
-			return string.Format( "{0} [{1}]", Message, Severity ) ;
+			return Message ;
 		}
 	}
 }

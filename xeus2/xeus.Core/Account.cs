@@ -1,7 +1,6 @@
 using agsXMPP ;
 using agsXMPP.net ;
 using agsXMPP.protocol.client ;
-using agsXMPP.protocol.iq.agent ;
 using agsXMPP.protocol.iq.disco ;
 using agsXMPP.protocol.iq.roster ;
 using agsXMPP.Xml.Dom ;
@@ -51,7 +50,7 @@ namespace xeus2.xeus.Core
 			_xmppConnection.OnLogin += new ObjectHandler( _xmppConnection_OnLogin ) ;
 			_xmppConnection.OnRosterItem += new XmppClientConnection.RosterHandler( _xmppConnection_OnRosterItem ) ;
 			_xmppConnection.OnRosterEnd += new ObjectHandler( _xmppConnection_OnRosterEnd ) ;
-			_xmppConnection.OnAgentItem += new XmppClientConnection.AgentHandler( _xmppConnection_OnAgentItem ) ;
+			_xmppConnection.OnPresence += new PresenceHandler( _xmppConnection_OnPresence ) ;
 
 			// todo:
 			// _xmppConnection.Capabilities.
@@ -61,8 +60,32 @@ namespace xeus2.xeus.Core
 			_xmppConnection.Open() ;
 		}
 
-		private void _xmppConnection_OnAgentItem( object sender, Agent agent )
+		private void _xmppConnection_OnPresence( object sender, Presence pres )
 		{
+			switch ( pres.Type )
+			{
+				case PresenceType.subscribe:
+					{
+						break ;
+					}
+				case PresenceType.subscribed:
+					{
+						break ;
+					}
+				case PresenceType.unsubscribe:
+					{
+						break ;
+					}
+				case PresenceType.unsubscribed:
+					{
+						break ;
+					}
+				default:
+					{
+						Roster.Instance.OnPresence( sender, pres ) ;
+						break ;
+					}
+			}
 		}
 
 		private void _xmppConnection_OnRosterEnd( object sender )
@@ -102,24 +125,22 @@ namespace xeus2.xeus.Core
 		{
 			if ( iq.Type == IqType.result )
 			{
-				Element query = iq.Query;
+				Element query = iq.Query ;
 
-				if ( query != null && query.GetType() == typeof( DiscoItems ) )
+				if ( query != null && query.GetType() == typeof ( DiscoItems ) )
 				{
-					DiscoItems items = query as DiscoItems;
-					DiscoItem[] itms = items.GetDiscoItems();
+					DiscoItems items = query as DiscoItems ;
+					DiscoItem[] itms = items.GetDiscoItems() ;
 
-					DiscoManager dm = new DiscoManager( _xmppConnection );
+					DiscoManager dm = new DiscoManager( _xmppConnection ) ;
 
 					foreach ( DiscoItem itm in itms )
 					{
 						if ( itm.Jid != null )
 						{
-							dm.DisoverInformation( itm.Jid, new IqCB( OnDiscoInfoResult ), itm );
+							dm.DisoverInformation( itm.Jid, new IqCB( OnDiscoInfoResult ), itm ) ;
 						}
 					}
-
-					
 				}
 			}
 		}
@@ -127,11 +148,11 @@ namespace xeus2.xeus.Core
 		private void OnDiscoInfoResult( object sender, IQ iq, object data )
 		{
 			if ( iq.Type == IqType.result
-				&& iq.Query is DiscoInfo )
+			     && iq.Query is DiscoInfo )
 			{
-				DiscoInfo di = iq.Query as DiscoInfo;
+				DiscoInfo di = iq.Query as DiscoInfo ;
 
-				Services.Instance.OnServiceItem( sender, di );
+				Services.Instance.OnServiceItem( sender, di ) ;
 			}
 		}
 
@@ -139,10 +160,6 @@ namespace xeus2.xeus.Core
 		{
 			if ( _isLogged )
 			{
-				_xmppConnection.OnClose -= new ObjectHandler( _xmppConnection_OnClose ) ;
-				_xmppConnection.OnLogin -= new ObjectHandler( _xmppConnection_OnLogin ) ;
-				_xmppConnection.OnRosterItem -= new XmppClientConnection.RosterHandler( _xmppConnection_OnRosterItem ) ;
-
 				_xmppConnection.Close() ;
 			}
 			else
