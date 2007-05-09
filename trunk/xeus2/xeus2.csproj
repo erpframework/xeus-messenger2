@@ -93,6 +93,7 @@
     <Compile Include="xeus.Core\Contact.cs" />
     <Compile Include="xeus.Core\Event.cs" />
     <Compile Include="xeus.Core\Events.cs" />
+    <Compile Include="xeus.Core\EventStatusChanged.cs" />
     <Compile Include="xeus.Core\NotifyDispatcher.cs" />
     <Compile Include="xeus.Core\ObservableCollectionDisp.cs" />
     <Compile Include="xeus.Core\Roster.cs" />

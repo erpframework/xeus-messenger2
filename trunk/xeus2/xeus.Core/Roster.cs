@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading ;
 using System.Windows.Threading ;
 using agsXMPP ;
+using agsXMPP.protocol.client ;
 using agsXMPP.protocol.iq.roster ;
 
 namespace xeus2.xeus.Core
@@ -11,6 +12,7 @@ namespace xeus2.xeus.Core
 	internal class Roster : ObservableCollectionDisp< Contact >
 	{
 		private delegate void RosterItemCallback( RosterItem item ) ;
+		private delegate void PresenceCallback( Presence presence ) ;
 
 		private static Roster _instance = new Roster();
 
@@ -19,6 +21,32 @@ namespace xeus2.xeus.Core
 			get
 			{
 				return _instance ;
+			}
+		}
+
+		public void OnPresence( object sender, Presence presence )
+		{
+			App.Current.Dispatcher.Invoke( DispatcherPriority.Background,
+											new PresenceCallback( OnPresence ), presence ) ;
+		}
+
+		void OnPresence( Presence presence )
+		{
+			lock ( _syncObject )
+			{
+				Contact contact = FindContact( presence.From ) ;
+
+				if ( contact == null )
+				{
+					throw new XeusException( "Presence sent to unknown contact" ) ;
+				}
+				else
+				{
+					EventPresenceChanged eventPresenceChanged = new EventPresenceChanged( contact, contact.Presence, presence ); 
+					Events.Instance.OnEvent( this, eventPresenceChanged );
+
+					contact.Presence = presence ;
+				}
 			}
 		}
 
@@ -50,7 +78,7 @@ namespace xeus2.xeus.Core
 		{
 			foreach ( Contact item in Items )
 			{
-				if ( item.Jid == jid )
+				if ( item.Jid.Bare == jid.Bare )
 				{
 					return item ;
 				}
