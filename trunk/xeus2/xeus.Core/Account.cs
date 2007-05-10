@@ -51,6 +51,8 @@ namespace xeus2.xeus.Core
 			_xmppConnection.OnRosterItem += new XmppClientConnection.RosterHandler( _xmppConnection_OnRosterItem ) ;
 			_xmppConnection.OnRosterEnd += new ObjectHandler( _xmppConnection_OnRosterEnd ) ;
 			_xmppConnection.OnPresence += new PresenceHandler( _xmppConnection_OnPresence ) ;
+			_xmppConnection.OnError += new ErrorHandler( _xmppConnection_OnError );
+			_xmppConnection.OnAuthError += new XmppElementHandler( _xmppConnection_OnAuthError );
 
 			// todo:
 			// _xmppConnection.Capabilities.
@@ -58,6 +60,18 @@ namespace xeus2.xeus.Core
 			Settings.Default.Save() ;
 
 			_xmppConnection.Open() ;
+		}
+
+		void _xmppConnection_OnAuthError( object sender, Element e )
+		{
+			EventError eventError = new EventError( "Authorization failed" );
+			Events.Instance.OnEvent( eventError );
+		}
+
+		void _xmppConnection_OnError( object sender, System.Exception ex )
+		{
+			EventError eventError = new EventError( ex.Message );
+			Events.Instance.OnEvent( eventError );
 		}
 
 		private void _xmppConnection_OnPresence( object sender, Presence pres )
@@ -127,7 +141,7 @@ namespace xeus2.xeus.Core
 			{
 				Element query = iq.Query ;
 
-				if ( query != null && query.GetType() == typeof ( DiscoItems ) )
+				if ( query != null && query is DiscoItems )
 				{
 					DiscoItems items = query as DiscoItems ;
 					DiscoItem[] itms = items.GetDiscoItems() ;
@@ -147,8 +161,7 @@ namespace xeus2.xeus.Core
 
 		private void OnDiscoInfoResult( object sender, IQ iq, object data )
 		{
-			if ( iq.Type == IqType.result
-			     && iq.Query is DiscoInfo )
+			if ( iq.Type == IqType.result && iq.Query is DiscoInfo )
 			{
 				DiscoInfo di = iq.Query as DiscoInfo ;
 
@@ -161,10 +174,6 @@ namespace xeus2.xeus.Core
 			if ( _isLogged )
 			{
 				_xmppConnection.Close() ;
-			}
-			else
-			{
-				throw new XeusException( "Connection is already closed" ) ;
 			}
 		}
 	}
