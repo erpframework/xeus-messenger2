@@ -1,3 +1,5 @@
+using System ;
+
 namespace xeus2.xeus.Core
 {
 	internal abstract class Event
@@ -12,6 +14,7 @@ namespace xeus2.xeus.Core
 
 		private string _message = null ;
 		private readonly EventSeverity _eventSeverity ;
+		private readonly DateTime _time = DateTime.Now ;
 
 		public Event( string message, EventSeverity eventSeverity )
 		{
@@ -32,6 +35,14 @@ namespace xeus2.xeus.Core
 			get
 			{
 				return _eventSeverity ;
+			}
+		}
+
+		public DateTime Time
+		{
+			get
+			{
+				return _time ;
 			}
 		}
 

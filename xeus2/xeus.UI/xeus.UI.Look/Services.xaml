@@ -3,9 +3,8 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<!-- Resource dictionary entries should be defined here. -->
 
-  <ItemsPanelTemplate x:Key="ItemsPanelTemplateRoster">
-		<!--<VirtualizingStackPanel IsItemsHost="True"/>-->
-		<WrapPanel/>
-	</ItemsPanelTemplate>
+  <ItemsPanelTemplate x:Key="ItemsPanelTemplateServices">
+    <WrapPanel/>
+  </ItemsPanelTemplate>
 
 </ResourceDictionary>
