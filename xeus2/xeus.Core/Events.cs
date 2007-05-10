@@ -26,7 +26,7 @@ namespace xeus2.xeus.Core
 		{
 			Add( myEvent ) ;
 #if DEBUG
-			if ( myEvent.Severity >= Event.EventSeverity.Error )
+			if ( myEvent.Severity >= Event.EventSeverity.Fatal )
 			{
 				throw new XeusException( myEvent.Message ) ;
 			}
