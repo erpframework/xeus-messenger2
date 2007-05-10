@@ -4,7 +4,7 @@
 	<!-- Resource dictionary entries should be defined here. -->
 
   <ItemsPanelTemplate x:Key="ItemsPanelTemplateServices">
-    <WrapPanel/>
+    <WrapPanel IsItemsHost="True"/>
   </ItemsPanelTemplate>
 
 </ResourceDictionary>
