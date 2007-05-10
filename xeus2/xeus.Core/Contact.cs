@@ -1,8 +1,10 @@
+using System ;
 using agsXMPP ;
 using agsXMPP.protocol.Base ;
 using agsXMPP.protocol.client ;
 using agsXMPP.Xml.Dom ;
 using xeus2.Properties ;
+using xeus2.xeus.Utilities ;
 
 namespace xeus2.xeus.Core
 {
@@ -20,8 +22,7 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				// todo:
-				return "Disp. name" ;
+				return DisplayNameBuilder.GetDisplayName( this ) ;
 			}
 		}
 
@@ -45,6 +46,7 @@ namespace xeus2.xeus.Core
 				_presence = value ;
 
 				NotifyPropertyChanged( "Presence" ) ;
+				NotifyPropertyChanged( "StatusText" ) ;
 			}
 		}
 
@@ -58,6 +60,14 @@ namespace xeus2.xeus.Core
 				}
 
 				return Resources.Constant_General ;
+			}
+		}
+
+		public string StatusText
+		{
+			get
+			{
+				return Presence.Show.ToString() ;
 			}
 		}
 

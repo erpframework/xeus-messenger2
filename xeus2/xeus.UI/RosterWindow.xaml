@@ -25,7 +25,7 @@
 		<ObjectDataProvider x:Key="EventsDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Events}"/>
 	</Window.Resources>
     <StackPanel>
-      <ListBox ItemsSource="{Binding Source={StaticResource Contacts}}" Height="100" ItemsPanel="{DynamicResource ItemsPanelTemplateRoster}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+      <ListBox ItemsSource="{Binding Source={StaticResource Contacts}}" Height="100" ItemsPanel="{DynamicResource ItemsPanelTemplateRoster}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemTemplate="{DynamicResource Contact}">
       <ListBox.GroupStyle>
         <GroupStyle>
         <GroupStyle.ContainerStyle>

@@ -9,5 +9,9 @@ namespace xeus2.xeus.Core
 		Presence Presence { get ; }
 		string DisplayName { get ; }
 		string Group { get ; }
+		string StatusText { get ; }
+
+		string FirstName { get ; }
+		string LastName { get ; }
 	}
 }

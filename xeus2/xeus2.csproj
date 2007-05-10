@@ -108,7 +108,11 @@
     <Compile Include="xeus.Core\Services.cs" />
     <Compile Include="xeus.Core\XeusException.cs" />
     <Compile Include="xeus.Middle\Notification.cs" />
+    <Compile Include="xeus.Utilities\DisplayNameBuilder.cs" />
+    <Compile Include="xeus.Utilities\IPropertyAccessor.cs" />
     <Compile Include="xeus.Utilities\JidUtil.cs" />
+    <Compile Include="xeus.Utilities\PropertyAccessor.cs" />
+    <Compile Include="xeus.Utilities\PropertyAccessorException.cs" />
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
