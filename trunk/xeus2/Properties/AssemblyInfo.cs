@@ -12,12 +12,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle( "xeus2" )]
-[assembly: AssemblyDescription( "" )]
+[assembly: AssemblyTitle( "xeus-messenger 2" )]
+[assembly: AssemblyDescription( "xmpp client" )]
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "" )]
 [assembly: AssemblyProduct( "xeus2" )]
-[assembly: AssemblyCopyright( "Copyright @  2007" )]
+[assembly: AssemblyCopyright( "Copyright @ 2007 Petr Valach" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 [assembly: ComVisible( false )]
@@ -28,9 +28,6 @@ using System.Runtime.InteropServices;
 //in your source files, set the <UICulture> to en-US.  Then uncomment
 //the NeutralResourceLanguage attribute below.  Update the "en-US" in
 //the line below to match the UICulture setting in the project file.
-
-//[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
-
 
 // Specifies the location in which theme dictionaries are stored for types in an assembly.
 [assembly: ThemeInfo(
@@ -60,3 +57,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
 [assembly: AssemblyVersion( "2.0.0" )]
+[assembly: AssemblyFileVersionAttribute( "2.0.0" )]
+//[assembly: NeutralResourcesLanguageAttribute( "en-US", UltimateResourceFallbackLocation.Satellite)]

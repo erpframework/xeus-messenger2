@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using agsXMPP ;
 using agsXMPP.protocol.iq.disco ;
+using xeus2.Properties ;
 
 namespace xeus2.xeus.Core
 {
@@ -19,7 +16,7 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				DiscoIdentity [] discoIdentities = _discoInfo.GetIdentities() ;
+				DiscoIdentity[] discoIdentities = _discoInfo.GetIdentities() ;
 
 				if ( discoIdentities.Length > 0 )
 				{
@@ -27,7 +24,24 @@ namespace xeus2.xeus.Core
 				}
 				else
 				{
-					return "[Unknown service]" ;
+					return Resources.Constant_UnknownService ;
+				}
+			}
+		}
+
+		public string Group
+		{
+			get
+			{
+				DiscoIdentity[] discoIdentities = _discoInfo.GetIdentities() ;
+
+				if ( discoIdentities.Length > 0 )
+				{
+					return discoIdentities[ 0 ].Category ;
+				}
+				else
+				{
+					return Resources.Constant_General ;
 				}
 			}
 		}

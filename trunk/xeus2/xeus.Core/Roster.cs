@@ -6,6 +6,8 @@ using System.Windows.Threading ;
 using agsXMPP ;
 using agsXMPP.protocol.client ;
 using agsXMPP.protocol.iq.roster ;
+using xeus2.Properties ;
+using xeus2.xeus.Utilities ;
 
 namespace xeus2.xeus.Core
 {
@@ -38,7 +40,31 @@ namespace xeus2.xeus.Core
 
 				if ( contact == null )
 				{
-					Events.Instance.OnEvent( this, new EventError( "Presence sent to unknown contact" ) );
+					if ( JidUtil.BareEquals( presence.From, Account.Instance.MyJid ) )
+					{
+						// it's me from another client
+						Events.Instance.OnEvent( this, new EventInfo(
+								String.Format( Resources.Event_AnotherClient,
+												presence.From.Resource, presence.Priority,
+												Account.Instance.MyJid.Bare, presence.Show ) ) ) ;
+
+						if ( presence.Priority > Account.Instance.MyPriority )
+						{
+							Events.Instance.OnEvent( this, new EventInfo(
+								String.Format( Resources.Event_AnotherClientHigher, presence.From.Resource ) ) ) ;
+						}
+						else
+						{
+							Events.Instance.OnEvent( this, new EventInfo(
+								String.Format( Resources.Event_AnotherClientLower, presence.From.Resource ) ) ) ;
+						}
+					}
+					else
+					{
+						Events.Instance.OnEvent( this,
+							new EventError( String.Format( Resources.Event_UnknownPresence,
+											presence.From, presence.Nickname ) ) ) ;
+					}
 				}
 				else
 				{
@@ -69,6 +95,7 @@ namespace xeus2.xeus.Core
 				else
 				{
 					// todo:
+					throw new ApplicationException( "Can't find contact" ) ;
 				}
 			}
 		}
@@ -78,7 +105,7 @@ namespace xeus2.xeus.Core
 		{
 			foreach ( Contact item in Items )
 			{
-				if ( item.Jid.Bare == jid.Bare )
+				if ( JidUtil.BareEquals( item.Jid, jid ) )
 				{
 					return item ;
 				}

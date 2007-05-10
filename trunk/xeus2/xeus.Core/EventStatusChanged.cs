@@ -1,5 +1,8 @@
 using System ;
+using System.Globalization ;
+using System.Threading ;
 using agsXMPP.protocol.client ;
+using xeus2.Properties ;
 
 namespace xeus2.xeus.Core
 {
@@ -21,7 +24,7 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				return string.Format( "Contact {0} changed presence from '{1}' to '{2}'",
+				return string.Format( Resources.Event_PresenceChange,
 				                      Contact.DisplayName, OldPresence.Show, NewPresence.Show ) ;
 			}
 		}

@@ -2,10 +2,11 @@ using agsXMPP ;
 using agsXMPP.protocol.Base ;
 using agsXMPP.protocol.client ;
 using agsXMPP.Xml.Dom ;
+using xeus2.Properties ;
 
 namespace xeus2.xeus.Core
 {
-	internal class Contact : NotifyInfoDispatcher
+	internal class Contact : NotifyInfoDispatcher, IContact
 	{
 		private RosterItem _rosterItem = null ;
 		private Presence _presence = new Presence() ;
@@ -56,7 +57,7 @@ namespace xeus2.xeus.Core
 					return element.Value ;
 				}
 
-				return "Ungrouped" ;
+				return Resources.Constant_General ;
 			}
 		}
 

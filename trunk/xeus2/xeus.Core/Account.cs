@@ -64,7 +64,7 @@ namespace xeus2.xeus.Core
 
 		void _xmppConnection_OnAuthError( object sender, Element e )
 		{
-			EventError eventError = new EventError( "Authorization failed" );
+			EventError eventError = new EventError( Resources.Event_AuthFailed );
 			Events.Instance.OnEvent( eventError );
 		}
 
@@ -133,6 +133,22 @@ namespace xeus2.xeus.Core
 		{
 			DiscoManager discoManager = new DiscoManager( _xmppConnection ) ;
 			discoManager.DisoverItems( new Jid( _xmppConnection.Server ), new IqCB( OnDiscoServerResult ), null ) ;
+		}
+
+		public int MyPriority
+		{
+			get
+			{
+				return _xmppConnection.Priority ;
+			}
+		}
+
+		public Jid MyJid
+		{
+			get
+			{
+				return _xmppConnection.MyJID ;
+			}
 		}
 
 		private void OnDiscoServerResult( object sender, IQ iq, object data )
