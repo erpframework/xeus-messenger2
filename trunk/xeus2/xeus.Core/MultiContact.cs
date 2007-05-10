@@ -1,3 +1,4 @@
+using System ;
 using System.Collections.Generic ;
 using agsXMPP ;
 using agsXMPP.protocol.client ;
@@ -38,6 +39,30 @@ namespace xeus2.xeus.Core
 			get
 			{
 				return _defaultContact.Group ;
+			}
+		}
+
+		public string StatusText
+		{
+			get
+			{
+				return _defaultContact.StatusText ;
+			}
+		}
+
+		public string FirstName
+		{
+			get
+			{
+				throw new NotImplementedException() ;
+			}
+		}
+
+		public string LastName
+		{
+			get
+			{
+				throw new NotImplementedException() ;
 			}
 		}
 
