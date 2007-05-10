@@ -5,7 +5,7 @@
 
   <ItemsPanelTemplate x:Key="ItemsPanelTemplateRoster">
 		<!--<VirtualizingStackPanel IsItemsHost="True"/>-->
-		<WrapPanel/>
+    <WrapPanel IsItemsHost="True" />
 	</ItemsPanelTemplate>
 
 </ResourceDictionary>
