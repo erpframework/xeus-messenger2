@@ -100,6 +100,7 @@
     <Compile Include="xeus.Core\Events.cs" />
     <Compile Include="xeus.Core\EventStatusChanged.cs" />
     <Compile Include="xeus.Core\IContact.cs" />
+    <Compile Include="xeus.Core\MultiContact.cs" />
     <Compile Include="xeus.Core\NotifyDispatcher.cs" />
     <Compile Include="xeus.Core\ObservableCollectionDisp.cs" />
     <Compile Include="xeus.Core\Roster.cs" />
