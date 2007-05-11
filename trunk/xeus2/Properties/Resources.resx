@@ -141,4 +141,10 @@
   <data name="Event_UnknownPresence" xml:space="preserve">
     <value>Presence infocoming from unknow contact '{0}' ({1})</value>
   </data>
+  <data name="Error_InvalidContactProp" xml:space="preserve">
+    <value>Invalid contact property name '{0}'</value>
+  </data>
+  <data name="Error_InvDisplayName" xml:space="preserve">
+    <value>DisplayName can't be used here</value>
+  </data>
 </root>

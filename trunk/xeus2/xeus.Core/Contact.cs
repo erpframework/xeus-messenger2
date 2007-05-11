@@ -12,6 +12,7 @@ namespace xeus2.xeus.Core
 	{
 		private RosterItem _rosterItem = null ;
 		private Presence _presence = new Presence() ;
+		DisplayNameBuilder _displayNameBuilder = new DisplayNameBuilder();
 
 		public Contact( RosterItem rosterItem )
 		{
@@ -22,7 +23,7 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				return DisplayNameBuilder.GetDisplayName( this ) ;
+				return _displayNameBuilder.GetDisplayName( this ) ;
 			}
 		}
 
@@ -68,6 +69,28 @@ namespace xeus2.xeus.Core
 			get
 			{
 				return Presence.Show.ToString() ;
+			}
+		}
+
+		public string FullName
+		{
+			get
+			{
+				// todo:
+				return "dummy" ;
+			}
+		}
+
+		public string NickName
+		{
+			get
+			{
+				if ( _presence.Nickname == null )
+				{
+					return String.Empty ;
+				}
+
+				return _presence.Nickname.ToString() ;
 			}
 		}
 
