@@ -94,5 +94,17 @@ namespace xeus2.Properties {
                 this["XmppMyPresence"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\"{FullName} ({NickName}) In Group \'{Group}\'\"")]
+        public string UI_DisplayFormat {
+            get {
+                return ((string)(this["UI_DisplayFormat"]));
+            }
+            set {
+                this["UI_DisplayFormat"] = value;
+            }
+        }
     }
 }

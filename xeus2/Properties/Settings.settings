@@ -20,5 +20,8 @@
     <Setting Name="XmppMyPresence" Type="agsXMPP.protocol.client.ShowType" Scope="User">
       <Value Profile="(Default)">NONE</Value>
     </Setting>
+    <Setting Name="UI_DisplayFormat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">"{FullName} ({NickName}) In Group '{Group}'"</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

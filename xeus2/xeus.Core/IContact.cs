@@ -3,7 +3,7 @@ using agsXMPP.protocol.client ;
 
 namespace xeus2.xeus.Core
 {
-	interface IContact
+	public interface IContact
 	{
 		Jid Jid { get ; }
 		Presence Presence { get ; }
@@ -11,7 +11,7 @@ namespace xeus2.xeus.Core
 		string Group { get ; }
 		string StatusText { get ; }
 
-		string FirstName { get ; }
-		string LastName { get ; }
+		string FullName { get ; }
+		string NickName { get ; }
 	}
 }

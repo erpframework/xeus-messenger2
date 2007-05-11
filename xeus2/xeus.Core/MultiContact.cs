@@ -50,19 +50,19 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		public string FirstName
+		public string FullName
 		{
 			get
 			{
-				throw new NotImplementedException() ;
+				return _defaultContact.FullName ;
 			}
 		}
 
-		public string LastName
+		public string NickName
 		{
 			get
 			{
-				throw new NotImplementedException() ;
+				return _defaultContact.NickName ;
 			}
 		}
 
