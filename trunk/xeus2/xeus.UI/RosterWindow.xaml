@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2006" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" xmlns:xeus2_xeus_Core="clr-namespace:xeus2.xeus.Core"
     x:Class="xeus2.RosterWindow"
-    Title="xeus2" Height="350" Width="300"
+    Title="xeus2" Height="500" Width="300"
     >
 	<Window.Resources>
     <ObjectDataProvider x:Key="RosterDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Roster}"/>
@@ -15,13 +15,12 @@
     </CollectionViewSource>
 
     <ObjectDataProvider x:Key="ServicesDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Services}"/>
+    <ObjectDataProvider x:Key="AccountDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Account}"/>
 
-    <CollectionViewSource x:Key="Services" Source="{Binding Path=Instance, Mode=Default, Source={StaticResource ServicesDS}}">
-      <CollectionViewSource.GroupDescriptions>
-        <PropertyGroupDescription PropertyName="Group"/>
-      </CollectionViewSource.GroupDescriptions>
-    </CollectionViewSource>
-
+    <HierarchicalDataTemplate x:Key="ServiceTemplate" ItemsSource="{Binding Path=Services}">
+      <TextBlock Text="{Binding Path=Name}"/>
+    </HierarchicalDataTemplate>
+    
 		<ObjectDataProvider x:Key="EventsDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Events}"/>
 	</Window.Resources>
     <StackPanel>
@@ -47,31 +46,13 @@
         </GroupStyle>
       </ListBox.GroupStyle>	      
 	  </ListBox>
-
-      <ListBox ItemsSource="{Binding Source={StaticResource Services}}" Height="100" ItemsPanel="{DynamicResource ItemsPanelTemplateServices}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-        <ListBox.GroupStyle>
-          <GroupStyle>
-            <GroupStyle.ContainerStyle>
-              <Style TargetType="{x:Type GroupItem}">
-                <Setter Property="Template">
-                  <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type GroupItem}">
-                      <Expander>
-                        <Expander.Header>
-                          <TextBlock Text="{Binding Path=Name}"/>
-                        </Expander.Header>
-                        <ItemsPresenter/>
-                      </Expander>
-                    </ControlTemplate>
-                  </Setter.Value>
-                </Setter>
-              </Style>
-            </GroupStyle.ContainerStyle>
-          </GroupStyle>
-        </ListBox.GroupStyle>
-      </ListBox>
-
+      
+      <TreeView ItemsSource="{Binding Source={StaticResource ServicesDS}, Path=Instance}"
+                ItemTemplate="{StaticResource ServiceTemplate}" Height="200" />
 
       <ListBox ItemsSource="{Binding Path=Instance, Mode=Default, Source={StaticResource EventsDS}}" Height="100"/>
+      
+      <TextBlock Text="{Binding Source={StaticResource AccountDS}, Path=Instance.ItemsToDiscover}"/>
+      
     </StackPanel>
 </Window>
