@@ -48,6 +48,10 @@
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.40.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>sqLite\System.Data.SQLite.DLL</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -107,6 +111,8 @@
     <Compile Include="xeus.Core\Service.cs" />
     <Compile Include="xeus.Core\Services.cs" />
     <Compile Include="xeus.Core\XeusException.cs" />
+    <Compile Include="xeus.Data\Database.cs" />
+    <Compile Include="xeus.Data\Storage.cs" />
     <Compile Include="xeus.Middle\Notification.cs" />
     <Compile Include="xeus.Utilities\DisplayNameBuilder.cs" />
     <Compile Include="xeus.Utilities\IPropertyAccessor.cs" />
@@ -117,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <Component Include="agsXmpp\agsXMPP.dll" />
+    <Component Include="sqLite\System.Data.SQLite.DLL" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -8,7 +8,7 @@ using xeus2.Properties ;
 
 namespace xeus2.xeus.Core
 {
-	internal class Account
+	internal class Account : NotifyInfoDispatcher
 	{
 		private static Account _instance = new Account() ;
 
@@ -25,7 +25,7 @@ namespace xeus2.xeus.Core
 
 		public void Open()
 		{
-			if ( _isLogged )
+			if ( IsLogged )
 			{
 				throw new XeusException( "Connection is already open" ) ;
 			}
@@ -121,12 +121,12 @@ namespace xeus2.xeus.Core
 
 		private void _xmppConnection_OnLogin( object sender )
 		{
-			_isLogged = true ;
+			IsLogged = true ;
 		}
 
 		private void _xmppConnection_OnClose( object sender )
 		{
-			_isLogged = false ;
+			IsLogged = false ;
 		}
 
 		public void Discovery()
@@ -148,6 +148,24 @@ namespace xeus2.xeus.Core
 			get
 			{
 				return _xmppConnection.MyJID ;
+			}
+		}
+
+		public bool IsLogged
+		{
+			get
+			{
+				return _isLogged ;
+			}
+
+			protected set
+			{
+				if ( _isLogged != value )
+				{
+					NotifyPropertyChanged( "IsLogged" );
+				}
+
+				_isLogged = value ;
 			}
 		}
 
@@ -187,7 +205,7 @@ namespace xeus2.xeus.Core
 
 		public void Close()
 		{
-			if ( _isLogged )
+			if ( IsLogged )
 			{
 				_xmppConnection.Close() ;
 			}
