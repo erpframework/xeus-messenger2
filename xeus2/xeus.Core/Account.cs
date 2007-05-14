@@ -1,3 +1,4 @@
+using System.Collections.Generic ;
 using agsXMPP ;
 using agsXMPP.net ;
 using agsXMPP.protocol.client ;
@@ -105,7 +106,17 @@ namespace xeus2.xeus.Core
 		private void _xmppConnection_OnRosterEnd( object sender )
 		{
 			SendMyPresence() ;
-			Discovery() ;
+			DiscoveryRoot() ;
+		}
+
+		void DiscoveryRoot()
+		{
+			lock ( _discoveryJids )
+			{
+				_discoveryJids.Clear() ;
+			}
+
+			Discovery( new Jid( _xmppConnection.Server ) ) ;
 		}
 
 		private void SendMyPresence()
@@ -129,10 +140,23 @@ namespace xeus2.xeus.Core
 			IsLogged = false ;
 		}
 
-		public void Discovery()
+		List< string > _discoveryJids = new List< string >();
+
+		public void Discovery( Jid jid )
 		{
-			DiscoManager discoManager = new DiscoManager( _xmppConnection ) ;
-			discoManager.DisoverItems( new Jid( _xmppConnection.Server ), new IqCB( OnDiscoServerResult ), null ) ;
+			if ( jid != null )
+			{
+				lock ( _discoveryJids )
+				{
+					if ( !_discoveryJids.Contains( jid.ToString() ) )
+					{
+						DiscoManager discoManager = new DiscoManager( _xmppConnection ) ;
+						discoManager.DisoverItems( jid, new IqCB( OnDiscoServerResult ), null ) ;
+					}
+
+					_discoveryJids.Add( jid.ToString() );
+				}
+			}
 		}
 
 		public int MyPriority
@@ -187,6 +211,7 @@ namespace xeus2.xeus.Core
 						if ( itm.Jid != null )
 						{
 							dm.DisoverInformation( itm.Jid, new IqCB( OnDiscoInfoResult ), itm ) ;
+							Discovery( itm.Jid ) ;
 						}
 					}
 				}
