@@ -79,6 +79,24 @@ namespace xeus2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid contact property name &apos;{0}&apos;.
+        /// </summary>
+        internal static string Error_InvalidContactProp {
+            get {
+                return ResourceManager.GetString("Error_InvalidContactProp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DisplayName can&apos;t be used here.
+        /// </summary>
+        internal static string Error_InvDisplayName {
+            get {
+                return ResourceManager.GetString("Error_InvDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Client &apos;{0}&apos; is now connected to your account &apos;{2}&apos; - priority {1}, status &apos;{2}&apos;.
         /// </summary>
         internal static string Event_AnotherClient {
