@@ -79,6 +79,15 @@ namespace xeus2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error {0} - {1}.
+        /// </summary>
+        internal static string Error_CodeMsg {
+            get {
+                return ResourceManager.GetString("Error_CodeMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid contact property name &apos;{0}&apos;.
         /// </summary>
         internal static string Error_InvalidContactProp {
