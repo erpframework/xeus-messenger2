@@ -6,7 +6,7 @@ namespace xeus2.xeus.Utilities
 	{
 		public static bool Equals( Jid jid, Jid jid2 )
 		{
-			return jid == jid2 ;
+			return jid.Equals( jid2 ) ;
 		}
 
 		public static bool BareEquals( Jid jid, Jid jid2 )

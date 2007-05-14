@@ -147,4 +147,7 @@
   <data name="Error_InvDisplayName" xml:space="preserve">
     <value>DisplayName can't be used here</value>
   </data>
+  <data name="Error_CodeMsg" xml:space="preserve">
+    <value>Error {0} - {1}</value>
+  </data>
 </root>
