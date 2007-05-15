@@ -24,7 +24,11 @@
 		<ObjectDataProvider x:Key="EventsDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Events}"/>
 	</Window.Resources>
     <StackPanel>
-      <ListBox ItemsSource="{Binding Source={StaticResource Contacts}}" Height="100" ItemsPanel="{DynamicResource ItemsPanelTemplateRoster}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemTemplate="{DynamicResource Contact}">
+      <ListBox ItemsSource="{Binding Source={StaticResource Contacts}}" Height="100"
+               ItemsPanel="{DynamicResource ItemsPanelTemplateRoster}"
+               ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemTemplate="{DynamicResource Contact}"
+               MouseDoubleClick="RosterMouseDoubleClick"
+               x:Name="_roster">
       <ListBox.GroupStyle>
         <GroupStyle>
         <GroupStyle.ContainerStyle>
@@ -48,7 +52,9 @@
 	  </ListBox>
       
       <TreeView ItemsSource="{Binding Source={StaticResource ServicesDS}, Path=Instance}"
-                ItemTemplate="{StaticResource ServiceTemplate}" Height="200" />
+                ItemTemplate="{StaticResource ServiceTemplate}" Height="200"
+                MouseDoubleClick="ServicesMouseDoubleClick"
+                x:Name="_services"/>
 
       <ListBox ItemsSource="{Binding Path=Instance, Mode=Default, Source={StaticResource EventsDS}}" Height="100"/>
       

@@ -37,5 +37,19 @@ namespace xeus2
 
 			base.OnClosed( e );
 		}
+
+		void RosterMouseDoubleClick( object sender, RoutedEventArgs args )
+		{
+		}
+
+		void ServicesMouseDoubleClick( object sender, RoutedEventArgs args )
+		{
+			Service service = _services.SelectedItem as Service ;
+
+			if ( service != null )
+			{
+				Account.Instance.GetService( service );
+			}
+		}
 	}
 }

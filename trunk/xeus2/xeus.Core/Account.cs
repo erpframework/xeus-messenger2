@@ -3,9 +3,11 @@ using agsXMPP ;
 using agsXMPP.net ;
 using agsXMPP.protocol.client ;
 using agsXMPP.protocol.iq.disco ;
+using agsXMPP.protocol.iq.register ;
 using agsXMPP.protocol.iq.roster ;
 using agsXMPP.Xml.Dom ;
 using xeus2.Properties ;
+using xeus2.xeus.Middle ;
 
 namespace xeus2.xeus.Core
 {
@@ -292,6 +294,45 @@ namespace xeus2.xeus.Core
 
 			RemoveItemToDiscover() ;
 		}
+
+		public void GetService( Service service )
+		{
+			RegisterIq registerIq = new RegisterIq( IqType.get, service.Jid ) ;
+
+			_xmppConnection.IqGrabber.SendIq( registerIq, OnRegisterServiceGet, service ) ;
+		}
+
+		private void OnRegisterServiceGet( object sender, IQ iq, object data )
+		{
+			Register register = iq.Query as Register ;
+
+			if ( register != null )
+			{
+				// x-data
+				// todo:
+				// in-band
+				Registration.Instance.DisplayInBandRegistration( register );
+			}
+			else
+			{
+				Service service = data as Service ;
+
+				EventError eventError ;
+
+				if ( service != null )
+				{
+					eventError = new EventError( string.Format( "Registration of service '{0}' failed: '{1}'",
+																			service.Name, iq.Error.Code ) ) ;
+				}
+				else
+				{
+					eventError = new EventError( "Registration of service failed" ) ;
+				}
+		
+				Events.Instance.OnEvent( eventError ) ;
+			}
+		}
+
 
 		public void Close()
 		{
