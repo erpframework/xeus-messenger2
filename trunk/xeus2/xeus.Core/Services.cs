@@ -45,7 +45,7 @@ namespace xeus2.xeus.Core
 		{
 			lock ( _syncObject )
 			{
-				Service service = FindService( iq.From ) ;
+				Service service = null ;//FindService( iq.From ) ;
 
 				if ( service != null )
 				{
@@ -58,7 +58,7 @@ namespace xeus2.xeus.Core
 		{
 			lock ( _syncObject )
 			{
-				Service service = FindService( discoItem.Jid ) ;
+				Service service = FindService( discoItem ) ;
 
 				if ( service != null )
 				{
@@ -71,12 +71,12 @@ namespace xeus2.xeus.Core
 		{
 			lock ( _syncObject )
 			{
-				Service service = FindService( discoItem.Jid ) ;
+				Service service = FindService( discoItem ) ;
 				Service parentService = null ;
 
 				if ( parent != null )
 				{
-					parentService = FindService( parent.Jid ) ;
+					parentService = FindService( parent ) ;
 				}
 
 				if ( service == null )
@@ -98,18 +98,18 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		public Service FindService( Jid jid )
+		public Service FindService( DiscoItem discoItem )
 		{
 			foreach ( Service item in Items )
 			{
-				if ( JidUtil.Equals( jid, item.Jid ) )
+				if ( item.DiscoItem.Equals( discoItem ) )
 				{
 					return item ;
 				}
 
 				lock ( item.Services._syncObject )
 				{
-					Service service = item.Services.FindService( jid ) ;
+					Service service = item.Services.FindService( discoItem ) ;
 
 					if ( service!= null )
 					{

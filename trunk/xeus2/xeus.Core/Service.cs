@@ -3,6 +3,7 @@ using agsXMPP ;
 using agsXMPP.protocol.client ;
 using agsXMPP.protocol.iq.disco ;
 using xeus2.Properties ;
+using xeus2.xeus.Utilities ;
 
 namespace xeus2.xeus.Core
 {
@@ -28,7 +29,7 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				return _discoItem.Jid ;
+				return DiscoItem.Jid ;
 			}
 		}
 
@@ -50,9 +51,9 @@ namespace xeus2.xeus.Core
 
 				DiscoIdentity[] discoIdentities = DiscoInfo.GetIdentities() ;
 
-				if ( _discoItem.Name != null && _discoItem.Name != String.Empty )
+				if ( DiscoItem.Name != null && DiscoItem.Name != String.Empty )
 				{
-					return _discoItem.Name ;
+					return DiscoItem.Name ;
 				}
 				else if ( discoIdentities.Length > 0 )
 				{
@@ -128,9 +129,38 @@ namespace xeus2.xeus.Core
 			}
 		}
 
+		public string Node
+		{
+			get
+			{
+				return DiscoItem.Node ;
+			}
+		}
+
+		public DiscoItem DiscoItem
+		{
+			get
+			{
+				return _discoItem ;
+			}
+		}
+
 		public override string ToString()
 		{
 			return Name ;
+		}
+
+		public override bool Equals( object obj )
+		{
+			if ( obj is Service )
+			{
+				return JidUtil.Equals( ( ( Service ) obj ).Jid, Jid )
+							&& ( ( Service ) obj ).Node == Node ;
+			}
+			else
+			{
+				return false ;
+			}
 		}
 	}
 }
