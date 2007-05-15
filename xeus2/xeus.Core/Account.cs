@@ -144,7 +144,7 @@ namespace xeus2.xeus.Core
 			{
 				lock ( Services.Instance._syncObject )
 				{
-					Service service = Services.Instance.FindService( discoItem.Jid ) ;
+					Service service = Services.Instance.FindService( discoItem ) ;
 
 					if ( service != null && service.IsDiscovered )
 					{
