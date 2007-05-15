@@ -171,7 +171,14 @@ namespace xeus2.xeus.Core
 				jid = discoItem.Jid ;
 			}
 
-			discoManager.DisoverItems( jid, new IqCB( OnDiscoServerResult ), discoItem ) ;
+			if ( discoItem != null && discoItem.Node != null )
+			{
+				discoManager.DisoverItems( jid, discoItem.Node, new IqCB( OnDiscoServerResult ), discoItem ) ;
+			}
+			else
+			{
+				discoManager.DisoverItems( jid, new IqCB( OnDiscoServerResult ), discoItem ) ;
+			}
 		}
 
 		public int MyPriority

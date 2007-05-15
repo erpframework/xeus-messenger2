@@ -97,7 +97,7 @@ namespace xeus2.xeus.Core
 		{
 			foreach ( Service item in Items )
 			{
-				if ( JidUtil.Equals( item.DiscoItem.Jid, discoItem.Jid ) )
+				if ( JidUtil.CompareDiscoItem( item.DiscoItem, discoItem ) )
 				{
 					return item ;
 				}
