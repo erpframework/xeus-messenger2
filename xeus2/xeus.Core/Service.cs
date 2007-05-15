@@ -3,7 +3,6 @@ using agsXMPP ;
 using agsXMPP.protocol.client ;
 using agsXMPP.protocol.iq.disco ;
 using xeus2.Properties ;
-using xeus2.xeus.Utilities ;
 
 namespace xeus2.xeus.Core
 {
@@ -11,9 +10,10 @@ namespace xeus2.xeus.Core
 	{
 		private DiscoInfo _discoInfo = null ;
 		private DiscoItem _discoItem = null ;
-		private Services _services = new Services();
 		private bool _isDiscovered = false ;
 		private IQ _errorIq = null ;
+
+		private Services _services = new Services() ;
 
 		public Service( DiscoItem discoItem )
 		{
@@ -49,29 +49,22 @@ namespace xeus2.xeus.Core
 					}
 				}
 
-				string name ;
-
 				DiscoIdentity[] discoIdentities = DiscoInfo.GetIdentities() ;
 
-				if ( DiscoItem.Name != null && DiscoItem.Name != String.Empty )
+				if ( !String.IsNullOrEmpty( DiscoItem.Name ) )
 				{
-					name = DiscoItem.Name ;
+					return DiscoItem.Name ;
 				}
 				else if ( discoIdentities.Length > 0 )
 				{
-					name = discoIdentities[ 0 ].Name ;
+					return discoIdentities[ 0 ].Name ;
 				}
-				else
-				{
-					name = Resources.Constant_UnknownService ;
-				}
-
-				if ( !String.IsNullOrEmpty( Node ) )
+				else if ( !String.IsNullOrEmpty( Node ) )
 				{
 					return Node ;
 				}
-
-				return name ;
+				
+				return Resources.Constant_UnknownService ;
 			}
 		}
 
