@@ -61,6 +61,15 @@ namespace xeus2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter you login name for this Service.
+        /// </summary>
+        internal static string Constant_EnterLoginNameForService {
+            get {
+                return ResourceManager.GetString("Constant_EnterLoginNameForService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to General.
         /// </summary>
         internal static string Constant_General {
@@ -75,6 +84,15 @@ namespace xeus2.Properties {
         internal static string Constant_UnknownService {
             get {
                 return ResourceManager.GetString("Constant_UnknownService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Name.
+        /// </summary>
+        internal static string Constant_UserName {
+            get {
+                return ResourceManager.GetString("Constant_UserName", resourceCulture);
             }
         }
         

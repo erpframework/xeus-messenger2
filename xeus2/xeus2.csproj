@@ -140,6 +140,7 @@
       <SubType>Code</SubType>
       <DependentUpon>XDataControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="xeus.XData\XDataSecret.cs" />
     <Compile Include="xeus.XData\XDataTextBox.cs" />
     <AppDesigner Include="Properties\" />
   </ItemGroup>
