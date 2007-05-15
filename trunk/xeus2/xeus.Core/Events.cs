@@ -18,8 +18,8 @@ namespace xeus2.xeus.Core
 
 		public void OnEvent( object sender, Event myEvent )
 		{
-			App.Current.Dispatcher.Invoke( DispatcherPriority.Background,
-			                               new EventItemCallback( OnEvent ), myEvent ) ;
+			App.InvokeSafe( DispatcherPriority.Background,
+			                new EventItemCallback( OnEvent ), myEvent ) ;
 		}
 
 		public void OnEvent( Event myEvent )

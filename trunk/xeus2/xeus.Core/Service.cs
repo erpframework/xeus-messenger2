@@ -41,7 +41,7 @@ namespace xeus2.xeus.Core
 				{
 					if ( ErrorIq == null )
 					{
-						return Resources.Constant_UnknownService ;
+						return DiscoItem.Jid.ToString() ;
 					}
 					else
 					{
@@ -49,20 +49,29 @@ namespace xeus2.xeus.Core
 					}
 				}
 
+				string name ;
+
 				DiscoIdentity[] discoIdentities = DiscoInfo.GetIdentities() ;
 
 				if ( DiscoItem.Name != null && DiscoItem.Name != String.Empty )
 				{
-					return DiscoItem.Name ;
+					name = DiscoItem.Name ;
 				}
 				else if ( discoIdentities.Length > 0 )
 				{
-					return discoIdentities[ 0 ].Name ;
+					name = discoIdentities[ 0 ].Name ;
 				}
 				else
 				{
-					return Resources.Constant_UnknownService ;
+					name = Resources.Constant_UnknownService ;
 				}
+
+				if ( !String.IsNullOrEmpty( Node ) )
+				{
+					return Node ;
+				}
+
+				return name ;
 			}
 		}
 
@@ -148,19 +157,6 @@ namespace xeus2.xeus.Core
 		public override string ToString()
 		{
 			return Name ;
-		}
-
-		public override bool Equals( object obj )
-		{
-			if ( obj is Service )
-			{
-				return JidUtil.Equals( ( ( Service ) obj ).Jid, Jid )
-							&& ( ( Service ) obj ).Node == Node ;
-			}
-			else
-			{
-				return false ;
-			}
 		}
 	}
 }

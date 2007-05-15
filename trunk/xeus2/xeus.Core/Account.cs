@@ -1,4 +1,4 @@
-using System.Collections.Generic ;
+using System ;
 using agsXMPP ;
 using agsXMPP.net ;
 using agsXMPP.protocol.client ;
@@ -52,8 +52,8 @@ namespace xeus2.xeus.Core
 			_xmppConnection.OnRosterItem += new XmppClientConnection.RosterHandler( _xmppConnection_OnRosterItem ) ;
 			_xmppConnection.OnRosterEnd += new ObjectHandler( _xmppConnection_OnRosterEnd ) ;
 			_xmppConnection.OnPresence += new PresenceHandler( _xmppConnection_OnPresence ) ;
-			_xmppConnection.OnError += new ErrorHandler( _xmppConnection_OnError );
-			_xmppConnection.OnAuthError += new XmppElementHandler( _xmppConnection_OnAuthError );
+			_xmppConnection.OnError += new ErrorHandler( _xmppConnection_OnError ) ;
+			_xmppConnection.OnAuthError += new XmppElementHandler( _xmppConnection_OnAuthError ) ;
 
 			// todo:
 			// _xmppConnection.Capabilities.
@@ -63,16 +63,16 @@ namespace xeus2.xeus.Core
 			_xmppConnection.Open() ;
 		}
 
-		void _xmppConnection_OnAuthError( object sender, Element e )
+		private void _xmppConnection_OnAuthError( object sender, Element e )
 		{
-			EventError eventError = new EventError( Resources.Event_AuthFailed );
-			Events.Instance.OnEvent( eventError );
+			EventError eventError = new EventError( Resources.Event_AuthFailed ) ;
+			Events.Instance.OnEvent( eventError ) ;
 		}
 
-		void _xmppConnection_OnError( object sender, System.Exception ex )
+		private void _xmppConnection_OnError( object sender, Exception ex )
 		{
-			EventError eventError = new EventError( ex.Message );
-			Events.Instance.OnEvent( eventError );
+			EventError eventError = new EventError( ex.Message ) ;
+			Events.Instance.OnEvent( eventError ) ;
 		}
 
 		private void _xmppConnection_OnPresence( object sender, Presence pres )
@@ -109,11 +109,11 @@ namespace xeus2.xeus.Core
 			DiscoveryRoot() ;
 		}
 
-		void DiscoveryRoot()
+		private void DiscoveryRoot()
 		{
-			Services.Instance.Clear();
+			Services.Instance.Clear() ;
 			_itemsToDiscover = 0 ;
-			NotifyPropertyChanged( "ItemsToDiscover" );
+			NotifyPropertyChanged( "ItemsToDiscover" ) ;
 			Discovery( null ) ;
 		}
 
@@ -146,12 +146,15 @@ namespace xeus2.xeus.Core
 				{
 					Service service = Services.Instance.FindService( discoItem ) ;
 
-					if ( service != null && service.IsDiscovered )
+					if ( service != null )
 					{
-						return ;
-					}
+						if ( service.IsDiscovered )
+						{
+							return ;
+						}
 
-					service.IsDiscovered = true ;
+						service.IsDiscovered = true ;
+					}
 				}
 			}
 
@@ -198,7 +201,7 @@ namespace xeus2.xeus.Core
 			{
 				if ( _isLogged != value )
 				{
-					NotifyPropertyChanged( "IsLogged" );
+					NotifyPropertyChanged( "IsLogged" ) ;
 				}
 
 				_isLogged = value ;
@@ -214,9 +217,9 @@ namespace xeus2.xeus.Core
 		}
 
 		private int _itemsToDiscover = 0 ;
-		object _itemsToDiscoverLock = new object();
-		
-		void AddItemToDiscover()
+		private object _itemsToDiscoverLock = new object() ;
+
+		private void AddItemToDiscover()
 		{
 			lock ( _itemsToDiscoverLock )
 			{
@@ -226,7 +229,7 @@ namespace xeus2.xeus.Core
 			NotifyPropertyChanged( "ItemsToDiscover" ) ;
 		}
 
-		void RemoveItemToDiscover()
+		private void RemoveItemToDiscover()
 		{
 			lock ( _itemsToDiscoverLock )
 			{
@@ -257,7 +260,7 @@ namespace xeus2.xeus.Core
 
 							dm.DisoverInformation( itm.Jid, new IqCB( OnDiscoInfoResult ), itm ) ;
 							AddItemToDiscover() ;
-							
+
 							Discovery( itm ) ;
 						}
 					}
