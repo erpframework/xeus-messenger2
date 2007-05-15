@@ -27,14 +27,36 @@ namespace xeus2.xeus.XData
 			{
 				_register = value ;
 
-				XDataTextBox textUserName = new XDataTextBox();
+				_instructions.Text = _register.Instructions ;
 
-				Field fieldUserName = new Field( "username", _register.Username, FieldType.Text_Single );
-				fieldUserName.Description = "User Name" ;
+				// user name
+				if ( _register.Username != null )
+				{
+					XDataTextBox textUserName = new XDataTextBox() ;
 
-				textUserName.Field = fieldUserName ;
-				
-				_container.Children.Add( textUserName ) ;
+					Field fieldUserName = new Field( "username", Properties.Resources.Constant_UserName, FieldType.Text_Single ) ;
+					fieldUserName.Value = _register.Username ;
+					fieldUserName.Description = Properties.Resources.Constant_EnterLoginNameForService ;
+
+					textUserName.Field = fieldUserName ;
+
+					_container.Children.Add( textUserName ) ;
+				}
+
+				if ( _register.Password != null )
+				{
+					XDataSecret xDataSecret = new XDataSecret();
+
+					Field password = new Field( "password", "Password", FieldType.Text_Private ) ;
+					password.Value = _register.Username ;
+					password.Description = "Enter your password for this Service" ;
+
+					xDataSecret.Field = password ;
+
+					_container.Children.Add( xDataSecret ) ;
+				}
+
+				// password
 			}
 		}
 	}

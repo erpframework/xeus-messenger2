@@ -150,4 +150,10 @@
   <data name="Error_CodeMsg" xml:space="preserve">
     <value>Error {0} - {1}</value>
   </data>
+  <data name="Constant_UserName" xml:space="preserve">
+    <value>User Name</value>
+  </data>
+  <data name="Constant_EnterLoginNameForService" xml:space="preserve">
+    <value>Enter you login name for this Service</value>
+  </data>
 </root>
