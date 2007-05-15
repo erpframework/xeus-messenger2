@@ -68,7 +68,9 @@
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
+    <Page Include="xeus.UI\Registration.xaml" />
     <Page Include="xeus.UI\RosterWindow.xaml" />
+    <Page Include="xeus.XData\InBandRegistration.xaml" />
     <Page Include="xeus.XData\XDataContainer.xaml" />
     <Page Include="xeus.XData\XDataControl.xaml" />
     <Compile Include="App.xaml.cs">
@@ -116,11 +118,20 @@
     <Compile Include="xeus.Data\Database.cs" />
     <Compile Include="xeus.Data\Storage.cs" />
     <Compile Include="xeus.Middle\Notification.cs" />
+    <Compile Include="xeus.Middle\Registration.cs" />
+    <Compile Include="xeus.UI\Registration.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>Registration.xaml</DependentUpon>
+    </Compile>
     <Compile Include="xeus.Utilities\DisplayNameBuilder.cs" />
     <Compile Include="xeus.Utilities\IPropertyAccessor.cs" />
     <Compile Include="xeus.Utilities\JidUtil.cs" />
     <Compile Include="xeus.Utilities\PropertyAccessor.cs" />
     <Compile Include="xeus.Utilities\PropertyAccessorException.cs" />
+    <Compile Include="xeus.XData\InBandRegistration.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>InBandRegistration.xaml</DependentUpon>
+    </Compile>
     <Compile Include="xeus.XData\XDataContainer.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>XDataContainer.xaml</DependentUpon>
@@ -129,6 +140,7 @@
       <SubType>Code</SubType>
       <DependentUpon>XDataControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="xeus.XData\XDataTextBox.cs" />
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>

@@ -40,6 +40,8 @@ namespace xeus2.xeus.XData
 			{
 				_description.Text = Field.Description ;
 				_description.Visibility = Visibility.Visible ;
+
+				_container.Children.Add( _description ) ;
 			}
 		}
 
