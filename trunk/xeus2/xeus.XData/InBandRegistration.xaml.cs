@@ -93,7 +93,7 @@ namespace xeus2.xeus.XData
 
 				Field fieldUserName = new Field( "username", Properties.Resources.Constant_UserName, FieldType.Text_Single ) ;
 				fieldUserName.IsRequired = true ;
-				fieldUserName.Value = _register.Username ;
+				fieldUserName.AddValue( _register.Username ) ;
 				fieldUserName.Description = Properties.Resources.Constant_EnterLoginNameForService ;
 
 				textUserName.Field = fieldUserName ;
@@ -108,7 +108,7 @@ namespace xeus2.xeus.XData
 
 				Field password = new Field( "password", Properties.Resources.Constant_Password, FieldType.Text_Private ) ;
 				password.IsRequired = true ;
-				password.Value = _register.Username ;
+				password.AddValue( _register.Password ) ;
 				password.Description = Properties.Resources.Constant_EnterPasswordForService ;
 
 				xDataSecret.Field = password ;
@@ -123,7 +123,7 @@ namespace xeus2.xeus.XData
 
 				Field fieldEmail = new Field( "email", Properties.Resources.Constant_Email, FieldType.Text_Single ) ;
 				fieldEmail.IsRequired = true ;
-				fieldEmail.Value = _register.Email ;
+				fieldEmail.AddValue( _register.Email ) ;
 				fieldEmail.Description = Properties.Resources.Constant_EnterEmailForService ;
 
 				email.Field = fieldEmail ;

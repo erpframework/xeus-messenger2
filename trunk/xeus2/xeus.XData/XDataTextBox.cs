@@ -26,11 +26,14 @@ namespace xeus2.xeus.XData
 			if ( Field.Type == FieldType.Text_Multi
 				|| Field.Type == FieldType.Jid_Multi )
 			{
-				_textBox.MaxLines = 256 ;
+				_textBox.MinLines = 3 ;
+				_textBox.AcceptsReturn = true ;
 			}
 			else
 			{
+				_textBox.MinLines = 1 ;
 				_textBox.MaxLines = 1 ;
+				_textBox.AcceptsReturn = false ;
 			}
 		}
 	}

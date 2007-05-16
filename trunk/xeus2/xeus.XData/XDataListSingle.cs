@@ -20,9 +20,13 @@ namespace xeus2.xeus.XData
 				comboBoxItem.Content = option.Label ;
 				comboBoxItem.DataContext = option.GetValue() ;
 
-				if ( option.GetValue() == Field.Value )
+				foreach ( string text in Field.GetValues() )
 				{
-					comboBoxItem.IsSelected = true ;
+					if ( option.GetValue() == text )
+					{
+						comboBoxItem.IsSelected = true ;
+						break ;
+					}
 				}
 
 				_comboBox.Items.Add( comboBoxItem ) ;

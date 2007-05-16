@@ -1,10 +1,9 @@
-<UserControl x:Class="xeus2.xeus.XData.XDataControl"
+﻿<UserControl
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <StackPanel x:Name="_container">
-      <StackPanel>
-        <Image x:Name="_required" Visibility="Collapsed"></Image>
-        <TextBlock x:Name="_description" Visibility="Collapsed"/>
-      </StackPanel>  
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="xeus2.xeus.XData.XDataControl"
+    >
+    <StackPanel x:Name="_container" Orientation="Horizontal">
+      <Rectangle x:Name="_required" Visibility="Collapsed" Fill="{DynamicResource {x:Static SystemColors.InfoBrushKey}}" Width="10" Height="10"/>
+      <TextBlock x:Name="_description" Visibility="Collapsed"/>
     </StackPanel>
 </UserControl>

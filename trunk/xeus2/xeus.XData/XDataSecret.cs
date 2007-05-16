@@ -11,7 +11,11 @@ namespace xeus2.xeus.XData
 			base.OnFieldIsSet() ;
 
 			_container.Children.Add( _password ) ;
-			_password.Password = Field.Value ;
+
+			foreach ( string text in Field.GetValues() )
+			{
+				_password.Password = text ;
+			}
 		}
 	}
 }
