@@ -48,7 +48,7 @@ namespace xeus2.xeus.Core
 
 		public override string ToString()
 		{
-			return Message ;
+			return string.Format( "{0}: {1}", Severity, Message ) ;
 		}
 	}
 }

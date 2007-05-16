@@ -3,8 +3,8 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<!-- Resource dictionary entries should be defined here. -->
 
-  <ItemsPanelTemplate x:Key="ItemsPanelTemplateServices">
-    <WrapPanel IsItemsHost="True"/>
-  </ItemsPanelTemplate>
+    <HierarchicalDataTemplate x:Key="ServicesTemplate" ItemsSource="{Binding Path=Services}">
+      <TextBlock Text="{Binding Path=Name}"/>
+    </HierarchicalDataTemplate>
 
 </ResourceDictionary>
