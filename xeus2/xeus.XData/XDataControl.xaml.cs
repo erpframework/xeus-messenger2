@@ -27,12 +27,12 @@ namespace xeus2.xeus.XData
 			set
 			{
 				_field = value ;
-				
+
 				OnFieldIsSet() ;
 			}
 		}
 
-		virtual protected void OnFieldIsSet()
+		protected virtual void OnFieldIsSet()
 		{
 			if ( !String.IsNullOrEmpty( Field.Label ) )
 			{
@@ -44,7 +44,7 @@ namespace xeus2.xeus.XData
 			else if ( !String.IsNullOrEmpty( Field.Description ) )
 			{
 				_description.Text = Field.Description ;
-	
+
 				_description.Visibility = Visibility.Visible ;
 			}
 
