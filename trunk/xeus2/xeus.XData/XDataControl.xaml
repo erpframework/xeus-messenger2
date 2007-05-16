@@ -2,6 +2,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <StackPanel x:Name="_container">
-      <TextBlock x:Name="_description" Visibility="Collapsed"/>
+      <StackPanel>
+        <Image x:Name="_required" Visibility="Collapsed"></Image>
+        <TextBlock x:Name="_description" Visibility="Collapsed"/>
+      </StackPanel>  
     </StackPanel>
 </UserControl>

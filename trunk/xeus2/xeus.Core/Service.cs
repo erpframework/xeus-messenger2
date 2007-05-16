@@ -113,9 +113,17 @@ namespace xeus2.xeus.Core
 			{
 				return _isDiscovered ;
 			}
+
 			set
 			{
+				bool notify = ( _isDiscovered != value ) ;
+				
 				_isDiscovered = value ;
+
+				if ( notify )
+				{
+					NotifyPropertyChanged( "IsDiscovered" );
+				}
 			}
 		}
 
@@ -125,6 +133,7 @@ namespace xeus2.xeus.Core
 			{
 				return _errorIq ;
 			}
+
 			set
 			{
 				_errorIq = value ;

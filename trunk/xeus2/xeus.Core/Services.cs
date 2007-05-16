@@ -1,6 +1,7 @@
 using System.Windows.Threading ;
 using agsXMPP.protocol.client ;
 using agsXMPP.protocol.iq.disco ;
+using xeus2.Properties ;
 using xeus2.xeus.Utilities ;
 
 namespace xeus2.xeus.Core
@@ -43,15 +44,8 @@ namespace xeus2.xeus.Core
 
 		public void OnServiceItemError( IQ iq )
 		{
-			lock ( _syncObject )
-			{
-				Service service = null ; //FindService( iq.From ) ;
-
-				if ( service != null )
-				{
-					service.ErrorIq = iq ;
-				}
-			}
+			EventError eventError = new EventError( string.Format( Resources.Error_ServiceDiscoFailed, iq.From, iq.Error.Code ) ) ;
+			Events.Instance.OnEvent( eventError ) ;
 		}
 
 		public void OnServiceItemInfo( DiscoItem discoItem, DiscoInfo info )
@@ -87,12 +81,16 @@ namespace xeus2.xeus.Core
 					}
 					else
 					{
-						parentService.Services.Add( new Service( discoItem ) ) ;
+						lock ( parentService.Services._syncObject )
+						{
+							parentService.Services.Add( new Service( discoItem ) ) ;
+						}
 					}
 				}
 			}
 		}
 
+		// unsafe, lock when calling
 		public Service FindService( DiscoItem discoItem )
 		{
 			foreach ( Service item in Items )

@@ -17,9 +17,6 @@
     <ObjectDataProvider x:Key="ServicesDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Services}"/>
     <ObjectDataProvider x:Key="AccountDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Account}"/>
 
-    <HierarchicalDataTemplate x:Key="ServiceTemplate" ItemsSource="{Binding Path=Services}">
-      <TextBlock Text="{Binding Path=Name}"/>
-    </HierarchicalDataTemplate>
     
 		<ObjectDataProvider x:Key="EventsDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Events}"/>
 	</Window.Resources>
@@ -52,7 +49,7 @@
 	  </ListBox>
       
       <TreeView ItemsSource="{Binding Source={StaticResource ServicesDS}, Path=Instance}"
-                ItemTemplate="{StaticResource ServiceTemplate}" Height="200"
+                ItemTemplate="{DynamicResource ServicesTemplate}" Height="200"
                 MouseDoubleClick="ServicesMouseDoubleClick"
                 x:Name="_services"/>
 

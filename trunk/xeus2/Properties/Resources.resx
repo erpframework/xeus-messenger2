@@ -156,4 +156,19 @@
   <data name="Constant_EnterLoginNameForService" xml:space="preserve">
     <value>Enter you login name for this Service</value>
   </data>
+  <data name="Constant_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Constant_EnterPasswordForService" xml:space="preserve">
+    <value>Enter your password for this Service</value>
+  </data>
+  <data name="Constant_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Constant_EnterEmailForService" xml:space="preserve">
+    <value>Enter an e-mail address for this Service</value>
+  </data>
+  <data name="Error_ServiceDiscoFailed" xml:space="preserve">
+    <value>Service discovery of '{0}' failed - Error {1}</value>
+  </data>
 </root>

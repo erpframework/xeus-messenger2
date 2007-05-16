@@ -61,6 +61,24 @@ namespace xeus2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        internal static string Constant_Email {
+            get {
+                return ResourceManager.GetString("Constant_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter an e-mail address for this Service.
+        /// </summary>
+        internal static string Constant_EnterEmailForService {
+            get {
+                return ResourceManager.GetString("Constant_EnterEmailForService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter you login name for this Service.
         /// </summary>
         internal static string Constant_EnterLoginNameForService {
@@ -70,11 +88,29 @@ namespace xeus2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter your password for this Service.
+        /// </summary>
+        internal static string Constant_EnterPasswordForService {
+            get {
+                return ResourceManager.GetString("Constant_EnterPasswordForService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to General.
         /// </summary>
         internal static string Constant_General {
             get {
                 return ResourceManager.GetString("Constant_General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        internal static string Constant_Password {
+            get {
+                return ResourceManager.GetString("Constant_Password", resourceCulture);
             }
         }
         
@@ -120,6 +156,15 @@ namespace xeus2.Properties {
         internal static string Error_InvDisplayName {
             get {
                 return ResourceManager.GetString("Error_InvDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Service discovery of &apos;{0}&apos; failed - Error {1}.
+        /// </summary>
+        internal static string Error_ServiceDiscoFailed {
+            get {
+                return ResourceManager.GetString("Error_ServiceDiscoFailed", resourceCulture);
             }
         }
         

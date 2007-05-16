@@ -43,6 +43,11 @@ namespace xeus2.xeus.XData
 
 				_container.Children.Add( _description ) ;
 			}
+
+			if ( Field.IsRequired )
+			{
+				_required.Visibility = Visibility.Visible ;
+			}
 		}
 
 		public virtual bool Validate()
