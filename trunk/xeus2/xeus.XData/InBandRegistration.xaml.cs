@@ -17,6 +17,7 @@ namespace xeus2.xeus.XData
 		}
 
 		private Register _register = null ;
+		private XDataContainer _xDataContainer = null ;
 
 		public Register Register
 		{
@@ -74,16 +75,11 @@ namespace xeus2.xeus.XData
 				_instructions.Text = xData.Instructions ;
 			}
 
-			// fields
-			foreach ( Node node in xData.ChildNodes )
-			{
-				Field field = node as Field ;
+			_xDataContainer = new XDataContainer() ;
+			_container.Children.Add( _xDataContainer ) ;
 
-				if ( field != null )
-				{
-					
-				}
-			}
+			_xDataContainer.Data = xData ;
+
 		}
 
 		private void SetupGatewayRegistration()
