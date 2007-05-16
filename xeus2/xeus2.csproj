@@ -65,6 +65,7 @@
     <Reference Include="System.IdentityModel" />
     <Page Include="xeus.UI\xeus.UI.Look\Roster.xaml" />
     <Page Include="xeus.UI\xeus.UI.Look\Services.xaml" />
+    <Page Include="xeus.XData\BasicStyles.xaml" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
