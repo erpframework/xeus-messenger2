@@ -5,6 +5,7 @@ using agsXMPP.protocol.client ;
 using agsXMPP.protocol.iq.disco ;
 using agsXMPP.protocol.iq.register ;
 using agsXMPP.protocol.iq.roster ;
+using agsXMPP.protocol.x.data ;
 using agsXMPP.Xml.Dom ;
 using xeus2.Properties ;
 using xeus2.xeus.Middle ;
@@ -57,12 +58,22 @@ namespace xeus2.xeus.Core
 			_xmppConnection.OnError += new ErrorHandler( _xmppConnection_OnError ) ;
 			_xmppConnection.OnAuthError += new XmppElementHandler( _xmppConnection_OnAuthError ) ;
 
-			// todo:
-			// _xmppConnection.Capabilities.
-
+			_xmppConnection.OnIq += new IqHandler( _xmppConnection_OnIq );
+			
 			Settings.Default.Save() ;
 
 			_xmppConnection.Open() ;
+		}
+
+		void _xmppConnection_OnIq( object sender, IQ iq )
+		{
+			if ( iq.Type == IqType.get )
+			{
+				if ( iq.Query is DiscoInfo )
+				{
+					// todo:
+				}
+			}
 		}
 
 		private void _xmppConnection_OnAuthError( object sender, Element e )
@@ -115,7 +126,9 @@ namespace xeus2.xeus.Core
 		{
 			Services.Instance.Clear() ;
 			_itemsToDiscover = 0 ;
+
 			NotifyPropertyChanged( "ItemsToDiscover" ) ;
+
 			Discovery( null ) ;
 		}
 
@@ -308,9 +321,6 @@ namespace xeus2.xeus.Core
 
 			if ( register != null )
 			{
-				// x-data
-				// todo:
-				// in-band
 				Registration.Instance.DisplayInBandRegistration( register );
 			}
 			else
