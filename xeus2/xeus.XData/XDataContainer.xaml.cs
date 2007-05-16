@@ -53,6 +53,7 @@ namespace xeus2.xeus.XData
 			{
 				case FieldType.Boolean:
 					{
+						control = new XDataCheckBox() ;
 						break ;
 					}
 				case FieldType.Fixed:
@@ -62,14 +63,17 @@ namespace xeus2.xeus.XData
 					}
 				case FieldType.Hidden:
 					{
+						control = new XDataHidden() ;
 						break ;
 					}
 				case FieldType.List_Multi:
 					{
+						control = new XDataListMulti() ;
 						break ;
 					}
 				case FieldType.List_Single:
 					{
+						control = new XDataListSingle() ;
 						break ;
 					}
 				case FieldType.Text_Private:

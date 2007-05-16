@@ -132,6 +132,7 @@
       <SubType>Code</SubType>
       <DependentUpon>InBandRegistration.xaml</DependentUpon>
     </Compile>
+    <Compile Include="xeus.XData\XDataCheckBox.cs" />
     <Compile Include="xeus.XData\XDataContainer.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>XDataContainer.xaml</DependentUpon>
@@ -141,6 +142,9 @@
       <DependentUpon>XDataControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.XData\XDataFixed.cs" />
+    <Compile Include="xeus.XData\XDataHidden.cs" />
+    <Compile Include="xeus.XData\XDataListMulti.cs" />
+    <Compile Include="xeus.XData\XDataListSingle.cs" />
     <Compile Include="xeus.XData\XDataSecret.cs" />
     <Compile Include="xeus.XData\XDataTextBox.cs" />
     <AppDesigner Include="Properties\" />
