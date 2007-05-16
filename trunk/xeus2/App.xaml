@@ -10,6 +10,7 @@
     		<ResourceDictionary.MergedDictionaries>
     			<ResourceDictionary Source="xeus.UI\xeus.UI.Look\Roster.xaml"/>
     			<ResourceDictionary Source="xeus.UI\xeus.UI.Look\Services.xaml"/>
+    			<ResourceDictionary Source="xeus.XData\BasicStyles.xaml"/>
     		</ResourceDictionary.MergedDictionaries>
     	</ResourceDictionary>
          

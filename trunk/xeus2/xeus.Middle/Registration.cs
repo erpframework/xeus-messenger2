@@ -26,7 +26,7 @@ namespace xeus2.xeus.Middle
 
 		public void DisplayInBandRegistration( Register register )
 		{
-			App.InvokeSafe( DispatcherPriority.Background,
+			App.InvokeSafe( DispatcherPriority.Normal,
 			                new DisplayCallback( InBandRegistration ), register ) ;
 		}
 	}
