@@ -1,6 +1,8 @@
+using System.Windows ;
 using System.Windows.Controls ;
 using agsXMPP.protocol.iq.register ;
 using agsXMPP.protocol.x.data ;
+using agsXMPP.Xml.Dom ;
 
 namespace xeus2.xeus.XData
 {
@@ -27,7 +29,60 @@ namespace xeus2.xeus.XData
 			{
 				_register = value ;
 
-				SetupGatewayRegistration() ;
+				Data xData = null ;
+
+				if ( _register.HasChildElements )
+				{
+					foreach ( Node node in _register.ChildNodes )
+					{
+						if ( node is Data )
+						{
+							xData = node as Data ;
+							break ;
+						}
+					}
+				}
+
+				if ( xData == null )
+				{
+					SetupGatewayRegistration() ;
+				}
+				else
+				{
+					SetupXDataRegistration( xData ) ;
+				}
+			}
+		}
+
+		private void SetupXDataRegistration( Data xData )
+		{
+			if ( string.IsNullOrEmpty( xData.Title ) )
+			{
+				_title.Visibility = Visibility.Collapsed ;
+			}
+			else
+			{
+				_title.Text = xData.Title ;
+			}
+
+			if ( string.IsNullOrEmpty( xData.Instructions ) )
+			{
+				_instructions.Visibility = Visibility.Collapsed ;
+			}
+			else
+			{
+				_instructions.Text = xData.Instructions ;
+			}
+
+			// fields
+			foreach ( Node node in xData.ChildNodes )
+			{
+				Field field = node as Field ;
+
+				if ( field != null )
+				{
+					
+				}
 			}
 		}
 
