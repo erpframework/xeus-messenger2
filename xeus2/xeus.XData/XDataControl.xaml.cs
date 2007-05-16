@@ -34,14 +34,18 @@ namespace xeus2.xeus.XData
 
 		virtual protected void OnFieldIsSet()
 		{
-			_container.Children.Clear();
-
-			if ( !String.IsNullOrEmpty( Field.Description ) )
+			if ( !String.IsNullOrEmpty( Field.Label ) )
 			{
 				_description.Text = Field.Label ;
 				_description.ToolTip = Field.Description ;
 
-				_container.Children.Add( _description ) ;
+				_description.Visibility = Visibility.Visible ;
+			}
+			else if ( !String.IsNullOrEmpty( Field.Description ) )
+			{
+				_description.Text = Field.Description ;
+	
+				_description.Visibility = Visibility.Visible ;
 			}
 
 			if ( Field.IsRequired )
