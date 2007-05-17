@@ -31,9 +31,10 @@ namespace xeus2.xeus.XData
 
 		public override Field GetResult()
 		{
-			Field.SetValueBool( ( bool ) _checkBox.IsChecked ) ;
+			Field field = new Field( Field.Var, null, Field.Type );
+			field.SetValueBool( ( bool ) _checkBox.IsChecked ) ;
 
-			return Field ;
+			return field ;
 		}
 	}
 }

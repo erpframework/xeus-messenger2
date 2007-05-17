@@ -155,10 +155,17 @@ namespace xeus2.xeus.XData
 			{
 				_register.Email = _textEmail.GetResult().GetValue() ;
 			}
-		
+		}
+
+		public Data GetResult()
+		{
 			if ( _xDataContainer != null )
 			{
-				_xDataContainer.UpdateData() ;
+				return _xDataContainer.GetResult() ;
+			}
+			else
+			{
+				return null ;
 			}
 		}
 

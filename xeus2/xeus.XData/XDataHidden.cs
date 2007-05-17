@@ -20,7 +20,10 @@ namespace xeus2.xeus.XData
 
 		public override Field GetResult()
 		{
-			return Field ;
+			Field field = new Field( Field.Var, null, Field.Type );
+			field.SetValue( Field.GetValue() );
+
+			return field ;
 		}
 	}
 }

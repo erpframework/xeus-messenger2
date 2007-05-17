@@ -1,4 +1,5 @@
 using System.Windows.Controls ;
+using agsXMPP.protocol.x.data ;
 using xeus2.xeus.UI ;
 
 namespace xeus2.xeus.XData
@@ -26,11 +27,12 @@ namespace xeus2.xeus.XData
 			}
 		}
 
-		public override agsXMPP.protocol.x.data.Field GetResult()
+		public override Field GetResult()
 		{
-			Field.SetValue( _password.Password ) ;
+			Field field = new Field( Field.Var, null, Field.Type );
+			field.SetValue( _password.Password ) ;
 
-			return Field ;
+			return field ;
 		}
 	}
 }

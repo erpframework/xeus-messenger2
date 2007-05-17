@@ -47,6 +47,8 @@ namespace xeus2.xeus.XData
 
 		public override Field GetResult()
 		{
+			Field field = new Field( Field.Var, null, Field.Type );
+
 			if ( Field.Type == FieldType.Text_Multi
 				|| Field.Type == FieldType.Jid_Multi )
 			{
@@ -57,14 +59,14 @@ namespace xeus2.xeus.XData
 					values[ i ] = _textBox.GetLineText( i ) ;
 				}
 
-				Field.SetValues( values ) ;
+				field.SetValues( values ) ;
 			}
 			else
 			{
-				Field.SetValue( _textBox.Text ) ;
+				field.SetValue( _textBox.Text ) ;
 			}
 
-			return Field ;
+			return field ;
 		}
 	}
 }

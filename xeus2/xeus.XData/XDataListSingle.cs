@@ -26,7 +26,7 @@ namespace xeus2.xeus.XData
 				ComboBoxItem comboBoxItem = new ComboBoxItem() ;
 
 				comboBoxItem.Content = option.Label ;
-				comboBoxItem.Tag = option.GetValue() ;
+				comboBoxItem.DataContext = option.GetValue() ;
 
 				foreach ( string text in Field.GetValues() )
 				{
@@ -43,11 +43,18 @@ namespace xeus2.xeus.XData
 
 		public override Field GetResult()
 		{
-			ComboBoxItem item = ( ComboBoxItem )( _comboBox.ItemContainerGenerator.ContainerFromItem( _comboBox.SelectedItem ) ) ;
+			Field field = new Field( Field.Var, null, Field.Type );
 
-			Field.SetValue( ( string )item.Tag );
+			if ( _comboBox.SelectedItem != null )
+			{
+				field.SetValue( ( string )( ( ComboBoxItem ) _comboBox.SelectedItem ).DataContext ) ;
+			}
+			else
+			{
+				field.SetValue( null ) ;
+			}
 
-			return Field ;
+			return field ;
 		}
 	}
 }
