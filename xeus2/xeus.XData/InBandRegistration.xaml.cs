@@ -19,6 +19,8 @@ namespace xeus2.xeus.XData
 		private Register _register = null ;
 		private XDataContainer _xDataContainer = null ;
 
+		private Data _xData = null ;
+
 		public Register Register
 		{
 			get
@@ -30,27 +32,25 @@ namespace xeus2.xeus.XData
 			{
 				_register = value ;
 
-				Data xData = null ;
-
 				if ( _register.HasChildElements )
 				{
 					foreach ( Node node in _register.ChildNodes )
 					{
 						if ( node is Data )
 						{
-							xData = node as Data ;
+							_xData = node as Data ;
 							break ;
 						}
 					}
 				}
 
-				if ( xData == null )
+				if ( _xData == null )
 				{
 					SetupGatewayRegistration() ;
 				}
 				else
 				{
-					SetupXDataRegistration( xData ) ;
+					SetupXDataRegistration( _xData ) ;
 				}
 			}
 		}
@@ -79,7 +79,6 @@ namespace xeus2.xeus.XData
 			_container.Children.Add( _xDataContainer ) ;
 
 			_xDataContainer.Data = xData ;
-
 		}
 
 		private void SetupGatewayRegistration()
@@ -131,5 +130,7 @@ namespace xeus2.xeus.XData
 				_container.Children.Add( email ) ;
 			}
 		}
+
+
 	}
 }

@@ -1,10 +1,18 @@
 using System.Windows.Controls ;
+using xeus2.xeus.UI ;
 
 namespace xeus2.xeus.XData
 {
 	internal class XDataSecret : XDataControl
 	{
 		private PasswordBox _password = new PasswordBox() ;
+
+		protected override void OnInitialized( System.EventArgs e )
+		{
+			base.OnInitialized( e );
+
+			_password.Style = StyleManager.GetStyle( "XDataSecret" ) ;
+		}
 
 		protected override void OnFieldIsSet()
 		{

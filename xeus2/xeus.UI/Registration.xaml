@@ -5,7 +5,8 @@
     Title="xeus2.xeus.UI" Height="300" Width="300"
     xmlns:xeus2_xeus_XData="clr-namespace:xeus2.xeus.XData"
     >
-    <Grid>
+    <StackPanel>
     	<xeus2_xeus_XData:InBandRegistration x:Name="_registration"/>
-    </Grid>
+      <Button Click="OnRegister">Register</Button>
+    </StackPanel>
 </Window>

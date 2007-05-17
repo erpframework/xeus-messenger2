@@ -124,6 +124,7 @@
       <SubType>Code</SubType>
       <DependentUpon>Registration.xaml</DependentUpon>
     </Compile>
+    <Compile Include="xeus.UI\StyleManager.cs" />
     <Compile Include="xeus.Utilities\DisplayNameBuilder.cs" />
     <Compile Include="xeus.Utilities\IPropertyAccessor.cs" />
     <Compile Include="xeus.Utilities\JidUtil.cs" />

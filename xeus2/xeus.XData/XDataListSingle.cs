@@ -1,11 +1,19 @@
 using System.Windows.Controls ;
 using agsXMPP.protocol.x.data ;
+using xeus2.xeus.UI ;
 
 namespace xeus2.xeus.XData
 {
 	internal class XDataListSingle : XDataControl
 	{
 		private ComboBox _comboBox = new ComboBox() ;
+
+		protected override void OnInitialized( System.EventArgs e )
+		{
+			base.OnInitialized( e );
+
+			_comboBox.Style = StyleManager.GetStyle( "XDataListSingle" ) ;
+		}
 
 		protected override void OnFieldIsSet()
 		{
