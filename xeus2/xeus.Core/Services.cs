@@ -44,8 +44,8 @@ namespace xeus2.xeus.Core
 
 		public void OnServiceItemError( IQ iq )
 		{
-			EventError eventError = new EventError( string.Format( Resources.Error_ServiceDiscoFailed, iq.From, iq.Error.Code ) ) ;
-			Events.Instance.OnEvent( eventError ) ;
+			EventInfo eventInfo = new EventInfo( string.Format( Resources.Error_ServiceDiscoFailed, iq.From, iq.Error.Code ) ) ;
+			Events.Instance.OnEvent( eventInfo ) ;
 		}
 
 		public void OnServiceItemInfo( DiscoItem discoItem, DiscoInfo info )

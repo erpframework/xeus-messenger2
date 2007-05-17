@@ -36,5 +36,27 @@ namespace xeus2.xeus.XData
 				_textBox.AcceptsReturn = false ;
 			}
 		}
+
+		public override Field GetResult()
+		{
+			if ( Field.Type == FieldType.Text_Multi
+				|| Field.Type == FieldType.Jid_Multi )
+			{
+				string [] values = new string[ _textBox.LineCount ];
+ 
+				for ( int i = 0; i < _textBox.LineCount; i++ )
+				{
+					values[ i ] = _textBox.GetLineText( i ) ;
+				}
+
+				Field.SetValues( values ) ;
+			}
+			else
+			{
+				Field.SetValue( _textBox.Text ) ;
+			}
+
+			return Field ;
+		}
 	}
 }

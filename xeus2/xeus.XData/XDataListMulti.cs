@@ -1,3 +1,6 @@
+using System.Collections ;
+using System.Collections.Generic ;
+using System.Windows ;
 using System.Windows.Controls ;
 using agsXMPP.protocol.x.data ;
 
@@ -18,7 +21,7 @@ namespace xeus2.xeus.XData
 				CheckBox checkBox = new CheckBox() ;
 
 				checkBox.Content = option.Label ;
-				checkBox.DataContext = option.GetValue() ;
+				checkBox.Tag = option.GetValue() ;
 
 				foreach ( string text in Field.GetValues() )
 				{
@@ -31,6 +34,25 @@ namespace xeus2.xeus.XData
 
 				_panel.Children.Add( checkBox ) ;
 			}
+		}
+
+		public override Field GetResult()
+		{
+			List< string > values = new List< string >();
+
+			foreach ( UIElement element in _panel.Children )
+			{
+				CheckBox checkBox = element as CheckBox ;
+
+				if ( checkBox != null && ( bool )checkBox.IsChecked )
+				{
+					values.Add( ( string )checkBox.Tag ) ;
+				}
+			}
+			
+			Field.SetValues( values.ToArray() );
+			
+			return Field ;
 		}
 	}
 }

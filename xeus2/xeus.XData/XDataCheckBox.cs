@@ -1,4 +1,6 @@
+using System.Windows ;
 using System.Windows.Controls ;
+using agsXMPP.protocol.x.data ;
 
 namespace xeus2.xeus.XData
 {
@@ -10,13 +12,20 @@ namespace xeus2.xeus.XData
 		{
 			base.OnFieldIsSet() ;
 
-			_description.Visibility = System.Windows.Visibility.Collapsed ;
+			_description.Visibility = Visibility.Collapsed ;
 
 			_container.Children.Add( _checkBox ) ;
 
 			_checkBox.IsChecked = Field.GetValueBool() ;
 			_checkBox.Content = Field.Label ;
 			_checkBox.ToolTip = Field.Description ;
+		}
+
+		public override Field GetResult()
+		{
+			Field.SetValueBool( ( bool ) _checkBox.IsChecked ) ;
+
+			return Field ;
 		}
 	}
 }

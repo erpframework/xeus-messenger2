@@ -1,5 +1,6 @@
 using System.Text ;
 using System.Windows.Controls ;
+using agsXMPP.protocol.x.data ;
 
 namespace xeus2.xeus.XData
 {
@@ -13,7 +14,7 @@ namespace xeus2.xeus.XData
 
 			_container.Children.Add( _textBlock ) ;
 
-			StringBuilder stringBuilder = new StringBuilder();
+			StringBuilder stringBuilder = new StringBuilder() ;
 
 			foreach ( string text in Field.GetValues() )
 			{
@@ -21,6 +22,11 @@ namespace xeus2.xeus.XData
 			}
 
 			_textBlock.Text = stringBuilder.ToString() ;
+		}
+
+		public override Field GetResult()
+		{
+			return Field ;
 		}
 	}
 }
