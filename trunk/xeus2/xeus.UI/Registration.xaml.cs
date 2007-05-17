@@ -14,5 +14,10 @@ namespace xeus2.xeus.UI
 
 			_registration.Register = register ;
 		}
+
+		protected void OnRegister( object sender, RoutedEventArgs eventArgs )
+		{
+			
+		}
 	}
 }

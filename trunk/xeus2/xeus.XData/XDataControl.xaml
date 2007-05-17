@@ -2,15 +2,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="xeus2.xeus.XData.XDataControl"
     >
-	<UserControl.Resources>
-		<Style x:Key="TextBlockStyleXDataLabel" TargetType="{x:Type TextBlock}">
-			<Setter Property="TextWrapping" Value="Wrap"/>
-			<Setter Property="MinWidth" Value="150"/>
-			<Setter Property="MaxWidth" Value="150"/>
-		</Style>
-	</UserControl.Resources>
     <StackPanel x:Name="_container" Orientation="Horizontal">
       <Rectangle x:Name="_required" Visibility="Hidden" Fill="{DynamicResource {x:Static SystemColors.InfoBrushKey}}" Width="10" Height="10"/>
-      <TextBlock x:Name="_description" Visibility="Collapsed" Style="{DynamicResource TextBlockStyleXDataLabel}"/>
+      <TextBlock x:Name="_description" Visibility="Collapsed" Style="{DynamicResource XDataLabel}"/>
     </StackPanel>
 </UserControl>

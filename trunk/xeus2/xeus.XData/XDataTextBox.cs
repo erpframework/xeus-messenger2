@@ -1,12 +1,20 @@
 using System.Text ;
 using System.Windows.Controls ;
 using agsXMPP.protocol.x.data ;
+using xeus2.xeus.UI ;
 
 namespace xeus2.xeus.XData
 {
 	internal class XDataTextBox : XDataControl
 	{
 		private TextBox _textBox = new TextBox() ;
+
+		protected override void OnInitialized( System.EventArgs e )
+		{
+			base.OnInitialized( e );
+
+			_textBox.Style = StyleManager.GetStyle( "XDataTextBox" ) ;
+		}
 
 		protected override void OnFieldIsSet()
 		{

@@ -2,4 +2,37 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<!-- Resource dictionary entries should be defined here. -->
+
+	<Style x:Key="XDataLabel" TargetType="{x:Type TextBlock}">
+		<Setter Property="TextWrapping" Value="Wrap"/>
+		<Setter Property="MinWidth" Value="150"/>
+		<Setter Property="MaxWidth" Value="150"/>
+	</Style>
+
+	<Style x:Key="XDataFixed" TargetType="{x:Type TextBlock}">
+		<Setter Property="TextWrapping" Value="Wrap"/>
+	</Style>
+	
+	<Style x:Key="XDataTextBox" TargetType="{x:Type TextBox}">
+		<Setter Property="MinWidth" Value="150"/>
+		<Setter Property="MaxWidth" Value="250"/>
+	</Style>
+
+	<Style x:Key="XDataCheckBox" TargetType="{x:Type CheckBox}">
+		<Setter Property="MinWidth" Value="150"/>
+	</Style>
+
+	<Style x:Key="XDataListMulti" TargetType="{x:Type StackPanel}">
+	</Style>
+
+	<Style x:Key="XDataListSingle" TargetType="{x:Type ComboBox}">
+		<Setter Property="MinWidth" Value="150"/>
+		<Setter Property="MaxWidth" Value="250"/>
+	</Style>
+
+	<Style x:Key="XDataSecret" TargetType="{x:Type PasswordBox}">
+		<Setter Property="MinWidth" Value="150"/>
+		<Setter Property="MaxWidth" Value="250"/>
+	</Style>
+
 </ResourceDictionary>

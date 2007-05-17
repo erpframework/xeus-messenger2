@@ -1,12 +1,20 @@
 using System.Windows ;
 using System.Windows.Controls ;
 using agsXMPP.protocol.x.data ;
+using xeus2.xeus.UI ;
 
 namespace xeus2.xeus.XData
 {
 	internal class XDataCheckBox : XDataControl
 	{
 		private CheckBox _checkBox = new CheckBox() ;
+
+		protected override void OnInitialized( System.EventArgs e )
+		{
+			base.OnInitialized( e );
+
+			_checkBox.Style = StyleManager.GetStyle( "XDataCheckBox" ) ;
+		}
 
 		protected override void OnFieldIsSet()
 		{
