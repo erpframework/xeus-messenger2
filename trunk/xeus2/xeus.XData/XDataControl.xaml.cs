@@ -61,7 +61,7 @@ namespace xeus2.xeus.XData
 
 		public virtual bool Validate()
 		{
-			return false ;
+			throw new NotImplementedException() ;
 		}
 	}
 }

@@ -1,6 +1,6 @@
+using System ;
 using System.Windows ;
 using System.Windows.Controls ;
-using agsXMPP ;
 using agsXMPP.protocol.iq.register ;
 using agsXMPP.protocol.x.data ;
 using agsXMPP.Xml.Dom ;
@@ -48,6 +48,39 @@ namespace xeus2.xeus.XData
 			else
 			{
 				SetupXDataRegistration( _xData ) ;
+			}
+		}
+
+		public bool IsValid
+		{
+			get
+			{
+				if ( XData == null )
+				{
+					if ( _register.Username != null
+							&& _textUserName.GetResult().GetValue() == String.Empty )
+					{
+						return false ;
+					}
+
+					if ( _register.Password != null
+							&& _textPassword.GetResult().GetValue() == String.Empty )
+					{
+						return false ;
+					}
+
+					if ( _register.Email != null
+							&& _textEmail.GetResult().GetValue() == String.Empty )
+					{
+						return false ;
+					}
+
+					return true ;
+				}
+				else
+				{
+					return _xDataContainer.IsValid ;
+				}
 			}
 		}
 

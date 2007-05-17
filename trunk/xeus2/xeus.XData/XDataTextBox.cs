@@ -68,5 +68,10 @@ namespace xeus2.xeus.XData
 
 			return field ;
 		}
+
+		public override bool Validate()
+		{
+			return ( _textBox.Text.Length > 0 ) ;
+		}
 	}
 }
