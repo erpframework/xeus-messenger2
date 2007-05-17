@@ -61,7 +61,7 @@ namespace xeus2.xeus.Core
 					{
 						Events.Instance.OnEvent( this,
 						                         new EventError( String.Format( Resources.Event_UnknownPresence,
-						                                                        presence.From, presence.Nickname ) ) ) ;
+						                                                        presence.From, presence.Nickname ), null ) ) ;
 					}
 				}
 				else

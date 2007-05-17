@@ -4,6 +4,7 @@ using agsXMPP ;
 using agsXMPP.protocol.iq.register ;
 using agsXMPP.protocol.x.data ;
 using agsXMPP.Xml.Dom ;
+using xeus2.xeus.Core ;
 
 namespace xeus2.xeus.XData
 {
@@ -19,14 +20,14 @@ namespace xeus2.xeus.XData
 
 		private Register _register = null ;
 		private XDataContainer _xDataContainer = null ;
-		private Jid _jid = null ;
+		private Service _service = null ;
 
 		private Data _xData = null ;
 
-		public void Setup( Register register, Jid jid )
+		internal void Setup( Register register, Service service )
 		{
 			_register = register ;
-			_jid = jid ;
+			_service = service ;
 
 			if ( _register.HasChildElements )
 			{
@@ -180,11 +181,11 @@ namespace xeus2.xeus.XData
 			}
 		}
 
-		public Jid Jid
+		internal Service Service
 		{
 			get
 			{
-				return _jid ;
+				return _service ;
 			}
 		}
 	}
