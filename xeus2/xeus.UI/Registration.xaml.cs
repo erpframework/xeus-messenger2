@@ -19,6 +19,11 @@ namespace xeus2.xeus.UI
 
 		protected void OnRegister( object sender, RoutedEventArgs eventArgs )
 		{
+			if ( !_registration.IsValid )
+			{
+				return ;
+			}
+
 			if ( _registration.XData != null )
 			{
 				Account.Instance.DoRegisterService( _registration.Service, _registration.GetResult() ) ;

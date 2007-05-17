@@ -31,6 +31,22 @@ namespace xeus2.xeus.XData
 			}
 		}
 
+		public bool IsValid
+		{
+			get
+			{
+				foreach ( XDataControl control in _container.Children )
+				{
+					if ( !control.Validate() )
+					{
+						return false ;
+					}
+				}
+	
+				return true ;
+			}
+		}
+
 		public Data GetResult()
 		{
 			Data data = new Data( XDataFormType.submit ) ;
