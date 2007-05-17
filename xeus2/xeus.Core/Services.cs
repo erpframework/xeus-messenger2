@@ -81,9 +81,13 @@ namespace xeus2.xeus.Core
 					}
 					else
 					{
+						bool isCommand = ( parentService != null
+						                   && parentService.DiscoInfo != null
+						                   && parentService.DiscoInfo.HasFeature( agsXMPP.Uri.COMMANDS ) ) ;
+
 						lock ( parentService.Services._syncObject )
 						{
-							parentService.Services.Add( new Service( discoItem ) ) ;
+							parentService.Services.Add( new Service( discoItem, isCommand ) ) ;
 						}
 					}
 				}
