@@ -327,6 +327,16 @@ namespace xeus2.xeus.Core
 			RemoveItemToDiscover() ;
 		}
 
+		public void DoRegisterService( Service service, Data data )
+		{
+			RegisterIq registerIq = new RegisterIq() ;
+			registerIq.SetAttribute( "type", "submit" ) ;
+			registerIq.To = service.Jid ;
+			registerIq.Query.AddChild( data ) ;
+
+			_xmppConnection.IqGrabber.SendIq( registerIq, OnServiceRegistered, service ) ;
+		}
+
 		public void DoRegisterService( Service service, string userName, string password, string email )
 		{
 			RegisterIq registerIq = new RegisterIq( IqType.set, service.Jid ) ;
@@ -373,17 +383,8 @@ namespace xeus2.xeus.Core
 			{
 				Service service = data as Service ;
 
-				EventError eventError ;
-
-				if ( service != null )
-				{
-					eventError = new EventError( string.Format( "Getting registration Info of Service '{0}' failed: '{1}'",
-																			service.Name, iq.Error.Code ), iq.Error ) ;
-				}
-				else
-				{
-					eventError = new EventError( "Getting registration Info of Service failed", null ) ;
-				}
+				EventError eventError = new EventError( string.Format( "Getting registration Info of Service '{0}'",
+																			service.Name ), iq.Error ) ;
 		
 				Events.Instance.OnEvent( eventError ) ;
 			}

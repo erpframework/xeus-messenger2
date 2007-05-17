@@ -31,6 +31,14 @@ namespace xeus2.xeus.XData
 			}
 		}
 
+		public void UpdateData()
+		{
+			foreach ( XDataControl control in _container.Children )
+			{
+				control.GetResult() ;
+			}
+		}
+
 		void BuildForm()
 		{
 			// fields

@@ -21,8 +21,15 @@ namespace xeus2.xeus.UI
 		{
 			_registration.UpdateData();
 
-			Account.Instance.DoRegisterService( _registration.Service, _registration.UserName,
-												_registration.Password, _registration.Email );
+			if ( _registration.XData != null )
+			{
+				Account.Instance.DoRegisterService( _registration.Service, _registration.XData ) ;
+			}
+			else
+			{
+				Account.Instance.DoRegisterService( _registration.Service, _registration.UserName,
+				                                    _registration.Password, _registration.Email ) ;
+			}
 		}
 	}
 }

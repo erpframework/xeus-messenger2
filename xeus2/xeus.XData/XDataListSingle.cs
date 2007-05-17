@@ -40,5 +40,14 @@ namespace xeus2.xeus.XData
 				_comboBox.Items.Add( comboBoxItem ) ;
 			}
 		}
+
+		public override Field GetResult()
+		{
+			ComboBoxItem item = ( ComboBoxItem )( _comboBox.ItemContainerGenerator.ContainerFromItem( _comboBox.SelectedItem ) ) ;
+
+			Field.SetValue( ( string )item.Tag );
+
+			return Field ;
+		}
 	}
 }

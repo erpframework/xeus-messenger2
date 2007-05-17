@@ -155,6 +155,26 @@ namespace xeus2.xeus.XData
 			{
 				_register.Email = _textEmail.GetResult().GetValue() ;
 			}
+		
+			if ( _xDataContainer != null )
+			{
+				_xDataContainer.UpdateData() ;
+			}
+		}
+
+		public Data XData
+		{
+			get
+			{
+				if ( _xDataContainer != null )
+				{
+					return _xDataContainer.Data ;
+				}
+				else
+				{
+					return null ;
+				}
+			}
 		}
 
 		public string UserName
