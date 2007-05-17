@@ -79,13 +79,13 @@ namespace xeus2.xeus.Core
 
 		private void _xmppConnection_OnAuthError( object sender, Element e )
 		{
-			EventError eventError = new EventError( Resources.Event_AuthFailed ) ;
+			EventError eventError = new EventError( Resources.Event_AuthFailed, null ) ;
 			Events.Instance.OnEvent( eventError ) ;
 		}
 
 		private void _xmppConnection_OnError( object sender, Exception ex )
 		{
-			EventError eventError = new EventError( ex.Message ) ;
+			EventError eventError = new EventError( ex.Message, null ) ;
 			Events.Instance.OnEvent( eventError ) ;
 		}
 
@@ -327,27 +327,29 @@ namespace xeus2.xeus.Core
 			RemoveItemToDiscover() ;
 		}
 
-		public void DoRegisterService( Jid jid, string userName, string password, string email )
+		public void DoRegisterService( Service service, string userName, string password, string email )
 		{
-			RegisterIq registerIq = new RegisterIq( IqType.set, jid ) ;
+			RegisterIq registerIq = new RegisterIq( IqType.set, service.Jid ) ;
 			registerIq.Query.Username = userName ;
 			registerIq.Query.Password = password ;
 			registerIq.Query.Email = email ;
 
-			_xmppConnection.IqGrabber.SendIq( registerIq, OnServiceRegistered, null ) ;
+			_xmppConnection.IqGrabber.SendIq( registerIq, OnServiceRegistered, service ) ;
 		}
 
 		private void OnServiceRegistered( object sender, IQ iq, object data )
 		{
+			Service service = data as Service ;
+
 			if ( iq.Error != null )
 			{
-				EventError eventError = new EventError( string.Format( "'{0}' Service registration failed with Condition '{1}'",
-															iq.From, iq.Error.Condition ) ) ;
+				EventError eventError = new EventError( string.Format( "'{0}' Service registration failed with '{1}'",
+															service.Name, iq.Error.Condition ), iq.Error ) ;
 				Events.Instance.OnEvent( eventError ) ;
 			}
 			else
 			{
-				EventInfo eventinfo = new EventInfo( string.Format( "'{0}' Service registration succeeded", iq.From ) ) ;
+				EventInfo eventinfo = new EventInfo( string.Format( "'{0}' Service registration succeeded", service.Name ) ) ;
 				Events.Instance.OnEvent( eventinfo ) ;
 			}
 		}
@@ -365,7 +367,7 @@ namespace xeus2.xeus.Core
 
 			if ( register != null )
 			{
-				Registration.Instance.DisplayInBandRegistration( register, iq.From );
+				Registration.Instance.DisplayInBandRegistration( register, ( Service )data ) ;
 			}
 			else
 			{
@@ -376,11 +378,11 @@ namespace xeus2.xeus.Core
 				if ( service != null )
 				{
 					eventError = new EventError( string.Format( "Getting registration Info of Service '{0}' failed: '{1}'",
-																			service.Name, iq.Error.Code ) ) ;
+																			service.Name, iq.Error.Code ), iq.Error ) ;
 				}
 				else
 				{
-					eventError = new EventError( "Getting registration Info of Service failed" ) ;
+					eventError = new EventError( "Getting registration Info of Service failed", null ) ;
 				}
 		
 				Events.Instance.OnEvent( eventError ) ;

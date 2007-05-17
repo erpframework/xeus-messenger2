@@ -10,18 +10,18 @@ namespace xeus2.xeus.UI
 	/// </summary>
 	public partial class Registration : Window
 	{
-		public Registration( Register register, Jid from )
+		internal Registration( Register register, Service service )
 		{
 			InitializeComponent() ;
 
-			_registration.Setup( register, from ) ;
+			_registration.Setup( register, service ) ;
 		}
 
 		protected void OnRegister( object sender, RoutedEventArgs eventArgs )
 		{
 			_registration.UpdateData();
 
-			Account.Instance.DoRegisterService( _registration.Jid, _registration.UserName,
+			Account.Instance.DoRegisterService( _registration.Service, _registration.UserName,
 												_registration.Password, _registration.Email );
 		}
 	}
