@@ -18,7 +18,7 @@ namespace xeus2.xeus.XData
 				ComboBoxItem comboBoxItem = new ComboBoxItem() ;
 
 				comboBoxItem.Content = option.Label ;
-				comboBoxItem.DataContext = option.GetValue() ;
+				comboBoxItem.Tag = option.GetValue() ;
 
 				foreach ( string text in Field.GetValues() )
 				{

@@ -32,6 +32,11 @@ namespace xeus2.xeus.XData
 			}
 		}
 
+		public virtual Field GetResult()
+		{
+			throw new NotImplementedException() ;
+		}
+
 		protected virtual void OnFieldIsSet()
 		{
 			if ( !String.IsNullOrEmpty( Field.Label ) )

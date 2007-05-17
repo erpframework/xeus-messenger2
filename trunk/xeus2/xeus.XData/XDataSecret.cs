@@ -17,5 +17,12 @@ namespace xeus2.xeus.XData
 				_password.Password = text ;
 			}
 		}
+
+		public override agsXMPP.protocol.x.data.Field GetResult()
+		{
+			Field.SetValue( _password.Password ) ;
+
+			return Field ;
+		}
 	}
 }

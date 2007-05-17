@@ -1,4 +1,5 @@
 using System.Windows ;
+using agsXMPP.protocol.x.data ;
 
 namespace xeus2.xeus.XData
 {
@@ -15,6 +16,11 @@ namespace xeus2.xeus.XData
 		{
 			// hidden field can't be wrong
 			return true ;
+		}
+
+		public override Field GetResult()
+		{
+			return Field ;
 		}
 	}
 }
