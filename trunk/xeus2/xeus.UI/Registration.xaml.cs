@@ -19,14 +19,14 @@ namespace xeus2.xeus.UI
 
 		protected void OnRegister( object sender, RoutedEventArgs eventArgs )
 		{
-			_registration.UpdateData();
-
 			if ( _registration.XData != null )
 			{
-				Account.Instance.DoRegisterService( _registration.Service, _registration.XData ) ;
+				Account.Instance.DoRegisterService( _registration.Service, _registration.GetResult() ) ;
 			}
 			else
 			{
+				_registration.UpdateData();
+	
 				Account.Instance.DoRegisterService( _registration.Service, _registration.UserName,
 				                                    _registration.Password, _registration.Email ) ;
 			}

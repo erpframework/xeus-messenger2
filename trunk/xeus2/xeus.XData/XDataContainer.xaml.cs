@@ -31,12 +31,16 @@ namespace xeus2.xeus.XData
 			}
 		}
 
-		public void UpdateData()
+		public Data GetResult()
 		{
+			Data data = new Data( XDataFormType.submit ) ;
+
 			foreach ( XDataControl control in _container.Children )
 			{
-				control.GetResult() ;
+				data.AddChild( control.GetResult() ) ;
 			}
+
+			return data ;
 		}
 
 		void BuildForm()

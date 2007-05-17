@@ -29,7 +29,7 @@ namespace xeus2.xeus.XData
 				CheckBox checkBox = new CheckBox() ;
 
 				checkBox.Content = option.Label ;
-				checkBox.Tag = option.GetValue() ;
+				checkBox.DataContext = option.GetValue() ;
 				checkBox.Style = StyleManager.GetStyle( "XDataCheckBox" ) ;
 
 				foreach ( string text in Field.GetValues() )
@@ -55,13 +55,14 @@ namespace xeus2.xeus.XData
 
 				if ( checkBox != null && ( bool ) checkBox.IsChecked )
 				{
-					values.Add( ( string ) checkBox.Tag ) ;
+					values.Add( ( string )checkBox.DataContext ) ;
 				}
 			}
 
-			Field.SetValues( values.ToArray() ) ;
+			Field field = new Field( Field.Var, null, Field.Type );
+			field.SetValues( values.ToArray() ) ;
 
-			return Field ;
+			return field ;
 		}
 	}
 }

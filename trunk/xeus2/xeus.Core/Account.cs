@@ -329,8 +329,8 @@ namespace xeus2.xeus.Core
 
 		public void DoRegisterService( Service service, Data data )
 		{
-			RegisterIq registerIq = new RegisterIq() ;
-			registerIq.SetAttribute( "type", "submit" ) ;
+			RegisterIq registerIq = new RegisterIq( IqType.set, service.Jid ) ;
+			//registerIq.SetAttribute( "type", "submit" ) ;
 			registerIq.To = service.Jid ;
 			registerIq.Query.AddChild( data ) ;
 
