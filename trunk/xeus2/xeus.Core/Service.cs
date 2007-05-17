@@ -13,11 +13,18 @@ namespace xeus2.xeus.Core
 		private bool _isDiscovered = false ;
 		private IQ _errorIq = null ;
 
+		private bool _isCommand = false ;
+
 		private Services _services = new Services() ;
 
 		public Service( DiscoItem discoItem )
 		{
 			_discoItem = discoItem ;
+		}
+
+		public Service( DiscoItem discoItem, bool isCommand ) : this( discoItem )
+		{
+			_isCommand = isCommand ;
 		}
 
 		public Service( DiscoInfo discoInfo )
@@ -63,7 +70,7 @@ namespace xeus2.xeus.Core
 				{
 					return Node ;
 				}
-				
+
 				return Resources.Constant_UnknownService ;
 			}
 		}
@@ -117,12 +124,12 @@ namespace xeus2.xeus.Core
 			set
 			{
 				bool notify = ( _isDiscovered != value ) ;
-				
+
 				_isDiscovered = value ;
 
 				if ( notify )
 				{
-					NotifyPropertyChanged( "IsDiscovered" );
+					NotifyPropertyChanged( "IsDiscovered" ) ;
 				}
 			}
 		}
@@ -153,6 +160,14 @@ namespace xeus2.xeus.Core
 			get
 			{
 				return _discoItem ;
+			}
+		}
+
+		public bool IsCommand
+		{
+			get
+			{
+				return _isCommand ;
 			}
 		}
 

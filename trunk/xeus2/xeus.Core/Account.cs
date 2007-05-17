@@ -2,6 +2,7 @@ using System ;
 using agsXMPP ;
 using agsXMPP.net ;
 using agsXMPP.protocol.client ;
+using agsXMPP.protocol.extensions.commands ;
 using agsXMPP.protocol.iq.disco ;
 using agsXMPP.protocol.iq.register ;
 using agsXMPP.protocol.iq.roster ;
@@ -290,6 +291,24 @@ namespace xeus2.xeus.Core
 			}
 		}
 
+		/*
+		private void OnDiscoInfoCommands( object sender, IQ iq, object data )
+		{
+			if ( iq.Type == IqType.result && iq.Query is DiscoInfo )
+			{
+				DiscoInfo di = iq.Query as DiscoInfo ;
+
+				DiscoItem discoItem = data as DiscoItem ;
+
+			}
+			else if ( iq.Type == IqType.error )
+			{
+				Services.Instance.OnServiceItemError( sender, iq ) ;
+			}
+
+			RemoveItemToDiscover() ;
+		}*/
+
 		private void OnDiscoInfoResult( object sender, IQ iq, object data )
 		{
 			if ( iq.Type == IqType.result && iq.Query is DiscoInfo )
@@ -308,6 +327,31 @@ namespace xeus2.xeus.Core
 			RemoveItemToDiscover() ;
 		}
 
+		public void DoRegisterService( Jid jid, string userName, string password, string email )
+		{
+			RegisterIq registerIq = new RegisterIq( IqType.set, jid ) ;
+			registerIq.Query.Username = userName ;
+			registerIq.Query.Password = password ;
+			registerIq.Query.Email = email ;
+
+			_xmppConnection.IqGrabber.SendIq( registerIq, OnServiceRegistered, null ) ;
+		}
+
+		private void OnServiceRegistered( object sender, IQ iq, object data )
+		{
+			if ( iq.Error != null )
+			{
+				EventError eventError = new EventError( string.Format( "'{0}' Service registration failed with Condition '{1}'",
+															iq.From, iq.Error.Condition ) ) ;
+				Events.Instance.OnEvent( eventError ) ;
+			}
+			else
+			{
+				EventInfo eventinfo = new EventInfo( string.Format( "'{0}' Service registration succeeded", iq.From ) ) ;
+				Events.Instance.OnEvent( eventinfo ) ;
+			}
+		}
+
 		public void GetService( Service service )
 		{
 			RegisterIq registerIq = new RegisterIq( IqType.get, service.Jid ) ;
@@ -321,7 +365,7 @@ namespace xeus2.xeus.Core
 
 			if ( register != null )
 			{
-				Registration.Instance.DisplayInBandRegistration( register );
+				Registration.Instance.DisplayInBandRegistration( register, iq.From );
 			}
 			else
 			{
@@ -331,12 +375,12 @@ namespace xeus2.xeus.Core
 
 				if ( service != null )
 				{
-					eventError = new EventError( string.Format( "Registration of service '{0}' failed: '{1}'",
+					eventError = new EventError( string.Format( "Getting registration Info of Service '{0}' failed: '{1}'",
 																			service.Name, iq.Error.Code ) ) ;
 				}
 				else
 				{
-					eventError = new EventError( "Registration of service failed" ) ;
+					eventError = new EventError( "Getting registration Info of Service failed" ) ;
 				}
 		
 				Events.Instance.OnEvent( eventError ) ;
