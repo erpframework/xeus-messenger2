@@ -21,42 +21,17 @@ namespace xeus2.xeus.XData
 		private XDataContainer _xDataContainer = null ;
 		private Service _service = null ;
 
-		private Data _xData = null ;
+		protected Data _xData = null ;
 
-		public bool IsValid
+		public virtual bool IsValid
 		{
 			get
 			{
-				if ( XData == null )
-				{
-					/*if ( _register.Username != null
-					     && _textUserName.GetResult().GetValue() == String.Empty )
-					{
-						return false ;
-					}
-
-					if ( _register.Password != null
-					     && _textPassword.GetResult().GetValue() == String.Empty )
-					{
-						return false ;
-					}
-
-					if ( _register.Email != null
-					     && _textEmail.GetResult().GetValue() == String.Empty )
-					{
-						return false ;
-					}*/
-
-					return true ;
-				}
-				else
-				{
-					return _xDataContainer.IsValid ;
-				}
+				return _xDataContainer.IsValid ;
 			}
 		}
 
-		private void SetupXDataRegistration( Data xData )
+		protected void SetupXDataRegistration( Data xData )
 		{
 			if ( string.IsNullOrEmpty( xData.Title ) )
 			{
@@ -114,6 +89,11 @@ namespace xeus2.xeus.XData
 			get
 			{
 				return _service ;
+			}
+
+			set
+			{
+				_service = value ;
 			}
 		}
 	}

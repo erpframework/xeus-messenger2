@@ -11,7 +11,7 @@ namespace xeus2.xeus.XData
 	/// <summary>
 	/// Interaction logic for InBandRegistration.xaml
 	/// </summary>
-	public partial class InBandRegistration : UserControl
+	public class InBandRegistration : XDataFromBase
 	{
 		public InBandRegistration()
 		{
@@ -19,15 +19,11 @@ namespace xeus2.xeus.XData
 		}
 
 		private Register _register = null ;
-		private XDataContainer _xDataContainer = null ;
-		private Service _service = null ;
-
-		private Data _xData = null ;
 
 		internal void Setup( Register register, Service service )
 		{
 			_register = register ;
-			_service = service ;
+			Service = service ;
 
 			if ( _register.HasChildElements )
 			{
@@ -51,7 +47,7 @@ namespace xeus2.xeus.XData
 			}
 		}
 
-		public bool IsValid
+		public override bool IsValid
 		{
 			get
 			{
@@ -79,7 +75,7 @@ namespace xeus2.xeus.XData
 				}
 				else
 				{
-					return _xDataContainer.IsValid ;
+					return base.IsValid ;
 				}
 			}
 		}
@@ -90,32 +86,6 @@ namespace xeus2.xeus.XData
 			{
 				return _register ;
 			}
-		}
-
-		private void SetupXDataRegistration( Data xData )
-		{
-			if ( string.IsNullOrEmpty( xData.Title ) )
-			{
-				_title.Visibility = Visibility.Collapsed ;
-			}
-			else
-			{
-				_title.Text = xData.Title ;
-			}
-
-			if ( string.IsNullOrEmpty( xData.Instructions ) )
-			{
-				_instructions.Visibility = Visibility.Collapsed ;
-			}
-			else
-			{
-				_instructions.Text = xData.Instructions ;
-			}
-
-			_xDataContainer = new XDataContainer() ;
-			_container.Children.Add( _xDataContainer ) ;
-
-			_xDataContainer.Data = xData ;
 		}
 
 		private XDataTextBox _textUserName ;
@@ -190,33 +160,6 @@ namespace xeus2.xeus.XData
 			}
 		}
 
-		public Data GetResult()
-		{
-			if ( _xDataContainer != null )
-			{
-				return _xDataContainer.GetResult() ;
-			}
-			else
-			{
-				return null ;
-			}
-		}
-
-		public Data XData
-		{
-			get
-			{
-				if ( _xDataContainer != null )
-				{
-					return _xDataContainer.Data ;
-				}
-				else
-				{
-					return null ;
-				}
-			}
-		}
-
 		public string UserName
 		{
 			get
@@ -238,14 +181,6 @@ namespace xeus2.xeus.XData
 			get
 			{
 				return _register.Email ;
-			}
-		}
-
-		internal Service Service
-		{
-			get
-			{
-				return _service ;
 			}
 		}
 	}
