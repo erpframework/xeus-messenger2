@@ -293,24 +293,6 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		/*
-		private void OnDiscoInfoCommands( object sender, IQ iq, object data )
-		{
-			if ( iq.Type == IqType.result && iq.Query is DiscoInfo )
-			{
-				DiscoInfo di = iq.Query as DiscoInfo ;
-
-				DiscoItem discoItem = data as DiscoItem ;
-
-			}
-			else if ( iq.Type == IqType.error )
-			{
-				Services.Instance.OnServiceItemError( sender, iq ) ;
-			}
-
-			RemoveItemToDiscover() ;
-		}*/
-
 		private void OnDiscoInfoResult( object sender, IQ iq, object data )
 		{
 			if ( iq.Type == IqType.result && iq.Query is DiscoInfo )

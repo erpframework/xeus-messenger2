@@ -70,11 +70,38 @@ namespace xeus2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter email for Search.
+        /// </summary>
+        internal static string Constant_EnterEmailForSearch {
+            get {
+                return ResourceManager.GetString("Constant_EnterEmailForSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter an e-mail address for this Service.
         /// </summary>
         internal static string Constant_EnterEmailForService {
             get {
                 return ResourceManager.GetString("Constant_EnterEmailForService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter first name for Search.
+        /// </summary>
+        internal static string Constant_EnterFirstNameForSearch {
+            get {
+                return ResourceManager.GetString("Constant_EnterFirstNameForSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter last name for Search.
+        /// </summary>
+        internal static string Constant_EnterLastNameForSearch {
+            get {
+                return ResourceManager.GetString("Constant_EnterLastNameForSearch", resourceCulture);
             }
         }
         
@@ -88,6 +115,15 @@ namespace xeus2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter nickname for Search.
+        /// </summary>
+        internal static string Constant_EnterNicknameForSearch {
+            get {
+                return ResourceManager.GetString("Constant_EnterNicknameForSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter your password for this Service.
         /// </summary>
         internal static string Constant_EnterPasswordForService {
@@ -97,11 +133,38 @@ namespace xeus2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to First name.
+        /// </summary>
+        internal static string Constant_FirstName {
+            get {
+                return ResourceManager.GetString("Constant_FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to General.
         /// </summary>
         internal static string Constant_General {
             get {
                 return ResourceManager.GetString("Constant_General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name.
+        /// </summary>
+        internal static string Constant_LastName {
+            get {
+                return ResourceManager.GetString("Constant_LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nickname.
+        /// </summary>
+        internal static string Constant_Nickname {
+            get {
+                return ResourceManager.GetString("Constant_Nickname", resourceCulture);
             }
         }
         
