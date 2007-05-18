@@ -79,16 +79,17 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				DiscoIdentity[] discoIdentities = DiscoInfo.GetIdentities() ;
+				if ( DiscoInfo != null )
+				{
+					DiscoIdentity[] discoIdentities = DiscoInfo.GetIdentities() ;
 
-				if ( discoIdentities.Length > 0 )
-				{
-					return discoIdentities[ 0 ].Category ;
+					if ( discoIdentities.Length > 0 )
+					{
+						return discoIdentities[ 0 ].Category ;
+					}
 				}
-				else
-				{
-					return Resources.Constant_General ;
-				}
+
+				return Resources.Constant_General ;
 			}
 		}
 
@@ -111,6 +112,7 @@ namespace xeus2.xeus.Core
 				_discoInfo = value ;
 
 				NotifyPropertyChanged( "Name" ) ;
+				NotifyPropertyChanged( "Group" ) ;
 			}
 		}
 
