@@ -6,6 +6,7 @@ using agsXMPP.protocol.extensions.commands ;
 using agsXMPP.protocol.iq.disco ;
 using agsXMPP.protocol.iq.register ;
 using agsXMPP.protocol.iq.roster ;
+using agsXMPP.protocol.iq.search ;
 using agsXMPP.protocol.x.data ;
 using agsXMPP.Xml.Dom ;
 using xeus2.Properties ;
@@ -330,7 +331,6 @@ namespace xeus2.xeus.Core
 		public void DoRegisterService( Service service, Data data )
 		{
 			RegisterIq registerIq = new RegisterIq( IqType.set, service.Jid ) ;
-			//registerIq.SetAttribute( "type", "submit" ) ;
 			registerIq.To = service.Jid ;
 			registerIq.Query.AddChild( data ) ;
 
@@ -370,6 +370,33 @@ namespace xeus2.xeus.Core
 
 			_xmppConnection.IqGrabber.SendIq( registerIq, OnRegisterServiceGet, service ) ;
 		}
+
+		public void GetServiceSearch( Service service )
+		{
+			SearchIq searchIq = new SearchIq( IqType.get, service.Jid ) ;
+
+			_xmppConnection.IqGrabber.SendIq( searchIq, OnRegisterServiceGetSearch, service ) ;
+		}
+
+		private void OnRegisterServiceGetSearch( object sender, IQ iq, object data )
+		{
+			Search search = iq.Query as Search ;
+
+			if ( search != null )
+			{
+				// Registration.Instance.DisplayInBandRegistration( register, ( Service )data ) ;
+			}
+			else
+			{
+				Service service = data as Service ;
+
+				EventError eventError = new EventError( string.Format( "Getting search Info of Service '{0}'",
+																			service.Name ), iq.Error ) ;
+		
+				Events.Instance.OnEvent( eventError ) ;
+			}
+		}
+
 
 		private void OnRegisterServiceGet( object sender, IQ iq, object data )
 		{
