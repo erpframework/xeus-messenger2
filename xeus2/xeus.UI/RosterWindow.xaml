@@ -15,12 +15,19 @@
     </CollectionViewSource>
 
     <ObjectDataProvider x:Key="ServicesDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Services}"/>
-    <ObjectDataProvider x:Key="AccountDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Account}"/>
 
-    
+    <CollectionViewSource x:Key="Services" Source="{Binding Path=Instance, Mode=Default, Source={StaticResource ServicesDS}}">
+      <CollectionViewSource.GroupDescriptions>
+        <PropertyGroupDescription PropertyName="Group"/>
+      </CollectionViewSource.GroupDescriptions>
+    </CollectionViewSource>
+
+    <ObjectDataProvider x:Key="AccountDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Account}"/>
 		<ObjectDataProvider x:Key="EventsDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Events}"/>
 	</Window.Resources>
+
     <StackPanel>
+      
       <ListBox ItemsSource="{Binding Source={StaticResource Contacts}}" Height="100"
                ItemsPanel="{DynamicResource ItemsPanelTemplateRoster}"
                ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemTemplate="{DynamicResource Contact}"
