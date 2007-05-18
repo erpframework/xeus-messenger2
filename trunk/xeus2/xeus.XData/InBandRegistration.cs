@@ -11,7 +11,7 @@ namespace xeus2.xeus.XData
 	/// <summary>
 	/// Interaction logic for InBandRegistration.xaml
 	/// </summary>
-	public class InBandRegistration : XDataFromBase
+	public class InBandRegistration : XDataFormBase
 	{
 		public InBandRegistration()
 		{
@@ -43,7 +43,7 @@ namespace xeus2.xeus.XData
 			}
 			else
 			{
-				SetupXDataRegistration( _xData ) ;
+				SetupXData( _xData ) ;
 			}
 		}
 

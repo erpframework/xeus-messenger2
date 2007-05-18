@@ -1,4 +1,4 @@
-<UserControl x:Class="xeus2.xeus.XData.XDataFromBase"
+<UserControl x:Class="xeus2.xeus.XData.XDataFormBase"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <StackPanel x:Name="_container">

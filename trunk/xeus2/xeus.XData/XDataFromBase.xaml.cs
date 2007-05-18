@@ -11,9 +11,9 @@ namespace xeus2.xeus.XData
 	/// <summary>
 	/// Interaction logic for XDataFromBase.xaml
 	/// </summary>
-	public partial class XDataFromBase : UserControl
+	public partial class XDataFormBase : UserControl
 	{
-		public XDataFromBase()
+		public XDataFormBase()
 		{
 			InitializeComponent() ;
 		}
@@ -31,7 +31,7 @@ namespace xeus2.xeus.XData
 			}
 		}
 
-		protected void SetupXDataRegistration( Data xData )
+		protected void SetupXData( Data xData )
 		{
 			if ( string.IsNullOrEmpty( xData.Title ) )
 			{

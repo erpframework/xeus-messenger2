@@ -67,7 +67,24 @@ namespace xeus2.xeus.XData
 
 		public override bool Validate()
 		{
-			return true ;
+			if ( !Field.IsRequired )
+			{
+				return true ;
+			}
+			else
+			{
+				foreach ( UIElement element in _panel.Children )
+				{
+					CheckBox checkBox = element as CheckBox ;
+
+					if ( ( bool )checkBox.IsChecked )
+					{
+						return true ;
+					}
+				}
+
+				return false ;
+			}
 		}
 	}
 }

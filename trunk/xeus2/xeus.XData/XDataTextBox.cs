@@ -71,7 +71,7 @@ namespace xeus2.xeus.XData
 
 		public override bool Validate()
 		{
-			return ( _textBox.Text.Length > 0 ) ;
+			return ( !Field.IsRequired || _textBox.Text.Length > 0 ) ;
 		}
 	}
 }
