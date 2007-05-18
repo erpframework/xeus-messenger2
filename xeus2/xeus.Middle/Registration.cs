@@ -1,5 +1,4 @@
 using System.Windows.Threading ;
-using agsXMPP ;
 using agsXMPP.protocol.iq.register ;
 using xeus2.xeus.Core ;
 

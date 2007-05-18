@@ -37,7 +37,7 @@ namespace xeus2.xeus.XData
 
 		public override bool Validate()
 		{
-			return ( _password.Password.Length > 0 ) ;
+			return ( !Field.IsRequired || _password.Password.Length > 0 ) ;
 		}
 	}
 }

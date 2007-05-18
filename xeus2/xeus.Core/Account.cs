@@ -11,6 +11,7 @@ using agsXMPP.protocol.x.data ;
 using agsXMPP.Xml.Dom ;
 using xeus2.Properties ;
 using xeus2.xeus.Middle ;
+using Search=agsXMPP.protocol.iq.search.Search;
 
 namespace xeus2.xeus.Core
 {
@@ -328,6 +329,43 @@ namespace xeus2.xeus.Core
 			RemoveItemToDiscover() ;
 		}
 
+		public void DoSearchService( Service service, Data data )
+		{
+			SearchIq searchIq = new SearchIq( IqType.set, service.Jid ) ;
+			searchIq.To = service.Jid ;
+			searchIq.Query.AddChild( data ) ;
+
+			_xmppConnection.IqGrabber.SendIq( searchIq, OnServiceSearched, service ) ;
+		}
+
+		public void DoSearchService( Service service, string first, string last, string nick, string email )
+		{
+			SearchIq searchIq = new SearchIq( IqType.set, service.Jid ) ;
+			searchIq.Query.Firstname = first ;
+			searchIq.Query.Lastname = last ;
+			searchIq.Query.Nickname = nick ;
+			searchIq.Query.Email = email ;
+
+			_xmppConnection.IqGrabber.SendIq( searchIq, OnServiceSearched, service ) ;
+		}
+
+		private void OnServiceSearched( object sender, IQ iq, object data )
+		{
+			Service service = data as Service ;
+
+			if ( iq.Error != null )
+			{
+				EventError eventError = new EventError( string.Format( "'{0}' Service search failed with '{1}'",
+															service.Name, iq.Error.Condition ), iq.Error ) ;
+				Events.Instance.OnEvent( eventError ) ;
+			}
+			else
+			{
+				EventInfo eventinfo = new EventInfo( string.Format( "'{0}' Service search succeeded", service.Name ) ) ;
+				Events.Instance.OnEvent( eventinfo ) ;
+			}
+		}
+
 		public void DoRegisterService( Service service, Data data )
 		{
 			RegisterIq registerIq = new RegisterIq( IqType.set, service.Jid ) ;
@@ -384,7 +422,7 @@ namespace xeus2.xeus.Core
 
 			if ( search != null )
 			{
-				// Registration.Instance.DisplayInBandRegistration( register, ( Service )data ) ;
+				Middle.Search.Instance.DisplaySearch( search, ( Service )data ) ;
 			}
 			else
 			{

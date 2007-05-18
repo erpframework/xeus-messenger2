@@ -171,4 +171,25 @@
   <data name="Error_ServiceDiscoFailed" xml:space="preserve">
     <value>Service discovery of '{0}' failed - Error {1}</value>
   </data>
+  <data name="Constant_FirstName" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="Constant_LastName" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="Constant_Nickname" xml:space="preserve">
+    <value>Nickname</value>
+  </data>
+  <data name="Constant_EnterFirstNameForSearch" xml:space="preserve">
+    <value>Enter first name for Search</value>
+  </data>
+  <data name="Constant_EnterLastNameForSearch" xml:space="preserve">
+    <value>Enter last name for Search</value>
+  </data>
+  <data name="Constant_EnterNicknameForSearch" xml:space="preserve">
+    <value>Enter nickname for Search</value>
+  </data>
+  <data name="Constant_EnterEmailForSearch" xml:space="preserve">
+    <value>Enter email for Search</value>
+  </data>
 </root>

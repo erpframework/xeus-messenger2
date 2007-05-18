@@ -48,8 +48,15 @@ namespace xeus2
 
 			if ( service != null )
 			{
-				// Account.Instance.GetService( service );
-				Account.Instance.GetServiceSearch( service );
+				if ( service.IsRegistrable )
+				{
+					Account.Instance.GetService( service );
+				}
+
+				if ( service.IsSearchable )
+				{
+					Account.Instance.GetServiceSearch( service ) ;
+				}
 			}
 		}
 	}

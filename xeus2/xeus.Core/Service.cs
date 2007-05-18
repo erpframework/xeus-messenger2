@@ -3,6 +3,7 @@ using agsXMPP ;
 using agsXMPP.protocol.client ;
 using agsXMPP.protocol.iq.disco ;
 using xeus2.Properties ;
+using Uri=agsXMPP.Uri;
 
 namespace xeus2.xeus.Core
 {
@@ -170,6 +171,22 @@ namespace xeus2.xeus.Core
 			get
 			{
 				return _isCommand ;
+			}
+		}
+
+		public bool IsRegistrable
+		{
+			get
+			{
+				return _discoInfo.HasFeature( Uri.IQ_REGISTER ) ;
+			}
+		}
+
+		public bool IsSearchable
+		{
+			get
+			{
+				return _discoInfo.HasFeature( Uri.IQ_SEARCH ) ;
 			}
 		}
 
