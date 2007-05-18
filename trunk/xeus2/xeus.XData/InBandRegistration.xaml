@@ -1,8 +1,0 @@
-<UserControl x:Class="xeus2.xeus.XData.InBandRegistration"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <StackPanel x:Name="_container">
-      <TextBlock x:Name="_title"/>
-      <TextBlock x:Name="_instructions"/>
-    </StackPanel>
-</UserControl>
