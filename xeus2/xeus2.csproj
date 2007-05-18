@@ -74,6 +74,7 @@
     <Page Include="xeus.XData\InBandRegistration.xaml" />
     <Page Include="xeus.XData\XDataContainer.xaml" />
     <Page Include="xeus.XData\XDataControl.xaml" />
+    <Page Include="xeus.XData\XDataResultView.xaml" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -147,6 +148,10 @@
     <Compile Include="xeus.XData\XDataHidden.cs" />
     <Compile Include="xeus.XData\XDataListMulti.cs" />
     <Compile Include="xeus.XData\XDataListSingle.cs" />
+    <Compile Include="xeus.XData\XDataResultView.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>XDataResultView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="xeus.XData\XDataSecret.cs" />
     <Compile Include="xeus.XData\XDataTextBox.cs" />
     <AppDesigner Include="Properties\" />

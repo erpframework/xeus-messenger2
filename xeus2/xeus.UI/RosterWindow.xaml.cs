@@ -48,7 +48,8 @@ namespace xeus2
 
 			if ( service != null )
 			{
-				Account.Instance.GetService( service );
+				// Account.Instance.GetService( service );
+				Account.Instance.GetServiceSearch( service );
 			}
 		}
 	}
