@@ -192,4 +192,22 @@
   <data name="Constant_EnterEmailForSearch" xml:space="preserve">
     <value>Enter email for Search</value>
   </data>
+  <data name="Event_SearchFailed" xml:space="preserve">
+    <value>'{0}' Service search failed with '{1}'</value>
+  </data>
+  <data name="Even_SearchSucceeded" xml:space="preserve">
+    <value>'{0}' Service search succeeded</value>
+  </data>
+  <data name="Event_RegistrationFailed" xml:space="preserve">
+    <value>'{0}' Service registration failed with '{1}'</value>
+  </data>
+  <data name="Event_RegistrationSucceeded" xml:space="preserve">
+    <value>'{0}' Service registration succeeded</value>
+  </data>
+  <data name="Event_SearchInfoFailed" xml:space="preserve">
+    <value>Getting search Info of Service '{0}'</value>
+  </data>
+  <data name="Event_RegInfoFailed" xml:space="preserve">
+    <value>Getting registration Info of Service '{0}'</value>
+  </data>
 </root>
