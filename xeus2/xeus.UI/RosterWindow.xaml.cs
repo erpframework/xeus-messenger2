@@ -44,23 +44,5 @@ namespace xeus2
 		void RosterMouseDoubleClick( object sender, RoutedEventArgs args )
 		{
 		}
-
-		void ServicesMouseDoubleClick( object sender, RoutedEventArgs args )
-		{
-			Service service = _services.SelectedItem as Service ;
-
-			if ( service != null )
-			{
-				if ( service.IsRegistrable )
-				{
-					Account.Instance.GetService( service );
-				}
-
-				if ( service.IsSearchable )
-				{
-					Account.Instance.GetServiceSearch( service ) ;
-				}
-			}
-		}
 	}
 }

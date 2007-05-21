@@ -180,7 +180,7 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				if ( _discoInfo == null )
+				if ( _discoInfo == null || IsCommand )
 				{
 					return false ;
 				}
@@ -193,7 +193,7 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				if ( _discoInfo == null )
+				if ( _discoInfo == null || IsCommand )
 				{
 					return false ;
 				}

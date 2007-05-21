@@ -57,7 +57,6 @@
       
       <TreeView ItemsSource="{Binding Source={StaticResource ServicesDS}, Path=Instance}"
                 ItemTemplate="{DynamicResource ServicesTemplate}" Height="200"
-                MouseDoubleClick="ServicesMouseDoubleClick"
                 x:Name="_services"/>
 
       <ListBox ItemsSource="{Binding Path=Instance, Mode=Default, Source={StaticResource EventsDS}}" Height="100"/>

@@ -213,4 +213,7 @@
   <data name="Constant_Jid" xml:space="preserve">
     <value>JID</value>
   </data>
+  <data name="Event_CommandExecFailed" xml:space="preserve">
+    <value>Command execution of service {0} failed</value>
+  </data>
 </root>
