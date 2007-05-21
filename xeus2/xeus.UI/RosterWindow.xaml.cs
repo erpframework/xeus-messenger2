@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using xeus2.xeus.Commands ;
 using xeus2.xeus.Core ;
 
 namespace xeus2
@@ -27,6 +28,8 @@ namespace xeus2
 		public override void EndInit()
 		{
 			base.EndInit();
+
+			ServiceCommands.RegisterCommands( this );
 
 			Account.Instance.Open();
 		}

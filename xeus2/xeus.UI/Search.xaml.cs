@@ -1,4 +1,5 @@
 using System.Windows ;
+using xeus2.xeus.Commands ;
 using xeus2.xeus.Core ;
 
 namespace xeus2.xeus.UI

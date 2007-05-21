@@ -104,6 +104,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="xeus.Commands\ServiceCommands.cs" />
     <Compile Include="xeus.Core\Account.cs" />
     <Compile Include="xeus.Core\Contact.cs" />
     <Compile Include="xeus.Core\Event.cs" />
