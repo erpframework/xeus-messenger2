@@ -2,7 +2,6 @@ using System ;
 using agsXMPP ;
 using agsXMPP.net ;
 using agsXMPP.protocol.client ;
-using agsXMPP.protocol.extensions.commands ;
 using agsXMPP.protocol.iq.disco ;
 using agsXMPP.protocol.iq.register ;
 using agsXMPP.protocol.iq.roster ;
@@ -11,7 +10,7 @@ using agsXMPP.protocol.x.data ;
 using agsXMPP.Xml.Dom ;
 using xeus2.Properties ;
 using xeus2.xeus.Middle ;
-using Search=agsXMPP.protocol.iq.search.Search;
+using Search=xeus2.xeus.Middle.Search;
 
 namespace xeus2.xeus.Core
 {
@@ -61,14 +60,14 @@ namespace xeus2.xeus.Core
 			_xmppConnection.OnError += new ErrorHandler( _xmppConnection_OnError ) ;
 			_xmppConnection.OnAuthError += new XmppElementHandler( _xmppConnection_OnAuthError ) ;
 
-			_xmppConnection.OnIq += new IqHandler( _xmppConnection_OnIq );
-			
+			_xmppConnection.OnIq += new IqHandler( _xmppConnection_OnIq ) ;
+
 			Settings.Default.Save() ;
 
 			_xmppConnection.Open() ;
 		}
 
-		void _xmppConnection_OnIq( object sender, IQ iq )
+		private void _xmppConnection_OnIq( object sender, IQ iq )
 		{
 			if ( iq.Type == IqType.get )
 			{
@@ -337,13 +336,13 @@ namespace xeus2.xeus.Core
 
 			if ( iq.Error != null )
 			{
-				EventError eventError = new EventError( string.Format( "'{0}' Service search failed with '{1}'",
-															service.Name, iq.Error.Condition ), iq.Error ) ;
+				EventError eventError = new EventError( string.Format( Resources.Event_SearchFailed,
+				                                                       service.Name, iq.Error.Condition ), iq.Error ) ;
 				Events.Instance.OnEvent( eventError ) ;
 			}
 			else
 			{
-				EventInfo eventinfo = new EventInfo( string.Format( "'{0}' Service search succeeded", service.Name ) ) ;
+				EventInfo eventinfo = new EventInfo( string.Format( Resources.Even_SearchSucceeded, service.Name ) ) ;
 				Events.Instance.OnEvent( eventinfo ) ;
 			}
 		}
@@ -373,13 +372,13 @@ namespace xeus2.xeus.Core
 
 			if ( iq.Error != null )
 			{
-				EventError eventError = new EventError( string.Format( "'{0}' Service registration failed with '{1}'",
-															service.Name, iq.Error.Condition ), iq.Error ) ;
+				EventError eventError = new EventError( string.Format( Resources.Event_RegistrationFailed,
+				                                                       service.Name, iq.Error.Condition ), iq.Error ) ;
 				Events.Instance.OnEvent( eventError ) ;
 			}
 			else
 			{
-				EventInfo eventinfo = new EventInfo( string.Format( "'{0}' Service registration succeeded", service.Name ) ) ;
+				EventInfo eventinfo = new EventInfo( string.Format( Resources.Event_RegistrationSucceeded, service.Name ) ) ;
 				Events.Instance.OnEvent( eventinfo ) ;
 			}
 		}
@@ -400,19 +399,19 @@ namespace xeus2.xeus.Core
 
 		private void OnRegisterServiceGetSearch( object sender, IQ iq, object data )
 		{
-			Search search = iq.Query as Search ;
+			agsXMPP.protocol.iq.search.Search search = iq.Query as agsXMPP.protocol.iq.search.Search ;
 
 			if ( search != null )
 			{
-				Middle.Search.Instance.DisplaySearch( search, ( Service )data ) ;
+				Search.Instance.DisplaySearch( search, ( Service ) data ) ;
 			}
 			else
 			{
 				Service service = data as Service ;
 
-				EventError eventError = new EventError( string.Format( "Getting search Info of Service '{0}'",
-																			service.Name ), iq.Error ) ;
-		
+				EventError eventError = new EventError( string.Format( Resources.Event_SearchInfoFailed,
+				                                                       service.Name ), iq.Error ) ;
+
 				Events.Instance.OnEvent( eventError ) ;
 			}
 		}
@@ -424,15 +423,15 @@ namespace xeus2.xeus.Core
 
 			if ( register != null )
 			{
-				Registration.Instance.DisplayInBandRegistration( register, ( Service )data ) ;
+				Registration.Instance.DisplayInBandRegistration( register, ( Service ) data ) ;
 			}
 			else
 			{
 				Service service = data as Service ;
 
-				EventError eventError = new EventError( string.Format( "Getting registration Info of Service '{0}'",
-																			service.Name ), iq.Error ) ;
-		
+				EventError eventError = new EventError( string.Format( Resources.Event_RegInfoFailed,
+				                                                       service.Name ), iq.Error ) ;
+
 				Events.Instance.OnEvent( eventError ) ;
 			}
 		}
