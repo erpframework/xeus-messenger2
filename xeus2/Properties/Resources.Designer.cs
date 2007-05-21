@@ -232,6 +232,15 @@ namespace xeus2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; Service search succeeded.
+        /// </summary>
+        internal static string Even_SearchSucceeded {
+            get {
+                return ResourceManager.GetString("Even_SearchSucceeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Client &apos;{0}&apos; is now connected to your account &apos;{2}&apos; - priority {1}, status &apos;{2}&apos;.
         /// </summary>
         internal static string Event_AnotherClient {
@@ -273,6 +282,51 @@ namespace xeus2.Properties {
         internal static string Event_PresenceChange {
             get {
                 return ResourceManager.GetString("Event_PresenceChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting registration Info of Service &apos;{0}&apos;.
+        /// </summary>
+        internal static string Event_RegInfoFailed {
+            get {
+                return ResourceManager.GetString("Event_RegInfoFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; Service registration failed with &apos;{1}&apos;.
+        /// </summary>
+        internal static string Event_RegistrationFailed {
+            get {
+                return ResourceManager.GetString("Event_RegistrationFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; Service registration succeeded.
+        /// </summary>
+        internal static string Event_RegistrationSucceeded {
+            get {
+                return ResourceManager.GetString("Event_RegistrationSucceeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; Service search failed with &apos;{1}&apos;.
+        /// </summary>
+        internal static string Event_SearchFailed {
+            get {
+                return ResourceManager.GetString("Event_SearchFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting search Info of Service &apos;{0}&apos;.
+        /// </summary>
+        internal static string Event_SearchInfoFailed {
+            get {
+                return ResourceManager.GetString("Event_SearchInfoFailed", resourceCulture);
             }
         }
         
