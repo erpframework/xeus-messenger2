@@ -5,6 +5,7 @@ using agsXMPP.protocol.iq.search ;
 using agsXMPP.protocol.x.data ;
 using agsXMPP.Xml.Dom ;
 using xeus2.xeus.Core ;
+using xeus2.xeus.Utilities ;
 
 namespace xeus2.xeus.XData
 {
@@ -30,17 +31,7 @@ namespace xeus2.xeus.XData
 			Service = service ;
 			_search = search ;
 
-			if ( Search.HasChildElements )
-			{
-				foreach ( Node node in Search.ChildNodes )
-				{
-					if ( node is Data )
-					{
-						_xData = node as Data ;
-						break ;
-					}
-				}
-			}
+			_xData = ElementUtil.GetData( _search ) ;
 
 			if ( _xData == null )
 			{
