@@ -18,8 +18,7 @@ namespace xeus2.xeus.Utilities
 		public static bool CompareDiscoItem( DiscoItem discoItem, DiscoItem discoItem2 )
 		{
 			return Equals( discoItem.Jid, discoItem2.Jid )
-				&& discoItem.Node == discoItem2.Node
-				&& discoItem.Name == discoItem2.Name ;
+				&& discoItem.Node == discoItem2.Node ;
 		}
 	}
 }
