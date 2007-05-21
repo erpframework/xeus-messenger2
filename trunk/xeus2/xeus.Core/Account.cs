@@ -334,7 +334,9 @@ namespace xeus2.xeus.Core
 		{
 			Service service = data as Service ;
 
-			if ( iq.Error != null )
+			agsXMPP.protocol.iq.search.Search search = iq.Query as agsXMPP.protocol.iq.search.Search ;
+
+			if ( iq.Error != null || search == null )
 			{
 				EventError eventError = new EventError( string.Format( Resources.Event_SearchFailed,
 				                                                       service.Name, iq.Error.Condition ), iq.Error ) ;
@@ -342,6 +344,8 @@ namespace xeus2.xeus.Core
 			}
 			else
 			{
+				Search.Instance.DisplaySearchResult( search, ( Service ) data ) ;
+
 				EventInfo eventinfo = new EventInfo( string.Format( Resources.Even_SearchSucceeded, service.Name ) ) ;
 				Events.Instance.OnEvent( eventinfo ) ;
 			}

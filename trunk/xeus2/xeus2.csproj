@@ -127,6 +127,7 @@
     <Compile Include="xeus.Middle\Notification.cs" />
     <Compile Include="xeus.Middle\Registration.cs" />
     <Compile Include="xeus.Middle\Search.cs" />
+    <Compile Include="xeus.Middle\WindowManager.cs" />
     <Compile Include="xeus.UI\Registration.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>Registration.xaml</DependentUpon>

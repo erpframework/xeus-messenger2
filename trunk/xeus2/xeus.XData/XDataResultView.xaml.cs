@@ -18,7 +18,7 @@ namespace xeus2.xeus.XData
 
 		public void ReadFromXData( Data data )
 		{
-			DataTable table = new SearchResult( data ) ;
+			DataTable table = new SearchResult( data.Reported, data.GetItems() ) ;
 			_listView.DataContext = table ;
 
 			Binding bind = new Binding() ;

@@ -15,6 +15,11 @@ namespace xeus2.xeus.UI
 			_search.Setup( search, service ) ;
 		}
 
+		internal void DisplaySearchResult( agsXMPP.protocol.iq.search.Search search, Service service )
+		{
+			_resultView.ReadFromXData( search.Data ) ;
+		}
+
 		protected void OnSearch( object sender, RoutedEventArgs eventArgs )
 		{
 			if ( !_search.IsValid )
