@@ -5,6 +5,7 @@ using agsXMPP.protocol.iq.register ;
 using agsXMPP.protocol.x.data ;
 using agsXMPP.Xml.Dom ;
 using xeus2.xeus.Core ;
+using xeus2.xeus.Utilities ;
 
 namespace xeus2.xeus.XData
 {
@@ -25,17 +26,7 @@ namespace xeus2.xeus.XData
 			_register = register ;
 			Service = service ;
 
-			if ( _register.HasChildElements )
-			{
-				foreach ( Node node in _register.ChildNodes )
-				{
-					if ( node is Data )
-					{
-						_xData = node as Data ;
-						break ;
-					}
-				}
-			}
+			_xData = ElementUtil.GetData( _register ) ;
 
 			if ( _xData == null )
 			{
