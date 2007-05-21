@@ -286,6 +286,15 @@ namespace xeus2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Command execution of service {0} failed.
+        /// </summary>
+        internal static string Event_CommandExecFailed {
+            get {
+                return ResourceManager.GetString("Event_CommandExecFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Presence of contact &apos;{0}&apos; has changed from &apos;{1}&apos; to &apos;{2}&apos;.
         /// </summary>
         internal static string Event_PresenceChange {

@@ -1,4 +1,5 @@
 using System ;
+using System.Diagnostics ;
 using agsXMPP ;
 using agsXMPP.protocol.client ;
 using agsXMPP.protocol.iq.disco ;
@@ -14,18 +15,11 @@ namespace xeus2.xeus.Core
 		private bool _isDiscovered = false ;
 		private IQ _errorIq = null ;
 
-		private bool _isCommand = false ;
-
 		private Services _services = new Services() ;
 
 		public Service( DiscoItem discoItem )
 		{
 			_discoItem = discoItem ;
-		}
-
-		public Service( DiscoItem discoItem, bool isCommand ) : this( discoItem )
-		{
-			_isCommand = isCommand ;
 		}
 
 		public Service( DiscoInfo discoInfo )
@@ -108,6 +102,7 @@ namespace xeus2.xeus.Core
 			{
 				return _discoInfo ;
 			}
+
 			set
 			{
 				_discoInfo = value ;
@@ -116,6 +111,7 @@ namespace xeus2.xeus.Core
 				NotifyPropertyChanged( "Group" ) ;
 				NotifyPropertyChanged( "IsRegistrable" ) ;
 				NotifyPropertyChanged( "IsSearchable" ) ;
+				NotifyPropertyChanged( "IsCommand" ) ;
 			}
 		}
 
@@ -172,7 +168,19 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				return _isCommand ;
+				if ( DiscoInfo != null )
+				{
+					foreach ( DiscoIdentity identity in DiscoInfo.GetIdentities() )
+					{
+						if ( identity.Category == "automation"
+							&& identity.Type == "command-node" )
+						{
+							return true ;
+						}
+					}
+				}
+
+				return false ;
 			}
 		}
 

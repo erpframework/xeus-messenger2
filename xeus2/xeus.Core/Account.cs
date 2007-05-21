@@ -1,4 +1,5 @@
 using System ;
+using System.Diagnostics ;
 using agsXMPP ;
 using agsXMPP.net ;
 using agsXMPP.protocol.client ;
@@ -293,6 +294,12 @@ namespace xeus2.xeus.Core
 				DiscoInfo di = iq.Query as DiscoInfo ;
 
 				DiscoItem discoItem = data as DiscoItem ;
+				
+				
+				if ( discoItem.Node != null && discoItem.Node.StartsWith( "sett" ) )
+				{
+					
+				}
 
 				Services.Instance.OnServiceItemInfo( sender, discoItem, di ) ;
 			}
@@ -454,6 +461,7 @@ namespace xeus2.xeus.Core
 
 			if ( command != null )
 			{
+				CommandExecutor.Instance.DisplayQuestionaire( command, data as Service );
 			}
 			else
 			{
