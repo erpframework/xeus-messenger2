@@ -4,6 +4,7 @@ using System.Windows.Controls ;
 using agsXMPP.protocol.iq.register ;
 using agsXMPP.protocol.x.data ;
 using agsXMPP.Xml.Dom ;
+using xeus2.xeus.Commands ;
 using xeus2.xeus.Core ;
 using xeus2.xeus.Utilities ;
 

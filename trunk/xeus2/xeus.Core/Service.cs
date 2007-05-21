@@ -114,6 +114,8 @@ namespace xeus2.xeus.Core
 
 				NotifyPropertyChanged( "Name" ) ;
 				NotifyPropertyChanged( "Group" ) ;
+				NotifyPropertyChanged( "IsRegistrable" ) ;
+				NotifyPropertyChanged( "IsSearchable" ) ;
 			}
 		}
 

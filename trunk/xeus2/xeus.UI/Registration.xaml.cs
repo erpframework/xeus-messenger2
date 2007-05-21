@@ -1,6 +1,7 @@
 using System.Windows ;
 using agsXMPP ;
 using agsXMPP.protocol.iq.register ;
+using xeus2.xeus.Commands ;
 using xeus2.xeus.Core ;
 
 namespace xeus2.xeus.UI
