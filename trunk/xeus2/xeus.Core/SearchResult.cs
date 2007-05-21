@@ -1,6 +1,8 @@
 using System.Data ;
+using agsXMPP.protocol.iq.search ;
 using agsXMPP.protocol.x.data ;
 using agsXMPP.Xml.Dom ;
+using xeus2.Properties ;
 
 namespace xeus2.xeus.Core
 {
@@ -36,6 +38,51 @@ namespace xeus2.xeus.Core
 						row[ field.Var ] = field.GetValue() ;
 					}
 				}
+
+				Rows.Add( row ) ;
+			}
+		}
+
+		public SearchResult( SearchItem [] items )
+		{
+			DataColumn column = new DataColumn() ; 
+			column.DataType = typeof ( string ) ; 
+			column.Caption = Resources.Constant_Jid ; 
+			column.ColumnName = "jid" ; 
+			Columns.Add( column ) ;
+			
+			column = new DataColumn() ; 
+			column.DataType = typeof ( string ) ; 
+			column.Caption = Resources.Constant_FirstName ; 
+			column.ColumnName = "first" ; 
+			Columns.Add( column ) ;
+
+			column = new DataColumn() ; 
+			column.DataType = typeof ( string ) ; 
+			column.Caption = Resources.Constant_LastName ; 
+			column.ColumnName = "last" ; 
+			Columns.Add( column ) ;
+
+			column = new DataColumn() ; 
+			column.DataType = typeof ( string ) ; 
+			column.Caption = Resources.Constant_Nickname ; 
+			column.ColumnName = "nick" ; 
+			Columns.Add( column ) ;
+
+			column = new DataColumn() ; 
+			column.DataType = typeof ( string ) ; 
+			column.Caption = Resources.Constant_Email ; 
+			column.ColumnName = "email" ; 
+			Columns.Add( column ) ;
+
+			foreach ( SearchItem item in items )
+			{
+				DataRow row = NewRow() ;
+				row[ "jid" ] = item.Jid ;
+				row[ "first" ] = item.Firstname ;
+				row[ "last" ] = item.Lastname ;
+				row[ "nick" ] = item.Nickname ;
+				row[ "email" ] = item.Email ;
 
 				Rows.Add( row ) ;
 			}

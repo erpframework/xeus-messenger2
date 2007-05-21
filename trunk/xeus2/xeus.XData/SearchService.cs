@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System ;
 using agsXMPP.protocol.iq.search ;
 using agsXMPP.protocol.x.data ;
-using agsXMPP.Xml.Dom ;
 using xeus2.xeus.Core ;
 using xeus2.xeus.Utilities ;
 
@@ -115,25 +112,25 @@ namespace xeus2.xeus.XData
 				if ( XData == null )
 				{
 					if ( _search.Firstname != null
-							&& _textFirst.GetResult().GetValue() == String.Empty )
+					     && _textFirst.GetResult().GetValue() == String.Empty )
 					{
 						return false ;
 					}
 
 					if ( _search.Lastname != null
-							&& _textLast.GetResult().GetValue() == String.Empty )
+					     && _textLast.GetResult().GetValue() == String.Empty )
 					{
 						return false ;
 					}
 
 					if ( _search.Nickname != null
-							&& _textNick.GetResult().GetValue() == String.Empty )
+					     && _textNick.GetResult().GetValue() == String.Empty )
 					{
 						return false ;
 					}
 
 					if ( _search.Email != null
-							&& _textEmail.GetResult().GetValue() == String.Empty )
+					     && _textEmail.GetResult().GetValue() == String.Empty )
 					{
 						return false ;
 					}
@@ -163,7 +160,7 @@ namespace xeus2.xeus.XData
 			{
 				_search.Nickname = _textNick.GetResult().GetValue() ;
 			}
-			
+
 			if ( _textEmail != null )
 			{
 				_search.Email = _textEmail.GetResult().GetValue() ;

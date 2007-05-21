@@ -178,6 +178,11 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
+				if ( _discoInfo == null )
+				{
+					return false ;
+				}
+
 				return _discoInfo.HasFeature( Uri.IQ_REGISTER ) ;
 			}
 		}
@@ -186,6 +191,11 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
+				if ( _discoInfo == null )
+				{
+					return false ;
+				}
+
 				return _discoInfo.HasFeature( Uri.IQ_SEARCH ) ;
 			}
 		}
