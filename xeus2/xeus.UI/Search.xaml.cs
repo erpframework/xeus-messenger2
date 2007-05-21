@@ -1,14 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Windows ;
 using xeus2.xeus.Core ;
 
 namespace xeus2.xeus.UI
@@ -16,8 +6,7 @@ namespace xeus2.xeus.UI
 	/// <summary>
 	/// Interaction logic for Search.xaml
 	/// </summary>
-
-	public partial class Search : System.Windows.Window
+	public partial class Search : Window
 	{
 		internal Search( agsXMPP.protocol.iq.search.Search search, Service service )
 		{
@@ -39,11 +28,11 @@ namespace xeus2.xeus.UI
 			}
 			else
 			{
-				_search.UpdateData();
-	
+				_search.UpdateData() ;
+
 				Account.Instance.DoSearchService( _search.Service, _search.FirstName,
-				                                    _search.LastName, _search.Nickname,
-													_search.Email ) ;
+				                                  _search.LastName, _search.Nickname,
+				                                  _search.Email ) ;
 			}
 		}
 	}
