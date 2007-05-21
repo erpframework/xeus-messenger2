@@ -2,6 +2,7 @@ using System ;
 using agsXMPP ;
 using agsXMPP.net ;
 using agsXMPP.protocol.client ;
+using agsXMPP.protocol.extensions.commands ;
 using agsXMPP.protocol.iq.disco ;
 using agsXMPP.protocol.iq.register ;
 using agsXMPP.protocol.iq.roster ;
@@ -69,13 +70,6 @@ namespace xeus2.xeus.Core
 
 		private void _xmppConnection_OnIq( object sender, IQ iq )
 		{
-			if ( iq.Type == IqType.get )
-			{
-				if ( iq.Query is DiscoInfo )
-				{
-					// todo:
-				}
-			}
 		}
 
 		private void _xmppConnection_OnAuthError( object sender, Element e )
@@ -420,7 +414,6 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-
 		private void OnRegisterServiceGet( object sender, IQ iq, object data )
 		{
 			Register register = iq.Query as Register ;
@@ -440,6 +433,38 @@ namespace xeus2.xeus.Core
 			}
 		}
 
+		public void ServiceCommand( Service service )
+		{
+			IQ commandIq = new IQ( IqType.set );
+
+            commandIq.GenerateId() ;
+            commandIq.To = service.Jid ;
+
+			Command command = new Command( service.Node ) ;
+			command.Action = Action.execute ;
+
+			commandIq.AddChild( command );
+
+			_xmppConnection.IqGrabber.SendIq( commandIq, OnCommandResult, service ) ;
+		}
+
+		private void OnCommandResult( object sender, IQ iq, object data )
+		{
+			Command command = iq.Query as Command ;
+
+			if ( command != null )
+			{
+			}
+			else
+			{
+				Service service = data as Service ;
+
+				EventError eventError = new EventError( string.Format( Resources.Event_CommandExecFailed,
+				                                                       service.Name ), iq.Error ) ;
+
+				Events.Instance.OnEvent( eventError ) ;
+			}
+		}
 
 		public void Close()
 		{

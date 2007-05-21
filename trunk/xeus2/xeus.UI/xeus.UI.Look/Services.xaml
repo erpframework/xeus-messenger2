@@ -9,10 +9,28 @@
     <StackPanel Orientation="Horizontal">
       <Button x:Name="_register" Content="reg" Command="servicecmd:ServiceCommands.Register"
               CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=TreeViewItem},Path=DataContext}"/>
-			<Button x:Name="_search" Content="srch"/>
-			<Button x:Name="_run" Content="run"/>
-			<TextBlock Text="{Binding Path=Name}"/>
-		</StackPanel>
+			  
+      <Button x:Name="_search" Content="srch" Command="servicecmd:ServiceCommands.Search"
+              CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=TreeViewItem},Path=DataContext}"/>
+
+      <Button x:Name="_run" Content="run" Command="servicecmd:ServiceCommands.Run"
+              CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=TreeViewItem},Path=DataContext}"/>
+		
+		<TextBlock Text="{Binding Path=Name}"/>
+	</StackPanel>
+		
+  	<HierarchicalDataTemplate.Triggers>
+		<DataTrigger Binding="{Binding Path=IsRegistrable}" Value="False">
+  			<Setter Property="Visibility" TargetName="_register" Value="Collapsed"/>
+  		</DataTrigger>
+		<DataTrigger Binding="{Binding Path=IsSearchable}" Value="False">
+  			<Setter Property="Visibility" TargetName="_search" Value="Collapsed"/>
+  		</DataTrigger>
+		<DataTrigger Binding="{Binding Path=IsCommand}" Value="False">
+  			<Setter Property="Visibility" TargetName="_run" Value="Collapsed"/>
+  		</DataTrigger>
+  	</HierarchicalDataTemplate.Triggers>
+		
     </HierarchicalDataTemplate>
 
 </ResourceDictionary>
