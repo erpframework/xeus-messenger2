@@ -21,6 +21,9 @@ namespace xeus2.xeus.XData
 			DataTable table = new SearchResult( data.Reported, data.GetItems() ) ;
 			_listView.DataContext = table ;
 
+			XDataSearchResultHeader gridView = new XDataSearchResultHeader( data.Reported ) ;
+			_listView.View = gridView ;
+
 			Binding bind = new Binding() ;
 			_listView.DataContext = table ;
 			_listView.SetBinding( ListView.ItemsSourceProperty, bind ) ;
