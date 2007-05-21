@@ -210,4 +210,7 @@
   <data name="Event_RegInfoFailed" xml:space="preserve">
     <value>Getting registration Info of Service '{0}'</value>
   </data>
+  <data name="Constant_Jid" xml:space="preserve">
+    <value>JID</value>
+  </data>
 </root>
