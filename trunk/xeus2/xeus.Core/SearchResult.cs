@@ -37,7 +37,7 @@ namespace xeus2.xeus.Core
 					}
 				}
 
-				Rows.Add() ;
+				Rows.Add( row ) ;
 			}
 		}
 	}

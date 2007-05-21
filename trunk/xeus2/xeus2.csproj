@@ -166,6 +166,7 @@
       <SubType>Code</SubType>
       <DependentUpon>XDataResultView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="xeus.XData\XDataSearchResultHeader.cs" />
     <Compile Include="xeus.XData\XDataSecret.cs" />
     <Compile Include="xeus.XData\XDataTextBox.cs" />
     <AppDesigner Include="Properties\" />
