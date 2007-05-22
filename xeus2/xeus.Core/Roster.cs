@@ -90,10 +90,9 @@ namespace xeus2.xeus.Core
 				{
 					Add( new Contact( item ) ) ;
 				}
-				else
+				else if ( item.Subscription == SubscriptionType.remove)
 				{
-					// todo:
-					throw new ApplicationException( "Can't find contact" ) ;
+					Remove( contact ) ;
 				}
 			}
 		}

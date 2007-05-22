@@ -151,6 +151,15 @@ namespace xeus2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Incomplete data from server.
+        /// </summary>
+        internal static string Constant_IncompleteData {
+            get {
+                return ResourceManager.GetString("Constant_IncompleteData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to JID.
         /// </summary>
         internal static string Constant_Jid {
