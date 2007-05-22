@@ -28,11 +28,11 @@ namespace xeus2.xeus.Middle
 			if ( searchWindow == null )
 			{
 				searchWindow = new UI.Search( search, service ) ;
+				searchWindow.Closing += new System.ComponentModel.CancelEventHandler( searchWindow_Closing );
 				searchWindow.DataContext = service ;
 				AddWindow( service, searchWindow );
 			}
 
-			searchWindow.Closing += new System.ComponentModel.CancelEventHandler( searchWindow_Closing );
 			searchWindow.Show() ;
 		}
 

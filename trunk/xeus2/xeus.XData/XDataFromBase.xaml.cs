@@ -31,6 +31,11 @@ namespace xeus2.xeus.XData
 			}
 		}
 
+		protected void ClearXForm()
+		{
+			_container.Children.Remove( _xDataContainer );
+		}
+
 		protected void SetupXData( Data xData )
 		{
 			if ( string.IsNullOrEmpty( xData.Title ) )
@@ -53,7 +58,7 @@ namespace xeus2.xeus.XData
 
 			if ( _xDataContainer != null )
 			{
-				_container.Children.Remove( _xDataContainer );
+				ClearXForm();
 			}
 
 			_xDataContainer = new XDataContainer() ;

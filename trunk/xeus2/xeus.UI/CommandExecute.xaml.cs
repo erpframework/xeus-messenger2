@@ -21,6 +21,11 @@ namespace xeus2.xeus.UI
 			_execute.Setup( serviceCommandExecution ) ;
 		}
 
+		protected void OnClose( object sender, RoutedEventArgs eventArgs )
+		{
+			Close() ;
+		}
+
 		protected override void OnInitialized( System.EventArgs e )
 		{
 			base.OnInitialized( e );

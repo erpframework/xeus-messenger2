@@ -216,4 +216,7 @@
   <data name="Event_CommandExecFailed" xml:space="preserve">
     <value>Command execution of service {0} failed</value>
   </data>
+  <data name="Constant_IncompleteData" xml:space="preserve">
+    <value>Incomplete data from server</value>
+  </data>
 </root>

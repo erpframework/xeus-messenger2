@@ -25,6 +25,19 @@ namespace xeus2.xeus.XData
 
 			if ( _xData == null )
 			{
+				_title.Text = Service.Name ;
+				_instructions.Visibility = System.Windows.Visibility.Visible ;
+
+				ClearXForm();
+
+				if ( !string.IsNullOrEmpty( _command.Node ) )
+				{
+					_instructions.Text = _command.Note.Value ;
+				}
+				else
+				{
+					_instructions.Text = Properties.Resources.Constant_IncompleteData ;
+				}
 			}
 			else
 			{
