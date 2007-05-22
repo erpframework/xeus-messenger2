@@ -1,6 +1,8 @@
 using System.Windows.Threading ;
 using agsXMPP.protocol.client ;
 using agsXMPP.protocol.iq.disco ;
+using agsXMPP.protocol.x.data ;
+using agsXMPP.Xml.Dom ;
 using xeus2.Properties ;
 using xeus2.xeus.Utilities ;
 
@@ -14,6 +16,8 @@ namespace xeus2.xeus.Core
 
 		private delegate void OnServiceItemErrorCallback( IQ iq ) ;
 
+		private delegate void OnCommandsItemInfoCallback( DiscoItem discoItem, IQ iq ) ;
+
 		private static Services _instance = new Services() ;
 
 		public static Services Instance
@@ -24,6 +28,12 @@ namespace xeus2.xeus.Core
 			}
 		}
 
+		public void OnCommandsItemInfo( object sender, DiscoItem discoItem, IQ iq )
+		{
+			App.InvokeSafe( DispatcherPriority.Background,
+			                new OnCommandsItemInfoCallback( OnCommandsItemInfo ), discoItem, iq ) ;
+		}
+		
 		public void OnServiceItemInfo( object sender, DiscoItem discoItem, DiscoInfo info )
 		{
 			App.InvokeSafe( DispatcherPriority.Background,
@@ -46,6 +56,27 @@ namespace xeus2.xeus.Core
 		{
 			EventInfo eventInfo = new EventInfo( string.Format( Resources.Error_ServiceDiscoFailed, iq.From, iq.Error.Code ) ) ;
 			Events.Instance.OnEvent( eventInfo ) ;
+		}
+
+		public void OnCommandsItemInfo( DiscoItem discoItem, IQ iq )
+		{
+			foreach ( Node node in iq.Query.ChildNodes )
+			{
+				DiscoItem item = node as DiscoItem ;
+
+				if ( item != null )
+				{
+					lock ( _syncObject )
+					{
+						Service service = FindService( item ) ;
+
+						if ( service != null )
+						{
+							service.IsCommand = true ;
+						}
+					}
+				}
+			}
 		}
 
 		public void OnServiceItemInfo( DiscoItem discoItem, DiscoInfo info )

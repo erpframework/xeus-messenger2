@@ -277,7 +277,15 @@ namespace xeus2.xeus.Core
 						{
 							Services.Instance.OnServiceItem( sender, itm, data as DiscoItem ) ;
 
-							dm.DisoverInformation( itm.Jid, new IqCB( OnDiscoInfoResult ), itm ) ;
+							if ( string.IsNullOrEmpty( itm.Node ) )
+							{
+								dm.DisoverInformation( itm.Jid, new IqCB( OnDiscoInfoResult ), itm ) ;
+							}
+							else
+							{
+								dm.DisoverInformation( itm.Jid, itm.Node, new IqCB( OnDiscoInfoResult ), itm ) ;
+							}
+
 							AddItemToDiscover() ;
 
 							Discovery( itm ) ;
@@ -294,11 +302,16 @@ namespace xeus2.xeus.Core
 				DiscoInfo di = iq.Query as DiscoInfo ;
 
 				DiscoItem discoItem = data as DiscoItem ;
-				
-				
-				if ( discoItem.Node != null && discoItem.Node.StartsWith( "sett" ) )
+
+				if ( di.HasFeature( agsXMPP.Uri.COMMANDS ) )
 				{
-					
+					DiscoManager discoManager = new DiscoManager( _xmppConnection ) ;
+
+					discoManager.DisoverItems( discoItem.Jid, 
+												agsXMPP.Uri.COMMANDS,
+												new IqCB( OnCommandsServerResult ),
+												discoItem ) ;
+					AddItemToDiscover() ;
 				}
 
 				Services.Instance.OnServiceItemInfo( sender, discoItem, di ) ;
@@ -310,6 +323,17 @@ namespace xeus2.xeus.Core
 
 			RemoveItemToDiscover() ;
 		}
+
+		private void OnCommandsServerResult( object sender, IQ iq, object data )
+		{
+			if ( iq.Type == IqType.result )
+			{
+				Services.Instance.OnCommandsItemInfo( this, data as DiscoItem, iq ) ;
+			}
+
+			RemoveItemToDiscover() ;
+		}
+
 
 		public void DoSearchService( Service service, Data data )
 		{

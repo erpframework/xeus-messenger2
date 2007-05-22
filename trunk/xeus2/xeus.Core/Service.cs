@@ -16,6 +16,7 @@ namespace xeus2.xeus.Core
 		private IQ _errorIq = null ;
 
 		private Services _services = new Services() ;
+		private bool _isCommand = false ;
 
 		public Service( DiscoItem discoItem )
 		{
@@ -107,11 +108,20 @@ namespace xeus2.xeus.Core
 			{
 				_discoInfo = value ;
 
+				foreach ( DiscoIdentity identity in _discoInfo.GetIdentities() )
+				{
+					if ( identity.Category == "automation" )
+					{
+						_isCommand = true ;
+						NotifyPropertyChanged( "IsCommand" ) ;
+						break ;
+					}
+				}
+
 				NotifyPropertyChanged( "Name" ) ;
 				NotifyPropertyChanged( "Group" ) ;
 				NotifyPropertyChanged( "IsRegistrable" ) ;
 				NotifyPropertyChanged( "IsSearchable" ) ;
-				NotifyPropertyChanged( "IsCommand" ) ;
 			}
 		}
 
@@ -168,19 +178,13 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				if ( DiscoInfo != null )
-				{
-					foreach ( DiscoIdentity identity in DiscoInfo.GetIdentities() )
-					{
-						if ( identity.Category == "automation"
-							&& identity.Type == "command-node" )
-						{
-							return true ;
-						}
-					}
-				}
+				return _isCommand ;
+			}
 
-				return false ;
+			set
+			{
+				_isCommand = value ;
+				NotifyPropertyChanged( "IsCommand" ) ;
 			}
 		}
 
