@@ -51,6 +51,11 @@ namespace xeus2.xeus.XData
 				_instructions.Text = xData.Instructions ;
 			}
 
+			if ( _xDataContainer != null )
+			{
+				_container.Children.Remove( _xDataContainer );
+			}
+
 			_xDataContainer = new XDataContainer() ;
 			_container.Children.Add( _xDataContainer ) ;
 

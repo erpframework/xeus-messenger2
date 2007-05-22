@@ -489,7 +489,14 @@ namespace xeus2.xeus.Core
 
 					if ( command != null )
 					{
-						CommandExecutor.Instance.DisplayQuestionaire( command, data as Service ) ;
+						Service service = data as Service ;
+
+						if ( service == null )
+						{
+							service = ( data as ServiceCommandExecution ).Service ;
+						}
+
+						CommandExecutor.Instance.DisplayQuestionaire( command, service ) ;
 						break ;
 					}
 				}
@@ -513,7 +520,7 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		public void ServiceCommandPrevious( ServiceCommandExecution command )
+		protected void ExecuteServiceCommand( ServiceCommandExecution command, Action action )
 		{
 			IQ commandIq = new IQ( IqType.set );
 
@@ -521,27 +528,27 @@ namespace xeus2.xeus.Core
             commandIq.To = command.Service.Jid ;
 
 			Command commandExec = new Command( command.Command.Node ) ;
-			commandExec.Action = Action.prev ;
+			commandExec.Action = action ;
+			commandExec.SessionId = command.Command.SessionId ;
 
 			commandIq.AddChild( commandExec );
 
-			_xmppConnection.IqGrabber.SendIq( commandIq, OnCommandExecutionResult, command ) ;
+			_xmppConnection.IqGrabber.SendIq( commandIq, OnCommandResult, command ) ;
 		}
 
-		private void OnCommandExecutionResult( object sender, IQ iq, object data )
+		public void ServiceCommandComplete( ServiceCommandExecution command )
 		{
-			if ( iq.Type == IqType.result )
-			{
-			}
-			else
-			{
-				ServiceCommandExecution command = data as ServiceCommandExecution ;
+			ExecuteServiceCommand( command, Action.complete );
+		}
 
-				EventError eventError = new EventError( string.Format( "Executing command on service {0} failed",
-				                                                       command.Service.Name ), iq.Error ) ;
+		public void ServiceCommandNext( ServiceCommandExecution command )
+		{
+			ExecuteServiceCommand( command, Action.next );
+		}
 
-				Events.Instance.OnEvent( eventError ) ;
-			}
+		public void ServiceCommandPrevious( ServiceCommandExecution command )
+		{
+			ExecuteServiceCommand( command, Action.prev );
 		}
 	}
 }

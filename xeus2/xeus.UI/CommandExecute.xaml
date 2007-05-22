@@ -11,7 +11,10 @@
     <StackPanel Orientation="Horizontal">
       <Button x:Name="_previous" Content="Previous" Command="servicecmd:ServiceCommands.Previous"
               CommandParameter="{Binding}"/>
-      <Button Content="Next"/>
+      <Button x:Name="_next" Content="Next" Command="servicecmd:ServiceCommands.Next"
+              CommandParameter="{Binding}"/>
+      <Button x:Name="_complete" Content="Complete" Command="servicecmd:ServiceCommands.Complete"
+              CommandParameter="{Binding}"/>
       <Button Content="Finish"/>
       <Button Content="Ok"/>
       <Button Content="Cancel"/>
