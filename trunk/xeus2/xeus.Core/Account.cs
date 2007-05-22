@@ -481,11 +481,18 @@ namespace xeus2.xeus.Core
 
 		private void OnCommandResult( object sender, IQ iq, object data )
 		{
-			Command command = iq.Query as Command ;
-
-			if ( command != null )
+			if ( iq.Type == IqType.result )
 			{
-				CommandExecutor.Instance.DisplayQuestionaire( command, data as Service );
+				foreach ( Node node in iq.ChildNodes )
+				{
+					Command command = node as Command ;
+
+					if ( command != null )
+					{
+						CommandExecutor.Instance.DisplayQuestionaire( command, data as Service ) ;
+						break ;
+					}
+				}
 			}
 			else
 			{
@@ -503,6 +510,37 @@ namespace xeus2.xeus.Core
 			if ( IsLogged )
 			{
 				_xmppConnection.Close() ;
+			}
+		}
+
+		public void ServiceCommandPrevious( ServiceCommandExecution command )
+		{
+			IQ commandIq = new IQ( IqType.set );
+
+            commandIq.GenerateId() ;
+            commandIq.To = command.Service.Jid ;
+
+			Command commandExec = new Command( command.Command.Node ) ;
+			commandExec.Action = Action.prev ;
+
+			commandIq.AddChild( commandExec );
+
+			_xmppConnection.IqGrabber.SendIq( commandIq, OnCommandExecutionResult, command ) ;
+		}
+
+		private void OnCommandExecutionResult( object sender, IQ iq, object data )
+		{
+			if ( iq.Type == IqType.result )
+			{
+			}
+			else
+			{
+				ServiceCommandExecution command = data as ServiceCommandExecution ;
+
+				EventError eventError = new EventError( string.Format( "Executing command on service {0} failed",
+				                                                       command.Service.Name ), iq.Error ) ;
+
+				Events.Instance.OnEvent( eventError ) ;
 			}
 		}
 	}

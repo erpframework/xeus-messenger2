@@ -1,15 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using agsXMPP.protocol.extensions.commands ;
+using System.Windows ;
+using xeus2.xeus.Commands ;
 using xeus2.xeus.Core ;
 
 namespace xeus2.xeus.UI
@@ -17,30 +7,20 @@ namespace xeus2.xeus.UI
 	/// <summary>
 	/// Interaction logic for CommandExecute.xaml
 	/// </summary>
-
-	public partial class CommandExecute : System.Windows.Window
+	public partial class CommandExecute : Window
 	{
-		internal CommandExecute( Command command, Service service )
+		internal CommandExecute( ServiceCommandExecution serviceCommandExecution )
 		{
 			InitializeComponent() ;
 
-			_execute.Setup( command, service ) ;
+			_execute.Setup( serviceCommandExecution ) ;
 		}
 
-		protected void OnExecute( object sender, RoutedEventArgs eventArgs )
+		protected override void OnInitialized( System.EventArgs e )
 		{
-			if ( !_execute.IsValid )
-			{
-				return ;
-			}
+			base.OnInitialized( e );
 
-			if ( _execute.XData != null )
-			{
-				// Account.Instance.DoSearchService( _execute.Service, _search.GetResult() ) ;
-			}
-			else
-			{
-			}
+			ServiceCommands.RegisterCommands( this );
 		}
 	}
 }
