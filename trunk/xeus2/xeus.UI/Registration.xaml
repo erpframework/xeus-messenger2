@@ -7,6 +7,6 @@
     >
     <StackPanel>
     	<xeus2_xeus_XData:InBandRegistration x:Name="_registration"/>
-      <Button Click="OnRegister">Register</Button>
+      <Button x:Name="_register" Content="Register" Click="OnRegister"/>
     </StackPanel>
-</Window>
+  </Window>

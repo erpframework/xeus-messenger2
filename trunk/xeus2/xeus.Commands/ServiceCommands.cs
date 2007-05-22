@@ -25,6 +25,9 @@ namespace xeus2.xeus.Commands
 		private static RoutedUICommand _complete =
 			new RoutedUICommand( "Complete", "ServiceCommandComplete", typeof ( ServiceCommands ) ) ;
 
+		private static RoutedUICommand _cancel =
+			new RoutedUICommand( "Cancel", "ServiceCommandCancel", typeof ( ServiceCommands ) ) ;
+
 		public static RoutedUICommand Register
 		{
 			get
@@ -73,6 +76,14 @@ namespace xeus2.xeus.Commands
 			}
 		}
 
+		public static RoutedUICommand Cancel
+		{
+			get
+			{
+				return _cancel ;
+			}
+		}
+
 		public static void RegisterCommands( Window window )
 		{
 			window.CommandBindings.Add(
@@ -92,6 +103,9 @@ namespace xeus2.xeus.Commands
 
 			window.CommandBindings.Add(
 				new CommandBinding( _complete, ExecuteRunComplete, CanExecuteRunComplete ) ) ;
+
+			window.CommandBindings.Add(
+				new CommandBinding( _cancel, ExecuteRunCancel, CanExecuteRunCancel ) ) ;
 		}
 
 		public static void CanExecuteRegister( object sender, CanExecuteRoutedEventArgs e )
@@ -151,8 +165,8 @@ namespace xeus2.xeus.Commands
 
 			e.Handled = true ;
 			e.CanExecute = ( command != null
-							&& command.Command.Actions != null
-							&& command.Command.Actions.Previous ) ;
+			                 && command.Command.Actions != null
+			                 && command.Command.Actions.Previous ) ;
 		}
 
 		public static void ExecuteRunPrevious( object sender, ExecutedRoutedEventArgs e )
@@ -170,8 +184,8 @@ namespace xeus2.xeus.Commands
 
 			e.Handled = true ;
 			e.CanExecute = ( command != null
-							&& command.Command.Actions != null
-							&& command.Command.Actions.Next ) ;
+			                 && command.Command.Actions != null
+			                 && command.Command.Actions.Next ) ;
 		}
 
 		public static void ExecuteRunNext( object sender, ExecutedRoutedEventArgs e )
@@ -189,8 +203,8 @@ namespace xeus2.xeus.Commands
 
 			e.Handled = true ;
 			e.CanExecute = ( command != null
-							&& command.Command.Actions != null
-							&& command.Command.Actions.Complete ) ;
+			                 && command.Command.Actions != null
+			                 && command.Command.Actions.Complete ) ;
 		}
 
 		public static void ExecuteRunComplete( object sender, ExecutedRoutedEventArgs e )
@@ -198,6 +212,25 @@ namespace xeus2.xeus.Commands
 			ServiceCommandExecution command = e.Parameter as ServiceCommandExecution ;
 
 			Account.Instance.ServiceCommandComplete( command ) ;
+
+			e.Handled = true ;
+		}
+
+		public static void CanExecuteRunCancel( object sender, CanExecuteRoutedEventArgs e )
+		{
+			ServiceCommandExecution command = e.Parameter as ServiceCommandExecution ;
+
+			e.Handled = true ;
+			e.CanExecute = ( command != null
+			                 && command.Command != null
+			                 && command.Command.Status == Status.executing ) ;
+		}
+
+		public static void ExecuteRunCancel( object sender, ExecutedRoutedEventArgs e )
+		{
+			ServiceCommandExecution command = e.Parameter as ServiceCommandExecution ;
+
+			Account.Instance.ServiceCommandCancel( command ) ;
 
 			e.Handled = true ;
 		}
