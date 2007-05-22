@@ -555,5 +555,10 @@ namespace xeus2.xeus.Core
 		{
 			ExecuteServiceCommand( command, Action.cancel );
 		}
+
+		public void RequestVCard( RosterItem item )
+		{
+			
+		}
 	}
 }
