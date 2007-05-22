@@ -36,6 +36,8 @@ namespace xeus2.xeus.UI
 				Account.Instance.DoRegisterService( _registration.Service, _registration.UserName,
 				                                    _registration.Password, _registration.Email ) ;
 			}
+
+			Close() ;
 		}
 	}
 }

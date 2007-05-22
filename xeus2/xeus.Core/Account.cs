@@ -550,5 +550,10 @@ namespace xeus2.xeus.Core
 		{
 			ExecuteServiceCommand( command, Action.prev );
 		}
+
+		public void ServiceCommandCancel( ServiceCommandExecution command )
+		{
+			ExecuteServiceCommand( command, Action.cancel );
+		}
 	}
 }
