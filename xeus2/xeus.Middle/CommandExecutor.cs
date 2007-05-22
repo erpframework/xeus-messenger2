@@ -30,6 +30,7 @@ namespace xeus2.xeus.Middle
 			if ( commandExecuteWindow == null )
 			{
 				commandExecuteWindow = new CommandExecute( serviceCommandExecution ) ;
+				commandExecuteWindow.Closing += new CancelEventHandler( commandExecuteWindow_Closing ) ;
 				AddWindow( service.Jid.ToString(), commandExecuteWindow ) ;
 			}
 			else
@@ -38,7 +39,6 @@ namespace xeus2.xeus.Middle
 			}
 
 			commandExecuteWindow.DataContext = serviceCommandExecution ;
-			commandExecuteWindow.Closing += new CancelEventHandler( commandExecuteWindow_Closing ) ;
 			commandExecuteWindow.Show() ;
 		}
 
@@ -52,7 +52,7 @@ namespace xeus2.xeus.Middle
 
 		public void DisplayQuestionaire( Command command, Service service )
 		{
-			App.InvokeSafe( DispatcherPriority.Normal,
+			App.InvokeSafe( DispatcherPriority.Background,
 			                new DisplayCallback( DisplayQuestionaireInternal ), command, service ) ;
 		}
 	}
