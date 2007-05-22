@@ -8,13 +8,13 @@
   <HierarchicalDataTemplate x:Key="ServicesTemplate" ItemsSource="{Binding Path=Services}">
     <StackPanel Orientation="Horizontal">
       <Button x:Name="_register" Content="reg" Command="servicecmd:ServiceCommands.Register"
-              CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=TreeViewItem},Path=DataContext}"/>
+              CommandParameter="{Binding}"/>
 			  
       <Button x:Name="_search" Content="srch" Command="servicecmd:ServiceCommands.Search"
-              CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=TreeViewItem},Path=DataContext}"/>
+              CommandParameter="{Binding}"/>
 
       <Button x:Name="_run" Content="run" Command="servicecmd:ServiceCommands.Run"
-              CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=TreeViewItem},Path=DataContext}"/>
+              CommandParameter="{Binding}"/>
 		
 		<TextBlock Text="{Binding Path=Name}"/>
 	</StackPanel>

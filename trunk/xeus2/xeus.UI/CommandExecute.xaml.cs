@@ -16,6 +16,11 @@ namespace xeus2.xeus.UI
 			_execute.Setup( serviceCommandExecution ) ;
 		}
 
+		internal void Redisplay( ServiceCommandExecution serviceCommandExecution )
+		{
+			_execute.Setup( serviceCommandExecution ) ;
+		}
+
 		protected override void OnInitialized( System.EventArgs e )
 		{
 			base.OnInitialized( e );

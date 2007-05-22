@@ -1,14 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel ;
 using System.Windows ;
 using System.Windows.Threading ;
 using agsXMPP.protocol.extensions.commands ;
 using xeus2.xeus.Core ;
+using xeus2.xeus.UI ;
 
 namespace xeus2.xeus.Middle
 {
-	internal class CommandExecutor : WindowManager< Service, UI.CommandExecute >
+	internal class CommandExecutor : WindowManager< string, CommandExecute >
 	{
 		private static CommandExecutor _instance = new CommandExecutor() ;
 
@@ -24,25 +23,29 @@ namespace xeus2.xeus.Middle
 
 		protected void DisplayQuestionaireInternal( Command command, Service service )
 		{
-			UI.CommandExecute commandExecuteWindow = GetWindow( service ) ;
+			CommandExecute commandExecuteWindow = GetWindow( service.Jid.ToString() ) ;
+
+			ServiceCommandExecution serviceCommandExecution = new ServiceCommandExecution( command, service ) ;
 
 			if ( commandExecuteWindow == null )
 			{
-				ServiceCommandExecution serviceCommandExecution = new ServiceCommandExecution( command, service ) ;
-				commandExecuteWindow = new UI.CommandExecute( serviceCommandExecution ) ;
-				commandExecuteWindow.DataContext = serviceCommandExecution ;
-
-				AddWindow( service, commandExecuteWindow );
+				commandExecuteWindow = new CommandExecute( serviceCommandExecution ) ;
+				AddWindow( service.Jid.ToString(), commandExecuteWindow ) ;
+			}
+			else
+			{
+				commandExecuteWindow.Redisplay( serviceCommandExecution ) ;
 			}
 
-			commandExecuteWindow.Closing += new System.ComponentModel.CancelEventHandler( commandExecuteWindow_Closing );
+			commandExecuteWindow.DataContext = serviceCommandExecution ;
+			commandExecuteWindow.Closing += new CancelEventHandler( commandExecuteWindow_Closing ) ;
 			commandExecuteWindow.Show() ;
 		}
 
-		void commandExecuteWindow_Closing( object sender, System.ComponentModel.CancelEventArgs e )
+		private void commandExecuteWindow_Closing( object sender, CancelEventArgs e )
 		{
 			ServiceCommandExecution execution = ( ( Window ) sender ).DataContext as ServiceCommandExecution ;
-			RemoveWindow( execution.Service );
+			RemoveWindow( execution.Service.Jid.ToString() ) ;
 
 			( ( Window ) sender ).Closing -= commandExecuteWindow_Closing ;
 		}
@@ -52,6 +55,5 @@ namespace xeus2.xeus.Middle
 			App.InvokeSafe( DispatcherPriority.Normal,
 			                new DisplayCallback( DisplayQuestionaireInternal ), command, service ) ;
 		}
-
 	}
 }
