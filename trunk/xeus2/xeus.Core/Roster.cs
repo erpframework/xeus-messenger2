@@ -89,6 +89,8 @@ namespace xeus2.xeus.Core
 				if ( contact == null )
 				{
 					Add( new Contact( item ) ) ;
+
+					Account.Instance.RequestVCard( item );
 				}
 				else if ( item.Subscription == SubscriptionType.remove)
 				{

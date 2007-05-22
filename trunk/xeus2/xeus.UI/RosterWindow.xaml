@@ -28,7 +28,7 @@
 
     <StackPanel>
       
-      <ListBox ItemsSource="{Binding Source={StaticResource Contacts}}" Height="100"
+      <ListBox ItemsSource="{Binding Source={StaticResource Contacts}}" Height="300"
                ItemsPanel="{DynamicResource ItemsPanelTemplateRoster}"
                ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemTemplate="{DynamicResource Contact}"
                MouseDoubleClick="RosterMouseDoubleClick"
@@ -56,7 +56,7 @@
 	  </ListBox>
       
       <TreeView ItemsSource="{Binding Source={StaticResource ServicesDS}, Path=Instance}"
-                ItemTemplate="{DynamicResource ServicesTemplate}" Height="200"
+                ItemTemplate="{DynamicResource ServicesTemplate}" Height="100"
                 x:Name="_services"/>
 
       <ListBox ItemsSource="{Binding Path=Instance, Mode=Default, Source={StaticResource EventsDS}}" Height="100"/>
