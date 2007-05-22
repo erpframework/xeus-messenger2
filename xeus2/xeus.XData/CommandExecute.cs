@@ -16,10 +16,10 @@ namespace xeus2.xeus.XData
 			}
 		}
 
-		internal void Setup( Command command, Service service )
+		internal void Setup( ServiceCommandExecution serviceCommandExecution )
 		{
-			Service = service ;
-			_command = command ;
+			Service = serviceCommandExecution.Service ;
+			_command = serviceCommandExecution.Command ;
 
 			_xData = ElementUtil.GetData( _command ) ;
 

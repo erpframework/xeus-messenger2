@@ -28,8 +28,10 @@ namespace xeus2.xeus.Middle
 
 			if ( commandExecuteWindow == null )
 			{
-				commandExecuteWindow = new UI.CommandExecute( command, service ) ;
-				commandExecuteWindow.DataContext = service ;
+				ServiceCommandExecution serviceCommandExecution = new ServiceCommandExecution( command, service ) ;
+				commandExecuteWindow = new UI.CommandExecute( serviceCommandExecution ) ;
+				commandExecuteWindow.DataContext = serviceCommandExecution ;
+
 				AddWindow( service, commandExecuteWindow );
 			}
 
@@ -39,7 +41,9 @@ namespace xeus2.xeus.Middle
 
 		void commandExecuteWindow_Closing( object sender, System.ComponentModel.CancelEventArgs e )
 		{
-			RemoveWindow( ( ( Window )sender ).DataContext as Service );
+			ServiceCommandExecution execution = ( ( Window ) sender ).DataContext as ServiceCommandExecution ;
+			RemoveWindow( execution.Service );
+
 			( ( Window ) sender ).Closing -= commandExecuteWindow_Closing ;
 		}
 

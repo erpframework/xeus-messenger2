@@ -1,5 +1,6 @@
 using System.Windows ;
 using System.Windows.Input ;
+using agsXMPP.protocol.extensions.commands ;
 using xeus2.xeus.Core ;
 
 namespace xeus2.xeus.Commands
@@ -14,6 +15,9 @@ namespace xeus2.xeus.Commands
 
 		private static RoutedUICommand _run =
 			new RoutedUICommand( "Run command", "ServiceCommandRun", typeof ( ServiceCommands ) ) ;
+
+		private static RoutedUICommand _previous =
+			new RoutedUICommand( "Previous", "ServiceCommandPrevious", typeof ( ServiceCommands ) ) ;
 
 		public static RoutedUICommand Register
 		{
@@ -39,6 +43,14 @@ namespace xeus2.xeus.Commands
 			}
 		}
 
+		public static RoutedUICommand Previous
+		{
+			get
+			{
+				return _previous ;
+			}
+		}
+
 		public static void RegisterCommands( Window window )
 		{
 			window.CommandBindings.Add(
@@ -49,6 +61,9 @@ namespace xeus2.xeus.Commands
 
 			window.CommandBindings.Add(
 				new CommandBinding( _run, ExecuteRun, CanExecuteRun ) ) ;
+
+			window.CommandBindings.Add(
+				new CommandBinding( _previous, ExecuteRunPrevious, CanExecuteRunPrevious ) ) ;
 		}
 
 		public static void CanExecuteRegister( object sender, CanExecuteRoutedEventArgs e )
@@ -98,6 +113,23 @@ namespace xeus2.xeus.Commands
 			Service service = e.Parameter as Service ;
 
 			Account.Instance.ServiceCommand( service ) ;
+
+			e.Handled = true ;
+		}
+
+		public static void CanExecuteRunPrevious( object sender, CanExecuteRoutedEventArgs e )
+		{
+			ServiceCommandExecution command = e.Parameter as ServiceCommandExecution ;
+
+			e.Handled = true ;
+			e.CanExecute = ( command != null && command.Command.Actions.Previous ) ;
+		}
+
+		public static void ExecuteRunPrevious( object sender, ExecutedRoutedEventArgs e )
+		{
+			ServiceCommandExecution command = e.Parameter as ServiceCommandExecution ;
+
+			Account.Instance.ServiceCommandPrevious( command ) ;
 
 			e.Handled = true ;
 		}
