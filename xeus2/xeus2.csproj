@@ -70,6 +70,7 @@
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
     <Page Include="xeus.UI\CommandExecute.xaml" />
+    <Page Include="xeus.UI\Muc.xaml" />
     <Page Include="xeus.UI\Registration.xaml" />
     <Page Include="xeus.UI\RoomInfo.xaml" />
     <Page Include="xeus.UI\RoomLogin.xaml" />
@@ -138,6 +139,10 @@
     <Compile Include="xeus.UI\CommandExecute.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>CommandExecute.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xeus.UI\Muc.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>Muc.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\Registration.xaml.cs">
       <SubType>Code</SubType>

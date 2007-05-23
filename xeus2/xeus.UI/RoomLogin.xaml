@@ -8,8 +8,10 @@
       <TextBlock Text="{Binding Path=Jid}"/>
       <TextBlock Text="Nickname"/>
       <TextBox x:Name="_nick"/>
-      <TextBlock Text="Password"/>
-      <PasswordBox x:Name="_password"/>
+      <StackPanel x:Name="_passwordPanel">
+        <TextBlock Text="Password"/>
+        <PasswordBox x:Name="_password"/>
+      </StackPanel>
       <Button Content="Join" Click="OnJoin"/>
     </StackPanel>
 </Window>

@@ -91,29 +91,38 @@ namespace xeus2.xeus.Core
 
 		private void _xmppConnection_OnPresence( object sender, Presence pres )
 		{
-			switch ( pres.Type )
+			if ( pres.Error != null )
 			{
-				case PresenceType.subscribe:
-					{
-						break ;
-					}
-				case PresenceType.subscribed:
-					{
-						break ;
-					}
-				case PresenceType.unsubscribe:
-					{
-						break ;
-					}
-				case PresenceType.unsubscribed:
-					{
-						break ;
-					}
-				default:
-					{
-						Roster.Instance.OnPresence( sender, pres ) ;
-						break ;
-					}
+				EventError eventError = new EventError( string.Format( "Presence error from {0}", pres.From ),
+														pres.Error ) ;
+				Events.Instance.OnEvent( eventError ) ;
+			}
+			else
+			{
+				switch ( pres.Type )
+				{
+					case PresenceType.subscribe:
+						{
+							break ;
+						}
+					case PresenceType.subscribed:
+						{
+							break ;
+						}
+					case PresenceType.unsubscribe:
+						{
+							break ;
+						}
+					case PresenceType.unsubscribed:
+						{
+							break ;
+						}
+					default:
+						{
+							Roster.Instance.OnPresence( sender, pres ) ;
+							break ;
+						}
+				}
 			}
 		}
 
