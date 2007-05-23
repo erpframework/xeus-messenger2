@@ -290,7 +290,8 @@ namespace xeus2.xeus.Core
 
 		public override string ToString()
 		{
-			return Name ;
+			//return Name ;
+			return Jid.ToString() ;
 		}
 	}
 }
