@@ -119,6 +119,7 @@ namespace xeus2.xeus.XData
 					}
 				default:
 					{
+						control = new XDataFixed() ;
 						break ;
 					}
 			}

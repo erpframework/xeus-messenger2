@@ -1,5 +1,4 @@
 using System ;
-using System.Diagnostics ;
 using agsXMPP ;
 using agsXMPP.protocol.client ;
 using agsXMPP.protocol.iq.disco ;
@@ -8,6 +7,16 @@ using Uri=agsXMPP.Uri;
 
 namespace xeus2.xeus.Core
 {
+	internal enum MucFeature
+	{
+		muc_passwordprotected,
+		muc_hidden,
+		muc_temporary,
+		muc_open,
+		muc_unmoderated,
+		muc_nonanonymous
+	}
+
 	internal class Service : NotifyInfoDispatcher
 	{
 		private DiscoInfo _discoInfo = null ;
@@ -21,11 +30,6 @@ namespace xeus2.xeus.Core
 		public Service( DiscoItem discoItem )
 		{
 			_discoItem = discoItem ;
-		}
-
-		public Service( DiscoInfo discoInfo )
-		{
-			DiscoInfo = discoInfo ;
 		}
 
 		public Jid Jid
@@ -97,7 +101,7 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		public DiscoInfo DiscoInfo
+		public virtual DiscoInfo DiscoInfo
 		{
 			get
 			{
@@ -123,6 +127,12 @@ namespace xeus2.xeus.Core
 				NotifyPropertyChanged( "IsRegistrable" ) ;
 				NotifyPropertyChanged( "IsSearchable" ) ;
 				NotifyPropertyChanged( "IsChatRoom" ) ;
+				NotifyPropertyChanged( "IsMucPasswordProtected" ) ;
+				NotifyPropertyChanged( "IsMucHidden" ) ;
+				NotifyPropertyChanged( "IsMucTemporary" ) ;
+				NotifyPropertyChanged( "IsMucOpen" ) ;
+				NotifyPropertyChanged( "IsMucUnmoderated" ) ;
+				NotifyPropertyChanged( "IsMucNonAnonymous" ) ;
 			}
 		}
 
@@ -188,7 +198,7 @@ namespace xeus2.xeus.Core
 				NotifyPropertyChanged( "IsCommand" ) ;
 			}
 		}
-			
+
 		public bool IsChatRoom
 		{
 			get
@@ -202,7 +212,7 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-			
+
 		public bool IsRegistrable
 		{
 			get
@@ -226,6 +236,55 @@ namespace xeus2.xeus.Core
 				}
 
 				return _discoInfo.HasFeature( Uri.IQ_SEARCH ) ;
+			}
+		}
+
+
+		public bool IsMucPasswordProtected
+		{
+			get
+			{
+				return ( DiscoInfo != null && DiscoInfo.HasFeature( MucFeature.muc_passwordprotected.ToString() ) ) ;
+			}
+		}
+
+		public bool IsMucHidden
+		{
+			get
+			{
+				return ( DiscoInfo != null && DiscoInfo.HasFeature( MucFeature.muc_hidden.ToString() ) ) ;
+			}
+		}
+
+		public bool IsMucTemporary
+		{
+			get
+			{
+				return ( DiscoInfo != null && DiscoInfo.HasFeature( MucFeature.muc_temporary.ToString() ) ) ;
+			}
+		}
+
+		public bool IsMucOpen
+		{
+			get
+			{
+				return ( DiscoInfo != null && DiscoInfo.HasFeature( MucFeature.muc_open.ToString() ) ) ;
+			}
+		}
+
+		public bool IsMucUnmoderated
+		{
+			get
+			{
+				return ( DiscoInfo != null && DiscoInfo.HasFeature( MucFeature.muc_unmoderated.ToString() ) ) ;
+			}
+		}
+
+		public bool IsMucNonAnonymous
+		{
+			get
+			{
+				return ( DiscoInfo != null && DiscoInfo.HasFeature( MucFeature.muc_nonanonymous.ToString() ) ) ;
 			}
 		}
 
