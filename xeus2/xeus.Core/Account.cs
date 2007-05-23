@@ -9,6 +9,7 @@ using agsXMPP.protocol.iq.register ;
 using agsXMPP.protocol.iq.roster ;
 using agsXMPP.protocol.iq.search ;
 using agsXMPP.protocol.x.data ;
+using agsXMPP.protocol.x.muc ;
 using agsXMPP.Xml.Dom ;
 using xeus2.Properties ;
 using xeus2.xeus.Middle ;
@@ -21,6 +22,7 @@ namespace xeus2.xeus.Core
 		private static Account _instance = new Account() ;
 
 		private XmppClientConnection _xmppConnection = new XmppClientConnection() ;
+		private MucManager _mucManager = null ;
 		private bool _isLogged = false ;
 
 		public static Account Instance
@@ -65,6 +67,8 @@ namespace xeus2.xeus.Core
 			_xmppConnection.OnIq += new IqHandler( _xmppConnection_OnIq ) ;
 
 			Settings.Default.Save() ;
+
+			_mucManager = new MucManager( _xmppConnection ) ;
 
 			_xmppConnection.Open() ;
 		}
@@ -563,7 +567,7 @@ namespace xeus2.xeus.Core
 
 		public void JoinMuc( Service service )
 		{
-			
+			_mucManager.JoinRoom( service.Jid, "xeus" ) ;
 		}
 	}
 }
