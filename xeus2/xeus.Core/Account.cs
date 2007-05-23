@@ -560,5 +560,10 @@ namespace xeus2.xeus.Core
 		{
 			
 		}
+
+		public void JoinMuc( Service service )
+		{
+			
+		}
 	}
 }
