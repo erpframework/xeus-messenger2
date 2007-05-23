@@ -1,0 +1,15 @@
+﻿<Window x:Class="xeus2.xeus.UI.RoomLogin"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="xeus2.xeus.UI" Height="300" Width="300"
+    >
+    <StackPanel>
+      <TextBlock Text="{Binding Path=Name}"/>
+      <TextBlock Text="{Binding Path=Jid}"/>
+      <TextBlock Text="Nickname"/>
+      <TextBox x:Name="_nick"/>
+      <TextBlock Text="Password"/>
+      <PasswordBox x:Name="_password"/>
+      <Button Content="Join" Click="OnJoin"/>
+    </StackPanel>
+</Window>
