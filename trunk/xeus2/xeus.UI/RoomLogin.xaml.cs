@@ -20,7 +20,7 @@ namespace xeus2.xeus.UI
 
 			if ( !service.IsMucPasswordProtected )
 			{
-				_password.Visibility = Visibility.Collapsed ;
+				_passwordPanel.Visibility = Visibility.Collapsed ;
 			}
 		}
 
