@@ -28,6 +28,9 @@ namespace xeus2.xeus.Commands
 		private static RoutedUICommand _cancel =
 			new RoutedUICommand( "Cancel", "ServiceCommandCancel", typeof ( ServiceCommands ) ) ;
 
+		private static RoutedUICommand _joinMuc =
+			new RoutedUICommand( "JoinMuc", "ServiceCommandJoinMuc", typeof ( ServiceCommands ) ) ;
+
 		public static RoutedUICommand Register
 		{
 			get
@@ -84,6 +87,14 @@ namespace xeus2.xeus.Commands
 			}
 		}
 
+		public static RoutedUICommand JoinMuc
+		{
+			get
+			{
+				return _joinMuc ;
+			}
+		}
+
 		public static void RegisterCommands( Window window )
 		{
 			window.CommandBindings.Add(
@@ -106,6 +117,9 @@ namespace xeus2.xeus.Commands
 
 			window.CommandBindings.Add(
 				new CommandBinding( _cancel, ExecuteRunCancel, CanExecuteRunCancel ) ) ;
+
+			window.CommandBindings.Add(
+				new CommandBinding( _joinMuc, ExecuteJoinMuc, CanExecuteJoinMuc ) ) ;
 		}
 
 		public static void CanExecuteRegister( object sender, CanExecuteRoutedEventArgs e )
@@ -231,6 +245,23 @@ namespace xeus2.xeus.Commands
 			ServiceCommandExecution command = e.Parameter as ServiceCommandExecution ;
 
 			Account.Instance.ServiceCommandCancel( command ) ;
+
+			e.Handled = true ;
+		}
+
+		public static void CanExecuteJoinMuc( object sender, CanExecuteRoutedEventArgs e )
+		{
+			Service service = e.Parameter as Service ;
+
+			e.Handled = true ;
+			e.CanExecute = ( service != null && service.IsChatRoom ) ;
+		}
+
+		public static void ExecuteJoinMuc( object sender, ExecutedRoutedEventArgs e )
+		{
+			Service service = e.Parameter as Service ;
+
+			Account.Instance.JoinMuc( service ) ;
 
 			e.Handled = true ;
 		}

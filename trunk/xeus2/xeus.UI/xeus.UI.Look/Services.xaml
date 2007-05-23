@@ -15,6 +15,9 @@
 
       <Button x:Name="_run" Content="run" Command="servicecmd:ServiceCommands.Run"
               CommandParameter="{Binding}"/>
+
+      <Button x:Name="_muc" Content="muc" Command="servicecmd:ServiceCommands.JoinMuc"
+              CommandParameter="{Binding}"/>
 		
 		<TextBlock Text="{Binding Path=Name}"/>
 	</StackPanel>
@@ -29,7 +32,10 @@
 		<DataTrigger Binding="{Binding Path=IsCommand}" Value="False">
   			<Setter Property="Visibility" TargetName="_run" Value="Collapsed"/>
   		</DataTrigger>
-  	</HierarchicalDataTemplate.Triggers>
+    <DataTrigger Binding="{Binding Path=IsChatRoom}" Value="False">
+      <Setter Property="Visibility" TargetName="_muc" Value="Collapsed"/>
+    </DataTrigger>
+    </HierarchicalDataTemplate.Triggers>
 		
     </HierarchicalDataTemplate>
 

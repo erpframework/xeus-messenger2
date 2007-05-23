@@ -122,6 +122,7 @@ namespace xeus2.xeus.Core
 				NotifyPropertyChanged( "Group" ) ;
 				NotifyPropertyChanged( "IsRegistrable" ) ;
 				NotifyPropertyChanged( "IsSearchable" ) ;
+				NotifyPropertyChanged( "IsChatRoom" ) ;
 			}
 		}
 
@@ -187,7 +188,21 @@ namespace xeus2.xeus.Core
 				NotifyPropertyChanged( "IsCommand" ) ;
 			}
 		}
+			
+		public bool IsChatRoom
+		{
+			get
+			{
+				if ( _discoInfo == null )
+				{
+					return false ;
+				}
 
+				return _discoInfo.HasFeature( Uri.MUC ) ;
+			}
+		}
+
+			
 		public bool IsRegistrable
 		{
 			get
