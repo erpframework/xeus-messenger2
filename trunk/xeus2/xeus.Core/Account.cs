@@ -602,12 +602,19 @@ namespace xeus2.xeus.Core
 
 		protected void JoinMuc( Service service, string nick )
 		{
-			if ( nick == null )
-			{
-				nick = "xeus" ;
-			}
+			MucInfo.Instance.MucLogin( service, nick );
+		}
 
-			_mucManager.JoinRoom( service.Jid, nick ) ;
+		public void JoinMuc( Service service, string nick, string password )
+		{
+			if ( service.IsMucPasswordProtected )
+			{
+				_mucManager.JoinRoom( service.Jid, nick, password ) ;
+			}
+			else
+			{
+				_mucManager.JoinRoom( service.Jid, nick ) ;
+			}
 		}
 	}
 }

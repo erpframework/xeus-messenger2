@@ -72,6 +72,7 @@
     <Page Include="xeus.UI\CommandExecute.xaml" />
     <Page Include="xeus.UI\Registration.xaml" />
     <Page Include="xeus.UI\RoomInfo.xaml" />
+    <Page Include="xeus.UI\RoomLogin.xaml" />
     <Page Include="xeus.UI\RosterWindow.xaml" />
     <Page Include="xeus.UI\Search.xaml" />
     <Page Include="xeus.XData\XDataContainer.xaml" />
@@ -145,6 +146,10 @@
     <Compile Include="xeus.UI\RoomInfo.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>RoomInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xeus.UI\RoomLogin.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>RoomLogin.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\Search.xaml.cs">
       <SubType>Code</SubType>

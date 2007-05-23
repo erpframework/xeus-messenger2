@@ -7,6 +7,7 @@ namespace xeus2.xeus.Middle
 	internal class MucInfo
 	{
 		private delegate void DisplayCallback( Service service ) ;
+		private delegate void MucLoginCallback( Service servie, string forceNick ) ;
 
 		private static MucInfo _instance = new MucInfo() ;
 
@@ -29,6 +30,20 @@ namespace xeus2.xeus.Middle
 			RoomInfo roomInfo = new RoomInfo( service ) ;
 			roomInfo.DataContext = service ;
 			roomInfo.Show() ;
+		}
+
+		public void MucLogin( Service service, string forceNick )
+		{
+			App.InvokeSafe( DispatcherPriority.Normal,
+			                new MucLoginCallback( MucLoginInternal ), service, forceNick ) ;
+		}
+
+		protected static void MucLoginInternal( Service service, string forceNick )
+		{
+			RoomLogin roomLogin = new RoomLogin( service, forceNick );
+
+			roomLogin.DataContext = service ;
+			roomLogin.Show() ;
 		}
 	}
 }
