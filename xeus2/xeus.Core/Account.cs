@@ -562,12 +562,52 @@ namespace xeus2.xeus.Core
 
 		public void RequestVCard( RosterItem item )
 		{
-			
 		}
 
 		public void JoinMuc( Service service )
 		{
-			_mucManager.JoinRoom( service.Jid, "xeus" ) ;
+			DiscoverReservedRoomNickname( service );
+		}
+
+		protected void DiscoverReservedRoomNickname( Service service )
+		{
+			IQ iq = new IQ( IqType.get, MyJid, service.Jid );
+
+			iq.GenerateId() ;
+			DiscoInfo di = new DiscoInfo();
+			di.Node = "x-roomuser-item" ;
+			iq.Query = di ;
+
+			_xmppConnection.IqGrabber.SendIq( iq, new IqCB( OnRoomNicknameResult ), service ) ;
+		}
+
+		private void OnRoomNicknameResult( object sender, IQ iq, object data )
+		{
+			string nick = null ;
+
+			if ( iq.Type == IqType.result && iq.Query != null )
+			{
+				DiscoInfo di = iq.Query as DiscoInfo ;
+
+				if ( di != null && di.Node == "x-roomuser-item"
+						&& di.GetIdentities() != null
+						&& di.GetIdentities().Length > 0 )
+				{
+					nick = di.GetIdentities()[ 0 ].Name ;
+				}
+			}
+
+			JoinMuc( data as Service, nick ) ;
+		}
+
+		protected void JoinMuc( Service service, string nick )
+		{
+			if ( nick == null )
+			{
+				nick = "xeus" ;
+			}
+
+			_mucManager.JoinRoom( service.Jid, nick ) ;
 		}
 	}
 }
