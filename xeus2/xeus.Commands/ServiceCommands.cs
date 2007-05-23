@@ -31,6 +31,9 @@ namespace xeus2.xeus.Commands
 		private static RoutedUICommand _joinMuc =
 			new RoutedUICommand( "JoinMuc", "ServiceCommandJoinMuc", typeof ( ServiceCommands ) ) ;
 
+		private static RoutedUICommand _mucInfo =
+			new RoutedUICommand( "MucInfo", "ServiceCommandMucInfo", typeof ( ServiceCommands ) ) ;
+
 		public static RoutedUICommand Register
 		{
 			get
@@ -95,6 +98,14 @@ namespace xeus2.xeus.Commands
 			}
 		}
 
+		public static RoutedUICommand MucInfo
+		{
+			get
+			{
+				return _mucInfo ;
+			}
+		}
+
 		public static void RegisterCommands( Window window )
 		{
 			window.CommandBindings.Add(
@@ -120,6 +131,9 @@ namespace xeus2.xeus.Commands
 
 			window.CommandBindings.Add(
 				new CommandBinding( _joinMuc, ExecuteJoinMuc, CanExecuteJoinMuc ) ) ;
+
+			window.CommandBindings.Add(
+				new CommandBinding( _mucInfo, ExecuteMucInfo, CanExecuteMucInfo ) ) ;
 		}
 
 		public static void CanExecuteRegister( object sender, CanExecuteRoutedEventArgs e )
@@ -262,6 +276,23 @@ namespace xeus2.xeus.Commands
 			Service service = e.Parameter as Service ;
 
 			Account.Instance.JoinMuc( service ) ;
+
+			e.Handled = true ;
+		}
+
+		public static void CanExecuteMucInfo( object sender, CanExecuteRoutedEventArgs e )
+		{
+			Service service = e.Parameter as Service ;
+
+			e.Handled = true ;
+			e.CanExecute = ( service != null && service.IsChatRoom ) ;
+		}
+
+		public static void ExecuteMucInfo( object sender, ExecutedRoutedEventArgs e )
+		{
+			Service service = e.Parameter as Service ;
+
+			Middle.MucInfo.Instance.DisplayMucInfo( service );
 
 			e.Handled = true ;
 		}
