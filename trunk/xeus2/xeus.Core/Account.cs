@@ -614,7 +614,7 @@ namespace xeus2.xeus.Core
 			MucInfo.Instance.MucLogin( service, nick );
 		}
 
-		public void JoinMuc( Service service, string nick, string password )
+		public MucRoom JoinMuc( Service service, string nick, string password )
 		{
 			if ( service.IsMucPasswordProtected )
 			{
@@ -624,6 +624,8 @@ namespace xeus2.xeus.Core
 			{
 				_mucManager.JoinRoom( service.Jid, nick ) ;
 			}
+
+			return new MucRoom( service, _xmppConnection );
 		}
 	}
 }
