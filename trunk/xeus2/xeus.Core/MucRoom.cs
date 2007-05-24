@@ -39,6 +39,14 @@ namespace xeus2.xeus.Core
 			}
 		}
 
+		public Service Service
+		{
+			get
+			{
+				return _service ;
+			}
+		}
+
 		private void MessageCallback( object sender, Message msg, object data )
 		{
 			if ( App.CheckAccessSafe() )

@@ -91,6 +91,11 @@ namespace xeus2.xeus.Core
 
 		private void _xmppConnection_OnPresence( object sender, Presence pres )
 		{
+			if ( pres.MucUser != null )
+			{
+				return ;
+			}
+
 			if ( pres.Error != null )
 			{
 				EventError eventError = new EventError( string.Format( "Presence error from {0}", pres.From ),
