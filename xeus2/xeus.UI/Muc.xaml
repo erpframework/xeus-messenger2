@@ -38,5 +38,7 @@
           </GroupStyle>
         </ListBox.GroupStyle>
       </ListBox>
+
+      <ListBox ItemsSource="{Binding Path=MucMessages}" Height="300"/>
     </StackPanel>
 </Window>
