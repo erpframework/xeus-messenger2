@@ -18,5 +18,17 @@ namespace xeus2.xeus.UI
 
 			DataContext = _mucRoom ;
 		}
+
+		protected void OnSendMessage( object sender, RoutedEventArgs eventArgs )
+		{
+			_mucRoom.SendMessage( _text.Text ) ;
+		}
+
+		protected override void OnClosing( System.ComponentModel.CancelEventArgs e )
+		{
+			base.OnClosing( e );
+
+			_mucRoom.LeaveRoom();
+		}
 	}
 }
