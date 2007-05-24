@@ -1,3 +1,4 @@
+using System ;
 using agsXMPP.protocol.client ;
 
 namespace xeus2.xeus.Core
@@ -7,10 +8,17 @@ namespace xeus2.xeus.Core
 		private readonly Message _message ;
 		private readonly MucContact _sender ;
 
+		private DateTime _dateTime = DateTime.Now ;
+
 		public MucMessage( Message message, MucContact sender )
 		{
 			_message = message ;
 			_sender = sender ;
+
+			if ( _message.XDelay != null )
+			{
+				_dateTime = _message.XDelay.Stamp ;
+			}
 		}
 
 		public string Body
@@ -21,7 +29,15 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		public MucContact Sender
+		public string Subject
+		{
+			get
+			{
+				return _message.Subject ;
+			}
+		}
+
+		public MucContact Contact
 		{
 			get
 			{
@@ -29,16 +45,25 @@ namespace xeus2.xeus.Core
 			}
 		}
 
+		public string Sender
+		{
+			get
+			{
+				return _message.From.Resource ;
+			}
+		}
+
+		public DateTime DateTime
+		{
+			get
+			{
+				return _dateTime ;
+			}
+		}
+
 		public override string ToString()
 		{
-			if ( Sender == null )
-			{
-				return string.Format( "{0}: {1}", _message.Nickname, Body ) ;
-			}
-			else
-			{
-				return string.Format( "{0}: {1}", Sender, Body ) ;
-			}
+			return string.Format( "({2}) {0}: {1}", Sender, Body, DateTime ) ;
 		}
 	}
 }

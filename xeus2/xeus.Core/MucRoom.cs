@@ -1,3 +1,4 @@
+using System ;
 using System.Windows.Threading ;
 using agsXMPP ;
 using agsXMPP.Collections ;
@@ -8,7 +9,7 @@ namespace xeus2.xeus.Core
 	internal class MucRoom
 	{
 		private MucRoster _mucRoster = new MucRoster() ;
-		private MucMessages _mucMessages = new MucMessages();
+		private MucMessages _mucMessages = new MucMessages() ;
 
 		private Service _service ;
 		private XmppClientConnection _xmppClientConnection = null ;
@@ -51,14 +52,23 @@ namespace xeus2.xeus.Core
 		{
 			if ( App.CheckAccessSafe() )
 			{
-				MucContact contact = null ;
-
-				lock ( MucRoster._syncObject )
+				if ( msg.Error != null )
 				{
-					contact = MucRoster.Find( msg.From ) ;
+					EventError eventError = new EventError( string.Format( "Message error in MUC from {0}", msg.From ),
+					                                        msg.Error ) ;
+					Events.Instance.OnEvent( eventError ) ;
 				}
+				else
+				{
+					MucContact contact = null ;
 
-				MucMessages.OnMessage( msg, contact );
+					lock ( MucRoster._syncObject )
+					{
+						contact = MucRoster.Find( msg.From ) ;
+					}
+
+					MucMessages.OnMessage( msg, contact ) ;
+				}
 			}
 			else
 			{
@@ -71,13 +81,45 @@ namespace xeus2.xeus.Core
 		{
 			if ( App.CheckAccessSafe() )
 			{
-				MucRoster.OnPresence( presence ) ;
+				if ( presence.Error != null )
+				{
+					EventError eventError = new EventError( string.Format( "Presence error in MUC from {0}", presence.From ),
+					                                        presence.Error ) ;
+					Events.Instance.OnEvent( eventError ) ;
+				}
+				else
+				{
+					MucRoster.OnPresence( presence ) ;
+				}
 			}
 			else
 			{
 				App.Current.Dispatcher.BeginInvoke( DispatcherPriority.Background,
 				                                    new PresenceCB( PresenceCallback ), sender, presence, data ) ;
 			}
+		}
+
+		public void SendMessage( string text )
+		{
+			Message message = new Message() ;
+
+			message.Type = MessageType.groupchat ;
+			message.To = _service.Jid ;
+			message.Body = text ;
+
+			_xmppClientConnection.Send( message ) ;
+		}
+
+		public void LeaveRoom()
+		{
+			Presence presence = new Presence() ;
+			presence.To = _service.Jid ;
+			presence.Type = PresenceType.unavailable ;
+
+			_xmppClientConnection.Send( presence ) ;
+
+			_xmppClientConnection.MesagageGrabber.Remove( _service.Jid ) ;
+			_xmppClientConnection.PresenceGrabber.Remove( _service.Jid ) ;
 		}
 	}
 }
