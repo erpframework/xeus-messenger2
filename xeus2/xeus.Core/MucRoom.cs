@@ -110,11 +110,16 @@ namespace xeus2.xeus.Core
 			_xmppClientConnection.Send( message ) ;
 		}
 
-		public void LeaveRoom()
+		public void LeaveRoom( string message )
 		{
 			Presence presence = new Presence() ;
 			presence.To = _service.Jid ;
 			presence.Type = PresenceType.unavailable ;
+
+			if ( !string.IsNullOrEmpty( message ) )
+			{
+				presence.Status = message ;
+			}
 
 			_xmppClientConnection.Send( presence ) ;
 

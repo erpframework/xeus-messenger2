@@ -1,4 +1,6 @@
 using System.Windows ;
+using xeus2.Properties ;
+using xeus2.xeus.Commands ;
 using xeus2.xeus.Core ;
 
 namespace xeus2.xeus.UI
@@ -17,6 +19,8 @@ namespace xeus2.xeus.UI
 			_mucRoom = Account.Instance.JoinMuc( service, nick, password ) ;
 
 			DataContext = _mucRoom ;
+
+			MucCommands.RegisterCommands( this );
 		}
 
 		protected void OnSendMessage( object sender, RoutedEventArgs eventArgs )
@@ -28,7 +32,7 @@ namespace xeus2.xeus.UI
 		{
 			base.OnClosing( e );
 
-			_mucRoom.LeaveRoom();
+			_mucRoom.LeaveRoom( Settings.Default.MucLeaveMsg );
 		}
 	}
 }

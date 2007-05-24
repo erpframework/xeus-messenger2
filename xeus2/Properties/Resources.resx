@@ -219,4 +219,76 @@
   <data name="Constant_IncompleteData" xml:space="preserve">
     <value>Incomplete data from server</value>
   </data>
+  <data name="Role_Visitor" xml:space="preserve">
+    <value>Visitor</value>
+  </data>
+  <data name="Role_Participant" xml:space="preserve">
+    <value>Participant</value>
+  </data>
+  <data name="Role_Moderator" xml:space="preserve">
+    <value>Moderator</value>
+  </data>
+  <data name="Role_None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="MucStatus_100" xml:space="preserve">
+    <value>Any occupant is allowed to see full JIDs</value>
+  </data>
+  <data name="MucStatus_101" xml:space="preserve">
+    <value>Affiliation changed while not in the room</value>
+  </data>
+  <data name="MucStatus_102" xml:space="preserve">
+    <value>Room now shows unavailable members</value>
+  </data>
+  <data name="MucStatus_103" xml:space="preserve">
+    <value>Room now does not show unavailable members</value>
+  </data>
+  <data name="MucStatus_104" xml:space="preserve">
+    <value>Non-privacy-related room configuration change has occurred</value>
+  </data>
+  <data name="MucStatus_201" xml:space="preserve">
+    <value>A new room has been created</value>
+  </data>
+  <data name="MucStatus_301" xml:space="preserve">
+    <value>Banned from the room</value>
+  </data>
+  <data name="MucStatus_303" xml:space="preserve">
+    <value>New room nickname</value>
+  </data>
+  <data name="MucStatus_307" xml:space="preserve">
+    <value>Kicked from the room</value>
+  </data>
+  <data name="MucStatus_321" xml:space="preserve">
+    <value>Removed from the room because of an affiliation change</value>
+  </data>
+  <data name="MucStatus_322" xml:space="preserve">
+    <value>Removed from the room because the room has been changed to members-only and the user is not a member</value>
+  </data>
+  <data name="MucStatus_332" xml:space="preserve">
+    <value>Being removed from the room because of a system shutdown</value>
+  </data>
+  <data name="MucStatus_110" xml:space="preserve">
+    <value>Presence refers to one of its own room occupants</value>
+  </data>
+  <data name="MucStatus_170" xml:space="preserve">
+    <value>Room logging is now enabled</value>
+  </data>
+  <data name="MucStatus_171" xml:space="preserve">
+    <value>Room logging is now disabled</value>
+  </data>
+  <data name="MucStatus_172" xml:space="preserve">
+    <value>The room is now non-anonymous</value>
+  </data>
+  <data name="MucStatus_173" xml:space="preserve">
+    <value>Room is now semi-anonymous</value>
+  </data>
+  <data name="MucStatus_174" xml:space="preserve">
+    <value>Room is now fully-anonymous</value>
+  </data>
+  <data name="MucStatus_210" xml:space="preserve">
+    <value>Service has assigned or modified the roomnick</value>
+  </data>
+  <data name="MucStatus_000" xml:space="preserve">
+    <value>Unknow Status Code</value>
+  </data>
 </root>

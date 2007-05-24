@@ -23,5 +23,8 @@
     <Setting Name="UI_DisplayFormat" Type="System.String" Scope="User">
       <Value Profile="(Default)">"{FullName} ({NickName}) In Group '{Group}'"</Value>
     </Setting>
+    <Setting Name="MucLeaveMsg" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Goodbye</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

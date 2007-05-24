@@ -106,5 +106,17 @@ namespace xeus2.Properties {
                 this["UI_DisplayFormat"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Goodbye")]
+        public string MucLeaveMsg {
+            get {
+                return ((string)(this["MucLeaveMsg"]));
+            }
+            set {
+                this["MucLeaveMsg"] = value;
+            }
+        }
     }
 }

@@ -109,6 +109,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="xeus.Commands\MucCommands.cs" />
     <Compile Include="xeus.Commands\ServiceCommands.cs" />
     <Compile Include="xeus.Core\Account.cs" />
     <Compile Include="xeus.Core\Contact.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="xeus.Core\MucMessages.cs" />
     <Compile Include="xeus.Core\MucRoom.cs" />
     <Compile Include="xeus.Core\MucRoster.cs" />
+    <Compile Include="xeus.Core\MucStatusCodeTexts.cs" />
     <Compile Include="xeus.Core\MultiContact.cs" />
     <Compile Include="xeus.Core\NotifyDispatcher.cs" />
     <Compile Include="xeus.Core\ObservableCollectionDisp.cs" />
