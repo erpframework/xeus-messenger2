@@ -3,20 +3,20 @@ using agsXMPP.protocol.client ;
 
 namespace xeus2.xeus.Core
 {
-	internal class MucContact
+	internal class MucContact : NotifyInfoDispatcher
 	{
 		private Presence _presence ;
 
 		public MucContact( Presence presence )
 		{
-			_presence = presence ;
+			Presence = presence ;
 		}
 
 		public Jid Jid
 		{
 			get
 			{
-				return _presence.From ;
+				return Presence.From ;
 			}
 		}
 
@@ -24,7 +24,7 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				return _presence.MucUser.Item.Role.ToString() ;
+				return Presence.MucUser.Item.Role.ToString() ;
 			}
 		}
 
@@ -32,14 +32,29 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				if ( string.IsNullOrEmpty( _presence.MucUser.Item.Nickname ) )
+				if ( string.IsNullOrEmpty( Presence.MucUser.Item.Nickname ) )
 				{
 					return Jid.Resource ;
 				}
 				else
 				{
-					return _presence.MucUser.Item.Nickname ;
+					return Presence.MucUser.Item.Nickname ;
 				}
+			}
+		}
+
+		public Presence Presence
+		{
+			get
+			{
+				return _presence ;
+			}
+			set
+			{
+				_presence = value ;
+
+				NotifyPropertyChanged( "Nick" );
+				NotifyPropertyChanged( "Group" );
 			}
 		}
 

@@ -35,6 +35,10 @@ namespace xeus2.xeus.Core
 					{
 						Remove( contact ) ;
 					}
+					else
+					{
+						contact.Presence = presence ;
+					}
 				}
 			}
 		}
