@@ -11,6 +11,10 @@
   <DataTemplate x:Key="MucContact">
     <StackPanel>
       <TextBlock Text="{Binding Path=Nick}"/>
+      <TextBlock Text="{Binding Path=Affiliation}"/>
+      <TextBlock Text="{Binding Path=StatusText}"/>
+      <TextBlock Text="{Binding Path=Show}"/>
+      <TextBlock Text="{Binding Path=MucStatusCodeText}"/>
     </StackPanel>
   </DataTemplate>
 

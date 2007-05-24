@@ -365,5 +365,221 @@ namespace xeus2.Properties {
                 return ResourceManager.GetString("Event_UnknownPresence", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknow Status Code.
+        /// </summary>
+        internal static string MucStatus_000 {
+            get {
+                return ResourceManager.GetString("MucStatus_000", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Any occupant is allowed to see full JIDs.
+        /// </summary>
+        internal static string MucStatus_100 {
+            get {
+                return ResourceManager.GetString("MucStatus_100", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Affiliation changed while not in the room.
+        /// </summary>
+        internal static string MucStatus_101 {
+            get {
+                return ResourceManager.GetString("MucStatus_101", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Room now shows unavailable members.
+        /// </summary>
+        internal static string MucStatus_102 {
+            get {
+                return ResourceManager.GetString("MucStatus_102", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Room now does not show unavailable members.
+        /// </summary>
+        internal static string MucStatus_103 {
+            get {
+                return ResourceManager.GetString("MucStatus_103", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Non-privacy-related room configuration change has occurred.
+        /// </summary>
+        internal static string MucStatus_104 {
+            get {
+                return ResourceManager.GetString("MucStatus_104", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Presence refers to one of its own room occupants.
+        /// </summary>
+        internal static string MucStatus_110 {
+            get {
+                return ResourceManager.GetString("MucStatus_110", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Room logging is now enabled.
+        /// </summary>
+        internal static string MucStatus_170 {
+            get {
+                return ResourceManager.GetString("MucStatus_170", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Room logging is now disabled.
+        /// </summary>
+        internal static string MucStatus_171 {
+            get {
+                return ResourceManager.GetString("MucStatus_171", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The room is now non-anonymous.
+        /// </summary>
+        internal static string MucStatus_172 {
+            get {
+                return ResourceManager.GetString("MucStatus_172", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Room is now semi-anonymous.
+        /// </summary>
+        internal static string MucStatus_173 {
+            get {
+                return ResourceManager.GetString("MucStatus_173", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Room is now fully-anonymous.
+        /// </summary>
+        internal static string MucStatus_174 {
+            get {
+                return ResourceManager.GetString("MucStatus_174", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A new room has been created.
+        /// </summary>
+        internal static string MucStatus_201 {
+            get {
+                return ResourceManager.GetString("MucStatus_201", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Service has assigned or modified the roomnick.
+        /// </summary>
+        internal static string MucStatus_210 {
+            get {
+                return ResourceManager.GetString("MucStatus_210", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Banned from the room.
+        /// </summary>
+        internal static string MucStatus_301 {
+            get {
+                return ResourceManager.GetString("MucStatus_301", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New room nickname.
+        /// </summary>
+        internal static string MucStatus_303 {
+            get {
+                return ResourceManager.GetString("MucStatus_303", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kicked from the room.
+        /// </summary>
+        internal static string MucStatus_307 {
+            get {
+                return ResourceManager.GetString("MucStatus_307", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removed from the room because of an affiliation change.
+        /// </summary>
+        internal static string MucStatus_321 {
+            get {
+                return ResourceManager.GetString("MucStatus_321", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removed from the room because the room has been changed to members-only and the user is not a member.
+        /// </summary>
+        internal static string MucStatus_322 {
+            get {
+                return ResourceManager.GetString("MucStatus_322", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Being removed from the room because of a system shutdown.
+        /// </summary>
+        internal static string MucStatus_332 {
+            get {
+                return ResourceManager.GetString("MucStatus_332", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Moderator.
+        /// </summary>
+        internal static string Role_Moderator {
+            get {
+                return ResourceManager.GetString("Role_Moderator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        internal static string Role_None {
+            get {
+                return ResourceManager.GetString("Role_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Participant.
+        /// </summary>
+        internal static string Role_Participant {
+            get {
+                return ResourceManager.GetString("Role_Participant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visitor.
+        /// </summary>
+        internal static string Role_Visitor {
+            get {
+                return ResourceManager.GetString("Role_Visitor", resourceCulture);
+            }
+        }
     }
 }
