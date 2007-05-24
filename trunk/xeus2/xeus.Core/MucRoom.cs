@@ -8,6 +8,8 @@ namespace xeus2.xeus.Core
 	internal class MucRoom
 	{
 		private MucRoster _mucRoster = new MucRoster() ;
+		private MucMessages _mucMessages = new MucMessages();
+
 		private Service _service ;
 		private XmppClientConnection _xmppClientConnection = null ;
 
@@ -29,10 +31,26 @@ namespace xeus2.xeus.Core
 			}
 		}
 
+		public MucMessages MucMessages
+		{
+			get
+			{
+				return _mucMessages ;
+			}
+		}
+
 		private void MessageCallback( object sender, Message msg, object data )
 		{
 			if ( App.CheckAccessSafe() )
 			{
+				MucContact contact = null ;
+
+				lock ( MucRoster._syncObject )
+				{
+					contact = MucRoster.Find( msg.From ) ;
+				}
+
+				MucMessages.OnMessage( msg, contact );
 			}
 			else
 			{

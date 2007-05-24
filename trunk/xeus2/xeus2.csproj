@@ -119,6 +119,8 @@
     <Compile Include="xeus.Core\EventStatusChanged.cs" />
     <Compile Include="xeus.Core\IContact.cs" />
     <Compile Include="xeus.Core\MucContact.cs" />
+    <Compile Include="xeus.Core\MucMessage.cs" />
+    <Compile Include="xeus.Core\MucMessages.cs" />
     <Compile Include="xeus.Core\MucRoom.cs" />
     <Compile Include="xeus.Core\MucRoster.cs" />
     <Compile Include="xeus.Core\MultiContact.cs" />
