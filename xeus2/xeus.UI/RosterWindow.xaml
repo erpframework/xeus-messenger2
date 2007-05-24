@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2006" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" xmlns:xeus2_xeus_Core="clr-namespace:xeus2.xeus.Core"
     x:Class="xeus2.RosterWindow"
+    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     Title="xeus2" Height="500" Width="300"
     >
 	<Window.Resources>
@@ -17,9 +18,9 @@
     <ObjectDataProvider x:Key="ServicesDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Services}"/>
 
     <CollectionViewSource x:Key="Services" Source="{Binding Path=Instance, Mode=Default, Source={StaticResource ServicesDS}}">
-      <CollectionViewSource.GroupDescriptions>
-        <PropertyGroupDescription PropertyName="Group"/>
-      </CollectionViewSource.GroupDescriptions>
+      <CollectionViewSource.SortDescriptions>
+        <scm:SortDescription PropertyName="Name" />
+      </CollectionViewSource.SortDescriptions>
     </CollectionViewSource>
 
     <ObjectDataProvider x:Key="AccountDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Account}"/>
@@ -28,7 +29,7 @@
 
     <StackPanel>
       
-      <ListBox ItemsSource="{Binding Source={StaticResource Contacts}}" Height="300"
+      <ListBox ItemsSource="{Binding Source={StaticResource Contacts}}" Height="100"
                ItemsPanel="{DynamicResource ItemsPanelTemplateRoster}"
                ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemTemplate="{DynamicResource Contact}"
                MouseDoubleClick="RosterMouseDoubleClick"
@@ -55,8 +56,8 @@
       </ListBox.GroupStyle>	      
 	  </ListBox>
       
-      <TreeView ItemsSource="{Binding Source={StaticResource ServicesDS}, Path=Instance}"
-                ItemTemplate="{DynamicResource ServicesTemplate}" Height="100"
+      <TreeView ItemsSource="{Binding Source={StaticResource Services}}"
+                ItemTemplate="{DynamicResource ServicesTemplate}" Height="300"
                 x:Name="_services"/>
 
       <ListBox ItemsSource="{Binding Path=Instance, Mode=Default, Source={StaticResource EventsDS}}" Height="100"/>

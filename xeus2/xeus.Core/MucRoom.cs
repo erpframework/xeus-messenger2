@@ -1,13 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Windows.Threading ;
 using agsXMPP ;
+using agsXMPP.Collections ;
+using agsXMPP.protocol.client ;
 
 namespace xeus2.xeus.Core
 {
 	internal class MucRoom
 	{
-		MucRoster _mucRoster = new MucRoster();
+		private MucRoster _mucRoster = new MucRoster() ;
 		private Service _service ;
 		private XmppClientConnection _xmppClientConnection = null ;
 
@@ -15,6 +15,43 @@ namespace xeus2.xeus.Core
 		{
 			_service = service ;
 			_xmppClientConnection = xmppClientConnection ;
+
+			_xmppClientConnection.MesagageGrabber.Add( service.Jid, new BareJidComparer(), new MessageCB( MessageCallback ), null ) ;
+			_xmppClientConnection.PresenceGrabber.Add( service.Jid, new BareJidComparer(), new PresenceCB( PresenceCallback ),
+			                                           null ) ;
+		}
+
+		public MucRoster MucRoster
+		{
+			get
+			{
+				return _mucRoster ;
+			}
+		}
+
+		private void MessageCallback( object sender, Message msg, object data )
+		{
+			if ( App.CheckAccessSafe() )
+			{
+			}
+			else
+			{
+				App.Current.Dispatcher.BeginInvoke( DispatcherPriority.Background,
+				                                    new MessageCB( MessageCallback ), sender, msg, data ) ;
+			}
+		}
+
+		private void PresenceCallback( object sender, Presence presence, object data )
+		{
+			if ( App.CheckAccessSafe() )
+			{
+				MucRoster.OnPresence( presence ) ;
+			}
+			else
+			{
+				App.Current.Dispatcher.BeginInvoke( DispatcherPriority.Background,
+				                                    new PresenceCB( PresenceCallback ), sender, presence, data ) ;
+			}
 		}
 	}
 }

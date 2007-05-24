@@ -1,28 +1,22 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Windows ;
+using xeus2.xeus.Core ;
 
 namespace xeus2.xeus.UI
 {
 	/// <summary>
 	/// Interaction logic for Muc.xaml
 	/// </summary>
-
-	public partial class Muc : System.Windows.Window
+	public partial class Muc : Window
 	{
+		private MucRoom _mucRoom ;
 
-		public Muc()
+		internal Muc( Service service, string nick, string password )
 		{
-			InitializeComponent();
-		}
+			InitializeComponent() ;
 
+			_mucRoom = Account.Instance.JoinMuc( service, nick, password ) ;
+
+			DataContext = _mucRoom ;
+		}
 	}
 }

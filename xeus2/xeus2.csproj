@@ -63,6 +63,7 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.IdentityModel" />
+    <Page Include="xeus.UI\xeus.UI.Look\MucRoster.xaml" />
     <Page Include="xeus.UI\xeus.UI.Look\Roster.xaml" />
     <Page Include="xeus.UI\xeus.UI.Look\Services.xaml" />
     <Page Include="xeus.XData\BasicStyles.xaml" />
@@ -134,6 +135,7 @@
     <Compile Include="xeus.Data\Database.cs" />
     <Compile Include="xeus.Data\Storage.cs" />
     <Compile Include="xeus.Middle\CommandExecutor.cs" />
+    <Compile Include="xeus.Middle\Muc.cs" />
     <Compile Include="xeus.Middle\MucInfo.cs" />
     <Compile Include="xeus.Middle\Notification.cs" />
     <Compile Include="xeus.Middle\Registration.cs" />

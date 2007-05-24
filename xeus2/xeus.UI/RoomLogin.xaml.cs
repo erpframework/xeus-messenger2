@@ -26,7 +26,7 @@ namespace xeus2.xeus.UI
 
 		protected void OnJoin( object sender, RoutedEventArgs eventArgs )
 		{
-			Account.Instance.JoinMuc( DataContext as Service, _nick.Text, _password.Password ) ;
+			Middle.Muc.Instance.DisplayMuc( DataContext as Service, _nick.Text, _password.Password );
 			Close() ;
 		}
 	}
