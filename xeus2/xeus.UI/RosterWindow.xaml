@@ -18,9 +18,9 @@
     <ObjectDataProvider x:Key="ServicesDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Services}"/>
 
     <CollectionViewSource x:Key="Services" Source="{Binding Path=Instance, Mode=Default, Source={StaticResource ServicesDS}}">
-      <CollectionViewSource.SortDescriptions>
-        <scm:SortDescription PropertyName="Name" />
-      </CollectionViewSource.SortDescriptions>
+    </CollectionViewSource>
+
+    <CollectionViewSource x:Key="Services2" Source="{Binding Path=Categories, Mode=Default, Source={StaticResource ServicesDS}}">
     </CollectionViewSource>
 
     <ObjectDataProvider x:Key="AccountDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Account}"/>
@@ -56,8 +56,15 @@
       </ListBox.GroupStyle>	      
 	  </ListBox>
       
+      <!--
       <TreeView ItemsSource="{Binding Source={StaticResource Services}}"
                 ItemTemplate="{DynamicResource ServicesTemplate}" Height="300"
+                x:Name="_services"/>
+      -->
+
+      <TreeView ItemsSource="{Binding Source={StaticResource Services2}}"
+                ItemTemplate="{DynamicResource ServicesTemplate}"
+                Height="300"
                 x:Name="_services"/>
 
       <ListBox ItemsSource="{Binding Path=Instance, Mode=Default, Source={StaticResource EventsDS}}" Height="100"/>

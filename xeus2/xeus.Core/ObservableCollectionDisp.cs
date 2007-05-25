@@ -28,8 +28,11 @@ namespace xeus2.xeus.Core
 			}
 			else
 			{
-				App.Current.Dispatcher.BeginInvoke( DispatcherPriority.Send,
-				                                    new SetItemCallback( SetItem ), index, new object[] { item } ) ;
+				if ( App.Current != null )
+				{
+					App.Current.Dispatcher.BeginInvoke( DispatcherPriority.Send,
+					                                    new SetItemCallback( SetItem ), index, new object[] { item } ) ;
+				}
 			}
 		}
 
@@ -51,8 +54,11 @@ namespace xeus2.xeus.Core
 			}
 			else
 			{
-				App.Current.Dispatcher.BeginInvoke( DispatcherPriority.Send,
-				                                    new InsertItemCallback( InsertItem ), index, new object[] { item } ) ;
+				if ( App.Current != null )
+				{
+					App.Current.Dispatcher.BeginInvoke( DispatcherPriority.Send,
+					                                    new InsertItemCallback( InsertItem ), index, new object[] { item } ) ;
+				}
 			}
 		}
 
@@ -68,8 +74,11 @@ namespace xeus2.xeus.Core
 			}
 			else
 			{
-				App.Current.Dispatcher.BeginInvoke( DispatcherPriority.Send,
-				                                    new RemoveItemCallback( RemoveItem ), index, new object[] { } ) ;
+				if ( App.Current != null )
+				{
+					App.Current.Dispatcher.BeginInvoke( DispatcherPriority.Send,
+					                                    new RemoveItemCallback( RemoveItem ), index, new object[] { } ) ;
+				}
 			}
 		}
 
@@ -84,8 +93,11 @@ namespace xeus2.xeus.Core
 			}
 			else
 			{
-				App.Current.Dispatcher.BeginInvoke( DispatcherPriority.Send,
-				                                    new MoveItemCallback( MoveItem ), oldIndex, new object[] { newIndex } ) ;
+				if ( App.Current != null )
+				{
+					App.Current.Dispatcher.BeginInvoke( DispatcherPriority.Send,
+					                                    new MoveItemCallback( MoveItem ), oldIndex, new object[] { newIndex } ) ;
+				}
 			}
 		}
 
@@ -100,7 +112,10 @@ namespace xeus2.xeus.Core
 			}
 			else
 			{
-				App.Current.Dispatcher.BeginInvoke( DispatcherPriority.Send, new ClearItemsCallback( ClearItems ) ) ;
+				if ( App.Current != null )
+				{
+					App.Current.Dispatcher.BeginInvoke( DispatcherPriority.Send, new ClearItemsCallback( ClearItems ) ) ;
+				}
 			}
 		}
 	}
