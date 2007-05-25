@@ -61,6 +61,15 @@ namespace xeus2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to \nThis service is already registered.
+        /// </summary>
+        internal static string Constant_AlreadyRegistered {
+            get {
+                return ResourceManager.GetString("Constant_AlreadyRegistered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         internal static string Constant_Email {
@@ -223,6 +232,24 @@ namespace xeus2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Command result failed for &apos;{0}&apos;.
+        /// </summary>
+        internal static string Error_CommandResultFailed {
+            get {
+                return ResourceManager.GetString("Error_CommandResultFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discovery failed for &apos;{0}&apos;.
+        /// </summary>
+        internal static string Error_DiscoFailed {
+            get {
+                return ResourceManager.GetString("Error_DiscoFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid contact property name &apos;{0}&apos;.
         /// </summary>
         internal static string Error_InvalidContactProp {
@@ -237,6 +264,15 @@ namespace xeus2.Properties {
         internal static string Error_InvDisplayName {
             get {
                 return ResourceManager.GetString("Error_InvDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Room nickname request for &apos;{0}&apos; failed.
+        /// </summary>
+        internal static string Error_RoomNickFailed {
+            get {
+                return ResourceManager.GetString("Error_RoomNickFailed", resourceCulture);
             }
         }
         

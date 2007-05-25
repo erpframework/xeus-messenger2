@@ -1,4 +1,5 @@
 using System ;
+using System.Collections.Generic ;
 using System.Diagnostics ;
 using agsXMPP ;
 using agsXMPP.net ;
@@ -14,6 +15,7 @@ using agsXMPP.Xml.Dom ;
 using xeus2.Properties ;
 using xeus2.xeus.Middle ;
 using Search=xeus2.xeus.Middle.Search;
+using Uri=agsXMPP.Uri;
 
 namespace xeus2.xeus.Core
 {
@@ -278,7 +280,12 @@ namespace xeus2.xeus.Core
 
 		private void OnDiscoServerResult( object sender, IQ iq, object data )
 		{
-			if ( iq.Type == IqType.result )
+			if ( iq.Error != null )
+			{
+				EventError eventError = new EventError( string.Format( Resources.Error_DiscoFailed, iq.From ), iq.Error ) ;
+				Events.Instance.OnEvent( eventError ) ;
+			}
+			else if ( iq.Type == IqType.result )
 			{
 				Element query = iq.Query ;
 
@@ -315,18 +322,22 @@ namespace xeus2.xeus.Core
 
 		private void OnDiscoInfoResult( object sender, IQ iq, object data )
 		{
-			if ( iq.Type == IqType.result && iq.Query is DiscoInfo )
+			if ( iq.Error != null )
+			{
+				Services.Instance.OnServiceItemError( sender, iq ) ;
+			}
+			else if ( iq.Type == IqType.result && iq.Query is DiscoInfo )
 			{
 				DiscoInfo di = iq.Query as DiscoInfo ;
 
 				DiscoItem discoItem = data as DiscoItem ;
 
-				if ( di.HasFeature( agsXMPP.Uri.COMMANDS ) )
+				if ( di.HasFeature( Uri.COMMANDS ) )
 				{
 					DiscoManager discoManager = new DiscoManager( _xmppConnection ) ;
 
 					discoManager.DisoverItems( discoItem.Jid, 
-												agsXMPP.Uri.COMMANDS,
+												Uri.COMMANDS,
 												new IqCB( OnCommandsServerResult ),
 												discoItem ) ;
 					AddItemToDiscover() ;
@@ -334,17 +345,19 @@ namespace xeus2.xeus.Core
 
 				Services.Instance.OnServiceItemInfo( sender, discoItem, di ) ;
 			}
-			else if ( iq.Type == IqType.error )
-			{
-				Services.Instance.OnServiceItemError( sender, iq ) ;
-			}
+
 
 			RemoveItemToDiscover() ;
 		}
 
 		private void OnCommandsServerResult( object sender, IQ iq, object data )
 		{
-			if ( iq.Type == IqType.result )
+			if ( iq.Error != null )
+			{
+				EventError eventError = new EventError( string.Format( Resources.Error_CommandResultFailed, iq.From ), iq.Error ) ;
+				Events.Instance.OnEvent( eventError ) ;
+			}
+			else if ( iq.Type == IqType.result && data is DiscoItem )
 			{
 				Services.Instance.OnCommandsItemInfo( this, data as DiscoItem, iq ) ;
 			}
@@ -379,13 +392,13 @@ namespace xeus2.xeus.Core
 
 			agsXMPP.protocol.iq.search.Search search = iq.Query as agsXMPP.protocol.iq.search.Search ;
 
-			if ( iq.Error != null || search == null )
+			if ( iq.Error != null )
 			{
 				EventError eventError = new EventError( string.Format( Resources.Event_SearchFailed,
 				                                                       service.Name, iq.Error.Condition ), iq.Error ) ;
 				Events.Instance.OnEvent( eventError ) ;
 			}
-			else
+			else if ( iq.Type == IqType.result && search != null )
 			{
 				Search.Instance.DisplaySearchResult( search, ( Service ) data ) ;
 
@@ -403,12 +416,14 @@ namespace xeus2.xeus.Core
 			_xmppConnection.IqGrabber.SendIq( registerIq, OnServiceRegistered, service ) ;
 		}
 
-		public void DoRegisterService( Service service, string userName, string password, string email )
+		public void DoRegisterService( Service service, Dictionary< string, string > values )
 		{
 			RegisterIq registerIq = new RegisterIq( IqType.set, service.Jid ) ;
-			registerIq.Query.Username = userName ;
-			registerIq.Query.Password = password ;
-			registerIq.Query.Email = email ;
+
+			foreach ( KeyValuePair< string, string > value in values )
+			{
+				registerIq.Query.AddTag( value.Key, value.Value ) ;
+			}
 
 			_xmppConnection.IqGrabber.SendIq( registerIq, OnServiceRegistered, service ) ;
 		}
@@ -423,7 +438,7 @@ namespace xeus2.xeus.Core
 				                                                       service.Name, iq.Error.Condition ), iq.Error ) ;
 				Events.Instance.OnEvent( eventError ) ;
 			}
-			else
+			else if ( iq.Type == IqType.result )
 			{
 				EventInfo eventinfo = new EventInfo( string.Format( Resources.Event_RegistrationSucceeded, service.Name ) ) ;
 				Events.Instance.OnEvent( eventinfo ) ;
@@ -448,11 +463,7 @@ namespace xeus2.xeus.Core
 		{
 			agsXMPP.protocol.iq.search.Search search = iq.Query as agsXMPP.protocol.iq.search.Search ;
 
-			if ( search != null )
-			{
-				Search.Instance.DisplaySearch( search, ( Service ) data ) ;
-			}
-			else
+			if ( iq.Error != null )
 			{
 				Service service = data as Service ;
 
@@ -461,17 +472,17 @@ namespace xeus2.xeus.Core
 
 				Events.Instance.OnEvent( eventError ) ;
 			}
+			else if ( iq.Type == IqType.result && search != null )
+			{
+				Search.Instance.DisplaySearch( search, ( Service ) data ) ;
+			}
 		}
 
 		private void OnRegisterServiceGet( object sender, IQ iq, object data )
 		{
 			Register register = iq.Query as Register ;
 
-			if ( register != null )
-			{
-				Registration.Instance.DisplayInBandRegistration( register, ( Service ) data ) ;
-			}
-			else
+			if ( iq.Error != null )
 			{
 				Service service = data as Service ;
 
@@ -480,6 +491,11 @@ namespace xeus2.xeus.Core
 
 				Events.Instance.OnEvent( eventError ) ;
 			}
+			else if ( iq.Type == IqType.result && register != null )
+			{
+				Registration.Instance.DisplayInBandRegistration( register, ( Service ) data ) ;
+			}
+
 		}
 
 		public void ServiceCommand( Service service )
@@ -499,7 +515,16 @@ namespace xeus2.xeus.Core
 
 		private void OnCommandResult( object sender, IQ iq, object data )
 		{
-			if ( iq.Type == IqType.result )
+			if ( iq.Error != null )
+			{
+				Service service = data as Service ;
+
+				EventError eventError = new EventError( string.Format( Resources.Event_CommandExecFailed,
+				                                                       service.Name ), iq.Error ) ;
+
+				Events.Instance.OnEvent( eventError ) ;
+			}
+			else if ( iq.Type == IqType.result )
 			{
 				foreach ( Node node in iq.ChildNodes )
 				{
@@ -519,15 +544,7 @@ namespace xeus2.xeus.Core
 					}
 				}
 			}
-			else
-			{
-				Service service = data as Service ;
 
-				EventError eventError = new EventError( string.Format( Resources.Event_CommandExecFailed,
-				                                                       service.Name ), iq.Error ) ;
-
-				Events.Instance.OnEvent( eventError ) ;
-			}
 		}
 
 		public void Close()
@@ -599,7 +616,14 @@ namespace xeus2.xeus.Core
 		{
 			string nick = null ;
 
-			if ( iq.Type == IqType.result && iq.Query != null )
+			if ( iq.Error != null )
+			{
+				EventError eventError = new EventError( string.Format( Resources.Error_RoomNickFailed,
+				                                                       iq.From ), iq.Error ) ;
+
+				Events.Instance.OnEvent( eventError ) ;
+			}
+			else if ( iq.Type == IqType.result && iq.Query is DiscoInfo )
 			{
 				DiscoInfo di = iq.Query as DiscoInfo ;
 

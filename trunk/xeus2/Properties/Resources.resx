@@ -291,4 +291,16 @@
   <data name="MucStatus_000" xml:space="preserve">
     <value>Unknow Status Code</value>
   </data>
+  <data name="Error_DiscoFailed" xml:space="preserve">
+    <value>Discovery failed for '{0}'</value>
+  </data>
+  <data name="Error_CommandResultFailed" xml:space="preserve">
+    <value>Command result failed for '{0}'</value>
+  </data>
+  <data name="Error_RoomNickFailed" xml:space="preserve">
+    <value>Room nickname request for '{0}' failed</value>
+  </data>
+  <data name="Constant_AlreadyRegistered" xml:space="preserve">
+    <value>\nThis service is already registered</value>
+  </data>
 </root>
