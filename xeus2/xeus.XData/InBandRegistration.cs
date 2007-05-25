@@ -1,4 +1,7 @@
 using System ;
+using System.Collections.Generic ;
+using System.Globalization ;
+using System.Threading ;
 using System.Windows ;
 using System.Windows.Controls ;
 using agsXMPP.protocol.iq.register ;
@@ -15,6 +18,13 @@ namespace xeus2.xeus.XData
 	/// </summary>
 	public class InBandRegistration : XDataFormBase
 	{
+		private string [] _fields = new string[] { "username", "nick", "password",
+													"name", "first", "last", "email", "address",
+													"city", "state", "zip", "phone", "url", "date",
+													"misc", "text", "key" } ;
+
+		CultureInfo _cultureInfo = Thread.CurrentThread.CurrentCulture ;
+
 		public InBandRegistration()
 		{
 			InitializeComponent() ;
@@ -43,26 +53,17 @@ namespace xeus2.xeus.XData
 		{
 			get
 			{
-				if ( XData == null )
+				if ( _xData == null )
 				{
-					if ( _register.Username != null
-							&& _textUserName.GetResult().GetValue() == String.Empty )
+					foreach ( UIElement element in _container.Children )
 					{
-						return false ;
-					}
+						XDataControl control = element as XDataControl ;
 
-					if ( _register.Password != null
-							&& _textPassword.GetResult().GetValue() == String.Empty )
-					{
-						return false ;
+						if ( control != null && !control.Validate() )
+						{
+							return false ;
+						}
 					}
-
-					if ( _register.Email != null
-							&& _textEmail.GetResult().GetValue() == String.Empty )
-					{
-						return false ;
-					}
-
 					return true ;
 				}
 				else
@@ -80,99 +81,69 @@ namespace xeus2.xeus.XData
 			}
 		}
 
-		private XDataTextBox _textUserName ;
-		private XDataSecret _textPassword ;
-		private XDataTextBox _textEmail ;
+		private void AddField( string tag )
+		{
+			string value = _register.GetTag( tag ) ;
+
+			if ( value != null )
+			{
+				XDataControl control ;
+
+				if ( tag == "password" )
+				{
+					control = new XDataSecret() ;
+				}
+				else if ( tag == "key" )
+				{
+					control = new XDataHidden() ;
+				}
+				else
+				{
+					control = new XDataTextBox() ;
+				}
+
+				Field field = new Field( tag, _cultureInfo.TextInfo.ToTitleCase( tag ), FieldType.Text_Single ) ;
+				field.IsRequired = true ;
+				field.AddValue( value ) ;
+				field.Description = tag ;
+
+				control.Field = field ;
+
+				_container.Children.Add( control ) ;
+			}
+		}
+
+		public Dictionary< string, string > GetValues()
+		{
+			Dictionary< string, string > values = new Dictionary< string, string >();
+
+			foreach ( UIElement element in _container.Children )
+			{
+				XDataControl control = element as XDataControl ;
+
+				if ( control != null )
+				{
+					Field result = control.GetResult() ;
+					values.Add( result.Var, result.GetValue() ) ;
+				}
+			}
+
+			return values ;
+		
+		}
 
 		private void SetupGatewayRegistration()
 		{
 			_instructions.Text = _register.Instructions ;
 
-			// user name
-			if ( _register.Username != null )
+			if ( _register.GetTag( "registered" ) != null )
 			{
-				_textUserName = new XDataTextBox() ;
-
-				Field fieldUserName = new Field( "username", Properties.Resources.Constant_UserName, FieldType.Text_Single ) ;
-				fieldUserName.IsRequired = true ;
-				fieldUserName.AddValue( _register.Username ) ;
-				fieldUserName.Description = Properties.Resources.Constant_EnterLoginNameForService ;
-
-				_textUserName.Field = fieldUserName ;
-
-				_container.Children.Add( _textUserName ) ;
+				_instructions.Text += Properties.Resources.Constant_AlreadyRegistered ;
 			}
 
-			// password
-			if ( _register.Password != null )
+			foreach ( string field in _fields )
 			{
-				_textPassword = new XDataSecret() ;
-
-				Field password = new Field( "password", Properties.Resources.Constant_Password, FieldType.Text_Private ) ;
-				password.IsRequired = true ;
-				password.AddValue( _register.Password ) ;
-				password.Description = Properties.Resources.Constant_EnterPasswordForService ;
-
-				_textPassword.Field = password ;
-
-				_container.Children.Add( _textPassword ) ;
-			}
-
-			// email
-			if ( _register.Email != null )
-			{
-				_textEmail = new XDataTextBox() ;
-
-				Field fieldEmail = new Field( "email", Properties.Resources.Constant_Email, FieldType.Text_Single ) ;
-				fieldEmail.IsRequired = true ;
-				fieldEmail.AddValue( _register.Email ) ;
-				fieldEmail.Description = Properties.Resources.Constant_EnterEmailForService ;
-
-				_textEmail.Field = fieldEmail ;
-
-				_container.Children.Add( _textEmail ) ;
-			}
-		}
-
-		public void UpdateData()
-		{
-			if ( _textUserName != null )
-			{
-				_register.Username = _textUserName.GetResult().GetValue() ;
-			}
-
-			if ( _textPassword != null )
-			{
-				_register.Password = _textPassword.GetResult().GetValue() ;
-			}
-
-			if ( _textEmail != null )
-			{
-				_register.Email = _textEmail.GetResult().GetValue() ;
-			}
-		}
-
-		public string UserName
-		{
-			get
-			{
-				return _register.Username ;
-			}
-		}
-
-		public string Password
-		{
-			get
-			{
-				return _register.Password ;
-			}
-		}
-
-		public string Email
-		{
-			get
-			{
-				return _register.Email ;
+				AddField( field );
 			}
 		}
 	}
