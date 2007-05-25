@@ -1,4 +1,5 @@
 using System ;
+using System.Collections.Generic ;
 using agsXMPP ;
 using agsXMPP.protocol.client ;
 using agsXMPP.protocol.iq.disco ;
@@ -24,12 +25,15 @@ namespace xeus2.xeus.Core
 		private bool _isDiscovered = false ;
 		private IQ _errorIq = null ;
 
+		private bool _isToplevel = false ;
+
 		private Services _services = new Services() ;
 		private bool _isCommand = false ;
 
-		public Service( DiscoItem discoItem )
+		public Service( DiscoItem discoItem, bool isToplevel )
 		{
 			_discoItem = discoItem ;
+			_isToplevel = isToplevel ;
 		}
 
 		public Jid Jid
@@ -37,6 +41,24 @@ namespace xeus2.xeus.Core
 			get
 			{
 				return DiscoItem.Jid ;
+			}
+		}
+
+		public List< string > Categories
+		{
+			get
+			{
+				List< string > categories = new List< string >() ;
+
+				if ( _discoInfo != null )
+				{
+					foreach ( DiscoIdentity identity in _discoInfo.GetIdentities() )
+					{
+						categories.Add( identity.Category );
+					}
+				}
+
+				return categories ;
 			}
 		}
 
@@ -133,6 +155,7 @@ namespace xeus2.xeus.Core
 				NotifyPropertyChanged( "IsMucOpen" ) ;
 				NotifyPropertyChanged( "IsMucUnmoderated" ) ;
 				NotifyPropertyChanged( "IsMucNonAnonymous" ) ;
+				NotifyPropertyChanged( "Categories" ) ;
 			}
 		}
 
@@ -285,6 +308,14 @@ namespace xeus2.xeus.Core
 			get
 			{
 				return ( DiscoInfo != null && DiscoInfo.HasFeature( MucFeature.muc_nonanonymous.ToString() ) ) ;
+			}
+		}
+
+		public bool IsToplevel
+		{
+			get
+			{
+				return _isToplevel ;
 			}
 		}
 

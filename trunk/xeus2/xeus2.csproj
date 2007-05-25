@@ -133,6 +133,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="xeus.Core\Service.cs" />
+    <Compile Include="xeus.Core\ServiceCategories.cs" />
+    <Compile Include="xeus.Core\ServiceCategory.cs" />
     <Compile Include="xeus.Core\ServiceCommandExecution.cs" />
     <Compile Include="xeus.Core\Services.cs" />
     <Compile Include="xeus.Core\XeusException.cs" />

@@ -28,6 +28,16 @@ namespace xeus2.xeus.Core
 			}
 		}
 
+		public static ServiceCategories Categories
+		{
+			get
+			{
+				return _categories ;
+			}
+		}
+
+		private static ServiceCategories _categories = new ServiceCategories();
+
 		public void OnCommandsItemInfo( object sender, DiscoItem discoItem, IQ iq )
 		{
 			App.InvokeSafe( DispatcherPriority.Background,
@@ -88,6 +98,11 @@ namespace xeus2.xeus.Core
 				if ( service != null )
 				{
 					service.DiscoInfo = info ;
+
+					if ( service.IsToplevel )
+					{
+						_categories.AddService( service ) ;
+					}
 				}
 			}
 		}
@@ -108,13 +123,14 @@ namespace xeus2.xeus.Core
 				{
 					if ( parent == null )
 					{
-						Add( new Service( discoItem ) ) ;
+						Service newService = new Service( discoItem, true ) ;
+						Add( newService ) ;
 					}
 					else
 					{
 						lock ( parentService.Services._syncObject )
 						{
-							parentService.Services.Add( new Service( discoItem ) ) ;
+							parentService.Services.Add( new Service( discoItem, false ) ) ;
 						}
 					}
 				}
