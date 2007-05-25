@@ -1,13 +1,7 @@
-using System ;
 using System.Collections.Generic ;
-using System.Globalization ;
-using System.Threading ;
 using System.Windows ;
-using System.Windows.Controls ;
 using agsXMPP.protocol.iq.register ;
 using agsXMPP.protocol.x.data ;
-using agsXMPP.Xml.Dom ;
-using xeus2.xeus.Commands ;
 using xeus2.xeus.Core ;
 using xeus2.xeus.Utilities ;
 
@@ -18,12 +12,13 @@ namespace xeus2.xeus.XData
 	/// </summary>
 	public class InBandRegistration : XDataFormBase
 	{
-		private string [] _fields = new string[] { "username", "nick", "password",
-													"name", "first", "last", "email", "address",
-													"city", "state", "zip", "phone", "url", "date",
-													"misc", "text", "key" } ;
-
-		CultureInfo _cultureInfo = Thread.CurrentThread.CurrentCulture ;
+		private string[] _fields = new string[]
+			{
+				"username", "nick", "password",
+				"name", "first", "last", "email", "address",
+				"city", "state", "zip", "phone", "url", "date",
+				"misc", "text", "key"
+			} ;
 
 		public InBandRegistration()
 		{
@@ -102,7 +97,7 @@ namespace xeus2.xeus.XData
 					control = new XDataTextBox() ;
 				}
 
-				Field field = new Field( tag, _cultureInfo.TextInfo.ToTitleCase( tag ), FieldType.Text_Single ) ;
+				Field field = new Field( tag, TextUtil.ToTitleCase( tag ), FieldType.Text_Single ) ;
 				field.IsRequired = true ;
 				field.AddValue( value ) ;
 				field.Description = tag ;
@@ -115,7 +110,7 @@ namespace xeus2.xeus.XData
 
 		public Dictionary< string, string > GetValues()
 		{
-			Dictionary< string, string > values = new Dictionary< string, string >();
+			Dictionary< string, string > values = new Dictionary< string, string >() ;
 
 			foreach ( UIElement element in _container.Children )
 			{
@@ -129,7 +124,6 @@ namespace xeus2.xeus.XData
 			}
 
 			return values ;
-		
 		}
 
 		private void SetupGatewayRegistration()
@@ -143,7 +137,7 @@ namespace xeus2.xeus.XData
 
 			foreach ( string field in _fields )
 			{
-				AddField( field );
+				AddField( field ) ;
 			}
 		}
 	}
