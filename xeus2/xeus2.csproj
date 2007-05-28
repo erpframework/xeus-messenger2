@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
+    <Page Include="xeus.UI\ChooseCommand.xaml" />
     <Page Include="xeus.UI\CommandExecute.xaml" />
     <Page Include="xeus.UI\Muc.xaml" />
     <Page Include="xeus.UI\Registration.xaml" />
@@ -147,6 +148,10 @@
     <Compile Include="xeus.Middle\Registration.cs" />
     <Compile Include="xeus.Middle\Search.cs" />
     <Compile Include="xeus.Middle\WindowManager.cs" />
+    <Compile Include="xeus.UI\ChooseCommand.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>ChooseCommand.xaml</DependentUpon>
+    </Compile>
     <Compile Include="xeus.UI\CommandExecute.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>CommandExecute.xaml</DependentUpon>

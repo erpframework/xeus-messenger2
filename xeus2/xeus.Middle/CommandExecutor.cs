@@ -4,6 +4,7 @@ using System.Windows.Threading ;
 using agsXMPP.protocol.extensions.commands ;
 using xeus2.xeus.Core ;
 using xeus2.xeus.UI ;
+using xeus2.xeus.Utilities ;
 
 namespace xeus2.xeus.Middle
 {
@@ -54,6 +55,41 @@ namespace xeus2.xeus.Middle
 		{
 			App.InvokeSafe( DispatcherPriority.Background,
 			                new DisplayCallback( DisplayQuestionaireInternal ), command, service ) ;
+		}
+
+		public Service ChooseCommand( Service service )
+		{
+			if ( service.Commands.Count == 0 )
+			{
+				return service ;
+			}
+
+			if ( service.Commands.Count == 1 )
+			{
+				return service.Commands[ 0 ] ;
+			}
+
+			foreach ( Service command in service.Commands )
+			{
+				if ( JidUtil.CompareDiscoItem( command.DiscoItem, service.DiscoItem ) )
+				{
+					return command ;
+				}
+			}
+
+			ChooseCommand chooseCommand = new ChooseCommand() ;
+			chooseCommand.DataContext = service ;
+
+			chooseCommand.ShowDialog() ;
+
+			if ( ( bool )chooseCommand.DialogResult )
+			{
+				return chooseCommand.Service ;
+			}
+			else
+			{
+				return null ;
+			}
 		}
 	}
 }
