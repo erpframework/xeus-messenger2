@@ -37,6 +37,16 @@ namespace xeus2.xeus.Core
 			}
 		}
 
+		new protected void Clear()
+		{
+			lock ( _syncObject )
+			{
+				_allServices.Clear() ;
+
+				base.Clear() ;
+			}
+		}
+
 		private static ServiceCategories _categories = new ServiceCategories() ;
 
 		public void OnCommandsItemInfo( object sender, DiscoItem discoItem, IQ iq )
