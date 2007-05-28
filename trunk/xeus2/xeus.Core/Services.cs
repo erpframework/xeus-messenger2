@@ -1,10 +1,9 @@
+using System.Collections.Generic ;
 using System.Windows.Threading ;
 using agsXMPP.protocol.client ;
 using agsXMPP.protocol.iq.disco ;
-using agsXMPP.protocol.x.data ;
 using agsXMPP.Xml.Dom ;
 using xeus2.Properties ;
-using xeus2.xeus.Utilities ;
 
 namespace xeus2.xeus.Core
 {
@@ -19,6 +18,8 @@ namespace xeus2.xeus.Core
 		private delegate void OnCommandsItemInfoCallback( DiscoItem discoItem, IQ iq ) ;
 
 		private static Services _instance = new Services() ;
+
+		private Dictionary< string, Service > _allServices = new Dictionary< string, Service >() ;
 
 		public static Services Instance
 		{
@@ -36,14 +37,14 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		private static ServiceCategories _categories = new ServiceCategories();
+		private static ServiceCategories _categories = new ServiceCategories() ;
 
 		public void OnCommandsItemInfo( object sender, DiscoItem discoItem, IQ iq )
 		{
 			App.InvokeSafe( DispatcherPriority.Background,
 			                new OnCommandsItemInfoCallback( OnCommandsItemInfo ), discoItem, iq ) ;
 		}
-		
+
 		public void OnServiceItemInfo( object sender, DiscoItem discoItem, DiscoInfo info )
 		{
 			App.InvokeSafe( DispatcherPriority.Background,
@@ -70,19 +71,34 @@ namespace xeus2.xeus.Core
 
 		public void OnCommandsItemInfo( DiscoItem discoItem, IQ iq )
 		{
-			foreach ( Node node in iq.Query.ChildNodes )
+			lock ( _syncObject )
 			{
-				DiscoItem item = node as DiscoItem ;
+				Service service = FindService( discoItem ) ;
 
-				if ( item != null )
+				if ( service != null )
 				{
-					lock ( _syncObject )
+					foreach ( Node node in iq.Query.ChildNodes )
 					{
-						Service service = FindService( item ) ;
+						DiscoItem item = node as DiscoItem ;
 
-						if ( service != null )
+						if ( item != null )
 						{
-							service.IsCommand = true ;
+							Service command = FindService( item ) ;
+
+							if ( command == null )
+							{
+								// it is not in hierarchy
+								command = new Service( item, false ) ;
+
+								_allServices.Add( command.Key, command ) ;
+
+								Account.Instance.DiscoInfo( item ) ;
+							}
+
+							lock ( service.Commands._syncObject )
+							{
+								service.Commands.Add( command ) ;
+							}
 						}
 					}
 				}
@@ -124,13 +140,16 @@ namespace xeus2.xeus.Core
 					if ( parent == null )
 					{
 						Service newService = new Service( discoItem, true ) ;
+						_allServices.Add( newService.Key, newService ) ;
 						Add( newService ) ;
 					}
 					else
 					{
 						lock ( parentService.Services._syncObject )
 						{
-							parentService.Services.Add( new Service( discoItem, false ) ) ;
+							Service newService = new Service( discoItem, false ) ;
+							_allServices.Add( newService.Key, newService ) ;
+							parentService.Services.Add( newService ) ;
 						}
 					}
 				}
@@ -140,25 +159,11 @@ namespace xeus2.xeus.Core
 		// unsafe, lock when calling
 		public Service FindService( DiscoItem discoItem )
 		{
-			foreach ( Service item in Items )
-			{
-				if ( JidUtil.CompareDiscoItem( item.DiscoItem, discoItem ) )
-				{
-					return item ;
-				}
+			Service service ;
 
-				lock ( item.Services._syncObject )
-				{
-					Service service = item.Services.FindService( discoItem ) ;
+			_allServices.TryGetValue( Service.GetKey( discoItem ), out service ) ;
 
-					if ( service != null )
-					{
-						return service ;
-					}
-				}
-			}
-
-			return null ;
+			return service ;
 		}
 	}
 }

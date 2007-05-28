@@ -302,6 +302,10 @@ namespace xeus2.xeus.Core
 						{
 							Services.Instance.OnServiceItem( sender, itm, data as DiscoItem ) ;
 
+							AddItemToDiscover() ;
+
+							Discovery( itm ) ;
+
 							if ( string.IsNullOrEmpty( itm.Node ) )
 							{
 								dm.DisoverInformation( itm.Jid, new IqCB( OnDiscoInfoResult ), itm ) ;
@@ -310,13 +314,25 @@ namespace xeus2.xeus.Core
 							{
 								dm.DisoverInformation( itm.Jid, itm.Node, new IqCB( OnDiscoInfoResult ), itm ) ;
 							}
-
-							AddItemToDiscover() ;
-
-							Discovery( itm ) ;
 						}
 					}
 				}
+			}
+		}
+
+		public void DiscoInfo( DiscoItem item )
+		{
+			DiscoManager dm = new DiscoManager( _xmppConnection );
+
+			AddItemToDiscover() ;
+
+			if ( string.IsNullOrEmpty( item.Node ) )
+			{
+				dm.DisoverInformation( item.Jid, new IqCB( OnDiscoInfoResult ), item );
+			}
+			else
+			{
+				dm.DisoverInformation( item.Jid, item.Node, new IqCB( OnDiscoInfoResult ), item );
 			}
 		}
 
@@ -332,18 +348,19 @@ namespace xeus2.xeus.Core
 
 				DiscoItem discoItem = data as DiscoItem ;
 
-				if ( di.HasFeature( Uri.COMMANDS ) )
+				Services.Instance.OnServiceItemInfo( sender, discoItem, di ) ;
+
+				if ( di.HasFeature( Uri.COMMANDS ) && di.Node == null )
 				{
 					DiscoManager discoManager = new DiscoManager( _xmppConnection ) ;
 
-					discoManager.DisoverItems( discoItem.Jid, 
-												Uri.COMMANDS,
-												new IqCB( OnCommandsServerResult ),
-												discoItem ) ;
+					discoManager.DisoverItems( discoItem.Jid,
+					                           Uri.COMMANDS,
+					                           new IqCB( OnCommandsServerResult ),
+					                           discoItem ) ;
+
 					AddItemToDiscover() ;
 				}
-
-				Services.Instance.OnServiceItemInfo( sender, discoItem, di ) ;
 			}
 
 
@@ -364,7 +381,6 @@ namespace xeus2.xeus.Core
 
 			RemoveItemToDiscover() ;
 		}
-
 
 		public void DoSearchService( Service service, Data data )
 		{

@@ -28,12 +28,25 @@ namespace xeus2.xeus.Core
 		private bool _isToplevel = false ;
 
 		private Services _services = new Services() ;
-		private bool _isCommand = false ;
+		private ObservableCollectionDisp< Service > _commands = new ObservableCollectionDisp< Service >();
 
 		public Service( DiscoItem discoItem, bool isToplevel )
 		{
 			_discoItem = discoItem ;
 			_isToplevel = isToplevel ;
+		}
+
+		public string Key
+		{
+			get
+			{
+				return GetKey( _discoItem ) ;
+			}
+		}
+
+		public static string GetKey( DiscoItem discoItem )
+		{
+			return string.Format( "{0}/{1}", discoItem.Jid, discoItem.Node ) ;
 		}
 
 		public Jid Jid
@@ -134,16 +147,7 @@ namespace xeus2.xeus.Core
 			{
 				_discoInfo = value ;
 
-				foreach ( DiscoIdentity identity in _discoInfo.GetIdentities() )
-				{
-					if ( identity.Category == "automation" )
-					{
-						_isCommand = true ;
-						NotifyPropertyChanged( "IsCommand" ) ;
-						break ;
-					}
-				}
-
+				NotifyPropertyChanged( "IsCommand" ) ;
 				NotifyPropertyChanged( "Name" ) ;
 				NotifyPropertyChanged( "Group" ) ;
 				NotifyPropertyChanged( "IsRegistrable" ) ;
@@ -212,13 +216,7 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				return _isCommand ;
-			}
-
-			set
-			{
-				_isCommand = value ;
-				NotifyPropertyChanged( "IsCommand" ) ;
+				return ( _discoInfo != null && _discoInfo.HasFeature( Uri.COMMANDS ) ) ;
 			}
 		}
 
@@ -316,6 +314,14 @@ namespace xeus2.xeus.Core
 			get
 			{
 				return _isToplevel ;
+			}
+		}
+
+		public ObservableCollectionDisp< Service > Commands
+		{
+			get
+			{
+				return _commands ;
 			}
 		}
 

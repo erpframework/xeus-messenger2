@@ -2,6 +2,7 @@ using System.Windows ;
 using System.Windows.Input ;
 using agsXMPP.protocol.extensions.commands ;
 using xeus2.xeus.Core ;
+using xeus2.xeus.Middle ;
 
 namespace xeus2.xeus.Commands
 {
@@ -182,7 +183,12 @@ namespace xeus2.xeus.Commands
 		{
 			Service service = e.Parameter as Service ;
 
-			Account.Instance.ServiceCommand( service ) ;
+			Service command = CommandExecutor.Instance.ChooseCommand( service ) ;
+
+			if ( command != null )
+			{
+				Account.Instance.ServiceCommand( command ) ;
+			}
 
 			e.Handled = true ;
 		}

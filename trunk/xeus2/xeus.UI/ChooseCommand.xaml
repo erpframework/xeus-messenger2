@@ -1,0 +1,12 @@
+﻿<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="xeus2.xeus.UI.ChooseCommand"
+    Title="xeus2.xeus.UI" Height="300" Width="300"
+    >
+    <StackPanel>
+      <TextBlock Text="Choose Command to Execute"/>
+      <ListBox x:Name="_listCommands" ItemsSource="{Binding Path=Commands}"/>
+      <Button Content="Execute" IsDefault="True" Click="OnExecute"/>
+    </StackPanel>
+</Window>
