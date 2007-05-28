@@ -142,6 +142,7 @@ namespace xeus2.xeus.Core
 		private void DiscoveryRoot()
 		{
 			Services.Instance.Clear() ;
+
 			_itemsToDiscover = 0 ;
 
 			NotifyPropertyChanged( "ItemsToDiscover" ) ;
