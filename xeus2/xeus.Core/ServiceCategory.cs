@@ -45,9 +45,88 @@ namespace xeus2.xeus.Core
 			}
 		}
 
+		public string Description
+		{
+			get
+			{
+				return GetCategoryDescription( Name ) ;
+			}
+		}
+
 		public override string ToString()
 		{
 			return Name ;
+		}
+
+		public static string GetCategoryDescription( string category )
+		{
+			switch ( category )
+			{
+				case "account":
+					{
+						return "Used by a server when responding to a disco request sent to the bare JID (user@host addresss) of an account hosted by the server" ;
+					}
+				case "auth":
+					{
+						return "Components that provide authentication services within a server implementation" ;
+					}
+				case "automation":
+					{
+						return "Entities and nodes that provide automated or programmed interaction" ;
+					}
+				case "client":
+					{
+						return "Different types of clients, mostly for instant messaging" ;
+					}
+				case "collaboration":
+					{
+						return "Services that enable multiple individuals to work together in real time" ;
+					}
+				case "component":
+					{
+						return "Services that are internal to server implementations and not normally exposed outside a server" ;
+					}
+				case "conference":
+					{
+						return "Online conference services such as multi-user chatroom services" ;
+					}
+				case "directory":
+					{
+						return "Information retrieval services that enable users to search online directories or otherwise be informed about the existence of other XMPP entities" ;
+					}
+				case "gateway":
+					{
+						return "Translators between Jabber/XMPP services and non-XMPP services" ;
+					}
+				case "headline":
+					{
+						return "Services that provide real-time news or information (often but not necessarily in a message of type \"headline\")" ;
+					}
+				case "hierarchy":
+					{
+						return "Used to describe nodes within a hierarchy of nodes; the \"branch\" and \"leaf\" types are exhaustive" ;
+					}
+				case "proxy":
+					{
+						return "Servers or services that act as special-purpose proxies or intermediaries between two or more XMPP endpoints" ;
+					}
+				case "pubsub":
+					{
+						return "Publish and Subscribe various information" ;
+					}
+				case "server":
+					{
+						return "Jabber/XMPP servers" ;
+					}
+				case "store":
+					{
+						return "Internal server components that provide data storage and retrieval services" ;
+					}
+				default:
+					{
+						return TextUtil.ToTitleCase( category ) ;
+					}
+			}
 		}
 
 		public static string GetCategoryText( string category )
