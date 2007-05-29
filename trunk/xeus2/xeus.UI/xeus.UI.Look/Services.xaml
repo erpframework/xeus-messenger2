@@ -3,10 +3,17 @@
   xmlns:servicecmd="clr-namespace:xeus2.xeus.Commands"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:look="clr-namespace:xeus2.xeus.UI.Look"
+xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic"
 >
   <!-- Resource dictionary entries should be defined here. -->
   <HierarchicalDataTemplate x:Key="ServicesCategoryTemplate" ItemsSource="{Binding Path=Services}">
-    <TextBlock Text="{Binding Path=Text}"/>
+  	<Grid>
+  		<Image Width="64" Height="64"/>
+  		<StackPanel HorizontalAlignment="Left" Margin="64,0,0,0" >
+  			<TextBlock FontSize="18" Text="{Binding Path=Text}" TextWrapping="Wrap"/>
+  			<TextBlock Text="{Binding Path=Description}" TextWrapping="Wrap" />
+  		</StackPanel>
+  	</Grid>
   </HierarchicalDataTemplate>    
 
     <HierarchicalDataTemplate x:Key="ServicesTemplate" ItemsSource="{Binding Path=Services}">
@@ -49,8 +56,101 @@
 		
     </HierarchicalDataTemplate>
 
-  <look:ServiceTemplateSelector ServiceTemplate="{StaticResource ServicesTemplate}"
+  <look:ServiceTemplateSelector
+                                x:Key="ServiceTemplateSelector" ServiceTemplate="{StaticResource ServicesTemplate}"
                                 ServiceCategoryTemplate="{StaticResource ServicesCategoryTemplate}"
-                                x:Key="ServiceTemplateSelector" />
+                                />
 
-</ResourceDictionary>
+	<Style x:Key="TreeViewStyleServices" TargetType="{x:Type TreeView}">
+		<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+	</Style>
+	<Style x:Key="TreeViewItemStyleService" TargetType="{x:Type TreeViewItem}">
+		<Setter Property="Background" Value="#00FFFFFF"/>
+		<Setter Property="HorizontalContentAlignment" Value="{Binding Path=HorizontalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}"/>
+		<Setter Property="VerticalContentAlignment" Value="{Binding Path=VerticalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}"/>
+		<Setter Property="Padding" Value="1,0,0,0"/>
+		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+		<Setter Property="FocusVisualStyle">
+			<Setter.Value>
+				<Style>
+					<Setter Property="Control.Template">
+						<Setter.Value>
+							<ControlTemplate>
+								<Rectangle/>
+							</ControlTemplate>
+						</Setter.Value>
+					</Setter>
+				</Style>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type TreeViewItem}">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition MinWidth="19" Width="Auto"/>
+							<!--<ColumnDefinition Width="Auto"/>-->
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition/>
+						</Grid.RowDefinitions>
+						<ToggleButton x:Name="Expander" IsChecked="{Binding Path=IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press">
+							<ToggleButton.Style>
+								<Style TargetType="{x:Type ToggleButton}">
+									<Setter Property="Focusable" Value="False"/>
+									<Setter Property="Width" Value="19"/>
+									<Setter Property="Height" Value="13"/>
+									<Setter Property="Template">
+										<Setter.Value>
+											<ControlTemplate TargetType="{x:Type ToggleButton}">
+												<Border Width="19" Height="13" Background="#00FFFFFF">
+													<Border SnapsToDevicePixels="True" Width="9" Height="9" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" BorderBrush="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" BorderThickness="1,1,1,1">
+														<Path Fill="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" Margin="1,1,1,1" x:Name="ExpandPath" Data="M0,2L0,3 2,3 2,5 3,5 3,3 5,3 5,2 3,2 3,0 2,0 2,2z"/>
+													</Border>
+												</Border>
+												<ControlTemplate.Triggers>
+													<Trigger Property="IsChecked" Value="True">
+														<Setter Property="Data" TargetName="ExpandPath" Value="M0,2L0,3 5,3 5,2z"/>
+													</Trigger>
+												</ControlTemplate.Triggers>
+											</ControlTemplate>
+										</Setter.Value>
+									</Setter>
+								</Style>
+							</ToggleButton.Style>
+						</ToggleButton>
+						<Border SnapsToDevicePixels="True" x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" Grid.Column="1">
+							<ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" x:Name="PART_Header" Content="{TemplateBinding Header}" ContentSource="Header" ContentTemplateSelector="{DynamicResource ServiceTemplateSelector}"/>
+						</Border>
+						<ItemsPresenter x:Name="ItemsHost" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"/>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsExpanded" Value="False">
+							<Setter Property="Visibility" TargetName="ItemsHost" Value="Collapsed"/>
+						</Trigger>
+						<Trigger Property="HasItems" Value="False">
+							<Setter Property="Visibility" TargetName="Expander" Value="Hidden"/>
+						</Trigger>
+						<Trigger Property="IsSelected" Value="True">
+							<Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+							<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+						</Trigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsSelected" Value="True"/>
+								<Condition Property="IsSelectionActive" Value="False"/>
+							</MultiTrigger.Conditions>
+							<Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+							<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+						</MultiTrigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+  </ResourceDictionary>
