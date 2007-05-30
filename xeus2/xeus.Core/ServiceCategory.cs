@@ -1,3 +1,7 @@
+using System.Drawing ;
+using System.Windows.Media.Imaging ;
+using xeus.Data ;
+using xeus2.Properties ;
 using xeus2.xeus.Utilities ;
 
 namespace xeus2.xeus.Core
@@ -58,7 +62,58 @@ namespace xeus2.xeus.Core
 			return Name ;
 		}
 
-		public static string GetCategoryDescription( string category )
+		public BitmapImage Image
+		{
+			get
+			{
+				return GetCategoryImage( Name );
+			}
+		}
+
+		static BitmapImage GetCategoryImage( string category )
+		{
+			switch ( category )
+			{
+				case "conference":
+					{
+						return Storage.GetServiceImage( "service_conference.png" ) ;
+					}
+				case "directory":
+					{
+						return Storage.GetServiceImage( "service_search.png" ) ;
+					}
+				case "gateway":
+					{
+						return Storage.GetServiceImage( "service_gateway.png" ) ;
+					}
+				case "proxy":
+					{
+						return Storage.GetServiceImage( "service_proxy.png" ) ;
+					}
+				case "pubsub":
+					{
+						return Storage.GetServiceImage( "service_pubsub.png" ) ;
+					}
+				case "store":
+					{
+						return Storage.GetServiceImage( "service_store.png" ) ;
+					}
+				case "headline":
+					{
+						return Storage.GetServiceImage( "service_headline.png" ) ;
+					}
+				case "server":
+				case "automation":
+				case "collaboration":
+				case "component":
+				default:
+					{
+						return Storage.GetDefaultServiceImage() ;
+					}
+			}			
+		}
+
+		static string GetCategoryDescription( string category )
 		{
 			switch ( category )
 			{
@@ -129,7 +184,7 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		public static string GetCategoryText( string category )
+		static string GetCategoryText( string category )
 		{
 			switch ( category )
 			{
