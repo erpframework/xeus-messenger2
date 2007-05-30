@@ -1,9 +1,13 @@
 using System ;
+using System.Diagnostics ;
 using System.IO ;
 using System.Reflection ;
-using System.Resources ;
 using System.Windows ;
+using System.Windows.Controls ;
+using System.Windows.Markup ;
+using System.Windows.Media ;
 using System.Windows.Media.Imaging ;
+using System.Windows.Resources ;
 using agsXMPP.protocol.iq.vcard ;
 using agsXMPP.Xml.Dom ;
 using xeus2.xeus.Core ;
@@ -27,10 +31,10 @@ namespace xeus.Data
 
 		public static void OpenShellFolder( string path )
 		{
-			System.Diagnostics.Process proc = new System.Diagnostics.Process();
-			proc.EnableRaisingEvents = false;
-			proc.StartInfo.FileName = path;
-			proc.Start();			
+			Process proc = new Process() ;
+			proc.EnableRaisingEvents = false ;
+			proc.StartInfo.FileName = path ;
+			proc.Start() ;
 		}
 
 		public static DirectoryInfo GetDbFolder()
@@ -161,14 +165,45 @@ namespace xeus.Data
 			}
 		}
 
-		public static BitmapImage GetDefaultAvatar()
+		private static BitmapImage GetAvatar( string url )
 		{
-			return GetAvatar( "pack://application:,,,/Images/avatar.png", ref _defaultAvatar ) ;
+			BitmapImage avatarStorage = null ;
+
+			try
+			{
+				Uri uri = new Uri( url, UriKind.Absolute ) ;
+
+				using ( Stream stream = Application.GetResourceStream( uri ).Stream )
+				{
+					avatarStorage = new BitmapImage() ;
+					avatarStorage.CacheOption = BitmapCacheOption.OnLoad ;
+					avatarStorage.BeginInit() ;
+					avatarStorage.StreamSource = stream ;
+					avatarStorage.EndInit() ;
+				}
+			}
+
+			catch ( Exception e )
+			{
+				Events.Instance.OnEvent( new EventError( e.Message, null ) ) ;
+			}
+
+			return avatarStorage ;
 		}
 
-		public static BitmapImage GetDefaultServiceAvatar()
+		public static BitmapImage GetDefaultAvatar()
 		{
-			return GetAvatar( "pack://application:,,,/Images/service.png", ref _defaultServiceAvatar ) ;
+			return GetAvatar( "pack://application:,,,/xeus.UI/xeus.Images/service_service.png", ref _defaultAvatar ) ;
+		}
+
+		public static BitmapImage GetDefaultServiceImage()
+		{
+			return GetAvatar( "pack://application:,,,../xeus.UI/xeus.Images/service_service.png", ref _defaultServiceAvatar ) ;
+		}
+
+		public static BitmapImage GetServiceImage( string name )
+		{
+			return GetAvatar( string.Format( "pack://application:,,,../xeus.UI/xeus.Images/{0}", name ) ) ;
 		}
 
 		public static string FlushImage( string jid )
@@ -188,7 +223,6 @@ namespace xeus.Data
 				if ( vcard.Photo.HasTag( "BINVAL" ) )
 				{
 					pic = Convert.FromBase64String( vcard.Photo.GetTag( "BINVAL" ) ) ;
-
 				}
 				else if ( vcard.Photo.TextBase64.Length > 0 )
 				{
@@ -201,7 +235,7 @@ namespace xeus.Data
 
 				using ( BinaryWriter binWriter = new BinaryWriter( File.Open( filename, FileMode.Create ) ) )
 				{
-					binWriter.Write( pic );
+					binWriter.Write( pic ) ;
 				}
 
 				return filename ;
@@ -210,8 +244,9 @@ namespace xeus.Data
 			catch
 			{
 				return null ;
-			}			
+			}
 		}
+
 		public static BitmapImage ImageFromPhoto( Photo photo )
 		{
 			try

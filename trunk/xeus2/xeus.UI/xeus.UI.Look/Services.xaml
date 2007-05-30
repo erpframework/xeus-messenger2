@@ -7,12 +7,13 @@ xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=
 >
   <!-- Resource dictionary entries should be defined here. -->
   <HierarchicalDataTemplate x:Key="ServicesCategoryTemplate" ItemsSource="{Binding Path=Services}">
-  	<Grid>
-  		<Image Width="64" Height="64"/>
-  		<StackPanel HorizontalAlignment="Left" Margin="64,0,0,0" >
-  			<TextBlock FontSize="18" Text="{Binding Path=Text}" TextWrapping="Wrap"/>
-  			<TextBlock Text="{Binding Path=Description}" TextWrapping="Wrap" />
+  	<Grid Margin="5,5,5,5" MinWidth="300">
+  		<Image Width="56" Height="56" VerticalAlignment="Center" Source="{Binding Path=Image}" HorizontalAlignment="Left" />
+  		<StackPanel HorizontalAlignment="Left" Margin="70,0,0,0" VerticalAlignment="Center" >
+  			<TextBlock FontSize="17" Text="{Binding Path=Text}" TextWrapping="Wrap" FontWeight="Bold" Foreground="{DynamicResource DefaultTextBrush}"/>
+  			<TextBlock Text="{Binding Path=Description}" TextWrapping="Wrap" FontSize="10" Foreground="{DynamicResource DefaultTextBrush}" />
   		</StackPanel>
+		<Line Stroke="{DynamicResource DefaultBorderBrush}" StrokeThickness="1" Margin="0,1,0,0" VerticalAlignment="Bottom"/>
   	</Grid>
   </HierarchicalDataTemplate>    
 
@@ -56,14 +57,14 @@ xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=
 		
     </HierarchicalDataTemplate>
 
-  <look:ServiceTemplateSelector
-                                x:Key="ServiceTemplateSelector" ServiceTemplate="{StaticResource ServicesTemplate}"
-                                ServiceCategoryTemplate="{StaticResource ServicesCategoryTemplate}"
-                                />
+  <look:ServiceTemplateSelector x:Key="ServiceTemplateSelector" ServiceTemplate="{StaticResource ServicesTemplate}"
+                                ServiceCategoryTemplate="{StaticResource ServicesCategoryTemplate}" />
 
 	<Style x:Key="TreeViewStyleServices" TargetType="{x:Type TreeView}">
 		<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+		<Setter Property="OverridesDefaultStyle" Value="True"/>
 	</Style>
+	
 	<Style x:Key="TreeViewItemStyleService" TargetType="{x:Type TreeViewItem}">
 		<Setter Property="Background" Value="#00FFFFFF"/>
 		<Setter Property="HorizontalContentAlignment" Value="{Binding Path=HorizontalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}"/>
@@ -106,13 +107,29 @@ xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=
 										<Setter.Value>
 											<ControlTemplate TargetType="{x:Type ToggleButton}">
 												<Border Width="19" Height="13" Background="#00FFFFFF">
-													<Border SnapsToDevicePixels="True" Width="9" Height="9" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" BorderBrush="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" BorderThickness="1,1,1,1">
-														<Path Fill="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" Margin="1,1,1,1" x:Name="ExpandPath" Data="M0,2L0,3 2,3 2,5 3,5 3,3 5,3 5,2 3,2 3,0 2,0 2,2z"/>
-													</Border>
+													<Path RenderTransformOrigin="0.5,0.5" Fill="#FFFB7375" Stretch="Fill" x:Name="path" Width="7.333" Height="7.5" Data="M3,2 L3,8.5 9.3333333,5.0833333 z">
+														<Path.RenderTransform>
+															<TransformGroup>
+																<ScaleTransform ScaleX="1" ScaleY="1"/>
+																<SkewTransform AngleX="0" AngleY="0"/>
+																<RotateTransform Angle="0"/>
+																<TranslateTransform X="0" Y="0"/>
+															</TransformGroup>
+														</Path.RenderTransform>
+													</Path>
 												</Border>
 												<ControlTemplate.Triggers>
 													<Trigger Property="IsChecked" Value="True">
-														<Setter Property="Data" TargetName="ExpandPath" Value="M0,2L0,3 5,3 5,2z"/>
+														<Setter Property="RenderTransform" TargetName="path">
+															<Setter.Value>
+																<TransformGroup>
+																	<ScaleTransform ScaleX="1" ScaleY="1"/>
+																	<SkewTransform AngleX="0" AngleY="0"/>
+																	<RotateTransform Angle="90"/>
+																	<TranslateTransform X="0" Y="0"/>
+																</TransformGroup>
+															</Setter.Value>
+														</Setter>
 													</Trigger>
 												</ControlTemplate.Triggers>
 											</ControlTemplate>

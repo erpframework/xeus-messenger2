@@ -31,6 +31,13 @@
    
 	</Window.Resources>
 
+	<Window.Background>
+		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+			<GradientStop Color="#FFF1F7FD" Offset="0"/>
+			<GradientStop Color="#FFFFFFFF" Offset="1"/>
+		</LinearGradientBrush>
+	</Window.Background>
+
     <StackPanel>
       
       <ListBox ItemsSource="{Binding Source={StaticResource Contacts}}" Height="100"
@@ -64,7 +71,7 @@
                 ItemTemplateSelector="{DynamicResource ServiceTemplateSelector}"
                 Height="300"
                 x:Name="_services" Style="{DynamicResource TreeViewStyleServices}"
-				ItemContainerStyle="{DynamicResource TreeViewItemStyleService}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
+				ItemContainerStyle="{DynamicResource TreeViewItemStyleService}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="4,4,4,4" Template="{DynamicResource TreeViewControlTemplate}" />
 
       <ListBox ItemsSource="{Binding Path=Instance, Mode=Default, Source={StaticResource EventsDS}}" Height="100"/>
       
