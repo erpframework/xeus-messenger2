@@ -35,6 +35,9 @@ namespace xeus2.xeus.Commands
 		private static RoutedUICommand _mucInfo =
 			new RoutedUICommand( "MucInfo", "ServiceCommandMucInfo", typeof ( ServiceCommands ) ) ;
 
+		private static RoutedUICommand _displayServices =
+			new RoutedUICommand( "DisplayServices", "ServicesDisplay", typeof ( ServiceCommands ) ) ;
+
 		public static RoutedUICommand Register
 		{
 			get
@@ -107,6 +110,14 @@ namespace xeus2.xeus.Commands
 			}
 		}
 
+		public static RoutedUICommand DisplayServices
+		{
+			get
+			{
+				return _displayServices ;
+			}
+		}
+
 		public static void RegisterCommands( Window window )
 		{
 			window.CommandBindings.Add(
@@ -135,6 +146,9 @@ namespace xeus2.xeus.Commands
 
 			window.CommandBindings.Add(
 				new CommandBinding( _mucInfo, ExecuteMucInfo, CanExecuteMucInfo ) ) ;
+
+			window.CommandBindings.Add(
+				new CommandBinding( _displayServices, ExecuteDisplayServices, CanExecuteDisplayServices ) ) ;
 		}
 
 		public static void CanExecuteRegister( object sender, CanExecuteRoutedEventArgs e )
@@ -299,6 +313,19 @@ namespace xeus2.xeus.Commands
 			Service service = e.Parameter as Service ;
 
 			Middle.MucInfo.Instance.DisplayMucInfo( service );
+
+			e.Handled = true ;
+		}
+
+		public static void CanExecuteDisplayServices( object sender, CanExecuteRoutedEventArgs e )
+		{
+			e.Handled = true ;
+			e.CanExecute = true ;
+		}
+
+		public static void ExecuteDisplayServices( object sender, ExecutedRoutedEventArgs e )
+		{
+			Middle.Services.Instance.Display();
 
 			e.Handled = true ;
 		}
