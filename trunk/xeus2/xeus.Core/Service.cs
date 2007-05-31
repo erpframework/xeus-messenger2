@@ -75,6 +75,8 @@ namespace xeus2.xeus.Core
 			}
 		}
 
+		private bool _askedForInfo = false ;
+
 		public string Name
 		{
 			get
