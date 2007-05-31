@@ -147,6 +147,7 @@ namespace xeus2.xeus.Core
 			{
 				_discoInfo = value ;
 
+				NotifyPropertyChanged( "DiscoInfo" ) ;
 				NotifyPropertyChanged( "IsCommand" ) ;
 				NotifyPropertyChanged( "Name" ) ;
 				NotifyPropertyChanged( "Group" ) ;

@@ -236,7 +236,7 @@ namespace xeus2.xeus.Core
 
 		private void Discovery( DiscoItem discoItem )
 		{
-			App.InvokeSafe( DispatcherPriority.Render,
+			App.InvokeSafe( DispatcherPriority.Background,
 			                new DiscoCallback( DiscoveryInternal ), discoItem ) ;
 		}
 
@@ -411,7 +411,7 @@ namespace xeus2.xeus.Core
 
 		private void OnDiscoInfoResult( object sender, IQ iq, object data )
 		{
-			App.InvokeSafe( DispatcherPriority.Render,
+			App.InvokeSafe( DispatcherPriority.Background,
 			                new DiscoInfoResultCallback( OnDiscoInfoResultInternal ), sender, iq, data ) ;
 		}
 

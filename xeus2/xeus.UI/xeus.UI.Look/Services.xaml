@@ -27,6 +27,14 @@ xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=
   			</DoubleAnimationUsingKeyFrames>
   		</Storyboard>
   		<Storyboard x:Key="Highlight"/>
+		
+		<LinearGradientBrush x:Key="SelectedBackground" EndPoint="0.5,1" StartPoint="0.5,0">
+			<GradientStop Color="#FFBDC9D9" Offset="0"/>
+			<GradientStop Color="#FFDFE5ED" Offset="1"/>
+		</LinearGradientBrush>
+		
+		<DropShadowBitmapEffect x:Key="SelectedBitmapEffect" Opacity="0.25" ShadowDepth="1" Softness="0.25"/>
+		
    	</HierarchicalDataTemplate.Resources>
 	
   	<Grid Margin="5,5,5,5" MinWidth="300" x:Name="grid">
@@ -56,7 +64,10 @@ xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=
   			<BeginStoryboard x:Name="Highlight_BeginStoryboard" Storyboard="{StaticResource Highlight}"/>
   		</EventTrigger>
 		<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}, AncestorLevel=1}, Path=IsSelected}" Value="True">
-  			<Setter Property="Background" TargetName="background" Value="#c5dcff"/>
+  			<Setter Property="BorderBrush" TargetName="background" Value="#FF8C9DB5"/>
+  			<Setter Property="BorderThickness" TargetName="background" Value="1,1,1,1"/>
+  			<Setter Property="Background" TargetName="background" Value="{StaticResource SelectedBackground}"/>
+  			<Setter Property="BitmapEffect" TargetName="background" Value="{StaticResource SelectedBitmapEffect}"/>
 		</DataTrigger>
   	</HierarchicalDataTemplate.Triggers>
 
@@ -64,6 +75,8 @@ xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=
 
     <HierarchicalDataTemplate x:Key="ServicesTemplate" ItemsSource="{Binding Path=Services}">
     <StackPanel Orientation="Horizontal">
+	  <Image Source="pack://application:,,,/xeus.UI/xeus.Images/clock.png" x:Name="waiting" ToolTip="Waiting for Information" Width="16" Height="16" Visibility="Collapsed"/>
+	  
       <TextBlock Text="{Binding Path=Name}"/>
 
       <Button x:Name="_register" Content="reg" Command="servicecmd:ServiceCommands.Register"
@@ -92,12 +105,15 @@ xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=
 		<DataTrigger Binding="{Binding Path=IsCommand}" Value="False">
   			<Setter Property="Visibility" TargetName="_run" Value="Collapsed"/>
   		</DataTrigger>
-    <DataTrigger Binding="{Binding Path=IsChatRoom}" Value="False">
-      <Setter Property="Visibility" TargetName="_muc" Value="Collapsed"/>
-    </DataTrigger>
-    <DataTrigger Binding="{Binding Path=IsChatRoom}" Value="False">
-      <Setter Property="Visibility" TargetName="_mucInfo" Value="Collapsed"/>
-    </DataTrigger>
+    	<DataTrigger Binding="{Binding Path=IsChatRoom}" Value="False">
+      		<Setter Property="Visibility" TargetName="_muc" Value="Collapsed"/>
+    	</DataTrigger>
+    	<DataTrigger Binding="{Binding Path=IsChatRoom}" Value="False">
+      		<Setter Property="Visibility" TargetName="_mucInfo" Value="Collapsed"/>
+    	</DataTrigger>
+    	<DataTrigger Binding="{Binding Path=DiscoInfo}" Value="{x:Null}">
+      		<Setter Property="Visibility" TargetName="waiting" Value="Visible"/>
+    	</DataTrigger>
     </HierarchicalDataTemplate.Triggers>
 		
     </HierarchicalDataTemplate>
@@ -152,7 +168,7 @@ xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=
 										<Setter.Value>
 											<ControlTemplate TargetType="{x:Type ToggleButton}">
 												<Border Width="19" Height="13" Background="#00FFFFFF">
-													<Path RenderTransformOrigin="0.5,0.5" Fill="#FFFB7375" Stretch="Fill" x:Name="path" Width="7.333" Height="7.5" Data="M3,2 L3,8.5 9.3333333,5.0833333 z">
+													<Path RenderTransformOrigin="0.5,0.5" Fill="#FF686A6B" Stretch="Fill" x:Name="path" Width="7.333" Height="7.5" Data="M3,2 L3,8.5 9.3333333,5.0833333 z">
 														<Path.RenderTransform>
 															<TransformGroup>
 																<ScaleTransform ScaleX="1" ScaleY="1"/>
@@ -164,6 +180,12 @@ xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=
 													</Path>
 												</Border>
 												<ControlTemplate.Triggers>
+													<Trigger Property="IsPressed" Value="True">
+														<Setter Property="Margin" TargetName="path" Value="1,1,0,0"/>
+													</Trigger>
+													<Trigger Property="IsMouseOver" SourceName="path" Value="True">
+														<Setter Property="Fill" TargetName="path" Value="#FFACACAC"/>
+													</Trigger>
 													<Trigger Property="IsChecked" Value="True">
 														<Setter Property="RenderTransform" TargetName="path">
 															<Setter.Value>

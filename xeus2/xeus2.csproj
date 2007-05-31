@@ -250,6 +250,9 @@
   <ItemGroup>
     <Resource Include="xeus.UI\xeus.Images\service_headline.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="xeus.UI\xeus.Images\clock.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildBinPath)\Microsoft.WinFX.targets" />
 </Project>

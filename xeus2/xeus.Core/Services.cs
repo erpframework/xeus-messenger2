@@ -37,11 +37,13 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		new protected void Clear()
+		new public void Clear()
 		{
 			lock ( _syncObject )
 			{
 				_allServices.Clear() ;
+
+				Categories.Clear();
 
 				base.Clear() ;
 			}

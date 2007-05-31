@@ -355,6 +355,7 @@ namespace xeus2.xeus.Commands
 			string jid = e.Parameter as string ;
 
 			Account.Instance.Discovery( jid );
+
 			e.Handled = true ;
 		}
 	}
