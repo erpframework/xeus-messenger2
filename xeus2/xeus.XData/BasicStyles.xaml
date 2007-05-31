@@ -42,7 +42,7 @@
 		</Border>
 	</ControlTemplate>
 
-	<SolidColorBrush x:Key="DefaultBorderBrush" Color="#FFCECECE"/>
+	<SolidColorBrush x:Key="DefaultBorderBrush" Color="#FFA1A1A1"/>
 
 	<Style TargetType="{x:Type TreeView}">
 		<Setter Property="OverridesDefaultStyle" Value="False"/>
