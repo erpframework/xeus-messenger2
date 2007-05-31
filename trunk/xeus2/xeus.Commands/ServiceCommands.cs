@@ -361,7 +361,7 @@ namespace xeus2.xeus.Commands
 		public static void CanExecuteDiscoveryServices( object sender, CanExecuteRoutedEventArgs e )
 		{
 			e.Handled = true ;
-			e.CanExecute = ( e.Parameter is string && Account.Instance.ItemsToDiscover == 0 ) ;
+			e.CanExecute = ( e.Parameter is string ) ;
 		}
 
 		public static void ExecuteDiscoveryServices( object sender, ExecutedRoutedEventArgs e )
@@ -376,7 +376,7 @@ namespace xeus2.xeus.Commands
 		public static void CanExecuteStopDiscoveryServices( object sender, CanExecuteRoutedEventArgs e )
 		{
 			e.Handled = true ;
-			e.CanExecute = ( Account.Instance.ItemsToDiscover > 0 ) ;
+			e.CanExecute = true ;
 		}
 
 		public static void ExecuteStopDiscoveryServices( object sender, ExecutedRoutedEventArgs e )
