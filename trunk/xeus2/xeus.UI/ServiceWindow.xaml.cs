@@ -1,28 +1,23 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Windows ;
+using xeus2.xeus.Commands ;
 
 namespace xeus2.xeus.UI
 {
 	/// <summary>
 	/// Interaction logic for ServiceWindow.xaml
 	/// </summary>
-
-	public partial class ServiceWindow : System.Windows.Window
+	public partial class ServiceWindow : Window
 	{
-
 		public ServiceWindow()
 		{
-			InitializeComponent();
+			InitializeComponent() ;
 		}
 
+		public override void EndInit()
+		{
+			base.EndInit();
+
+			ServiceCommands.RegisterCommands( this );
+		}
 	}
 }
