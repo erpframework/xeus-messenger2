@@ -124,6 +124,9 @@
 		<Setter Property="Template" Value="{DynamicResource ImageButtonControlTemplate}"/>
 		<Setter Property="SnapsToDevicePixels" Value="False"/>
 		<Setter Property="Margin" Value="2,2,2,2"/>
+		<Setter Property="AllowDrop" Value="False"/>
+		<Setter Property="Focusable" Value="False"/>
+		<Setter Property="IsTabStop" Value="False"/>
 	</Style>
 
 	<ControlTemplate x:Key="ImageButtonControlTemplate" TargetType="{x:Type Button}">
@@ -144,5 +147,21 @@
 			</Trigger>
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
+
+	<Style x:Key="FrameBorderStyle" TargetType="{x:Type Border}">
+		<Setter Property="BorderBrush" Value="{DynamicResource DefaultBorderBrush}"/>
+		<Setter Property="BorderThickness" Value="1,1,1,1"/>
+		<Setter Property="CornerRadius" Value="8,8,8,8"/>
+		<Setter Property="Background">
+			<Setter.Value>
+				<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+					<GradientStop Color="#FFE5E5E5" Offset="0.074"/>
+					<GradientStop Color="#FFFFFFFF" Offset="1"/>
+					<GradientStop Color="#FFFCFCFC" Offset="0"/>
+					<GradientStop Color="#FFFDFDFD" Offset="0.926"/>
+				</LinearGradientBrush>
+			</Setter.Value>
+		</Setter>
+	</Style>
 
 </ResourceDictionary>
