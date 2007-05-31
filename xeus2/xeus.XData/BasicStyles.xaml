@@ -120,4 +120,29 @@
 		</Style.Triggers>
 	</Style>
 
+	<Style x:Key="ImageButtonStyle" TargetType="{x:Type Button}">
+		<Setter Property="Template" Value="{DynamicResource ImageButtonControlTemplate}"/>
+		<Setter Property="SnapsToDevicePixels" Value="False"/>
+		<Setter Property="Margin" Value="2,2,2,2"/>
+	</Style>
+
+	<ControlTemplate x:Key="ImageButtonControlTemplate" TargetType="{x:Type Button}">
+		<Border x:Name="border" Background="{TemplateBinding Background}" />
+			<!--
+			<ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" RecognizesAccessKey="True"/>
+			-->
+		<ControlTemplate.Triggers>
+			<Trigger Property="IsMouseOver" Value="True">
+				<Setter Property="BitmapEffect" TargetName="border">
+					<Setter.Value>
+						<OuterGlowBitmapEffect GlowColor="#FFFFFFFF" GlowSize="3"/>
+					</Setter.Value>
+				</Setter>
+			</Trigger>
+			<Trigger Property="IsPressed" Value="True">
+				<Setter Property="Margin" TargetName="border" Value="1,1,0,0"/>
+			</Trigger>
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
+
 </ResourceDictionary>
