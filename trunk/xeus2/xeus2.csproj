@@ -80,6 +80,7 @@
     <Page Include="xeus.UI\RoomLogin.xaml" />
     <Page Include="xeus.UI\RosterWindow.xaml" />
     <Page Include="xeus.UI\Search.xaml" />
+    <Page Include="xeus.UI\ServiceWindow.xaml" />
     <Page Include="xeus.XData\XDataContainer.xaml" />
     <Page Include="xeus.XData\XDataControl.xaml" />
     <Page Include="xeus.XData\XDataFromBase.xaml" />
@@ -149,6 +150,7 @@
     <Compile Include="xeus.Middle\Notification.cs" />
     <Compile Include="xeus.Middle\Registration.cs" />
     <Compile Include="xeus.Middle\Search.cs" />
+    <Compile Include="xeus.Middle\Services.cs" />
     <Compile Include="xeus.Middle\WindowManager.cs" />
     <Compile Include="xeus.UI\ChooseCommand.xaml.cs">
       <SubType>Code</SubType>
@@ -177,6 +179,10 @@
     <Compile Include="xeus.UI\Search.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>Search.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xeus.UI\ServiceWindow.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>ServiceWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\StyleManager.cs" />
     <Compile Include="xeus.UI\xeus.UI.Look\ServiceTemplateSelector.cs" />

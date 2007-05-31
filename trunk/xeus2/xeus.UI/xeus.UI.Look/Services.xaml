@@ -7,14 +7,59 @@ xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=
 >
   <!-- Resource dictionary entries should be defined here. -->
   <HierarchicalDataTemplate x:Key="ServicesCategoryTemplate" ItemsSource="{Binding Path=Services}">
-  	<Grid Margin="5,5,5,5" MinWidth="300">
-  		<Image Width="56" Height="56" VerticalAlignment="Center" Source="{Binding Path=Image}" HorizontalAlignment="Left" />
-  		<StackPanel HorizontalAlignment="Left" Margin="70,0,0,0" VerticalAlignment="Center" >
+  	<HierarchicalDataTemplate.Resources>
+  		<Storyboard x:Key="PumpUp">
+  			<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="image" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+  				<SplineDoubleKeyFrame KeyTime="00:00:00" Value="0.2"/>
+  				<SplineDoubleKeyFrame KeyTime="00:00:00.1000000" Value="1"/>
+  				<SplineDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1.1"/>
+  				<SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1"/>
+  			</DoubleAnimationUsingKeyFrames>
+  			<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="image" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+  				<SplineDoubleKeyFrame KeyTime="00:00:00" Value="0.2"/>
+  				<SplineDoubleKeyFrame KeyTime="00:00:00.1000000" Value="1"/>
+  				<SplineDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1.1"/>
+  				<SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1"/>
+  			</DoubleAnimationUsingKeyFrames>
+  			<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="grid" Storyboard.TargetProperty="(UIElement.Opacity)">
+  				<SplineDoubleKeyFrame KeyTime="00:00:00" Value="0.1"/>
+  				<SplineDoubleKeyFrame KeyTime="00:00:00.5000000" Value="1"/>
+  			</DoubleAnimationUsingKeyFrames>
+  		</Storyboard>
+  		<Storyboard x:Key="Highlight"/>
+   	</HierarchicalDataTemplate.Resources>
+	
+  	<Grid Margin="5,5,5,5" MinWidth="300" x:Name="grid">
+  		<Image Width="56" Height="56" VerticalAlignment="Center" Source="{Binding Path=Image}" HorizontalAlignment="Left" Margin="0,0,0,10" OpacityMask="#FF000000" RenderTransformOrigin="0.5,0.5" x:Name="image" >
+  			<Image.RenderTransform>
+  				<TransformGroup>
+  					<ScaleTransform/>
+  					<SkewTransform AngleX="0" AngleY="0"/>
+  					<RotateTransform Angle="0"/>
+  					<TranslateTransform X="0" Y="0"/>
+  				</TransformGroup>
+  			</Image.RenderTransform>
+  		</Image>
+		<Border x:Name="background" Margin="70,0,0,10" CornerRadius="3,3,3,3" Padding="3,3,3,3">
+  		<StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" >
   			<TextBlock FontSize="17" Text="{Binding Path=Text}" TextWrapping="Wrap" FontWeight="Bold" Foreground="{DynamicResource DefaultTextBrush}"/>
   			<TextBlock Text="{Binding Path=Description}" TextWrapping="Wrap" FontSize="10" Foreground="{DynamicResource DefaultTextBrush}" />
   		</StackPanel>
-		<Line Stroke="{DynamicResource DefaultBorderBrush}" StrokeThickness="1" Margin="0,1,0,0" VerticalAlignment="Bottom"/>
+		</Border>
+		<Rectangle Stroke="{DynamicResource DefaultBorderBrush}" StrokeThickness="1" Margin="0,1,0,0" VerticalAlignment="Bottom"/>
   	</Grid>
+  	<HierarchicalDataTemplate.Triggers>
+  		<EventTrigger RoutedEvent="FrameworkElement.Loaded" SourceName="image">
+  			<BeginStoryboard x:Name="PumpUp_BeginStoryboard" Storyboard="{StaticResource PumpUp}"/>
+  		</EventTrigger>
+  		<EventTrigger RoutedEvent="Mouse.MouseEnter">
+  			<BeginStoryboard x:Name="Highlight_BeginStoryboard" Storyboard="{StaticResource Highlight}"/>
+  		</EventTrigger>
+		<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}, AncestorLevel=1}, Path=IsSelected}" Value="True">
+  			<Setter Property="Background" TargetName="background" Value="#c5dcff"/>
+		</DataTrigger>
+  	</HierarchicalDataTemplate.Triggers>
+
   </HierarchicalDataTemplate>    
 
     <HierarchicalDataTemplate x:Key="ServicesTemplate" ItemsSource="{Binding Path=Services}">
@@ -150,18 +195,6 @@ xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=
 						<Trigger Property="HasItems" Value="False">
 							<Setter Property="Visibility" TargetName="Expander" Value="Hidden"/>
 						</Trigger>
-						<Trigger Property="IsSelected" Value="True">
-							<Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-							<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
-						</Trigger>
-						<MultiTrigger>
-							<MultiTrigger.Conditions>
-								<Condition Property="IsSelected" Value="True"/>
-								<Condition Property="IsSelectionActive" Value="False"/>
-							</MultiTrigger.Conditions>
-							<Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-							<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-						</MultiTrigger>
 						<Trigger Property="IsEnabled" Value="False">
 							<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
 						</Trigger>

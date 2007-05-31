@@ -25,6 +25,16 @@ namespace xeus2
 			return Current.Dispatcher.CheckAccess() ;
 		}
 
+		public static void InvokeSafe( DispatcherPriority priority, Delegate method )
+		{
+			if ( Current == null )
+			{
+				return ;
+			}
+
+			Current.Dispatcher.Invoke( priority, method ) ;
+		}
+
 		public static void InvokeSafe( DispatcherPriority priority, Delegate method, object arg )
 		{
 			if ( Current == null )
