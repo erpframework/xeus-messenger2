@@ -26,9 +26,11 @@
 
 	<DockPanel>
 		<DockPanel DockPanel.Dock="Top">
-			<Button Content="Discover" Command="servicecmd:ServiceCommands.DiscoveryServices"
+      <Button Content="Stop" Command="servicecmd:ServiceCommands.StopDiscoveryServices"
+				DockPanel.Dock="Right"/>
+      <Button Content="Discover" Command="servicecmd:ServiceCommands.DiscoveryServices"
 				CommandParameter="{Binding Path=Text, ElementName=serverJid}" DockPanel.Dock="Right"/>
-			<TextBox x:Name="serverJid"/>
+      <TextBox x:Name="serverJid"/>
 		</DockPanel>
 		<Border DockPanel.Dock="Bottom" Margin="5,10,5,5" Style="{DynamicResource FrameBorderStyle}" Padding="2,2,2,2">
 			<DockPanel Margin="3,3,3,3">

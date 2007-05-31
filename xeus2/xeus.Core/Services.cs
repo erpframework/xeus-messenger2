@@ -157,11 +157,14 @@ namespace xeus2.xeus.Core
 					}
 					else
 					{
-						lock ( parentService.Services._syncObject )
+						if ( parentService != null )
 						{
-							Service newService = new Service( discoItem, false ) ;
-							_allServices.Add( newService.Key, newService ) ;
-							parentService.Services.Add( newService ) ;
+							lock ( parentService.Services._syncObject )
+							{
+								Service newService = new Service( discoItem, false ) ;
+								_allServices.Add( newService.Key, newService ) ;
+								parentService.Services.Add( newService ) ;
+							}
 						}
 					}
 				}

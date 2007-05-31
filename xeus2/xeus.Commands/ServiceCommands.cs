@@ -41,6 +41,9 @@ namespace xeus2.xeus.Commands
 		private static RoutedUICommand _discoveryServices =
 			new RoutedUICommand( "DiscoveryServices", "ServicesDiscovery", typeof ( ServiceCommands ) ) ;
 
+		private static RoutedUICommand _stopDiscoveryServices =
+			new RoutedUICommand( "StopDiscoveryServices", "StopServicesDiscovery", typeof ( ServiceCommands ) ) ;
+
 		public static RoutedUICommand Register
 		{
 			get
@@ -129,6 +132,14 @@ namespace xeus2.xeus.Commands
 			}
 		}
 
+		public static RoutedUICommand StopDiscoveryServices
+		{
+			get
+			{
+				return _stopDiscoveryServices ;
+			}
+		}
+
 		public static void RegisterCommands( Window window )
 		{
 			window.CommandBindings.Add(
@@ -163,6 +174,9 @@ namespace xeus2.xeus.Commands
 
 			window.CommandBindings.Add(
 				new CommandBinding( _discoveryServices, ExecuteDiscoveryServices, CanExecuteDiscoveryServices ) ) ;
+
+			window.CommandBindings.Add(
+				new CommandBinding( _stopDiscoveryServices, ExecuteStopDiscoveryServices, CanExecuteStopDiscoveryServices ) ) ;
 		}
 
 		public static void CanExecuteRegister( object sender, CanExecuteRoutedEventArgs e )
@@ -347,7 +361,7 @@ namespace xeus2.xeus.Commands
 		public static void CanExecuteDiscoveryServices( object sender, CanExecuteRoutedEventArgs e )
 		{
 			e.Handled = true ;
-			e.CanExecute = ( e.Parameter is string ) ;
+			e.CanExecute = ( e.Parameter is string && Account.Instance.ItemsToDiscover == 0 ) ;
 		}
 
 		public static void ExecuteDiscoveryServices( object sender, ExecutedRoutedEventArgs e )
@@ -355,6 +369,19 @@ namespace xeus2.xeus.Commands
 			string jid = e.Parameter as string ;
 
 			Account.Instance.Discovery( jid );
+
+			e.Handled = true ;
+		}
+
+		public static void CanExecuteStopDiscoveryServices( object sender, CanExecuteRoutedEventArgs e )
+		{
+			e.Handled = true ;
+			e.CanExecute = ( Account.Instance.ItemsToDiscover > 0 ) ;
+		}
+
+		public static void ExecuteStopDiscoveryServices( object sender, ExecutedRoutedEventArgs e )
+		{
+			Account.Instance.StopDiscovery();
 
 			e.Handled = true ;
 		}
