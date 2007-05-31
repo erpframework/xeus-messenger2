@@ -23,10 +23,11 @@ namespace xeus2.xeus.UI
 
 		protected void OnSearch( object sender, RoutedEventArgs eventArgs )
 		{
+			/*
 			if ( !_search.IsValid )
 			{
 				return ;
-			}
+			}*/
 
 			if ( _search.XData != null )
 			{

@@ -97,7 +97,7 @@ namespace xeus2.xeus.Core
 				{
 					return DiscoItem.Name ;
 				}
-				else if ( discoIdentities.Length > 0 )
+				else if ( discoIdentities.Length > 0 && !string.IsNullOrEmpty( discoIdentities[ 0 ].Name ) )
 				{
 					return discoIdentities[ 0 ].Name ;
 				}
@@ -106,7 +106,7 @@ namespace xeus2.xeus.Core
 					return Node ;
 				}
 
-				return Resources.Constant_UnknownService ;
+				return DiscoItem.Jid.ToString() ;
 			}
 		}
 
