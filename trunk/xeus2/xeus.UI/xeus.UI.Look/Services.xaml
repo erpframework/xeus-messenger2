@@ -71,10 +71,9 @@ xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=
   			<BeginStoryboard x:Name="Highlight_BeginStoryboard" Storyboard="{StaticResource Highlight}"/>
   		</EventTrigger>
 		<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}, AncestorLevel=1}, Path=IsSelected}" Value="True">
-  			<Setter Property="BorderBrush" TargetName="background" Value="#FF8C9DB5"/>
   			<Setter Property="BorderThickness" TargetName="background" Value="1,1,1,1"/>
   			<Setter Property="Background" TargetName="background" Value="{StaticResource SelectedBackground}"/>
-  			<Setter Property="BitmapEffect" TargetName="background" Value="{StaticResource SelectedBitmapEffect}"/>
+  			<Setter Property="BorderBrush" TargetName="background" Value="{DynamicResource DefaultBorderBrush}"/>
 		</DataTrigger>
   	</HierarchicalDataTemplate.Triggers>
 

@@ -536,7 +536,7 @@ namespace xeus2.xeus.Core
 				EventError eventError = new EventError( string.Format( Resources.Error_CommandResultFailed, iq.From ), iq.Error ) ;
 				Events.Instance.OnEvent( eventError ) ;
 			}
-			else if ( iq.Type == IqType.result && data is DiscoItem )
+			else if ( iq.Type == IqType.result )
 			{
 				DiscoverySessionData discoverySessionData = data as DiscoverySessionData ;
 				Services.Instance.OnCommandsItemInfo( this, discoverySessionData.Data as DiscoItem, iq ) ;
