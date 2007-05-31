@@ -166,6 +166,10 @@ namespace xeus2.xeus.Core
 								parentService.Services.Add( newService ) ;
 							}
 						}
+						else
+						{
+							
+						}
 					}
 				}
 			}
