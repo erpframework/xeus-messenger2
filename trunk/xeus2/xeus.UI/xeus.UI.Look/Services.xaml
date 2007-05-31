@@ -33,7 +33,7 @@ xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=
 			<GradientStop Color="#FFDFE5ED" Offset="1"/>
 		</LinearGradientBrush>
 		
-		<DropShadowBitmapEffect x:Key="SelectedBitmapEffect" Opacity="0.25" ShadowDepth="1" Softness="0.25"/>
+		<DropShadowBitmapEffect x:Key="SelectedBitmapEffect" Opacity="0.25" ShadowDepth="0.75" Softness="0.25"/>
 		
    	</HierarchicalDataTemplate.Resources>
 	
@@ -54,7 +54,14 @@ xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=
   			<TextBlock Text="{Binding Path=Description}" TextWrapping="Wrap" FontSize="10" Foreground="{DynamicResource DefaultTextBrush}" />
   		</StackPanel>
 		</Border>
-		<Rectangle Stroke="{DynamicResource DefaultBorderBrush}" StrokeThickness="1" Margin="0,1,0,0" VerticalAlignment="Bottom"/>
+		<Rectangle Stroke="#FFA1A1A1" StrokeThickness="1" Margin="0,1,0,0" VerticalAlignment="Bottom">
+			<Rectangle.OpacityMask>
+				<RadialGradientBrush>
+					<GradientStop Color="#FF000000" Offset="0"/>
+					<GradientStop Color="#1FFFFFFF" Offset="1"/>
+				</RadialGradientBrush>
+			</Rectangle.OpacityMask>
+		</Rectangle>
   	</Grid>
   	<HierarchicalDataTemplate.Triggers>
   		<EventTrigger RoutedEvent="FrameworkElement.Loaded" SourceName="image">
