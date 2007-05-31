@@ -427,8 +427,6 @@ namespace xeus2.xeus.Core
 					DiscoItems items = query as DiscoItems ;
 					DiscoItem[] itms = items.GetDiscoItems() ;
 
-					DiscoManager dm = new DiscoManager( _xmppConnection ) ;
-
 					foreach ( DiscoItem itm in itms )
 					{
 						if ( itm.Jid != null )
@@ -443,11 +441,11 @@ namespace xeus2.xeus.Core
 
 							if ( string.IsNullOrEmpty( itm.Node ) )
 							{
-								dm.DisoverInformation( itm.Jid, new IqCB( OnDiscoInfoResult ), new DiscoverySessionData( itm, _discoverySessionKey ) ) ;
+								_discoManager.DisoverInformation( itm.Jid, new IqCB( OnDiscoInfoResult ), new DiscoverySessionData( itm, _discoverySessionKey ) ) ;
 							}
 							else
 							{
-								dm.DisoverInformation( itm.Jid, itm.Node, new IqCB( OnDiscoInfoResult ), new DiscoverySessionData( itm, _discoverySessionKey ) ) ;
+								_discoManager.DisoverInformation( itm.Jid, itm.Node, new IqCB( OnDiscoInfoResult ), new DiscoverySessionData( itm, _discoverySessionKey ) ) ;
 							}
 						}
 					}
@@ -462,17 +460,15 @@ namespace xeus2.xeus.Core
 				return ;
 			}
 
-			DiscoManager dm = new DiscoManager( _xmppConnection ) ;
-
 			AddItemToDiscover() ;
 
 			if ( string.IsNullOrEmpty( item.Node ) )
 			{
-				dm.DisoverInformation( item.Jid, new IqCB( OnDiscoInfoResult ), new DiscoverySessionData( item, _discoverySessionKey ) ) ;
+				_discoManager.DisoverInformation( item.Jid, new IqCB( OnDiscoInfoResult ), new DiscoverySessionData( item, _discoverySessionKey ) ) ;
 			}
 			else
 			{
-				dm.DisoverInformation( item.Jid, item.Node, new IqCB( OnDiscoInfoResult ), new DiscoverySessionData( item, _discoverySessionKey ) ) ;
+				_discoManager.DisoverInformation( item.Jid, item.Node, new IqCB( OnDiscoInfoResult ), new DiscoverySessionData( item, _discoverySessionKey ) ) ;
 			}
 		}
 
@@ -499,9 +495,7 @@ namespace xeus2.xeus.Core
 
 				if ( di.HasFeature( Uri.COMMANDS ) && di.Node == null )
 				{
-					DiscoManager discoManager = new DiscoManager( _xmppConnection ) ;
-
-					discoManager.DisoverItems( discoItem.Jid,
+					_discoManager.DisoverItems( discoItem.Jid,
 					                           Uri.COMMANDS,
 					                           new IqCB( OnCommandsServerResult ),
 					                           new DiscoverySessionData( discoItem, _discoverySessionKey ) ) ;
