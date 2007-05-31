@@ -1,6 +1,5 @@
 using System ;
 using System.Collections.Generic ;
-using System.Diagnostics ;
 using System.Windows.Threading ;
 using agsXMPP ;
 using agsXMPP.net ;
@@ -15,7 +14,7 @@ using agsXMPP.protocol.x.muc ;
 using agsXMPP.Xml.Dom ;
 using xeus2.Properties ;
 using xeus2.xeus.Middle ;
-using Search=xeus2.xeus.Middle.Search;
+using Search=agsXMPP.protocol.iq.search.Search;
 using Uri=agsXMPP.Uri;
 
 namespace xeus2.xeus.Core
@@ -31,6 +30,7 @@ namespace xeus2.xeus.Core
 		private bool _isLogged = false ;
 
 		private delegate void DiscoCallback( DiscoItem discoItem ) ;
+
 		private delegate void DiscoInfoResultCallback( object sender, IQ iq, object data ) ;
 
 		public static Account Instance
@@ -109,7 +109,7 @@ namespace xeus2.xeus.Core
 			if ( pres.Error != null )
 			{
 				EventError eventError = new EventError( string.Format( "Presence error from {0}", pres.From ),
-														pres.Error ) ;
+				                                        pres.Error ) ;
 				Events.Instance.OnEvent( eventError ) ;
 			}
 			else
@@ -153,12 +153,12 @@ namespace xeus2.xeus.Core
 			_itemsToDiscover = 0 ;
 			_totalItemsToDiscover = 0 ;
 
-			NotifyPropertyChanged( "ItemsToDiscover" ) ;
+			NotifyPropertyChanged( "ItemsDiscovered" ) ;
 			NotifyPropertyChanged( "TotalItemsToDiscover" ) ;
 
 			Jid jid ;
 
-			if ( string.IsNullOrEmpty( serverJid ))
+			if ( string.IsNullOrEmpty( serverJid ) )
 			{
 				jid = new Jid( _xmppConnection.Server ) ;
 			}
@@ -231,12 +231,12 @@ namespace xeus2.xeus.Core
 			else
 			{
 				_discoManager.DisoverItems( jid, new IqCB( OnDiscoServerResult ), discoItem ) ;
-			}			
+			}
 		}
 
 		private void Discovery( DiscoItem discoItem )
 		{
-			App.InvokeSafe( DispatcherPriority.Background,
+			App.InvokeSafe( DispatcherPriority.Render,
 			                new DiscoCallback( DiscoveryInternal ), discoItem ) ;
 		}
 
@@ -274,11 +274,19 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		public int ItemsToDiscover
+		public int ItemsDiscovered
 		{
 			get
 			{
-				return _itemsToDiscover ;
+				return _totalItemsToDiscover - _itemsToDiscover ;
+			}
+		}
+
+		public int TotalItemsToDiscover
+		{
+			get
+			{
+				return _totalItemsToDiscover ;
 			}
 		}
 
@@ -300,7 +308,7 @@ namespace xeus2.xeus.Core
 				}
 			}
 
-			NotifyPropertyChanged( "ItemsToDiscover" ) ;
+			NotifyPropertyChanged( "ItemsDiscovered" ) ;
 		}
 
 		private void RemoveItemToDiscover()
@@ -310,7 +318,7 @@ namespace xeus2.xeus.Core
 				_itemsToDiscover-- ;
 			}
 
-			NotifyPropertyChanged( "ItemsToDiscover" ) ;
+			NotifyPropertyChanged( "ItemsDiscovered" ) ;
 		}
 
 		private void OnDiscoServerResult( object sender, IQ iq, object data )
@@ -357,17 +365,17 @@ namespace xeus2.xeus.Core
 
 		public void DiscoInfo( DiscoItem item )
 		{
-			DiscoManager dm = new DiscoManager( _xmppConnection );
+			DiscoManager dm = new DiscoManager( _xmppConnection ) ;
 
 			AddItemToDiscover() ;
 
 			if ( string.IsNullOrEmpty( item.Node ) )
 			{
-				dm.DisoverInformation( item.Jid, new IqCB( OnDiscoInfoResult ), item );
+				dm.DisoverInformation( item.Jid, new IqCB( OnDiscoInfoResult ), item ) ;
 			}
 			else
 			{
-				dm.DisoverInformation( item.Jid, item.Node, new IqCB( OnDiscoInfoResult ), item );
+				dm.DisoverInformation( item.Jid, item.Node, new IqCB( OnDiscoInfoResult ), item ) ;
 			}
 		}
 
@@ -398,12 +406,12 @@ namespace xeus2.xeus.Core
 				}
 			}
 
-			RemoveItemToDiscover() ;			
+			RemoveItemToDiscover() ;
 		}
 
 		private void OnDiscoInfoResult( object sender, IQ iq, object data )
 		{
-			App.InvokeSafe( DispatcherPriority.Background,
+			App.InvokeSafe( DispatcherPriority.Render,
 			                new DiscoInfoResultCallback( OnDiscoInfoResultInternal ), sender, iq, data ) ;
 		}
 
@@ -446,7 +454,7 @@ namespace xeus2.xeus.Core
 		{
 			Service service = data as Service ;
 
-			agsXMPP.protocol.iq.search.Search search = iq.Query as agsXMPP.protocol.iq.search.Search ;
+			Search search = iq.Query as Search ;
 
 			if ( iq.Error != null )
 			{
@@ -456,7 +464,7 @@ namespace xeus2.xeus.Core
 			}
 			else if ( iq.Type == IqType.result && search != null )
 			{
-				Search.Instance.DisplaySearchResult( search, ( Service ) data ) ;
+				Middle.Search.Instance.DisplaySearchResult( search, ( Service ) data ) ;
 
 				EventInfo eventinfo = new EventInfo( string.Format( Resources.Even_SearchSucceeded, service.Name ) ) ;
 				Events.Instance.OnEvent( eventinfo ) ;
@@ -517,7 +525,7 @@ namespace xeus2.xeus.Core
 
 		private void OnRegisterServiceGetSearch( object sender, IQ iq, object data )
 		{
-			agsXMPP.protocol.iq.search.Search search = iq.Query as agsXMPP.protocol.iq.search.Search ;
+			Search search = iq.Query as Search ;
 
 			if ( iq.Error != null )
 			{
@@ -530,7 +538,7 @@ namespace xeus2.xeus.Core
 			}
 			else if ( iq.Type == IqType.result && search != null )
 			{
-				Search.Instance.DisplaySearch( search, ( Service ) data ) ;
+				Middle.Search.Instance.DisplaySearch( search, ( Service ) data ) ;
 			}
 		}
 
@@ -551,20 +559,19 @@ namespace xeus2.xeus.Core
 			{
 				Registration.Instance.DisplayInBandRegistration( register, ( Service ) data ) ;
 			}
-
 		}
 
 		public void ServiceCommand( Service service )
 		{
-			IQ commandIq = new IQ( IqType.set );
+			IQ commandIq = new IQ( IqType.set ) ;
 
-            commandIq.GenerateId() ;
-            commandIq.To = service.Jid ;
+			commandIq.GenerateId() ;
+			commandIq.To = service.Jid ;
 
 			Command command = new Command( service.Node ) ;
 			command.Action = Action.execute ;
 
-			commandIq.AddChild( command );
+			commandIq.AddChild( command ) ;
 
 			_xmppConnection.IqGrabber.SendIq( commandIq, OnCommandResult, service ) ;
 		}
@@ -600,7 +607,6 @@ namespace xeus2.xeus.Core
 					}
 				}
 			}
-
 		}
 
 		public void Close()
@@ -613,38 +619,38 @@ namespace xeus2.xeus.Core
 
 		protected void ExecuteServiceCommand( ServiceCommandExecution command, Action action )
 		{
-			IQ commandIq = new IQ( IqType.set );
+			IQ commandIq = new IQ( IqType.set ) ;
 
-            commandIq.GenerateId() ;
-            commandIq.To = command.Service.Jid ;
+			commandIq.GenerateId() ;
+			commandIq.To = command.Service.Jid ;
 
 			Command commandExec = new Command( command.Command.Node ) ;
 			commandExec.Action = action ;
 			commandExec.SessionId = command.Command.SessionId ;
 
-			commandIq.AddChild( commandExec );
+			commandIq.AddChild( commandExec ) ;
 
 			_xmppConnection.IqGrabber.SendIq( commandIq, OnCommandResult, command ) ;
 		}
 
 		public void ServiceCommandComplete( ServiceCommandExecution command )
 		{
-			ExecuteServiceCommand( command, Action.complete );
+			ExecuteServiceCommand( command, Action.complete ) ;
 		}
 
 		public void ServiceCommandNext( ServiceCommandExecution command )
 		{
-			ExecuteServiceCommand( command, Action.next );
+			ExecuteServiceCommand( command, Action.next ) ;
 		}
 
 		public void ServiceCommandPrevious( ServiceCommandExecution command )
 		{
-			ExecuteServiceCommand( command, Action.prev );
+			ExecuteServiceCommand( command, Action.prev ) ;
 		}
 
 		public void ServiceCommandCancel( ServiceCommandExecution command )
 		{
-			ExecuteServiceCommand( command, Action.cancel );
+			ExecuteServiceCommand( command, Action.cancel ) ;
 		}
 
 		public void RequestVCard( RosterItem item )
@@ -653,15 +659,15 @@ namespace xeus2.xeus.Core
 
 		public void JoinMuc( Service service )
 		{
-			DiscoverReservedRoomNickname( service );
+			DiscoverReservedRoomNickname( service ) ;
 		}
 
 		protected void DiscoverReservedRoomNickname( Service service )
 		{
-			IQ iq = new IQ( IqType.get, MyJid, service.Jid );
+			IQ iq = new IQ( IqType.get, MyJid, service.Jid ) ;
 
 			iq.GenerateId() ;
-			DiscoInfo di = new DiscoInfo();
+			DiscoInfo di = new DiscoInfo() ;
 			di.Node = "x-roomuser-item" ;
 			iq.Query = di ;
 
@@ -684,8 +690,8 @@ namespace xeus2.xeus.Core
 				DiscoInfo di = iq.Query as DiscoInfo ;
 
 				if ( di != null && di.Node == "x-roomuser-item"
-						&& di.GetIdentities() != null
-						&& di.GetIdentities().Length > 0 )
+				     && di.GetIdentities() != null
+				     && di.GetIdentities().Length > 0 )
 				{
 					nick = di.GetIdentities()[ 0 ].Name ;
 				}
@@ -696,7 +702,7 @@ namespace xeus2.xeus.Core
 
 		protected void JoinMuc( Service service, string nick )
 		{
-			MucInfo.Instance.MucLogin( service, nick );
+			MucInfo.Instance.MucLogin( service, nick ) ;
 		}
 
 		public MucRoom JoinMuc( Service service, string nick, string password )
@@ -710,7 +716,7 @@ namespace xeus2.xeus.Core
 				_mucManager.JoinRoom( service.Jid, nick ) ;
 			}
 
-			return new MucRoom( service, _xmppConnection );
+			return new MucRoom( service, _xmppConnection ) ;
 		}
 	}
 }
