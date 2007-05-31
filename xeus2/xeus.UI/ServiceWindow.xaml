@@ -4,7 +4,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2006"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
     xmlns:xeus2_xeus_Core="clr-namespace:xeus2.xeus.Core"
-    Title="xeus2.xeus.UI" Height="300" Width="300"
+    xmlns:servicecmd="clr-namespace:xeus2.xeus.Commands"
+    Title="xeus2.xeus.UI" Height="600" Width="500"
     >
   <Window.Resources>
     <ObjectDataProvider x:Key="ServicesDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Services}"/>
@@ -15,10 +16,15 @@
   </Window.Resources>
 
   <StackPanel>
+      <StackPanel>
+        <TextBox x:Name="serverJid"/>
+        <Button Content="Discover" Command="servicecmd:ServiceCommands.DiscoveryServices"
+                CommandParameter="{Binding ElementName=serverJid, Path=Text}"/>
+      </StackPanel>
     <TreeView ItemsSource="{Binding Source={StaticResource Services}}"
               ItemTemplateSelector="{DynamicResource ServiceTemplateSelector}"
               Height="300"
               x:Name="_services" Style="{DynamicResource TreeViewStyleServices}"
-      ItemContainerStyle="{DynamicResource TreeViewItemStyleService}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="4,4,4,4" Template="{DynamicResource TreeViewControlTemplate}" />
+              ItemContainerStyle="{DynamicResource TreeViewItemStyleService}" Margin="4,4,4,4" Template="{DynamicResource TreeViewControlTemplate}" />
   </StackPanel>
 </Window>
