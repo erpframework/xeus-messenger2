@@ -253,6 +253,12 @@
   <ItemGroup>
     <Resource Include="xeus.UI\xeus.Images\clock.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="xeus.UI\xeus.Images\type_icq.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="xeus.UI\xeus.Images\type_msn.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildBinPath)\Microsoft.WinFX.targets" />
 </Project>
