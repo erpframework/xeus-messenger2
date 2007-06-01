@@ -1,5 +1,6 @@
 using System ;
 using System.Collections.Generic ;
+using System.Threading ;
 using System.Windows.Threading ;
 using agsXMPP ;
 using agsXMPP.net ;
@@ -24,10 +25,10 @@ namespace xeus2.xeus.Core
 		private string _sessionKey ;
 		private object _data ;
 
-		public DiscoverySessionData( object data, string sessionKey )
+		public DiscoverySessionData( object data )
 		{
 			_data = data ;
-			_sessionKey = sessionKey ;
+			_sessionKey = Services.Instance.SessionKey ;
 		}
 
 		public string SessionKey
@@ -113,7 +114,7 @@ namespace xeus2.xeus.Core
 
 		public void StopDiscovery()
 		{
-			_stopDisco = true ;
+			Services.Instance.StopSession() ;
 		}
 
 		private void _xmppConnection_OnIq( object sender, IQ iq )
@@ -181,8 +182,6 @@ namespace xeus2.xeus.Core
 
 		public void Discovery( string serverJid )
 		{
-			_discoverySessionKey = Guid.NewGuid().ToString() ;
-
 			Services.Instance.Clear() ;
 
 			_itemsToDiscover = 0 ;
@@ -202,8 +201,6 @@ namespace xeus2.xeus.Core
 			{
 				jid = new Jid( serverJid ) ;
 			}
-
-			_stopDisco = false ;
 
 			Discovery( jid ) ;
 		}
@@ -231,17 +228,12 @@ namespace xeus2.xeus.Core
 
 		private void Discovery( Jid jid )
 		{
-			if ( _stopDisco )
-			{
-				return ;
-			}
-
-			_discoManager.DisoverItems( jid, new IqCB( OnDiscoServerResult ), new DiscoverySessionData( null, _discoverySessionKey ) ) ;
+			_discoManager.DisoverItems( jid, new IqCB( OnDiscoServerResult ), new DiscoverySessionData( null ) ) ;
 		}
 
 		private void DiscoveryInternal( DiscoItem discoItem )
 		{
-			if ( _stopDisco )
+			if ( Services.Instance.SessionKey == string.Empty )
 			{
 				return ;
 			}
@@ -274,22 +266,17 @@ namespace xeus2.xeus.Core
 
 			if ( discoItem != null && discoItem.Node != null )
 			{
-				_discoManager.DisoverItems( jid, discoItem.Node, new IqCB( OnDiscoServerResult ), new DiscoverySessionData( discoItem, _discoverySessionKey ) ) ;
+				_discoManager.DisoverItems( jid, discoItem.Node, new IqCB( OnDiscoServerResult ), new DiscoverySessionData( discoItem ) ) ;
 			}
 			else
 			{
-				_discoManager.DisoverItems( jid, new IqCB( OnDiscoServerResult ), new DiscoverySessionData( discoItem, _discoverySessionKey ) ) ;
+				_discoManager.DisoverItems( jid, new IqCB( OnDiscoServerResult ), new DiscoverySessionData( discoItem ) ) ;
 			}
 		}
 
 		private void Discovery( DiscoItem discoItem )
 		{
-			if ( _stopDisco )
-			{
-				return ;
-			}
-
-			App.InvokeSafe( DispatcherPriority.Background,
+			App.InvokeSafe( DispatcherPriority.ApplicationIdle,
 			                new DiscoCallback( DiscoveryInternal ), discoItem ) ;
 		}
 
@@ -343,14 +330,6 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		public bool StopDisco
-		{
-			get
-			{
-				return _stopDisco ;
-			}
-		}
-
 		public int ItemsToDiscover
 		{
 			get
@@ -362,8 +341,6 @@ namespace xeus2.xeus.Core
 		private int _itemsToDiscover = 0 ;
 		private int _totalItemsToDiscover = 0 ;
 		private object _itemsToDiscoverLock = new object() ;
-		private bool _stopDisco = false ;
-		private string _discoverySessionKey ;
 
 		private void AddItemToDiscover()
 		{
@@ -396,14 +373,10 @@ namespace xeus2.xeus.Core
 
 		bool CheckSessionKey( object data )
 		{
-			if ( _stopDisco )
-			{
-				return false ;
-			}
-
 			DiscoverySessionData sessionData = data as DiscoverySessionData ;
 
-			return ( sessionData.SessionKey == _discoverySessionKey ) ;
+			return ( Services.Instance.SessionKey != string.Empty 
+					&& sessionData.SessionKey == Services.Instance.SessionKey ) ;
 		}
 
 		private void OnDiscoServerResult( object sender, IQ iq, object data )
@@ -431,6 +404,11 @@ namespace xeus2.xeus.Core
 					{
 						if ( itm.Jid != null )
 						{
+							if ( !CheckSessionKey( data ) )
+							{
+								return ;
+							}
+
 							DiscoverySessionData sessionData = data as DiscoverySessionData ;
 
 							Services.Instance.OnServiceItem( sender, itm, sessionData.Data as DiscoItem ) ;
@@ -439,13 +417,15 @@ namespace xeus2.xeus.Core
 
 							Discovery( itm ) ;
 
+							Thread.Sleep( 20 ) ;
+
 							if ( string.IsNullOrEmpty( itm.Node ) )
 							{
-								_discoManager.DisoverInformation( itm.Jid, new IqCB( OnDiscoInfoResult ), new DiscoverySessionData( itm, _discoverySessionKey ) ) ;
+								_discoManager.DisoverInformation( itm.Jid, new IqCB( OnDiscoInfoResult ), new DiscoverySessionData( itm ) ) ;
 							}
 							else
 							{
-								_discoManager.DisoverInformation( itm.Jid, itm.Node, new IqCB( OnDiscoInfoResult ), new DiscoverySessionData( itm, _discoverySessionKey ) ) ;
+								_discoManager.DisoverInformation( itm.Jid, itm.Node, new IqCB( OnDiscoInfoResult ), new DiscoverySessionData( itm ) ) ;
 							}
 						}
 					}
@@ -455,20 +435,15 @@ namespace xeus2.xeus.Core
 
 		public void DiscoInfo( DiscoItem item )
 		{
-			if ( _stopDisco )
-			{
-				return ;
-			}
-
 			AddItemToDiscover() ;
 
 			if ( string.IsNullOrEmpty( item.Node ) )
 			{
-				_discoManager.DisoverInformation( item.Jid, new IqCB( OnDiscoInfoResult ), new DiscoverySessionData( item, _discoverySessionKey ) ) ;
+				_discoManager.DisoverInformation( item.Jid, new IqCB( OnDiscoInfoResult ), new DiscoverySessionData( item ) ) ;
 			}
 			else
 			{
-				_discoManager.DisoverInformation( item.Jid, item.Node, new IqCB( OnDiscoInfoResult ), new DiscoverySessionData( item, _discoverySessionKey ) ) ;
+				_discoManager.DisoverInformation( item.Jid, item.Node, new IqCB( OnDiscoInfoResult ), new DiscoverySessionData( item ) ) ;
 			}
 		}
 
@@ -498,7 +473,7 @@ namespace xeus2.xeus.Core
 					_discoManager.DisoverItems( discoItem.Jid,
 					                           Uri.COMMANDS,
 					                           new IqCB( OnCommandsServerResult ),
-					                           new DiscoverySessionData( discoItem, _discoverySessionKey ) ) ;
+					                           new DiscoverySessionData( discoItem ) ) ;
 
 					AddItemToDiscover() ;
 				}
@@ -514,7 +489,7 @@ namespace xeus2.xeus.Core
 				return ;
 			}
 
-			App.InvokeSafe( DispatcherPriority.Background,
+			App.InvokeSafe( DispatcherPriority.ApplicationIdle,
 			                new DiscoInfoResultCallback( OnDiscoInfoResultInternal ), sender, iq, data ) ;
 		}
 
