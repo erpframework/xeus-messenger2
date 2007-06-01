@@ -1,10 +1,8 @@
 using System ;
 using System.Collections.Generic ;
-using System.Windows.Media.Imaging ;
 using agsXMPP ;
 using agsXMPP.protocol.client ;
 using agsXMPP.protocol.iq.disco ;
-using xeus.Data ;
 using xeus2.Properties ;
 using Uri=agsXMPP.Uri;
 
@@ -30,7 +28,7 @@ namespace xeus2.xeus.Core
 		private bool _isToplevel = false ;
 
 		private Services _services = new Services() ;
-		private ObservableCollectionDisp< Service > _commands = new ObservableCollectionDisp< Service >();
+		private ObservableCollectionDisp< Service > _commands = new ObservableCollectionDisp< Service >() ;
 
 		public Service( DiscoItem discoItem, bool isToplevel )
 		{
@@ -69,7 +67,7 @@ namespace xeus2.xeus.Core
 				{
 					foreach ( DiscoIdentity identity in _discoInfo.GetIdentities() )
 					{
-						categories.Add( identity.Category );
+						categories.Add( identity.Category ) ;
 					}
 				}
 
@@ -163,55 +161,24 @@ namespace xeus2.xeus.Core
 				NotifyPropertyChanged( "IsMucUnmoderated" ) ;
 				NotifyPropertyChanged( "IsMucNonAnonymous" ) ;
 				NotifyPropertyChanged( "Categories" ) ;
-				NotifyPropertyChanged( "Image" ) ;
+				NotifyPropertyChanged( "Type" ) ;
 			}
 		}
 
-		public BitmapImage Image
+		public string Type
 		{
 			get
 			{
-				if ( _discoInfo != null 
-						&& _discoInfo.GetIdentities().Length > 0 )
+				if ( _discoInfo != null
+				     && _discoInfo.GetIdentities().Length > 0 )
 				{
-					return GetTypeImage( _discoInfo.GetIdentities()[ 0 ].Type ) ;
+					return _discoInfo.GetIdentities()[ 0 ].Type ;
 				}
 				else
 				{
 					return null ;
 				}
 			}
-		}
-
-		static BitmapImage GetTypeImage( string type )
-		{
-			switch ( type )
-			{
-				case "icq":
-					{
-						return Storage.GetServiceImage( "type_icq.png" ) ;
-					}
-				case "msn":
-					{
-						return Storage.GetServiceImage( "type_msn.png" ) ;
-					}
-				case "aim":
-					{
-						return Storage.GetServiceImage( "type_aim.png" ) ;
-					}
-				case "sms":
-					{
-						return Storage.GetServiceImage( "type_sms.png" ) ;
-					}
-				case "yahoo":
-					{
-						return Storage.GetServiceImage( "type_yahoo.png" ) ;
-					}
-				default:
-					{
-						return null ;
-					}
-			}			
 		}
 
 		public bool IsDiscovered

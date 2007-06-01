@@ -81,6 +81,7 @@
     <Page Include="xeus.UI\RosterWindow.xaml" />
     <Page Include="xeus.UI\Search.xaml" />
     <Page Include="xeus.UI\ServiceWindow.xaml" />
+    <Page Include="xeus.UI\xeus.UI.Look\ScrollBar.xaml" />
     <Page Include="xeus.XData\XDataContainer.xaml" />
     <Page Include="xeus.XData\XDataControl.xaml" />
     <Page Include="xeus.XData\XDataFromBase.xaml" />
@@ -252,21 +253,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="xeus.UI\xeus.Images\clock.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="xeus.UI\xeus.Images\type_icq.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="xeus.UI\xeus.Images\type_msn.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="xeus.UI\xeus.Images\type_aim.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="xeus.UI\xeus.Images\type_sms.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="xeus.UI\xeus.Images\type_yahoo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildBinPath)\Microsoft.WinFX.targets" />

@@ -12,6 +12,7 @@
     			<ResourceDictionary Source="xeus.UI\xeus.UI.Look\Services.xaml"/>
     			<ResourceDictionary Source="xeus.XData\BasicStyles.xaml"/>
     			<ResourceDictionary Source="xeus.UI\xeus.UI.Look\MucRoster.xaml"/>
+    			<ResourceDictionary Source="xeus.UI\xeus.UI.Look\ScrollBar.xaml"/>
     		</ResourceDictionary.MergedDictionaries>
     	</ResourceDictionary>
          
