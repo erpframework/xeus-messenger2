@@ -55,7 +55,7 @@
 					</StackPanel>
 				</StackPanel>
 				<ProgressBar VerticalAlignment="Center" DockPanel.Dock="Right" Maximum="{Binding Path=TotalItemsToDiscover, Mode=OneWay}"
-					Value="{Binding Path=ItemsDiscovered, Mode=OneWay}" Style="{DynamicResource ProgressBarStyle}" VerticalContentAlignment="Center" Margin="5,0,5,0" LargeChange="10" SmallChange="1"/>
+					Value="{Binding Path=ItemsDiscovered, Mode=OneWay}" Style="{DynamicResource ProgressBarStyle}" VerticalContentAlignment="Center" Margin="5,0,5,0" LargeChange="20" SmallChange="5"/>
 			</DockPanel>
 		</Border>
 		<TreeView ItemsSource="{Binding Source={StaticResource Services}}"
