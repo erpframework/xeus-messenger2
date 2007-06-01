@@ -2,6 +2,7 @@ using System ;
 using System.ComponentModel ;
 using System.Windows ;
 using System.Windows.Threading ;
+using xeus2.xeus.Commands ;
 using xeus2.xeus.Core ;
 using xeus2.xeus.UI ;
 
@@ -48,6 +49,8 @@ namespace xeus2.xeus.Middle
 
 		private void serviceWindow_Closing( object sender, CancelEventArgs e )
 		{
+			ServiceCommands.StopDiscoveryServices.Execute( null, null ) ;
+
 			RemoveWindow( string.Empty ) ;
 
 			( ( Window ) sender ).Closing -= serviceWindow_Closing ;

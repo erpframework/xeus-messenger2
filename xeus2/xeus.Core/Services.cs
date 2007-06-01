@@ -1,3 +1,4 @@
+using System ;
 using System.Collections.Generic ;
 using System.Windows.Threading ;
 using agsXMPP.protocol.client ;
@@ -21,6 +22,8 @@ namespace xeus2.xeus.Core
 
 		private Dictionary< string, Service > _allServices = new Dictionary< string, Service >() ;
 
+		private string _sessionKey = string.Empty ;
+
 		public static Services Instance
 		{
 			get
@@ -37,10 +40,20 @@ namespace xeus2.xeus.Core
 			}
 		}
 
+		public string SessionKey
+		{
+			get
+			{
+				return _sessionKey ;
+			}
+		}
+
 		new public void Clear()
 		{
 			lock ( _syncObject )
 			{
+				_sessionKey = Guid.NewGuid().ToString() ;
+
 				_allServices.Clear() ;
 
 				Categories.Clear();
@@ -59,12 +72,22 @@ namespace xeus2.xeus.Core
 
 		public void OnServiceItemInfo( object sender, DiscoItem discoItem, DiscoInfo info )
 		{
+			if ( _sessionKey == string.Empty )
+			{
+				return ;
+			}
+
 			App.InvokeSafe( DispatcherPriority.Background,
 			                new ServiceItemInfoCallback( OnServiceItemInfo ), discoItem, info ) ;
 		}
 
 		public void OnServiceItem( object sender, DiscoItem discoItem, DiscoItem parent )
 		{
+			if ( _sessionKey == string.Empty )
+			{
+				return ;
+			}
+
 			App.InvokeSafe( DispatcherPriority.Background,
 			                new ServiceItemCallback( OnServiceItem ), discoItem, parent ) ;
 		}
@@ -117,7 +140,7 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		public void OnServiceItemInfo( DiscoItem discoItem, DiscoInfo info )
+		private void OnServiceItemInfo( DiscoItem discoItem, DiscoInfo info )
 		{
 			lock ( _syncObject )
 			{
@@ -135,7 +158,7 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		public void OnServiceItem( DiscoItem discoItem, DiscoItem parent )
+		private void OnServiceItem( DiscoItem discoItem, DiscoItem parent )
 		{
 			lock ( _syncObject )
 			{
@@ -183,6 +206,11 @@ namespace xeus2.xeus.Core
 			_allServices.TryGetValue( Service.GetKey( discoItem ), out service ) ;
 
 			return service ;
+		}
+
+		public void StopSession()
+		{
+			_sessionKey = string.Empty ;
 		}
 	}
 }
