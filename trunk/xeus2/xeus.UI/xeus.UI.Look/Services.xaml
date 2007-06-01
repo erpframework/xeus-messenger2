@@ -28,13 +28,6 @@ xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=
   		</Storyboard>
   		<Storyboard x:Key="Highlight"/>
 		
-		<LinearGradientBrush x:Key="SelectedBackground" EndPoint="0.5,1" StartPoint="0.5,0">
-			<GradientStop Color="#FFBDC9D9" Offset="0"/>
-			<GradientStop Color="#FFDFE5ED" Offset="1"/>
-		</LinearGradientBrush>
-		
-		<DropShadowBitmapEffect x:Key="SelectedBitmapEffect" Opacity="0.25" ShadowDepth="0.75" Softness="0.25"/>
-		
    	</HierarchicalDataTemplate.Resources>
 	
   	<Grid Margin="5,5,5,5" MinWidth="300" x:Name="grid">
@@ -72,7 +65,7 @@ xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=
   		</EventTrigger>
 		<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}, AncestorLevel=1}, Path=IsSelected}" Value="True">
   			<Setter Property="BorderThickness" TargetName="background" Value="1,1,1,1"/>
-  			<Setter Property="Background" TargetName="background" Value="{StaticResource SelectedBackground}"/>
+  			<Setter Property="Background" TargetName="background" Value="#FFc9d3e1"/>
   			<Setter Property="BorderBrush" TargetName="background" Value="{DynamicResource DefaultBorderBrush}"/>
 		</DataTrigger>
   	</HierarchicalDataTemplate.Triggers>
@@ -430,6 +423,7 @@ xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=
     <HierarchicalDataTemplate x:Key="ServicesTemplate" ItemsSource="{Binding Path=Services}">
     <StackPanel Orientation="Horizontal" MinHeight="24" Margin="0,1,0,1">
 	  <Image Source="pack://application:,,,/xeus.UI/xeus.Images/clock.png" x:Name="waiting" ToolTip="Waiting for Information" Width="16" Height="16" Visibility="Collapsed" Margin="0,0,3,0"/>
+	  <Image Source="{Binding Path=Image}" ToolTip="Service Type" x:Name="type" Width="16" Height="16" Margin="0,0,3,0"/>
 
 	  <Border x:Name="border" Background="#3F9E9E9E" CornerRadius="3,3,3,3" Padding="3,1,3,1" BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1">	  
 	  <StackPanel Orientation="Horizontal">
@@ -472,6 +466,9 @@ xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=
     	</DataTrigger>
     	<DataTrigger Binding="{Binding Path=DiscoInfo}" Value="{x:Null}">
       		<Setter Property="Visibility" TargetName="waiting" Value="Visible"/>
+    	</DataTrigger>
+    	<DataTrigger Binding="{Binding Path=Image}" Value="{x:Null}">
+      		<Setter Property="Visibility" TargetName="type" Value="Collapsed"/>
     	</DataTrigger>
 		<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}, AncestorLevel=1}, Path=IsSelected}" Value="True">
   			<Setter Property="Background" TargetName="border" Value="#FFc9d3e1"/>
