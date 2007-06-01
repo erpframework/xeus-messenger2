@@ -195,6 +195,18 @@ namespace xeus2.xeus.Core
 					{
 						return Storage.GetServiceImage( "type_msn.png" ) ;
 					}
+				case "aim":
+					{
+						return Storage.GetServiceImage( "type_aim.png" ) ;
+					}
+				case "sms":
+					{
+						return Storage.GetServiceImage( "type_sms.png" ) ;
+					}
+				case "yahoo":
+					{
+						return Storage.GetServiceImage( "type_yahoo.png" ) ;
+					}
 				default:
 					{
 						return null ;
