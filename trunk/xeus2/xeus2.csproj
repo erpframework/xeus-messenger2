@@ -259,6 +259,15 @@
   <ItemGroup>
     <Resource Include="xeus.UI\xeus.Images\type_msn.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="xeus.UI\xeus.Images\type_aim.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="xeus.UI\xeus.Images\type_sms.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="xeus.UI\xeus.Images\type_yahoo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildBinPath)\Microsoft.WinFX.targets" />
 </Project>
