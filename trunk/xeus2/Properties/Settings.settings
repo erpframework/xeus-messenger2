@@ -21,10 +21,10 @@
       <Value Profile="(Default)">Goodbye</Value>
     </Setting>
     <Setting Name="XmppUserName" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">xeus</Value>
     </Setting>
     <Setting Name="XmppPassword" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">hardcore</Value>
     </Setting>
   </Settings>
 </SettingsFile>

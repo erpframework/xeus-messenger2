@@ -49,30 +49,6 @@ namespace xeus2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("xeus")]
-        public string XmppUserName {
-            get {
-                return ((string)(this["XmppUserName"]));
-            }
-            set {
-                this["XmppUserName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-3koblihy")]
-        public string XmppPassword {
-            get {
-                return ((string)(this["XmppPassword"]));
-            }
-            set {
-                this["XmppPassword"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("jabber.cz")]
         public string XmppServer {
             get {
@@ -116,6 +92,30 @@ namespace xeus2.Properties {
             }
             set {
                 this["MucLeaveMsg"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("xeus")]
+        public string XmppUserName {
+            get {
+                return ((string)(this["XmppUserName"]));
+            }
+            set {
+                this["XmppUserName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("hardcore")]
+        public string XmppPassword {
+            get {
+                return ((string)(this["XmppPassword"]));
+            }
+            set {
+                this["XmppPassword"] = value;
             }
         }
     }
