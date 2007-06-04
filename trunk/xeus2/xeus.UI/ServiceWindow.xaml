@@ -19,12 +19,12 @@
   </Window.Resources>
 
 	<DockPanel>
-		<DockPanel DockPanel.Dock="Top">
+		<DockPanel DockPanel.Dock="Top" Margin="3,5,3,5">
       <Button Content="Stop" Command="servicecmd:ServiceCommands.StopDiscoveryServices"
 				DockPanel.Dock="Right"/>
       <Button Content="Discover" Command="servicecmd:ServiceCommands.DiscoveryServices"
 				CommandParameter="{Binding Path=Text, ElementName=serverJid}" DockPanel.Dock="Right"/>
-      <TextBox x:Name="serverJid"/>
+      <TextBox x:Name="serverJid" Style="{DynamicResource GenericTextBoxStyle}"/>
 		</DockPanel>
 		<Border DockPanel.Dock="Bottom" Style="{DynamicResource FrameBorderStyle}" Padding="2,2,2,2" Background="#FF000000">
 			<Border.BitmapEffect>
@@ -60,13 +60,14 @@
 				<StackPanel Margin="10,5,8,0" VerticalAlignment="Center">
 					<TextBlock Text="Services" FontSize="17" FontWeight="Bold" Foreground="{DynamicResource DefaultTextBrush}"/>
 					<StackPanel Orientation="Horizontal">
-						<TextBlock Text="{Binding Path=TotalItemsToDiscover}" FontWeight="Bold" Foreground="{DynamicResource DefaultTextBrush}"/>
-						<TextBlock Text=" service items found / " Foreground="{DynamicResource DefaultTextBrush}"/>
-						<TextBlock Text="{Binding Path=ItemsToDiscover}" FontWeight="Bold" Foreground="{DynamicResource DefaultTextBrush}"/>
-						<TextBlock Text=" service items to discover" Foreground="{DynamicResource DefaultTextBrush}"/>
+						<TextBlock Text="Discovered " Foreground="{DynamicResource DefaultTextBrush2}"/>
+						<TextBlock Text="{Binding Path=ServicesDoneCount}" Foreground="{DynamicResource DefaultTextBrush2}"/>
+						<TextBlock Text=" services of " Foreground="{DynamicResource DefaultTextBrush2}"/>
+						<TextBlock Text="{Binding Path=ServicesCount}" Foreground="{DynamicResource DefaultTextBrush2}"/>
 					</StackPanel>
-					<ProgressBar Maximum="{Binding Path=TotalItemsToDiscover, Mode=OneWay}"
-						Value="{Binding Path=ItemsDiscovered, Mode=OneWay}" Style="{DynamicResource ProgressBarStyle}" VerticalContentAlignment="Center" LargeChange="20" SmallChange="5" Margin="0,5,0,5"/>
+					<ProgressBar Style="{DynamicResource ProgressBarStyle}"
+						Maximum="{Binding Path=ServicesCount}"
+						Value="{Binding Path=ServicesDoneCount}" VerticalContentAlignment="Center" Margin="0,5,0,5"/>
 				</StackPanel>
 			</DockPanel>
 		</Border>

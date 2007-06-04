@@ -1,7 +1,5 @@
-using System.Drawing ;
 using System.Windows.Media.Imaging ;
 using xeus.Data ;
-using xeus2.Properties ;
 using xeus2.xeus.Utilities ;
 
 namespace xeus2.xeus.Core
@@ -66,11 +64,11 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				return GetCategoryImage( Name );
+				return GetCategoryImage( Name ) ;
 			}
 		}
 
-		static BitmapImage GetCategoryImage( string category )
+		private static BitmapImage GetCategoryImage( string category )
 		{
 			switch ( category )
 			{
@@ -110,16 +108,17 @@ namespace xeus2.xeus.Core
 					{
 						return Storage.GetDefaultServiceImage() ;
 					}
-			}			
+			}
 		}
 
-		static string GetCategoryDescription( string category )
+		private static string GetCategoryDescription( string category )
 		{
 			switch ( category )
 			{
 				case "account":
 					{
-						return "Used by a server when responding to a disco request sent to the bare JID (user@host addresss) of an account hosted by the server" ;
+						return
+							"Used by a server when responding to a disco request sent to the bare JID (user@host addresss) of an account hosted by the server" ;
 					}
 				case "auth":
 					{
@@ -147,7 +146,8 @@ namespace xeus2.xeus.Core
 					}
 				case "directory":
 					{
-						return "Information retrieval services that enable users to search online directories or otherwise be informed about the existence of other XMPP entities" ;
+						return
+							"Information retrieval services that enable users to search online directories or otherwise be informed about the existence of other XMPP entities" ;
 					}
 				case "gateway":
 					{
@@ -155,7 +155,8 @@ namespace xeus2.xeus.Core
 					}
 				case "headline":
 					{
-						return "Services that provide real-time news or information (often but not necessarily in a message of type \"headline\")" ;
+						return
+							"Services that provide real-time news or information (often but not necessarily in a message of type \"headline\")" ;
 					}
 				case "hierarchy":
 					{
@@ -163,7 +164,8 @@ namespace xeus2.xeus.Core
 					}
 				case "proxy":
 					{
-						return "Servers or services that act as special-purpose proxies or intermediaries between two or more XMPP endpoints" ;
+						return
+							"Servers or services that act as special-purpose proxies or intermediaries between two or more XMPP endpoints" ;
 					}
 				case "pubsub":
 					{
@@ -184,7 +186,7 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		static string GetCategoryText( string category )
+		private static string GetCategoryText( string category )
 		{
 			switch ( category )
 			{

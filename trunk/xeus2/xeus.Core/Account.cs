@@ -1,7 +1,6 @@
 using System ;
 using System.Collections.Generic ;
-using System.Threading ;
-using System.Windows.Threading ;
+using System.Timers ;
 using agsXMPP ;
 using agsXMPP.net ;
 using agsXMPP.protocol.client ;
@@ -15,7 +14,7 @@ using agsXMPP.protocol.x.muc ;
 using agsXMPP.Xml.Dom ;
 using xeus2.Properties ;
 using xeus2.xeus.Middle ;
-using Search=agsXMPP.protocol.iq.search.Search;
+using Search=xeus2.xeus.Middle.Search;
 using Uri=agsXMPP.Uri;
 
 namespace xeus2.xeus.Core
@@ -50,6 +49,8 @@ namespace xeus2.xeus.Core
 
 	internal class Account : NotifyInfoDispatcher
 	{
+		private Timer _discoTime = new Timer( 250 ) ;
+
 		private static Account _instance = new Account() ;
 
 		private XmppClientConnection _xmppConnection = new XmppClientConnection() ;
@@ -57,10 +58,6 @@ namespace xeus2.xeus.Core
 
 		private MucManager _mucManager = null ;
 		private bool _isLogged = false ;
-
-		private delegate void DiscoCallback( DiscoItem discoItem ) ;
-
-		private delegate void DiscoInfoResultCallback( object sender, IQ iq, object data ) ;
 
 		public static Account Instance
 		{
@@ -110,10 +107,75 @@ namespace xeus2.xeus.Core
 			_mucManager = new MucManager( _xmppConnection ) ;
 
 			_xmppConnection.Open() ;
+
+			_discoTime.Elapsed += new ElapsedEventHandler( _discoTime_Elapsed ) ;
+			_discoTime.Start() ;
+		}
+
+		private Queue< DiscoItem > _pendingDisco = new Queue< DiscoItem >() ;
+		private Queue< DiscoItem > _pendingDiscoInfo = new Queue< DiscoItem >() ;
+
+		private object _discoTimeLock = new object() ;
+
+		private int _servicesCount ;
+		private int _servicesDoneCount ;
+
+		private void _discoTime_Elapsed( object sender, ElapsedEventArgs e )
+		{
+			lock ( _discoTimeLock )
+			{
+				if ( _pendingDiscoInfo.Count > 0 )
+				{
+					DiscoItem discoItem = _pendingDiscoInfo.Dequeue() ;
+
+					ServicesCount = ServicesCount + 1 ;
+
+					if ( string.IsNullOrEmpty( discoItem.Node ) )
+					{
+						_discoManager.DisoverInformation( discoItem.Jid, new IqCB( OnDiscoInfoResult ),
+						                                  new DiscoverySessionData( discoItem ) ) ;
+					}
+					else
+					{
+						_discoManager.DisoverInformation( discoItem.Jid, discoItem.Node, new IqCB( OnDiscoInfoResult ),
+						                                  new DiscoverySessionData( discoItem ) ) ;
+					}
+				}
+				else if ( _pendingDisco.Count > 0 )
+				{
+					DiscoItem discoItem = _pendingDisco.Dequeue() ;
+
+					ServicesDoneCount = ServicesDoneCount + 1 ;
+
+					Jid jid ;
+
+					if ( discoItem == null )
+					{
+						jid = new Jid( _xmppConnection.Server ) ;
+					}
+					else
+					{
+						jid = discoItem.Jid ;
+					}
+
+					if ( discoItem != null && discoItem.Node != null )
+					{
+						_discoManager.DisoverItems( jid, discoItem.Node, new IqCB( OnDiscoServerResult ),
+						                            new DiscoverySessionData( discoItem ) ) ;
+					}
+					else
+					{
+						_discoManager.DisoverItems( jid, new IqCB( OnDiscoServerResult ), new DiscoverySessionData( discoItem ) ) ;
+					}
+				}
+			}
 		}
 
 		public void StopDiscovery()
 		{
+			_pendingDisco.Clear() ;
+			_pendingDiscoInfo.Clear() ;
+
 			Services.Instance.StopSession() ;
 		}
 
@@ -184,12 +246,8 @@ namespace xeus2.xeus.Core
 		{
 			Services.Instance.Clear() ;
 
-			_itemsToDiscover = 0 ;
-			_totalItemsToDiscover = 0 ;
-
-			NotifyPropertyChanged( "ItemsDiscovered" ) ;
-			NotifyPropertyChanged( "ItemsToDiscover" ) ;
-			NotifyPropertyChanged( "TotalItemsToDiscover" ) ;
+			ServicesCount = 0 ;
+			ServicesDoneCount = 0 ;
 
 			Jid jid ;
 
@@ -231,7 +289,7 @@ namespace xeus2.xeus.Core
 			_discoManager.DisoverItems( jid, new IqCB( OnDiscoServerResult ), new DiscoverySessionData( null ) ) ;
 		}
 
-		private void DiscoveryInternal( DiscoItem discoItem )
+		private void Discovery( DiscoItem discoItem )
 		{
 			if ( Services.Instance.SessionKey == string.Empty )
 			{
@@ -253,31 +311,10 @@ namespace xeus2.xeus.Core
 				}
 			}
 
-			Jid jid ;
-
-			if ( discoItem == null )
+			lock ( _discoTimeLock )
 			{
-				jid = new Jid( _xmppConnection.Server ) ;
+				_pendingDisco.Enqueue( discoItem ) ;
 			}
-			else
-			{
-				jid = discoItem.Jid ;
-			}
-
-			if ( discoItem != null && discoItem.Node != null )
-			{
-				_discoManager.DisoverItems( jid, discoItem.Node, new IqCB( OnDiscoServerResult ), new DiscoverySessionData( discoItem ) ) ;
-			}
-			else
-			{
-				_discoManager.DisoverItems( jid, new IqCB( OnDiscoServerResult ), new DiscoverySessionData( discoItem ) ) ;
-			}
-		}
-
-		private void Discovery( DiscoItem discoItem )
-		{
-			App.InvokeSafe( DispatcherPriority.ApplicationIdle,
-			                new DiscoCallback( DiscoveryInternal ), discoItem ) ;
 		}
 
 		public int MyPriority
@@ -314,69 +351,40 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		public int ItemsDiscovered
+		public int ServicesCount
 		{
 			get
 			{
-				return _totalItemsToDiscover - ItemsToDiscover ;
+				return _servicesCount ;
+			}
+			set
+			{
+				_servicesCount = value ;
+				NotifyPropertyChanged( "ServicesCount" ) ;
 			}
 		}
 
-		public int TotalItemsToDiscover
+		public int ServicesDoneCount
 		{
 			get
 			{
-				return _totalItemsToDiscover ;
+				return _servicesDoneCount ;
 			}
-		}
-
-		public int ItemsToDiscover
-		{
-			get
+			set
 			{
-				return _itemsToDiscover ;
+				_servicesDoneCount = value ;
+				NotifyPropertyChanged( "ServicesDoneCount" ) ;
 			}
 		}
 
-		private int _itemsToDiscover = 0 ;
-		private int _totalItemsToDiscover = 0 ;
-		private object _itemsToDiscoverLock = new object() ;
+		//private object _itemsToDiscoverLock = new object() ;
 
-		private void AddItemToDiscover()
-		{
-			lock ( _itemsToDiscoverLock )
-			{
-				_itemsToDiscover++ ;
-
-				if ( ItemsToDiscover > _totalItemsToDiscover )
-				{
-					_totalItemsToDiscover = ItemsToDiscover ;
-
-					NotifyPropertyChanged( "TotalItemsToDiscover" ) ;
-				}
-			}
-
-			NotifyPropertyChanged( "ItemsDiscovered" ) ;
-			NotifyPropertyChanged( "ItemsToDiscover" ) ;
-		}
-
-		private void RemoveItemToDiscover()
-		{
-			lock ( _itemsToDiscoverLock )
-			{
-				_itemsToDiscover-- ;
-			}
-
-			NotifyPropertyChanged( "ItemsDiscovered" ) ;
-			NotifyPropertyChanged( "ItemsToDiscover" ) ;
-		}
-
-		bool CheckSessionKey( object data )
+		private bool CheckSessionKey( object data )
 		{
 			DiscoverySessionData sessionData = data as DiscoverySessionData ;
 
-			return ( Services.Instance.SessionKey != string.Empty 
-					&& sessionData.SessionKey == Services.Instance.SessionKey ) ;
+			return ( Services.Instance.SessionKey != string.Empty
+			         && sessionData.SessionKey == Services.Instance.SessionKey ) ;
 		}
 
 		private void OnDiscoServerResult( object sender, IQ iq, object data )
@@ -413,19 +421,11 @@ namespace xeus2.xeus.Core
 
 							Services.Instance.OnServiceItem( sender, itm, sessionData.Data as DiscoItem ) ;
 
-							AddItemToDiscover() ;
-
 							Discovery( itm ) ;
 
-							Thread.Sleep( 50 ) ;
-
-							if ( string.IsNullOrEmpty( itm.Node ) )
+							lock ( _discoTimeLock )
 							{
-								_discoManager.DisoverInformation( itm.Jid, new IqCB( OnDiscoInfoResult ), new DiscoverySessionData( itm ) ) ;
-							}
-							else
-							{
-								_discoManager.DisoverInformation( itm.Jid, itm.Node, new IqCB( OnDiscoInfoResult ), new DiscoverySessionData( itm ) ) ;
+								_pendingDiscoInfo.Enqueue( itm ) ;
 							}
 						}
 					}
@@ -435,19 +435,13 @@ namespace xeus2.xeus.Core
 
 		public void DiscoInfo( DiscoItem item )
 		{
-			AddItemToDiscover() ;
-
-			if ( string.IsNullOrEmpty( item.Node ) )
+			lock ( _discoTimeLock )
 			{
-				_discoManager.DisoverInformation( item.Jid, new IqCB( OnDiscoInfoResult ), new DiscoverySessionData( item ) ) ;
-			}
-			else
-			{
-				_discoManager.DisoverInformation( item.Jid, item.Node, new IqCB( OnDiscoInfoResult ), new DiscoverySessionData( item ) ) ;
+				_pendingDiscoInfo.Enqueue( item ) ;
 			}
 		}
 
-		private void OnDiscoInfoResultInternal( object sender, IQ iq, object data )
+		private void OnDiscoInfoResult( object sender, IQ iq, object data )
 		{
 			if ( !CheckSessionKey( data ) )
 			{
@@ -471,28 +465,11 @@ namespace xeus2.xeus.Core
 				if ( di.HasFeature( Uri.COMMANDS ) && di.Node == null )
 				{
 					_discoManager.DisoverItems( discoItem.Jid,
-					                           Uri.COMMANDS,
-					                           new IqCB( OnCommandsServerResult ),
-					                           new DiscoverySessionData( discoItem ) ) ;
-
-					AddItemToDiscover() ;
+					                            Uri.COMMANDS,
+					                            new IqCB( OnCommandsServerResult ),
+					                            new DiscoverySessionData( discoItem ) ) ;
 				}
 			}
-
-			RemoveItemToDiscover() ;
-		}
-
-		private void OnDiscoInfoResult( object sender, IQ iq, object data )
-		{
-			if ( !CheckSessionKey( data ) )
-			{
-				return ;
-			}
-
-			Thread.Sleep( 10 ) ;
-
-			App.InvokeSafe( DispatcherPriority.ApplicationIdle,
-			                new DiscoInfoResultCallback( OnDiscoInfoResultInternal ), sender, iq, data ) ;
 		}
 
 		private void OnCommandsServerResult( object sender, IQ iq, object data )
@@ -512,8 +489,6 @@ namespace xeus2.xeus.Core
 				DiscoverySessionData discoverySessionData = data as DiscoverySessionData ;
 				Services.Instance.OnCommandsItemInfo( this, discoverySessionData.Data as DiscoItem, iq ) ;
 			}
-
-			RemoveItemToDiscover() ;
 		}
 
 		public void DoSearchService( Service service, Data data )
@@ -540,7 +515,7 @@ namespace xeus2.xeus.Core
 		{
 			Service service = data as Service ;
 
-			Search search = iq.Query as Search ;
+			agsXMPP.protocol.iq.search.Search search = iq.Query as agsXMPP.protocol.iq.search.Search ;
 
 			if ( iq.Error != null )
 			{
@@ -550,7 +525,7 @@ namespace xeus2.xeus.Core
 			}
 			else if ( iq.Type == IqType.result && search != null )
 			{
-				Middle.Search.Instance.DisplaySearchResult( search, ( Service ) data ) ;
+				Search.Instance.DisplaySearchResult( search, ( Service ) data ) ;
 
 				EventInfo eventinfo = new EventInfo( string.Format( Resources.Even_SearchSucceeded, service.Name ) ) ;
 				Events.Instance.OnEvent( eventinfo ) ;
@@ -611,7 +586,7 @@ namespace xeus2.xeus.Core
 
 		private void OnRegisterServiceGetSearch( object sender, IQ iq, object data )
 		{
-			Search search = iq.Query as Search ;
+			agsXMPP.protocol.iq.search.Search search = iq.Query as agsXMPP.protocol.iq.search.Search ;
 
 			if ( iq.Error != null )
 			{
@@ -624,7 +599,7 @@ namespace xeus2.xeus.Core
 			}
 			else if ( iq.Type == IqType.result && search != null )
 			{
-				Middle.Search.Instance.DisplaySearch( search, ( Service ) data ) ;
+				Search.Instance.DisplaySearch( search, ( Service ) data ) ;
 			}
 		}
 

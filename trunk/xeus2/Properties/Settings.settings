@@ -8,12 +8,6 @@
     <Setting Name="XmppPriority" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>
-    <Setting Name="XmppUserName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">xeus</Value>
-    </Setting>
-    <Setting Name="XmppPassword" Type="System.String" Scope="User">
-      <Value Profile="(Default)">-3koblihy</Value>
-    </Setting>
     <Setting Name="XmppServer" Type="System.String" Scope="User">
       <Value Profile="(Default)">jabber.cz</Value>
     </Setting>
@@ -25,6 +19,12 @@
     </Setting>
     <Setting Name="MucLeaveMsg" Type="System.String" Scope="User">
       <Value Profile="(Default)">Goodbye</Value>
+    </Setting>
+    <Setting Name="XmppUserName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="XmppPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
