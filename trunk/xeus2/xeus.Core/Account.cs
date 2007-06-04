@@ -417,7 +417,7 @@ namespace xeus2.xeus.Core
 
 							Discovery( itm ) ;
 
-							Thread.Sleep( 20 ) ;
+							Thread.Sleep( 50 ) ;
 
 							if ( string.IsNullOrEmpty( itm.Node ) )
 							{
@@ -488,6 +488,8 @@ namespace xeus2.xeus.Core
 			{
 				return ;
 			}
+
+			Thread.Sleep( 10 ) ;
 
 			App.InvokeSafe( DispatcherPriority.ApplicationIdle,
 			                new DiscoInfoResultCallback( OnDiscoInfoResultInternal ), sender, iq, data ) ;

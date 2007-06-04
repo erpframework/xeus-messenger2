@@ -3,16 +3,35 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic">
 	<!-- Resource dictionary entries should be defined here. -->
 
-	<DrawingBrush x:Key="progress_gradient_design">
+	<DrawingBrush x:Key="scrollbar_design">
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
 				<DrawingGroup.Children>
-					<GeometryDrawing Geometry="F1 M 2.52083,2.91667L 28.3958,2.91667L 28.3958,14.7083L 2.52083,14.7083L 2.52083,2.91667 Z ">
+					<GeometryDrawing Geometry="F1 M 3.91667,3.33334L 97.9167,3.33334L 97.9167,97.6667L 3.91667,97.6667L 3.91667,3.33334 Z ">
 						<GeometryDrawing.Brush>
-							<LinearGradientBrush StartPoint="0.5,1.06579" EndPoint="0.5,-0.0657894">
+							<LinearGradientBrush StartPoint="0.5,0.998233" EndPoint="0.5,0.00176676">
 								<LinearGradientBrush.GradientStops>
-									<GradientStop Color="#FFDFE5ED" Offset="0"/>
-									<GradientStop Color="#FFBDC9D9" Offset="1"/>
+									<GradientStop Color="#FF53667c" Offset="0"/>
+									<GradientStop Color="#FF3c4e65" Offset="1"/>
+								</LinearGradientBrush.GradientStops>
+							</LinearGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+				</DrawingGroup.Children>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	
+	<DrawingBrush x:Key="background_design">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<DrawingGroup.Children>
+					<GeometryDrawing Geometry="F1 M 3.91667,3.33334L 97.9167,3.33334L 97.9167,97.6667L 3.91667,97.6667L 3.91667,3.33334 Z ">
+						<GeometryDrawing.Brush>
+							<LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
+								<LinearGradientBrush.GradientStops>
+									<GradientStop Color="#FF1e1f22" Offset="0"/>
+									<GradientStop Color="#FF000000" Offset="1"/>
 								</LinearGradientBrush.GradientStops>
 							</LinearGradientBrush>
 						</GeometryDrawing.Brush>
@@ -61,14 +80,14 @@
 		</Border>
 	</ControlTemplate>
 
-	<SolidColorBrush x:Key="DefaultBorderBrush" Color="#FFA1A1A1"/>
+	<SolidColorBrush x:Key="DefaultBorderBrush" Color="#FF2c2c2c"/>
 
 	<Style TargetType="{x:Type TreeView}">
 		<Setter Property="OverridesDefaultStyle" Value="False"/>
 		<Setter Property="Background" Value="{x:Null}"/>
 	</Style>
 
-	<SolidColorBrush x:Key="DefaultTextBrush" Color="#FF545454"/>
+	<SolidColorBrush x:Key="DefaultTextBrush" Color="#FFD4D4D4"/>
 
 	<Style x:Key="ProgressBarStyle" TargetType="{x:Type ProgressBar}">
 		<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
@@ -85,24 +104,25 @@
 					<Border BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3">
 						<Border.Background>
 							<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-								<GradientStop Color="#FFC3C3C3" Offset="0"/>
-								<GradientStop Color="#FFECECEC" Offset="0.921"/>
-								<GradientStop Color="#FFD6D4D4" Offset="0.186"/>
-								<GradientStop Color="#FFDBDBDB" Offset="1"/>
+								<GradientStop Color="#FF2C2C2C" Offset="0"/>
+								<GradientStop Color="#FF3E3D3D" Offset="1"/>
 							</LinearGradientBrush>
 						</Border.Background>
-						<DockPanel x:Name="PART_Track" LastChildFill="False" ClipToBounds="True">
-							<Rectangle x:Name="PART_Indicator" Fill="{DynamicResource progress_gradient_design}" ClipToBounds="False" Margin="-1,-1,-1,-1">
+						<DockPanel x:Name="PART_Track" LastChildFill="False">
+							<Grid x:Name="PART_Indicator" >
+							<Rectangle Fill="{DynamicResource scrollbar_design}" RadiusX="3" RadiusY="3">
 								<Rectangle.BitmapEffect>
 									<DropShadowBitmapEffect Direction="360" Opacity="0.25" ShadowDepth="1" Softness="0.25"/>
 								</Rectangle.BitmapEffect>
 							</Rectangle>
+							<Rectangle Fill="#19FFFFFF" RadiusX="3" RadiusY="3" Margin="2,2,2,0" VerticalAlignment="Top" Height="5" />
+							</Grid>
 						</DockPanel>
 					</Border>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
-		<Setter Property="MinHeight" Value="30"/>
+		<Setter Property="MinHeight" Value="22"/>
 		<Style.Triggers>
 			<Trigger Property="Orientation" Value="Vertical">
 				<Setter Property="Template">
@@ -167,19 +187,7 @@
 	</ControlTemplate>
 
 	<Style x:Key="FrameBorderStyle" TargetType="{x:Type Border}">
-		<Setter Property="BorderBrush" Value="{DynamicResource DefaultBorderBrush}"/>
-		<Setter Property="BorderThickness" Value="1,1,1,1"/>
-		<Setter Property="CornerRadius" Value="8,8,8,8"/>
-		<Setter Property="Background">
-			<Setter.Value>
-				<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-					<GradientStop Color="#FFE5E5E5" Offset="0.074"/>
-					<GradientStop Color="#FFFFFFFF" Offset="1"/>
-					<GradientStop Color="#FFFCFCFC" Offset="0"/>
-					<GradientStop Color="#FFFDFDFD" Offset="0.926"/>
-				</LinearGradientBrush>
-			</Setter.Value>
-		</Setter>
+		<Setter Property="Background" Value="#FF000000"/>
 	</Style>
 
 </ResourceDictionary>
