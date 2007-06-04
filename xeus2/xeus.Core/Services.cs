@@ -10,14 +10,6 @@ namespace xeus2.xeus.Core
 {
 	internal class Services : ObservableCollectionDisp< Service >
 	{
-		private delegate void ServiceItemCallback( DiscoItem discoItem, DiscoItem parent ) ;
-
-		private delegate void ServiceItemInfoCallback( DiscoItem discoItem, DiscoInfo info ) ;
-
-		private delegate void OnServiceItemErrorCallback( IQ iq ) ;
-
-		private delegate void OnCommandsItemInfoCallback( DiscoItem discoItem, IQ iq ) ;
-
 		private static Services _instance = new Services() ;
 
 		private Dictionary< string, Service > _allServices = new Dictionary< string, Service >() ;
@@ -66,8 +58,7 @@ namespace xeus2.xeus.Core
 
 		public void OnCommandsItemInfo( object sender, DiscoItem discoItem, IQ iq )
 		{
-			App.InvokeSafe( DispatcherPriority.Background,
-			                new OnCommandsItemInfoCallback( OnCommandsItemInfo ), discoItem, iq ) ;
+			OnCommandsItemInfo( discoItem, iq ) ;
 		}
 
 		public void OnServiceItemInfo( object sender, DiscoItem discoItem, DiscoInfo info )
@@ -77,8 +68,7 @@ namespace xeus2.xeus.Core
 				return ;
 			}
 
-			App.InvokeSafe( DispatcherPriority.Background,
-			                new ServiceItemInfoCallback( OnServiceItemInfo ), discoItem, info ) ;
+			OnServiceItemInfo( discoItem, info ) ;
 		}
 
 		public void OnServiceItem( object sender, DiscoItem discoItem, DiscoItem parent )
@@ -88,14 +78,12 @@ namespace xeus2.xeus.Core
 				return ;
 			}
 
-			App.InvokeSafe( DispatcherPriority.Background,
-			                new ServiceItemCallback( OnServiceItem ), discoItem, parent ) ;
+			OnServiceItem( discoItem, parent ) ;
 		}
 
 		public void OnServiceItemError( object sender, IQ iq )
 		{
-			App.InvokeSafe( DispatcherPriority.Background,
-			                new OnServiceItemErrorCallback( OnServiceItemError ), iq ) ;
+			OnServiceItemError( iq ) ;
 		}
 
 		public void OnServiceItemError( IQ iq )

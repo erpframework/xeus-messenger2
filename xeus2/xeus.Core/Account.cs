@@ -377,8 +377,6 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		//private object _itemsToDiscoverLock = new object() ;
-
 		private bool CheckSessionKey( object data )
 		{
 			DiscoverySessionData sessionData = data as DiscoverySessionData ;
