@@ -175,7 +175,7 @@
 			<Trigger Property="IsMouseOver" Value="True">
 				<Setter Property="BitmapEffect" TargetName="border">
 					<Setter.Value>
-						<OuterGlowBitmapEffect GlowColor="#FFFFFFFF" GlowSize="3"/>
+						<OuterGlowBitmapEffect GlowColor="#FFFFFFFF" GlowSize="3" Opacity="0.75"/>
 					</Setter.Value>
 				</Setter>
 			</Trigger>

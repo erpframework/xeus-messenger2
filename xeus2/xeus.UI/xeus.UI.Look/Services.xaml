@@ -30,8 +30,8 @@
   		<Storyboard x:Key="Highlight"/>
    	</HierarchicalDataTemplate.Resources>
 	
-  	<Grid Margin="5,5,5,5" MinWidth="300" x:Name="grid">
-  		<Image Width="56" Height="56" VerticalAlignment="Center" Source="{Binding Path=Image}" HorizontalAlignment="Left" Margin="0,0,0,10" OpacityMask="#FF000000" RenderTransformOrigin="0.5,0.5" x:Name="image" SnapsToDevicePixels="True" >
+  	<Grid Margin="5,10,5,0" MinWidth="300" x:Name="grid">
+  		<Image Width="56" Height="56" VerticalAlignment="Center" Source="{Binding Path=Image}" HorizontalAlignment="Left" OpacityMask="#FF000000" RenderTransformOrigin="0.5,0.5" x:Name="image" SnapsToDevicePixels="True" >
   			<Image.RenderTransform>
   				<TransformGroup>
   					<ScaleTransform/>
@@ -41,12 +41,10 @@
   				</TransformGroup>
   			</Image.RenderTransform>
   		</Image>
-		<Border x:Name="background" Margin="70,0,0,10" CornerRadius="3,3,3,3" Padding="3,3,3,3">
-  		<StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" >
+  		<StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="74,0,0,0" >
   			<TextBlock FontSize="17" Text="{Binding Path=Text}" TextWrapping="Wrap" FontWeight="Bold" Foreground="{DynamicResource DefaultTextBrush}"/>
   			<TextBlock Text="{Binding Path=Description}" TextWrapping="Wrap" FontSize="10" Foreground="{DynamicResource DefaultTextBrush2}" />
   		</StackPanel>
-		</Border>
   	</Grid>
   	<HierarchicalDataTemplate.Triggers>
   		<EventTrigger RoutedEvent="FrameworkElement.Loaded" SourceName="image">
@@ -887,8 +885,8 @@
 						<Border SnapsToDevicePixels="True" x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" Grid.Column="1">
 							<ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" x:Name="PART_Header" Content="{TemplateBinding Header}" ContentSource="Header" ContentTemplateSelector="{DynamicResource ServiceTemplateSelector}"/>
 						</Border>
+						<Rectangle x:Name="rectangle" Grid.ColumnSpan="2" Panel.ZIndex="-1"/>
 						<ItemsPresenter x:Name="ItemsHost" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"/>
-						<Rectangle Margin="0,0,0,0" x:Name="rectangle" Grid.ColumnSpan="2"/>
 					</Grid>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsSelected" Value="True">
