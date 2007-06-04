@@ -8,6 +8,7 @@
     x:Class="xeus2.xeus.UI.ServiceWindow"
     Title="xeus2.xeus.UI" Height="600" Width="500"
     SnapsToDevicePixels="True"
+    Background="{DynamicResource background_design}"
     >
   <Window.Resources>
     <ObjectDataProvider x:Key="ServicesDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Services}"/>
@@ -17,13 +18,6 @@
 
   </Window.Resources>
 
-	<Window.Background>
-		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-			<GradientStop Color="#FFACB7BF" Offset="0"/>
-			<GradientStop Color="#FFF0F2F5" Offset="1"/>
-		</LinearGradientBrush>
-	</Window.Background>
-
 	<DockPanel>
 		<DockPanel DockPanel.Dock="Top">
       <Button Content="Stop" Command="servicecmd:ServiceCommands.StopDiscoveryServices"
@@ -32,35 +26,53 @@
 				CommandParameter="{Binding Path=Text, ElementName=serverJid}" DockPanel.Dock="Right"/>
       <TextBox x:Name="serverJid"/>
 		</DockPanel>
-		<Border DockPanel.Dock="Bottom" Margin="5,10,5,5" Style="{DynamicResource FrameBorderStyle}" Padding="2,2,2,2">
-			<Border.Background>
-				<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-					<GradientStop Color="#FFE5E5E5" Offset="0.074"/>
-					<GradientStop Color="#FFFFFFFF" Offset="1"/>
-					<GradientStop Color="#FFF0F0F0" Offset="0"/>
-					<GradientStop Color="#FFFDFDFD" Offset="0.926"/>
-				</LinearGradientBrush>
-			</Border.Background>
+		<Border DockPanel.Dock="Bottom" Style="{DynamicResource FrameBorderStyle}" Padding="2,2,2,2" Background="#FF000000">
+			<Border.BitmapEffect>
+				<DropShadowBitmapEffect Direction="90" Opacity="0.3" ShadowDepth="3"/>
+			</Border.BitmapEffect>
 			<DockPanel Margin="3,3,3,3">
-				<Image Width="48" Height="48" Source="pack://application:,,,/xeus.UI/xeus.Images/service_service.png" />
-				<StackPanel Margin="10,0,8,0" VerticalAlignment="Center">
+				<StackPanel VerticalAlignment="Center">
+					<Image Width="48" Height="48" x:Name="image" Source="pack://application:,,,/xeus.UI/xeus.Images/service_service.png" Margin="0,5,0,0" />
+					<Border Opacity="0.35" RenderTransformOrigin="0.5,0.5" Width="40" Height="40" Margin="0,-15,0,-15">
+		  				<Border.OpacityMask>
+		  					<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+		  						<GradientStop Offset="0.162" Color="Black"/>
+		  						<GradientStop Offset="0.671" Color="Transparent"/>
+		  					</LinearGradientBrush>
+		  				</Border.OpacityMask>
+		  				<Border.Background>
+		  					<VisualBrush Visual="{Binding ElementName=image}">
+		  						<VisualBrush.Transform>
+		  							<ScaleTransform ScaleX="1" ScaleY="-1" CenterX="0" CenterY="20" />
+		  						</VisualBrush.Transform>
+		  					</VisualBrush>
+		  				</Border.Background>
+						<Border.RenderTransform>
+							<TransformGroup>
+								<ScaleTransform ScaleX="1" ScaleY="0.5"/>
+								<SkewTransform AngleX="0" AngleY="0"/>
+								<RotateTransform Angle="0"/>
+								<TranslateTransform X="0" Y="0"/>
+							</TransformGroup>
+						</Border.RenderTransform>
+	  				</Border>
+				</StackPanel>
+				<StackPanel Margin="10,5,8,0" VerticalAlignment="Center">
 					<TextBlock Text="Services" FontSize="17" FontWeight="Bold" Foreground="{DynamicResource DefaultTextBrush}"/>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Text="{Binding Path=TotalItemsToDiscover}" FontWeight="Bold" Foreground="{DynamicResource DefaultTextBrush}"/>
-						<TextBlock Text=" service items found" Foreground="{DynamicResource DefaultTextBrush}"/>
-					</StackPanel>
-					<StackPanel Orientation="Horizontal">
+						<TextBlock Text=" service items found / " Foreground="{DynamicResource DefaultTextBrush}"/>
 						<TextBlock Text="{Binding Path=ItemsToDiscover}" FontWeight="Bold" Foreground="{DynamicResource DefaultTextBrush}"/>
 						<TextBlock Text=" service items to discover" Foreground="{DynamicResource DefaultTextBrush}"/>
 					</StackPanel>
+					<ProgressBar Maximum="{Binding Path=TotalItemsToDiscover, Mode=OneWay}"
+						Value="{Binding Path=ItemsDiscovered, Mode=OneWay}" Style="{DynamicResource ProgressBarStyle}" VerticalContentAlignment="Center" LargeChange="20" SmallChange="5" Margin="0,5,0,5"/>
 				</StackPanel>
-				<ProgressBar VerticalAlignment="Center" DockPanel.Dock="Right" Maximum="{Binding Path=TotalItemsToDiscover, Mode=OneWay}"
-					Value="{Binding Path=ItemsDiscovered, Mode=OneWay}" Style="{DynamicResource ProgressBarStyle}" VerticalContentAlignment="Center" Margin="5,0,5,0" LargeChange="20" SmallChange="5"/>
 			</DockPanel>
 		</Border>
 		<TreeView ItemsSource="{Binding Source={StaticResource Services}}"
 			ItemTemplateSelector="{DynamicResource ServiceTemplateSelector}"
 			x:Name="_services" Style="{DynamicResource TreeViewStyleServices}"
-			ItemContainerStyle="{DynamicResource TreeViewItemStyleService}" Template="{DynamicResource TreeViewControlTemplate}" DockPanel.Dock="Top" Margin="5,5,5,5" />
+			ItemContainerStyle="{DynamicResource TreeViewItemStyleService}" Template="{DynamicResource TreeViewControlTemplate}" DockPanel.Dock="Top" Margin="5,5,5,5" ScrollViewer.VerticalScrollBarVisibility="Auto" />
 	</DockPanel>
 </Window>
