@@ -72,7 +72,7 @@ namespace xeus2.xeus.Core
 			}
 			else
 			{
-				App.Current.Dispatcher.BeginInvoke( DispatcherPriority.Background,
+				App.Current.Dispatcher.BeginInvoke( DispatcherPriority.ApplicationIdle,
 				                                    new MessageCB( MessageCallback ), sender, msg, data ) ;
 			}
 		}
@@ -94,7 +94,7 @@ namespace xeus2.xeus.Core
 			}
 			else
 			{
-				App.Current.Dispatcher.BeginInvoke( DispatcherPriority.Background,
+				App.Current.Dispatcher.BeginInvoke( DispatcherPriority.ApplicationIdle,
 				                                    new PresenceCB( PresenceCallback ), sender, presence, data ) ;
 			}
 		}

@@ -21,6 +21,7 @@ namespace xeus2.xeus.Middle
 		{
 			App.InvokeSafe( DispatcherPriority.Normal,
 			                new MucLoginCallback( DisplayMucInternal ), service, nick, password ) ;
+
 		}
 
 		protected void DisplayMucInternal( Service service, string nick, string password )
