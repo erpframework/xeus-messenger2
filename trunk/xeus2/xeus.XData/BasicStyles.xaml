@@ -81,13 +81,14 @@
 	</ControlTemplate>
 
 	<SolidColorBrush x:Key="DefaultBorderBrush" Color="#FF2c2c2c"  PresentationOptions:Freeze="True"/>
+	<SolidColorBrush x:Key="TextBoxBorderBrush" Color="#FF999999"  PresentationOptions:Freeze="True"/>
 
 	<Style TargetType="{x:Type TreeView}"  PresentationOptions:Freeze="True">
 		<Setter Property="OverridesDefaultStyle" Value="False"/>
 		<Setter Property="Background" Value="{x:Null}"/>
 	</Style>
 
-	<SolidColorBrush x:Key="DefaultTextBoxBackBrush" Color="#FF434343"/>
+	<SolidColorBrush x:Key="DefaultTextBoxBackBrush" Color="#FF808080"/>
 	<SolidColorBrush x:Key="DefaultTextBrush" Color="#FFD4D4D4" PresentationOptions:Freeze="True"/>
 	<SolidColorBrush x:Key="DefaultTextBrush2" Color="#FFA9A9A9" PresentationOptions:Freeze="True"/>
 
@@ -194,7 +195,7 @@
 	</Style>
 
 	<ControlTemplate x:Key="TextBoxBaseControlTemplate" TargetType="{x:Type TextBox}">
-		<Border x:Name="Bd" BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" Background="{DynamicResource DefaultTextBoxBackBrush}">
+		<Border x:Name="Bd" BorderBrush="{DynamicResource TextBoxBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" Background="{DynamicResource DefaultTextBoxBackBrush}">
 			<ScrollViewer x:Name="PART_ContentHost"/>
 		</Border>
 		<ControlTemplate.Triggers>
