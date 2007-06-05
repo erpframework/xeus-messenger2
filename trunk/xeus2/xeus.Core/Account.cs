@@ -49,7 +49,7 @@ namespace xeus2.xeus.Core
 
 	internal class Account : NotifyInfoDispatcher
 	{
-		private Timer _discoTime = new Timer( 250 ) ;
+		private Timer _discoTime = new Timer( 50 ) ;
 
 		private static Account _instance = new Account() ;
 
@@ -245,6 +245,8 @@ namespace xeus2.xeus.Core
 
 		public void Discovery( string serverJid )
 		{
+			StopDiscovery();
+
 			Services.Instance.Clear() ;
 
 			ServicesCount = 0 ;
@@ -260,8 +262,6 @@ namespace xeus2.xeus.Core
 			{
 				jid = new Jid( serverJid ) ;
 			}
-
-			_discoTime.Start();
 
 			Discovery( jid ) ;
 		}
@@ -380,7 +380,7 @@ namespace xeus2.xeus.Core
 
 				if ( ServicesDoneCount >= ServicesCount )
 				{
-					_discoTime.Stop();		
+					_discoTime.Stop();
 				}
 			}
 		}
@@ -399,6 +399,8 @@ namespace xeus2.xeus.Core
 			{
 				return ;
 			}
+
+			_discoTime.Start();
 
 			if ( iq.Error != null )
 			{
