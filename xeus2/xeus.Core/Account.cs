@@ -109,7 +109,6 @@ namespace xeus2.xeus.Core
 			_xmppConnection.Open() ;
 
 			_discoTime.Elapsed += new ElapsedEventHandler( _discoTime_Elapsed ) ;
-			_discoTime.Start() ;
 		}
 
 		private Queue< DiscoItem > _pendingDisco = new Queue< DiscoItem >() ;
@@ -173,6 +172,8 @@ namespace xeus2.xeus.Core
 
 		public void StopDiscovery()
 		{
+			_discoTime.Stop();
+
 			_pendingDisco.Clear() ;
 			_pendingDiscoInfo.Clear() ;
 
@@ -259,6 +260,8 @@ namespace xeus2.xeus.Core
 			{
 				jid = new Jid( serverJid ) ;
 			}
+
+			_discoTime.Start();
 
 			Discovery( jid ) ;
 		}
@@ -374,6 +377,11 @@ namespace xeus2.xeus.Core
 			{
 				_servicesDoneCount = value ;
 				NotifyPropertyChanged( "ServicesDoneCount" ) ;
+
+				if ( ServicesDoneCount >= ServicesCount )
+				{
+					_discoTime.Stop();		
+				}
 			}
 		}
 
