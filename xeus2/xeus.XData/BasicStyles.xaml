@@ -190,8 +190,11 @@
 		<Setter Property="Background" Value="#FF000000"/>
 	</Style>
 
-	<Style x:Key="GenericTextBoxStyle" TargetType="{x:Type TextBox}">
+	<Style TargetType="{x:Type TextBox}">
 		<Setter Property="Template" Value="{DynamicResource TextBoxBaseControlTemplate}"/>
+		<Setter Property="MinHeight" Value="20"/>
+		<Setter Property="VerticalScrollBarVisibility" Value="Disabled"/>
+		<Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
 	</Style>
 
 	<ControlTemplate x:Key="TextBoxBaseControlTemplate" TargetType="{x:Type TextBox}">
@@ -205,5 +208,97 @@
 			</Trigger>
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
+
+	<Style TargetType="{x:Type Button}">
+		<Setter Property="Background" Value="#FF7AC3FF"/>
+		<Setter Property="MinHeight" Value="22"/>
+		<Setter Property="Foreground" Value="#FFFFFFFF"/>
+		<Style.BasedOn>
+			<Style TargetType="{x:Type Button}">
+				<Setter Property="FocusVisualStyle">
+					<Setter.Value>
+						<Style>
+							<Setter Property="Control.Template">
+								<Setter.Value>
+									<ControlTemplate>
+										<Border>
+											<Rectangle SnapsToDevicePixels="True" Stroke="#FF000000" StrokeDashArray="1 2" StrokeThickness="1" Margin="4,4,4,4"/>
+										</Border>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</Style>
+					</Setter.Value>
+				</Setter>
+				<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+				<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+				<Setter Property="BorderBrush">
+					<Setter.Value>
+						<SolidColorBrush/>
+					</Setter.Value>
+				</Setter>
+				<Setter Property="BorderThickness" Value="3,3,3,3"/>
+				<Setter Property="HorizontalContentAlignment" Value="Center"/>
+				<Setter Property="VerticalContentAlignment" Value="Center"/>
+				<Setter Property="Padding" Value="0,0,1,1"/>
+				<Setter Property="Template">
+					<Setter.Value>
+<ControlTemplate TargetType="{x:Type Button}">
+<Border 
+	x:Name="_border"
+	BorderThickness="1,1,1,1" 
+	CornerRadius="3,3,3,3" BorderBrush="{DynamicResource DefaultBorderBrush}" RenderTransformOrigin="0.5,0.5" >
+	<Border.RenderTransform>
+		<TransformGroup>
+			<ScaleTransform ScaleX="1" ScaleY="1"/>
+			<SkewTransform AngleX="0" AngleY="0"/>
+			<RotateTransform Angle="0"/>
+			<TranslateTransform X="0" Y="0"/>
+		</TransformGroup>
+	</Border.RenderTransform>
+	<Grid>
+	<Rectangle VerticalAlignment="Stretch" RadiusX="3" RadiusY="3"
+		Opacity="0.6" StrokeThickness="0">
+		<Rectangle.Fill>
+			<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+				<GradientStop Color="#FF000000" Offset="1"/>
+				<GradientStop Color="#FFFFFFFF" Offset="0"/>
+			</LinearGradientBrush>
+		</Rectangle.Fill>
+	</Rectangle>
+	<Rectangle VerticalAlignment="Stretch" RadiusX="3" RadiusY="3"
+		Fill="{TemplateBinding Property=Background}" Opacity="0.65" StrokeThickness="0" x:Name="rectangle"/>
+	<Rectangle Fill="#4CE1E1E1" VerticalAlignment="Top" Height="6" RadiusX="3" RadiusY="3" Margin="1,1,1,0" x:Name="rectangle1"/>
+	<ContentPresenter Margin="5,2,5,4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+	</Grid>
+</Border>
+
+	<ControlTemplate.Triggers>
+		<Trigger Property="IsEnabled" Value="False">
+			<Setter Property="Opacity" TargetName="_border" Value="0.5"/>
+		</Trigger>
+	  <Trigger Property="Ellipse.IsMouseOver" Value="True">
+	  	<Setter Property="Opacity" TargetName="rectangle" Value="0.75"/>
+	  	<Setter Property="Fill" TargetName="rectangle1" Value="#7FE1E1E1"/>
+	  </Trigger>
+		<Trigger Property="IsPressed" Value="True">
+			<Setter Property="RenderTransform" TargetName="_border">
+				<Setter.Value>
+					<TransformGroup>
+						<ScaleTransform ScaleX="0.95" ScaleY="0.95"/>
+						<SkewTransform AngleX="0" AngleY="0"/>
+						<RotateTransform Angle="0"/>
+						<TranslateTransform X="0" Y="0"/>
+					</TransformGroup>
+				</Setter.Value>
+			</Setter>
+		</Trigger>
+	</ControlTemplate.Triggers>
+</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+		</Style.BasedOn>
+	</Style>
 
 </ResourceDictionary>
