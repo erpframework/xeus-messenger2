@@ -19,17 +19,14 @@
   </Window.Resources>
 
 	<DockPanel>
-		<DockPanel DockPanel.Dock="Top" Margin="3,5,3,5">
+		<DockPanel DockPanel.Dock="Top" Margin="5,10,5,10">
       <Button Content="Stop" Command="servicecmd:ServiceCommands.StopDiscoveryServices"
-				DockPanel.Dock="Right"/>
+				DockPanel.Dock="Right" Margin="5,0,0,0"/>
       <Button Content="Discover" Command="servicecmd:ServiceCommands.DiscoveryServices"
-				CommandParameter="{Binding Path=Text, ElementName=serverJid}" DockPanel.Dock="Right"/>
+				CommandParameter="{Binding Path=Text, ElementName=serverJid}" DockPanel.Dock="Right" Margin="5,0,0,0"/>
       <TextBox x:Name="serverJid" Style="{DynamicResource GenericTextBoxStyle}"/>
 		</DockPanel>
 		<Border DockPanel.Dock="Bottom" Style="{DynamicResource FrameBorderStyle}" Padding="2,2,2,2" Background="#FF000000">
-			<Border.BitmapEffect>
-				<DropShadowBitmapEffect Direction="90" Opacity="0.3" ShadowDepth="3"/>
-			</Border.BitmapEffect>
 			<DockPanel Margin="3,3,3,3">
 				<StackPanel VerticalAlignment="Center">
 					<Image Width="48" Height="48" x:Name="image" Source="pack://application:,,,/xeus.UI/xeus.Images/service_service.png" Margin="0,5,0,0" />
@@ -71,6 +68,14 @@
 				</StackPanel>
 			</DockPanel>
 		</Border>
+		<Rectangle Height="10" DockPanel.Dock="Bottom" Fill="#FF0D0D0D">
+			<Rectangle.OpacityMask>
+				<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+					<GradientStop Color="#FF000000" Offset="1"/>
+					<GradientStop Color="#00FFFFFF" Offset="0"/>
+				</LinearGradientBrush>
+			</Rectangle.OpacityMask>
+		</Rectangle>
 		<TreeView ItemsSource="{Binding Source={StaticResource Services}}"
 			ItemTemplateSelector="{DynamicResource ServiceTemplateSelector}"
 			x:Name="_services" Style="{DynamicResource TreeViewStyleServices}"

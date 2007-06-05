@@ -53,7 +53,7 @@ namespace xeus2.xeus.Middle
 
 		public void DisplayQuestionaire( Command command, Service service )
 		{
-			App.InvokeSafe( DispatcherPriority.Background,
+			App.InvokeSafe( DispatcherPriority.ApplicationIdle,
 			                new DisplayCallback( DisplayQuestionaireInternal ), command, service ) ;
 		}
 
