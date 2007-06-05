@@ -50,7 +50,7 @@ namespace xeus2.xeus.XData
 				_textFirst = new XDataTextBox() ;
 
 				Field fieldUserName = new Field( "firstname", Properties.Resources.Constant_FirstName, FieldType.Text_Single ) ;
-				fieldUserName.IsRequired = true ;
+				fieldUserName.IsRequired = false ;
 				fieldUserName.AddValue( _search.Firstname ) ;
 				fieldUserName.Description = Properties.Resources.Constant_EnterFirstNameForSearch ;
 
@@ -65,7 +65,7 @@ namespace xeus2.xeus.XData
 				_textLast = new XDataTextBox() ;
 
 				Field fieldUserName = new Field( "lastname", Properties.Resources.Constant_LastName, FieldType.Text_Single ) ;
-				fieldUserName.IsRequired = true ;
+				fieldUserName.IsRequired = false ;
 				fieldUserName.AddValue( _search.Lastname ) ;
 				fieldUserName.Description = Properties.Resources.Constant_EnterLastNameForSearch ;
 
@@ -80,7 +80,7 @@ namespace xeus2.xeus.XData
 				_textNick = new XDataTextBox() ;
 
 				Field fieldUserName = new Field( "nickname", Properties.Resources.Constant_Nickname, FieldType.Text_Single ) ;
-				fieldUserName.IsRequired = true ;
+				fieldUserName.IsRequired = false ;
 				fieldUserName.AddValue( _search.Nickname ) ;
 				fieldUserName.Description = Properties.Resources.Constant_EnterNicknameForSearch ;
 
@@ -95,7 +95,7 @@ namespace xeus2.xeus.XData
 				_textEmail = new XDataTextBox() ;
 
 				Field fieldEmail = new Field( "email", Properties.Resources.Constant_Email, FieldType.Text_Single ) ;
-				fieldEmail.IsRequired = true ;
+				fieldEmail.IsRequired = false ;
 				fieldEmail.AddValue( _search.Email ) ;
 				fieldEmail.Description = Properties.Resources.Constant_EnterEmailForSearch ;
 

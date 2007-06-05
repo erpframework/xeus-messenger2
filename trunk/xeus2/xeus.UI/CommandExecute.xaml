@@ -6,6 +6,14 @@
     x:Class="xeus2.xeus.UI.CommandExecute"
     Title="xeus2.xeus.UI" Height="300" Width="300"
     >
+    <Window.Resources>
+    	<ResourceDictionary>
+    		<ResourceDictionary.MergedDictionaries>
+    			<ResourceDictionary Source="\xeus.XData\BasicStyles.xaml"/>
+    		</ResourceDictionary.MergedDictionaries>
+    	</ResourceDictionary>
+    </Window.Resources>
+	
   <StackPanel>
     <xeus2_xeus_XData:CommandExecute x:Name="_execute"/>
     <StackPanel Orientation="Horizontal">

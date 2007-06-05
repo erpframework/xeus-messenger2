@@ -744,7 +744,7 @@
               CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource muc_design}" ToolTip="Join Multi-User Chat"/>
 
       <Button x:Name="_mucInfo" Content="muci" Command="servicecmd:ServiceCommands.MucInfo"
-              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" ToolTip="Chat Information" Width="18" Background="{DynamicResource mucinfo_design}"/>
+              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" ToolTip="Chat Information" Width="16" Background="{DynamicResource mucinfo_design}"/>
 	  </StackPanel>
 
 	</StackPanel>

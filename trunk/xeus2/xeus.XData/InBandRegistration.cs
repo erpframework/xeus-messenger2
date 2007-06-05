@@ -98,7 +98,7 @@ namespace xeus2.xeus.XData
 				}
 
 				Field field = new Field( tag, TextUtil.ToTitleCase( tag ), FieldType.Text_Single ) ;
-				field.IsRequired = true ;
+				field.IsRequired = false ;
 				field.AddValue( value ) ;
 				field.Description = tag ;
 

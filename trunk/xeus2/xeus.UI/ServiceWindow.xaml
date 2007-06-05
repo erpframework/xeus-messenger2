@@ -20,11 +20,6 @@
 
 	<DockPanel>
 		<DockPanel DockPanel.Dock="Top" Margin="5,10,5,10">
-      <Button Content="Stop" Command="servicecmd:ServiceCommands.StopDiscoveryServices"
-				DockPanel.Dock="Right" Margin="5,0,0,0"/>
-      <Button Content="Discover" Command="servicecmd:ServiceCommands.DiscoveryServices"
-				CommandParameter="{Binding Path=Text, ElementName=serverJid}" DockPanel.Dock="Right" Margin="5,0,0,0"/>
-      <TextBox x:Name="serverJid" />
 		</DockPanel>
 		<Border DockPanel.Dock="Bottom" Style="{DynamicResource FrameBorderStyle}" Padding="2,2,2,2" Background="#FF000000" BorderThickness="0,1,0,0">
 			<DockPanel Margin="3,3,3,3">
@@ -62,9 +57,16 @@
 						<TextBlock Text=" services of " Foreground="{DynamicResource DefaultTextBrush2}"/>
 						<TextBlock Text="{Binding Path=ServicesCount}" Foreground="{DynamicResource DefaultTextBrush2}"/>
 					</StackPanel>
-					<ProgressBar Style="{DynamicResource ProgressBarStyle}"
-						Maximum="{Binding Path=ServicesCount}"
-						Value="{Binding Path=ServicesDoneCount}" VerticalContentAlignment="Center" Margin="0,5,0,5"/>
+					<DockPanel>
+					      <TextBox x:Name="serverJid" VerticalAlignment="Center" Width="100" />
+					      <Button Content="Discover" Command="servicecmd:ServiceCommands.DiscoveryServices"
+									CommandParameter="{Binding Path=Text, ElementName=serverJid}" DockPanel.Dock="Left" Margin="5,0,0,0" VerticalAlignment="Center"/>
+					      <Button Content="Stop" Command="servicecmd:ServiceCommands.StopDiscoveryServices"
+									DockPanel.Dock="Left" Margin="5,0,0,0" VerticalAlignment="Center"/>
+						<ProgressBar Style="{DynamicResource ProgressBarStyle}"
+							Maximum="{Binding Path=ServicesCount}"
+							Value="{Binding Path=ServicesDoneCount}" VerticalContentAlignment="Center" Margin="10,5,0,5" LargeChange="10" SmallChange="5"/>
+					</DockPanel>
 				</StackPanel>
 			</DockPanel>
 		</Border>

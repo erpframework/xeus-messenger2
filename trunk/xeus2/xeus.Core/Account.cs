@@ -363,6 +363,7 @@ namespace xeus2.xeus.Core
 			set
 			{
 				_servicesCount = value ;
+
 				NotifyPropertyChanged( "ServicesCount" ) ;
 			}
 		}
@@ -376,6 +377,7 @@ namespace xeus2.xeus.Core
 			set
 			{
 				_servicesDoneCount = value ;
+
 				NotifyPropertyChanged( "ServicesDoneCount" ) ;
 
 				if ( ServicesDoneCount >= ServicesCount )
@@ -395,12 +397,12 @@ namespace xeus2.xeus.Core
 
 		private void OnDiscoServerResult( object sender, IQ iq, object data )
 		{
+			_discoTime.Start();
+
 			if ( !CheckSessionKey( data ) )
 			{
 				return ;
 			}
-
-			_discoTime.Start();
 
 			if ( iq.Error != null )
 			{

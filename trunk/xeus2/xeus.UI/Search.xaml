@@ -5,6 +5,13 @@
     x:Class="xeus2.xeus.UI.Search"
     Title="xeus2.xeus.UI" Height="300" Width="300"
     >
+	<Window.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="..\xeus.XData\BasicStyles.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Window.Resources>
   <StackPanel>
     <xeus2_xeus_XData:SearchService x:Name="_search"/>
     <Button Click="OnSearch">Search</Button>
