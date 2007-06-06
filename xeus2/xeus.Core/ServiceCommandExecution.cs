@@ -1,4 +1,6 @@
 using agsXMPP.protocol.extensions.commands ;
+using agsXMPP.protocol.x.data ;
+using xeus2.xeus.UI ;
 
 namespace xeus2.xeus.Core
 {
@@ -6,6 +8,7 @@ namespace xeus2.xeus.Core
 	{
 		private readonly Service _service ;
 		private readonly Command _command ;
+		private UI.CommandExecute _commandExec ;
 
 		public ServiceCommandExecution( Command command, Service service )
 		{
@@ -27,6 +30,23 @@ namespace xeus2.xeus.Core
 			{
 				return _command ;
 			}
+		}
+
+		public CommandExecute CommandExec
+		{
+			get
+			{
+				return _commandExec ;
+			}
+			set
+			{
+				_commandExec = value ;
+			}
+		}
+
+		public Data GetResult()
+		{
+			return CommandExec.GetResult() ;
 		}
 	}
 }

@@ -703,6 +703,7 @@ namespace xeus2.xeus.Core
 			Command commandExec = new Command( command.Command.Node ) ;
 			commandExec.Action = action ;
 			commandExec.SessionId = command.Command.SessionId ;
+			commandExec.Data = command.GetResult() ;
 
 			commandIq.AddChild( commandExec ) ;
 
