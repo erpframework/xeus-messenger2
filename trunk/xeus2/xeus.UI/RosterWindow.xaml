@@ -74,6 +74,8 @@
       <TextBlock Text="{Binding Source={StaticResource AccountDS}, Path=Instance.ItemsToDiscover}"/>
 
       <Button Content="Services" Command="servicecmd:ServiceCommands.DisplayServices"/>
+
+      <Button Command="servicecmd:AccountCommands.DisplayLogin" Content="Login"/>
       
     </StackPanel>
 </Window>

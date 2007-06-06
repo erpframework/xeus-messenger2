@@ -93,7 +93,7 @@ namespace xeus.Data
 
 			catch ( Exception e )
 			{
-				Events.Instance.OnEvent( new EventError( e.Message, null ) ) ;
+				Events.Instance.OnEvent( null, new EventError( e.Message, null ) ) ;
 			}
 		}
 
@@ -129,7 +129,7 @@ namespace xeus.Data
 
 			catch ( Exception e )
 			{
-				Events.Instance.OnEvent( new EventError( e.Message, null ) ) ;
+				Events.Instance.OnEvent( null, new EventError( e.Message, null ) ) ;
 			}
 
 			return vcard ;
@@ -160,7 +160,7 @@ namespace xeus.Data
 
 			catch ( Exception e )
 			{
-				Events.Instance.OnEvent( new EventError( e.Message, null ) ) ;
+				Events.Instance.OnEvent( null, new EventError( e.Message, null ) ) ;
 				return null ;
 			}
 		}
@@ -185,7 +185,7 @@ namespace xeus.Data
 
 			catch ( Exception e )
 			{
-				Events.Instance.OnEvent( new EventError( e.Message, null ) ) ;
+				Events.Instance.OnEvent( null, new EventError( e.Message, null ) ) ;
 			}
 
 			return avatarStorage ;

@@ -66,7 +66,7 @@
   </HierarchicalDataTemplate>    
 
   <!-- Resource dictionary entries should be defined here. -->
-	<DrawingBrush x:Key="jabber_design" Stretch="Uniform">
+	<DrawingBrush x:Key="jabber_design" Stretch="Uniform" PresentationOptions:Freeze="True">
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
 				<DrawingGroup.Children>
@@ -990,7 +990,7 @@
 							<Setter Property="Visibility" TargetName="ItemsHost" Value="Collapsed"/>
 						</Trigger>
 						<Trigger Property="HasItems" Value="False">
-							<Setter Property="Visibility" TargetName="Expander" Value="Hidden"/>
+							<Setter Property="Visibility" TargetName="Expander" Value="Collapsed"/>
 						</Trigger>
 						<Trigger Property="IsEnabled" Value="False">
 							<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
