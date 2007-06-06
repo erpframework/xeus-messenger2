@@ -4,13 +4,6 @@
     x:Class="xeus2.xeus.UI.RoomLogin"
     Title="xeus2.xeus.UI" Height="300" Width="300"
     >
-	<Window.Resources>
-		<ResourceDictionary>
-			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="..\xeus.XData\BasicStyles.xaml"/>
-			</ResourceDictionary.MergedDictionaries>
-		</ResourceDictionary>
-	</Window.Resources>
     <StackPanel>
       <TextBlock Text="{Binding Path=Name}"/>
       <TextBlock Text="{Binding Path=Jid}"/>

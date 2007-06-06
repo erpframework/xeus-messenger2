@@ -331,6 +331,15 @@ namespace xeus2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Command {0} cancelled.
+        /// </summary>
+        internal static string Event_CommandCancelled {
+            get {
+                return ResourceManager.GetString("Event_CommandCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Command execution of service {0} failed.
         /// </summary>
         internal static string Event_CommandExecFailed {

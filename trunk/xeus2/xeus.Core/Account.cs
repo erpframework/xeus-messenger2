@@ -67,12 +67,25 @@ namespace xeus2.xeus.Core
 			}
 		}
 
+		protected void Cleanup()
+		{
+			Services.Instance.Clear();
+			Roster.Instance.Clear();
+		}
+
+		public void Login()
+		{
+			Close() ;
+			Cleanup() ;
+			Open() ;
+		}
+
 		public void Open()
 		{
-			if ( IsLogged )
+			/*if ( IsLogged )
 			{
 				throw new XeusException( "Connection is already open" ) ;
-			}
+			}*/
 
 			_discoManager = new DiscoManager( _xmppConnection ) ;
 
