@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows ;
 using System.Windows.Input ;
 
@@ -118,7 +115,7 @@ namespace xeus2.xeus.Commands
 
 			window.CommandBindings.Add(
 				new CommandBinding( _modifySubject, ExecuteGrantVoice, CanExecuteGrantVoice ) ) ;
-			
+
 			window.CommandBindings.Add(
 				new CommandBinding( _modifySubject, ExecuteRevokeVoice, CanExecuteRevokeVoice ) ) ;
 		}

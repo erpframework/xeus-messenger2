@@ -30,6 +30,7 @@ namespace xeus2
 			base.EndInit();
 
 			ServiceCommands.RegisterCommands( this );
+			AccountCommands.RegisterCommands( this );
 
 			Account.Instance.Open();
 		}
