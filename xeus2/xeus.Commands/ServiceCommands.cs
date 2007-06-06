@@ -3,6 +3,7 @@ using System.Windows.Input ;
 using agsXMPP.protocol.extensions.commands ;
 using xeus2.xeus.Core ;
 using xeus2.xeus.Middle ;
+using xeus2.xeus.Utilities ;
 
 namespace xeus2.xeus.Commands
 {
@@ -313,17 +314,28 @@ namespace xeus2.xeus.Commands
 
 		public static void CanExecuteJoinMuc( object sender, CanExecuteRoutedEventArgs e )
 		{
-			Service service = e.Parameter as Service ;
+			if ( e.Parameter is Service )
+			{
+				e.CanExecute = ( ( ( Service )e.Parameter ).IsChatRoom ) ;
+			}
+			else if ( e.Parameter is string )
+			{
+				e.CanExecute = ( Validation.IsChatRoomValid( ( ( string )e.Parameter ) ) ) ;
+			}
 
 			e.Handled = true ;
-			e.CanExecute = ( service != null && service.IsChatRoom ) ;
 		}
 
 		public static void ExecuteJoinMuc( object sender, ExecutedRoutedEventArgs e )
 		{
-			Service service = e.Parameter as Service ;
-
-			Account.Instance.JoinMuc( service ) ;
+			if ( e.Parameter is Service )
+			{
+				Account.Instance.JoinMuc( ( Service )e.Parameter ) ;
+			}
+			else if ( e.Parameter is string )
+			{
+				Account.Instance.JoinMuc( ( string )e.Parameter ) ;
+			}
 
 			e.Handled = true ;
 		}

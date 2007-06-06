@@ -194,6 +194,7 @@
     <Compile Include="xeus.Utilities\PropertyAccessor.cs" />
     <Compile Include="xeus.Utilities\PropertyAccessorException.cs" />
     <Compile Include="xeus.Utilities\TextUtil.cs" />
+    <Compile Include="xeus.Utilities\Validation.cs" />
     <Compile Include="xeus.XData\CommandExecute.cs" />
     <Compile Include="xeus.XData\InBandRegistration.cs" />
     <Compile Include="xeus.XData\RoomDetail.cs" />

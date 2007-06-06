@@ -60,16 +60,21 @@
   <Setter Property="Template">
     <Setter.Value>
       <ControlTemplate TargetType="{x:Type Thumb}">
-        <Border 
-          CornerRadius="1,1,1,1"
-          BorderThickness="1,1,1,1" x:Name="border" Background="#FF4E4E4E" Margin="0,1,0,1" >
-        	<Border.BitmapEffect>
-        		<DropShadowBitmapEffect Direction="270" Opacity="0.5" ShadowDepth="1" Softness="0.25"/>
-        	</Border.BitmapEffect>
-        </Border>
+	  	<Grid>
+		<Rectangle Margin="0,0,0,0" VerticalAlignment="Bottom" Height="2" Fill="#FF0D0D0D">
+			<Rectangle.OpacityMask>
+				<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+					<GradientStop Color="#FF000000" Offset="0"/>
+					<GradientStop Color="#00FFFFFF" Offset="1"/>
+				</LinearGradientBrush>
+			</Rectangle.OpacityMask>
+		</Rectangle>
+        <Rectangle 
+          x:Name="border" Fill="#FF4E4E4E" Margin="0,1,0,2" RadiusX="1" RadiusY="1" />
+		</Grid>
       	<ControlTemplate.Triggers>
       		<Trigger Property="IsMouseOver" Value="True">
-      			<Setter Property="Background" TargetName="border" Value="#FF676767"/>
+      			<Setter Property="Fill" TargetName="border" Value="#FF676767"/>
       		</Trigger>
       	</ControlTemplate.Triggers>
       </ControlTemplate>
