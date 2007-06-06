@@ -66,6 +66,32 @@
   </HierarchicalDataTemplate>    
 
   <!-- Resource dictionary entries should be defined here. -->
+	<DrawingBrush x:Key="service_design" Stretch="Uniform" PresentationOptions:Freeze="True">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<DrawingGroup.Children>
+					<GeometryDrawing Geometry="F1 M 13.502,0.886686L 16.2401,0.886686C 17.3862,0.886686 18.3153,2.22983 18.3153,3.88669L 18.3153,5.66343C 18.6044,5.76879 18.8872,5.88722 19.163,6.01801L 20.3867,4.79431C 21.5583,3.62273 23.1398,3.30473 23.9191,4.08401L 25.7808,5.94579C 26.5601,6.72508 26.2421,8.30657 25.0705,9.47814L 23.8603,10.6884C 24.0246,11.03 24.17,11.3824 24.295,11.7443L 25.9836,11.7443C 27.6405,11.7443 28.9836,12.6241 28.9836,13.7092L 28.9836,16.3018C 28.9836,17.387 27.6405,18.2667 25.9836,18.2667L 24.2796,18.2667C 24.1499,18.6367 23.9988,18.9965 23.8279,19.3449L 25.0378,20.5548C 26.2094,21.7263 26.5341,23.3011 25.7631,24.0721L 23.9212,25.914C 23.1502,26.685 21.5754,26.3603 20.4039,25.1887L 19.1637,23.9485C 18.884,24.0811 18.5971,24.2011 18.3037,24.3076L 18.3037,26.1401C 18.3037,27.797 17.3746,29.1401 16.2285,29.1401L 13.4904,29.1401C 12.3444,29.1401 11.4153,27.797 11.4153,26.1401L 11.4153,24.2632C 11.1422,24.16 10.8748,24.0451 10.6139,23.9191L 9.32715,25.2058C 8.15558,26.3774 6.57409,26.6954 5.7948,25.9161L 3.93303,24.0544C 3.15374,23.2751 3.47174,21.6936 4.64332,20.522L 5.94899,19.2163C 5.80169,18.9047 5.67015,18.5842 5.5554,18.2558L 3.73022,18.2558C 2.07336,18.2558 0.730219,17.3761 0.730219,16.2909L 0.730219,13.6983C 0.730219,12.6131 2.07336,11.7334 3.73022,11.7334L 5.54759,11.7334C 5.66684,11.3895 5.80448,11.0542 5.95934,10.7286L 4.67608,9.44538C 3.5045,8.27381 3.17976,6.69906 3.95075,5.92807L 5.79268,4.08614C 6.56366,3.31516 8.13842,3.6399 9.30999,4.81147L 10.5683,6.0698C 10.8474,5.93332 11.1338,5.80957 11.4268,5.69929L 11.4268,3.88669C 11.4268,2.22983 12.3559,0.886686 13.502,0.886686 Z M 14.8841,11.4896C 12.9546,11.4896 11.3904,13.0539 11.3904,14.9834C 11.3904,16.913 12.9546,18.4772 14.8841,18.4772C 16.8137,18.4772 18.3779,16.913 18.3779,14.9834C 18.3779,13.0539 16.8137,11.4896 14.8841,11.4896 Z ">
+						<GeometryDrawing.Pen>
+							<Pen LineJoin="Round" Brush="#FF3D3D3D"/>
+						</GeometryDrawing.Pen>
+						<GeometryDrawing.Brush>
+							<RadialGradientBrush RadiusX="0.5" RadiusY="0.5" Center="0.5,0.5" GradientOrigin="0.5,0.5">
+								<RadialGradientBrush.GradientStops>
+									<GradientStop Color="#FFFFFFFF" Offset="0"/>
+									<GradientStop Color="#FFAEA594" Offset="1"/>
+								</RadialGradientBrush.GradientStops>
+								<RadialGradientBrush.RelativeTransform>
+									<TransformGroup/>
+								</RadialGradientBrush.RelativeTransform>
+							</RadialGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Brush="#40FFFFFF" Geometry="F1 M 22.2986,7.64673C 13.9092,7.64673 6.69677,12.0102 3.52348,18.259C 2.01071,18.1584 0.830217,17.3216 0.830217,16.3042L 0.830217,13.7116C 0.830217,12.6264 2.17336,11.7467 3.83022,11.7467L 5.64759,11.7467L 6.05934,10.742L 4.77607,9.4587C 3.6045,8.28712 3.27976,6.71237 4.05075,5.94139L 5.89268,4.09946C 6.66366,3.32847 8.23841,3.65321 9.40998,4.82479L 10.6683,6.08311L 11.5268,5.7126L 11.5268,3.9C 11.5268,2.24315 12.4559,0.900002 13.602,0.900002L 16.3401,0.900002C 17.4862,0.900002 18.4153,2.24315 18.4153,3.9L 18.4153,5.67674L 19.263,6.03132L 20.4867,4.80762C 21.6583,3.63605 23.2398,3.31804 24.019,4.09733L 25.8808,5.95911C 26.3471,6.42542 26.4205,7.17896 26.1533,7.96003C 24.9048,7.75436 23.6162,7.64673 22.2986,7.64673 Z "/>
+				</DrawingGroup.Children>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>  
+  
 	<DrawingBrush x:Key="jabber_design" Stretch="Uniform" PresentationOptions:Freeze="True">
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
@@ -820,7 +846,7 @@
     <HierarchicalDataTemplate x:Key="ServicesTemplate" ItemsSource="{Binding Path=Services}">
     <StackPanel Orientation="Horizontal" MinHeight="24" Margin="0,1,0,1">
 	  <Rectangle x:Name="waiting" ToolTip="Waiting for Information" Width="16" Height="16" Visibility="Collapsed" Margin="0,0,3,0" Fill="{DynamicResource wait_design}"/>
-	  <Rectangle ToolTip="Service Type" x:Name="type" Width="16" Height="16" Margin="0,0,3,0"/>
+	  <Rectangle ToolTip="Service Type" x:Name="type" Width="16" Height="16" Margin="0,0,3,0" Visibility="Visible" Fill="{DynamicResource service_design}"/>
 
 	  <StackPanel Orientation="Horizontal">
       	<TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="{DynamicResource DefaultTextBrush}"/>
@@ -840,7 +866,6 @@
       <Button x:Name="_mucInfo" Content="muci" Command="servicecmd:ServiceCommands.MucInfo"
               CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" ToolTip="Chat Information" Width="16" Background="{DynamicResource mucinfo_design}"/>
 	  </StackPanel>
-
 	</StackPanel>
 		
   	<HierarchicalDataTemplate.Triggers>
@@ -862,9 +887,6 @@
     	<DataTrigger Binding="{Binding Path=DiscoInfo}" Value="{x:Null}">
       		<Setter Property="Visibility" TargetName="waiting" Value="Visible"/>
     	</DataTrigger>
-    	<DataTrigger Binding="{Binding Path=Type}" Value="{x:Null}">
-      		<Setter Property="Visibility" TargetName="type" Value="Collapsed"/>
-    	</DataTrigger>
 		<DataTrigger Binding="{Binding Path=Type}" Value="aim">
   			<Setter Property="Fill" TargetName="type" Value="{StaticResource aim_design}"/>
 		</DataTrigger>
@@ -882,6 +904,9 @@
 		</DataTrigger>
 		<DataTrigger Binding="{Binding Path=Type}" Value="text">
   			<Setter Property="Fill" TargetName="type" Value="{StaticResource chat_design}"/>
+		</DataTrigger>
+		<DataTrigger Binding="{Binding Path=Type}" Value="jabber">
+  			<Setter Property="Fill" TargetName="type" Value="{StaticResource jabber_design}"/>
 		</DataTrigger>
     </HierarchicalDataTemplate.Triggers>
 		
