@@ -15,6 +15,15 @@ namespace xeus2.xeus.Core
 
 		private Dictionary< string, Service > _allServices = new Dictionary< string, Service >() ;
 
+		private delegate void ServiceItemCallback( DiscoItem discoItem, DiscoItem parent ) ;
+
+		private delegate void ServiceItemInfoCallback( DiscoItem discoItem, DiscoInfo info ) ;
+
+		private delegate void OnServiceItemErrorCallback( IQ iq ) ;
+
+		private delegate void OnCommandsItemInfoCallback( DiscoItem discoItem, IQ iq ) ;
+
+
 		private string _sessionKey = string.Empty ;
 
 		public static Services Instance
@@ -41,7 +50,7 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		new public void Clear()
+		public new void Clear()
 		{
 			lock ( _syncObject )
 			{
@@ -49,7 +58,7 @@ namespace xeus2.xeus.Core
 
 				_allServices.Clear() ;
 
-				Categories.Clear();
+				Categories.Clear() ;
 
 				base.Clear() ;
 			}
@@ -59,7 +68,8 @@ namespace xeus2.xeus.Core
 
 		public void OnCommandsItemInfo( object sender, DiscoItem discoItem, IQ iq )
 		{
-			OnCommandsItemInfo( discoItem, iq ) ;
+			App.InvokeSafe( DispatcherPriority.Background,
+			                new OnCommandsItemInfoCallback( OnCommandsItemInfo ), discoItem, iq ) ;
 		}
 
 		public void OnServiceItemInfo( object sender, DiscoItem discoItem, DiscoInfo info )
@@ -69,22 +79,20 @@ namespace xeus2.xeus.Core
 				return ;
 			}
 
-			OnServiceItemInfo( discoItem, info ) ;
+			App.InvokeSafe( DispatcherPriority.Background,
+			                new ServiceItemInfoCallback( OnServiceItemInfo ), discoItem, info ) ;
 		}
 
 		public void OnServiceItem( object sender, DiscoItem discoItem, DiscoItem parent )
 		{
-			if ( _sessionKey == string.Empty )
-			{
-				return ;
-			}
-
-			OnServiceItem( discoItem, parent ) ;
+			App.InvokeSafe( DispatcherPriority.Background,
+			                new ServiceItemCallback( OnServiceItem ), discoItem, parent ) ;
 		}
 
 		public void OnServiceItemError( object sender, IQ iq )
 		{
-			OnServiceItemError( iq ) ;
+			App.InvokeSafe( DispatcherPriority.Background,
+			                new OnServiceItemErrorCallback( OnServiceItemError ), iq ) ;
 		}
 
 		public void OnServiceItemError( IQ iq )
@@ -180,7 +188,6 @@ namespace xeus2.xeus.Core
 						}
 						else
 						{
-							
 						}
 					}
 				}
