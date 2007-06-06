@@ -31,6 +31,11 @@ namespace xeus2.xeus.Middle
 				serviceWindow = new ServiceWindow() ;
 				serviceWindow.Closing += new CancelEventHandler( serviceWindow_Closing ) ;
 				AddWindow( String.Empty, serviceWindow ) ;
+
+				if ( Core.Services.Instance.Count == 0 )
+				{
+					ServiceCommands.DiscoveryServices.Execute( string.Empty, null ) ;
+				}
 			}
 			else
 			{

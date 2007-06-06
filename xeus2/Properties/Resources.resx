@@ -303,4 +303,7 @@
   <data name="Constant_AlreadyRegistered" xml:space="preserve">
     <value>\nThis service is already registered</value>
   </data>
+  <data name="Event_CommandCancelled" xml:space="preserve">
+    <value>Command {0} cancelled</value>
+  </data>
 </root>

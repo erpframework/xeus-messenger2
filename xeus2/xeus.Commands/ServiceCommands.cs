@@ -1,3 +1,4 @@
+using System ;
 using System.Windows ;
 using System.Windows.Input ;
 using agsXMPP.protocol.extensions.commands ;
@@ -388,7 +389,7 @@ namespace xeus2.xeus.Commands
 		public static void CanExecuteStopDiscoveryServices( object sender, CanExecuteRoutedEventArgs e )
 		{
 			e.Handled = true ;
-			e.CanExecute = true ;
+			e.CanExecute = ( Core.Services.Instance.SessionKey != String.Empty ) ;
 		}
 
 		public static void ExecuteStopDiscoveryServices( object sender, ExecutedRoutedEventArgs e )

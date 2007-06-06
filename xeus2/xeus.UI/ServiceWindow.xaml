@@ -27,26 +27,18 @@
 				CommandParameter="{Binding Path=Text, ElementName=serverJid}" Margin="5,0,0,0" DockPanel.Dock="Right" IsDefault="True"/>
 			<TextBox x:Name="serverJid" Margin="5,0,0,0" />
 		</DockPanel>
+		<!--
 		<Border DockPanel.Dock="Top" Style="{DynamicResource ToolbarBorderStyle}" Margin="5,0,5,0" >
 			<StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
 				  <TextBox Margin="5,0,5,0" x:Name="manualJid" Width="200" />
-			      <Button x:Name="_register" Content="reg" Command="servicecmd:ServiceCommands.Register"
-			              CommandParameter="{Binding Path=Text, ElementName=manualJid}" Style="{DynamicResource ImageButtonStyle}" Width="22" Background="{DynamicResource register_design}" ToolTip="Register" Height="22"/>
-						  
-			      <Button x:Name="_search" Content="srch" Command="servicecmd:ServiceCommands.Search"
-			              CommandParameter="{Binding Path=Text, ElementName=manualJid}" Style="{DynamicResource ImageButtonStyle}" Width="22" Background="{DynamicResource search_design}" ToolTip="Search" Height="22"/>
-			
-			      <Button x:Name="_run" Command="servicecmd:ServiceCommands.Run"
-			              CommandParameter="{Binding Path=Text, ElementName=manualJid}" Style="{DynamicResource ImageButtonStyle}" Width="22" Background="{DynamicResource run_design}" Height="22" ToolTip="Run Command"/>
 			
 			      <Button x:Name="_muc" Content="muc" Command="servicecmd:ServiceCommands.JoinMuc"
 			              CommandParameter="{Binding Path=Text, ElementName=manualJid}" Style="{DynamicResource ImageButtonStyle}" Width="22" Background="{DynamicResource muc_design}" ToolTip="Join Multi-User Chat" Height="22"/>
 			
-			      <Button x:Name="_mucInfo" Content="muci" Command="servicecmd:ServiceCommands.MucInfo"
-			              CommandParameter="{Binding Path=Text, ElementName=manualJid}" Style="{DynamicResource ImageButtonStyle}" ToolTip="Chat Information" Width="20" Background="{DynamicResource mucinfo_design}" Height="20"/>
 			</StackPanel>
 		</Border>
-		<Border DockPanel.Dock="Bottom" Style="{DynamicResource FrameBorderStyle}" Padding="2,2,2,2" Background="#FF000000">
+		-->
+		<Border DockPanel.Dock="Bottom" Style="{DynamicResource FrameBorderStyle}" Padding="2,2,2,10" Background="#FF000000">
 			<DockPanel Margin="6,3,6,3">
 				<StackPanel VerticalAlignment="Center">
 					<Image Width="48" Height="48" x:Name="image" Source="pack://application:,,,/xeus.UI/xeus.Images/service_service.png" Margin="0,5,0,0" />
@@ -74,7 +66,7 @@
 						</Border.RenderTransform>
 	  				</Border>
 				</StackPanel>
-				<StackPanel Margin="10,5,8,5" VerticalAlignment="Center">
+				<StackPanel Margin="15,5,8,5" VerticalAlignment="Center">
 					<TextBlock Text="Services" FontSize="17" FontWeight="Bold" Foreground="{DynamicResource DefaultTextBrush}"/>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Text="Discovered " Foreground="{DynamicResource DefaultTextBrush2}"/>

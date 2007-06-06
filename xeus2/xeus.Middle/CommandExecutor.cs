@@ -2,6 +2,7 @@ using System.ComponentModel ;
 using System.Windows ;
 using System.Windows.Threading ;
 using agsXMPP.protocol.extensions.commands ;
+using xeus2.Properties ;
 using xeus2.xeus.Core ;
 using xeus2.xeus.UI ;
 using xeus2.xeus.Utilities ;
@@ -39,8 +40,18 @@ namespace xeus2.xeus.Middle
 				commandExecuteWindow.Redisplay( serviceCommandExecution ) ;
 			}
 
-			commandExecuteWindow.DataContext = serviceCommandExecution ;
-			commandExecuteWindow.Show() ;
+			if ( command.Status == Status.canceled )
+			{
+				EventInfo eventinfo = new EventInfo( string.Format( Resources.Event_CommandCancelled, service.Name ) ) ;
+				Events.Instance.OnEvent( eventinfo ) ;
+
+				commandExecuteWindow.Close() ;
+			}
+			else
+			{
+				commandExecuteWindow.DataContext = serviceCommandExecution ;
+				commandExecuteWindow.Show() ;
+			}
 		}
 
 		private void commandExecuteWindow_Closing( object sender, CancelEventArgs e )
