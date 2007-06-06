@@ -144,7 +144,7 @@ namespace xeus2.xeus.Core
 				{
 					DiscoItem discoItem = _pendingDisco.Dequeue() ;
 
-					ServicesDoneCount = ServicesDoneCount + 1 ;
+					ServicesDoneCount++ ;
 
 					Jid jid ;
 
@@ -249,8 +249,8 @@ namespace xeus2.xeus.Core
 
 			Services.Instance.Clear() ;
 
-			ServicesCount = 0 ;
 			ServicesDoneCount = 0 ;
+			ServicesCount = 0 ;
 
 			Jid jid ;
 
@@ -358,32 +358,41 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				return _servicesCount ;
+				lock ( _serviceCountLock )
+				{
+					return _servicesCount ;
+				}
 			}
 			set
 			{
-				_servicesCount = value ;
+				lock ( _serviceCountLock )
+				{
+					_servicesCount = value ;
+				}
 
 				NotifyPropertyChanged( "ServicesCount" ) ;
 			}
 		}
 
+		object _serviceCountLock = new object();
+
 		public int ServicesDoneCount
 		{
 			get
 			{
-				return _servicesDoneCount ;
+				lock ( _serviceCountLock )
+				{
+					return _servicesDoneCount ;
+				}
 			}
 			set
 			{
-				_servicesDoneCount = value ;
+				lock ( _serviceCountLock )
+				{
+					_servicesDoneCount = value ;
+				}
 
 				NotifyPropertyChanged( "ServicesDoneCount" ) ;
-
-				if ( ServicesDoneCount >= ServicesCount )
-				{
-					_discoTime.Stop();
-				}
 			}
 		}
 

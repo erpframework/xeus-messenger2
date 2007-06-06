@@ -30,7 +30,7 @@
 						<GeometryDrawing.Brush>
 							<LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
 								<LinearGradientBrush.GradientStops>
-									<GradientStop Color="#FF1e1f22" Offset="0"/>
+									<GradientStop Color="#FF2f2f29" Offset="0"/>
 									<GradientStop Color="#FF000000" Offset="1"/>
 								</LinearGradientBrush.GradientStops>
 							</LinearGradientBrush>
@@ -81,6 +81,8 @@
 	</ControlTemplate>
 
 	<SolidColorBrush x:Key="DefaultBorderBrush" Color="#FF2c2c2c"  PresentationOptions:Freeze="True"/>
+	<SolidColorBrush x:Key="DefaultSelectedBorderBrush" Color="#FF919191"  PresentationOptions:Freeze="True"/>
+
 	<SolidColorBrush x:Key="TextBoxBorderBrush" Color="#FF999999"  PresentationOptions:Freeze="True"/>
 
 	<Style TargetType="{x:Type TreeView}"  PresentationOptions:Freeze="True">
@@ -88,7 +90,13 @@
 		<Setter Property="Background" Value="{x:Null}"/>
 	</Style>
 
-	<SolidColorBrush x:Key="DefaultTextBoxBackBrush" Color="#FFDDE7F5"/>
+	<LinearGradientBrush x:Key="DefaultTextBoxBackBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+		<GradientStop Color="#FFB8B5B5" Offset="0.005"/>
+		<GradientStop Color="#FFCAC8C8" Offset="0.99"/>
+		<GradientStop Color="#FFCFCFCF" Offset="0.14"/>
+		<GradientStop Color="#FFE0E0E0" Offset="0.87"/>
+		<GradientStop Color="#FFE5E2E2" Offset="0.52"/>
+	</LinearGradientBrush>
 	<SolidColorBrush x:Key="DefaultTextBrush" Color="#FFD4D4D4" PresentationOptions:Freeze="True"/>
 	<SolidColorBrush x:Key="DefaultTextBrush2" Color="#FFA9A9A9" PresentationOptions:Freeze="True"/>
 
@@ -173,6 +181,9 @@
 	<ControlTemplate x:Key="ImageButtonControlTemplate" TargetType="{x:Type Button}" PresentationOptions:Freeze="True">
 		<Border x:Name="border" Background="{TemplateBinding Background}" />
 		<ControlTemplate.Triggers>
+			<Trigger Property="IsEnabled" Value="False">
+				<Setter Property="Opacity" TargetName="border" Value="0.5"/>
+			</Trigger>
 			<Trigger Property="IsMouseOver" Value="True">
 				<Setter Property="BitmapEffect" TargetName="border">
 					<Setter.Value>
@@ -189,6 +200,13 @@
 	<Style x:Key="FrameBorderStyle" TargetType="{x:Type Border}"  PresentationOptions:Freeze="True">
 		<Setter Property="Background" Value="#FF000000"/>
 	</Style>
+	
+	<Style x:Key="ToolbarBorderStyle" TargetType="{x:Type Border}"  PresentationOptions:Freeze="True">
+		<Setter Property="BorderBrush" Value="{DynamicResource DefaultBorderBrush}"/>
+		<Setter Property="BorderThickness" Value="1,1,1,1"/>
+		<Setter Property="CornerRadius" Value="3,3,3,3"/>
+		<Setter Property="Padding" Value="10,5,10,5"/>
+	</Style>
 
 	<Style TargetType="{x:Type TextBox}">
 		<Setter Property="Template" Value="{DynamicResource TextBoxBaseControlTemplate}"/>
@@ -198,7 +216,7 @@
 	</Style>
 
 	<ControlTemplate x:Key="TextBoxBaseControlTemplate" TargetType="{x:Type TextBox}">
-		<Border x:Name="Bd" BorderBrush="{DynamicResource TextBoxBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="1,1,1,1" Background="{DynamicResource DefaultTextBoxBackBrush}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+		<Border x:Name="Bd" BorderBrush="{DynamicResource TextBoxBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="1,1,1,1" Background="{DynamicResource DefaultTextBoxBackBrush}" ScrollViewer.VerticalScrollBarVisibility="Disabled" MinHeight="22" VerticalAlignment="Center">
 			<ScrollViewer x:Name="PART_ContentHost" VerticalContentAlignment="Center" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled"/>
 		</Border>
 		<ControlTemplate.Triggers>
@@ -210,7 +228,7 @@
 	</ControlTemplate>
 
 	<Style TargetType="{x:Type Button}">
-		<Setter Property="Background" Value="#FF7AC3FF"/>
+		<Setter Property="Background" Value="#FFA1C8D6"/>
 		<Setter Property="MinHeight" Value="22"/>
 		<Setter Property="Foreground" Value="#FFFFFFFF"/>
 		<Style.BasedOn>
@@ -278,8 +296,8 @@
 			<Setter Property="Opacity" TargetName="_border" Value="0.5"/>
 		</Trigger>
 	  <Trigger Property="Ellipse.IsMouseOver" Value="True">
-	  	<Setter Property="Opacity" TargetName="rectangle" Value="0.75"/>
 	  	<Setter Property="Fill" TargetName="rectangle1" Value="#7FE1E1E1"/>
+	  	<Setter Property="Opacity" TargetName="rectangle" Value="0.85"/>
 	  </Trigger>
 		<Trigger Property="IsPressed" Value="True">
 			<Setter Property="RenderTransform" TargetName="_border">
