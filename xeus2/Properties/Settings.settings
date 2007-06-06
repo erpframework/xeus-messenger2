@@ -6,7 +6,7 @@
       <Value Profile="(Default)">xeus</Value>
     </Setting>
     <Setting Name="XmppPriority" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">10</Value>
+      <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="XmppServer" Type="System.String" Scope="User">
       <Value Profile="(Default)">jabber.cz</Value>

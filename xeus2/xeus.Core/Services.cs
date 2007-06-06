@@ -90,7 +90,7 @@ namespace xeus2.xeus.Core
 		public void OnServiceItemError( IQ iq )
 		{
 			EventInfo eventInfo = new EventInfo( string.Format( Resources.Error_ServiceDiscoFailed, iq.From, iq.Error.Code ) ) ;
-			Events.Instance.OnEvent( eventInfo ) ;
+			Events.Instance.OnEvent( this, eventInfo ) ;
 		}
 
 		public void OnCommandsItemInfo( DiscoItem discoItem, IQ iq )

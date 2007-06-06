@@ -43,7 +43,7 @@ namespace xeus2.xeus.Middle
 			if ( command.Status == Status.canceled )
 			{
 				EventInfo eventinfo = new EventInfo( string.Format( Resources.Event_CommandCancelled, service.Name ) ) ;
-				Events.Instance.OnEvent( eventinfo ) ;
+				Events.Instance.OnEvent( this, eventinfo ) ;
 
 				commandExecuteWindow.Close() ;
 			}

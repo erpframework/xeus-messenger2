@@ -82,11 +82,6 @@ namespace xeus2.xeus.Core
 
 		public void Open()
 		{
-			/*if ( IsLogged )
-			{
-				throw new XeusException( "Connection is already open" ) ;
-			}*/
-
 			_discoManager = new DiscoManager( _xmppConnection ) ;
 
 			_xmppConnection.UseCompression = true ;
@@ -127,60 +122,59 @@ namespace xeus2.xeus.Core
 		private Queue< DiscoItem > _pendingDisco = new Queue< DiscoItem >() ;
 		private Queue< DiscoItem > _pendingDiscoInfo = new Queue< DiscoItem >() ;
 
-		private object _discoTimeLock = new object() ;
-
 		private int _servicesCount ;
 		private int _servicesDoneCount ;
 
 		private void _discoTime_Elapsed( object sender, ElapsedEventArgs e )
 		{
-			lock ( _discoTimeLock )
+			_discoTime.Stop() ;
+
+			if ( _pendingDiscoInfo.Count > 0 )
 			{
-				if ( _pendingDiscoInfo.Count > 0 )
+				DiscoItem discoItem = _pendingDiscoInfo.Dequeue() ;
+
+				ServicesCount++ ;
+
+				if ( string.IsNullOrEmpty( discoItem.Node ) )
 				{
-					DiscoItem discoItem = _pendingDiscoInfo.Dequeue() ;
-
-					ServicesCount = ServicesCount + 1 ;
-
-					if ( string.IsNullOrEmpty( discoItem.Node ) )
-					{
-						_discoManager.DisoverInformation( discoItem.Jid, new IqCB( OnDiscoInfoResult ),
-						                                  new DiscoverySessionData( discoItem ) ) ;
-					}
-					else
-					{
-						_discoManager.DisoverInformation( discoItem.Jid, discoItem.Node, new IqCB( OnDiscoInfoResult ),
-						                                  new DiscoverySessionData( discoItem ) ) ;
-					}
+					_discoManager.DisoverInformation( discoItem.Jid, new IqCB( OnDiscoInfoResult ),
+					                                  new DiscoverySessionData( discoItem ) ) ;
 				}
-				else if ( _pendingDisco.Count > 0 )
+				else
 				{
-					DiscoItem discoItem = _pendingDisco.Dequeue() ;
-
-					ServicesDoneCount++ ;
-
-					Jid jid ;
-
-					if ( discoItem == null )
-					{
-						jid = new Jid( _xmppConnection.Server ) ;
-					}
-					else
-					{
-						jid = discoItem.Jid ;
-					}
-
-					if ( discoItem != null && discoItem.Node != null )
-					{
-						_discoManager.DisoverItems( jid, discoItem.Node, new IqCB( OnDiscoServerResult ),
-						                            new DiscoverySessionData( discoItem ) ) ;
-					}
-					else
-					{
-						_discoManager.DisoverItems( jid, new IqCB( OnDiscoServerResult ), new DiscoverySessionData( discoItem ) ) ;
-					}
+					_discoManager.DisoverInformation( discoItem.Jid, discoItem.Node, new IqCB( OnDiscoInfoResult ),
+					                                  new DiscoverySessionData( discoItem ) ) ;
 				}
 			}
+			else if ( _pendingDisco.Count > 0 )
+			{
+				DiscoItem discoItem = _pendingDisco.Dequeue() ;
+
+				ServicesDoneCount++ ;
+
+				Jid jid ;
+
+				if ( discoItem == null )
+				{
+					jid = new Jid( _xmppConnection.Server ) ;
+				}
+				else
+				{
+					jid = discoItem.Jid ;
+				}
+
+				if ( discoItem != null && discoItem.Node != null )
+				{
+					_discoManager.DisoverItems( jid, discoItem.Node, new IqCB( OnDiscoServerResult ),
+					                            new DiscoverySessionData( discoItem ) ) ;
+				}
+				else
+				{
+					_discoManager.DisoverItems( jid, new IqCB( OnDiscoServerResult ), new DiscoverySessionData( discoItem ) ) ;
+				}
+			}
+
+			_discoTime.Start();
 		}
 
 		public void StopDiscovery()
@@ -200,13 +194,13 @@ namespace xeus2.xeus.Core
 		private void _xmppConnection_OnAuthError( object sender, Element e )
 		{
 			EventError eventError = new EventError( Resources.Event_AuthFailed, null ) ;
-			Events.Instance.OnEvent( eventError ) ;
+			Events.Instance.OnEvent( this, eventError ) ;
 		}
 
 		private void _xmppConnection_OnError( object sender, Exception ex )
 		{
 			EventError eventError = new EventError( ex.Message, null ) ;
-			Events.Instance.OnEvent( eventError ) ;
+			Events.Instance.OnEvent( this, eventError ) ;
 		}
 
 		private void _xmppConnection_OnPresence( object sender, Presence pres )
@@ -220,7 +214,7 @@ namespace xeus2.xeus.Core
 			{
 				EventError eventError = new EventError( string.Format( "Presence error from {0}", pres.From ),
 				                                        pres.Error ) ;
-				Events.Instance.OnEvent( eventError ) ;
+				Events.Instance.OnEvent( this, eventError ) ;
 			}
 			else
 			{
@@ -305,7 +299,7 @@ namespace xeus2.xeus.Core
 			_discoManager.DisoverItems( jid, new IqCB( OnDiscoServerResult ), new DiscoverySessionData( null ) ) ;
 		}
 
-		private void Discovery( DiscoItem discoItem )
+		public void Discovery( DiscoItem discoItem )
 		{
 			if ( Services.Instance.SessionKey == string.Empty )
 			{
@@ -327,10 +321,7 @@ namespace xeus2.xeus.Core
 				}
 			}
 
-			lock ( _discoTimeLock )
-			{
-				_pendingDisco.Enqueue( discoItem ) ;
-			}
+			_pendingDisco.Enqueue( discoItem ) ;
 		}
 
 		public int MyPriority
@@ -429,7 +420,7 @@ namespace xeus2.xeus.Core
 			if ( iq.Error != null )
 			{
 				EventError eventError = new EventError( string.Format( Resources.Error_DiscoFailed, iq.From ), iq.Error ) ;
-				Events.Instance.OnEvent( eventError ) ;
+				Events.Instance.OnEvent( this, eventError ) ;
 			}
 			else if ( iq.Type == IqType.result )
 			{
@@ -452,13 +443,6 @@ namespace xeus2.xeus.Core
 							DiscoverySessionData sessionData = data as DiscoverySessionData ;
 
 							Services.Instance.OnServiceItem( sender, itm, sessionData.Data as DiscoItem ) ;
-
-							Discovery( itm ) ;
-
-							lock ( _discoTimeLock )
-							{
-								_pendingDiscoInfo.Enqueue( itm ) ;
-							}
 						}
 					}
 				}
@@ -467,10 +451,7 @@ namespace xeus2.xeus.Core
 
 		public void DiscoInfo( DiscoItem item )
 		{
-			lock ( _discoTimeLock )
-			{
-				_pendingDiscoInfo.Enqueue( item ) ;
-			}
+			_pendingDiscoInfo.Enqueue( item ) ;
 		}
 
 		private void OnDiscoInfoResult( object sender, IQ iq, object data )
@@ -514,7 +495,7 @@ namespace xeus2.xeus.Core
 			if ( iq.Error != null )
 			{
 				EventError eventError = new EventError( string.Format( Resources.Error_CommandResultFailed, iq.From ), iq.Error ) ;
-				Events.Instance.OnEvent( eventError ) ;
+				Events.Instance.OnEvent( this, eventError ) ;
 			}
 			else if ( iq.Type == IqType.result )
 			{
@@ -553,14 +534,14 @@ namespace xeus2.xeus.Core
 			{
 				EventError eventError = new EventError( string.Format( Resources.Event_SearchFailed,
 				                                                       service.Name, iq.Error.Condition ), iq.Error ) ;
-				Events.Instance.OnEvent( eventError ) ;
+				Events.Instance.OnEvent( this, eventError ) ;
 			}
 			else if ( iq.Type == IqType.result && search != null )
 			{
 				Search.Instance.DisplaySearchResult( search, ( Service ) data ) ;
 
 				EventInfo eventinfo = new EventInfo( string.Format( Resources.Even_SearchSucceeded, service.Name ) ) ;
-				Events.Instance.OnEvent( eventinfo ) ;
+				Events.Instance.OnEvent( this, eventinfo ) ;
 			}
 		}
 
@@ -593,12 +574,12 @@ namespace xeus2.xeus.Core
 			{
 				EventError eventError = new EventError( string.Format( Resources.Event_RegistrationFailed,
 				                                                       service.Name, iq.Error.Condition ), iq.Error ) ;
-				Events.Instance.OnEvent( eventError ) ;
+				Events.Instance.OnEvent( this, eventError ) ;
 			}
 			else if ( iq.Type == IqType.result )
 			{
 				EventInfo eventinfo = new EventInfo( string.Format( Resources.Event_RegistrationSucceeded, service.Name ) ) ;
-				Events.Instance.OnEvent( eventinfo ) ;
+				Events.Instance.OnEvent( this, eventinfo ) ;
 			}
 		}
 
@@ -627,7 +608,7 @@ namespace xeus2.xeus.Core
 				EventError eventError = new EventError( string.Format( Resources.Event_SearchInfoFailed,
 				                                                       service.Name ), iq.Error ) ;
 
-				Events.Instance.OnEvent( eventError ) ;
+				Events.Instance.OnEvent( this, eventError ) ;
 			}
 			else if ( iq.Type == IqType.result && search != null )
 			{
@@ -646,7 +627,7 @@ namespace xeus2.xeus.Core
 				EventError eventError = new EventError( string.Format( Resources.Event_RegInfoFailed,
 				                                                       service.Name ), iq.Error ) ;
 
-				Events.Instance.OnEvent( eventError ) ;
+				Events.Instance.OnEvent( this, eventError ) ;
 			}
 			else if ( iq.Type == IqType.result && register != null )
 			{
@@ -678,7 +659,7 @@ namespace xeus2.xeus.Core
 				EventError eventError = new EventError( string.Format( Resources.Event_CommandExecFailed,
 				                                                       service.Name ), iq.Error ) ;
 
-				Events.Instance.OnEvent( eventError ) ;
+				Events.Instance.OnEvent( this, eventError ) ;
 			}
 			else if ( iq.Type == IqType.result )
 			{
@@ -797,7 +778,7 @@ namespace xeus2.xeus.Core
 				EventError eventError = new EventError( string.Format( Resources.Error_RoomNickFailed,
 				                                                       iq.From ), iq.Error ) ;
 
-				Events.Instance.OnEvent( eventError ) ;
+				Events.Instance.OnEvent( this, eventError ) ;
 			}
 			else if ( iq.Type == IqType.result && iq.Query is DiscoInfo )
 			{

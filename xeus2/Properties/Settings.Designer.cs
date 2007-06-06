@@ -37,7 +37,7 @@ namespace xeus2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int XmppPriority {
             get {
                 return ((int)(this["XmppPriority"]));
@@ -97,7 +97,7 @@ namespace xeus2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("xeus")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string XmppUserName {
             get {
                 return ((string)(this["XmppUserName"]));
@@ -109,7 +109,7 @@ namespace xeus2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("hardcore")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string XmppPassword {
             get {
                 return ((string)(this["XmppPassword"]));

@@ -4,7 +4,8 @@ namespace xeus2.xeus.Core
 {
 	internal class Events : ObservableCollectionDisp< Event >
 	{
-		private delegate void EventItemCallback( Event discoInfo ) ;
+		public delegate void EventItemCallback( object sender, Event myEvent ) ;
+		public event EventItemCallback OnEventRaised ;
 
 		private static Events _instance = new Events() ;
 
@@ -19,12 +20,17 @@ namespace xeus2.xeus.Core
 		public void OnEvent( object sender, Event myEvent )
 		{
 			App.InvokeSafe( DispatcherPriority.ApplicationIdle,
-			                new EventItemCallback( OnEvent ), myEvent ) ;
+			                new EventItemCallback( OnEventInternal ), sender, myEvent ) ;
 		}
 
-		public void OnEvent( Event myEvent )
+		public void OnEventInternal( object sender, Event myEvent )
 		{
 			Add( myEvent ) ;
+
+			if ( OnEventRaised != null )
+			{
+				OnEventRaised( sender, myEvent ) ;
+			}
 #if DEBUG
 			if ( myEvent.Severity >= Event.EventSeverity.Fatal )
 			{

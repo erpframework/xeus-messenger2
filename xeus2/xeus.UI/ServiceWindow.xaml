@@ -20,7 +20,7 @@
 
 	<DockPanel>
 		<DockPanel DockPanel.Dock="Top" Margin="5,10,5,10">
-			<Rectangle Fill="{DynamicResource jabber_design}" Width="12"/>
+			<Rectangle Fill="{DynamicResource jabber_design}" Margin="5,0,0,0" Width="18"/>
 			<Button Content="Stop" Command="servicecmd:ServiceCommands.StopDiscoveryServices"
 									Margin="5,0,0,0" DockPanel.Dock="Right"/>
 			<Button Content="Discover" Command="servicecmd:ServiceCommands.DiscoveryServices"

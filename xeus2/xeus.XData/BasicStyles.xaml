@@ -240,7 +240,7 @@
 	</ControlTemplate>
 
 	<Style TargetType="{x:Type Button}">
-		<Setter Property="Background" Value="#FFA1C8D6"/>
+		<Setter Property="Background" Value="#FFD6ADA1"/>
 		<Setter Property="MinHeight" Value="22"/>
 		<Setter Property="Foreground" Value="#FFFFFFFF"/>
 		<Style.BasedOn>

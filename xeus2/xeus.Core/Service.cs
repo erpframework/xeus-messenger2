@@ -27,6 +27,8 @@ namespace xeus2.xeus.Core
 
 		private bool _isToplevel = false ;
 
+		private bool _askedForDiscovery = false ;
+
 		private Services _services = new Services() ;
 		private ObservableCollectionDisp< Service > _commands = new ObservableCollectionDisp< Service >() ;
 
@@ -34,6 +36,17 @@ namespace xeus2.xeus.Core
 		{
 			_discoItem = discoItem ;
 			_isToplevel = isToplevel ;
+
+			if ( _isToplevel )
+			{
+				Account.Instance.DiscoInfo( _discoItem ) ;
+				_askedForDiscovery = true ;
+			}
+
+			if ( discoItem != null )
+			{
+				_services.Add( new ServiceDummy( _services, _discoItem ) ) ;
+			}
 		}
 
 		public string Key
@@ -84,6 +97,13 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
+				if ( !_askedForDiscovery )
+				{
+					Account.Instance.DiscoInfo( _discoItem ) ;
+
+					_askedForDiscovery = true ;
+				}
+
 				if ( DiscoInfo == null )
 				{
 					if ( ErrorIq == null )

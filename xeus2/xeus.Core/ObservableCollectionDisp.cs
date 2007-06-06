@@ -17,6 +17,8 @@ namespace xeus2.xeus.Core
 
 		private delegate void MoveItemCallback( int oldIndex, int newIndex ) ;
 
+		private const DispatcherPriority _dispatcherPriority = DispatcherPriority.SystemIdle ;
+
 		protected override void SetItem( int index, T item )
 		{
 			if ( App.CheckAccessSafe() )
@@ -30,7 +32,7 @@ namespace xeus2.xeus.Core
 			{
 				if ( App.Current != null )
 				{
-					App.Current.Dispatcher.BeginInvoke( DispatcherPriority.Send,
+					App.Current.Dispatcher.BeginInvoke( _dispatcherPriority,
 					                                    new SetItemCallback( SetItem ), index, new object[] { item } ) ;
 				}
 			}
@@ -56,7 +58,7 @@ namespace xeus2.xeus.Core
 			{
 				if ( App.Current != null )
 				{
-					App.Current.Dispatcher.BeginInvoke( DispatcherPriority.Send,
+					App.Current.Dispatcher.BeginInvoke( _dispatcherPriority,
 					                                    new InsertItemCallback( InsertItem ), index, new object[] { item } ) ;
 				}
 			}
@@ -76,7 +78,7 @@ namespace xeus2.xeus.Core
 			{
 				if ( App.Current != null )
 				{
-					App.Current.Dispatcher.BeginInvoke( DispatcherPriority.Send,
+					App.Current.Dispatcher.BeginInvoke( _dispatcherPriority,
 					                                    new RemoveItemCallback( RemoveItem ), index, new object[] { } ) ;
 				}
 			}
@@ -95,7 +97,7 @@ namespace xeus2.xeus.Core
 			{
 				if ( App.Current != null )
 				{
-					App.Current.Dispatcher.BeginInvoke( DispatcherPriority.Send,
+					App.Current.Dispatcher.BeginInvoke( _dispatcherPriority,
 					                                    new MoveItemCallback( MoveItem ), oldIndex, new object[] { newIndex } ) ;
 				}
 			}
@@ -114,7 +116,7 @@ namespace xeus2.xeus.Core
 			{
 				if ( App.Current != null )
 				{
-					App.Current.Dispatcher.BeginInvoke( DispatcherPriority.Send, new ClearItemsCallback( ClearItems ) ) ;
+					App.Current.Dispatcher.BeginInvoke( _dispatcherPriority, new ClearItemsCallback( ClearItems ) ) ;
 				}
 			}
 		}

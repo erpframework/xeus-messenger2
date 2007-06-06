@@ -56,7 +56,7 @@ namespace xeus2.xeus.Core
 				{
 					EventError eventError = new EventError( string.Format( "Message error in MUC from {0}", msg.From ),
 					                                        msg.Error ) ;
-					Events.Instance.OnEvent( eventError ) ;
+					Events.Instance.OnEvent( this, eventError ) ;
 				}
 				else
 				{
@@ -85,7 +85,7 @@ namespace xeus2.xeus.Core
 				{
 					EventError eventError = new EventError( string.Format( "Presence error in MUC from {0}", presence.From ),
 					                                        presence.Error ) ;
-					Events.Instance.OnEvent( eventError ) ;
+					Events.Instance.OnEvent( this, eventError ) ;
 				}
 				else
 				{

@@ -200,7 +200,7 @@ namespace xeus.Data
 
 			catch ( Exception e )
 			{
-				Events.Instance.OnEvent( new EventError( e.Message, null ) ) ;
+				Events.Instance.OnEvent( this, new EventError( e.Message, null ) ) ;
 			}
 		}
 
@@ -227,7 +227,7 @@ namespace xeus.Data
 
 			catch ( Exception e )
 			{
-				Events.Instance.OnEvent( new EventError( e.Message, null ) ) ;
+				Events.Instance.OnEvent( this, new EventError( e.Message, null ) ) ;
 			}
 
 			return expanderStates ;
