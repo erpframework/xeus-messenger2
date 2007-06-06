@@ -1,6 +1,7 @@
 using System ;
 using System.Collections.Generic ;
 using System.Windows.Threading ;
+using agsXMPP ;
 using agsXMPP.protocol.client ;
 using agsXMPP.protocol.iq.disco ;
 using agsXMPP.Xml.Dom ;
@@ -192,6 +193,16 @@ namespace xeus2.xeus.Core
 			Service service ;
 
 			_allServices.TryGetValue( Service.GetKey( discoItem ), out service ) ;
+
+			return service ;
+		}
+
+		// unsafe, lock when calling
+		public Service FindService( Jid jid )
+		{
+			Service service ;
+
+			_allServices.TryGetValue( Service.GetKey( jid ), out service ) ;
 
 			return service ;
 		}

@@ -119,14 +119,26 @@
 								<GradientStop Color="#FF3E3D3D" Offset="1"/>
 							</LinearGradientBrush>
 						</Border.Background>
-						<DockPanel x:Name="PART_Track" LastChildFill="False">
+						<DockPanel x:Name="PART_Track" LastChildFill="False" Margin="0,0,-2,0">
 							<Grid x:Name="PART_Indicator" >
-							<Rectangle Fill="{DynamicResource scrollbar_design}" RadiusX="3" RadiusY="3">
-								<Rectangle.BitmapEffect>
-									<DropShadowBitmapEffect Direction="360" Opacity="0.25" ShadowDepth="1" Softness="0.25"/>
-								</Rectangle.BitmapEffect>
+							<Rectangle Margin="0,0.001,0.001,-0.003" VerticalAlignment="Stretch" Height="Auto" Fill="#FF0D0D0D" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="6.499">
+								<Rectangle.OpacityMask>
+									<LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+										<GradientStop Color="#FF000000" Offset="0"/>
+										<GradientStop Color="#00FFFFFF" Offset="1"/>
+									</LinearGradientBrush>
+								</Rectangle.OpacityMask>
+								<Rectangle.RenderTransform>
+									<TransformGroup>
+										<ScaleTransform ScaleX="1" ScaleY="1"/>
+										<SkewTransform AngleX="0" AngleY="0"/>
+										<RotateTransform Angle="0"/>
+										<TranslateTransform X="0" Y="0"/>
+									</TransformGroup>
+								</Rectangle.RenderTransform>
 							</Rectangle>
-							<Rectangle Fill="#19FFFFFF" RadiusX="3" RadiusY="3" Margin="2,2,2,0" VerticalAlignment="Top" Height="5" />
+							<Rectangle Fill="{DynamicResource scrollbar_design}" RadiusX="3" RadiusY="3" Margin="0,0,2,0"/>
+							<Rectangle Fill="#19FFFFFF" RadiusX="3" RadiusY="3" Margin="2,2,4,0" VerticalAlignment="Top" Height="5" />
 							</Grid>
 						</DockPanel>
 					</Border>

@@ -49,6 +49,11 @@ namespace xeus2.xeus.Core
 			return string.Format( "{0}/{1}", discoItem.Jid, discoItem.Node ) ;
 		}
 
+		public static string GetKey( Jid jid )
+		{
+			return string.Format( "{0}/", jid ) ;
+		}
+
 		public Jid Jid
 		{
 			get

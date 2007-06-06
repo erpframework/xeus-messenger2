@@ -737,11 +737,32 @@ namespace xeus2.xeus.Core
 		{
 		}
 
+		public void JoinMuc( string jidBare )
+		{
+			Service service ;
+
+			Jid jid = new Jid( jidBare ) ;
+
+			lock ( Services.Instance._syncObject )
+			{
+				service = Services.Instance.FindService( jid ) ;
+			}
+			
+			if ( service == null )
+			{
+				// not on this server
+				service = new Service( new DiscoItem(), false ) ;
+				service.DiscoItem.Jid = new Jid( jidBare ) ;
+			}
+
+			DiscoverReservedRoomNickname( service ) ;
+		}
+
 		public void JoinMuc( Service service )
 		{
 			DiscoverReservedRoomNickname( service ) ;
 		}
-
+		
 		protected void DiscoverReservedRoomNickname( Service service )
 		{
 			IQ iq = new IQ( IqType.get, MyJid, service.Jid ) ;
