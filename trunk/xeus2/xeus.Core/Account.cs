@@ -150,8 +150,6 @@ namespace xeus2.xeus.Core
 			{
 				DiscoItem discoItem = _pendingDisco.Dequeue() ;
 
-				ServicesDoneCount++ ;
-
 				Jid jid ;
 
 				if ( discoItem == null )
@@ -463,6 +461,8 @@ namespace xeus2.xeus.Core
 
 			if ( iq.Error != null )
 			{
+				ServicesDoneCount++ ;
+
 				Services.Instance.OnServiceItemError( sender, iq ) ;
 			}
 			else if ( iq.Type == IqType.result && iq.Query is DiscoInfo )
@@ -474,6 +474,8 @@ namespace xeus2.xeus.Core
 				DiscoItem discoItem = sessionData.Data as DiscoItem ;
 
 				Services.Instance.OnServiceItemInfo( sender, discoItem, di ) ;
+
+				ServicesDoneCount++ ;
 
 				if ( di.HasFeature( Uri.COMMANDS ) && di.Node == null )
 				{
