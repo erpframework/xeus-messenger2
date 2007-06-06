@@ -1,4 +1,6 @@
+using System ;
 using System.Windows ;
+using agsXMPP.protocol.x.data ;
 using xeus2.xeus.Commands ;
 using xeus2.xeus.Core ;
 
@@ -14,11 +16,13 @@ namespace xeus2.xeus.UI
 			InitializeComponent() ;
 
 			_execute.Setup( serviceCommandExecution ) ;
+			serviceCommandExecution.CommandExec = this ;
 		}
 
 		internal void Redisplay( ServiceCommandExecution serviceCommandExecution )
 		{
 			_execute.Setup( serviceCommandExecution ) ;
+			serviceCommandExecution.CommandExec = this ;
 		}
 
 		protected void OnClose( object sender, RoutedEventArgs eventArgs )
@@ -31,6 +35,11 @@ namespace xeus2.xeus.UI
 			base.OnInitialized( e );
 
 			ServiceCommands.RegisterCommands( this );
+		}
+
+		public Data GetResult()
+		{
+			return _execute.GetResult() ;
 		}
 	}
 }
