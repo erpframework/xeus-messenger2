@@ -30,7 +30,8 @@ namespace xeus2.xeus.XData
 
 				ClearXForm();
 
-				if ( !string.IsNullOrEmpty( _command.Node ) )
+				if ( !string.IsNullOrEmpty( _command.Node )
+						&& _command.Note != null )
 				{
 					_instructions.Text = _command.Note.Value ;
 				}
