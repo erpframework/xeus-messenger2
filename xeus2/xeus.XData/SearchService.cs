@@ -111,30 +111,6 @@ namespace xeus2.xeus.XData
 			{
 				if ( XData == null )
 				{
-					if ( _search.Firstname != null
-					     && _textFirst.GetResult().GetValue() == String.Empty )
-					{
-						return false ;
-					}
-
-					if ( _search.Lastname != null
-					     && _textLast.GetResult().GetValue() == String.Empty )
-					{
-						return false ;
-					}
-
-					if ( _search.Nickname != null
-					     && _textNick.GetResult().GetValue() == String.Empty )
-					{
-						return false ;
-					}
-
-					if ( _search.Email != null
-					     && _textEmail.GetResult().GetValue() == String.Empty )
-					{
-						return false ;
-					}
-
 					return true ;
 				}
 				else
