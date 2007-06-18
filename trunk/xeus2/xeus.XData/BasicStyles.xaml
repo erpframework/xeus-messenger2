@@ -172,7 +172,7 @@
 		<GradientStop Color="#FFE5E2E2" Offset="0.52"/>
 	</LinearGradientBrush>
 	<SolidColorBrush x:Key="DefaultTextBrush" Color="#FF454545" PresentationOptions:Freeze="True"/>
-	<SolidColorBrush x:Key="DefaultTextBrush2" Color="#FF232323" PresentationOptions:Freeze="True"/>
+	<SolidColorBrush x:Key="DefaultTextBrush2" Color="#FF919191" PresentationOptions:Freeze="True"/>
 
 	<Style x:Key="ProgressBarStyle" TargetType="{x:Type ProgressBar}" >
 		<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
@@ -410,11 +410,6 @@
 		<Setter Property="TextTrimming" Value="None"/>
 		<Setter Property="FontSize" Value="22"/>
 		<Setter Property="FontWeight" Value="Bold"/>
-		<Setter Property="BitmapEffect">
-			<Setter.Value>
-				<DropShadowBitmapEffect ShadowDepth="2" Softness="0.1"/>
-			</Setter.Value>
-		</Setter>
 	</Style>
 
 </ResourceDictionary>

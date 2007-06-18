@@ -17,7 +17,25 @@
 
   </Window.Resources>
 	<DockPanel x:Name="topBar">
-		<DockPanel DockPanel.Dock="Top" Margin="5,10,5,10">
+		<DockPanel DockPanel.Dock="Top" Margin="5,0,5,10">
+			<StackPanel Margin="0,0,0,10" DockPanel.Dock="Top">
+				<TextBlock Text="Services" FontSize="25" FontWeight="Bold" Foreground="{DynamicResource DefaultTextBoxBackBrush}" Style="{DynamicResource MegaTextBlockStyle}" RenderTransformOrigin="0.5,0.5" x:Name="textBlock">
+					<TextBlock.RenderTransform>
+						<TransformGroup>
+							<ScaleTransform ScaleX="1" ScaleY="1"/>
+							<SkewTransform AngleX="0"/>
+							<RotateTransform Angle="0"/>
+							<TranslateTransform X="0" Y="0"/>
+						</TransformGroup>
+					</TextBlock.RenderTransform>
+				</TextBlock>
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="Discovered " Foreground="{DynamicResource DefaultTextBrush2}"/>
+					<TextBlock Text="{Binding Path=ServicesDoneCount}" Foreground="{DynamicResource DefaultTextBrush2}"/>
+					<TextBlock Text=" services of " Foreground="{DynamicResource DefaultTextBrush2}"/>
+					<TextBlock Text="{Binding Path=ServicesCount}" Foreground="{DynamicResource DefaultTextBrush2}"/>
+				</StackPanel>
+			</StackPanel>
 			<Rectangle Fill="{DynamicResource jabber_design}" Margin="5,0,0,0" Width="18"/>
 			<Button Content="Stop" Command="servicecmd:ServiceCommands.StopDiscoveryServices"
 									Margin="5,0,0,0" DockPanel.Dock="Right"/>
@@ -36,33 +54,11 @@
 			</StackPanel>
 		</Border>
 		-->
-		<Border Background="{DynamicResource background_design}" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" BorderBrush="{DynamicResource DefaultSelectedBorderBrush}">
-			<DockPanel>
-				<Border DockPanel.Dock="Bottom" Margin="10,0,10,10" CornerRadius="6,6,6,6">
-				<StackPanel DockPanel.Dock="Bottom" Margin="10,5,10,5">
-					<TextBlock Text="Services" FontSize="25" FontWeight="Bold" Foreground="{DynamicResource DefaultTextBoxBackBrush}" Style="{DynamicResource MegaTextBlockStyle}" RenderTransformOrigin="0.5,0.5" x:Name="textBlock">
-						<TextBlock.RenderTransform>
-							<TransformGroup>
-								<ScaleTransform ScaleX="1" ScaleY="1"/>
-								<SkewTransform AngleX="0"/>
-								<RotateTransform Angle="0"/>
-								<TranslateTransform X="0" Y="0"/>
-							</TransformGroup>
-						</TextBlock.RenderTransform>
-					</TextBlock>
-					<StackPanel Orientation="Horizontal">
-						<TextBlock Text="Discovered " Foreground="{DynamicResource DefaultTextBrush2}"/>
-						<TextBlock Text="{Binding Path=ServicesDoneCount}" Foreground="{DynamicResource DefaultTextBrush2}"/>
-						<TextBlock Text=" services of " Foreground="{DynamicResource DefaultTextBrush2}"/>
-						<TextBlock Text="{Binding Path=ServicesCount}" Foreground="{DynamicResource DefaultTextBrush2}"/>
-					</StackPanel>
-				</StackPanel>
-				</Border>
-				<TreeView ItemsSource="{Binding Source={StaticResource Services}}"
-					ItemTemplateSelector="{DynamicResource ServiceTemplateSelector}"
-					x:Name="_services" Style="{DynamicResource TreeViewStyleServices}"
-					ItemContainerStyle="{DynamicResource TreeViewItemStyleService}" Template="{DynamicResource TreeViewControlTemplate}" DockPanel.Dock="Top" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5" />
-			</DockPanel>					
+		<Border Background="{DynamicResource background_design}" BorderBrush="{DynamicResource DefaultSelectedBorderBrush}" DockPanel.Dock="Bottom">
+			<TreeView ItemsSource="{Binding Source={StaticResource Services}}"
+				ItemTemplateSelector="{DynamicResource ServiceTemplateSelector}"
+				x:Name="_services" Style="{DynamicResource TreeViewStyleServices}"
+				ItemContainerStyle="{DynamicResource TreeViewItemStyleService}" Template="{DynamicResource TreeViewControlTemplate}" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5" />					
 		</Border>
 	</DockPanel>
 </Window>

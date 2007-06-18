@@ -17,7 +17,7 @@ namespace xeus2.xeus.UI
 
         void ServiceWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            Vista.MakeVistaFrame(this, (int)topBar.ActualHeight);
+            //Vista.MakeVistaFrame(this, (int)topBar.ActualHeight);
         }
 
 		public override void EndInit()
