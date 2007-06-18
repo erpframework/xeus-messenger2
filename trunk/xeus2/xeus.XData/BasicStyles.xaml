@@ -22,20 +22,94 @@
 		</DrawingBrush.Drawing>
 	</DrawingBrush>
 	
-	<DrawingBrush x:Key="background_design" PresentationOptions:Freeze="True" >
+	<DrawingBrush x:Key="background_design_2" PresentationOptions:Freeze="True">
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
 				<DrawingGroup.Children>
-					<GeometryDrawing Geometry="F1 M 3.91667,3.33334L 97.9167,3.33334L 97.9167,97.6667L 3.91667,97.6667L 3.91667,3.33334 Z ">
+					<GeometryDrawing Geometry="F1 M 11.3333,485.333L 477.889,485.333L 477.889,580.222L 11.3333,580.222L 11.3333,485.333 Z ">
+						<GeometryDrawing.Pen>
+							<Pen LineJoin="Round" Brush="#FF444444"/>
+						</GeometryDrawing.Pen>
 						<GeometryDrawing.Brush>
-							<LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
+							<LinearGradientBrush StartPoint="0.5,0.902014" EndPoint="0.5,0.0979868">
 								<LinearGradientBrush.GradientStops>
-									<GradientStop Color="#FF2f2f29" Offset="0"/>
-									<GradientStop Color="#FF000000" Offset="1"/>
+									<GradientStop Color="#FF000000" Offset="0"/>
+									<GradientStop Color="#FF676767" Offset="0.990868"/>
 								</LinearGradientBrush.GradientStops>
 							</LinearGradientBrush>
 						</GeometryDrawing.Brush>
 					</GeometryDrawing>
+					<GeometryDrawing Geometry="F1 M 11.3333,485.333L 477.889,485.333L 477.889,532.667L 11.3333,532.667L 11.3333,485.333 Z ">
+						<GeometryDrawing.Brush>
+							<LinearGradientBrush StartPoint="0.5,5.29338" EndPoint="0.5,-4.29338">
+								<LinearGradientBrush.GradientStops>
+									<GradientStop Color="#9A000000" Offset="0"/>
+									<GradientStop Color="#9AFFFFFF" Offset="1"/>
+								</LinearGradientBrush.GradientStops>
+							</LinearGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Brush="#80FFFFFF" Geometry="F1 M 11.3333,488.15L 477.889,488.15L 477.889,485.333L 11.3333,485.333L 11.3333,488.15 Z "/>
+				</DrawingGroup.Children>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	
+	<DrawingBrush x:Key="background_design" PresentationOptions:Freeze="True" >
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<DrawingGroup.Children>
+					<GeometryDrawing Geometry="F1 M 11.3333,11.3334L 477.889,11.3334L 477.889,580.222L 11.3333,580.222L 11.3333,11.3334 Z ">
+						<GeometryDrawing.Brush>
+							<LinearGradientBrush StartPoint="0.5,0.90625" EndPoint="0.5,0.09375">
+								<LinearGradientBrush.GradientStops>
+									<GradientStop Color="#FF97D5E9" Offset="0"/>
+									<GradientStop Color="#FFFFFFFF" Offset="1"/>
+								</LinearGradientBrush.GradientStops>
+							</LinearGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Geometry="F1 M 11.3333,11.3334L 32.611,11.3334L 32.611,580.222L 11.3333,580.222L 11.3333,11.3334 Z ">
+						<GeometryDrawing.Brush>
+							<LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+								<LinearGradientBrush.GradientStops>
+									<GradientStop Color="#27000000" Offset="0"/>
+									<GradientStop Color="#00FFFFFF" Offset="1"/>
+								</LinearGradientBrush.GradientStops>
+							</LinearGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Geometry="F1 M 477.889,580.222L 456.611,580.222L 456.611,11.3334L 477.889,11.3334L 477.889,580.222 Z ">
+						<GeometryDrawing.Brush>
+							<LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5">
+								<LinearGradientBrush.GradientStops>
+									<GradientStop Color="#27000000" Offset="0"/>
+									<GradientStop Color="#00FFFFFF" Offset="1"/>
+								</LinearGradientBrush.GradientStops>
+							</LinearGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Geometry="F1 M 477.889,11.3334L 477.889,32.611L 11.3333,32.611L 11.3333,11.3334L 477.889,11.3334 Z ">
+						<GeometryDrawing.Brush>
+							<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+								<LinearGradientBrush.GradientStops>
+									<GradientStop Color="#27000000" Offset="0"/>
+									<GradientStop Color="#00FFFFFF" Offset="1"/>
+								</LinearGradientBrush.GradientStops>
+							</LinearGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Geometry="F1 M 11.3333,580.222L 11.3333,558.945L 477.889,558.945L 477.889,580.222L 11.3333,580.222 Z ">
+						<GeometryDrawing.Brush>
+							<LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
+								<LinearGradientBrush.GradientStops>
+									<GradientStop Color="#27000000" Offset="0"/>
+									<GradientStop Color="#00FFFFFF" Offset="1"/>
+								</LinearGradientBrush.GradientStops>
+							</LinearGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Brush="#20FFFFFF" Geometry="F1 M 11.3333,11.3333L 11.3333,283.438C 49.4389,290.458 89.5395,294.205 130.934,294.205C 270.085,294.205 394.613,251.863 477.889,185.191L 477.889,11.3333L 11.3333,11.3333 Z "/>
 				</DrawingGroup.Children>
 			</DrawingGroup>
 		</DrawingBrush.Drawing>
@@ -97,8 +171,8 @@
 		<GradientStop Color="#FFE0E0E0" Offset="0.87"/>
 		<GradientStop Color="#FFE5E2E2" Offset="0.52"/>
 	</LinearGradientBrush>
-	<SolidColorBrush x:Key="DefaultTextBrush" Color="#FFD4D4D4" PresentationOptions:Freeze="True"/>
-	<SolidColorBrush x:Key="DefaultTextBrush2" Color="#FFA9A9A9" PresentationOptions:Freeze="True"/>
+	<SolidColorBrush x:Key="DefaultTextBrush" Color="#FF454545" PresentationOptions:Freeze="True"/>
+	<SolidColorBrush x:Key="DefaultTextBrush2" Color="#FF232323" PresentationOptions:Freeze="True"/>
 
 	<Style x:Key="ProgressBarStyle" TargetType="{x:Type ProgressBar}" >
 		<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
@@ -329,6 +403,18 @@
 				</Setter>
 			</Style>
 		</Style.BasedOn>
+	</Style>
+
+	<Style x:Key="MegaTextBlockStyle" TargetType="{x:Type TextBlock}">
+		<Setter Property="TextWrapping" Value="NoWrap"/>
+		<Setter Property="TextTrimming" Value="None"/>
+		<Setter Property="FontSize" Value="22"/>
+		<Setter Property="FontWeight" Value="Bold"/>
+		<Setter Property="BitmapEffect">
+			<Setter.Value>
+				<DropShadowBitmapEffect ShadowDepth="2" Softness="0.1"/>
+			</Setter.Value>
+		</Setter>
 	</Style>
 
 </ResourceDictionary>
