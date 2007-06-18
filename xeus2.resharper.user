@@ -33,8 +33,8 @@
   </SettingsComponent>
   <EditorManager>
     <RecentFiles>
-      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.UI/f:Vista.cs" caret="1105" scrollPosition="0|18" />
-      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.UI/f:ServiceWindow.xaml.cs" caret="497" scrollPosition="0|0" />
+      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.UI/f:ServiceWindow.xaml.cs" caret="242" scrollPosition="0|0" />
+      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.UI/f:Vista.cs" caret="1105" scrollPosition="0|17" />
     </RecentFiles>
   </EditorManager>
   <CompletionStatisticsManager>
