@@ -41,18 +41,10 @@
   				</TransformGroup>
   			</Image.RenderTransform>
   		</Image>
-  		<StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="74,10,0,0" >
+  		<StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="74,0,0,0" >
   			<TextBlock FontSize="17" Text="{Binding Path=Text}" TextWrapping="Wrap" FontWeight="Bold" Foreground="{DynamicResource DefaultTextBrush}"/>
   			<TextBlock Text="{Binding Path=Description}" TextWrapping="Wrap" FontSize="10" Foreground="{DynamicResource DefaultTextBrush2}" />
   		</StackPanel>
-		<Rectangle Stroke="#FF6F6F6F" Margin="0,0,0,0" VerticalAlignment="Top">
-			<Rectangle.OpacityMask>
-				<RadialGradientBrush>
-					<GradientStop Color="#FF000000" Offset="0"/>
-					<GradientStop Color="#1CFFFFFF" Offset="1"/>
-				</RadialGradientBrush>
-			</Rectangle.OpacityMask>
-		</Rectangle>
   	</Grid>
   	<HierarchicalDataTemplate.Triggers>
   		<EventTrigger RoutedEvent="FrameworkElement.Loaded" SourceName="image">
@@ -850,25 +842,29 @@
 
 	  <StackPanel Orientation="Horizontal">
       	<TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="{DynamicResource DefaultTextBrush}"/>
-
-      <Button x:Name="_register" Content="reg" Command="servicecmd:ServiceCommands.Register"
-              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource register_design}" ToolTip="Register"/>
-			  
-      <Button x:Name="_search" Content="srch" Command="servicecmd:ServiceCommands.Search"
-              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource search_design}" ToolTip="Search"/>
-
-      <Button x:Name="_run" Command="servicecmd:ServiceCommands.Run"
-              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource run_design}" Height="18" ToolTip="Run Command"/>
-
-      <Button x:Name="_muc" Content="muc" Command="servicecmd:ServiceCommands.JoinMuc"
-              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource muc_design}" ToolTip="Join Multi-User Chat"/>
-
-      <Button x:Name="_mucInfo" Content="muci" Command="servicecmd:ServiceCommands.MucInfo"
-              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" ToolTip="Chat Information" Width="16" Background="{DynamicResource mucinfo_design}"/>
+		<StackPanel x:Name="stackPanel" Orientation="Horizontal">
+	      <Button x:Name="_register" Content="reg" Command="servicecmd:ServiceCommands.Register"
+	              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource register_design}" ToolTip="Register"/>
+				  
+	      <Button x:Name="_search" Content="srch" Command="servicecmd:ServiceCommands.Search"
+	              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource search_design}" ToolTip="Search"/>
+	
+	      <Button x:Name="_run" Command="servicecmd:ServiceCommands.Run"
+	              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource run_design}" Height="18" ToolTip="Run Command"/>
+	
+	      <Button x:Name="_muc" Content="muc" Command="servicecmd:ServiceCommands.JoinMuc"
+	              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource muc_design}" ToolTip="Join Multi-User Chat"/>
+	
+	      <Button x:Name="_mucInfo" Content="muci" Command="servicecmd:ServiceCommands.MucInfo"
+	              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" ToolTip="Chat Information" Width="16" Background="{DynamicResource mucinfo_design}"/>
+		  </StackPanel>
 	  </StackPanel>
 	</StackPanel>
 		
   	<HierarchicalDataTemplate.Triggers>
+  		<Trigger Property="IsMouseOver" Value="False">
+  			<Setter Property="Opacity" TargetName="stackPanel" Value="0.2"/>
+  		</Trigger>
 		<DataTrigger Binding="{Binding Path=IsRegistrable}" Value="False">
   			<Setter Property="Visibility" TargetName="_register" Value="Collapsed"/>
   		</DataTrigger>
@@ -1009,7 +1005,7 @@
 					</Grid>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsSelected" Value="True">
-							<Setter Property="Fill" TargetName="rectangle" Value="#26FFFFFF"/>
+							<Setter Property="Fill" TargetName="rectangle" Value="#20000000"/>
 						</Trigger>
 						<Trigger Property="IsExpanded" Value="False">
 							<Setter Property="Visibility" TargetName="ItemsHost" Value="Collapsed"/>

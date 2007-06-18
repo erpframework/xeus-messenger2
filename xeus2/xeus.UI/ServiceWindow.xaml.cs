@@ -11,7 +11,14 @@ namespace xeus2.xeus.UI
 		public ServiceWindow()
 		{
 			InitializeComponent() ;
+
+            Loaded += new RoutedEventHandler(ServiceWindow_Loaded);
 		}
+
+        void ServiceWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            Vista.MakeVistaFrame(this, (int)topBar.ActualHeight);
+        }
 
 		public override void EndInit()
 		{

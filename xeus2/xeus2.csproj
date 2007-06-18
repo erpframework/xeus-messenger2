@@ -69,6 +69,7 @@
     <Page Include="xeus.UI\xeus.UI.Look\Roster.xaml" />
     <Page Include="xeus.UI\xeus.UI.Look\Services.xaml" />
     <Page Include="xeus.XData\BasicStyles.xaml" />
+    <Resource Include="xeus.UI\service_service.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -194,6 +195,7 @@
       <DependentUpon>ServiceWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\StyleManager.cs" />
+    <Compile Include="xeus.UI\Vista.cs" />
     <Compile Include="xeus.UI\xeus.UI.Look\ServiceTemplateSelector.cs" />
     <Compile Include="xeus.Utilities\DisplayNameBuilder.cs" />
     <Compile Include="xeus.Utilities\ElementUtil.cs" />
