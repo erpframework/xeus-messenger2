@@ -16,26 +16,36 @@
     <CollectionViewSource x:Key="Services" Source="{Binding Path=Categories, Mode=Default, Source={StaticResource ServicesDS}}"/>
 
   </Window.Resources>
-	<DockPanel x:Name="topBar">
+	<DockPanel x:Name="topBar" Background="{DynamicResource back_x_design}">
 		<DockPanel DockPanel.Dock="Top" Margin="5,0,5,10">
-			<StackPanel Margin="0,0,0,10" DockPanel.Dock="Top">
-				<TextBlock Text="Services" FontSize="25" FontWeight="Bold" Foreground="{DynamicResource DefaultTextBoxBackBrush}" Style="{DynamicResource MegaTextBlockStyle}" RenderTransformOrigin="0.5,0.5" x:Name="textBlock">
-					<TextBlock.RenderTransform>
-						<TransformGroup>
-							<ScaleTransform ScaleX="1" ScaleY="1"/>
-							<SkewTransform AngleX="0"/>
-							<RotateTransform Angle="0"/>
-							<TranslateTransform X="0" Y="0"/>
-						</TransformGroup>
-					</TextBlock.RenderTransform>
-				</TextBlock>
-				<StackPanel Orientation="Horizontal">
-					<TextBlock Text="Discovered " Foreground="{DynamicResource DefaultTextBrush2}"/>
-					<TextBlock Text="{Binding Path=ServicesDoneCount}" Foreground="{DynamicResource DefaultTextBrush2}"/>
-					<TextBlock Text=" services of " Foreground="{DynamicResource DefaultTextBrush2}"/>
-					<TextBlock Text="{Binding Path=ServicesCount}" Foreground="{DynamicResource DefaultTextBrush2}"/>
+			<StackPanel Margin="0,10,0,5" Orientation="Horizontal" DockPanel.Dock="Top">
+				<StackPanel DockPanel.Dock="Top" Margin="10,0,0,0">
+					<TextBlock Text="Services" FontSize="25" FontWeight="Bold" Foreground="{DynamicResource DefaultTextBoxBackBrush}" Style="{DynamicResource MegaTextBlockStyle}" RenderTransformOrigin="0.5,0.5" x:Name="textBlock">
+						<TextBlock.RenderTransform>
+							<TransformGroup>
+								<ScaleTransform ScaleX="1" ScaleY="1"/>
+								<SkewTransform AngleX="0"/>
+								<RotateTransform Angle="0"/>
+								<TranslateTransform X="0" Y="0"/>
+							</TransformGroup>
+						</TextBlock.RenderTransform>
+					</TextBlock>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="Discovered " Foreground="{DynamicResource DefaultTextBrush2}"/>
+						<TextBlock Text="{Binding Path=ServicesDoneCount}" Foreground="{DynamicResource DefaultTextBrush2}"/>
+						<TextBlock Text=" services of " Foreground="{DynamicResource DefaultTextBrush2}"/>
+						<TextBlock Text="{Binding Path=ServicesCount}" Foreground="{DynamicResource DefaultTextBrush2}"/>
+					</StackPanel>
 				</StackPanel>
 			</StackPanel>
+			<Rectangle Fill="#FFFFFFFF" Margin="0,10,0,15" Height="1" DockPanel.Dock="Top">
+				<Rectangle.OpacityMask>
+					<RadialGradientBrush>
+						<GradientStop Color="#FF000000" Offset="0"/>
+						<GradientStop Color="#00FFFFFF" Offset="1"/>
+					</RadialGradientBrush>
+				</Rectangle.OpacityMask>
+			</Rectangle>
 			<Rectangle Fill="{DynamicResource jabber_design}" Margin="5,0,0,0" Width="18"/>
 			<Button Content="Stop" Command="servicecmd:ServiceCommands.StopDiscoveryServices"
 									Margin="5,0,0,0" DockPanel.Dock="Right"/>
