@@ -3,25 +3,6 @@
 	xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" 	
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic">
 	
-	<DrawingBrush x:Key="scrollbar_design" PresentationOptions:Freeze="True" >
-		<DrawingBrush.Drawing>
-			<DrawingGroup>
-				<DrawingGroup.Children>
-					<GeometryDrawing Geometry="F1 M 3.91667,3.33334L 97.9167,3.33334L 97.9167,97.6667L 3.91667,97.6667L 3.91667,3.33334 Z ">
-						<GeometryDrawing.Brush>
-							<LinearGradientBrush StartPoint="0.5,0.998233" EndPoint="0.5,0.00176676">
-								<LinearGradientBrush.GradientStops>
-									<GradientStop Color="#FF53667c" Offset="0"/>
-									<GradientStop Color="#FF3c4e65" Offset="1"/>
-								</LinearGradientBrush.GradientStops>
-							</LinearGradientBrush>
-						</GeometryDrawing.Brush>
-					</GeometryDrawing>
-				</DrawingGroup.Children>
-			</DrawingGroup>
-		</DrawingBrush.Drawing>
-	</DrawingBrush>
-	
 	<DrawingBrush x:Key="background_design_2" PresentationOptions:Freeze="True">
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
@@ -55,6 +36,17 @@
 		</DrawingBrush.Drawing>
 	</DrawingBrush>
 	
+	<DrawingBrush x:Key="back_x_design" PresentationOptions:Freeze="True" Viewport="0,0,0.015,0.015" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<DrawingGroup.Children>
+					<GeometryDrawing Brush="#FF000000" Geometry="F1 M 0,0L 16,0L 16,16L 0,16L 0,0 Z "/>
+					<GeometryDrawing Brush="#FF171717" Geometry="F1 M 2.02083,7.88542L 7.70833,2.19792L 13.3958,7.88542L 7.70833,13.5729L 2.02083,7.88542 Z "/>
+				</DrawingGroup.Children>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+		
 	<DrawingBrush x:Key="background_design" PresentationOptions:Freeze="True" >
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
@@ -211,7 +203,26 @@
 									</TransformGroup>
 								</Rectangle.RenderTransform>
 							</Rectangle>
-							<Rectangle Fill="{DynamicResource scrollbar_design}" RadiusX="3" RadiusY="3" Margin="0,0,2,0"/>
+							<Rectangle RadiusX="3" RadiusY="3" Margin="0,0,2,0">
+								<Rectangle.Fill>
+	
+									<DrawingBrush PresentationOptions:Freeze="True" >
+										<DrawingBrush.Drawing>
+											<DrawingGroup>
+												<GeometryDrawing Geometry="F1 M 3.91667,3.33334L 97.9167,3.33334L 97.9167,97.6667L 3.91667,97.6667L 3.91667,3.33334 Z ">
+													<GeometryDrawing.Brush>
+														<LinearGradientBrush StartPoint="0.5,0.998233" EndPoint="0.5,0.00176676">
+															<GradientStop Color="#FF53667c" Offset="0"/>
+															<GradientStop Color="#FF3c4e65" Offset="1"/>
+														</LinearGradientBrush>
+													</GeometryDrawing.Brush>
+												</GeometryDrawing>
+											</DrawingGroup>
+										</DrawingBrush.Drawing>
+									</DrawingBrush>
+	
+								</Rectangle.Fill>
+							</Rectangle>
 							<Rectangle Fill="#19FFFFFF" RadiusX="3" RadiusY="3" Margin="2,2,4,0" VerticalAlignment="Top" Height="5" />
 							</Grid>
 						</DockPanel>
@@ -270,13 +281,6 @@
 			<Trigger Property="IsEnabled" Value="False">
 				<Setter Property="Opacity" TargetName="border" Value="0.5"/>
 			</Trigger>
-			<Trigger Property="IsMouseOver" Value="True">
-				<Setter Property="BitmapEffect" TargetName="border">
-					<Setter.Value>
-						<OuterGlowBitmapEffect GlowColor="#FFFFFFFF" GlowSize="3" Opacity="0.75"/>
-					</Setter.Value>
-				</Setter>
-			</Trigger>
 			<Trigger Property="IsPressed" Value="True">
 				<Setter Property="Margin" TargetName="border" Value="1,1,0,0"/>
 			</Trigger>
@@ -314,9 +318,16 @@
 	</ControlTemplate>
 
 	<Style TargetType="{x:Type Button}">
-		<Setter Property="Background" Value="#FFD6ADA1"/>
+		<Setter Property="Background" Value="#FF000000"/>
 		<Setter Property="MinHeight" Value="22"/>
 		<Setter Property="Foreground" Value="#FFFFFFFF"/>
+		<Setter Property="BorderBrush" Value="#FFDEDEDE"/>
+		<Setter Property="BorderThickness" Value="1,1,1,1"/>
+		<Setter Property="BitmapEffect">
+			<Setter.Value>
+				<OuterGlowBitmapEffect GlowColor="#FFFFFFFF" GlowSize="2"/>
+			</Setter.Value>
+		</Setter>
 		<Style.BasedOn>
 			<Style TargetType="{x:Type Button}">
 				<Setter Property="FocusVisualStyle">
@@ -351,7 +362,7 @@
 <Border 
 	x:Name="_border"
 	BorderThickness="1,1,1,1" 
-	CornerRadius="3,3,3,3" BorderBrush="{DynamicResource DefaultBorderBrush}" RenderTransformOrigin="0.5,0.5" >
+	CornerRadius="3,3,3,3" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF8A8A8A" >
 	<Border.RenderTransform>
 		<TransformGroup>
 			<ScaleTransform ScaleX="1" ScaleY="1"/>
