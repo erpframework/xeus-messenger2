@@ -19,12 +19,20 @@ namespace xeus2.xeus.UI
 			{
 				return _listCommands.SelectedItem as Service ;
 			}
-		
 		}
 
 		private void OnExecute(object sender, RoutedEventArgs args)
 		{
 			DialogResult = true;
 		}
+
+        private void OnResultSelectionDoubleClicked( object sender, RoutedEventArgs args )
+        {
+            if ( _listCommands.SelectedItems.Count > 0 )
+            {
+                DialogResult = true;
+                Close();
+            }
+        }
 	}
 }

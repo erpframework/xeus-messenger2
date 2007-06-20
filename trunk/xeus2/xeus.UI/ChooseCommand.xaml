@@ -2,11 +2,65 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     x:Class="xeus2.xeus.UI.ChooseCommand"
-    Title="xeus2.xeus.UI" Height="300" Width="300"
+    Title="xeus2.xeus.UI" Width="300" SizeToContent="Height"
+    ResizeMode="CanResizeWithGrip" Background="{DynamicResource back_x_design}"
     >
-    <StackPanel>
-      <TextBlock Text="Choose Command to Execute"/>
-      <ListBox x:Name="_listCommands" ItemsSource="{Binding Path=Commands}"/>
-      <Button Content="Execute" IsDefault="True" Click="OnExecute"/>
-    </StackPanel>
+	
+	<Window.Resources>
+		<Style TargetType="{x:Type Rectangle}">
+         <Style.Triggers>
+			<DataTrigger Binding="{Binding Path=Type}" Value="aim">
+	  			<Setter Property="Fill" Value="{StaticResource aim_design}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Path=Type}" Value="msn">
+	  			<Setter Property="Fill" Value="{StaticResource msn_design}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Path=Type}" Value="icq">
+	  			<Setter Property="Fill" Value="{StaticResource icq_design}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Path=Type}" Value="sms">
+	  			<Setter Property="Fill" Value="{StaticResource sms_design}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Path=Type}" Value="yahoo">
+	  			<Setter Property="Fill" Value="{StaticResource yahoo_design}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Path=Type}" Value="text">
+	  			<Setter Property="Fill" Value="{StaticResource chat_design}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Path=Type}" Value="jabber">
+	  			<Setter Property="Fill" Value="{StaticResource jabber_design}"/>
+			</DataTrigger>
+         </Style.Triggers>
+        </Style>	
+	
+	</Window.Resources>
+	<DockPanel>
+		<Border DockPanel.Dock="Top">
+			<StackPanel DockPanel.Dock="Top" Margin="10,5,10,10">
+				<StackPanel Orientation="Horizontal">
+					<Rectangle Width="24" Height="24" x:Name="type" />
+					<TextBlock Text="Execute" FontSize="25" FontWeight="Bold" Foreground="{DynamicResource DefaultTextBoxBackBrush}" Style="{DynamicResource MegaTextBlockStyle}" RenderTransformOrigin="0.5,0.5" x:Name="textBlock" Margin="5,0,0,0">
+						<TextBlock.RenderTransform>
+							<TransformGroup>
+								<ScaleTransform ScaleX="1" ScaleY="1"/>
+								<SkewTransform AngleX="0"/>
+								<RotateTransform Angle="0"/>
+								<TranslateTransform X="0" Y="0"/>
+							</TransformGroup>
+						</TextBlock.RenderTransform>
+					</TextBlock>
+				</StackPanel>
+				<TextBlock Text="Choose Command to Execute" Foreground="{DynamicResource DefaultTextBrush2}"/>
+			</StackPanel>
+		</Border>
+		<Button Content="Execute" IsDefault="True" Click="OnExecute" HorizontalAlignment="Center" Margin="0,10,0,10" DockPanel.Dock="Bottom" 
+			IsEnabled="{Binding Path=SelectedItems.Count, ElementName=_listCommands}"/>
+		<ListBox x:Name="_listCommands" ItemsSource="{Binding Path=Commands}"
+		 Background="{DynamicResource background_design}"
+		 ItemTemplate="{DynamicResource ServiceSimple}"
+		 Style="{DynamicResource ListBoxStyleServices}"
+		 Padding="5,5,5,5" DockPanel.Dock="Top"
+		 PreviewMouseDoubleClick="OnResultSelectionDoubleClicked"/>
+	</DockPanel>
+	
 </Window>
