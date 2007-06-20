@@ -36,7 +36,7 @@
 		</DrawingBrush.Drawing>
 	</DrawingBrush>
 	
-	<DrawingBrush x:Key="back_x_design" PresentationOptions:Freeze="True" Viewport="0,0,0.015,0.015" TileMode="Tile">
+	<DrawingBrush x:Key="back_x_design" PresentationOptions:Freeze="True" Viewport="0,0,5,5" ViewportUnits="Absolute" TileMode="Tile">
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
 				<DrawingGroup.Children>
@@ -384,13 +384,14 @@
 	<Rectangle VerticalAlignment="Stretch" RadiusX="3" RadiusY="3"
 		Fill="{TemplateBinding Property=Background}" Opacity="0.65" StrokeThickness="0" x:Name="rectangle"/>
 	<Rectangle Fill="#4CE1E1E1" VerticalAlignment="Top" Height="6" RadiusX="3" RadiusY="3" Margin="1,1,1,0" x:Name="rectangle1"/>
-	<ContentPresenter Margin="5,2,5,4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+	<ContentPresenter Margin="5,2,5,4" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="contentPresenter"/>
 	</Grid>
 </Border>
 
 	<ControlTemplate.Triggers>
 		<Trigger Property="IsEnabled" Value="False">
 			<Setter Property="Opacity" TargetName="_border" Value="0.5"/>
+			<Setter Property="Opacity" TargetName="contentPresenter" Value="0.5"/>
 		</Trigger>
 	  <Trigger Property="Ellipse.IsMouseOver" Value="True">
 	  	<Setter Property="Fill" TargetName="rectangle1" Value="#7FE1E1E1"/>
