@@ -37,8 +37,14 @@
       <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.UI/f:Vista.cs" caret="1105" scrollPosition="0|17" />
       <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/f:App.xaml" caret="514" scrollPosition="0|0" />
       <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.UI/d:xeus.UI.Look/f:Services.xaml" caret="63333" scrollPosition="0|942" />
-      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.Middle/f:CommandExecutor.cs" caret="2832" scrollPosition="0|53" />
-      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.UI/f:ChooseCommand.xaml.cs" caret="380" scrollPosition="0|0" />
+      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.Middle/f:CommandExecutor.cs" caret="0" scrollPosition="0|0" />
+      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.UI/f:ChooseCommand.xaml.cs" caret="646" scrollPosition="0|0" />
+      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.XData/f:XDataTextBox.cs" caret="413" scrollPosition="0|0" />
+      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.UI/f:StyleManager.cs" caret="255" scrollPosition="0|0" />
+      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.XData/f:XDataContainer.xaml" caret="0" scrollPosition="0|0" />
+      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.XData/f:XDataContainer.xaml.cs" caret="591" scrollPosition="0|24" />
+      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.XData/f:XDataFromBase.xaml" caret="39" scrollPosition="0|0" />
+      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.XData/f:SearchService.cs" caret="429" scrollPosition="0|0" />
     </RecentFiles>
   </EditorManager>
   <CompletionStatisticsManager>

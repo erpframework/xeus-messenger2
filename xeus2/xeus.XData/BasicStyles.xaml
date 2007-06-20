@@ -3,6 +3,35 @@
 	xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" 	
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic">
 	
+	
+	<DrawingBrush x:Key="required_design" PresentationOptions:Freeze="True" Stretch="Uniform">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<DrawingGroup.Children>
+					<GeometryDrawing Geometry="F1 M 148.8,27.299C 215.627,27.299 269.801,81.473 269.801,148.3C 269.801,215.127 215.627,269.301 148.8,269.301C 81.973,269.301 27.799,215.127 27.799,148.3C 27.799,81.473 81.973,27.299 148.8,27.299 Z ">
+						<GeometryDrawing.Pen>
+							<Pen Thickness="20" LineJoin="Round" Brush="#FF4D4D4D"/>
+						</GeometryDrawing.Pen>
+						<GeometryDrawing.Brush>
+							<RadialGradientBrush RadiusX="0.479445" RadiusY="0.479445" Center="0.5,0.5" GradientOrigin="0.5,0.5">
+								<RadialGradientBrush.GradientStops>
+									<GradientStop Color="#FFFA9C9C" Offset="0"/>
+									<GradientStop Color="#FFE30E0E" Offset="1"/>
+								</RadialGradientBrush.GradientStops>
+								<RadialGradientBrush.RelativeTransform>
+									<TransformGroup/>
+								</RadialGradientBrush.RelativeTransform>
+							</RadialGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Brush="#3EFFFFFF" Geometry="F1 M 148.319,38.4447C 100.067,38.4447 59.1564,68.2297 44.9421,109.457C 75.8264,120.822 111.822,127.34 150.254,127.34C 187.263,127.34 222.013,121.296 252.115,110.699C 238.3,68.8293 197.054,38.4447 148.319,38.4447 Z "/>
+					<GeometryDrawing Brush="#2C000000" Geometry="F1 M 149.189,257.588C 171.769,257.588 192.827,250.903 210.584,239.359C 191.723,234.294 170.361,231.437 147.729,231.437C 125.927,231.437 105.303,234.088 86.9589,238.81C 104.889,250.692 126.254,257.588 149.189,257.588 Z "/>
+					<GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 163.785,78.6216L 161.789,172.584L 135.843,172.584L 131.851,78.6216L 163.785,78.6216 Z M 148.91,217.607C 143.4,217.607 138.847,216.073 135.251,213.004C 131.654,209.935 129.856,206.219 129.856,201.855C 129.856,197.288 131.669,193.551 135.297,190.645C 138.925,187.74 143.463,186.287 148.91,186.287C 154.44,186.287 158.967,187.76 162.49,190.706C 166.014,193.653 167.776,197.369 167.776,201.855C 167.776,206.402 166.03,210.165 162.537,213.142C 159.045,216.119 154.502,217.607 148.91,217.607 Z "/>
+				</DrawingGroup.Children>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	
 	<DrawingBrush x:Key="background_design_2" PresentationOptions:Freeze="True">
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
@@ -106,18 +135,29 @@
 			</DrawingGroup>
 		</DrawingBrush.Drawing>
 	</DrawingBrush>
-	
-	<Style x:Key="XDataLabel" TargetType="{x:Type TextBlock}">
+
+	<Style x:Key="TextBoxBasic" TargetType="{x:Type TextBox}">
+		<Setter Property="Template" Value="{DynamicResource TextBoxBaseControlTemplate}"/>
+		<Setter Property="MinHeight" Value="20"/>
+		<Setter Property="VerticalScrollBarVisibility" Value="Disabled"/>
+		<Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+	</Style>
+
+	<Style x:Key="LabelBasic" TargetType="{x:Type TextBlock}">
 		<Setter Property="TextWrapping" Value="Wrap"/>
 		<Setter Property="MinWidth" Value="150"/>
 		<Setter Property="MaxWidth" Value="150"/>
+	</Style>
+
+	<Style x:Key="XDataLabel" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource LabelBasic}">
+		<Setter Property="Foreground" Value="{DynamicResource DefaultTextBrush2}"/>
 	</Style>
 
 	<Style x:Key="XDataFixed" TargetType="{x:Type TextBlock}">
 		<Setter Property="TextWrapping" Value="Wrap"/>
 	</Style>
 	
-	<Style x:Key="XDataTextBox" TargetType="{x:Type TextBox}">
+	<Style x:Key="XDataTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource TextBoxBasic}">
 		<Setter Property="MinWidth" Value="150"/>
 		<Setter Property="MaxWidth" Value="250"/>
 	</Style>
@@ -298,12 +338,7 @@
 		<Setter Property="Padding" Value="10,5,10,5"/>
 	</Style>
 
-	<Style TargetType="{x:Type TextBox}">
-		<Setter Property="Template" Value="{DynamicResource TextBoxBaseControlTemplate}"/>
-		<Setter Property="MinHeight" Value="20"/>
-		<Setter Property="VerticalScrollBarVisibility" Value="Disabled"/>
-		<Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
-	</Style>
+	<Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource TextBoxBasic}"/>
 
 	<ControlTemplate x:Key="TextBoxBaseControlTemplate" TargetType="{x:Type TextBox}">
 		<Border x:Name="Bd" BorderBrush="{DynamicResource TextBoxBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="1,1,1,1" Background="{DynamicResource DefaultTextBoxBackBrush}" ScrollViewer.VerticalScrollBarVisibility="Disabled" MinHeight="22" VerticalAlignment="Center">
