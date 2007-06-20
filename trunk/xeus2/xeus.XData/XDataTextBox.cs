@@ -7,7 +7,7 @@ namespace xeus2.xeus.XData
 {
 	internal class XDataTextBox : XDataControl
 	{
-		private TextBox _textBox = new TextBox() ;
+		private readonly TextBox _textBox = new TextBox() ;
 
 		protected override void OnInitialized( System.EventArgs e )
 		{
