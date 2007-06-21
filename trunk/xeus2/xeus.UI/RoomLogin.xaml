@@ -22,7 +22,7 @@
 		</Rectangle>	  
       <TextBlock Text="Nickname"/>
       <TextBox x:Name="_nick"/>
-      <StackPanel x:Name="_passwordPanel">
+      <StackPanel x:Name="_passwordPanel" Margin="0,5,0,0">
         <TextBlock Text="Password"/>
         <PasswordBox x:Name="_password"/>
       </StackPanel>
