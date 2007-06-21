@@ -4,10 +4,10 @@
     Width="320"
     >
  <Border Margin="2,2,2,2" Background="#33FFFFFF" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" Padding="3,3,3,3">
-    <StackPanel x:Name="_container" Orientation="Horizontal">
-	  <Grid Width="150">
-      <TextBlock x:Name="_description" Visibility="Collapsed" Style="{DynamicResource XDataLabel}" VerticalAlignment="Center"/>
-      <Rectangle x:Name="_required" Visibility="Collapsed" Fill="{DynamicResource required_design}" Width="16" Height="16" ToolTip="Required Field" />
+    <StackPanel x:Name="_container" Orientation="Horizontal" HorizontalAlignment="Stretch">
+	  <Grid Width="150" x:Name="_grid" HorizontalAlignment="Stretch">
+      	<TextBlock x:Name="_description" Visibility="Collapsed" Style="{DynamicResource XDataLabel}" VerticalAlignment="Center"/>
+      	<Rectangle x:Name="_required" Visibility="Collapsed" Fill="{DynamicResource required_design}" Width="16" Height="16" ToolTip="Required Field" />
 	  </Grid>
     </StackPanel>
  </Border>

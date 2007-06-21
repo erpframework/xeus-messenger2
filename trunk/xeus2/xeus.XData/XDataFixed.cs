@@ -1,3 +1,4 @@
+using System;
 using System.Text ;
 using System.Windows.Controls ;
 using agsXMPP.protocol.x.data ;
@@ -19,6 +20,11 @@ namespace xeus2.xeus.XData
 		protected override void OnFieldIsSet()
 		{
 			base.OnFieldIsSet() ;
+
+            if ( String.IsNullOrEmpty( Field.Description ) )
+            {
+                _grid.Visibility = System.Windows.Visibility.Collapsed;
+            }
 
 			_container.Children.Add( _textBlock ) ;
 

@@ -69,12 +69,12 @@
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
 				<DrawingGroup.Children>
-					<GeometryDrawing Brush="#FF000000" Geometry="F1 M 4.53725,-262.795L 525.037,-262.795L 525.037,-32.5909L 4.53725,-32.5909L 4.53725,-262.795 Z "/>
-					<GeometryDrawing Geometry="F1 M 525.037,-262.795L 4.53719,-262.795L 4.53719,-32.5909L 525.037,-32.5909L 525.037,-262.795 Z ">
+					<GeometryDrawing Brush="#FF000000" Geometry="F1 M 536.5,-145.168L 16,-145.168L 16,-5.72205e-006L 536.5,-5.72205e-006L 536.5,-145.168 Z "/>
+					<GeometryDrawing Geometry="F1 M 536.5,-145.168L 16,-145.168L 16,-5.72205e-006L 536.5,-5.72205e-006L 536.5,-145.168 Z ">
 						<GeometryDrawing.Brush>
 							<RadialGradientBrush RadiusX="1" RadiusY="3.11351" Center="0.5,-1.93038" GradientOrigin="0.5,-1.93038">
 								<RadialGradientBrush.GradientStops>
-									<GradientStop Color="#FF0085FF" Offset="0"/>
+									<GradientStop Color="#FFA4A4A4" Offset="0"/>
 									<GradientStop Color="#BA000000" Offset="1"/>
 								</RadialGradientBrush.GradientStops>
 								<RadialGradientBrush.RelativeTransform>
@@ -157,14 +157,16 @@
 	</Style>
 
 	<Style x:Key="LabelBasic" TargetType="{x:Type TextBlock}">
-		<Setter Property="TextWrapping" Value="Wrap"/>
 		<Setter Property="Foreground" Value="{DynamicResource DefaultTextBrush2}"/>
 	</Style>
 
-	<Style x:Key="XDataLabel" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource LabelBasic}"/>
+	<Style x:Key="XDataLabel" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource LabelBasic}">
+		<Setter Property="Foreground" Value="{DynamicResource DefaultSelectedBorderBrush}"/>
+		<Setter Property="TextWrapping" Value="Wrap"/>
+	</Style>
 
 	<Style x:Key="XDataFixed" TargetType="{x:Type TextBlock}">
-		<Setter Property="TextWrapping" Value="Wrap"/>
+		<Setter Property="HorizontalAlignment" Value="Stretch"/>
 	</Style>
 	
 	<Style x:Key="XDataTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource TextBoxBasic}">

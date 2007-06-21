@@ -4,8 +4,8 @@
     xmlns:xeus2_xeus_XData="clr-namespace:xeus2.xeus.XData"
     xmlns:servicecmd="clr-namespace:xeus2.xeus.Commands"
     x:Class="xeus2.xeus.UI.CommandExecute"
-    Title="xeus2.xeus.UI" Width="350"
-    MinWidth="350" ResizeMode="CanResizeWithGrip" SizeToContent="Height"
+    Title="xeus2.xeus.UI" Width="370"
+    MinWidth="370" ResizeMode="CanResizeWithGrip" SizeToContent="Height"
     Background="{DynamicResource back_x_design}"
     WindowStartupLocation="CenterOwner"
     >

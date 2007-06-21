@@ -3,9 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:xeus2_xeus_XData="clr-namespace:xeus2.xeus.XData"
     x:Class="xeus2.xeus.UI.RoomInfo"
-    Title="xeus2.xeus.UI" Width="350"
+    Title="xeus2.xeus.UI" Width="370"
     Background="{DynamicResource back_x_design}"
-    MinWidth="350" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterOwner"
+    MinWidth="370" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterOwner"
     >
 	<Window.Resources>
 		<ResourceDictionary/>
