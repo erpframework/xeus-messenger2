@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic ;
 using System.Windows ;
+using System.Windows.Media;
 using agsXMPP.protocol.iq.register ;
 using agsXMPP.protocol.x.data ;
 using xeus2.xeus.Core ;
+using xeus2.xeus.UI;
 using xeus2.xeus.Utilities ;
 
 namespace xeus2.xeus.XData
@@ -76,7 +79,12 @@ namespace xeus2.xeus.XData
 			}
 		}
 
-		private void AddField( string tag )
+	    public override DrawingBrush Icon
+	    {
+            get { return StyleManager.GetBrush("register_design"); }
+        }
+
+	    private void AddField( string tag )
 		{
 			string value = _register.GetTag( tag ) ;
 

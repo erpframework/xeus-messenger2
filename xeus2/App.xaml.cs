@@ -1,5 +1,6 @@
 using System ;
 using System.Windows ;
+using System.Windows.Media;
 using System.Windows.Threading ;
 
 namespace xeus2
@@ -13,6 +14,8 @@ namespace xeus2
 		{
 			//xeus2.Properties.Resources.Culture = new CultureInfo( "en-US" ) ;
 			//string h = xeus2.Properties.Resources.Event_PresenceChange ;
+
+            Console.WriteLine("RCL: {0}", (RenderCapability.Tier >> 16));
 		}
 
 		public static bool CheckAccessSafe()

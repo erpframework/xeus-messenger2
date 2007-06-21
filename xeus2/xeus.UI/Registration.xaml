@@ -3,7 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:xeus2_xeus_XData="clr-namespace:xeus2.xeus.XData"
     x:Class="xeus2.xeus.UI.Registration"
-    Title="xeus2.xeus.UI" Height="300" Width="300"
+    Title="xeus2.xeus.UI" Height="300" Width="400"
+    MinHeight="300" MinWidth="400" ResizeMode="CanResizeWithGrip" SizeToContent="Height" Background="{DynamicResource back_x_design}"
+    WindowStartupLocation="CenterOwner"
     >
 	<Window.Resources>
 		<ResourceDictionary>
@@ -12,8 +14,8 @@
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Window.Resources>
-    <StackPanel>
-    	<xeus2_xeus_XData:InBandRegistration x:Name="_registration"/>
-      <Button x:Name="_register" Content="Register" Click="OnRegister"/>
-    </StackPanel>
+    <DockPanel>
+      <Button x:Name="_register" Content="Register" Click="OnRegister" HorizontalAlignment="Center" Margin="0,10,0,10" DockPanel.Dock="Bottom"/>
+    	<xeus2_xeus_XData:InBandRegistration x:Name="_registration" DockPanel.Dock="Top"/>
+    </DockPanel>
   </Window>

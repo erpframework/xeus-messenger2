@@ -1,8 +1,10 @@
 using System ;
-using agsXMPP.protocol.iq.search ;
+using System.Windows.Media;
 using agsXMPP.protocol.x.data ;
 using xeus2.xeus.Core ;
+using xeus2.xeus.UI;
 using xeus2.xeus.Utilities ;
+using Search=agsXMPP.protocol.iq.search.Search;
 
 namespace xeus2.xeus.XData
 {
@@ -174,5 +176,10 @@ namespace xeus2.xeus.XData
 				return _search.Email ;
 			}
 		}
+
+	    public override DrawingBrush Icon
+	    {
+            get { return StyleManager.GetBrush("search_design"); }
+        }
 	}
 }

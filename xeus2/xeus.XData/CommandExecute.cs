@@ -1,5 +1,8 @@
+using System;
+using System.Windows.Media;
 using agsXMPP.protocol.extensions.commands ;
 using xeus2.xeus.Core ;
+using xeus2.xeus.UI;
 using xeus2.xeus.Utilities ;
 
 namespace xeus2.xeus.XData
@@ -16,7 +19,12 @@ namespace xeus2.xeus.XData
 			}
 		}
 
-		internal void Setup( ServiceCommandExecution serviceCommandExecution )
+	    public override DrawingBrush Icon
+	    {
+            get { return StyleManager.GetBrush("run_design"); }
+        }
+
+	    internal void Setup( ServiceCommandExecution serviceCommandExecution )
 		{
 			Service = serviceCommandExecution.Service ;
 			_command = serviceCommandExecution.Command ;

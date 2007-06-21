@@ -30,8 +30,8 @@
   		<Storyboard x:Key="Highlight"/>
    	</HierarchicalDataTemplate.Resources>
 	
-  	<Grid Margin="5,5,5,5" MinWidth="300" x:Name="grid">
-		<StackPanel Margin="0,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="56" >
+  	<Grid Margin="5,0,5,0" MinWidth="300" x:Name="grid">
+		<StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Width="56" Margin="0,5,0,0" >
   		<Image Width="56" Height="56" Source="{Binding Path=Image}" OpacityMask="#FF000000" RenderTransformOrigin="0.5,0.5" x:Name="image" SnapsToDevicePixels="True">
   			<Image.RenderTransform>
   				<TransformGroup>
