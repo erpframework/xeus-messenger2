@@ -5,7 +5,7 @@
     x:Class="xeus2.xeus.UI.Search"
     Title="xeus2.xeus.UI"
     MinWidth="300" ResizeMode="CanResizeWithGrip" Background="{DynamicResource back_x_design}"
-    MinHeight="350" Width="350"
+    MinHeight="350" Width="370"
     >
 	<Window.Resources>
 		<ResourceDictionary>

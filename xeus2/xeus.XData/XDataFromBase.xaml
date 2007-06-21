@@ -4,9 +4,9 @@
     Margin="10,10,10,10" Foreground="#FFFFFFFF"
     >
   <StackPanel x:Name="_container">
-  	<StackPanel Orientation="Horizontal">
-		<Rectangle Width="24" Height="24" Fill="{Binding Path=Icon, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"/>
-    	<TextBlock x:Name="_title" Style="{DynamicResource MegaTextBlockStyle}" Margin="10,0,0,0"/>
+  	<StackPanel Orientation="Horizontal" OverridesDefaultStyle="True">
+		<Rectangle Fill="{Binding Path=Icon, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Width="24"/>
+    	<TextBlock x:Name="_title" Style="{DynamicResource MegaTextBlockStyle}" Margin="10,0,0,0" TextWrapping="Wrap"/>
 	</StackPanel>
     <TextBlock x:Name="_instructions" TextWrapping="Wrap" Foreground="#FFC1C1C1" Margin="0,5,0,0"/>
 	<Rectangle Fill="#FFFFFFFF" Margin="0,10,0,15" Height="1" DockPanel.Dock="Top">
