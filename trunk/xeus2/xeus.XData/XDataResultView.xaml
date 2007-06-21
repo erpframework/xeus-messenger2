@@ -1,7 +1,5 @@
-<UserControl x:Class="xeus2.xeus.XData.XDataResultView"
+﻿<UserControl x:Class="xeus2.xeus.XData.XDataResultView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <StackPanel>
       <ListView x:Name="_listView"></ListView>
-    </StackPanel>
 </UserControl>

@@ -4,6 +4,7 @@
     x:Class="xeus2.xeus.UI.ChooseCommand"
     Title="xeus2.xeus.UI" Width="300" SizeToContent="Height"
     ResizeMode="CanResizeWithGrip" Background="{DynamicResource back_x_design}"
+    WindowStartupLocation="CenterOwner"
     >
 	
 	<Window.Resources>

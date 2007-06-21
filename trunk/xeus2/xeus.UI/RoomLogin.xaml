@@ -2,17 +2,30 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     x:Class="xeus2.xeus.UI.RoomLogin"
-    Title="xeus2.xeus.UI" Height="300" Width="300"
+    Title="xeus2.xeus.UI" Width="300"
+    MinHeight="150" MinWidth="300" ResizeMode="CanResizeWithGrip" SizeToContent="Height" Background="{DynamicResource back_x_design}"
+    Foreground="{DynamicResource DefaultTextBrush2}"
     >
-    <StackPanel>
-      <TextBlock Text="{Binding Path=Name}"/>
+    <StackPanel Margin="10,10,10,0">
+	<StackPanel Orientation="Horizontal">
+	  <Rectangle Fill="{DynamicResource muc_design}" VerticalAlignment="Center" Width="24" Height="24"/>
+      <TextBlock Text="{Binding Path=Name}" Style="{DynamicResource MegaTextBlockStyle}" Margin="10,0,0,0"/>
+	</StackPanel>
       <TextBlock Text="{Binding Path=Jid}"/>
+		<Rectangle Fill="#FFFFFFFF" Margin="0,10,0,15" Height="1" DockPanel.Dock="Top">
+			<Rectangle.OpacityMask>
+				<RadialGradientBrush>
+					<GradientStop Color="#FF000000" Offset="0"/>
+					<GradientStop Color="#00FFFFFF" Offset="1"/>
+				</RadialGradientBrush>
+			</Rectangle.OpacityMask>
+		</Rectangle>	  
       <TextBlock Text="Nickname"/>
       <TextBox x:Name="_nick"/>
       <StackPanel x:Name="_passwordPanel">
         <TextBlock Text="Password"/>
         <PasswordBox x:Name="_password"/>
       </StackPanel>
-      <Button Content="Join" Click="OnJoin"/>
+      <Button Content="Join" Click="OnJoin" HorizontalAlignment="Center" Margin="0,10,0,10"/>
     </StackPanel>
 </Window>

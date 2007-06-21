@@ -1,6 +1,7 @@
 using System ;
 using System.Windows ;
 using System.Windows.Controls ;
+using System.Windows.Media;
 using agsXMPP.protocol.iq.register ;
 using agsXMPP.protocol.x.data ;
 using agsXMPP.Xml.Dom ;
@@ -11,12 +12,18 @@ namespace xeus2.xeus.XData
 	/// <summary>
 	/// Interaction logic for XDataFromBase.xaml
 	/// </summary>
-	public partial class XDataFormBase : UserControl
+	public abstract partial class XDataFormBase : UserControl
 	{
 		public XDataFormBase()
 		{
 			InitializeComponent() ;
 		}
+
+        public abstract DrawingBrush Icon
+        { 
+            get;
+        }
+
 
 		private XDataContainer _xDataContainer = null ;
 		private Service _service = null ;

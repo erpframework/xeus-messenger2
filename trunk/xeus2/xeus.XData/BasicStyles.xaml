@@ -65,12 +65,24 @@
 		</DrawingBrush.Drawing>
 	</DrawingBrush>
 	
-	<DrawingBrush x:Key="back_x_design" PresentationOptions:Freeze="True" Viewport="0,0,5,5" ViewportUnits="Absolute" TileMode="Tile">
+	<DrawingBrush x:Key="back_x_design" PresentationOptions:Freeze="True" Stretch="Fill" >
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
 				<DrawingGroup.Children>
-					<GeometryDrawing Brush="#FF000000" Geometry="F1 M 0,0L 16,0L 16,16L 0,16L 0,0 Z "/>
-					<GeometryDrawing Brush="#FF171717" Geometry="F1 M 2.02083,7.88542L 7.70833,2.19792L 13.3958,7.88542L 7.70833,13.5729L 2.02083,7.88542 Z "/>
+					<GeometryDrawing Brush="#FF000000" Geometry="F1 M 4.53725,-262.795L 525.037,-262.795L 525.037,-32.5909L 4.53725,-32.5909L 4.53725,-262.795 Z "/>
+					<GeometryDrawing Geometry="F1 M 4.53725,-32.5909L 525.037,-32.5909L 525.037,-262.795L 4.53725,-262.795L 4.53725,-32.5909 Z ">
+						<GeometryDrawing.Brush>
+							<RadialGradientBrush RadiusX="1" RadiusY="3.11351" Center="0.5,2.93038" GradientOrigin="0.5,2.93038">
+								<RadialGradientBrush.GradientStops>
+									<GradientStop Color="#FF1D93FF" Offset="0"/>
+									<GradientStop Color="#00000000" Offset="1"/>
+								</RadialGradientBrush.GradientStops>
+								<RadialGradientBrush.RelativeTransform>
+									<TransformGroup/>
+								</RadialGradientBrush.RelativeTransform>
+							</RadialGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
 				</DrawingGroup.Children>
 			</DrawingGroup>
 		</DrawingBrush.Drawing>
@@ -130,7 +142,6 @@
 							</LinearGradientBrush>
 						</GeometryDrawing.Brush>
 					</GeometryDrawing>
-					<GeometryDrawing Brush="#20FFFFFF" Geometry="F1 M 11.3333,11.3333L 11.3333,283.438C 49.4389,290.458 89.5395,294.205 130.934,294.205C 270.085,294.205 394.613,251.863 477.889,185.191L 477.889,11.3333L 11.3333,11.3333 Z "/>
 				</DrawingGroup.Children>
 			</DrawingGroup>
 		</DrawingBrush.Drawing>
@@ -151,6 +162,7 @@
 
 	<Style x:Key="XDataLabel" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource LabelBasic}">
 		<Setter Property="Foreground" Value="{DynamicResource DefaultTextBrush2}"/>
+		<Setter Property="HorizontalAlignment" Value="Left"/>
 	</Style>
 
 	<Style x:Key="XDataFixed" TargetType="{x:Type TextBlock}">
@@ -173,10 +185,15 @@
 		<Setter Property="MaxWidth" Value="250"/>
 	</Style>
 
-	<Style x:Key="XDataSecret" TargetType="{x:Type PasswordBox}">
+	<Style x:Key="PasswordBasic" TargetType="{x:Type PasswordBox}">
 		<Setter Property="MinWidth" Value="150"/>
 		<Setter Property="MaxWidth" Value="250"/>
+		<Setter Property="Background" Value="{DynamicResource DefaultTextBoxBackBrush}"/>
 	</Style>
+
+	<Style TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource PasswordBasic}"/>
+
+	<Style x:Key="XDataSecret" TargetType="{x:Type PasswordBox}"  BasedOn="{StaticResource PasswordBasic}"/>
 
 	<ControlTemplate x:Key="TreeViewControlTemplate" TargetType="{x:Type TreeView}"  PresentationOptions:Freeze="True">
 		<Border>
@@ -453,10 +470,11 @@
 	</Style>
 
 	<Style x:Key="MegaTextBlockStyle" TargetType="{x:Type TextBlock}">
-		<Setter Property="TextWrapping" Value="NoWrap"/>
+		<Setter Property="TextWrapping" Value="WrapWithOverflow"/>
 		<Setter Property="TextTrimming" Value="None"/>
 		<Setter Property="FontSize" Value="22"/>
 		<Setter Property="FontWeight" Value="Bold"/>
+		<Setter Property="Foreground" Value="{DynamicResource DefaultTextBoxBackBrush}"/>
 	</Style>
 
 </ResourceDictionary>

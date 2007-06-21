@@ -4,7 +4,8 @@
     xmlns:xeus2_xeus_XData="clr-namespace:xeus2.xeus.XData"
     x:Class="xeus2.xeus.UI.Search"
     Title="xeus2.xeus.UI" Width="400"
-    MinWidth="400" ResizeMode="CanResizeWithGrip" SizeToContent="Height" Background="{DynamicResource back_x_design}"
+    MinWidth="400" ResizeMode="CanResizeWithGrip" Background="{DynamicResource back_x_design}"
+    MinHeight="200" Height="400"
     >
 	<Window.Resources>
 		<ResourceDictionary>
@@ -13,9 +14,9 @@
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Window.Resources>
-  <StackPanel>
-    <xeus2_xeus_XData:SearchService x:Name="_search"/>
-    <Button Click="OnSearch">Search</Button>
-  	<xeus2_xeus_XData:XDataResultView x:Name="_resultView" Height="200"/>
-  </StackPanel>
+  <DockPanel>
+    <xeus2_xeus_XData:SearchService x:Name="_search" DockPanel.Dock="Top"/>
+    <Button Click="OnSearch" HorizontalAlignment="Center" Margin="0,10,0,10" Content="Search" DockPanel.Dock="Top"/>
+  	<xeus2_xeus_XData:XDataResultView x:Name="_resultView" DockPanel.Dock="Top"/>
+  </DockPanel>
 </Window>

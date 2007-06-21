@@ -9,5 +9,5 @@
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</UserControl.Resources>
-    <StackPanel x:Name="_container"/>
+    <WrapPanel x:Name="_container"/>
 </UserControl>

@@ -1,9 +1,21 @@
 ﻿<UserControl
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="xeus2.xeus.XData.XDataFormBase"
+    Margin="10,10,10,10" Foreground="#FFFFFFFF"
     >
   <StackPanel x:Name="_container">
-    <TextBlock x:Name="_title" Style="{DynamicResource MegaTextBlockStyle}"/>
-    <TextBlock x:Name="_instructions"/>
+  	<StackPanel Orientation="Horizontal">
+		<Rectangle Width="24" Height="24" Fill="{Binding Path=Icon, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"/>
+    	<TextBlock x:Name="_title" Style="{DynamicResource MegaTextBlockStyle}" Margin="10,0,0,0"/>
+	</StackPanel>
+    <TextBlock x:Name="_instructions" TextWrapping="Wrap" Foreground="#FFC1C1C1" Margin="0,5,0,0"/>
+	<Rectangle Fill="#FFFFFFFF" Margin="0,10,0,15" Height="1" DockPanel.Dock="Top">
+		<Rectangle.OpacityMask>
+			<RadialGradientBrush>
+				<GradientStop Color="#FF000000" Offset="0"/>
+				<GradientStop Color="#00FFFFFF" Offset="1"/>
+			</RadialGradientBrush>
+		</Rectangle.OpacityMask>
+	</Rectangle>	
   </StackPanel>
 </UserControl>

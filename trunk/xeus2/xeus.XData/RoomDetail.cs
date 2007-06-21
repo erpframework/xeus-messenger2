@@ -1,4 +1,6 @@
+using System.Windows.Media;
 using xeus2.xeus.Core ;
+using xeus2.xeus.UI;
 using xeus2.xeus.Utilities ;
 
 namespace xeus2.xeus.XData
@@ -10,7 +12,12 @@ namespace xeus2.xeus.XData
 			InitializeComponent() ;
 		}
 
-		internal void Setup( Service service )
+	    public override DrawingBrush Icon
+	    {
+            get { return StyleManager.GetBrush("mucinfo_design"); }
+	    }
+
+	    internal void Setup( Service service )
 		{
 			Service = service ;
 
