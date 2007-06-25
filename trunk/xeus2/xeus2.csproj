@@ -76,6 +76,7 @@
     <ApplicationDefinition Include="App.xaml" />
     <Page Include="xeus.UI\ChooseCommand.xaml" />
     <Page Include="xeus.UI\CommandExecute.xaml" />
+    <Page Include="xeus.UI\InfoPopup.xaml" />
     <Page Include="xeus.UI\Login.xaml" />
     <Page Include="xeus.UI\Muc.xaml" />
     <Page Include="xeus.UI\Registration.xaml" />
@@ -151,6 +152,7 @@
     <Compile Include="xeus.Data\Database.cs" />
     <Compile Include="xeus.Data\Storage.cs" />
     <Compile Include="xeus.Middle\CommandExecutor.cs" />
+    <Compile Include="xeus.Middle\ErrorPopup.cs" />
     <Compile Include="xeus.Middle\Login.cs" />
     <Compile Include="xeus.Middle\Muc.cs" />
     <Compile Include="xeus.Middle\MucInfo.cs" />
@@ -166,6 +168,10 @@
     <Compile Include="xeus.UI\CommandExecute.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>CommandExecute.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xeus.UI\InfoPopup.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>InfoPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\Login.xaml.cs">
       <SubType>Code</SubType>
