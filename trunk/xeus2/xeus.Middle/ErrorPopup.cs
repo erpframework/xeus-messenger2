@@ -25,7 +25,10 @@ namespace xeus2.xeus.Middle
 
         void Instance_OnEventRaised(object sender, Event myEvent)
         {
-            _errorInfo.Display(myEvent);
+            if (myEvent.Severity == Event.EventSeverity.Error)
+            {
+                _errorInfo.Display(myEvent);
+            }
         }
 
         public void Init()
