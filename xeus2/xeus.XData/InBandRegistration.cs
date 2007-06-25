@@ -147,6 +147,8 @@ namespace xeus2.xeus.XData
 			{
 				AddField( field ) ;
 			}
+
+		    _title.Text = Service.Name;
 		}
 	}
 }
