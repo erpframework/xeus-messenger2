@@ -16,6 +16,6 @@
 	</Window.Resources>
     <DockPanel HorizontalAlignment="Stretch">
       <Button x:Name="_register" Content="Register" Click="OnRegister" HorizontalAlignment="Center" Margin="0,10,0,10" DockPanel.Dock="Bottom"/>
-    	<xeus2_xeus_XData:InBandRegistration x:Name="_registration" DockPanel.Dock="Top"/>
+    	<xeus2_xeus_XData:InBandRegistration x:Name="_registration" DockPanel.Dock="Top" VerticalContentAlignment="Top"/>
     </DockPanel>
   </Window>

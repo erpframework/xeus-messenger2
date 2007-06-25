@@ -9,5 +9,6 @@
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</UserControl.Resources>
-    <WrapPanel x:Name="_container" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Center"/>
+    	<WrapPanel x:Name="_container" 
+		 HorizontalAlignment="Center" />
 </UserControl>
