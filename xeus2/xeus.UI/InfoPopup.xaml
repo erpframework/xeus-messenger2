@@ -1,9 +1,7 @@
-﻿<Popup
+﻿<ToolTip
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    IsOpen="true" StaysOpen="true" Placement="Absolute" HorizontalOffset="0" VerticalOffset="0"
-    x:Class="xeus2.xeus.UI.InfoPopup" >
-	<StackPanel>
-		<TextBlock x:Name="_text" Foreground="#FFFFFFFF"/>
-	</StackPanel>
-</Popup>  
+    x:Class="xeus2.xeus.UI.InfoPopup"
+	  Placement="MousePoint"
+ >
+</ToolTip>  

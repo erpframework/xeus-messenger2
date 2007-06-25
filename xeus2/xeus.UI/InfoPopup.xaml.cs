@@ -1,3 +1,6 @@
+using System.Windows;
+using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using xeus2.xeus.Core;
 
 namespace xeus2.xeus.UI
@@ -14,7 +17,15 @@ namespace xeus2.xeus.UI
 
         internal void Display(Event eventInfo)
         {
-            _text.Text = eventInfo.Message;
+            //IsOpen = false;
+
+            Content = eventInfo.Message;
+
+            //Point position = App.Current.MainWindow.PointToScreen(Mouse.GetPosition(App.Current.MainWindow));
+
+           // Placement = PlacementMode.MousePoint;
+
+            IsOpen = true;
         }
     }
 }
