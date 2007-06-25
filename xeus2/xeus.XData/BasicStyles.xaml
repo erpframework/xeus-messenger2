@@ -224,6 +224,15 @@
 		<GradientStop Color="#FFE0E0E0" Offset="0.87"/>
 		<GradientStop Color="#FFE5E2E2" Offset="0.52"/>
 	</LinearGradientBrush>
+	
+	<LinearGradientBrush x:Key="DefaultTextBoxBackBrushSelected" EndPoint="0.5,1" StartPoint="0.5,0">
+		<GradientStop Color="#FFA7BFC8" Offset="0.005"/>
+		<GradientStop Color="#FF76B5C8" Offset="0.99"/>
+		<GradientStop Color="#FFBECFD6" Offset="0.14"/>
+		<GradientStop Color="#FFBCD9E4" Offset="0.87"/>
+		<GradientStop Color="#FFC6DDE5" Offset="0.52"/>
+	</LinearGradientBrush>
+
 	<SolidColorBrush x:Key="DefaultTextBrush" Color="#FF454545" PresentationOptions:Freeze="True"/>
 	<SolidColorBrush x:Key="DefaultTextBrush2" Color="#FF919191" PresentationOptions:Freeze="True"/>
 
@@ -474,8 +483,7 @@
 	</Style>
 
 	<Style x:Key="MegaTextBlockStyle" TargetType="{x:Type TextBlock}">
-		<Setter Property="TextWrapping" Value="WrapWithOverflow"/>
-		<Setter Property="TextTrimming" Value="None"/>
+		<Setter Property="TextWrapping" Value="Wrap"/>
 		<Setter Property="FontSize" Value="22"/>
 		<Setter Property="FontWeight" Value="Bold"/>
 		<Setter Property="Foreground" Value="{DynamicResource DefaultTextBoxBackBrush}"/>
@@ -509,7 +517,7 @@
 		</BulletDecorator>
 		<ControlTemplate.Triggers>
 			<Trigger Property="IsMouseOver" Value="True">
-				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource DefaultSelectedBorderBrush}"/>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource DefaultTextBoxBackBrushSelected}"/>
 			</Trigger>
 			<Trigger Property="IsPressed" Value="True">
 				<Setter Property="RenderTransform" TargetName="border">
@@ -582,7 +590,7 @@
 									<ControlTemplate.Triggers>
 										<Trigger Property="IsMouseOver" Value="True">
 											<Setter Property="Fill" TargetName="Arrow" Value="#FF616161"/>
-											<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource DefaultSelectedBorderBrush}"/>
+											<Setter Property="Background" TargetName="border" Value="{DynamicResource DefaultTextBoxBackBrushSelected}"/>
 										</Trigger>
 										<Trigger Property="IsChecked" Value="True">
 										</Trigger>
