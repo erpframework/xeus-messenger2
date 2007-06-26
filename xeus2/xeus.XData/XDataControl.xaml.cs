@@ -41,14 +41,14 @@ namespace xeus2.xeus.XData
 		{
 			if ( !String.IsNullOrEmpty( Field.Label ) )
 			{
-				_description.Text = Field.Label ;
-				_description.ToolTip = Field.Description ;
+                _description.Text = Field.Label;
+                _description.ToolTip = Field.Description;
 
 				_description.Visibility = Visibility.Visible ;
 			}
 			else if ( !String.IsNullOrEmpty( Field.Description ) )
 			{
-				_description.Text = Field.Description ;
+                _description.Text = Field.Description;
 
 				_description.Visibility = Visibility.Visible ;
 			}

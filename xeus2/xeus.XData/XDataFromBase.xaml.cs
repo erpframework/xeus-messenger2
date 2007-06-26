@@ -51,7 +51,7 @@ namespace xeus2.xeus.XData
 			}
 			else
 			{
-				_title.Text = xData.Title ;
+                _title.Text = xData.Title;
 			}
 
 			if ( string.IsNullOrEmpty( xData.Instructions ) )
@@ -60,7 +60,7 @@ namespace xeus2.xeus.XData
 			}
 			else
 			{
-				_instructions.Text = xData.Instructions ;
+                _instructions.Text = xData.Instructions;
 			}
 
 			if ( _xDataContainer != null )

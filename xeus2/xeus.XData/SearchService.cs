@@ -44,7 +44,7 @@ namespace xeus2.xeus.XData
 
 		private void SetupSimpleSearch()
 		{
-			_instructions.Text = _search.Instructions ;
+            _instructions.Text = _search.Instructions;
 
 			// first name
 			if ( _search.Firstname != null )

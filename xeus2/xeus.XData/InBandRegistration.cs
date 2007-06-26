@@ -136,7 +136,7 @@ namespace xeus2.xeus.XData
 
 		private void SetupGatewayRegistration()
 		{
-			_instructions.Text = _register.Instructions ;
+			_instructions.Text = _register.Instructions;
 
 			if ( _register.GetTag( "registered" ) != null )
 			{

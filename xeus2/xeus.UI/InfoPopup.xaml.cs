@@ -1,7 +1,8 @@
+using System.Timers;
 using System.Windows;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using xeus2.xeus.Core;
+using System.Windows.Threading;
+using xeus2.Properties;
 
 namespace xeus2.xeus.UI
 {
@@ -10,22 +11,50 @@ namespace xeus2.xeus.UI
     /// </summary>
     public partial class InfoPopup
     {
+        private Timer _timer = new Timer(Settings.Default.UI_ErrorDismiss);
+
+        private delegate void CloseCallback();
+
+
         public InfoPopup()
         {
             InitializeComponent();
+
+            Style = StyleManager.GetStyle("InfoTip");
+
+            _timer.Elapsed += new ElapsedEventHandler(_timer_Elapsed);
+
+            MouseLeave += new MouseEventHandler(InfoPopup_MouseLeave);
+            MouseEnter += new MouseEventHandler(InfoPopup_MouseEnter);
+
+            Rect rect = new Rect(0, 0, ActualWidth, ActualHeight);
+            Rect mouseRect = new Rect(new Point(0.0, 0.0), Mouse.GetPosition(this));
+
+            if (rect.IntersectsWith(mouseRect))
+            {
+                _timer.Start();
+            }
         }
 
-        internal void Display(Event eventInfo)
+        private void InfoPopup_MouseEnter(object sender, MouseEventArgs e)
         {
-            //IsOpen = false;
+            _timer.Stop();
+        }
 
-            Content = eventInfo.Message;
+        private void InfoPopup_MouseLeave(object sender, MouseEventArgs e)
+        {
+            _timer.Start();
+        }
 
-            //Point position = App.Current.MainWindow.PointToScreen(Mouse.GetPosition(App.Current.MainWindow));
+        private void _timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            App.InvokeSafe(DispatcherPriority.Normal,
+                           new CloseCallback(Close));
+        }
 
-           // Placement = PlacementMode.MousePoint;
-
-            IsOpen = true;
+        protected void Close()
+        {
+            IsOpen = false;
         }
     }
 }

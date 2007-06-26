@@ -1045,7 +1045,7 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-	
+
 	<DataTemplate x:Key="ServiceSimple">
     <StackPanel Orientation="Horizontal" MinHeight="24" Margin="0,1,0,1">
 	  <Rectangle ToolTip="Service Type" x:Name="type" Width="16" Height="16" Margin="0,0,3,0" Visibility="Visible" Fill="{DynamicResource service_design}"/>
