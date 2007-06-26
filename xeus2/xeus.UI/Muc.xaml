@@ -4,6 +4,7 @@
     xmlns:xeus2_xeus_Core="clr-namespace:xeus2.xeus.Core"        
     x:Class="xeus2.xeus.UI.Muc"        
     Title="xeus2.xeus.UI" Height="475" Width="300"
+    Background="{DynamicResource back_x_design}"
     >
   <Window.Resources>
     <CollectionViewSource x:Key="MucContacts" Source="{Binding Path=MucRoster}">
@@ -17,7 +18,7 @@
         <ListBox ItemsSource="{Binding Source={StaticResource MucContacts}}" Height="112"
                ItemsPanel="{DynamicResource ItemsPanelTemplateMucRoster}"
                ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemTemplate="{DynamicResource MucContact}"
-               x:Name="_mucRoster">
+               x:Name="_mucRoster" Margin="5,5,5,5" Background="{DynamicResource background_design}">
         <ListBox.GroupStyle>
           <GroupStyle>
             <GroupStyle.ContainerStyle>
