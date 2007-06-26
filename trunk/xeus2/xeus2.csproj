@@ -66,6 +66,7 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.IdentityModel" />
+    <Page Include="xeus.UI\xeus.UI.Look\Events.xaml" />
     <Page Include="xeus.UI\xeus.UI.Look\MucRoster.xaml" />
     <Page Include="xeus.UI\xeus.UI.Look\Roster.xaml" />
     <Page Include="xeus.UI\xeus.UI.Look\Services.xaml" />

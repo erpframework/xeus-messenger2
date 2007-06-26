@@ -41,7 +41,7 @@ namespace xeus2.xeus.XData
 				if ( !string.IsNullOrEmpty( _command.Node )
 						&& _command.Note != null )
 				{
-					_instructions.Text = _command.Note.Value ;
+                    _instructions.Text = _command.Note.Value;
 				}
 				else
 				{

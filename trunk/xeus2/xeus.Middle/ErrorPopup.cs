@@ -5,8 +5,6 @@ namespace xeus2.xeus.Middle
 {
     internal class ErrorPopup
     {
-        private InfoPopup _errorInfo = new InfoPopup();
-
         private static ErrorPopup _instance = new ErrorPopup();
 
 
@@ -27,7 +25,9 @@ namespace xeus2.xeus.Middle
         {
             if (myEvent.Severity == Event.EventSeverity.Error)
             {
-                _errorInfo.Display(myEvent);
+                InfoPopup errorInfo = new InfoPopup();
+                errorInfo.Content = myEvent ;
+                errorInfo.IsOpen = true;
             }
         }
 
