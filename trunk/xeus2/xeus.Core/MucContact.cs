@@ -49,7 +49,7 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				if ( !string.IsNullOrEmpty( _presence.Status ) )
+				if ( _presence.MucUser.Status != null )
 				{
 					return MucStatusCodeTexts.GetCodeText( _presence.MucUser.Status ) ;
 				}
@@ -64,7 +64,14 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				return Presence.Status ;
+                if (string.IsNullOrEmpty(Presence.Status))
+                {
+                    return Resources.Constant_NoMessage;
+                }
+                else
+                {
+                    return Presence.Status;
+                }
 			}
 		}
 
