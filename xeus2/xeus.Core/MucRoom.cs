@@ -3,15 +3,16 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 using agsXMPP;
 using agsXMPP.Collections;
 using agsXMPP.protocol.client;
 using xeus2.Properties;
+using xeus2.xeus.UI;
 using Uri=System.Uri;
 
 namespace xeus2.xeus.Core
@@ -26,11 +27,12 @@ namespace xeus2.xeus.Core
         private readonly string _nick;
 
         public delegate void MucContactHandler(MucMessage mucMessage);
+
         public event MucContactHandler OnClickMucContact;
 
         private FlowDocument _chatDocument = null;
 
-        public MucRoom(Service service, XmppClientConnection xmppClientConnection, string nick )
+        public MucRoom(Service service, XmppClientConnection xmppClientConnection, string nick)
         {
             _service = service;
             _xmppClientConnection = xmppClientConnection;
@@ -73,7 +75,7 @@ namespace xeus2.xeus.Core
             {
                 _chatDocument = new FlowDocument();
                 _chatDocument.Foreground = Brushes.Black;
-                _chatDocument.FontFamily = new FontFamily( "Segoe UI" );
+                _chatDocument.FontFamily = new FontFamily("Segoe UI");
                 _chatDocument.TextAlignment = TextAlignment.Left;
             }
 
@@ -95,9 +97,11 @@ namespace xeus2.xeus.Core
         }
 
         private static Brush _forMeBackground;
+        private static Brush _contactBackground;
+        private static Brush _timeBackground;
         //      private static Brush _alternativeForeground;
 
-               private readonly Binding _timeBinding = new Binding("RelativeTime");
+        private readonly Binding _timeBinding = new Binding("RelativeTime");
 
         private readonly Regex _urlregex =
             new Regex(
@@ -108,7 +112,9 @@ namespace xeus2.xeus.Core
         {
             if (_forMeBackground == null)
             {
-                _forMeBackground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                _forMeBackground = StyleManager.GetBrush("mymsg_design");
+                _contactBackground = StyleManager.GetBrush("mucusername_design");
+                _timeBackground = StyleManager.GetBrush("mucmsgtime_design");
             }
 
             Section groupSection = null;
@@ -124,10 +130,12 @@ namespace xeus2.xeus.Core
             paragraph.Margin = new Thickness(0.0, 5.0, 0.0, 10.0);
 
             bool newSection = (groupSection == null);
-            
+
             if (previousMessage == null
-                 || previousMessage.Sender != message.Sender
-                 || (message.DateTime - previousMessage.DateTime > TimeSpan.FromMinutes(Settings.Default.UI_GroupMessagesByMinutes)))
+                || previousMessage.Sender != message.Sender
+                ||
+                (message.DateTime - previousMessage.DateTime >
+                 TimeSpan.FromMinutes(Settings.Default.UI_GroupMessagesByMinutes)))
             {
                 /*Image avatar = new Image();
                 avatar.Source = message.Image;
@@ -139,12 +147,13 @@ namespace xeus2.xeus.Core
                 if (!string.IsNullOrEmpty(message.Sender))
                 {
                     Span contactName = new Span();
-                    contactName.Background = Brushes.LightGray;
+                    contactName.Cursor = Cursors.Hand;
+                    contactName.Background = _contactBackground;
                     contactName.Inlines.Add(message.Sender);
                     paragraph.Inlines.Add(contactName);
                     paragraph.Inlines.Add("  ");
 
-                    contactName.MouseDown += new System.Windows.Input.MouseButtonEventHandler(contactName_MouseDown);
+                    contactName.MouseDown += new MouseButtonEventHandler(contactName_MouseDown);
                 }
 
                 newSection = true;
@@ -155,81 +164,92 @@ namespace xeus2.xeus.Core
                 paragraph.Foreground = _alternativeForeground;
             }*/
 
-            MatchCollection matches = _urlregex.Matches(message.Body);
-
-            if (matches.Count > 0)
+            if (!string.IsNullOrEmpty(message.Body))
             {
-                string[] founds = new string[matches.Count];
+                MatchCollection matches = _urlregex.Matches(message.Body);
 
-                for (int i = 0; i < founds.Length; i++)
+                if (matches.Count > 0)
                 {
-                    founds[i] = matches[i].ToString();
-                }
+                    string[] founds = new string[matches.Count];
 
-                string[] bodies = message.Body.Split(founds, StringSplitOptions.RemoveEmptyEntries);
-
-                for (int j = 0; j < bodies.Length || j < founds.Length; j++)
-                {
-                    bool wrongUri = false;
-
-                    if (bodies.Length > j)
+                    for (int i = 0; i < founds.Length; i++)
                     {
-                        paragraph.Inlines.Add(bodies[j]);
+                        founds[i] = matches[i].ToString();
                     }
 
-                    if (founds.Length > j)
+                    string[] bodies = message.Body.Split(founds, StringSplitOptions.RemoveEmptyEntries);
+
+                    for (int j = 0; j < bodies.Length || j < founds.Length; j++)
                     {
-                        Run hyperlinkRun = new Run(founds[j]);
-                        Hyperlink hyperlink = new XeusHyperlink(hyperlinkRun);
-                        hyperlink.Foreground = Brushes.DarkSalmon;
+                        bool wrongUri = false;
 
-                        try
+                        if (bodies.Length > j)
                         {
-                            string url = hyperlinkRun.Text;
+                            paragraph.Inlines.Add(bodies[j]);
+                        }
 
-                            if (!url.Contains(":"))
+                        if (founds.Length > j)
+                        {
+                            Run hyperlinkRun = new Run(founds[j]);
+                            Hyperlink hyperlink = new XeusHyperlink(hyperlinkRun);
+                            hyperlink.Foreground = Brushes.DarkSalmon;
+
+                            try
                             {
-                                url = string.Format("http://{0}", url);
+                                string url = hyperlinkRun.Text;
+
+                                if (!url.Contains(":"))
+                                {
+                                    url = string.Format("http://{0}", url);
+                                }
+
+                                hyperlink.NavigateUri = new Uri(url);
                             }
 
-                            hyperlink.NavigateUri = new Uri(url);
-                        }
+                            catch
+                            {
+                                // improper uri format
+                                wrongUri = true;
+                            }
 
-                        catch
-                        {
-                            // improper uri format
-                            wrongUri = true;
-                        }
-
-                        if (wrongUri)
-                        {
-                            paragraph.Inlines.Add(hyperlinkRun);
-                        }
-                        else
-                        {
-                            paragraph.Inlines.Add(hyperlink);
+                            if (wrongUri)
+                            {
+                                paragraph.Inlines.Add(hyperlinkRun);
+                            }
+                            else
+                            {
+                                paragraph.Inlines.Add(hyperlink);
+                            }
                         }
                     }
                 }
-            }
-            else
-            {
-                paragraph.Inlines.Add(message.Body);
+                else
+                {
+                    paragraph.Inlines.Add(message.Body);
+                }
             }
 
             paragraph.DataContext = message;
 
+            /*
             TextBlock textBlock = new TextBlock();
             //textBlock.Style = MessageWindow.GetTimeTextBlockStyle();
             textBlock.SetBinding(TextBlock.TextProperty, _timeBinding);
 
             paragraph.Inlines.Add(textBlock);
+            */
+            Span time = new Span();
+            time.Background = _timeBackground;
+            time.FontSize = time.FontSize / 1.3;
+            time.Inlines.Add(message.RelativeTime.ToString());
+            paragraph.Inlines.Add(time);
 
             if (newSection)
             {
                 groupSection = new Section();
 
-                if (message.Body.Contains( _nick ))
+                if (!string.IsNullOrEmpty(message.Body)
+                    && message.Body.Contains(_nick))
                 {
                     groupSection.Background = _forMeBackground;
                 }
@@ -245,17 +265,19 @@ namespace xeus2.xeus.Core
             return groupSection;
         }
 
-        void contactName_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void contactName_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Span contactSpan = sender as Span;
 
-            if ( contactSpan != null )
+            if (contactSpan != null)
             {
                 MucMessage mucMessage = contactSpan.DataContext as MucMessage;
 
-                if ( mucMessage != null && OnClickMucContact != null )
+                if (mucMessage != null && OnClickMucContact != null)
                 {
                     OnClickMucContact(mucMessage);
+
+                    e.Handled = true;
                 }
             }
         }
