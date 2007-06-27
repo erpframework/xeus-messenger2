@@ -356,7 +356,15 @@
 
 
   <DataTemplate x:Key="MucContact">
-    <StackPanel ToolTip="{Binding Path=StatusText}">
+  	<Border Background="{DynamicResource DefaultTextBoxBackBrush}" BorderBrush="{DynamicResource DefaultSelectedBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" Padding="5,5,5,3">
+    <StackPanel>
+		  <StackPanel.ToolTip>
+		  <ToolTip Content="{Binding Path=StatusText}"
+		  Placement="Bottom" 
+	             HorizontalOffset="0" 
+	             VerticalOffset="0"
+	             HasDropShadow="false"/>
+		  </StackPanel.ToolTip>
 	  <Grid>
       	<Rectangle x:Name="_affiliation" Width="24" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center"
 			ToolTip="{Binding Path=Affiliation}"
@@ -366,6 +374,7 @@
       <TextBlock Text="{Binding Path=Show}"/>
       <TextBlock Text="{Binding Path=MucStatusCodeText}"/>
     </StackPanel>
+	</Border>
 	
   	<DataTemplate.Triggers>
 		<DataTrigger Binding="{Binding Path=Affiliation}" Value="admin">

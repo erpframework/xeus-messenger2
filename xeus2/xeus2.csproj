@@ -150,6 +150,7 @@
     <Compile Include="xeus.Core\ServiceDummy.cs" />
     <Compile Include="xeus.Core\Services.cs" />
     <Compile Include="xeus.Core\XeusException.cs" />
+    <Compile Include="xeus.Core\XeusHyperlink.cs" />
     <Compile Include="xeus.Data\Database.cs" />
     <Compile Include="xeus.Data\Storage.cs" />
     <Compile Include="xeus.Middle\CommandExecutor.cs" />
