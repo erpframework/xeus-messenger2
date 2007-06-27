@@ -306,4 +306,7 @@
   <data name="Event_CommandCancelled" xml:space="preserve">
     <value>Command {0} cancelled</value>
   </data>
+  <data name="Constant_NoMessage" xml:space="preserve">
+    <value>No Message</value>
+  </data>
 </root>
