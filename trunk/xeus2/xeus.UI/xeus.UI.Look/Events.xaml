@@ -6,9 +6,7 @@
 	>
 
 	<DataTemplate  DataType="{x:Type xeus2_xeus_Core:EventError}">
-    <StackPanel Orientation="Horizontal">
-	  <Rectangle ToolTip="Service Type" x:Name="type" Width="18" Height="18" Margin="0,0,3,0" Fill="{DynamicResource error2_design}"/>
-
+    <StackPanel>
     	<TextBlock Text="{Binding Path=Message}" Foreground="{DynamicResource DefaultTextBrush2}" MinWidth="200" TextWrapping="Wrap" VerticalAlignment="Center"/>
 	</StackPanel>
 	</DataTemplate>

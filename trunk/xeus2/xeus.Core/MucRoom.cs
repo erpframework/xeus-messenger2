@@ -249,7 +249,7 @@ namespace xeus2.xeus.Core
                 groupSection = new Section();
 
                 if (!string.IsNullOrEmpty(message.Body)
-                    && message.Body.Contains(_nick))
+                    && message.Body.IndexOf(_nick, 0, StringComparison.CurrentCultureIgnoreCase) >= 0)
                 {
                     groupSection.Background = _forMeBackground;
                 }
