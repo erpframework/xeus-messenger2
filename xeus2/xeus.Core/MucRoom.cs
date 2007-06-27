@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -22,13 +23,15 @@ namespace xeus2.xeus.Core
 
         private Service _service;
         private XmppClientConnection _xmppClientConnection = null;
+        private readonly string _nick;
 
         private FlowDocument _chatDocument = null;
 
-        public MucRoom(Service service, XmppClientConnection xmppClientConnection)
+        public MucRoom(Service service, XmppClientConnection xmppClientConnection, string nick )
         {
             _service = service;
             _xmppClientConnection = xmppClientConnection;
+            _nick = nick;
 
             _xmppClientConnection.MesagageGrabber.Add(service.Jid, new BareJidComparer(), new MessageCB(MessageCallback),
                                                       null);
@@ -88,10 +91,10 @@ namespace xeus2.xeus.Core
             NotifyPropertyChanged("ChatDocument");
         }
 
-        //      private static Brush _alternativeBackground;
+        private static Brush _forMeBackground;
         //      private static Brush _alternativeForeground;
 
-        //       private readonly Binding _timeBinding = new Binding("RelativeTime");
+               private readonly Binding _timeBinding = new Binding("RelativeTime");
 
         private readonly Regex _urlregex =
             new Regex(
@@ -100,12 +103,11 @@ namespace xeus2.xeus.Core
 
         public Block GenerateMessage(MucMessage message, MucMessage previousMessage)
         {
-            /*         if (_alternativeBackground == null)
+            if (_forMeBackground == null)
             {
-                _alternativeBackground = new SolidColorBrush(Color.FromRgb(50, 50, 50));
-                _alternativeForeground = new SolidColorBrush(Color.FromRgb(191, 215, 234));
+                _forMeBackground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+            }
 
-            }*/
             Section groupSection = null;
 
             if (_chatDocument != null)
@@ -130,6 +132,17 @@ namespace xeus2.xeus.Core
 
                 paragraph.Inlines.Add(avatar);
                 paragraph.Inlines.Add("  ");*/
+
+                if (!string.IsNullOrEmpty(message.Sender))
+                {
+                    Span contactName = new Span();
+                    contactName.Background = Brushes.LightGray;
+                    contactName.Inlines.Add(message.Sender);
+                    paragraph.Inlines.Add(contactName);
+                    paragraph.Inlines.Add("  ");
+
+                    contactName.MouseDown += new System.Windows.Input.MouseButtonEventHandler(contactName_MouseDown);
+                }
 
                 newSection = true;
             }
@@ -204,19 +217,19 @@ namespace xeus2.xeus.Core
             paragraph.DataContext = message;
 
             TextBlock textBlock = new TextBlock();
-            /*textBlock.Style = MessageWindow.GetTimeTextBlockStyle();
-            textBlock.SetBinding(TextBlock.TextProperty, _timeBinding);*/
+            //textBlock.Style = MessageWindow.GetTimeTextBlockStyle();
+            textBlock.SetBinding(TextBlock.TextProperty, _timeBinding);
 
             paragraph.Inlines.Add(textBlock);
 
             if (newSection)
             {
                 groupSection = new Section();
-                /*
-                if (message.SentByMe)
+
+                if (message.Body.Contains( _nick ))
                 {
-                    groupSection.Background = _alternativeBackground;
-                }*/
+                    groupSection.Background = _forMeBackground;
+                }
 
                 groupSection.Blocks.Add(paragraph);
                 groupSection.Margin = new Thickness(3.0, 10.0, 3.0, 0.0);
@@ -227,6 +240,21 @@ namespace xeus2.xeus.Core
             groupSection.Blocks.Add(paragraph);
 
             return groupSection;
+        }
+
+        void contactName_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Span contactSpan = sender as Span;
+
+            if ( contactSpan != null )
+            {
+                MucMessage mucMessage = contactSpan.DataContext as MucMessage;
+
+                if ( mucMessage != null )
+                {
+                    
+                }
+            }
         }
 
         public MucRoster MucRoster

@@ -130,5 +130,17 @@ namespace xeus2.Properties {
                 this["UI_ErrorDismiss"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public double UI_GroupMessagesByMinutes {
+            get {
+                return ((double)(this["UI_GroupMessagesByMinutes"]));
+            }
+            set {
+                this["UI_GroupMessagesByMinutes"] = value;
+            }
+        }
     }
 }

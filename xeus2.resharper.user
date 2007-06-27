@@ -5,9 +5,6 @@
       <Item value="GetServiceImage" priority="0" />
       <Item value="LoadResource" priority="0" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:agsXMPP.protocol.x.Delay">
-      <Item value="Stamp" priority="0" />
-    </ItemStatistics>
     <ItemStatistics item="Qualified:agsXMPP.XmppClientConnection">
       <Item value="Close" priority="0" />
       <Item value="OnPresence" priority="0" />
@@ -58,15 +55,14 @@
       <Item value="ToString" priority="12" />
       <Item value="User" priority="0" />
     </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Controls.ListBox">
+      <Item value="SelectedItems" priority="0" />
+      <Item value="DataContext" priority="0" />
+    </ItemStatistics>
     <ItemStatistics item="Qualified:System.Windows.Controls.TextBlock">
       <Item value="ToolTip" priority="0" />
       <Item value="Visibility" priority="1" />
       <Item value="Text" priority="2" />
-    </ItemStatistics>
-    <ItemStatistics item="Qualified:System.Collections.Generic.Dictionary&lt;K,T&gt;">
-      <Item value="ContainsKey" priority="0" />
-      <Item value="Add" priority="0" />
-      <Item value="TryGetValue" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@xeus2.xeus.Commands.ServiceCommands.DiscoveryServices">
       <Item value="Execute" priority="0" />
@@ -75,6 +71,9 @@
     <ItemStatistics item="Qualified:agsXMPP.protocol.extensions.commands.Actions">
       <Item value="Previous" priority="0" />
       <Item value="Next" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:xeus2.xeus.UI.CommandExecute">
+      <Item value="Redisplay" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@xeus2.xeus.Core.Events">
       <Item value="Instance" priority="1" />
@@ -88,16 +87,15 @@
     <ItemStatistics item="Qualified:System.Windows.Controls.GridViewColumnCollection">
       <Item value="Add" priority="1" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:xeus2.xeus.UI.CommandExecute">
-      <Item value="Redisplay" priority="0" />
+    <ItemStatistics item="Qualified:System.Data.DataColumnCollection">
+      <Item value="Add" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@xeus2.xeus.Utilities.TextUtil">
       <Item value="ToTitleCase" priority="0" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:xeus2.xeus.XData.XDataContainer">
-      <Item value="Data" priority="0" />
-      <Item value="IsValid" priority="0" />
-      <Item value="GetResult" priority="0" />
+    <ItemStatistics item="Qualified:System.Windows.Point">
+      <Item value="X" priority="1" />
+      <Item value="Y" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.Windows.Controls.UIElementCollection">
       <Item value="Clear" priority="0" />
@@ -111,23 +109,13 @@
       <Item value="ToString" priority="1" />
       <Item value="AppendLine" priority="0" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:agsXMPP.protocol.extensions.commands.Command">
-      <Item value="Node" priority="2" />
-      <Item value="Status" priority="1" />
-      <Item value="Action" priority="0" />
-      <Item value="Data" priority="0" />
-      <Item value="SessionId" priority="1" />
-      <Item value="Actions" priority="1" />
-    </ItemStatistics>
     <ItemStatistics item="Qualified:@xeus2.xeus.Core.Events.Instance">
       <Item value="OnEvent" priority="3" />
       <Item value="OnEventRaised" priority="0" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:System.Windows.Controls.ListView">
-      <Item value="View" priority="1" />
-      <Item value="DisplayMemberPath" priority="0" />
-      <Item value="DataContext" priority="0" />
-      <Item value="ItemsSource" priority="0" />
+    <ItemStatistics item="Qualified:@xeus2.xeus.Middle.MucInfo.Instance">
+      <Item value="DisplayMucInfo" priority="0" />
+      <Item value="MucLogin" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:xeus2.xeus.UI.ChooseCommand">
       <Item value="ShowDialog" priority="0" />
@@ -219,9 +207,10 @@
     <ItemStatistics item="Qualified:System.Windows.Rect">
       <Item value="IntersectsWith" priority="0" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:@xeus2.xeus.Middle.MucInfo.Instance">
-      <Item value="DisplayMucInfo" priority="0" />
-      <Item value="MucLogin" priority="0" />
+    <ItemStatistics item="Qualified:agsXMPP.protocol.client.Error">
+      <Item value="Message" priority="1" />
+      <Item value="Code" priority="4" />
+      <Item value="Condition" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.Collections.Generic.List&lt;string&gt;">
       <Item value="Add" priority="1" />
@@ -260,28 +249,22 @@
       <Item value="Equals" priority="0" />
       <Item value="Name" priority="0" />
       <Item value="Message" priority="0" />
+      <Item value="Code" priority="0" />
       <Item value="Actions" priority="0" />
       <Item value="CopyTo" priority="0" />
       <Item value="Jid" priority="1" />
-      <Item value="GetAttribute" priority="0" />
       <Item value="IsRegistrable" priority="0" />
       <Item value="Command" priority="0" />
+      <Item value="GetAttribute" priority="0" />
       <Item value="Count" priority="0" />
-      <Item value="Code" priority="0" />
       <Item value="Bare" priority="1" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@xeus2.xeus.Middle.MucInfo">
       <Item value="Instance" priority="0" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:agsXMPP.protocol.x.data.Data">
-      <Item value="GetItems" priority="3" />
-      <Item value="Instructions" priority="0" />
-      <Item value="GetField" priority="0" />
-      <Item value="AddChild" priority="0" />
-      <Item value="Title" priority="0" />
-      <Item value="AddItem" priority="0" />
-      <Item value="Reported" priority="1" />
-      <Item value="ChildNodes" priority="0" />
+    <ItemStatistics item="Qualified:xeus2.xeus.XData.XDataTextBox">
+      <Item value="Field" priority="0" />
+      <Item value="GetResult" priority="2" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.Collections.Generic.List&lt;agsXMPP.Jid&gt;">
       <Item value="Clear" priority="0" />
@@ -319,18 +302,14 @@
     <ItemStatistics item="Qualified:agsXMPP.protocol.client.ShowType">
       <Item value="ToString" priority="0" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:@System.DateTime">
-      <Item value="TryParse" priority="0" />
-    </ItemStatistics>
     <ItemStatistics item="Qualified:@xeus2.xeus.Middle.Services.Instance">
       <Item value="Display" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:agsXMPP.protocol.x.muc.StatusCode">
       <Item value="ToString" priority="0" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:agsXMPP.protocol.extensions.caps.Capabilities">
-      <Item value="Version" priority="0" />
-      <Item value="AddExtension" priority="1" />
+    <ItemStatistics item="Qualified:System.Windows.Documents.InlineCollection">
+      <Item value="FirstInline" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:agsXMPP.protocol.extensions.nickname.Nickname">
       <Item value="ToString" priority="0" />
@@ -352,10 +331,14 @@
     <ItemStatistics item="Qualified:xeus2.xeus.UI.InfoPopup">
       <Item value="IsOpen" priority="0" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:agsXMPP.protocol.Base.RosterItem">
-      <Item value="Name" priority="0" />
-      <Item value="GetGroups" priority="0" />
-      <Item value="Jid" priority="0" />
+    <ItemStatistics item="Qualified:agsXMPP.protocol.iq.disco.DiscoIdentity">
+      <Item value="Category" priority="2" />
+      <Item value="Type" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.Dictionary&lt;K,T&gt;">
+      <Item value="ContainsKey" priority="0" />
+      <Item value="Add" priority="0" />
+      <Item value="TryGetValue" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:xeus2.xeus.Core.MucRoom">
       <Item value="LeaveRoom" priority="0" />
@@ -363,18 +346,28 @@
     <ItemStatistics item="Qualified:@xeus2.xeus.Middle.CommandExecutor">
       <Item value="Instance" priority="0" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:agsXMPP.protocol.client.Error">
-      <Item value="Message" priority="1" />
-      <Item value="Code" priority="4" />
-      <Item value="Condition" priority="0" />
+    <ItemStatistics item="Qualified:agsXMPP.protocol.client.Message">
+      <Item value="Body" priority="0" />
+      <Item value="Equals" priority="0" />
+      <Item value="XDelay" priority="0" />
+      <Item value="Subject" priority="0" />
+      <Item value="Nickname" priority="0" />
+      <Item value="From" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:xeus2.xeus.XData.XDataContainer">
+      <Item value="Data" priority="0" />
+      <Item value="IsValid" priority="0" />
+      <Item value="GetResult" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:xeus2.xeus.Core.Event">
       <Item value="Message" priority="1" />
       <Item value="Severity" priority="0" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:xeus2.xeus.XData.XDataTextBox">
-      <Item value="Field" priority="0" />
-      <Item value="GetResult" priority="2" />
+    <ItemStatistics item="Qualified:System.Windows.Documents.Span">
+      <Item value="Background" priority="0" />
+      <Item value="Inlines" priority="0" />
+      <Item value="DataContext" priority="1" />
+      <Item value="MouseDown" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:agsXMPP.protocol.iq.register.RegisterIq">
       <Item value="To" priority="0" />
@@ -396,6 +389,10 @@
     <ItemStatistics item="Qualified:agsXMPP.Xml.Dom.Element">
       <Item value="ChildNodes" priority="0" />
     </ItemStatistics>
+    <ItemStatistics item="Qualified:xeus2.xeus.Core.Contact">
+      <Item value="Jid" priority="0" />
+      <Item value="Presence" priority="0" />
+    </ItemStatistics>
     <ItemStatistics item="Qualified:@System.Windows.Application.Current">
       <Item value="MainWindow" priority="0" />
       <Item value="Dispatcher" priority="0" />
@@ -411,6 +408,12 @@
       <Item value="Validate" priority="0" />
       <Item value="Field" priority="0" />
       <Item value="GetResult" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:xeus2.xeus.Core.MucMessage">
+      <Item value="DateTime" priority="0" />
+      <Item value="Body" priority="0" />
+      <Item value="Contact" priority="0" />
+      <Item value="Sender" priority="1" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:agsXMPP.protocol.client.Presence">
       <Item value="MucUser" priority="4" />
@@ -428,11 +431,10 @@
     <ItemStatistics item="Qualified:@xeus2.xeus.Middle.Services">
       <Item value="Instance" priority="0" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:xeus2.xeus.Core.ObservableCollectionDisp&lt;xeus2.xeus.Core.Service&gt;">
-      <Item value="Clear" priority="0" />
-      <Item value="Add" priority="1" />
-      <Item value="_syncObject" priority="0" />
-      <Item value="Count" priority="0" />
+    <ItemStatistics item="Qualified:agsXMPP.protocol.x.muc.Item">
+      <Item value="Jid" priority="1" />
+      <Item value="Affiliation" priority="1" />
+      <Item value="Nickname" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@xeus2.xeus.Middle.Login">
       <Item value="Instance" priority="0" />
@@ -446,6 +448,12 @@
     <ItemStatistics item="Qualified:agsXMPP.protocol.x.data.FieldContainer">
       <Item value="ChildNodes" priority="1" />
     </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Controls.ListView">
+      <Item value="View" priority="1" />
+      <Item value="DisplayMemberPath" priority="0" />
+      <Item value="DataContext" priority="0" />
+      <Item value="ItemsSource" priority="0" />
+    </ItemStatistics>
     <ItemStatistics item="Qualified:xeus2.xeus.Core.ServiceCategories">
       <Item value="Clear" priority="0" />
       <Item value="AddService" priority="0" />
@@ -457,9 +465,8 @@
       <Item value="Visibility" priority="0" />
       <Item value="Password" priority="3" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:agsXMPP.protocol.iq.disco.DiscoIdentity">
-      <Item value="Category" priority="2" />
-      <Item value="Type" priority="0" />
+    <ItemStatistics item="Qualified:@System.DateTime">
+      <Item value="TryParse" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.Data.DataRowCollection">
       <Item value="Add" priority="0" />
@@ -471,9 +478,13 @@
       <Item value="SelectedItem" priority="2" />
       <Item value="SelectedValue" priority="0" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:System.Windows.Controls.ListBox">
-      <Item value="SelectedItems" priority="0" />
-      <Item value="DataContext" priority="0" />
+    <ItemStatistics item="Qualified:agsXMPP.protocol.extensions.commands.Command">
+      <Item value="Node" priority="2" />
+      <Item value="SessionId" priority="1" />
+      <Item value="Status" priority="1" />
+      <Item value="Data" priority="0" />
+      <Item value="Action" priority="0" />
+      <Item value="Actions" priority="1" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@agsXMPP.Uri">
       <Item value="X_DATA" priority="0" />
@@ -503,20 +514,26 @@
     <ItemStatistics item="Qualified:@xeus2.xeus.UI.Search">
       <Item value="SearchResult" priority="0" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:agsXMPP.protocol.x.muc.Item">
-      <Item value="Jid" priority="1" />
-      <Item value="Affiliation" priority="1" />
-      <Item value="Nickname" priority="0" />
+    <ItemStatistics item="Qualified:agsXMPP.protocol.Base.RosterItem">
+      <Item value="Name" priority="0" />
+      <Item value="GetGroups" priority="0" />
+      <Item value="Jid" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@xeus2.xeus.Middle.Registration.Instance">
       <Item value="DisplayInBandRegistration" priority="0" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:System.Data.DataColumnCollection">
+    <ItemStatistics item="Qualified:System.Windows.Controls.ItemCollection">
       <Item value="Add" priority="0" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:xeus2.xeus.Core.Contact">
-      <Item value="Jid" priority="0" />
-      <Item value="Presence" priority="0" />
+    <ItemStatistics item="Qualified:agsXMPP.protocol.x.data.Data">
+      <Item value="GetItems" priority="3" />
+      <Item value="Instructions" priority="0" />
+      <Item value="GetField" priority="0" />
+      <Item value="AddChild" priority="0" />
+      <Item value="Title" priority="0" />
+      <Item value="AddItem" priority="0" />
+      <Item value="Reported" priority="1" />
+      <Item value="ChildNodes" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:agsXMPP.protocol.extensions.commands.Note">
       <Item value="ToString" priority="0" />
@@ -526,8 +543,8 @@
     </ItemStatistics>
     <ItemStatistics item="Qualified:@System.String">
       <Item value="Format" priority="11" />
-      <Item value="Empty" priority="10" />
-      <Item value="IsNullOrEmpty" priority="9" />
+      <Item value="Empty" priority="11" />
+      <Item value="IsNullOrEmpty" priority="10" />
       <Item value="Compare" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:xeus2.xeus.Core.Services">
@@ -562,9 +579,9 @@
       <Item value="Lastname" priority="0" />
       <Item value="Firstname" priority="0" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:System.Windows.Point">
-      <Item value="X" priority="1" />
-      <Item value="Y" priority="0" />
+    <ItemStatistics item="Qualified:agsXMPP.protocol.extensions.caps.Capabilities">
+      <Item value="Version" priority="0" />
+      <Item value="AddExtension" priority="1" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:xeus2.xeus.Core.MucContact">
       <Item value="Presence" priority="0" />
@@ -622,19 +639,19 @@
     <ItemStatistics item="Qualified:System.Windows.Data.ObjectDataProvider">
       <Item value="Data" priority="0" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:agsXMPP.protocol.client.Message">
-      <Item value="Body" priority="0" />
-      <Item value="Equals" priority="0" />
-      <Item value="XDelay" priority="0" />
-      <Item value="Subject" priority="0" />
-      <Item value="Nickname" priority="0" />
-      <Item value="From" priority="1" />
+    <ItemStatistics item="Qualified:System.Windows.Controls.ComboBoxItem">
+      <Item value="Content" priority="0" />
+      <Item value="IsSelected" priority="0" />
+      <Item value="DataContext" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.Windows.Controls.GridView">
       <Item value="Columns" priority="1" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:System.Windows.Controls.ItemCollection">
-      <Item value="Add" priority="0" />
+    <ItemStatistics item="Qualified:xeus2.xeus.Core.ObservableCollectionDisp&lt;xeus2.xeus.Core.Service&gt;">
+      <Item value="Clear" priority="0" />
+      <Item value="Add" priority="1" />
+      <Item value="_syncObject" priority="0" />
+      <Item value="Count" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@xeus2.xeus.UI">
       <Item value="ServiceWindow" priority="0" />
@@ -647,6 +664,7 @@
     </ItemStatistics>
     <ItemStatistics item="Qualified:xeus2.xeus.Core.MucMessages">
       <Item value="OnMessage" priority="0" />
+      <Item value="CollectionChanged" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:agsXMPP.protocol.iq.search.Search">
       <Item value="Data" priority="0" />
@@ -667,10 +685,8 @@
       <Item value="Equals" priority="0" />
       <Item value="Jid" priority="13" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:System.Windows.Controls.ComboBoxItem">
-      <Item value="Content" priority="0" />
-      <Item value="IsSelected" priority="0" />
-      <Item value="DataContext" priority="0" />
+    <ItemStatistics item="Qualified:agsXMPP.protocol.x.Delay">
+      <Item value="Stamp" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.Nullable&lt;bool&gt;">
       <Item value="ToString" priority="0" />
@@ -678,7 +694,7 @@
     <ItemStatistics item="Qualified:string">
       <Item value="TrimStart" priority="0" />
       <Item value="ToString" priority="0" />
-      <Item value="Contains" priority="1" />
+      <Item value="Contains" priority="2" />
       <Item value="Trim" priority="0" />
       <Item value="StartsWith" priority="0" />
       <Item value="Length" priority="0" />
@@ -705,7 +721,6 @@
     <RecentFiles>
       <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.Core/f:EventInfo.cs" caret="63" scrollPosition="0|0" />
       <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.Middle/f:Search.cs" caret="357" scrollPosition="0|0" />
-      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.Core/f:Account.cs" caret="5390" scrollPosition="0|159" />
       <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.XData/f:XDataListMulti.cs" caret="455" scrollPosition="0|0" />
       <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.Data/f:Storage.cs" caret="3600" scrollPosition="0|123" />
       <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.Middle/f:ErrorPopup.cs" caret="488" scrollPosition="0|0" />
@@ -719,8 +734,19 @@
       <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.XData/f:XDataContainer.xaml.cs" caret="0" scrollPosition="0|81" />
       <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.XData/f:RoomDetail.cs" caret="440" scrollPosition="0|0" />
       <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.UI/d:xeus.UI.Look/f:Events.xaml" caret="2802" scrollPosition="0|33" />
+      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/f:App.xaml.cs" caret="1035" scrollPosition="0|24" />
+      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.Core/f:MucContact.cs" caret="1081" scrollPosition="0|54" />
+      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.Core/f:XeusHyperlink.cs" caret="250" scrollPosition="0|0" />
+      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.Core/f:MucMessages.cs" caret="125" scrollPosition="0|0" />
+      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.UI/f:Muc.xaml" caret="0" scrollPosition="0|0" />
       <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.UI/f:InfoPopup.xaml" caret="0" scrollPosition="0|0" />
       <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.XData/f:BasicStyles.xaml" caret="0" scrollPosition="0|0" />
+      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:Properties/f:Resources.resx" caret="1799" scrollPosition="0|1" />
+      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:Properties/f:AssemblyInfo.cs" caret="191" scrollPosition="0|0" />
+      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.UI/f:Muc.xaml.cs" caret="411" scrollPosition="0|3" />
+      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.Core/f:Account.cs" caret="20831" scrollPosition="0|770" />
+      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.Core/f:MucMessage.cs" caret="453" scrollPosition="0|0" />
+      <File id="8264BE2D-01C4-48C6-A513-839D9AFAB2F3/d:xeus.Core/f:MucRoom.cs" caret="8963" scrollPosition="0|221" />
     </RecentFiles>
   </EditorManager>
   <FileStructureView>

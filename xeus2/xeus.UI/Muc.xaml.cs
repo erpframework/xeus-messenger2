@@ -26,6 +26,7 @@ namespace xeus2.xeus.UI
 		protected void OnSendMessage( object sender, RoutedEventArgs eventArgs )
 		{
 			_mucRoom.SendMessage( _text.Text ) ;
+		    _text.Text = string.Empty;
 		}
 
 		protected override void OnClosing( System.ComponentModel.CancelEventArgs e )
