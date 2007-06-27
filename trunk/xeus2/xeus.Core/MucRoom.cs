@@ -74,7 +74,8 @@ namespace xeus2.xeus.Core
             if (_chatDocument == null)
             {
                 _chatDocument = new FlowDocument();
-                _chatDocument.Foreground = Brushes.Black;
+                //_chatDocument.Foreground = Brushes.Black;
+                //_chatDocument.Background = Brushes.White;
                 _chatDocument.FontFamily = new FontFamily("Segoe UI");
                 _chatDocument.TextAlignment = TextAlignment.Left;
             }
@@ -242,6 +243,7 @@ namespace xeus2.xeus.Core
             time.Background = _timeBackground;
             time.FontSize = time.FontSize / 1.3;
             time.Inlines.Add(message.RelativeTime.ToString());
+            paragraph.Inlines.Add("  ");
             paragraph.Inlines.Add(time);
 
             if (newSection)
