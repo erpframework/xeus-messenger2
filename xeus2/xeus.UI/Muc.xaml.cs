@@ -18,10 +18,21 @@ namespace xeus2.xeus.UI
 
 			_mucRoom = Account.Instance.JoinMuc( service, nick, password ) ;
 
+            _mucRoom.OnClickMucContact += new MucRoom.MucContactHandler(_mucRoom_OnClickMucContact);
+
 			DataContext = _mucRoom ;
 
 			MucCommands.RegisterCommands( this );
 		}
+
+        void _mucRoom_OnClickMucContact(MucMessage mucMessage)
+        {
+            if (!string.IsNullOrEmpty(mucMessage.Sender))
+            {
+                _text.Text = mucMessage.Sender + ": ";
+                _text.Focus();
+            }
+        }
 
 		protected void OnSendMessage( object sender, RoutedEventArgs eventArgs )
 		{

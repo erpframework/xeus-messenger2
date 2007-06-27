@@ -25,6 +25,9 @@ namespace xeus2.xeus.Core
         private XmppClientConnection _xmppClientConnection = null;
         private readonly string _nick;
 
+        public delegate void MucContactHandler(MucMessage mucMessage);
+        public event MucContactHandler OnClickMucContact;
+
         private FlowDocument _chatDocument = null;
 
         public MucRoom(Service service, XmppClientConnection xmppClientConnection, string nick )
@@ -250,9 +253,9 @@ namespace xeus2.xeus.Core
             {
                 MucMessage mucMessage = contactSpan.DataContext as MucMessage;
 
-                if ( mucMessage != null )
+                if ( mucMessage != null && OnClickMucContact != null )
                 {
-                    
+                    OnClickMucContact(mucMessage);
                 }
             }
         }
@@ -301,7 +304,7 @@ namespace xeus2.xeus.Core
                 }
                 else
                 {
-                    MucContact contact = null;
+                    MucContact contact;
 
                     lock (MucRoster._syncObject)
                     {
