@@ -61,6 +61,14 @@ namespace xeus2.xeus.Core
 			}
 		}
 
+        public DateTime RelativeTime
+        {
+            get
+            {
+                return _dateTime;
+            }
+        }
+
 		public override string ToString()
 		{
 			return string.Format( "({2}) {0}: {1}", Sender, Body, DateTime ) ;

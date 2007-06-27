@@ -48,6 +48,6 @@
 			<Button Click="OnSendMessage" Content="Send"/>
 		</StackPanel>
       
-		<FlowDocumentScrollViewer x:Name="_flowViewer" Document="{Binding Path=ChatDocument}" Margin="5,0,5,0" DockPanel.Dock="Top"/>
+		<FlowDocumentScrollViewer x:Name="_flowViewer" Document="{Binding Path=ChatDocument}" Margin="5,0,5,0" DockPanel.Dock="Top" Background="{DynamicResource DefaultTextBoxBackBrush}"/>
 	</DockPanel>
 </Window>

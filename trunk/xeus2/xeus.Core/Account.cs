@@ -814,7 +814,7 @@ namespace xeus2.xeus.Core
 				_mucManager.JoinRoom( service.Jid, nick ) ;
 			}
 
-			return new MucRoom( service, _xmppConnection ) ;
+			return new MucRoom( service, _xmppConnection, nick ) ;
 		}
 	}
 }
