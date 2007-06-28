@@ -8,7 +8,8 @@
     <!--<VirtualizingStackPanel IsItemsHost="True"/>-->
     <WrapPanel IsItemsHost="True" />
   </ItemsPanelTemplate>
-
+  <SolidColorBrush x:Key="muc_contact_fore" Color="#FFB22727" PresentationOptions:Freeze="True" />
+	
 	<DrawingBrush x:Key="chat_back_design" PresentationOptions:Freeze="True" Stretch="Fill">
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
@@ -63,7 +64,7 @@
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
 				<DrawingGroup.Children>
-					<GeometryDrawing Geometry="F1 M 15.5556,11.3333L 302.222,11.3333C 305.536,11.3333 308.222,14.0196 308.222,17.3333L 308.222,82.2222C 308.222,85.5359 305.536,88.2222 302.222,88.2222L 15.5556,88.2222C 12.2418,88.2222 9.55556,85.5359 9.55556,82.2222L 9.55556,17.3333C 9.55556,14.0196 12.2418,11.3333 15.5556,11.3333 Z ">
+					<GeometryDrawing Geometry="F1 M 9.55556,11.3333L 308.222,11.3333L 308.222,88.2222L 9.55556,88.2222L 9.55556,11.3333 Z ">
 						<GeometryDrawing.Pen>
 							<Pen LineJoin="Round" Brush="#4D2C2C2C"/>
 						</GeometryDrawing.Pen>
@@ -71,7 +72,7 @@
 							<LinearGradientBrush StartPoint="0.5,2.42368" EndPoint="0.5,-1.42368">
 								<LinearGradientBrush.GradientStops>
 									<GradientStop Color="#4DFFFFFF" Offset="0"/>
-									<GradientStop Color="#4DFF005A" Offset="1"/>
+									<GradientStop Color="#4DFF5700" Offset="1"/>
 								</LinearGradientBrush.GradientStops>
 							</LinearGradientBrush>
 						</GeometryDrawing.Brush>
@@ -85,7 +86,7 @@
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
 				<DrawingGroup.Children>
-					<GeometryDrawing Geometry="F1 M 15.5556,11.3333L 302.222,11.3333C 305.536,11.3333 308.222,14.0196 308.222,17.3333L 308.222,82.2222C 308.222,85.5359 305.536,88.2222 302.222,88.2222L 15.5556,88.2222C 12.2418,88.2222 9.55556,85.5359 9.55556,82.2222L 9.55556,17.3333C 9.55556,14.0196 12.2418,11.3333 15.5556,11.3333 Z ">
+					<GeometryDrawing Geometry="F1 M 9.55556,11.3333L 308.222,11.3333L 308.222,88.2222L 9.55556,88.2222L 9.55556,11.3333 Z ">
 						<GeometryDrawing.Pen>
 							<Pen LineJoin="Round" Brush="#4D2C2C2C"/>
 						</GeometryDrawing.Pen>
@@ -107,7 +108,7 @@
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
 				<DrawingGroup.Children>
-					<GeometryDrawing Geometry="F1 M 15.5556,11.3333L 302.222,11.3333C 305.536,11.3333 308.222,14.0196 308.222,17.3333L 308.222,82.2222C 308.222,85.5359 305.536,88.2222 302.222,88.2222L 15.5556,88.2222C 12.2418,88.2222 9.55556,85.5359 9.55556,82.2222L 9.55556,17.3333C 9.55556,14.0196 12.2418,11.3333 15.5556,11.3333 Z ">
+					<GeometryDrawing Geometry="F1 M 9.55556,11.3333L 308.222,11.3333L 308.222,88.2222L 9.55556,88.2222L 9.55556,11.3333 Z ">
 						<GeometryDrawing.Pen>
 							<Pen LineJoin="Round" Brush="#4D2C2C2C"/>
 						</GeometryDrawing.Pen>
