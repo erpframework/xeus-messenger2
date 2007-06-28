@@ -133,7 +133,7 @@ namespace xeus2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
         public double UI_GroupMessagesByMinutes {
             get {
                 return ((double)(this["UI_GroupMessagesByMinutes"]));
