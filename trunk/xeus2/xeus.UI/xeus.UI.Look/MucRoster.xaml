@@ -60,19 +60,16 @@
 		</DrawingBrush.Drawing>
 	</DrawingBrush>
   
-  	<DrawingBrush x:Key="mymsg_design" PresentationOptions:Freeze="True" Stretch="Fill">
+  	<DrawingBrush x:Key="mymsg_design" PresentationOptions:Freeze="True" Stretch="UniformToFill">
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
 				<DrawingGroup.Children>
 					<GeometryDrawing Geometry="F1 M 9.55556,11.3333L 308.222,11.3333L 308.222,88.2222L 9.55556,88.2222L 9.55556,11.3333 Z ">
-						<GeometryDrawing.Pen>
-							<Pen LineJoin="Round" Brush="#4D2C2C2C"/>
-						</GeometryDrawing.Pen>
 						<GeometryDrawing.Brush>
-							<LinearGradientBrush StartPoint="0.5,2.42368" EndPoint="0.5,-1.42368">
+							<LinearGradientBrush StartPoint="0.5,2.4487" EndPoint="0.5,-1.4487">
 								<LinearGradientBrush.GradientStops>
-									<GradientStop Color="#4DFFFFFF" Offset="0"/>
-									<GradientStop Color="#4DFF5700" Offset="1"/>
+									<GradientStop Color="#00FFFFFF" Offset="0"/>
+									<GradientStop Color="#80FF0000" Offset="1"/>
 								</LinearGradientBrush.GradientStops>
 							</LinearGradientBrush>
 						</GeometryDrawing.Brush>
@@ -87,14 +84,11 @@
 			<DrawingGroup>
 				<DrawingGroup.Children>
 					<GeometryDrawing Geometry="F1 M 9.55556,11.3333L 308.222,11.3333L 308.222,88.2222L 9.55556,88.2222L 9.55556,11.3333 Z ">
-						<GeometryDrawing.Pen>
-							<Pen LineJoin="Round" Brush="#4D2C2C2C"/>
-						</GeometryDrawing.Pen>
 						<GeometryDrawing.Brush>
-							<LinearGradientBrush StartPoint="0.5,2.42368" EndPoint="0.5,-1.42368">
+							<LinearGradientBrush StartPoint="0.5,2.4487" EndPoint="0.5,-1.4487">
 								<LinearGradientBrush.GradientStops>
-									<GradientStop Color="#4DFFFFFF" Offset="0"/>
-									<GradientStop Color="#4D0091FF" Offset="0.977169"/>
+									<GradientStop Color="#FF84CAFF" Offset="0"/>
+									<GradientStop Color="#FF003156" Offset="1"/>
 								</LinearGradientBrush.GradientStops>
 							</LinearGradientBrush>
 						</GeometryDrawing.Brush>
@@ -109,14 +103,11 @@
 			<DrawingGroup>
 				<DrawingGroup.Children>
 					<GeometryDrawing Geometry="F1 M 9.55556,11.3333L 308.222,11.3333L 308.222,88.2222L 9.55556,88.2222L 9.55556,11.3333 Z ">
-						<GeometryDrawing.Pen>
-							<Pen LineJoin="Round" Brush="#4D2C2C2C"/>
-						</GeometryDrawing.Pen>
 						<GeometryDrawing.Brush>
-							<LinearGradientBrush StartPoint="0.5,2.42368" EndPoint="0.5,-1.42368">
+							<LinearGradientBrush StartPoint="0.5,2.4487" EndPoint="0.5,-1.4487">
 								<LinearGradientBrush.GradientStops>
-									<GradientStop Color="#4DFFFFFF" Offset="0"/>
-									<GradientStop Color="#4D000000" Offset="0.977169"/>
+									<GradientStop Color="#00FFFFFF" Offset="0"/>
+									<GradientStop Color="#800091FF" Offset="1"/>
 								</LinearGradientBrush.GradientStops>
 							</LinearGradientBrush>
 						</GeometryDrawing.Brush>
