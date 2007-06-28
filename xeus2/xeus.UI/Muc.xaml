@@ -16,31 +16,48 @@
   
 	<DockPanel>
 		<Border Background="{DynamicResource back_x_design}" BorderBrush="{DynamicResource DefaultTextBrush2}" BorderThickness="1,1,1,1" CornerRadius="6,6,6,6" Padding="10,10,10,10" Margin="5,5,5,5" DockPanel.Dock="Top">
-			<ListBox ItemsSource="{Binding Source={StaticResource MucContacts}}" 
-				ItemsPanel="{DynamicResource ItemsPanelTemplateMucRoster}"
-				ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemTemplate="{DynamicResource MucContact}"
-				x:Name="_mucRoster" Height="100" Background="{x:Null}" BorderBrush="{x:Null}" >
-				<ListBox.GroupStyle>
-					<GroupStyle>
-						<GroupStyle.ContainerStyle>
-							<Style TargetType="{x:Type GroupItem}">
-								<Setter Property="Template">
-									<Setter.Value>
-										<ControlTemplate TargetType="{x:Type GroupItem}">
-											<Expander>
-												<Expander.Header>
-													<TextBlock Text="{Binding Path=Name}"/>
-												</Expander.Header>
-												<ItemsPresenter/>
-											</Expander>
-										</ControlTemplate>
-									</Setter.Value>
-								</Setter>
-							</Style>
-						</GroupStyle.ContainerStyle>
-					</GroupStyle>
-				</ListBox.GroupStyle>
-			</ListBox>
+				<StackPanel>
+				<StackPanel Orientation="Horizontal">
+				  <Rectangle Fill="{DynamicResource muc_design}" VerticalAlignment="Center" Width="24" Height="24"/>
+			      <TextBlock Text="{Binding Path=Service.Name}" Style="{DynamicResource MegaTextBlockStyle}" Margin="10,0,0,0"/>
+				</StackPanel>
+			      <TextBlock Text="{Binding Path=Subject}"/>
+					<Rectangle Fill="#FFFFFFFF" Margin="0,10,0,15" Height="1" DockPanel.Dock="Top">
+						<Rectangle.OpacityMask>
+							<RadialGradientBrush>
+								<GradientStop Color="#FF000000" Offset="0"/>
+								<GradientStop Color="#00FFFFFF" Offset="1"/>
+							</RadialGradientBrush>
+						</Rectangle.OpacityMask>
+					</Rectangle>	
+				<ListBox ItemsSource="{Binding Source={StaticResource MucContacts}}" 
+					ItemsPanel="{DynamicResource ItemsPanelTemplateMucRoster}"
+					ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemTemplate="{DynamicResource MucContact}"
+					x:Name="_mucRoster" Background="{x:Null}" BorderBrush="{x:Null}"  >
+					<ListBox.GroupStyle>
+						<GroupStyle>
+							<GroupStyle.ContainerStyle>
+								<Style TargetType="{x:Type GroupItem}">
+									<Setter Property="Template">
+										<Setter.Value>
+											<ControlTemplate TargetType="{x:Type GroupItem}">
+												<Expander>
+													<Expander.Header>
+														<TextBlock Text="{Binding Path=Name}" Foreground="{DynamicResource DefaultSelectedBorderBrush}"/>
+													</Expander.Header>
+													<Border Margin="10,10,10,10">
+														<ItemsPresenter/>
+													</Border>
+												</Expander>
+											</ControlTemplate>
+										</Setter.Value>
+									</Setter>
+								</Style>
+							</GroupStyle.ContainerStyle>
+						</GroupStyle>
+					</ListBox.GroupStyle>
+				</ListBox>
+			</StackPanel>
 		</Border>
       
 		<StackPanel Orientation="Horizontal" Margin="5,0,5,0" DockPanel.Dock="Bottom">
@@ -48,8 +65,10 @@
 			<Button Click="OnSendMessage" Content="Send"/>
 		</StackPanel>
       
+	  	<Border Margin="5,5,5,5" Background="{DynamicResource chat_back_design}" BorderBrush="{DynamicResource DefaultTextBrush2}" BorderThickness="1,1,1,1" CornerRadius="6,6,6,6">
 		<FlowDocumentScrollViewer x:Name="_flowViewer"
       Document="{Binding Path=ChatDocument}"
-      Margin="5,0,5,0" DockPanel.Dock="Top"/>
+      Margin="2,2,2,2" DockPanel.Dock="Top"/>
+	  </Border>
   </DockPanel>
 </Window>

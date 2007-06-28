@@ -17,6 +17,10 @@ namespace xeus2.xeus.UI
 				_nick.Text = forceNick ;
 				_nick.IsEnabled = false ;
 			}
+            else
+			{
+			    _nick.Text = Account.Instance.MyJid.User;
+			}
 
 			if ( !service.IsMucPasswordProtected )
 			{

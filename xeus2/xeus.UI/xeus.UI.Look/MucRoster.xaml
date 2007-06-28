@@ -8,6 +8,56 @@
     <!--<VirtualizingStackPanel IsItemsHost="True"/>-->
     <WrapPanel IsItemsHost="True" />
   </ItemsPanelTemplate>
+
+	<DrawingBrush x:Key="chat_back_design" PresentationOptions:Freeze="True" Stretch="Fill">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<DrawingGroup.Children>
+					<GeometryDrawing Brush="#FFF4F4F4" Geometry="F1 M 11.3333,11.3334L 477.889,11.3334L 477.889,580.222L 11.3333,580.222L 11.3333,11.3334 Z "/>
+					<GeometryDrawing Geometry="F1 M 11.3333,11.3334L 32.611,11.3334L 32.611,580.222L 11.3333,580.222L 11.3333,11.3334 Z ">
+						<GeometryDrawing.Brush>
+							<LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+								<LinearGradientBrush.GradientStops>
+									<GradientStop Color="#27000000" Offset="0"/>
+									<GradientStop Color="#00FFFFFF" Offset="1"/>
+								</LinearGradientBrush.GradientStops>
+							</LinearGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Geometry="F1 M 477.889,580.222L 456.611,580.222L 456.611,11.3334L 477.889,11.3334L 477.889,580.222 Z ">
+						<GeometryDrawing.Brush>
+							<LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5">
+								<LinearGradientBrush.GradientStops>
+									<GradientStop Color="#27000000" Offset="0"/>
+									<GradientStop Color="#00FFFFFF" Offset="1"/>
+								</LinearGradientBrush.GradientStops>
+							</LinearGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Geometry="F1 M 477.889,11.3334L 477.889,32.611L 11.3333,32.611L 11.3333,11.3334L 477.889,11.3334 Z ">
+						<GeometryDrawing.Brush>
+							<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+								<LinearGradientBrush.GradientStops>
+									<GradientStop Color="#27000000" Offset="0"/>
+									<GradientStop Color="#00FFFFFF" Offset="1"/>
+								</LinearGradientBrush.GradientStops>
+							</LinearGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Geometry="F1 M 11.3333,580.222L 11.3333,558.945L 477.889,558.945L 477.889,580.222L 11.3333,580.222 Z ">
+						<GeometryDrawing.Brush>
+							<LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
+								<LinearGradientBrush.GradientStops>
+									<GradientStop Color="#27000000" Offset="0"/>
+									<GradientStop Color="#00FFFFFF" Offset="1"/>
+								</LinearGradientBrush.GradientStops>
+							</LinearGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+				</DrawingGroup.Children>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
   
   	<DrawingBrush x:Key="mymsg_design" PresentationOptions:Freeze="True" Stretch="Fill">
 		<DrawingBrush.Drawing>
