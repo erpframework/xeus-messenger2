@@ -81,7 +81,7 @@ namespace xeus2.xeus.XData
 
 	    public override DrawingBrush Icon
 	    {
-            get { return StyleManager.GetBrush("register_design"); }
+            get { return ( DrawingBrush )StyleManager.GetBrush("register_design"); }
         }
 
 	    private void AddField( string tag )

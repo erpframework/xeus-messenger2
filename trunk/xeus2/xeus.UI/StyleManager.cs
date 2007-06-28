@@ -13,9 +13,9 @@ namespace xeus2.xeus.UI
 			return ( Style )App.Current.FindResource( style ) ;
 		}
     
-        public static DrawingBrush GetBrush(string name)
+        public static Brush GetBrush(string name)
         {
-            return ( DrawingBrush )App.Current.FindResource( name ) ;
+            return ( Brush )App.Current.FindResource( name ) ;
         }
     }
 }

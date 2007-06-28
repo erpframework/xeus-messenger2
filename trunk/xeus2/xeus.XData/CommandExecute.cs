@@ -21,7 +21,7 @@ namespace xeus2.xeus.XData
 
 	    public override DrawingBrush Icon
 	    {
-            get { return StyleManager.GetBrush("run_design"); }
+            get { return ( DrawingBrush )StyleManager.GetBrush("run_design"); }
         }
 
 	    internal void Setup( ServiceCommandExecution serviceCommandExecution )

@@ -14,7 +14,7 @@ namespace xeus2.xeus.XData
 
 	    public override DrawingBrush Icon
 	    {
-            get { return StyleManager.GetBrush("mucinfo_design"); }
+            get { return ( DrawingBrush )StyleManager.GetBrush("mucinfo_design"); }
 	    }
 
 	    internal void Setup( Service service )
