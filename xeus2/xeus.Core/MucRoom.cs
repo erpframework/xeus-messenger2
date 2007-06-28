@@ -14,6 +14,7 @@ using agsXMPP.protocol.client;
 using xeus2.Properties;
 using xeus2.xeus.UI;
 using Uri=System.Uri;
+using System.Collections.Generic;
 
 namespace xeus2.xeus.Core
 {
@@ -115,7 +116,7 @@ namespace xeus2.xeus.Core
             if (_forMeBackground == null)
             {
                 _forMeBackground = StyleManager.GetBrush("mymsg_design");
-                _contactBackground = StyleManager.GetBrush("aff_none_design");
+                _contactBackground = StyleManager.GetBrush("mucusername_design");
                 _timeBackground = StyleManager.GetBrush("mucmsgtime_design");
                 _contactForeground = StyleManager.GetBrush("muc_contact_fore");
             }
@@ -160,6 +161,8 @@ namespace xeus2.xeus.Core
                     paragraph.Inlines.Add("  ");
 
                     contactName.MouseDown += new MouseButtonEventHandler(contactName_MouseDown);
+                    contactName.MouseEnter += new MouseEventHandler(contactName_MouseEnter);
+                    contactName.MouseLeave += new MouseEventHandler(contactName_MouseLeave);
                 }
 
                 newSection = true;
@@ -265,6 +268,58 @@ namespace xeus2.xeus.Core
             groupSection.Blocks.Add(paragraph);
 
             return groupSection;
+        }
+
+        void contactName_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Span contactSpan = sender as Span;
+
+            if (contactSpan != null)
+            {
+                MucMessage mucMessage = contactSpan.DataContext as MucMessage;
+
+                if (mucMessage != null)
+                {
+                    Highlight(mucMessage.Sender, null);
+                }
+            }
+        }
+
+        void contactName_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Span contactSpan = sender as Span;
+
+            if (contactSpan != null)
+            {
+                MucMessage mucMessage = contactSpan.DataContext as MucMessage;
+
+                if (mucMessage != null)
+                {
+                    Highlight(mucMessage.Sender, _contactBackground);
+                }
+            }
+        }
+
+        void Highlight( string sender, Brush brush )
+        {
+            foreach (Block block in _chatDocument.Blocks)
+            {
+                Section section = block as Section;
+
+                if (section != null)
+                {
+                    foreach (Block paraBlock in section.Blocks)
+                    {
+                        MucMessage mucMessageBlock = paraBlock.DataContext as MucMessage;
+
+                        
+                        if (mucMessageBlock != null && mucMessageBlock.Sender == sender)
+                        {
+                            paraBlock.Background = brush;
+                        }
+                    }
+                }
+            }
         }
 
         private void contactName_MouseDown(object sender, MouseButtonEventArgs e)
