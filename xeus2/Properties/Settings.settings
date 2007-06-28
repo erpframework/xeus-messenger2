@@ -30,7 +30,7 @@
       <Value Profile="(Default)">500</Value>
     </Setting>
     <Setting Name="UI_GroupMessagesByMinutes" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">2</Value>
+      <Value Profile="(Default)">10</Value>
     </Setting>
   </Settings>
 </SettingsFile>

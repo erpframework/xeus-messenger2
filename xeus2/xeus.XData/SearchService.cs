@@ -179,7 +179,7 @@ namespace xeus2.xeus.XData
 
 	    public override DrawingBrush Icon
 	    {
-            get { return StyleManager.GetBrush("search_design"); }
+            get { return (DrawingBrush)StyleManager.GetBrush("search_design"); }
         }
 	}
 }

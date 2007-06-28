@@ -99,6 +99,7 @@ namespace xeus2.xeus.Core
 
         private static Brush _forMeBackground;
         private static Brush _contactBackground;
+        private static Brush _contactForeground;
         private static Brush _timeBackground;
         //      private static Brush _alternativeForeground;
 
@@ -114,8 +115,9 @@ namespace xeus2.xeus.Core
             if (_forMeBackground == null)
             {
                 _forMeBackground = StyleManager.GetBrush("mymsg_design");
-                _contactBackground = StyleManager.GetBrush("mucusername_design");
+                _contactBackground = StyleManager.GetBrush("aff_none_design");
                 _timeBackground = StyleManager.GetBrush("mucmsgtime_design");
+                _contactForeground = StyleManager.GetBrush("muc_contact_fore");
             }
 
             Section groupSection = null;
@@ -128,7 +130,7 @@ namespace xeus2.xeus.Core
             Paragraph paragraph = new Paragraph();
 
             paragraph.Padding = new Thickness(0.0, 0.0, 0.0, 0.0);
-            paragraph.Margin = new Thickness(0.0, 5.0, 0.0, 10.0);
+            paragraph.Margin = new Thickness(0.0, 5.0, 0.0, 5.0);
 
             bool newSection = (groupSection == null);
 
@@ -138,19 +140,22 @@ namespace xeus2.xeus.Core
                 (message.DateTime - previousMessage.DateTime >
                  TimeSpan.FromMinutes(Settings.Default.UI_GroupMessagesByMinutes)))
             {
-                /*Image avatar = new Image();
+                /*
+                Image avatar = new Image();
                 avatar.Source = message.Image;
-                avatar.Width = 30.0;
+                avatar.Width = 16.0;
 
                 paragraph.Inlines.Add(avatar);
-                paragraph.Inlines.Add("  ");*/
+                paragraph.Inlines.Add("  ");
+                 */
 
                 if (!string.IsNullOrEmpty(message.Sender))
                 {
-                    Span contactName = new Span();
+                    Bold contactName = new Bold();
                     contactName.Cursor = Cursors.Hand;
-                    contactName.Background = _contactBackground;
+                    contactName.Foreground = _contactForeground;
                     contactName.Inlines.Add(message.Sender);
+
                     paragraph.Inlines.Add(contactName);
                     paragraph.Inlines.Add("  ");
 
@@ -159,11 +164,6 @@ namespace xeus2.xeus.Core
 
                 newSection = true;
             }
-
-            /*if (message.SentByMe)
-            {
-                paragraph.Foreground = _alternativeForeground;
-            }*/
 
             if (!string.IsNullOrEmpty(message.Body))
             {
