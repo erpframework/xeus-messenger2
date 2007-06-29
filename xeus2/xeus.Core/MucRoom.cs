@@ -25,7 +25,7 @@ namespace xeus2.xeus.Core
         private MucRoster _mucRoster = new MucRoster();
         private MucMessages _mucMessages = new MucMessages();
 
-        private Timer _timeTimer = new Timer(5000);
+        private Timer _timeTimer ;
 
         private Service _service;
         private XmppClientConnection _xmppClientConnection = null;
@@ -63,6 +63,14 @@ namespace xeus2.xeus.Core
                     {
                         GenerateChatDocument(e.NewItems);
 
+                        foreach (MucMessage mucMessage in e.NewItems)
+                        {
+                            if (!string.IsNullOrEmpty(mucMessage.Subject))
+                            {
+                                Subject = mucMessage.Subject;
+                            }
+                        }
+
                         break;
                     }
                 case NotifyCollectionChangedAction.Reset:
@@ -73,6 +81,20 @@ namespace xeus2.xeus.Core
 
                         break;
                     }
+            }
+        }
+
+        public string Subject
+        {
+            set
+            {
+                _subject = value;
+                NotifyPropertyChanged("Subject");
+            }
+
+            get
+            {
+                return _subject;
             }
         }
 
@@ -116,6 +138,8 @@ namespace xeus2.xeus.Core
                 @"[""'=]?(http://|ftp://|https://|www\.|ftp\.[\w]+)([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])",
                 RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
+        private string _subject;
+
         public Block GenerateMessage(MucMessage message, MucMessage previousMessage)
         {
             if (_forMeBackground == null)
@@ -130,12 +154,14 @@ namespace xeus2.xeus.Core
                 _timeBackground = StyleManager.GetBrush("mucmsgtime_design");
 
                 _contactForeground = StyleManager.GetBrush("muc_contact_fore");
+            }
 
-
+            if (_timeTimer == null)
+            {
+                _timeTimer = new Timer(5000.0);
                 _timeTimer.AutoReset = true;
                 _timeTimer.Elapsed += new ElapsedEventHandler(_timeTimer_Elapsed);
                 _timeTimer.Start();
-
             }
 
             Section groupSection = null;
