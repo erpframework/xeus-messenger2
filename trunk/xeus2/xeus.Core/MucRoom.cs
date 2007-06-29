@@ -99,10 +99,11 @@ namespace xeus2.xeus.Core
         }
 
         private static Brush _forMeBackground;
-        private static Brush _contactBackground;
+        private static Brush _textBrush;
+        private static Brush _textDimBrush;
         private static Brush _contactForeground;
         private static Brush _timeBackground;
-        //      private static Brush _alternativeForeground;
+        private static Brush _borderBrush;
 
         private readonly Binding _timeBinding = new Binding("RelativeTime");
 
@@ -116,9 +117,13 @@ namespace xeus2.xeus.Core
             if (_forMeBackground == null)
             {
                 _forMeBackground = StyleManager.GetBrush("mymsg_design");
-                _contactBackground = StyleManager.GetBrush("mucusername_design");
+
+                _textBrush = StyleManager.GetBrush("text_design");
+                _textDimBrush = StyleManager.GetBrush("textdim_design");
+
                 _timeBackground = StyleManager.GetBrush("mucmsgtime_design");
                 _contactForeground = StyleManager.GetBrush("muc_contact_fore");
+                _borderBrush = StyleManager.GetBrush("TextBoxBorderBrush"); 
             }
 
             Section groupSection = null;
@@ -244,6 +249,7 @@ namespace xeus2.xeus.Core
             */
             Span time = new Span();
             time.Background = _timeBackground;
+            
             time.FontSize = time.FontSize / 1.3;
             time.Inlines.Add(message.RelativeTime.ToString());
             paragraph.Inlines.Add("  ");
@@ -257,6 +263,7 @@ namespace xeus2.xeus.Core
                     && message.Body.IndexOf(_nick, 0, StringComparison.CurrentCultureIgnoreCase) >= 0)
                 {
                     groupSection.Background = _forMeBackground;
+                    groupSection.BorderBrush = _borderBrush;
                 }
 
                 groupSection.Blocks.Add(paragraph);
@@ -265,6 +272,7 @@ namespace xeus2.xeus.Core
                 //groupSection.BorderBrush = _alternativeBackground;
             }
 
+            groupSection.DataContext = message.Sender;
             groupSection.Blocks.Add(paragraph);
 
             return groupSection;
@@ -280,7 +288,7 @@ namespace xeus2.xeus.Core
 
                 if (mucMessage != null)
                 {
-                    Highlight(mucMessage.Sender, null);
+                    Highlight(mucMessage.Sender, _textBrush);
                 }
             }
         }
@@ -295,7 +303,7 @@ namespace xeus2.xeus.Core
 
                 if (mucMessage != null)
                 {
-                    Highlight(mucMessage.Sender, _contactBackground);
+                    Highlight(mucMessage.Sender, _textDimBrush);
                 }
             }
         }
@@ -308,15 +316,11 @@ namespace xeus2.xeus.Core
 
                 if (section != null)
                 {
-                    foreach (Block paraBlock in section.Blocks)
-                    {
-                        MucMessage mucMessageBlock = paraBlock.DataContext as MucMessage;
+                    string sectionSender = section.DataContext as string;
 
-                        
-                        if (mucMessageBlock != null && mucMessageBlock.Sender == sender)
-                        {
-                            paraBlock.Background = brush;
-                        }
+                    if (sectionSender == null || sectionSender != sender)
+                    {
+                        section.Foreground = brush;
                     }
                 }
             }
