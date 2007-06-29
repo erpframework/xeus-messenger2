@@ -41,7 +41,7 @@
 			<StackPanel DockPanel.Dock="Top" Margin="10,5,10,10">
 				<StackPanel Orientation="Horizontal">
 					<Rectangle Width="24" Height="24" x:Name="type" />
-					<TextBlock Text="Execute" FontSize="25" FontWeight="Bold" Foreground="{DynamicResource DefaultTextBoxBackBrush}" Style="{DynamicResource MegaTextBlockStyle}" RenderTransformOrigin="0.5,0.5" x:Name="textBlock" Margin="5,0,0,0">
+					<TextBlock Text="Execute" FontWeight="Bold" Foreground="{DynamicResource DefaultTextBoxBackBrush}" Style="{DynamicResource MegaTextBlockStyle}" RenderTransformOrigin="0.5,0.5" x:Name="textBlock" Margin="5,0,0,0">
 						<TextBlock.RenderTransform>
 							<TransformGroup>
 								<ScaleTransform ScaleX="1" ScaleY="1"/>
