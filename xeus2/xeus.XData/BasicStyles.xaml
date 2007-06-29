@@ -97,20 +97,43 @@
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
 				<DrawingGroup.Children>
-					<GeometryDrawing Brush="#FF000000" Geometry="F1 M 536.5,-145.168L 16,-145.168L 16,-5.72205e-006L 536.5,-5.72205e-006L 536.5,-145.168 Z "/>
-					<GeometryDrawing Geometry="F1 M 536.5,-145.168L 16,-145.168L 16,-5.72205e-006L 536.5,-5.72205e-006L 536.5,-145.168 Z ">
+					<GeometryDrawing Brush="#FF000000" Geometry="F1 M 545.833,0.305064L 15.5833,0.305064L 15.5833,-145.168L 545.833,-145.168L 545.833,0.305064 Z "/>
+					<GeometryDrawing Geometry="F1 M 15.5833,0.305054L 545.833,0.305054L 545.833,-145.168L 15.5833,-145.168L 15.5833,0.305054 Z ">
 						<GeometryDrawing.Brush>
-							<RadialGradientBrush RadiusX="1" RadiusY="3.11351" Center="0.5,-1.93038" GradientOrigin="0.5,-1.93038">
+							<RadialGradientBrush RadiusX="1" RadiusY="3.11351" Center="0.5,2.93038" GradientOrigin="0.5,2.93038">
 								<RadialGradientBrush.GradientStops>
-									<GradientStop Color="#FFA4A4A4" Offset="0"/>
-									<GradientStop Color="#BA000000" Offset="1"/>
+									<GradientStop Color="#FF229FFF" Offset="0"/>
+									<GradientStop Color="#5D000000" Offset="1"/>
+								</RadialGradientBrush.GradientStops>
+								<RadialGradientBrush.RelativeTransform>
+									<TransformGroup/>
+								</RadialGradientBrush.RelativeTransform>
+							</RadialGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Geometry="F1 M 280.472,-88.5838C 381.032,-88.5838 471.079,-110.543 531.567,-145.168L 29.3773,-145.168C 89.8654,-110.543 179.913,-88.5838 280.472,-88.5838 Z ">
+						<GeometryDrawing.Brush>
+							<RadialGradientBrush RadiusX="0.875" RadiusY="5.03665" Center="0.5,-3.52942" GradientOrigin="0.5,-3.52942">
+								<RadialGradientBrush.GradientStops>
+									<GradientStop Color="#FF0092FF" Offset="0"/>
+									<GradientStop Color="#00000000" Offset="0.995434"/>
 								</RadialGradientBrush.GradientStops>
 								<RadialGradientBrush.RelativeTransform>
 									<TransformGroup>
-										<RotateTransform CenterX="0.5" CenterY="-1.93038" Angle="180"/>
+										<RotateTransform CenterX="0.5" CenterY="-3.52942" Angle="180"/>
 									</TransformGroup>
 								</RadialGradientBrush.RelativeTransform>
 							</RadialGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Geometry="F1 M 546.25,0L 546.25,8.92361L 16,8.92361L 16,0L 546.25,0 Z ">
+						<GeometryDrawing.Brush>
+							<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+								<LinearGradientBrush.GradientStops>
+									<GradientStop Color="#27000000" Offset="0"/>
+									<GradientStop Color="#00FFFFFF" Offset="1"/>
+								</LinearGradientBrush.GradientStops>
+							</LinearGradientBrush>
 						</GeometryDrawing.Brush>
 					</GeometryDrawing>
 				</DrawingGroup.Children>
