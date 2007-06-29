@@ -109,7 +109,7 @@ namespace xeus2.xeus.Core
         private static Brush _textDimBrush;
         private static Brush _contactForeground;
         private static Brush _timeBackground;
-        private static Brush _borderBrush;
+        private static Brush _alternativeBackground;
 
         private readonly Regex _urlregex =
             new Regex(
@@ -125,8 +125,12 @@ namespace xeus2.xeus.Core
                 _textBrush = StyleManager.GetBrush("text_design");
                 _textDimBrush = StyleManager.GetBrush("textdim_design");
 
+                _alternativeBackground = StyleManager.GetBrush("back_alt");
+
                 _timeBackground = StyleManager.GetBrush("mucmsgtime_design");
+
                 _contactForeground = StyleManager.GetBrush("muc_contact_fore");
+
 
                 _timeTimer.AutoReset = true;
                 _timeTimer.Elapsed += new ElapsedEventHandler(_timeTimer_Elapsed);
@@ -248,18 +252,11 @@ namespace xeus2.xeus.Core
 
             paragraph.DataContext = message;
 
-            /*
-            TextBlock textBlock = new TextBlock();
-            //textBlock.Style = MessageWindow.GetTimeTextBlockStyle();
-            textBlock.SetBinding(TextBlock.TextProperty, _timeBinding);
-
-            paragraph.Inlines.Add(textBlock);
-            */
             Span time = new Span();
             time.Background = _timeBackground;
 
             time.FontSize = time.FontSize / 1.3;
-            time.Inlines.Add(message.DateTime.ToString());
+            time.Inlines.Add( string.Format("  {0} ", message.DateTime));
             time.DataContext = message.DateTime;
 
             _relativeTimes.Add(time);
@@ -275,13 +272,12 @@ namespace xeus2.xeus.Core
                     && message.Body.IndexOf(_nick, 0, StringComparison.CurrentCultureIgnoreCase) >= 0)
                 {
                     groupSection.Background = _forMeBackground;
-                    groupSection.BorderBrush = _borderBrush;
                 }
 
                 groupSection.Blocks.Add(paragraph);
                 groupSection.Margin = new Thickness(3.0, 10.0, 3.0, 0.0);
                 groupSection.BorderThickness = new Thickness(0.0, 2.0, 0.0, 0.0);
-                //groupSection.BorderBrush = _alternativeBackground;
+                groupSection.BorderBrush = _alternativeBackground;
             }
 
             groupSection.DataContext = message.Sender;
@@ -302,7 +298,7 @@ namespace xeus2.xeus.Core
             {
                 DateTime dateTime = (DateTime)time.DataContext;
 
-                ((Run)(time.Inlines.FirstInline)).Text = Utilities.TimeUtilities.FormatRelativeTime(dateTime);
+                ((Run)(time.Inlines.FirstInline)).Text = string.Format("  {0}  ", Utilities.TimeUtilities.FormatRelativeTime(dateTime)) ;
             }
         }
 
