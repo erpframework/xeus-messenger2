@@ -21,19 +21,21 @@
 						<Rectangle Fill="{DynamicResource muc_design}" Width="24" HorizontalAlignment="Left"/>
 						<TextBlock Text="{Binding Path=Service.Name}" Style="{DynamicResource MegaTextBlockStyle}" Margin="34,0,0,0"/>
 					</Grid>
-			      <TextBlock Text="{Binding Path=Subject}" Foreground="{DynamicResource DefaultTextBrush2}" TextWrapping="Wrap"/>
-					<Rectangle Fill="#FFFFFFFF" Margin="0,10,0,15" Height="1" DockPanel.Dock="Top">
+					<Rectangle Fill="#FFFFFFFF" Margin="0,10,0,10" Height="1" DockPanel.Dock="Top">
 						<Rectangle.OpacityMask>
 							<RadialGradientBrush>
 								<GradientStop Color="#FF000000" Offset="0"/>
 								<GradientStop Color="#00FFFFFF" Offset="1"/>
 							</RadialGradientBrush>
 						</Rectangle.OpacityMask>
-					</Rectangle>	
+					</Rectangle>
+				  <Expander Header="Room Subject" Margin="1,0,1,0" Foreground="{DynamicResource DefaultTextBrush2}">
+			      	<TextBlock Text="{Binding Path=Subject}" Foreground="{DynamicResource DefaultTextBrush2}" TextWrapping="Wrap"/>	
+				  </Expander>
 				<ListBox ItemsSource="{Binding Source={StaticResource MucContacts}}" 
 					ItemsPanel="{DynamicResource ItemsPanelTemplateMucRoster}"
 					ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemTemplate="{DynamicResource MucContact}"
-					x:Name="_mucRoster" Background="{x:Null}" BorderBrush="{x:Null}"  >
+					x:Name="_mucRoster" Background="{x:Null}" BorderBrush="{x:Null}"  BorderThickness="0,0,0,0"  >
 					<ListBox.GroupStyle>
 						<GroupStyle>
 							<GroupStyle.ContainerStyle>
