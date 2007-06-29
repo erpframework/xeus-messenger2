@@ -9,7 +9,7 @@
     <WrapPanel IsItemsHost="True" />
   </ItemsPanelTemplate>
 
-  <SolidColorBrush x:Key="muc_contact_fore" Color="#FF0F71D6" PresentationOptions:Freeze="True" />
+  <SolidColorBrush x:Key="muc_contact_fore" Color="#FF872D2D" PresentationOptions:Freeze="True" />
   <SolidColorBrush x:Key="text_design" Color="#FF000000" PresentationOptions:Freeze="True" />
   <SolidColorBrush x:Key="textdim_design" Color="#3F000000" PresentationOptions:Freeze="True" />
 	

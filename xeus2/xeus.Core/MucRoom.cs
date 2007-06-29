@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text.RegularExpressions;
+using System.Timers;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -14,14 +15,17 @@ using agsXMPP.protocol.client;
 using xeus2.Properties;
 using xeus2.xeus.UI;
 using Uri=System.Uri;
-using System.Collections.Generic;
 
 namespace xeus2.xeus.Core
 {
     internal class MucRoom : NotifyInfoDispatcher, IDisposable
     {
+        private delegate void TimerCallback();
+
         private MucRoster _mucRoster = new MucRoster();
         private MucMessages _mucMessages = new MucMessages();
+
+        private Timer _timeTimer = new Timer(5000);
 
         private Service _service;
         private XmppClientConnection _xmppClientConnection = null;
@@ -32,6 +36,8 @@ namespace xeus2.xeus.Core
         public event MucContactHandler OnClickMucContact;
 
         private FlowDocument _chatDocument = null;
+
+        List<Span> _relativeTimes = new List<Span>();
 
         public MucRoom(Service service, XmppClientConnection xmppClientConnection, string nick)
         {
@@ -105,8 +111,6 @@ namespace xeus2.xeus.Core
         private static Brush _timeBackground;
         private static Brush _borderBrush;
 
-        private readonly Binding _timeBinding = new Binding("RelativeTime");
-
         private readonly Regex _urlregex =
             new Regex(
                 @"[""'=]?(http://|ftp://|https://|www\.|ftp\.[\w]+)([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])",
@@ -123,7 +127,11 @@ namespace xeus2.xeus.Core
 
                 _timeBackground = StyleManager.GetBrush("mucmsgtime_design");
                 _contactForeground = StyleManager.GetBrush("muc_contact_fore");
-                _borderBrush = StyleManager.GetBrush("TextBoxBorderBrush"); 
+
+                _timeTimer.AutoReset = true;
+                _timeTimer.Elapsed += new ElapsedEventHandler(_timeTimer_Elapsed);
+                _timeTimer.Start();
+
             }
 
             Section groupSection = null;
@@ -249,9 +257,13 @@ namespace xeus2.xeus.Core
             */
             Span time = new Span();
             time.Background = _timeBackground;
-            
+
             time.FontSize = time.FontSize / 1.3;
-            time.Inlines.Add(message.RelativeTime.ToString());
+            time.Inlines.Add(message.DateTime.ToString());
+            time.DataContext = message.DateTime;
+
+            _relativeTimes.Add(time);
+
             paragraph.Inlines.Add("  ");
             paragraph.Inlines.Add(time);
 
@@ -278,7 +290,23 @@ namespace xeus2.xeus.Core
             return groupSection;
         }
 
-        void contactName_MouseLeave(object sender, MouseEventArgs e)
+        void _timeTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            App.InvokeSafe(DispatcherPriority.Background,
+                new TimerCallback(OnRelativeTimer));
+        }
+
+        void OnRelativeTimer()
+        {
+            foreach (Span time in _relativeTimes)
+            {
+                DateTime dateTime = (DateTime)time.DataContext;
+
+                ((Run)(time.Inlines.FirstInline)).Text = Utilities.TimeUtilities.FormatRelativeTime(dateTime);
+            }
+        }
+
+        private void contactName_MouseLeave(object sender, MouseEventArgs e)
         {
             Span contactSpan = sender as Span;
 
@@ -288,12 +316,12 @@ namespace xeus2.xeus.Core
 
                 if (mucMessage != null)
                 {
-                    Highlight(mucMessage.Sender, _textBrush);
+                    Highlight(mucMessage.Sender, _textBrush, _contactForeground);
                 }
             }
         }
 
-        void contactName_MouseEnter(object sender, MouseEventArgs e)
+        private void contactName_MouseEnter(object sender, MouseEventArgs e)
         {
             Span contactSpan = sender as Span;
 
@@ -303,12 +331,12 @@ namespace xeus2.xeus.Core
 
                 if (mucMessage != null)
                 {
-                    Highlight(mucMessage.Sender, _textDimBrush);
+                    Highlight(mucMessage.Sender, _textDimBrush, _textDimBrush);
                 }
             }
         }
 
-        void Highlight( string sender, Brush brush )
+        private void Highlight(string sender, Brush brush, Brush nameBrush)
         {
             foreach (Block block in _chatDocument.Blocks)
             {
@@ -321,6 +349,12 @@ namespace xeus2.xeus.Core
                     if (sectionSender == null || sectionSender != sender)
                     {
                         section.Foreground = brush;
+
+                        Bold name = ((Paragraph) (section.Blocks.FirstBlock)).Inlines.FirstInline as Bold;
+                        if (name != null)
+                        {
+                            name.Foreground = nameBrush;
+                        }
                     }
                 }
             }
