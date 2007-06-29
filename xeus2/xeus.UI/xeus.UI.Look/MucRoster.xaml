@@ -10,8 +10,10 @@
   </ItemsPanelTemplate>
 
   <SolidColorBrush x:Key="muc_contact_fore" Color="#FF872D2D" PresentationOptions:Freeze="True" />
+  <SolidColorBrush x:Key="muc_time_fore" Color="#FF153D54" PresentationOptions:Freeze="True" />
   <SolidColorBrush x:Key="text_design" Color="#FF000000" PresentationOptions:Freeze="True" />
   <SolidColorBrush x:Key="textdim_design" Color="#3F000000" PresentationOptions:Freeze="True" />
+  <SolidColorBrush x:Key="back_alt" Color="#3FB1B1B1" PresentationOptions:Freeze="True" />
 	
 	<DrawingBrush x:Key="chat_back_design" PresentationOptions:Freeze="True" Stretch="Fill">
 		<DrawingBrush.Drawing>
@@ -91,7 +93,7 @@
 							<LinearGradientBrush StartPoint="0.5,2.4487" EndPoint="0.5,-1.4487">
 								<LinearGradientBrush.GradientStops>
 									<GradientStop Color="#00FFFFFF" Offset="0"/>
-									<GradientStop Color="#FF80ABE5" Offset="1"/>
+									<GradientStop Color="#FF79BBEB" Offset="1"/>
 								</LinearGradientBrush.GradientStops>
 							</LinearGradientBrush>
 						</GeometryDrawing.Brush>
