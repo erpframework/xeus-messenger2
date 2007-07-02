@@ -130,6 +130,7 @@
     <Compile Include="xeus.Core\Events.cs" />
     <Compile Include="xeus.Core\EventStatusChanged.cs" />
     <Compile Include="xeus.Core\IContact.cs" />
+    <Compile Include="xeus.Core\InlineMethod.cs" />
     <Compile Include="xeus.Core\MucContact.cs" />
     <Compile Include="xeus.Core\MucMessage.cs" />
     <Compile Include="xeus.Core\MucMessages.cs" />
@@ -204,6 +205,7 @@
       <DependentUpon>ServiceWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\StyleManager.cs" />
+    <Compile Include="xeus.UI\TextFilterService.cs" />
     <Compile Include="xeus.UI\Vista.cs" />
     <Compile Include="xeus.UI\xeus.UI.Look\ServiceTemplateSelector.cs" />
     <Compile Include="xeus.Utilities\DisplayNameBuilder.cs" />

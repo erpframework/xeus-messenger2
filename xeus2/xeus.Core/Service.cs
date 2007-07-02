@@ -39,14 +39,17 @@ namespace xeus2.xeus.Core
 
 			if ( _isToplevel )
 			{
-				Account.Instance.DiscoInfo( _discoItem ) ;
+                Account.Instance.AddDiscoRequestPrioritized(_discoItem);
+                Account.Instance.AddDiscoInfoPrioritized(_discoItem);
+
 				_askedForDiscovery = true ;
 			}
 
+            /*
 			if ( discoItem != null )
 			{
 				_services.Add( new ServiceDummy( _services, _discoItem ) ) ;
-			}
+			}*/
 		}
 
 		public string Key
@@ -99,7 +102,7 @@ namespace xeus2.xeus.Core
 			{
 				if ( !_askedForDiscovery )
 				{
-					Account.Instance.DiscoInfo( _discoItem ) ;
+					Account.Instance.AddDiscoInfoPrioritized( _discoItem ) ;
 
 					_askedForDiscovery = true ;
 				}

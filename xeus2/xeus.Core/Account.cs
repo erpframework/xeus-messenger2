@@ -1,5 +1,7 @@
 using System ;
+using System.Collections;
 using System.Collections.Generic ;
+using System.Threading;
 using System.Timers ;
 using agsXMPP ;
 using agsXMPP.net ;
@@ -15,6 +17,7 @@ using agsXMPP.Xml.Dom ;
 using xeus2.Properties ;
 using xeus2.xeus.Middle ;
 using Search=xeus2.xeus.Middle.Search;
+using Timer=System.Timers.Timer;
 using Uri=agsXMPP.Uri;
 
 namespace xeus2.xeus.Core
@@ -49,7 +52,7 @@ namespace xeus2.xeus.Core
 
 	internal class Account : NotifyInfoDispatcher
 	{
-		private Timer _discoTime = new Timer( 50 ) ;
+		private Timer _discoTime = new Timer( 250 ) ;
 
 		private static Account _instance = new Account() ;
 
@@ -117,70 +120,108 @@ namespace xeus2.xeus.Core
 			_xmppConnection.Open() ;
 
 			_discoTime.Elapsed += new ElapsedEventHandler( _discoTime_Elapsed ) ;
+
+            _discoTime.Start();
 		}
 
-		private Queue< DiscoItem > _pendingDisco = new Queue< DiscoItem >() ;
-		private Queue< DiscoItem > _pendingDiscoInfo = new Queue< DiscoItem >() ;
+        private ArrayList _pendingDisco = ArrayList.Synchronized( new ArrayList() );
+        private ArrayList _pendingDiscoInfo = ArrayList.Synchronized(new ArrayList());
+        private ArrayList _pendingCommand = ArrayList.Synchronized(new ArrayList());
 
 		private int _servicesCount ;
 		private int _servicesDoneCount ;
 
+        object _discoLock = new object();
+	    private volatile bool _working = false;
+
 		private void _discoTime_Elapsed( object sender, ElapsedEventArgs e )
 		{
-			_discoTime.Stop() ;
+            if (_working)
+            {
+                return;
+            }
+		    
+            Thread.CurrentThread.Priority = ThreadPriority.Lowest;
 
-			if ( _pendingDiscoInfo.Count > 0 )
-			{
-				DiscoItem discoItem = _pendingDiscoInfo.Dequeue() ;
+            lock (_discoLock)
+            {
+                _working = true;
 
-				ServicesCount++ ;
+                try
+                {
+                    for (int i = 0; i < 25; i++)
+                    {
+                        if (_pendingCommand.Count > 0)
+                        {
+                            DiscoItem discoItem = (DiscoItem)_pendingCommand[0];
+                            _pendingCommand.RemoveAt(0);
 
-				if ( string.IsNullOrEmpty( discoItem.Node ) )
-				{
-					_discoManager.DisoverInformation( discoItem.Jid, new IqCB( OnDiscoInfoResult ),
-					                                  new DiscoverySessionData( discoItem ) ) ;
-				}
-				else
-				{
-					_discoManager.DisoverInformation( discoItem.Jid, discoItem.Node, new IqCB( OnDiscoInfoResult ),
-					                                  new DiscoverySessionData( discoItem ) ) ;
-				}
-			}
-			else if ( _pendingDisco.Count > 0 )
-			{
-				DiscoItem discoItem = _pendingDisco.Dequeue() ;
+                            _discoManager.DisoverItems(discoItem.Jid,
+                                                        Uri.COMMANDS,
+                                                        new IqCB(OnCommandsServerResult),
+                                                        new DiscoverySessionData(discoItem));
 
-				Jid jid ;
+                        }
+                        else if (_pendingDiscoInfo.Count > 0)
+                        {
+                            DiscoItem discoItem = (DiscoItem) _pendingDiscoInfo[0];
+                            _pendingDiscoInfo.RemoveAt(0);
 
-				if ( discoItem == null )
-				{
-					jid = new Jid( _xmppConnection.Server ) ;
-				}
-				else
-				{
-					jid = discoItem.Jid ;
-				}
+                            ServicesCount++;
 
-				if ( discoItem != null && discoItem.Node != null )
-				{
-					_discoManager.DisoverItems( jid, discoItem.Node, new IqCB( OnDiscoServerResult ),
-					                            new DiscoverySessionData( discoItem ) ) ;
-				}
-				else
-				{
-					_discoManager.DisoverItems( jid, new IqCB( OnDiscoServerResult ), new DiscoverySessionData( discoItem ) ) ;
-				}
-			}
+                            if (string.IsNullOrEmpty(discoItem.Node))
+                            {
+                                _discoManager.DisoverInformation(discoItem.Jid, new IqCB(OnDiscoInfoResult),
+                                                                 new DiscoverySessionData(discoItem));
+                            }
+                            else
+                            {
+                                _discoManager.DisoverInformation(discoItem.Jid, discoItem.Node,
+                                                                 new IqCB(OnDiscoInfoResult),
+                                                                 new DiscoverySessionData(discoItem));
+                            }
+                        }
+                        else if (_pendingDisco.Count > 0)
+                        {
+                            DiscoItem discoItem = (DiscoItem) _pendingDisco[0];
+                            _pendingDisco.RemoveAt(0);
 
-			_discoTime.Start();
+                            Jid jid;
+
+                            if (discoItem == null)
+                            {
+                                jid = new Jid(_xmppConnection.Server);
+                            }
+                            else
+                            {
+                                jid = discoItem.Jid;
+                            }
+
+                            if (discoItem != null && discoItem.Node != null)
+                            {
+                                _discoManager.DisoverItems(jid, discoItem.Node, new IqCB(OnDiscoServerResult),
+                                                           new DiscoverySessionData(discoItem));
+                            }
+                            else
+                            {
+                                _discoManager.DisoverItems(jid, new IqCB(OnDiscoServerResult),
+                                                           new DiscoverySessionData(discoItem));
+                            }
+                        }
+                    }
+                }
+
+                finally
+                {
+                    _working = false;
+                }
+            }
 		}
 
 		public void StopDiscovery()
 		{
-			_discoTime.Stop();
-
-			_pendingDisco.Clear() ;
-			_pendingDiscoInfo.Clear() ;
+            _pendingDiscoInfo.Clear();
+            _pendingDisco.Clear();
 
 			Services.Instance.StopSession() ;
 		}
@@ -297,32 +338,37 @@ namespace xeus2.xeus.Core
 			_discoManager.DisoverItems( jid, new IqCB( OnDiscoServerResult ), new DiscoverySessionData( null ) ) ;
 		}
 
-		public void Discovery( DiscoItem discoItem )
-		{
-			if ( Services.Instance.SessionKey == string.Empty )
-			{
-				return ;
-			}
+        public void AddDiscoRequest(DiscoItem discoItem)
+        {
+            _pendingDisco.Add(discoItem);
+        }
 
-			lock ( Services.Instance._syncObject )
-			{
-				Service service = Services.Instance.FindService( discoItem ) ;
+        public void AddDiscoRequestPrioritized(DiscoItem discoItem)
+        {
+            _pendingDisco.Insert(0, discoItem);
+        }
 
-				if ( service != null )
-				{
-					if ( service.IsDiscovered )
-					{
-						return ;
-					}
+        public void AddDiscoInfo(DiscoItem discoItem)
+        {
+            _pendingDiscoInfo.Add(discoItem);
+        }
 
-					service.IsDiscovered = true ;
-				}
-			}
+        public void AddDiscoInfoPrioritized(DiscoItem discoItem)
+        {
+            _pendingDiscoInfo.Insert(0, discoItem);
+        }
 
-			_pendingDisco.Enqueue( discoItem ) ;
-		}
+        void AddCommand(DiscoItem discoItem)
+        {
+            _pendingCommand.Add(discoItem);
+        }
 
-		public int MyPriority
+        void AddCommandPrioritized(DiscoItem discoItem)
+        {
+            _pendingCommand.Insert(0, discoItem);
+        }
+        
+        public int MyPriority
 		{
 			get
 			{
@@ -408,8 +454,6 @@ namespace xeus2.xeus.Core
 
 		private void OnDiscoServerResult( object sender, IQ iq, object data )
 		{
-			_discoTime.Start();
-
 			if ( !CheckSessionKey( data ) )
 			{
 				return ;
@@ -417,7 +461,7 @@ namespace xeus2.xeus.Core
 
 			if ( iq.Error != null )
 			{
-				EventError eventError = new EventError( string.Format( Resources.Error_DiscoFailed, iq.From ), iq.Error ) ;
+                EventInfo eventError = new EventInfo(string.Format(Resources.Error_DiscoFailed, iq.From));
 				Events.Instance.OnEvent( this, eventError ) ;
 			}
 			else if ( iq.Type == IqType.result )
@@ -441,18 +485,15 @@ namespace xeus2.xeus.Core
 							DiscoverySessionData sessionData = data as DiscoverySessionData ;
 
 							Services.Instance.OnServiceItem( sender, itm, sessionData.Data as DiscoItem ) ;
+
+                            AddDiscoRequest(itm);
 						}
 					}
 				}
 			}
 		}
 
-		public void DiscoInfo( DiscoItem item )
-		{
-			_pendingDiscoInfo.Enqueue( item ) ;
-		}
-
-		private void OnDiscoInfoResult( object sender, IQ iq, object data )
+    	private void OnDiscoInfoResult( object sender, IQ iq, object data )
 		{
 			if ( !CheckSessionKey( data ) )
 			{
@@ -479,10 +520,7 @@ namespace xeus2.xeus.Core
 
 				if ( di.HasFeature( Uri.COMMANDS ) && di.Node == null )
 				{
-					_discoManager.DisoverItems( discoItem.Jid,
-					                            Uri.COMMANDS,
-					                            new IqCB( OnCommandsServerResult ),
-					                            new DiscoverySessionData( discoItem ) ) ;
+				    AddCommand(discoItem);
 				}
 			}
 		}

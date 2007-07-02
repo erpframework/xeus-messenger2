@@ -21,8 +21,9 @@ namespace xeus2.xeus.Core
 			get
 			{
 				_parentCollection.Remove( this ) ;
-
-				Account.Instance.Discovery( _parent ) ;
+                /*
+				Account.Instance.AddDiscoRequestPrioritized( _parent ) ;
+                Account.Instance.AddDiscoInfoPrioritized(_parent);*/
 
 				return "dummy" ;
 			}
