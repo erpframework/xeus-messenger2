@@ -126,7 +126,17 @@
 							</RadialGradientBrush>
 						</GeometryDrawing.Brush>
 					</GeometryDrawing>
-					<GeometryDrawing Geometry="F1 M 546.25,0L 546.25,8.92361L 16,8.92361L 16,0L 546.25,0 Z ">
+				</DrawingGroup.Children>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+
+
+	<DrawingBrush x:Key="shadow_design" PresentationOptions:Freeze="True" >
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<DrawingGroup.Children>
+					<GeometryDrawing Geometry="F1 M 426.459,46.8715L 426.459,55.7951L -103.793,55.7951L -103.793,46.8715L 426.459,46.8715 Z ">
 						<GeometryDrawing.Brush>
 							<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 								<LinearGradientBrush.GradientStops>

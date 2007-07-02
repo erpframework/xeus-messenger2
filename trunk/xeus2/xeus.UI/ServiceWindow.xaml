@@ -6,18 +6,30 @@
     xmlns:xeus2_xeus_Core="clr-namespace:xeus2.xeus.Core"
     xmlns:servicecmd="clr-namespace:xeus2.xeus.Commands"
     x:Class="xeus2.xeus.UI.ServiceWindow"
+  	xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     Title="xeus2.xeus.UI" Height="600" Width="500"
     SnapsToDevicePixels="True"
-	Background="{DynamicResource background_design}"
+  	Background="{DynamicResource background_design}"
     Foreground="#FFFFFFFF"
     >
   <Window.Resources>
     <ObjectDataProvider x:Key="ServicesDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Services}"/>
 
-    <CollectionViewSource x:Key="Services" Source="{Binding Path=Categories, Mode=Default, Source={StaticResource ServicesDS}}"/>
+    <CollectionViewSource x:Key="Services" Source="{Binding Path=Categories, Mode=Default, Source={StaticResource ServicesDS}}">
+      <CollectionViewSource.SortDescriptions>
+        <scm:SortDescription PropertyName="Name" />
+      </CollectionViewSource.SortDescriptions>
+    </CollectionViewSource>
+
+    <CollectionViewSource x:Key="ServicesFlat" Source="{Binding Path=FilteredServices, Mode=Default, Source={StaticResource ServicesDS}}">
+      <CollectionViewSource.SortDescriptions>
+        <scm:SortDescription PropertyName="Name" />
+      </CollectionViewSource.SortDescriptions>
+    </CollectionViewSource>
 
   </Window.Resources>
-	<DockPanel x:Name="topBar">
+
+      <DockPanel x:Name="topBar">
 		<Border DockPanel.Dock="Top" Background="{DynamicResource back_x_design}" BorderBrush="{DynamicResource DefaultTextBrush2}" Padding="10,10,10,18">
 		<DockPanel DockPanel.Dock="Top">
 			<StackPanel Margin="0,0,0,5" Orientation="Horizontal" DockPanel.Dock="Top">
@@ -56,6 +68,12 @@
 			<TextBox x:Name="serverJid" Margin="5,0,0,0" />
 		</DockPanel>
 		</Border>
+		<Border Background="{DynamicResource back_x_design}" Padding="10,10,10,10" DockPanel.Dock="Bottom">
+			<DockPanel>
+				<TextBlock Text="Filter"/>
+				<TextBox Margin="10,0,0,0" x:Name="_filter"/>
+			</DockPanel>
+		</Border>
 		<!--
 		<Border DockPanel.Dock="Top" Style="{DynamicResource ToolbarBorderStyle}" Margin="5,0,5,0" >
 			<StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
@@ -71,7 +89,8 @@
 			<TreeView ItemsSource="{Binding Source={StaticResource Services}}"
 				ItemTemplateSelector="{DynamicResource ServiceTemplateSelector}"
 				x:Name="_services" Style="{DynamicResource TreeViewStyleServices}"
-				ItemContainerStyle="{DynamicResource TreeViewItemStyleService}" Template="{DynamicResource TreeViewControlTemplate}" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5" />					
+				ItemContainerStyle="{DynamicResource TreeViewItemStyleService}"
+        Template="{DynamicResource TreeViewControlTemplate}" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5" />					
 		</Border>
 	</DockPanel>
 </Window>

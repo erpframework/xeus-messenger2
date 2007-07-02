@@ -23,8 +23,9 @@ namespace xeus2.xeus.Core
 
 		private delegate void OnCommandsItemInfoCallback( DiscoItem discoItem, IQ iq ) ;
 
-
 		private string _sessionKey = string.Empty ;
+
+        private ObservableCollectionDisp<Service> _filteredServices = new ObservableCollectionDisp<Service>();
 
 		public static Services Instance
 		{
@@ -50,7 +51,19 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		public new void Clear()
+        public ObservableCollectionDisp<Service> FilteredServices
+	    {
+	        get
+	        {
+	            foreach (Service service in _allServices.Values)
+	            {
+	                _filteredServices.Add(service);
+	            }
+	            return _filteredServices;
+	        }
+	    }
+
+	    public new void Clear()
 		{
 			lock ( _syncObject )
 			{
@@ -124,7 +137,7 @@ namespace xeus2.xeus.Core
 
 								_allServices.Add( command.Key, command ) ;
 
-								Account.Instance.DiscoInfo( item ) ;
+								Account.Instance.AddDiscoInfoPrioritized( item ) ;
 							}
 
 							lock ( service.Commands._syncObject )
