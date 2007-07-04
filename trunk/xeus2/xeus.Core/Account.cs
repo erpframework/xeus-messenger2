@@ -473,6 +473,9 @@ namespace xeus2.xeus.Core
 					DiscoItems items = query as DiscoItems ;
 					DiscoItem[] itms = items.GetDiscoItems() ;
 
+                    DiscoverySessionData sessionData = data as DiscoverySessionData;
+                    Services.Instance.OnServiceItem(sender, itms, sessionData.Data as DiscoItem);
+
 					foreach ( DiscoItem itm in itms )
 					{
 						if ( itm.Jid != null )
@@ -481,10 +484,6 @@ namespace xeus2.xeus.Core
 							{
 								return ;
 							}
-
-							DiscoverySessionData sessionData = data as DiscoverySessionData ;
-
-							Services.Instance.OnServiceItem( sender, itm, sessionData.Data as DiscoItem ) ;
 
                             AddDiscoRequest(itm);
 						}

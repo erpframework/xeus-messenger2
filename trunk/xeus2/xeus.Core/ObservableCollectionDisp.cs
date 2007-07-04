@@ -1,124 +1,176 @@
-using System.Collections.ObjectModel ;
-using System.Windows.Threading ;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Windows.Threading;
 
 namespace xeus2.xeus.Core
 {
-	public class ObservableCollectionDisp< T > : ObservableCollection< T >
-	{
-		public readonly object _syncObject = new object() ;
+    public class ObservableCollectionDisp<T> : ObservableCollection<T>
+    {
+        public readonly object _syncObject = new object();
+        private bool _dontSendChange = false;
 
-		private delegate void SetItemCallback( int index, T item ) ;
+        private delegate void SetItemCallback(int index, T item);
 
-		private delegate void RemoveItemCallback( int index ) ;
+        private delegate void RemoveItemCallback(int index);
 
-		private delegate void ClearItemsCallback() ;
+        private delegate void ClearItemsCallback();
 
-		private delegate void InsertItemCallback( int index, T item ) ;
+        private delegate void InsertItemCallback(int index, T item);
 
-		private delegate void MoveItemCallback( int oldIndex, int newIndex ) ;
+        private delegate void MoveItemCallback(int oldIndex, int newIndex);
 
-		private const DispatcherPriority _dispatcherPriority = DispatcherPriority.SystemIdle ;
+        private delegate void AddCallback(IList<T> items);
 
-		protected override void SetItem( int index, T item )
-		{
-			if ( App.CheckAccessSafe() )
-			{
-				lock ( _syncObject )
-				{
-					base.SetItem( index, item ) ;
-				}
-			}
-			else
-			{
-				if ( App.Current != null )
-				{
-					App.Current.Dispatcher.BeginInvoke( _dispatcherPriority,
-					                                    new SetItemCallback( SetItem ), index, new object[] { item } ) ;
-				}
-			}
-		}
+        private const DispatcherPriority _dispatcherPriority = DispatcherPriority.SystemIdle;
 
-		protected override void InsertItem( int index, T item )
-		{
-			if ( App.CheckAccessSafe() )
-			{
-				lock ( _syncObject )
-				{
-					if ( index > Count )
-					{
-						base.InsertItem( Count, item ) ;
-					}
-					else
-					{
-						base.InsertItem( index, item ) ;
-					}
-				}
-			}
-			else
-			{
-				if ( App.Current != null )
-				{
-					App.Current.Dispatcher.BeginInvoke( _dispatcherPriority,
-					                                    new InsertItemCallback( InsertItem ), index, new object[] { item } ) ;
-				}
-			}
-		}
+        protected override void SetItem(int index, T item)
+        {
+            if (App.CheckAccessSafe())
+            {
+                lock (_syncObject)
+                {
+                    base.SetItem(index, item);
+                }
+            }
+            else
+            {
+                if (App.Current != null)
+                {
+                    App.Current.Dispatcher.BeginInvoke(_dispatcherPriority,
+                                                       new SetItemCallback(SetItem), index, new object[] {item});
+                }
+            }
+        }
+
+        protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
+        {
+            if (!_dontSendChange)
+            {
+                base.OnCollectionChanged(e);
+            }
+        }
+
+        public void Add(IList<T> items)
+        {
+            if (App.CheckAccessSafe())
+            {
+                _dontSendChange = true;
+
+                lock (_syncObject)
+                {
+                    foreach (T item in items)
+                    {
+                        base.InsertItem(Count, item);
+                    }
+                }
+
+                _dontSendChange = false;
+
+                NotifyCollectionChangedEventArgs e =
+                    new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, items);
+
+                try
+                {
+                    OnCollectionChanged(e);
+                }
+
+                catch
+                {
+                    
+                }
+            }
+            else
+            {
+                if (App.Current != null)
+                {
+                    App.Current.Dispatcher.BeginInvoke(_dispatcherPriority,
+                                                       new AddCallback(Add), items);
+                }
+            }
+        }
+
+        protected override void InsertItem(int index, T item)
+        {
+            if (App.CheckAccessSafe())
+            {
+                lock (_syncObject)
+                {
+                    if (index > Count)
+                    {
+                        base.InsertItem(Count, item);
+                    }
+                    else
+                    {
+                        base.InsertItem(index, item);
+                    }
+                }
+            }
+            else
+            {
+                if (App.Current != null)
+                {
+                    App.Current.Dispatcher.BeginInvoke(_dispatcherPriority,
+                                                       new InsertItemCallback(InsertItem), index, new object[] {item});
+                }
+            }
+        }
 
 
-		protected override void RemoveItem( int index )
-		{
-			if ( App.CheckAccessSafe() )
-			{
-				lock ( _syncObject )
-				{
-					base.RemoveItem( index ) ;
-				}
-			}
-			else
-			{
-				if ( App.Current != null )
-				{
-					App.Current.Dispatcher.BeginInvoke( _dispatcherPriority,
-					                                    new RemoveItemCallback( RemoveItem ), index, new object[] { } ) ;
-				}
-			}
-		}
+        protected override void RemoveItem(int index)
+        {
+            if (App.CheckAccessSafe())
+            {
+                lock (_syncObject)
+                {
+                    base.RemoveItem(index);
+                }
+            }
+            else
+            {
+                if (App.Current != null)
+                {
+                    App.Current.Dispatcher.BeginInvoke(_dispatcherPriority,
+                                                       new RemoveItemCallback(RemoveItem), index, new object[] {});
+                }
+            }
+        }
 
-		protected override void MoveItem( int oldIndex, int newIndex )
-		{
-			if ( App.CheckAccessSafe() )
-			{
-				lock ( _syncObject )
-				{
-					base.MoveItem( oldIndex, newIndex ) ;
-				}
-			}
-			else
-			{
-				if ( App.Current != null )
-				{
-					App.Current.Dispatcher.BeginInvoke( _dispatcherPriority,
-					                                    new MoveItemCallback( MoveItem ), oldIndex, new object[] { newIndex } ) ;
-				}
-			}
-		}
+        protected override void MoveItem(int oldIndex, int newIndex)
+        {
+            if (App.CheckAccessSafe())
+            {
+                lock (_syncObject)
+                {
+                    base.MoveItem(oldIndex, newIndex);
+                }
+            }
+            else
+            {
+                if (App.Current != null)
+                {
+                    App.Current.Dispatcher.BeginInvoke(_dispatcherPriority,
+                                                       new MoveItemCallback(MoveItem), oldIndex, new object[] {newIndex});
+                }
+            }
+        }
 
-		protected override void ClearItems()
-		{
-			if ( App.CheckAccessSafe() )
-			{
-				lock ( _syncObject )
-				{
-					base.ClearItems() ;
-				}
-			}
-			else
-			{
-				if ( App.Current != null )
-				{
-					App.Current.Dispatcher.BeginInvoke( _dispatcherPriority, new ClearItemsCallback( ClearItems ) ) ;
-				}
-			}
-		}
-	}
+        protected override void ClearItems()
+        {
+            if (App.CheckAccessSafe())
+            {
+                lock (_syncObject)
+                {
+                    base.ClearItems();
+                }
+            }
+            else
+            {
+                if (App.Current != null)
+                {
+                    App.Current.Dispatcher.BeginInvoke(_dispatcherPriority, new ClearItemsCallback(ClearItems));
+                }
+            }
+        }
+    }
 }

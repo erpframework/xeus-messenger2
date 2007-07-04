@@ -15,7 +15,7 @@ namespace xeus2.xeus.Core
 
 		private Dictionary< string, Service > _allServices = new Dictionary< string, Service >() ;
 
-		private delegate void ServiceItemCallback( DiscoItem discoItem, DiscoItem parent ) ;
+		private delegate void ServiceItemCallback( IList<DiscoItem> discoItems, DiscoItem parent ) ;
 
 		private delegate void ServiceItemInfoCallback( DiscoItem discoItem, DiscoInfo info ) ;
 
@@ -96,10 +96,10 @@ namespace xeus2.xeus.Core
 			                new ServiceItemInfoCallback( OnServiceItemInfo ), discoItem, info ) ;
 		}
 
-		public void OnServiceItem( object sender, DiscoItem discoItem, DiscoItem parent )
+		public void OnServiceItem( object sender, IList<DiscoItem> discoItems, DiscoItem parent )
 		{
 			App.InvokeSafe( DispatcherPriority.Background,
-			                new ServiceItemCallback( OnServiceItem ), discoItem, parent ) ;
+			                new ServiceItemCallback( OnServiceItems ), discoItems, parent ) ;
 		}
 
 		public void OnServiceItemError( object sender, IQ iq )
@@ -168,42 +168,44 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		private void OnServiceItem( DiscoItem discoItem, DiscoItem parent )
+		private void OnServiceItems( IList<DiscoItem> discoItems, DiscoItem parent )
 		{
 			lock ( _syncObject )
 			{
-				Service service = FindService( discoItem ) ;
-				Service parentService = null ;
+                List<Service> services = new List<Service>(discoItems.Count);
+                Service parentService = null;
 
-				if ( parent != null )
-				{
-					parentService = FindService( parent ) ;
-				}
+                foreach (DiscoItem discoItem in discoItems)
+                {
+                    Service service = FindService(discoItem);
 
-				if ( service == null )
-				{
-					if ( parent == null )
-					{
-						Service newService = new Service( discoItem, true ) ;
-						_allServices.Add( newService.Key, newService ) ;
-						Add( newService ) ;
-					}
-					else
-					{
-						if ( parentService != null )
-						{
-							lock ( parentService.Services._syncObject )
-							{
-								Service newService = new Service( discoItem, false ) ;
-								_allServices.Add( newService.Key, newService ) ;
-								parentService.Services.Add( newService ) ;
-							}
-						}
-						else
-						{
-						}
-					}
-				}
+                    if (parent != null)
+                    {
+                        parentService = FindService(parent);
+                    }
+
+                    if (service == null)
+                    {
+                        Service newService = new Service(discoItem, (parent == null));
+                        _allServices.Add(newService.Key, newService);
+                        services.Add(newService);
+                    }
+                }
+
+                if (parent == null)
+                {
+                    Add(services);
+                }
+                else
+                {
+                    if (parentService != null)
+                    {
+                        lock (parentService.Services._syncObject)
+                        {
+                            parentService.Services.Add(services);
+                        }
+                    }
+                }
 			}
 		}
 
