@@ -19,7 +19,7 @@ namespace xeus2.xeus.UI
         {
             base.EndInit();
 
-            new TextFilterService(_services.ItemsSource as ListCollectionView, _filter);
+            new TextFilterService(_servicesResult.ItemsSource as ListCollectionView, _filter);
 
             ServiceCommands.RegisterCommands(this);
         }
