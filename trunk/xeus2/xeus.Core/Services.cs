@@ -43,7 +43,17 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		public string SessionKey
+        ObservableCollectionDisp<Service> _allServicesCollection = new ObservableCollectionDisp<Service>();
+
+        public ObservableCollectionDisp<Service> AllServices
+	    {
+            get
+	        {
+	            return _allServicesCollection;
+	        }
+	    }
+
+	    public string SessionKey
 		{
 			get
 			{
@@ -70,6 +80,7 @@ namespace xeus2.xeus.Core
 				_sessionKey = Guid.NewGuid().ToString() ;
 
 				_allServices.Clear() ;
+                _allServicesCollection.Clear();
 
 				Categories.Clear() ;
 
@@ -136,6 +147,7 @@ namespace xeus2.xeus.Core
 								command = new Service( item, false ) ;
 
 								_allServices.Add( command.Key, command ) ;
+                                _allServicesCollection.Add(command);
 
 								Account.Instance.AddDiscoInfoPrioritized( item ) ;
 							}
@@ -188,6 +200,7 @@ namespace xeus2.xeus.Core
                     {
                         Service newService = new Service(discoItem, (parent == null));
                         _allServices.Add(newService.Key, newService);
+                        _allServicesCollection.Add(newService);
                         services.Add(newService);
                     }
                 }

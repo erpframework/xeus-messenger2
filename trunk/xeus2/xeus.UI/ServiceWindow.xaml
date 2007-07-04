@@ -5,8 +5,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
     xmlns:xeus2_xeus_Core="clr-namespace:xeus2.xeus.Core"
     xmlns:servicecmd="clr-namespace:xeus2.xeus.Commands"
-    x:Class="xeus2.xeus.UI.ServiceWindow"
   	xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+    x:Class="xeus2.xeus.UI.ServiceWindow"
     Title="xeus2.xeus.UI" Height="600" Width="500"
     SnapsToDevicePixels="True"
   	Background="{DynamicResource background_design}"
@@ -21,7 +21,7 @@
       </CollectionViewSource.SortDescriptions>
     </CollectionViewSource>
 
-    <CollectionViewSource x:Key="ServicesFlat" Source="{Binding Path=FilteredServices, Mode=Default, Source={StaticResource ServicesDS}}">
+    <CollectionViewSource x:Key="ServicesFlat" Source="{Binding Path=Instance.AllServices, Mode=Default, Source={StaticResource ServicesDS}}">
       <CollectionViewSource.SortDescriptions>
         <scm:SortDescription PropertyName="Name" />
       </CollectionViewSource.SortDescriptions>
@@ -69,10 +69,17 @@
 		</DockPanel>
 		</Border>
 		<Border Background="{DynamicResource back_x_design}" Padding="10,10,10,10" DockPanel.Dock="Bottom">
+			<Expander Foreground="{DynamicResource DefaultTextBrush2}" Header="Search">
 			<DockPanel>
-				<TextBlock Text="Filter"/>
-				<TextBox Margin="10,0,0,0" x:Name="_filter"/>
+				<TextBox x:Name="_filter" DockPanel.Dock="Top" Margin="0,5,0,0"/>
+				<Border Background="{DynamicResource chat_back_design}" BorderBrush="{DynamicResource DefaultTextBrush2}" BorderThickness="1,1,1,1" CornerRadius="6,6,6,6" Margin="0,10,0,0" Padding="5,5,5,5">
+					<ListBox MinHeight="25" DockPanel.Dock="Bottom" Background="{x:Null}"
+					 BorderBrush="{x:Null}"
+					 ItemsSource="{Binding Source={StaticResource ServicesFlat}}"
+  					 x:Name="_servicesResult" MaxHeight="250" ItemTemplate="{DynamicResource ServicesTemplate}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
+				</Border>
 			</DockPanel>
+			</Expander>
 		</Border>
 		<!--
 		<Border DockPanel.Dock="Top" Style="{DynamicResource ToolbarBorderStyle}" Margin="5,0,5,0" >
