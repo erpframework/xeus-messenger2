@@ -9,7 +9,7 @@ namespace xeus2.xeus.UI
 {
     internal class TextFilterService
     {
-        Timer _keyTime = new Timer(250);
+        Timer _keyTime = new Timer(500);
         private ICollectionView _collectionView;
 
         private delegate void RefreshCallback();

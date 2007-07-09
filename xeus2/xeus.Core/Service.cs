@@ -44,12 +44,6 @@ namespace xeus2.xeus.Core
 
 				_askedForDiscovery = true ;
 			}
-
-            /*
-			if ( discoItem != null )
-			{
-				_services.Add( new ServiceDummy( _services, _discoItem ) ) ;
-			}*/
 		}
 
 		public string Key
@@ -284,7 +278,7 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				if ( _discoInfo == null || IsCommand )
+				if ( _discoInfo == null /*|| IsCommand*/ )
 				{
 					return false ;
 				}

@@ -92,6 +92,11 @@ namespace xeus2.xeus.Core
 
 		public void OnCommandsItemInfo( object sender, DiscoItem discoItem, IQ iq )
 		{
+            if (_sessionKey == string.Empty)
+            {
+                return;
+            }
+
 			App.InvokeSafe( DispatcherPriority.Background,
 			                new OnCommandsItemInfoCallback( OnCommandsItemInfo ), discoItem, iq ) ;
 		}
@@ -109,7 +114,12 @@ namespace xeus2.xeus.Core
 
 		public void OnServiceItem( object sender, IList<DiscoItem> discoItems, DiscoItem parent )
 		{
-			App.InvokeSafe( DispatcherPriority.Background,
+            if (_sessionKey == string.Empty)
+            {
+                return;
+            }
+
+            App.InvokeSafe(DispatcherPriority.Background,
 			                new ServiceItemCallback( OnServiceItems ), discoItems, parent ) ;
 		}
 

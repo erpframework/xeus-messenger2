@@ -148,12 +148,11 @@
     <Compile Include="xeus.Core\ServiceCategories.cs" />
     <Compile Include="xeus.Core\ServiceCategory.cs" />
     <Compile Include="xeus.Core\ServiceCommandExecution.cs" />
-    <Compile Include="xeus.Core\ServiceDummy.cs" />
     <Compile Include="xeus.Core\Services.cs" />
     <Compile Include="xeus.Core\XeusException.cs" />
     <Compile Include="xeus.Core\XeusHyperlink.cs" />
-    <Compile Include="xeus.Data\Database.cs" />
-    <Compile Include="xeus.Data\Storage.cs" />
+    <Compile Include="xeus.Core\xeus.Data\Database.cs" />
+    <Compile Include="xeus.Core\xeus.Data\Storage.cs" />
     <Compile Include="xeus.Middle\CommandExecutor.cs" />
     <Compile Include="xeus.Middle\ErrorPopup.cs" />
     <Compile Include="xeus.Middle\Login.cs" />

@@ -149,7 +149,7 @@ namespace xeus2.xeus.Core
 
                 try
                 {
-                    for (int i = 0; i < 25; i++)
+                    for (int i = 0; i < 40; i++)
                     {
                         if (_pendingCommand.Count > 0)
                         {
@@ -444,7 +444,7 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		private bool CheckSessionKey( object data )
+		private static bool CheckSessionKey( object data )
 		{
 			DiscoverySessionData sessionData = data as DiscoverySessionData ;
 
@@ -480,11 +480,6 @@ namespace xeus2.xeus.Core
 					{
 						if ( itm.Jid != null )
 						{
-							if ( !CheckSessionKey( data ) )
-							{
-								return ;
-							}
-
                             AddDiscoRequest(itm);
 						}
 					}
