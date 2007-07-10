@@ -128,6 +128,7 @@ namespace xeus2.xeus.Core
 
         private static Brush _forMeBackground;
         private static Brush _textBrush;
+        private static Brush _sysTextBrush;
         private static Brush _textDimBrush;
         private static Brush _contactForeground;
         private static Brush _timeBackground;
@@ -147,6 +148,7 @@ namespace xeus2.xeus.Core
                 _forMeBackground = StyleManager.GetBrush("mymsg_design");
 
                 _textBrush = StyleManager.GetBrush("text_design");
+                _sysTextBrush = StyleManager.GetBrush("sys_text_design");
                 _textDimBrush = StyleManager.GetBrush("textdim_design");
 
                 _alternativeBackground = StyleManager.GetBrush("back_alt");
@@ -209,6 +211,12 @@ namespace xeus2.xeus.Core
                 }
 
                 newSection = true;
+            }
+
+            if (string.IsNullOrEmpty(message.Sender))
+            {
+                // system message
+                paragraph.Foreground = _sysTextBrush;
             }
 
             if (!string.IsNullOrEmpty(message.Body))
