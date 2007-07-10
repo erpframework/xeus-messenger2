@@ -12,6 +12,7 @@
   <SolidColorBrush x:Key="muc_contact_fore" Color="#FF872D2D" PresentationOptions:Freeze="True" />
   <SolidColorBrush x:Key="muc_time_fore" Color="#FF153D54" PresentationOptions:Freeze="True" />
   <SolidColorBrush x:Key="text_design" Color="#FF000000" PresentationOptions:Freeze="True" />
+  <SolidColorBrush x:Key="sys_text_design" Color="#FF437623" PresentationOptions:Freeze="True" />
   <SolidColorBrush x:Key="textdim_design" Color="#3F000000" PresentationOptions:Freeze="True" />
   <SolidColorBrush x:Key="back_alt" Color="#3FB1B1B1" PresentationOptions:Freeze="True" />
 	
