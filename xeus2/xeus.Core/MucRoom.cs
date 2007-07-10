@@ -126,7 +126,7 @@ namespace xeus2.xeus.Core
             NotifyPropertyChanged("ChatDocument");
         }
 
-        private static Brush _forMeBackground;
+        private static Brush _forMeForegorund;
         private static Brush _textBrush;
         private static Brush _sysTextBrush;
         private static Brush _textDimBrush;
@@ -143,9 +143,9 @@ namespace xeus2.xeus.Core
 
         public Block GenerateMessage(MucMessage message, MucMessage previousMessage)
         {
-            if (_forMeBackground == null)
+            if (_forMeForegorund == null)
             {
-                _forMeBackground = StyleManager.GetBrush("mymsg_design");
+                _forMeForegorund = StyleManager.GetBrush("forme_text_design");
 
                 _textBrush = StyleManager.GetBrush("text_design");
                 _sysTextBrush = StyleManager.GetBrush("sys_text_design");
@@ -286,6 +286,13 @@ namespace xeus2.xeus.Core
 
             paragraph.DataContext = message;
 
+            if (!string.IsNullOrEmpty(message.Body)
+                && message.Body.IndexOf(_nick, 0, StringComparison.CurrentCultureIgnoreCase) >= 0)
+            {
+                paragraph.Foreground = _forMeForegorund;
+            }
+
+
             Span time = new Span();
             time.Background = _timeBackground;
 
@@ -302,11 +309,6 @@ namespace xeus2.xeus.Core
             {
                 groupSection = new Section();
 
-                if (!string.IsNullOrEmpty(message.Body)
-                    && message.Body.IndexOf(_nick, 0, StringComparison.CurrentCultureIgnoreCase) >= 0)
-                {
-                    groupSection.Background = _forMeBackground;
-                }
 
                 groupSection.Blocks.Add(paragraph);
                 groupSection.Margin = new Thickness(3.0, 10.0, 3.0, 0.0);
@@ -346,7 +348,7 @@ namespace xeus2.xeus.Core
 
                 if (mucMessage != null)
                 {
-                    Highlight(mucMessage.Sender, _textBrush, _contactForeground);
+                    Highlight(mucMessage.Sender, _textBrush, _contactForeground, _forMeForegorund);
                 }
             }
         }
@@ -361,12 +363,12 @@ namespace xeus2.xeus.Core
 
                 if (mucMessage != null)
                 {
-                    Highlight(mucMessage.Sender, _textDimBrush, _textDimBrush);
+                    Highlight(mucMessage.Sender, _textDimBrush, _textDimBrush, _textDimBrush);
                 }
             }
         }
 
-        private void Highlight(string sender, Brush brush, Brush nameBrush)
+        private void Highlight(string sender, Brush brush, Brush nameBrush, Brush formeBrush)
         {
             foreach (Block block in _chatDocument.Blocks)
             {
@@ -384,6 +386,17 @@ namespace xeus2.xeus.Core
                         if (name != null)
                         {
                             name.Foreground = nameBrush;
+                        }
+
+                        MucMessage mucMessage = section.Blocks.FirstBlock.DataContext as MucMessage;
+
+                        if (mucMessage != null)
+                        {
+                            if (!string.IsNullOrEmpty(mucMessage.Body)
+                                                        && mucMessage.Body.IndexOf(_nick, 0, StringComparison.CurrentCultureIgnoreCase) >= 0)
+                            {
+                                section.Blocks.FirstBlock.Foreground = formeBrush;
+                            }
                         }
                     }
                 }

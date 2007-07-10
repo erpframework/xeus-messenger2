@@ -70,7 +70,7 @@
 	  	<Border Margin="5,5,5,5" Background="{DynamicResource chat_back_design}" BorderBrush="{DynamicResource DefaultTextBrush2}" BorderThickness="1,1,1,1" CornerRadius="6,6,6,6">
 		<FlowDocumentScrollViewer x:Name="_flowViewer"
       Document="{Binding Path=ChatDocument}"
-      Margin="2,2,2,2" DockPanel.Dock="Top"/>
+      Margin="2,2,2,2" DockPanel.Dock="Top" MaxZoom="300" MinZoom="50" ZoomIncrement="5" Style="{DynamicResource BasicFlowDocumentScrollViewerStyle}"/>
 	  </Border>
   </DockPanel>
 </Window>
