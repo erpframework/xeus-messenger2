@@ -668,6 +668,7 @@
 			</Grid>
 		</StackPanel>
 	</DataTemplate>
+	
 	<Style x:Key="BasicFlowDocumentScrollViewerStyle" TargetType="{x:Type FlowDocumentScrollViewer}">
 		<Setter Property="Background" Value="#00FFFFFF"/>
 		<Setter Property="ContextMenu" Value="{DynamicResource {ComponentResourceKey ResourceId=PUIFlowViewers_ContextMenu, TypeInTargetAssembly={x:Type System_Windows_Documents:PresentationUIStyleResources}}}"/>
@@ -715,7 +716,6 @@
 												<Setter Property="Width" Value="Auto"/>
 												<Setter Property="Padding" Value="2,0,2,0"/>
 												<Setter Property="Height" Value="Auto"/>
-												<Setter Property="Opacity" Value="0.75"/>
 												<Setter Property="Delay" Value="1000"/>
 												<Setter Property="Interval" Value="250"/>
 												<Setter Property="Template">
@@ -733,7 +733,7 @@
 																		<RowDefinition Height="*"/>
 																	</Grid.RowDefinitions>
 																	<TickBar Visibility="Collapsed" x:Name="TopTick" Height="4" Grid.Row="0" Fill="{TemplateBinding Foreground}" Placement="Top"/>
-																	<Border Opacity="0.5" Height="2" Grid.Row="1" Background="{DynamicResource back_alt}" BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="0,1,0,0"/>
+																	<Border Height="1" Grid.Row="1" Background="{DynamicResource DefaultTextBrush2}"/>
 																	<Canvas VerticalAlignment="Center" Height="4" Grid.Row="1">
 																		<Rectangle Visibility="Hidden" Fill="{TemplateBinding Foreground}" x:Name="PART_SelectionRange" Height="2" Canvas.Top="1"/>
 																	</Canvas>
@@ -791,12 +791,12 @@
 																											<Viewbox.LayoutTransform>
 																												<ScaleTransform ScaleX="1" ScaleY="1"/>
 																											</Viewbox.LayoutTransform>
-																											<Canvas Width="10" Height="17">
-																												<Path Fill="{DynamicResource background_design_2}" Stretch="Fill" Stroke="{DynamicResource DefaultBorderBrush}" StrokeEndLineCap="Round" StrokeLineJoin="Round" StrokeMiterLimit="1" StrokeThickness="0.5" Width="9.741" Height="12.662" Data="M0.375,0.375 L12.625,0.375 12.625,11.285 6.3194444,16.520909 0.375,11.285 z" Canvas.Left="0.083" Canvas.Top="1.577">
-																													<Path.BitmapEffect>
+																											<Canvas Width="10" Height="17" ClipToBounds="False">
+																												<Rectangle Fill="{DynamicResource background_design_2}" Stroke="{DynamicResource DefaultTextBrush}" StrokeEndLineCap="Round" StrokeLineJoin="Round" StrokeMiterLimit="1" StrokeThickness="0.5" RadiusX="1" RadiusY="1" Width="8" Height="8" Canvas.Left="1.041" Canvas.Top="4.334">
+																													<Rectangle.BitmapEffect>
 																														<DropShadowBitmapEffect Opacity="0.5" ShadowDepth="1" Softness="0.1"/>
-																													</Path.BitmapEffect>
-																												</Path>
+																													</Rectangle.BitmapEffect>
+																												</Rectangle>
 																											</Canvas>
 																										</Viewbox>
 																									</Border>
