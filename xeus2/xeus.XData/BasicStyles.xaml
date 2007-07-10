@@ -212,9 +212,10 @@
 
 	<Style x:Key="TextBoxBasic" TargetType="{x:Type TextBox}">
 		<Setter Property="Template" Value="{DynamicResource TextBoxBaseControlTemplate}"/>
-		<Setter Property="MinHeight" Value="20"/>
+		<Setter Property="MinHeight" Value="22"/>
+		<!--
 		<Setter Property="VerticalScrollBarVisibility" Value="Disabled"/>
-		<Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+		<Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>-->
 	</Style>
 
 	<Style x:Key="LabelBasic" TargetType="{x:Type TextBlock}">
@@ -432,8 +433,8 @@
 	<Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource TextBoxBasic}"/>
 
 	<ControlTemplate x:Key="TextBoxBaseControlTemplate" TargetType="{x:Type TextBox}">
-		<Border x:Name="Bd" BorderBrush="{DynamicResource TextBoxBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="1,1,1,1" Background="{DynamicResource DefaultTextBoxBackBrush}" ScrollViewer.VerticalScrollBarVisibility="Disabled" MinHeight="22" VerticalAlignment="Center">
-			<ScrollViewer x:Name="PART_ContentHost" VerticalContentAlignment="Center" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled"/>
+		<Border x:Name="Bd" BorderBrush="{DynamicResource TextBoxBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="1,1,1,1" Background="{DynamicResource DefaultTextBoxBackBrush}">
+			<ScrollViewer x:Name="PART_ContentHost" />
 		</Border>
 		<ControlTemplate.Triggers>
 			<Trigger Property="IsEnabled" Value="False">
