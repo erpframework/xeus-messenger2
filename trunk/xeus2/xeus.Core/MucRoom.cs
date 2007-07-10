@@ -7,13 +7,16 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
+using System.Windows.Shapes;
 using System.Windows.Threading;
 using agsXMPP;
 using agsXMPP.Collections;
 using agsXMPP.protocol.client;
 using xeus2.Properties;
 using xeus2.xeus.UI;
+using Brush=System.Windows.Media.Brush;
+using Brushes=System.Windows.Media.Brushes;
+using FontFamily=System.Windows.Media.FontFamily;
 using Uri=System.Uri;
 
 namespace xeus2.xeus.Core
@@ -133,6 +136,8 @@ namespace xeus2.xeus.Core
         private static Brush _contactForeground;
         private static Brush _timeBackground;
         private static Brush _alternativeBackground;
+        private static Brush _bulbBackground;
+        private static Brush _ownAvatarBackground;
 
         private readonly Regex _urlregex =
             new Regex(
@@ -140,6 +145,16 @@ namespace xeus2.xeus.Core
                 RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         private string _subject;
+
+        static Rectangle CreateRectangle(Brush brush)
+        {
+            Rectangle rect = new Rectangle();
+            rect.Fill = brush;
+            rect.Width = 20;
+            rect.Height = 20;
+
+            return rect;
+        }
 
         public Block GenerateMessage(MucMessage message, MucMessage previousMessage)
         {
@@ -156,6 +171,8 @@ namespace xeus2.xeus.Core
                 _timeBackground = StyleManager.GetBrush("mucmsgtime_design");
 
                 _contactForeground = StyleManager.GetBrush("muc_contact_fore");
+                _bulbBackground = StyleManager.GetBrush("jabber_design");
+                _ownAvatarBackground = StyleManager.GetBrush("aff_none_design");
             }
 
             if (_timeTimer == null)
@@ -186,17 +203,13 @@ namespace xeus2.xeus.Core
                 (message.DateTime - previousMessage.DateTime >
                  TimeSpan.FromMinutes(Settings.Default.UI_GroupMessagesByMinutes)))
             {
-                /*
-                Image avatar = new Image();
-                avatar.Source = message.Image;
-                avatar.Width = 16.0;
-
-                paragraph.Inlines.Add(avatar);
-                paragraph.Inlines.Add("  ");
-                 */
-
                 if (!string.IsNullOrEmpty(message.Sender))
                 {
+                    if (message.Sender == _nick)
+                    {
+                        paragraph.Inlines.Add(CreateRectangle(_ownAvatarBackground));
+                    }
+
                     Bold contactName = new Bold();
                     contactName.Cursor = Cursors.Hand;
                     contactName.Foreground = _contactForeground;
@@ -208,6 +221,10 @@ namespace xeus2.xeus.Core
                     contactName.MouseDown += new MouseButtonEventHandler(contactName_MouseDown);
                     contactName.MouseEnter += new MouseEventHandler(contactName_MouseEnter);
                     contactName.MouseLeave += new MouseEventHandler(contactName_MouseLeave);
+                }
+                else
+                {
+                    paragraph.Inlines.Add(CreateRectangle(_bulbBackground));
                 }
 
                 newSection = true;
