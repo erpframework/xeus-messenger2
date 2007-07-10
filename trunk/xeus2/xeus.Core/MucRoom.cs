@@ -404,6 +404,19 @@ namespace xeus2.xeus.Core
                         {
                             name.Foreground = nameBrush;
                         }
+                        else
+                        {
+                            Inline inline = ((Paragraph)(section.Blocks.FirstBlock)).Inlines.FirstInline;
+
+                            if (inline != null)
+                            {
+                                name = inline.NextInline as Bold;
+                                if (name != null)
+                                {
+                                    name.Foreground = nameBrush;
+                                }
+                            }
+                        }
 
                         MucMessage mucMessage = section.Blocks.FirstBlock.DataContext as MucMessage;
 
