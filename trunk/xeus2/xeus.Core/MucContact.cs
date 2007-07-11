@@ -147,7 +147,7 @@ namespace xeus2.xeus.Core
 				NotifyPropertyChanged( "Nick" ) ;
 				NotifyPropertyChanged( "Group" ) ;
 				NotifyPropertyChanged( "Role" ) ;
-				NotifyPropertyChanged( "Affiliation" ) ;
+                NotifyPropertyChanged("Affiliation");
 				NotifyPropertyChanged( "StatusText" ) ;
 				NotifyPropertyChanged( "Show" ) ;
 			}
