@@ -12,6 +12,7 @@ using System.Windows.Threading;
 using agsXMPP;
 using agsXMPP.Collections;
 using agsXMPP.protocol.client;
+using agsXMPP.protocol.x.muc;
 using xeus2.Properties;
 using xeus2.xeus.UI;
 using Brush=System.Windows.Media.Brush;
@@ -32,7 +33,7 @@ namespace xeus2.xeus.Core
 
         private Service _service;
         private XmppClientConnection _xmppClientConnection = null;
-        private readonly string _nick;
+        private string _nick;
 
         public delegate void MucContactHandler(MucMessage mucMessage);
 
@@ -42,10 +43,14 @@ namespace xeus2.xeus.Core
 
         List<Span> _relativeTimes = new List<Span>();
 
+        MucManager _mucManager = null;
+
         public MucRoom(Service service, XmppClientConnection xmppClientConnection, string nick)
         {
             _service = service;
             _xmppClientConnection = xmppClientConnection;
+
+            _mucManager = new MucManager(_xmppClientConnection);
             _nick = nick;
 
             _xmppClientConnection.MesagageGrabber.Add(service.Jid, new BareJidComparer(), new MessageCB(MessageCallback),
@@ -492,7 +497,15 @@ namespace xeus2.xeus.Core
             {
                 return _nick;
             }
+
+            private set
+            {
+                _nick = value;
+                NotifyPropertyChanged("Nick");
+            }
         }
+
+        //public MucContact
 
         private void MessageCallback(object sender, Message msg, object data)
         {
@@ -536,6 +549,24 @@ namespace xeus2.xeus.Core
                 }
                 else
                 {
+                    if (presence.Type == PresenceType.unavailable
+                        && presence.MucUser != null
+                        && presence.MucUser.Status != null
+                        && presence.MucUser.Status.Code == StatusCode.NewNickname)
+                    {
+                        MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
+                                                                           string.Format("'{0}' is now known as '{1}'",
+                                                                           presence.From.Resource, presence.MucUser.Item.Nickname)), null);
+
+                        _mucMessages.Add(mucMessage);
+
+                        // changed my nick
+                        if (presence.From.Resource == Nick)
+                        {
+                            Nick = presence.MucUser.Item.Nickname;
+                        }
+                    }
+
                     MucRoster.OnPresence(presence, this);
                 }
             }
@@ -559,15 +590,13 @@ namespace xeus2.xeus.Core
 
         public void ChangeMucTopic(string topic)
         {
-            Message message = new Message();
-
-            message.Type = MessageType.groupchat;
-            message.To = _service.Jid;
-            message.Subject = topic;
-
-            _xmppClientConnection.Send(message);
+            _mucManager.ChangeSubject(_service.Jid, topic);
         }
 
+        public void ChangeNickname(string nick)
+        {
+            _mucManager.ChangeNickname(_service.Jid, nick);
+        }
 
         public void LeaveRoom(string message)
         {
