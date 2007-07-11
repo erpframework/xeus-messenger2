@@ -19,7 +19,7 @@ namespace xeus2.xeus.Core
 			return null ;
 		}
 
-		public void OnPresence( Presence presence )
+		public void OnPresence( Presence presence, MucRoom mucRoom )
 		{
 			lock ( _syncObject )
 			{
@@ -27,7 +27,7 @@ namespace xeus2.xeus.Core
 
 				if ( contact == null )
 				{
-					Add( new MucContact( presence ) ) ;
+                    Add(new MucContact(presence, mucRoom));
 				}
 				else
 				{

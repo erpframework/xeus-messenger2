@@ -84,6 +84,7 @@
     <Page Include="xeus.UI\Registration.xaml" />
     <Page Include="xeus.UI\RoomInfo.xaml" />
     <Page Include="xeus.UI\RoomLogin.xaml" />
+    <Page Include="xeus.UI\RoomTopic.xaml" />
     <Page Include="xeus.UI\RosterWindow.xaml" />
     <Page Include="xeus.UI\Search.xaml" />
     <Page Include="xeus.UI\ServiceWindow.xaml" />
@@ -154,6 +155,7 @@
     <Compile Include="xeus.Core\XeusHyperlink.cs" />
     <Compile Include="xeus.Core\xeus.Data\Database.cs" />
     <Compile Include="xeus.Core\xeus.Data\Storage.cs" />
+    <Compile Include="xeus.Middle\ChangeMucTopic.cs" />
     <Compile Include="xeus.Middle\CommandExecutor.cs" />
     <Compile Include="xeus.Middle\ErrorPopup.cs" />
     <Compile Include="xeus.Middle\Login.cs" />
@@ -195,6 +197,10 @@
     <Compile Include="xeus.UI\RoomLogin.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>RoomLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xeus.UI\RoomTopic.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>RoomTopic.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\Search.xaml.cs">
       <SubType>Code</SubType>

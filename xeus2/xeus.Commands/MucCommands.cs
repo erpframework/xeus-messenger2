@@ -1,5 +1,6 @@
 using System.Windows ;
 using System.Windows.Input ;
+using xeus2.xeus.Core;
 
 namespace xeus2.xeus.Commands
 {
@@ -114,10 +115,10 @@ namespace xeus2.xeus.Commands
 				new CommandBinding( _modifySubject, ExecuteModifySubject, CanExecuteModifySubject ) ) ;
 
 			window.CommandBindings.Add(
-				new CommandBinding( _modifySubject, ExecuteGrantVoice, CanExecuteGrantVoice ) ) ;
+				new CommandBinding( _grantVoice, ExecuteGrantVoice, CanExecuteGrantVoice ) ) ;
 
 			window.CommandBindings.Add(
-				new CommandBinding( _modifySubject, ExecuteRevokeVoice, CanExecuteRevokeVoice ) ) ;
+				new CommandBinding( _revokeVoice, ExecuteRevokeVoice, CanExecuteRevokeVoice ) ) ;
 		}
 
 		public static void CanExecuteChangeStatus( object sender, CanExecuteRoutedEventArgs e )
@@ -138,16 +139,15 @@ namespace xeus2.xeus.Commands
 
 		public static void CanExecuteChangeNick( object sender, CanExecuteRoutedEventArgs e )
 		{
-			//Service service = e.Parameter as Service ;
+            MucContact mucContact = e.Parameter as MucContact;
 
-			e.Handled = true ;
-			//e.CanExecute = ( service != null && service.IsRegistrable ) ;
+            e.Handled = true;
+            e.CanExecute = (mucContact.Nick == mucContact.MucRoom.Nick);
 		}
 
 		public static void ExecuteChangeNick( object sender, ExecutedRoutedEventArgs e )
 		{
-			//Service service = e.Parameter as Service ;
-			//Account.Instance.GetService( service ) ;
+            MucContact mucContact = e.Parameter as MucContact;
 
 			e.Handled = true ;
 		}
@@ -202,16 +202,18 @@ namespace xeus2.xeus.Commands
 
 		public static void CanExecuteModifySubject( object sender, CanExecuteRoutedEventArgs e )
 		{
-			//Service service = e.Parameter as Service ;
-
 			e.Handled = true ;
-			//e.CanExecute = ( service != null && service.IsRegistrable ) ;
+			e.CanExecute = true ;
 		}
 
 		public static void ExecuteModifySubject( object sender, ExecutedRoutedEventArgs e )
 		{
-			//Service service = e.Parameter as Service ;
-			//Account.Instance.GetService( service ) ;
+		    MucRoom mucRoom = e.Parameter as MucRoom;
+
+            if (mucRoom != null)
+            {
+                Middle.ChangeMucTopic.Instance.DisplayTopic(mucRoom);
+            }
 
 			e.Handled = true ;
 		}
