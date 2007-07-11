@@ -19,6 +19,8 @@
 		  <MenuItem Command="xeus2_xeus_Commands:MucCommands.ChangeNick"
 		    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
 		<Separator/>
+    <MenuItem Command="xeus2_xeus_Commands:MucCommands.Kick"
+      CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
   </ContextMenu>
 	
   </Window.Resources>

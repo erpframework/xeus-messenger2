@@ -1,5 +1,6 @@
 using System.Windows ;
 using System.Windows.Input ;
+using agsXMPP.protocol.x.muc;
 using xeus2.xeus.Core;
 using xeus2.xeus.Middle;
 
@@ -180,13 +181,22 @@ namespace xeus2.xeus.Commands
         {
             MucContact mucContact = e.Parameter as MucContact;
 
+            if (mucContact != null)
+            {
+                e.CanExecute = (mucContact.MucRoom.Me.Role == Role.moderator);
+            }
+
             e.Handled = true;
-            e.CanExecute = false;
         }
 
         public static void ExecuteKick(object sender, ExecutedRoutedEventArgs e)
         {
             MucContact mucContact = e.Parameter as MucContact;
+            
+            if (mucContact != null)
+            {
+
+            }
 
             e.Handled = true;
         }
