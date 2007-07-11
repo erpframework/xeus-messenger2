@@ -45,6 +45,25 @@ namespace xeus2.xeus.Core
 
         MucManager _mucManager = null;
 
+        public MucContact Me
+        {
+            get
+            {
+                lock (_mucRoster._syncObject)
+                {
+                    foreach (MucContact mucContact in _mucRoster)
+                    {
+                        if (mucContact.Nick == Nick)
+                        {
+                            return mucContact;
+                        }
+                    }
+                }
+
+                return null;
+            }
+        }
+
         public MucRoom(Service service, XmppClientConnection xmppClientConnection, string nick)
         {
             _service = service;
@@ -312,12 +331,10 @@ namespace xeus2.xeus.Core
 
             paragraph.DataContext = message;
 
-            if (!string.IsNullOrEmpty(message.Body)
-                && message.Body.IndexOf(Nick, 0, StringComparison.CurrentCultureIgnoreCase) >= 0)
+            if (!string.IsNullOrEmpty(message.Body) && message.Body.Contains(Nick))
             {
                 paragraph.Foreground = _forMeForegorund;
             }
-
 
             Span time = new Span();
             time.Background = _timeBackground;
@@ -501,7 +518,9 @@ namespace xeus2.xeus.Core
             private set
             {
                 _nick = value;
+                
                 NotifyPropertyChanged("Nick");
+                NotifyPropertyChanged("Me");
             }
         }
 
@@ -596,6 +615,11 @@ namespace xeus2.xeus.Core
         public void ChangeNickname(string nick)
         {
             _mucManager.ChangeNickname(_service.Jid, nick);
+        }
+
+        public void Kick(string nick)
+        {
+            _mucManager.KickOccupant(_service.Jid, nick);
         }
 
         public void LeaveRoom(string message)
