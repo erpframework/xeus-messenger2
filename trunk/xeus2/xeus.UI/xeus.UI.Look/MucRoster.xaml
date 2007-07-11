@@ -17,6 +17,33 @@
   <SolidColorBrush x:Key="back_alt" Color="#3FB1B1B1" PresentationOptions:Freeze="True" />
   <SolidColorBrush x:Key="forme_text_design" Color="#FFFF9040" PresentationOptions:Freeze="True" />
 
+	<DrawingBrush x:Key="changesubject_design" PresentationOptions:Freeze="True" Stretch="Uniform">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<DrawingGroup.Children>
+					<GeometryDrawing Geometry="F1 M 15.0417,1.29167C 22.6931,1.29167 28.8958,7.49439 28.8958,15.1458C 28.8958,22.7973 22.6931,29 15.0417,29C 7.39022,29 1.1875,22.7973 1.1875,15.1458C 1.1875,7.49439 7.39022,1.29167 15.0417,1.29167 Z ">
+						<GeometryDrawing.Pen>
+							<Pen Thickness="2" LineJoin="Round" Brush="#FF3D3D3D"/>
+						</GeometryDrawing.Pen>
+						<GeometryDrawing.Brush>
+							<RadialGradientBrush RadiusX="0.48317" RadiusY="0.48317" Center="0.5,0.5" GradientOrigin="0.5,0.5">
+								<RadialGradientBrush.GradientStops>
+									<GradientStop Color="#FFE9E9E9" Offset="0"/>
+									<GradientStop Color="#FFCBCBCB" Offset="0.855932"/>
+									<GradientStop Color="#FF5D5D5D" Offset="1"/>
+								</RadialGradientBrush.GradientStops>
+								<RadialGradientBrush.RelativeTransform>
+									<TransformGroup/>
+								</RadialGradientBrush.RelativeTransform>
+							</RadialGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Brush="#FF000000" Geometry="F1 M 21.0137,15.5416L 10.8138,9.65274L 10.8138,21.4306L 21.0137,15.5416 Z "/>
+				</DrawingGroup.Children>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+
 	<DrawingBrush x:Key="chat_back_design" PresentationOptions:Freeze="True" Stretch="Fill">
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
@@ -616,7 +643,7 @@
 
 
   <DataTemplate x:Key="MucContact">
-	  <Grid ToolTip="{Binding Mode=OneWay}">
+	  <Grid ToolTip="{Binding Mode=OneWay}" ContextMenu="{DynamicResource MucContactMenu}">
       	<Rectangle x:Name="_affiliation" Width="24" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center"
 			Fill="{StaticResource aff_none_design}" Margin="0,0,0,5" />
       	<Rectangle x:Name="_show" Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Bottom"			/>

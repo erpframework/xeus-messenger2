@@ -7,14 +7,16 @@ namespace xeus2.xeus.Core
 {
 	internal class MucContact : NotifyInfoDispatcher
 	{
-		private Presence _presence ;
+		private Presence _presence;
+	    private MucRoom _mucRoom;
 
-		public MucContact( Presence presence )
+		public MucContact( Presence presence, MucRoom mucRoom )
 		{
-			Presence = presence ;
+		    _mucRoom = mucRoom;
+		    Presence = presence ;
 		}
 
-		public Jid Jid
+	    public Jid Jid
 		{
 			get
 			{
@@ -151,7 +153,15 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		public override string ToString()
+	    public MucRoom MucRoom
+	    {
+	        get
+	        {
+	            return _mucRoom;
+	        }
+	    }
+
+	    public override string ToString()
 		{
 			return Nick ;
 		}

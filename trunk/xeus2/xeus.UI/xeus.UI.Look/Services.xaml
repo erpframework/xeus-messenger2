@@ -861,12 +861,12 @@
 	</DrawingBrush>    
 
     <HierarchicalDataTemplate x:Key="ServicesTemplate" ItemsSource="{Binding Path=Services}">
-    <StackPanel Orientation="Horizontal" MinHeight="24" Margin="0,1,0,1">
-	  <Rectangle ToolTip="Service Type" x:Name="type" Width="16" Height="16" Margin="0,0,3,0" Visibility="Visible" Fill="{DynamicResource service_design}"/>
+      <StackPanel Orientation="Horizontal" MinHeight="24" Margin="0,1,0,1">
+	    <Rectangle ToolTip="Service Type" x:Name="type" Width="16" Height="16" Margin="0,0,3,0" Visibility="Visible" Fill="{DynamicResource service_design}"/>
 
-	  <StackPanel Orientation="Horizontal">
-      	<TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="{DynamicResource DefaultTextBrush}"/>
-		<StackPanel x:Name="stackPanel" Orientation="Horizontal">
+	    <StackPanel Orientation="Horizontal">
+      	  <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="{DynamicResource DefaultTextBrush}"/>
+		  <StackPanel x:Name="stackPanel" Orientation="Horizontal">
 	      <Button x:Name="_register" Content="reg" Command="servicecmd:ServiceCommands.Register"
 	              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource register_design}" ToolTip="Register"/>
 				  

@@ -205,7 +205,7 @@ namespace xeus2.xeus.Core
             {
                 if (!string.IsNullOrEmpty(message.Sender))
                 {
-                    if (message.Sender == _nick)
+                    if (message.Sender == Nick)
                     {
                         paragraph.Inlines.Add(CreateRectangle(_ownAvatarBackground));
                     }
@@ -300,11 +300,15 @@ namespace xeus2.xeus.Core
                     paragraph.Inlines.Add(message.Body);
                 }
             }
+            else if (!string.IsNullOrEmpty(message.Subject))
+            {
+                paragraph.Inlines.Add("changed topic: " + message.Subject);
+            }
 
             paragraph.DataContext = message;
 
             if (!string.IsNullOrEmpty(message.Body)
-                && message.Body.IndexOf(_nick, 0, StringComparison.CurrentCultureIgnoreCase) >= 0)
+                && message.Body.IndexOf(Nick, 0, StringComparison.CurrentCultureIgnoreCase) >= 0)
             {
                 paragraph.Foreground = _forMeForegorund;
             }
@@ -423,7 +427,7 @@ namespace xeus2.xeus.Core
                         if (mucMessage != null)
                         {
                             if (!string.IsNullOrEmpty(mucMessage.Body)
-                                                        && mucMessage.Body.IndexOf(_nick, 0, StringComparison.CurrentCultureIgnoreCase) >= 0)
+                                                        && mucMessage.Body.IndexOf(Nick, 0, StringComparison.CurrentCultureIgnoreCase) >= 0)
                             {
                                 section.Blocks.FirstBlock.Foreground = formeBrush;
                             }
@@ -482,6 +486,14 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public string Nick
+        {
+            get
+            {
+                return _nick;
+            }
+        }
+
         private void MessageCallback(object sender, Message msg, object data)
         {
             if (App.CheckAccessSafe())
@@ -524,7 +536,7 @@ namespace xeus2.xeus.Core
                 }
                 else
                 {
-                    MucRoster.OnPresence(presence);
+                    MucRoster.OnPresence(presence, this);
                 }
             }
             else
@@ -544,6 +556,18 @@ namespace xeus2.xeus.Core
 
             _xmppClientConnection.Send(message);
         }
+
+        public void ChangeMucTopic(string topic)
+        {
+            Message message = new Message();
+
+            message.Type = MessageType.groupchat;
+            message.To = _service.Jid;
+            message.Subject = topic;
+
+            _xmppClientConnection.Send(message);
+        }
+
 
         public void LeaveRoom(string message)
         {
