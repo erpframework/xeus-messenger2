@@ -37,7 +37,15 @@ namespace xeus2.xeus.Core
 					}
 					else
 					{
+					    string group = contact.Group;
+
 						contact.Presence = presence ;
+
+                        if (group != contact.Group)
+                        {
+                            Remove(contact);
+                            Add(contact);
+                        }
 					}
 				}
 			}
