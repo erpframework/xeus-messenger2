@@ -1,6 +1,7 @@
 using System.Windows ;
 using System.Windows.Input ;
 using xeus2.xeus.Core;
+using xeus2.xeus.Middle;
 
 namespace xeus2.xeus.Commands
 {
@@ -12,7 +13,10 @@ namespace xeus2.xeus.Commands
 		private static RoutedUICommand _changeNick =
 			new RoutedUICommand( "Change Nickname", "ChangeNickmane", typeof ( MucCommands ) ) ;
 
-		private static RoutedUICommand _sendPrivateMessage =
+        private static RoutedUICommand _kick =
+            new RoutedUICommand("Kick", "Kick", typeof(MucCommands));
+        
+        private static RoutedUICommand _sendPrivateMessage =
 			new RoutedUICommand( "Send Private Message", "SendPrivateMessage", typeof ( MucCommands ) ) ;
 
 		private static RoutedUICommand _invite =
@@ -94,7 +98,15 @@ namespace xeus2.xeus.Commands
 			}
 		}
 
-		public static void RegisterCommands( Window window )
+	    public static RoutedUICommand Kick
+	    {
+	        get
+	        {
+	            return _kick;
+	        }
+	    }
+
+	    public static void RegisterCommands( Window window )
 		{
 			window.CommandBindings.Add(
 				new CommandBinding( _changeStatus, ExecuteChangeStatus, CanExecuteChangeStatus ) ) ;
@@ -102,7 +114,10 @@ namespace xeus2.xeus.Commands
 			window.CommandBindings.Add(
 				new CommandBinding( _changeNick, ExecuteChangeNick, CanExecuteChangeNick ) ) ;
 
-			window.CommandBindings.Add(
+            window.CommandBindings.Add(
+                new CommandBinding(_kick, ExecuteKick, CanExecuteKick));
+            
+            window.CommandBindings.Add(
 				new CommandBinding( _sendPrivateMessage, ExecuteSendPrivateMessage, CanExecuteSendPrivateMessage ) ) ;
 
 			window.CommandBindings.Add(
@@ -141,18 +156,42 @@ namespace xeus2.xeus.Commands
 		{
             MucContact mucContact = e.Parameter as MucContact;
 
+            if (mucContact != null)
+            {
+                e.CanExecute = (mucContact.Nick == mucContact.MucRoom.Nick);
+            }
+        
             e.Handled = true;
-            e.CanExecute = (mucContact.Nick == mucContact.MucRoom.Nick);
-		}
+        }
 
 		public static void ExecuteChangeNick( object sender, ExecutedRoutedEventArgs e )
 		{
             MucContact mucContact = e.Parameter as MucContact;
 
-			e.Handled = true ;
+            if (mucContact != null)
+            {
+                ChangeMucContactNick.Instance.DisplayNick(mucContact.MucRoom);
+            }
+
+            e.Handled = true;
 		}
 
-		public static void CanExecuteSendPrivateMessage( object sender, CanExecuteRoutedEventArgs e )
+        public static void CanExecuteKick(object sender, CanExecuteRoutedEventArgs e)
+        {
+            MucContact mucContact = e.Parameter as MucContact;
+
+            e.Handled = true;
+            e.CanExecute = false;
+        }
+
+        public static void ExecuteKick(object sender, ExecutedRoutedEventArgs e)
+        {
+            MucContact mucContact = e.Parameter as MucContact;
+
+            e.Handled = true;
+        }
+
+        public static void CanExecuteSendPrivateMessage(object sender, CanExecuteRoutedEventArgs e)
 		{
 			//Service service = e.Parameter as Service ;
 

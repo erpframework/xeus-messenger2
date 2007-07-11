@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
+    <Page Include="xeus.UI\ChangeNickInRoom.xaml" />
     <Page Include="xeus.UI\ChooseCommand.xaml" />
     <Page Include="xeus.UI\CommandExecute.xaml" />
     <Page Include="xeus.UI\InfoPopup.xaml" />
@@ -155,6 +156,7 @@
     <Compile Include="xeus.Core\XeusHyperlink.cs" />
     <Compile Include="xeus.Core\xeus.Data\Database.cs" />
     <Compile Include="xeus.Core\xeus.Data\Storage.cs" />
+    <Compile Include="xeus.Middle\ChangeMucContactNick.cs" />
     <Compile Include="xeus.Middle\ChangeMucTopic.cs" />
     <Compile Include="xeus.Middle\CommandExecutor.cs" />
     <Compile Include="xeus.Middle\ErrorPopup.cs" />
@@ -166,6 +168,7 @@
     <Compile Include="xeus.Middle\Search.cs" />
     <Compile Include="xeus.Middle\Services.cs" />
     <Compile Include="xeus.Middle\WindowManager.cs" />
+    <Compile Include="xeus.UI\ChangeNickInRoom.cs" />
     <Compile Include="xeus.UI\ChooseCommand.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>ChooseCommand.xaml</DependentUpon>
