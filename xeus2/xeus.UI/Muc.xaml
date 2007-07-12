@@ -21,6 +21,8 @@
 		<Separator/>
     <MenuItem Command="xeus2_xeus_Commands:MucCommands.Kick"
       CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
+    <MenuItem Command="xeus2_xeus_Commands:MucCommands.Ban"
+      CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
   </ContextMenu>
 	
   </Window.Resources>

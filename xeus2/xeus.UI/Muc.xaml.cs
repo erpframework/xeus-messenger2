@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using agsXMPP.protocol.client;
+using agsXMPP.protocol.x.muc;
 using xeus2.Properties;
 using xeus2.xeus.Commands;
 using xeus2.xeus.Core;
@@ -61,6 +62,11 @@ namespace xeus2.xeus.UI
                         case NotifyCollectionChangedAction.Add:
                             {
                                 message.AppendFormat(" is {0}", mucContact.Role);
+
+                                if (mucContact.Affiliation != Affiliation.none)
+                                {
+                                    message.AppendFormat(" and {0}", mucContact.Affiliation);
+                                }
                                 break;
                             }
                         default:

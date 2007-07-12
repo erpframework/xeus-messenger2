@@ -612,6 +612,27 @@ namespace xeus2.xeus.Core
 
                             _mucMessages.Add(mucMessage);
                         }
+
+                        if (presence.MucUser.Status.Code == StatusCode.Banned)
+                        {
+                            string message;
+
+                            if (presence.MucUser.Item != null
+                                && !string.IsNullOrEmpty(presence.MucUser.Item.Reason))
+                            {
+                                message = string.Format("{0} has been banned from the room with reason '{1}'",
+                                                            presence.From.Resource, presence.MucUser.Item.Reason);
+                            }
+                            else
+                            {
+                                message = string.Format("{0} has been banned from the room", presence.From.Resource);
+                            }
+
+                            MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
+                                                                               message, presence.From.Resource), null);
+
+                            _mucMessages.Add(mucMessage);
+                        }
                     }
 
                     MucRoster.OnPresence(presence, this);
@@ -644,7 +665,11 @@ namespace xeus2.xeus.Core
         {
             _mucManager.ChangeNickname(_service.Jid, nick);
         }
-
+        
+        /*
+        private void OnBanResult(object sender, IQ iq, object data)
+        {
+        }
 
         private void OnKickResult(object sender, IQ iq, object data)
 		{
@@ -698,11 +723,16 @@ namespace xeus2.xeus.Core
 
                 _mucMessages.Add(mucMessage);
             }
-		}
+		}*/
 
         public void Kick(string nick, string reason)
         {
-            _mucManager.KickOccupant(_service.Jid, nick, reason, new IqCB(OnKickResult));
+            _mucManager.KickOccupant(_service.Jid, nick, reason);
+        }
+
+        public void Ban(Jid jid, string reason)
+        {
+            _mucManager.BanUser(_service.Jid, jid, reason);
         }
 
         public void LeaveRoom(string message)
