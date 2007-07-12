@@ -666,33 +666,28 @@ namespace xeus2.xeus.Core
             _mucManager.ChangeNickname(_service.Jid, nick);
         }
         
-        /*
         private void OnBanResult(object sender, IQ iq, object data)
         {
+            string nick = "this user";
+
+            if (iq.Error != null)
+            {
+                if (iq.Error.Code == ErrorCode.NotAllowed)
+                {
+                    MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
+                                                                       string.Format(
+                                                                           "You are not allowed to ban {0}",
+                                                                           nick)), null);
+
+                    _mucMessages.Add(mucMessage);
+                }
+            }
         }
 
         private void OnKickResult(object sender, IQ iq, object data)
 		{
             string nick = "this user";
-            string reason = null;
-
-            Admin admin = iq.Query as Admin;
             
-            if (admin != null
-                && admin.GetItems() != null
-                && admin.GetItems().Length > 0)
-            {
-                if (admin.GetItems()[0].Nickname != null)
-                {
-                    nick = admin.GetItems()[0].Nickname;
-                }
-
-                if (admin.GetItems()[0].Reason != null)
-                {
-                    reason = admin.GetItems()[0].Reason;
-                }
-            }
-
             if (iq.Error != null)
 			{
                 if (iq.Error.Code == ErrorCode.NotAllowed)
@@ -705,34 +700,16 @@ namespace xeus2.xeus.Core
                     _mucMessages.Add(mucMessage);
                 }
 			}
-			else if ( iq.Type == IqType.result )
-			{
-			    string message;
-
-                if (string.IsNullOrEmpty(reason))
-                {
-                    message = string.Format("You kicked {0} out of the room", nick);
-                }
-                else
-                {
-                    message = string.Format("You kicked {0} out of the room with reason {1}", nick, reason);
-                }
-
-			    MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
-                                                                   message), null);
-
-                _mucMessages.Add(mucMessage);
-            }
-		}*/
+		}
 
         public void Kick(string nick, string reason)
         {
-            _mucManager.KickOccupant(_service.Jid, nick, reason);
+            _mucManager.KickOccupant(_service.Jid, nick, reason, new IqCB(OnKickResult));
         }
 
         public void Ban(Jid jid, string reason)
         {
-            _mucManager.BanUser(_service.Jid, jid, reason);
+            _mucManager.BanUser(_service.Jid, jid, reason, new IqCB(OnBanResult));
         }
 
         public void LeaveRoom(string message)
