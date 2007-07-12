@@ -16,6 +16,14 @@ namespace xeus2.xeus.Core
 		    Presence = presence ;
 		}
 
+	    public Jid UserJid
+	    {
+	        get
+	        {
+	            return Presence.MucUser.Item.Jid;
+	        }
+	    }
+
 	    public Jid Jid
 		{
 			get
