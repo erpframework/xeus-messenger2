@@ -195,7 +195,7 @@ namespace xeus2.xeus.Commands
             
             if (mucContact != null)
             {
-
+                Middle.KickReason.Instance.Kick(mucContact);
             }
 
             e.Handled = true;

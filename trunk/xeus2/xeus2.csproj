@@ -80,6 +80,7 @@
     <Page Include="xeus.UI\ChooseCommand.xaml" />
     <Page Include="xeus.UI\CommandExecute.xaml" />
     <Page Include="xeus.UI\InfoPopup.xaml" />
+    <Page Include="xeus.UI\KickReason.xaml" />
     <Page Include="xeus.UI\Login.xaml" />
     <Page Include="xeus.UI\Muc.xaml" />
     <Page Include="xeus.UI\Registration.xaml" />
@@ -160,6 +161,7 @@
     <Compile Include="xeus.Middle\ChangeMucTopic.cs" />
     <Compile Include="xeus.Middle\CommandExecutor.cs" />
     <Compile Include="xeus.Middle\ErrorPopup.cs" />
+    <Compile Include="xeus.Middle\KickReason.cs" />
     <Compile Include="xeus.Middle\Login.cs" />
     <Compile Include="xeus.Middle\Muc.cs" />
     <Compile Include="xeus.Middle\MucInfo.cs" />
@@ -181,6 +183,7 @@
       <SubType>Code</SubType>
       <DependentUpon>InfoPopup.xaml</DependentUpon>
     </Compile>
+    <Compile Include="xeus.UI\KickReason.cs" />
     <Compile Include="xeus.UI\Login.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>Login.xaml</DependentUpon>

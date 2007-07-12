@@ -13,6 +13,7 @@ using agsXMPP;
 using agsXMPP.Collections;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.x.muc;
+using agsXMPP.protocol.x.muc.iq.admin;
 using xeus2.Properties;
 using xeus2.xeus.UI;
 using Brush=System.Windows.Media.Brush;
@@ -570,19 +571,45 @@ namespace xeus2.xeus.Core
                 {
                     if (presence.Type == PresenceType.unavailable
                         && presence.MucUser != null
-                        && presence.MucUser.Status != null
-                        && presence.MucUser.Status.Code == StatusCode.NewNickname)
+                        && presence.MucUser.Status != null)
                     {
-                        MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
-                                                                           string.Format("'{0}' is now known as '{1}'",
-                                                                           presence.From.Resource, presence.MucUser.Item.Nickname)), null);
-
-                        _mucMessages.Add(mucMessage);
-
-                        // changed my nick
-                        if (presence.From.Resource == Nick)
+                        if (presence.MucUser.Status.Code == StatusCode.NewNickname)
                         {
-                            Nick = presence.MucUser.Item.Nickname;
+                            MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
+                                                                               string.Format(
+                                                                                   "'{0}' is now known as '{1}'",
+                                                                                   presence.From.Resource,
+                                                                                   presence.MucUser.Item.Nickname)),
+                                                                   null);
+
+                            _mucMessages.Add(mucMessage);
+
+                            // changed my nick
+                            if (presence.From.Resource == Nick)
+                            {
+                                Nick = presence.MucUser.Item.Nickname;
+                            }
+                        }
+
+                        if (presence.MucUser.Status.Code == StatusCode.Kicked)
+                        {
+                            string message;
+
+                            if (presence.MucUser.Item != null
+                                && !string.IsNullOrEmpty(presence.MucUser.Item.Reason))
+                            {
+                                message = string.Format("{0} has been kicked from the room with reason '{1}'",
+                                                            presence.From.Resource, presence.MucUser.Item.Reason);
+                            }
+                            else
+                            {
+                                message = string.Format("{0} has been kicked from the room", presence.From.Resource);
+                            }
+
+                            MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
+                                                                               message, presence.From.Resource), null);
+
+                            _mucMessages.Add(mucMessage);
                         }
                     }
 
@@ -617,9 +644,64 @@ namespace xeus2.xeus.Core
             _mucManager.ChangeNickname(_service.Jid, nick);
         }
 
-        public void Kick(string nick)
+
+        private void OnKickResult(object sender, IQ iq, object data)
+		{
+            string nick = "this user";
+            string reason = null;
+
+            Admin admin = iq.Query as Admin;
+            
+            if (admin != null
+                && admin.GetItems() != null
+                && admin.GetItems().Length > 0)
+            {
+                if (admin.GetItems()[0].Nickname != null)
+                {
+                    nick = admin.GetItems()[0].Nickname;
+                }
+
+                if (admin.GetItems()[0].Reason != null)
+                {
+                    reason = admin.GetItems()[0].Reason;
+                }
+            }
+
+            if (iq.Error != null)
+			{
+                if (iq.Error.Code == ErrorCode.NotAllowed)
+                {
+                    MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
+                                                                       string.Format(
+                                                                           "You are not allowed to kick {0}",
+                                                                           nick)), null);
+
+                    _mucMessages.Add(mucMessage);
+                }
+			}
+			else if ( iq.Type == IqType.result )
+			{
+			    string message;
+
+                if (string.IsNullOrEmpty(reason))
+                {
+                    message = string.Format("You kicked {0} out of the room", nick);
+                }
+                else
+                {
+                    message = string.Format("You kicked {0} out of the room with reason {1}", nick, reason);
+                }
+
+			    MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
+                                                                   message), null);
+
+                _mucMessages.Add(mucMessage);
+            }
+		}
+
+        public void Kick(string nick, string reason)
         {
-            _mucManager.KickOccupant(_service.Jid, nick);
+            _mucManager.KickOccupant(_service.Jid, nick, reason, new IqCB(OnKickResult));
         }
 
         public void LeaveRoom(string message)

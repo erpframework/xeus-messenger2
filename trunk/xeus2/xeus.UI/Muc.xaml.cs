@@ -60,7 +60,7 @@ namespace xeus2.xeus.UI
                     {
                         case NotifyCollectionChangedAction.Add:
                             {
-                                message.AppendFormat(" has joined the room as {0}", mucContact.Role);
+                                message.AppendFormat(" is {0}", mucContact.Role);
                                 break;
                             }
                         default:
