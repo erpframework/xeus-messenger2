@@ -332,7 +332,8 @@ namespace xeus2.xeus.Core
 
             paragraph.DataContext = message;
 
-            if (!string.IsNullOrEmpty(message.Body) && message.Body.Contains(Nick))
+            if (!string.IsNullOrEmpty(message.Body)
+                && Utilities.TextUtil.ContainsNick(Nick, message.Body))
             {
                 paragraph.Foreground = _forMeForegorund;
             }
