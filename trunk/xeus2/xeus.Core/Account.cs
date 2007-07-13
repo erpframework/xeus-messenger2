@@ -362,11 +362,6 @@ namespace xeus2.xeus.Core
         {
             _pendingCommand.Add(discoItem);
         }
-
-        void AddCommandPrioritized(DiscoItem discoItem)
-        {
-            _pendingCommand.Insert(0, discoItem);
-        }
         
         public int MyPriority
 		{
