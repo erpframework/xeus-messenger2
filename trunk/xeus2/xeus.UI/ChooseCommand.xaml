@@ -14,7 +14,7 @@
 			<DataTrigger Binding="{Binding Path=Type}" Value="aim">
 	  			<Setter Property="Fill" Value="{StaticResource aim_design}"/>
 			</DataTrigger>
-			<DataTrigger Binding="{Binding Path=Type}" Value="msn">
+      <DataTrigger Binding="{Binding Path=Type}" Value="msn">
 	  			<Setter Property="Fill" Value="{StaticResource msn_design}"/>
 			</DataTrigger>
 			<DataTrigger Binding="{Binding Path=Type}" Value="icq">

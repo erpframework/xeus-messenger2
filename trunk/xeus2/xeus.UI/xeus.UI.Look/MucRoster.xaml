@@ -295,6 +295,103 @@
 		</DrawingBrush.Drawing>
 	</DrawingBrush>
 
+	<DrawingBrush x:Key="muc_nonanon_design" PresentationOptions:Freeze="True" Stretch="Uniform">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<DrawingGroup.Children>
+					<GeometryDrawing Geometry="F1 M 152.829,18.3162C 43.8892,18.3162 -52.191,68.6694 -109.101,145.315C -52.8937,225.695 45.5665,278.983 157.636,278.983C 266.577,278.983 362.657,228.63 419.566,151.984C 363.359,71.6039 264.899,18.3162 152.829,18.3162 Z ">
+						<GeometryDrawing.Pen>
+							<Pen Thickness="20" LineJoin="Round" Brush="#FF4D4D4D"/>
+						</GeometryDrawing.Pen>
+						<GeometryDrawing.Brush>
+							<RadialGradientBrush RadiusX="0.493721" RadiusY="1.47243" Center="0.5,0.5" GradientOrigin="0.5,0.5">
+								<RadialGradientBrush.GradientStops>
+									<GradientStop Color="#FFFFFFFF" Offset="0"/>
+									<GradientStop Color="#FFEBEBEB" Offset="1"/>
+								</RadialGradientBrush.GradientStops>
+								<RadialGradientBrush.RelativeTransform>
+									<TransformGroup/>
+								</RadialGradientBrush.RelativeTransform>
+							</RadialGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Geometry="F1 M 148.8,27.299C 215.627,27.299 269.801,81.473 269.801,148.3C 269.801,215.127 215.627,269.301 148.8,269.301C 81.973,269.301 27.799,215.127 27.799,148.3C 27.799,81.473 81.973,27.299 148.8,27.299 Z ">
+						<GeometryDrawing.Pen>
+							<Pen Thickness="20" LineJoin="Round" Brush="#FF4D4D4D"/>
+						</GeometryDrawing.Pen>
+						<GeometryDrawing.Brush>
+							<RadialGradientBrush RadiusX="0.479445" RadiusY="0.479445" Center="0.5,0.5" GradientOrigin="0.5,0.5">
+								<RadialGradientBrush.GradientStops>
+									<GradientStop Color="#FFCCF5FF" Offset="0"/>
+									<GradientStop Color="#FF1A8AB8" Offset="1"/>
+								</RadialGradientBrush.GradientStops>
+								<RadialGradientBrush.RelativeTransform>
+									<TransformGroup/>
+								</RadialGradientBrush.RelativeTransform>
+							</RadialGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Brush="#3EFFFFFF" Geometry="F1 M 148.619,37.4447C 100.367,37.4447 59.4564,67.2297 45.2421,108.457C 76.1264,119.822 112.122,126.34 150.554,126.34C 187.563,126.34 222.313,120.296 252.415,109.699C 238.6,67.8293 197.354,37.4447 148.619,37.4447 Z "/>
+					<GeometryDrawing Brush="#2C000000" Geometry="F1 M 148.989,258.988C 171.569,258.988 192.627,252.303 210.384,240.759C 191.523,235.694 170.161,232.837 147.529,232.837C 125.727,232.837 105.103,235.488 86.7589,240.21C 104.689,252.092 126.054,258.988 148.989,258.988 Z "/>
+					<GeometryDrawing Brush="#40000000" Geometry="F1 M 141.466,158.3L 240.621,106.099C 227.566,79.7991 204.021,59.4471 175.336,50.2998L 141.466,158.3 Z "/>
+					<GeometryDrawing Brush="#C0000000" Geometry="F1 M 150.9,95.3526C 179.617,95.3526 202.897,118.633 202.897,147.35C 202.897,176.067 179.617,199.347 150.9,199.347C 122.183,199.347 98.9026,176.067 98.9026,147.35C 98.9026,118.633 122.183,95.3526 150.9,95.3526 Z "/>
+				</DrawingGroup.Children>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+
+	<DrawingBrush x:Key="ghost_design" PresentationOptions:Freeze="True" Stretch="Uniform">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<DrawingGroup.Children>
+					<GeometryDrawing Geometry="F1 M 148.487,67.5737C 187.305,67.5737 218.772,119.876 218.772,184.394L 218.772,184.668C 217.944,185.318 217.11,185.958 216.271,186.586C 211.471,183.287 206.171,180.313 196.788,180.637C 177.455,181.303 172.788,191.303 160.121,193.97C 147.455,196.637 142.121,193.97 122.121,184.637C 105.501,176.88 87.0386,178.793 78.2131,182.339C 78.873,118.769 110.083,67.5737 148.487,67.5737 Z ">
+						<GeometryDrawing.Pen>
+							<Pen Thickness="15" LineJoin="Round" Brush="#FF5A5A5A"/>
+						</GeometryDrawing.Pen>
+						<GeometryDrawing.Brush>
+							<RadialGradientBrush RadiusX="0.5" RadiusY="0.546297" Center="0.5,0.505923" GradientOrigin="0.5,0.505923">
+								<RadialGradientBrush.GradientStops>
+									<GradientStop Color="#FFF1F8FF" Offset="0"/>
+									<GradientStop Color="#FFA6A6A6" Offset="0.987288"/>
+								</RadialGradientBrush.GradientStops>
+								<RadialGradientBrush.RelativeTransform>
+									<TransformGroup/>
+								</RadialGradientBrush.RelativeTransform>
+							</RadialGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Geometry="F1 M 127.637,99.3033C 136.205,99.3033 143.152,106.25 143.152,114.818C 143.152,123.387 136.205,130.334 127.637,130.334C 119.068,130.334 112.121,123.387 112.121,114.818C 112.121,106.25 119.068,99.3033 127.637,99.3033 Z ">
+						<GeometryDrawing.Brush>
+							<RadialGradientBrush RadiusX="0.851563" RadiusY="0.851562" Center="0.5,0.5" GradientOrigin="0.5,0.5">
+								<RadialGradientBrush.GradientStops>
+									<GradientStop Color="#FF151515" Offset="0.00847458"/>
+									<GradientStop Color="#FF838383" Offset="0.983051"/>
+								</RadialGradientBrush.GradientStops>
+								<RadialGradientBrush.RelativeTransform>
+									<TransformGroup/>
+								</RadialGradientBrush.RelativeTransform>
+							</RadialGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Geometry="F1 M 167.879,100.273C 176.448,100.273 183.394,107.219 183.394,115.788C 183.394,124.357 176.448,131.303 167.879,131.303C 159.31,131.303 152.364,124.357 152.364,115.788C 152.364,107.219 159.31,100.273 167.879,100.273 Z ">
+						<GeometryDrawing.Brush>
+							<RadialGradientBrush RadiusX="0.851563" RadiusY="0.851562" Center="0.5,0.5" GradientOrigin="0.5,0.5">
+								<RadialGradientBrush.GradientStops>
+									<GradientStop Color="#FF151515" Offset="0.00847458"/>
+									<GradientStop Color="#FF838383" Offset="0.983051"/>
+								</RadialGradientBrush.GradientStops>
+								<RadialGradientBrush.RelativeTransform>
+									<TransformGroup/>
+								</RadialGradientBrush.RelativeTransform>
+							</RadialGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Brush="#4DFFFFFF" Geometry="F1 M 118.131,176.392C 118.131,180.741 117.838,170.38 118.121,174.637C 106.511,170.974 96.7881,168.637 85.9092,173.59L 85.9084,173.122C 87.2879,121.303 116.955,73.3031 149.621,74.9697C 130.001,102.109 118.131,136.828 118.131,176.392 Z "/>
+				</DrawingGroup.Children>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+
 	<DrawingBrush x:Key="aff_admin_design" PresentationOptions:Freeze="True" Stretch="Uniform">
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
@@ -641,7 +738,38 @@
 		</DrawingBrush.Drawing>
 	</DrawingBrush>
 
-
+	<DataTemplate x:Key="MucRoomProps">
+		<StackPanel Orientation="Horizontal">
+			<Rectangle Fill="{DynamicResource register_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucPasswd" Height="16" ToolTip="Password protected"/>
+			<Rectangle Fill="{DynamicResource ghost_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucHidden" Height="16" ToolTip="Hidden"/>
+			<Rectangle Fill="{DynamicResource wait_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucTemp" Height="16" ToolTip="Temporary"/>
+			<Rectangle Fill="{DynamicResource aff_none_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucOpen" Height="16" ToolTip="Open"/>
+			<Rectangle Fill="{DynamicResource aff_admin_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucModerated" Height="16" ToolTip="Moderated"/>
+			<Rectangle Fill="{DynamicResource muc_nonanon_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucNonAnon" Height="16" ToolTip="Non-Anonymous"/>
+		</StackPanel>
+		
+		<DataTemplate.Triggers>
+	  		<DataTrigger Binding="{Binding Path=IsMucPasswordProtected}" Value="False">
+	  			<Setter Property="Visibility" TargetName="_mucPasswd" Value="Collapsed"/>
+	  		</DataTrigger>
+	  		<DataTrigger Binding="{Binding Path=IsMucHidden}" Value="False">
+	  			<Setter Property="Visibility" TargetName="_mucHidden" Value="Collapsed"/>
+	  		</DataTrigger>
+	  		<DataTrigger Binding="{Binding Path=IsMucTemporary}" Value="False">
+	  			<Setter Property="Visibility" TargetName="_mucTemp" Value="Collapsed"/>
+	  		</DataTrigger>
+	  		<DataTrigger Binding="{Binding Path=IsMucOpen}" Value="False">
+	  			<Setter Property="Visibility" TargetName="_mucOpen" Value="Collapsed"/>
+	  		</DataTrigger>
+	  		<DataTrigger Binding="{Binding Path=IsMucModerated}" Value="False">
+	  			<Setter Property="Visibility" TargetName="_mucModerated" Value="Collapsed"/>
+	  		</DataTrigger>
+	  		<DataTrigger Binding="{Binding Path=IsMucNonAnonymous}" Value="False">
+	  			<Setter Property="Visibility" TargetName="_mucNonAnon" Value="Collapsed"/>
+	  		</DataTrigger>
+    </DataTemplate.Triggers>
+	</DataTemplate>
+	
   <DataTemplate x:Key="MucContact">
 	  <Grid ToolTip="{Binding Mode=OneWay}" ContextMenu="{DynamicResource MucContactMenu}">
       	<Rectangle x:Name="_affiliation" Width="24" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center"

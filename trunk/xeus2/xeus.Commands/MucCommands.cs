@@ -8,8 +8,8 @@ namespace xeus2.xeus.Commands
 {
     public static class MucCommands
     {
-        private static RoutedUICommand _changeStatus =
-            new RoutedUICommand("Change Status", "ChangeStatus", typeof (MucCommands));
+        private static RoutedUICommand _changeAccessLevel =
+            new RoutedUICommand("Change Access Level", "ChangeAccessLevel", typeof (MucCommands));
 
         private static RoutedUICommand _changeNick =
             new RoutedUICommand("Change Nickname", "ChangeNickmane", typeof (MucCommands));
@@ -42,7 +42,7 @@ namespace xeus2.xeus.Commands
         {
             get
             {
-                return _changeStatus;
+                return _changeAccessLevel;
             }
         }
 
@@ -121,7 +121,7 @@ namespace xeus2.xeus.Commands
         public static void RegisterCommands(Window window)
         {
             window.CommandBindings.Add(
-                new CommandBinding(_changeStatus, ExecuteChangeStatus, CanExecuteChangeStatus));
+                new CommandBinding(_changeAccessLevel, ExecuteChangeAccessLevel, CanExecuteChangeAccessLevel));
 
             window.CommandBindings.Add(
                 new CommandBinding(_changeNick, ExecuteChangeNick, CanExecuteChangeNick));
@@ -151,18 +151,26 @@ namespace xeus2.xeus.Commands
                 new CommandBinding(_revokeVoice, ExecuteRevokeVoice, CanExecuteRevokeVoice));
         }
 
-        public static void CanExecuteChangeStatus(object sender, CanExecuteRoutedEventArgs e)
+        public static void CanExecuteChangeAccessLevel(object sender, CanExecuteRoutedEventArgs e)
         {
-            //Service service = e.Parameter as Service ;
+            MucContact mucContact = e.Parameter as MucContact;
+
+            if (mucContact != null)
+            {
+                //e.CanExecute = (mucContact.Nick == mucContact.MucRoom.Nick);
+            }
 
             e.Handled = true;
-            //e.CanExecute = ( service != null && service.IsRegistrable ) ;
         }
 
-        public static void ExecuteChangeStatus(object sender, ExecutedRoutedEventArgs e)
+        public static void ExecuteChangeAccessLevel(object sender, ExecutedRoutedEventArgs e)
         {
-            //Service service = e.Parameter as Service ;
-            //Account.Instance.GetService( service ) ;
+            MucContact mucContact = e.Parameter as MucContact;
+
+            if (mucContact != null)
+            {
+                //ChangeMucContactNick.Instance.DisplayNick(mucContact.MucRoom);
+            }
 
             e.Handled = true;
         }
@@ -197,6 +205,7 @@ namespace xeus2.xeus.Commands
 
             if (mucContact != null)
             {
+                // *** A moderator MUST NOT be able to revoke voice privileges from an admin or owner.
                 e.CanExecute = (mucContact.MucRoom.Me.Role == Role.moderator);
             }
 

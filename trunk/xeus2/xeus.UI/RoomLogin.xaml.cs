@@ -10,6 +10,8 @@ namespace xeus2.xeus.UI
 	{
 		internal RoomLogin( Service service, string forceNick )
 		{
+		    DataContext = service;
+
 			InitializeComponent() ;
 
 			if ( !string.IsNullOrEmpty( forceNick ) )
