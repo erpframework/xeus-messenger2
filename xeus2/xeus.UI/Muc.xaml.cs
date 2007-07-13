@@ -109,9 +109,28 @@ namespace xeus2.xeus.UI
             }
         }
 
+        private bool IsStillInRoom(string nick)
+        {
+            foreach (MucContact mucContact in _mucRoom.MucRoster)
+            {
+                if (mucContact.Nick == nick)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+
         private string ReplaceNick(string text, string sender)
         {
-            int colon = text.IndexOf(": ");
+            if (!IsStillInRoom(sender))
+            {
+                return text;
+            }
+
+            int colon = text.IndexOf(":");
 
             string result = text;
 
