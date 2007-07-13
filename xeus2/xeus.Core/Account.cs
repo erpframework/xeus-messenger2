@@ -121,6 +121,7 @@ namespace xeus2.xeus.Core
 
 			_discoTime.Elapsed += new ElapsedEventHandler( _discoTime_Elapsed ) ;
 
+		    _discoTime.AutoReset = false;
             _discoTime.Start();
 		}
 
@@ -138,6 +139,7 @@ namespace xeus2.xeus.Core
 		{
             if (_working)
             {
+                _discoTime.Start();
                 return;
             }
 		    
@@ -180,6 +182,7 @@ namespace xeus2.xeus.Core
                                                                  new IqCB(OnDiscoInfoResult),
                                                                  new DiscoverySessionData(discoItem));
                             }
+                            // one option
                         }
                         else if (_pendingDisco.Count > 0)
                         {
@@ -214,6 +217,7 @@ namespace xeus2.xeus.Core
                 finally
                 {
                     _working = false;
+                    _discoTime.Start();
                 }
             }
 		}

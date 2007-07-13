@@ -66,7 +66,6 @@ namespace xeus2.xeus.Middle
 		{
 			RoomLogin roomLogin = new RoomLogin( service, forceNick );
 
-			roomLogin.DataContext = service ;
 			roomLogin.Show() ;
 		}
 	}

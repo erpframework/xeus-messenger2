@@ -180,7 +180,7 @@ namespace xeus2.xeus.Core
 				NotifyPropertyChanged( "IsMucHidden" ) ;
 				NotifyPropertyChanged( "IsMucTemporary" ) ;
 				NotifyPropertyChanged( "IsMucOpen" ) ;
-				NotifyPropertyChanged( "IsMucUnmoderated" ) ;
+				NotifyPropertyChanged( "MucUnmoderated" ) ;
 				NotifyPropertyChanged( "IsMucNonAnonymous" ) ;
 				NotifyPropertyChanged( "Categories" ) ;
 				NotifyPropertyChanged( "Type" ) ;
@@ -333,11 +333,11 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		public bool IsMucUnmoderated
+		public bool IsMucModerated
 		{
 			get
 			{
-				return ( DiscoInfo != null && DiscoInfo.HasFeature( MucFeature.muc_unmoderated.ToString() ) ) ;
+				return !( DiscoInfo != null && DiscoInfo.HasFeature( MucFeature.muc_unmoderated.ToString() ) ) ;
 			}
 		}
 
