@@ -14,7 +14,6 @@ namespace xeus2.xeus.UI
 
         private delegate void RefreshCallback();
 
-
         public TextFilterService()
         {
             _keyTime.AutoReset = false;
