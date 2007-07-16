@@ -19,7 +19,7 @@ namespace xeus2.xeus.Middle
 
 		public void DisplayMuc( Service service, string nick, string password )
 		{
-			App.InvokeSafe( DispatcherPriority.Normal,
+            App.InvokeSafe(App._dispatcherPriority,
 			                new MucLoginCallback( DisplayMucInternal ), service, nick, password ) ;
 
 		}

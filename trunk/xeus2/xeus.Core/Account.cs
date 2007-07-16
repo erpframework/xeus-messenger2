@@ -125,7 +125,6 @@ namespace xeus2.xeus.Core
             _discoTime.Start();
 		}
 
-//        private ArrayList _pendingDisco = ArrayList.Synchronized( new ArrayList() );
         private ArrayList _pendingDiscoInfo = ArrayList.Synchronized(new ArrayList());
         private ArrayList _pendingCommand = ArrayList.Synchronized(new ArrayList());
 
@@ -186,16 +185,9 @@ namespace xeus2.xeus.Core
                             // one option
                             Jid jid;
 
-                            if (discoItem == null)
-                            {
-                                jid = new Jid(_xmppConnection.Server);
-                            }
-                            else
-                            {
-                                jid = discoItem.Jid;
-                            }
+                            jid = discoItem.Jid;
 
-                            if (discoItem != null && discoItem.Node != null)
+                            if (discoItem.Node != null)
                             {
                                 _discoManager.DisoverItems(jid, discoItem.Node, new IqCB(OnDiscoServerResult),
                                                            new DiscoverySessionData(discoItem));

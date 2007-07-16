@@ -45,6 +45,8 @@ namespace xeus2.xeus.Core
 
         ObservableCollectionDisp<Service> _allServicesCollection = new ObservableCollectionDisp<Service>();
 
+	    private MucRooms _mucRooms = new MucRooms();
+
         public ObservableCollectionDisp<Service> AllServices
 	    {
             get
@@ -73,12 +75,21 @@ namespace xeus2.xeus.Core
 	        }
 	    }
 
+	    public MucRooms MucRooms
+	    {
+	        get
+	        {
+	            return _mucRooms;
+	        }
+	    }
+
 	    public new void Clear()
 		{
 			lock ( _syncObject )
 			{
 				_sessionKey = Guid.NewGuid().ToString() ;
 
+                _mucRooms.Clear();
 				_allServices.Clear() ;
                 _allServicesCollection.Clear();
 
@@ -87,6 +98,8 @@ namespace xeus2.xeus.Core
 				base.Clear() ;
 			}
 		}
+
+
 
 		private static ServiceCategories _categories = new ServiceCategories() ;
 
@@ -97,7 +110,7 @@ namespace xeus2.xeus.Core
                 return;
             }
 
-			App.InvokeSafe( DispatcherPriority.Background,
+            App.InvokeSafe(App._dispatcherPriority,
 			                new OnCommandsItemInfoCallback( OnCommandsItemInfo ), discoItem, iq ) ;
 		}
 
@@ -108,7 +121,7 @@ namespace xeus2.xeus.Core
 				return ;
 			}
 
-			App.InvokeSafe( DispatcherPriority.Background,
+            App.InvokeSafe(App._dispatcherPriority,
 			                new ServiceItemInfoCallback( OnServiceItemInfo ), discoItem, info ) ;
 		}
 
@@ -119,13 +132,13 @@ namespace xeus2.xeus.Core
                 return;
             }
 
-            App.InvokeSafe(DispatcherPriority.Background,
+            App.InvokeSafe(App._dispatcherPriority,
 			                new ServiceItemCallback( OnServiceItems ), discoItems, parent ) ;
 		}
 
 		public void OnServiceItemError( object sender, IQ iq )
 		{
-			App.InvokeSafe( DispatcherPriority.Background,
+            App.InvokeSafe(App._dispatcherPriority,
 			                new OnServiceItemErrorCallback( OnServiceItemError ), iq ) ;
 		}
 
@@ -186,6 +199,11 @@ namespace xeus2.xeus.Core
 					{
 						_categories.AddService( service ) ;
 					}
+
+                    if (service.IsChatRoom)
+                    {
+                        _mucRooms.AddMuc(service);
+                    }
 				}
 			}
 		}

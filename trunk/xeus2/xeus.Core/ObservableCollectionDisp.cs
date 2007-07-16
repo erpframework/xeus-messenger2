@@ -22,7 +22,7 @@ namespace xeus2.xeus.Core
 
         private delegate void AddCallback(IList<T> items);
 
-        private const DispatcherPriority _dispatcherPriority = DispatcherPriority.SystemIdle;
+        public const DispatcherPriority _dispatcherPriority = DispatcherPriority.Render ;
 
         protected override void SetItem(int index, T item)
         {

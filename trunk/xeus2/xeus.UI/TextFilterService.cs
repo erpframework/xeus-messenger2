@@ -32,7 +32,7 @@ namespace xeus2.xeus.UI
 
         void _keyTime_Elapsed(object sender, ElapsedEventArgs e)
         {
-            App.InvokeSafe(DispatcherPriority.Background,
+            App.InvokeSafe(App._dispatcherPriority,
                             new RefreshCallback(Refresh));
         }
 

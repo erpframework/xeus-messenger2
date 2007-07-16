@@ -48,7 +48,7 @@ namespace xeus2.xeus.UI
 
         private void _timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            App.InvokeSafe(DispatcherPriority.Normal,
+            App.InvokeSafe(App._dispatcherPriority,
                            new CloseCallback(Close));
         }
 

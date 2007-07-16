@@ -48,7 +48,7 @@ namespace xeus2.xeus.Middle
 
 		public void Display()
 		{
-			App.InvokeSafe( DispatcherPriority.ApplicationIdle,
+            App.InvokeSafe(App._dispatcherPriority,
 			                new DisplayCallback( DisplayInternal ) ) ;
 		}
 

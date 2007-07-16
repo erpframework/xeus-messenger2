@@ -140,6 +140,7 @@
     <Compile Include="xeus.Core\MucMessage.cs" />
     <Compile Include="xeus.Core\MucMessages.cs" />
     <Compile Include="xeus.Core\MucRoom.cs" />
+    <Compile Include="xeus.Core\MucRooms.cs" />
     <Compile Include="xeus.Core\MucRoster.cs" />
     <Compile Include="xeus.Core\MucStatusCodeTexts.cs" />
     <Compile Include="xeus.Core\MultiContact.cs" />

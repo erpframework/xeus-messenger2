@@ -26,7 +26,7 @@ namespace xeus2.xeus.Core
 
 		public void OnPresence( object sender, Presence presence )
 		{
-			App.InvokeSafe( DispatcherPriority.ApplicationIdle,
+            App.InvokeSafe(App._dispatcherPriority,
 			                new PresenceCallback( OnPresence ), presence ) ;
 		}
 
@@ -76,7 +76,7 @@ namespace xeus2.xeus.Core
 
 		public void OnRosterItem( object sender, RosterItem item )
 		{
-			App.InvokeSafe( DispatcherPriority.ApplicationIdle,
+            App.InvokeSafe(App._dispatcherPriority,
 			                new RosterItemCallback( OnRosterItem ), item ) ;
 		}
 

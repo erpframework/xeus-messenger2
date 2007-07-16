@@ -39,13 +39,13 @@ namespace xeus2.xeus.Middle
 				service.DiscoItem.Jid = new Jid( jidBare ) ;
 			}
 
-			App.InvokeSafe( DispatcherPriority.Normal,
+            App.InvokeSafe(App._dispatcherPriority,
 			                new DisplayCallback( DisplayMucInfoInternal ), service ) ;
 		}
 
 		public void DisplayMucInfo( Service service )
 		{
-			App.InvokeSafe( DispatcherPriority.Normal,
+            App.InvokeSafe(App._dispatcherPriority,
 			                new DisplayCallback( DisplayMucInfoInternal ), service ) ;
 		}
 
@@ -58,7 +58,7 @@ namespace xeus2.xeus.Middle
 
 		public void MucLogin( Service service, string forceNick )
 		{
-			App.InvokeSafe( DispatcherPriority.Normal,
+            App.InvokeSafe(App._dispatcherPriority,
 			                new MucLoginCallback( MucLoginInternal ), service, forceNick ) ;
 		}
 
