@@ -150,8 +150,47 @@
 			</DrawingGroup>
 		</DrawingBrush.Drawing>
 	</DrawingBrush>
-		
-	<DrawingBrush x:Key="background_design" PresentationOptions:Freeze="True" >
+
+  <DrawingBrush x:Key="back_tab_design" PresentationOptions:Freeze="True" >
+    <DrawingBrush.Drawing>
+      <DrawingGroup>
+        <DrawingGroup.Children>
+          <GeometryDrawing Geometry="F1 M -5.96591e-007,0L 300,0L 300,300L -5.96591e-007,300L -5.96591e-007,0 Z ">
+            <GeometryDrawing.Brush>
+              <LinearGradientBrush StartPoint="0.5,0.00508474" EndPoint="0.5,0.994915">
+                <LinearGradientBrush.GradientStops>
+                  <GradientStop Color="#C080BDFF" Offset="0"/>
+                  <GradientStop Color="#9070B4FF" Offset="1"/>
+                </LinearGradientBrush.GradientStops>
+              </LinearGradientBrush>
+            </GeometryDrawing.Brush>
+          </GeometryDrawing>
+        </DrawingGroup.Children>
+      </DrawingGroup>
+    </DrawingBrush.Drawing>
+  </DrawingBrush>
+
+  <DrawingBrush x:Key="back_tab_over_design"  PresentationOptions:Freeze="True">
+    <DrawingBrush.Drawing>
+      <DrawingGroup>
+        <DrawingGroup.Children>
+          <GeometryDrawing Geometry="F1 M -5.96591e-007,0L 300,0L 300,300L -5.96591e-007,300L -5.96591e-007,0 Z ">
+            <GeometryDrawing.Brush>
+              <LinearGradientBrush StartPoint="0.5,0.00508474" EndPoint="0.5,0.994915">
+                <LinearGradientBrush.GradientStops>
+                  <GradientStop Color="#4080BDFF" Offset="0"/>
+                  <GradientStop Color="#3070B4FF" Offset="1"/>
+                </LinearGradientBrush.GradientStops>
+              </LinearGradientBrush>
+            </GeometryDrawing.Brush>
+          </GeometryDrawing>
+        </DrawingGroup.Children>
+      </DrawingGroup>
+    </DrawingBrush.Drawing>
+  </DrawingBrush>
+
+
+  <DrawingBrush x:Key="background_design" PresentationOptions:Freeze="True" >
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
 				<DrawingGroup.Children>
@@ -830,9 +869,9 @@
 									</TransformGroup>
 								</Grid.LayoutTransform>
 								<Ellipse Fill="{DynamicResource ExpanderArrowFill}" Stroke="DarkGray" HorizontalAlignment="Center" x:Name="circle" VerticalAlignment="Center" Width="19" Height="19"/>
-								<Path SnapsToDevicePixels="false" Stroke="#666" StrokeThickness="2" HorizontalAlignment="Center" x:Name="arrow" VerticalAlignment="Center" Data="M 1,1.5 L 4.5,5 L 8,1.5"/>
+								<Path Stroke="#666" StrokeThickness="2" HorizontalAlignment="Center" x:Name="arrow" VerticalAlignment="Center" Data="M 1,1.5 L 4.5,5 L 8,1.5"/>
 							</Grid>
-							<ContentPresenter SnapsToDevicePixels="True" HorizontalAlignment="Left" Margin="4,0,0,0" VerticalAlignment="Center" RecognizesAccessKey="True" Grid.Column="1"/>
+							<ContentPresenter HorizontalAlignment="Left" Margin="4,0,0,0" VerticalAlignment="Center" RecognizesAccessKey="True" Grid.Column="1"/>
 						</Grid>
 					</Border>
 					<ControlTemplate.Triggers>
@@ -966,17 +1005,18 @@
           <ControlTemplate.Triggers>
             <Trigger Property="IsSelected" Value="True">
               <Setter Property="Panel.ZIndex" Value="100" />
-              <Setter Property="Background" TargetName="Border" Value="#84A4D5EF"/>
-              <Setter Property="BorderBrush" TargetName="Border" Value="#B7868686"/>
+              <Setter Property="Background" TargetName="Border" Value="{StaticResource back_tab_design}"/>
+              <!--<Setter Property="BorderBrush" TargetName="Border" Value="#B7868686"/>-->
               <Setter Property="BorderThickness" TargetName="Border" Value="0,0,0,0"/>
-              <Setter Property="CornerRadius" TargetName="Border" Value="0,0,0,0"/>
+              <Setter Property="CornerRadius" TargetName="Border" Value="2,2,2,2"/>
             </Trigger>
             <MultiTrigger>
               <MultiTrigger.Conditions>
                 <Condition Property="IsMouseOver" Value="True" />
                 <Condition Property="IsSelected" Value="False" />
               </MultiTrigger.Conditions>
-              <Setter Property="Background" TargetName="Border" Value="#26FFFFFF"/>
+              <Setter Property="Background" TargetName="Border" Value="{StaticResource back_tab_over_design}"/>
+              <Setter Property="CornerRadius" TargetName="Border" Value="2,2,2,2"/>
             </MultiTrigger>
             <Trigger Property="IsSelected" Value="false"/>
             <Trigger Property="IsEnabled" Value="False"/>

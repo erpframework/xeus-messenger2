@@ -5,7 +5,7 @@
     x:Class="xeus2.xeus.UI.RoomInfo"
     Title="xeus2.xeus.UI" Width="370"
     Background="{DynamicResource back_x_design}"
-    MinWidth="370" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterOwner"
+    ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterOwner"
     >
 	<Window.Resources>
 		<ResourceDictionary/>
