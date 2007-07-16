@@ -12,7 +12,7 @@ namespace xeus2
 	/// </summary>
 	public partial class App : Application
 	{
-	    public const DispatcherPriority _dispatcherPriority = DispatcherPriority.Render;
+	    public const DispatcherPriority _dispatcherPriority = DispatcherPriority.Background;
 
 		public App()
 		{
