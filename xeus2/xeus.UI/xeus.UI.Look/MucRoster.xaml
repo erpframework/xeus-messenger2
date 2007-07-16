@@ -740,12 +740,12 @@
 
 	<DataTemplate x:Key="MucRoomProps">
 		<StackPanel Orientation="Horizontal">
-			<Rectangle Fill="{DynamicResource register_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucPasswd" Height="16" ToolTip="Password protected"/>
-			<Rectangle Fill="{DynamicResource ghost_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucHidden" Height="16" ToolTip="Hidden"/>
-			<Rectangle Fill="{DynamicResource wait_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucTemp" Height="16" ToolTip="Temporary"/>
-			<Rectangle Fill="{DynamicResource aff_none_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucOpen" Height="16" ToolTip="Open"/>
-			<Rectangle Fill="{DynamicResource aff_admin_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucModerated" Height="16" ToolTip="Moderated"/>
-			<Rectangle Fill="{DynamicResource muc_nonanon_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucNonAnon" Height="16" ToolTip="Non-Anonymous"/>
+			<Rectangle Fill="{DynamicResource register_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucPasswd" Height="16" ToolTip="Password protected room"/>
+			<Rectangle Fill="{DynamicResource ghost_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucHidden" Height="16" ToolTip="Hidden room"/>
+			<Rectangle Fill="{DynamicResource wait_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucTemp" Height="16" ToolTip="Temporary room"/>
+			<Rectangle Fill="{DynamicResource aff_none_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucOpen" Height="16" ToolTip="Open room"/>
+			<Rectangle Fill="{DynamicResource aff_admin_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucModerated" Height="16" ToolTip="Moderated room"/>
+			<Rectangle Fill="{DynamicResource muc_nonanon_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucNonAnon" Height="16" ToolTip="Non-Anonymous room"/>
 		</StackPanel>
 		
 		<DataTemplate.Triggers>

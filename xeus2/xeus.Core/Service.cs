@@ -39,7 +39,6 @@ namespace xeus2.xeus.Core
 
 			if ( _isToplevel )
 			{
-                Account.Instance.AddDiscoRequestPrioritized(_discoItem);
                 Account.Instance.AddDiscoInfoPrioritized(_discoItem);
 
 				_askedForDiscovery = true ;
@@ -96,7 +95,7 @@ namespace xeus2.xeus.Core
 			{
 				if ( !_askedForDiscovery )
 				{
-					Account.Instance.AddDiscoInfoPrioritized( _discoItem ) ;
+					Account.Instance.AddDiscoInfo( _discoItem ) ;
 
 					_askedForDiscovery = true ;
 				}

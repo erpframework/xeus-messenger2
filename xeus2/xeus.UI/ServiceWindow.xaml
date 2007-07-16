@@ -9,7 +9,7 @@
     x:Class="xeus2.xeus.UI.ServiceWindow"
     Title="xeus2.xeus.UI" Height="600" Width="500"
     SnapsToDevicePixels="True"
-  	Background="{DynamicResource background_design}"
+  	Background="{x:Null}"
     Foreground="#FFFFFFFF"
     >
   <Window.Resources>
@@ -30,11 +30,11 @@
   </Window.Resources>
 
       <DockPanel x:Name="topBar">
-		<Border DockPanel.Dock="Top" Background="{DynamicResource back_x_design}" BorderBrush="{DynamicResource DefaultTextBrush2}" Padding="10,10,10,18">
+		<Border DockPanel.Dock="Top" Background="{DynamicResource back_x_design}" BorderBrush="{DynamicResource DefaultTextBrush2}" Padding="10,10,10,15">
 		<DockPanel DockPanel.Dock="Top">
 			<StackPanel Margin="0,0,0,5" Orientation="Horizontal" DockPanel.Dock="Top">
 				<StackPanel DockPanel.Dock="Top">
-					<TextBlock Text="Discover Services" FontWeight="Bold" Style="{DynamicResource MegaTextBlockStyle}" RenderTransformOrigin="0.5,0.5" x:Name="textBlock">
+					<TextBlock Text="Discover Services" Style="{DynamicResource MegaTextBlockStyle}" RenderTransformOrigin="0.5,0.5" x:Name="textBlock">
 						<TextBlock.RenderTransform>
 							<TransformGroup>
 								<ScaleTransform ScaleX="1" ScaleY="1"/>
@@ -52,7 +52,7 @@
 					</StackPanel>
 				</StackPanel>
 			</StackPanel>
-			<Rectangle Fill="#FFFFFFFF" Margin="0,10,0,15" Height="1" DockPanel.Dock="Top">
+			<Rectangle Fill="#FFFFFFFF" Margin="0,5,0,10" Height="1" DockPanel.Dock="Top">
 				<Rectangle.OpacityMask>
 					<RadialGradientBrush>
 						<GradientStop Color="#FF000000" Offset="0"/>
@@ -68,7 +68,7 @@
 			<TextBox x:Name="serverJid" Margin="5,0,0,0" />
 		</DockPanel>
 		</Border>
-		<Border Background="{DynamicResource back_x_design}" Padding="10,10,10,10" DockPanel.Dock="Bottom">
+		<Border Background="{DynamicResource back_x_design}" Padding="10,5,10,5" DockPanel.Dock="Bottom">
 			<Expander Foreground="{DynamicResource DefaultTextBrush2}" Header="Search">
 			<DockPanel>
 				<TextBox x:Name="_filter" DockPanel.Dock="Top" Margin="0,5,0,0"/>
@@ -92,7 +92,7 @@
 			</StackPanel>
 		</Border>
 		-->
-		<Border DockPanel.Dock="Bottom" Margin="5,5,5,5" Background="{DynamicResource chat_back_design}" BorderBrush="{DynamicResource DefaultTextBrush2}" BorderThickness="1,1,1,1" CornerRadius="6,6,6,6">
+		<Border DockPanel.Dock="Bottom" Background="{DynamicResource chat_back_design}">
 			<TreeView ItemsSource="{Binding Source={StaticResource Services}}"
 				ItemTemplateSelector="{DynamicResource ServiceTemplateSelector}"
 				x:Name="_services" Style="{DynamicResource TreeViewStyleServices}"

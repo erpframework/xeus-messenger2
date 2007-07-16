@@ -125,7 +125,7 @@ namespace xeus2.xeus.Core
             _discoTime.Start();
 		}
 
-        private ArrayList _pendingDisco = ArrayList.Synchronized( new ArrayList() );
+//        private ArrayList _pendingDisco = ArrayList.Synchronized( new ArrayList() );
         private ArrayList _pendingDiscoInfo = ArrayList.Synchronized(new ArrayList());
         private ArrayList _pendingCommand = ArrayList.Synchronized(new ArrayList());
 
@@ -182,13 +182,8 @@ namespace xeus2.xeus.Core
                                                                  new IqCB(OnDiscoInfoResult),
                                                                  new DiscoverySessionData(discoItem));
                             }
+                            
                             // one option
-                        }
-                        else if (_pendingDisco.Count > 0)
-                        {
-                            DiscoItem discoItem = (DiscoItem) _pendingDisco[0];
-                            _pendingDisco.RemoveAt(0);
-
                             Jid jid;
 
                             if (discoItem == null)
@@ -225,7 +220,6 @@ namespace xeus2.xeus.Core
 		public void StopDiscovery()
 		{
             _pendingDiscoInfo.Clear();
-            _pendingDisco.Clear();
 
 			Services.Instance.StopSession() ;
 		}
@@ -342,16 +336,6 @@ namespace xeus2.xeus.Core
 			_discoManager.DisoverItems( jid, new IqCB( OnDiscoServerResult ), new DiscoverySessionData( null ) ) ;
 		}
 
-        public void AddDiscoRequest(DiscoItem discoItem)
-        {
-            _pendingDisco.Add(discoItem);
-        }
-
-        public void AddDiscoRequestPrioritized(DiscoItem discoItem)
-        {
-            _pendingDisco.Insert(0, discoItem);
-        }
-
         public void AddDiscoInfo(DiscoItem discoItem)
         {
             _pendingDiscoInfo.Add(discoItem);
@@ -405,39 +389,25 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				lock ( _serviceCountLock )
-				{
-					return _servicesCount ;
-				}
+				return _servicesCount ;
 			}
 			set
 			{
-				lock ( _serviceCountLock )
-				{
-					_servicesCount = value ;
-				}
+				_servicesCount = value ;
 
 				NotifyPropertyChanged( "ServicesCount" ) ;
 			}
 		}
 
-		object _serviceCountLock = new object();
-
 		public int ServicesDoneCount
 		{
 			get
 			{
-				lock ( _serviceCountLock )
-				{
-					return _servicesDoneCount ;
-				}
+				return _servicesDoneCount ;
 			}
 			set
 			{
-				lock ( _serviceCountLock )
-				{
-					_servicesDoneCount = value ;
-				}
+				_servicesDoneCount = value ;
 
 				NotifyPropertyChanged( "ServicesDoneCount" ) ;
 			}
@@ -474,14 +444,6 @@ namespace xeus2.xeus.Core
 
                     DiscoverySessionData sessionData = data as DiscoverySessionData;
                     Services.Instance.OnServiceItem(sender, itms, sessionData.Data as DiscoItem);
-
-					foreach ( DiscoItem itm in itms )
-					{
-						if ( itm.Jid != null )
-						{
-                            AddDiscoRequest(itm);
-						}
-					}
 				}
 			}
 		}
