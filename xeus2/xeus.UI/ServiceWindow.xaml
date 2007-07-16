@@ -92,17 +92,6 @@
             </DockPanel>
           </Expander>
         </Border>
-        <!--
-		<Border DockPanel.Dock="Top" Style="{DynamicResource ToolbarBorderStyle}" Margin="5,0,5,0" >
-			<StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-				  <TextBox Margin="5,0,5,0" x:Name="manualJid" Width="200" />
-			
-			      <Button x:Name="_muc" Content="muc" Command="servicecmd:ServiceCommands.JoinMuc"
-			              CommandParameter="{Binding Path=Text, ElementName=manualJid}" Style="{DynamicResource ImageButtonStyle}" Width="22" Background="{DynamicResource muc_design}" ToolTip="Join Multi-User Chat" Height="22"/>
-			
-			</StackPanel>
-		</Border>
-		-->
         <Border DockPanel.Dock="Bottom" Background="{DynamicResource chat_back_design}">
           <TreeView ItemsSource="{Binding Source={StaticResource Services}}"
             ItemTemplateSelector="{DynamicResource ServiceTemplateSelector}"
@@ -114,8 +103,13 @@
     </TabItem>
     <TabItem Header="MUC Rooms">
       <DockPanel>
-        <TextBox x:Name="_filterMuc" DockPanel.Dock="Top"/>
-        <Border Background="{DynamicResource chat_back_design}" BorderBrush="{x:Null}" CornerRadius="2,2,2,2" Margin="0,10,0,0" DockPanel.Dock="Top">
+        <Border DockPanel.Dock="Top" Background="{DynamicResource back_x_design}" Padding="0,0,0,5">
+           	<DockPanel Margin="0,5,0,0" DockPanel.Dock="Top">
+           		<Rectangle Fill="{DynamicResource search_design}" Width="18" Margin="10,0,0,0" Height="18"/>
+           		<TextBox x:Name="_filterMuc" DockPanel.Dock="Left" Margin="10,0,5,0"/>
+           	</DockPanel>
+		    </Border>
+        <Border Background="{DynamicResource chat_back_design}" BorderBrush="{x:Null}" Margin="0,10,0,0" DockPanel.Dock="Top">
           <ListView DockPanel.Dock="Top" Background="{x:Null}"
            BorderBrush="{x:Null}" xeus2_xeus_Utils:WPFUtils.IsGridSortable="True"
            ItemsSource="{Binding Source={StaticResource MucRooms}}"
