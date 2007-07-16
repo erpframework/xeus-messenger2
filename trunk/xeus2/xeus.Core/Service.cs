@@ -5,6 +5,7 @@ using agsXMPP ;
 using agsXMPP.protocol.client ;
 using agsXMPP.protocol.iq.disco ;
 using agsXMPP.protocol.x.data;
+using agsXMPP.Xml.Dom;
 using xeus2.Properties ;
 using Uri=agsXMPP.Uri;
 
@@ -377,13 +378,39 @@ namespace xeus2.xeus.Core
 	        set
 	        {
 	            _xData = value;
+
+                NotifyPropertyChanged("XData");
+                NotifyPropertyChanged("XDataCollection");
 	        }
 	    }
 
-        public void CreateColumns(ListView listView)
-        {
-            object v= listView.View;
-        }
+	    public List<Field> XDataCollection
+	    {
+	        get
+	        {
+                if (_xData == null)
+                {
+                    return null;
+                }
+
+                List<Field> collection = new List<Field>();
+	            
+                foreach (Node node in _xData.ChildNodes)
+                {
+                    Field field = node as Field;
+
+                    if (field != null
+                        && field.Label != null
+                        && field.GetValues().Length > 0
+                        && field.Var != null)
+                    {
+                        collection.Add(field);
+                    }
+                }
+
+	            return collection;
+            }
+	    }
 
 	    public override string ToString()
 		{

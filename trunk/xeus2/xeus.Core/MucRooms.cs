@@ -14,7 +14,7 @@ namespace xeus2.xeus.Core
                 service.XData = xData;
             }
 
-            base.Add(service);
+            Add(service);
         }
     }
 }

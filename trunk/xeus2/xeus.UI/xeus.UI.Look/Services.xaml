@@ -865,7 +865,6 @@
 	    <Rectangle ToolTip="Service Type" x:Name="type" Width="16" Height="16" Margin="0,0,3,0" Visibility="Visible" Fill="{DynamicResource service_design}"/>
 
 	    <StackPanel Orientation="Horizontal">
-      	  <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="{DynamicResource DefaultTextBrush}"/>
 		  <StackPanel x:Name="stackPanel" Orientation="Horizontal">
 	      <Button x:Name="_register" Content="reg" Command="servicecmd:ServiceCommands.Register"
 	              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource register_design}" ToolTip="Register"/>
@@ -882,6 +881,7 @@
 	      <Button x:Name="_mucInfo" Content="muci" Command="servicecmd:ServiceCommands.MucInfo"
 	              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" ToolTip="Chat Information" Width="16" Background="{DynamicResource mucinfo_design}"/>
 		  </StackPanel>
+      	  <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" Foreground="{DynamicResource DefaultTextBrush}" Margin="10,0,0,0"/>
 	  </StackPanel>
 	</StackPanel>
 		
