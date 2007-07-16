@@ -109,16 +109,18 @@ namespace xeus2.xeus.UI
                 binding.Converter = new PropertyObjectConverter();
                 binding.ConverterParameter = field.Var;
                 binding.Mode = BindingMode.OneWay;
-
+                /*
                 FrameworkElementFactory textElement = new FrameworkElementFactory(typeof(TextBlock));
                 textElement.SetBinding(TextBlock.TextProperty, binding);
 
                 DataTemplate template = new DataTemplate();
                 template.VisualTree = textElement;
+                */
 
                 GridViewColumn column = new GridViewColumn();
-                column.CellTemplate = template;
+                //column.CellTemplate = template;
                 column.Header = field.Label;
+                column.DisplayMemberBinding = binding;
 
                 view.Columns.Add(column);
             }
@@ -129,6 +131,7 @@ namespace xeus2.xeus.UI
             base.EndInit();
 
             new TextFilterService(_servicesResult.ItemsSource as ListCollectionView, _filter);
+            new TextFilterService(_mucResult.ItemsSource as ListCollectionView, _filterMuc);
 
             ServiceCommands.RegisterCommands(this);
         }

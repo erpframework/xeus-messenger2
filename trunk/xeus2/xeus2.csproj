@@ -233,6 +233,7 @@
     <Compile Include="xeus.Utilities\TextUtil.cs" />
     <Compile Include="xeus.Utilities\TimeUtilities.cs" />
     <Compile Include="xeus.Utilities\Validation.cs" />
+    <Compile Include="xeus.Utilities\WpfUtil.cs" />
     <Compile Include="xeus.XData\CommandExecute.cs" />
     <Compile Include="xeus.XData\InBandRegistration.cs" />
     <Compile Include="xeus.XData\RoomDetail.cs" />
