@@ -878,8 +878,10 @@
 	      <Button x:Name="_muc" Content="muc" Command="servicecmd:ServiceCommands.JoinMuc"
 	              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource muc_design}" ToolTip="Join Multi-User Chat"/>
 	
+        <!--
 	      <Button x:Name="_mucInfo" Content="muci" Command="servicecmd:ServiceCommands.MucInfo"
 	              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" ToolTip="Chat Information" Width="16" Background="{DynamicResource mucinfo_design}"/>
+                 -->
 		  </StackPanel>
       	  <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" Foreground="{DynamicResource DefaultTextBrush}" Margin="10,0,0,0"/>
 	  </StackPanel>
@@ -901,9 +903,11 @@
     	<DataTrigger Binding="{Binding Path=IsChatRoom}" Value="False">
       		<Setter Property="Visibility" TargetName="_muc" Value="Collapsed"/>
     	</DataTrigger>
+      <!--
     	<DataTrigger Binding="{Binding Path=IsChatRoom}" Value="False">
       		<Setter Property="Visibility" TargetName="_mucInfo" Value="Collapsed"/>
     	</DataTrigger>
+       -->
     	<DataTrigger Binding="{Binding Path=DiscoInfo}" Value="{x:Null}">
       		<Setter Property="Opacity" Value="0.5"/>
     	</DataTrigger>
