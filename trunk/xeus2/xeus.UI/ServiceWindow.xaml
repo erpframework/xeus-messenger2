@@ -35,8 +35,8 @@
     </CollectionViewSource>
 
   </Window.Resources>
-  <TabControl>
-    <TabItem Header="Services">
+  <TabControl Foreground="{DynamicResource DefaultTextBrush2}">
+    <TabItem Header="Services" Foreground="{DynamicResource chat_back_design}">
       <DockPanel x:Name="topBar">
         <Border DockPanel.Dock="Top" Background="{DynamicResource back_x_design}" BorderBrush="{DynamicResource DefaultTextBrush2}" Padding="10,10,10,15">
           <DockPanel DockPanel.Dock="Top">
@@ -101,7 +101,7 @@
         </Border>
       </DockPanel>
     </TabItem>
-    <TabItem Header="MUC Rooms">
+    <TabItem Header="MUC Rooms" Foreground="{DynamicResource chat_back_design}">
       <DockPanel>
         <Border DockPanel.Dock="Top" Background="{DynamicResource back_x_design}" Padding="0,0,0,5">
            	<DockPanel Margin="0,5,0,0" DockPanel.Dock="Top">
