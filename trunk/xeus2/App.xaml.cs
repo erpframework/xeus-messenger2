@@ -1,77 +1,77 @@
-using System ;
+using System;
 using System.Globalization;
-using System.Windows ;
+using System.Windows;
 using System.Windows.Media;
-using System.Windows.Threading ;
+using System.Windows.Threading;
 using xeus2.xeus.Middle;
 
 namespace xeus2
 {
-	/// <summary>
-	/// Interaction logic for App.xaml
-	/// </summary>
-	public partial class App : Application
-	{
-	    public const DispatcherPriority _dispatcherPriority = DispatcherPriority.Background;
+    /// <summary>
+    /// Interaction logic for App.xaml
+    /// </summary>
+    public partial class App : Application
+    {
+        public const DispatcherPriority _dispatcherPriority = DispatcherPriority.Background;
 
-		public App()
-		{
-			// xeus2.Properties.Resources.Culture = new CultureInfo( "en-US" ) ;
-			//string h = xeus2.Properties.Resources.Event_PresenceChange ;
+        public App()
+        {
+            xeus2.Properties.Resources.Culture = new CultureInfo( "en-US" ) ;
+            string h = xeus2.Properties.Resources.Event_PresenceChange ;
 
             Console.WriteLine("RCL: {0}", (RenderCapability.Tier >> 16));
 
-		    ErrorPopup.Instance.Init();
-		}
+            ErrorPopup.Instance.Init();
+        }
 
-		public static bool CheckAccessSafe()
-		{
-			if ( Current == null )
-			{
-				return false ;
-			}
+        public static bool CheckAccessSafe()
+        {
+            if (Current == null)
+            {
+                return false;
+            }
 
-			return Current.Dispatcher.CheckAccess() ;
-		}
+            return Current.Dispatcher.CheckAccess();
+        }
 
-		public static void InvokeSafe( DispatcherPriority priority, Delegate method )
-		{
-			if ( Current == null )
-			{
-				return ;
-			}
+        public static void InvokeSafe(DispatcherPriority priority, Delegate method)
+        {
+            if (Current == null)
+            {
+                return;
+            }
 
-			Current.Dispatcher.Invoke( priority, method ) ;
-		}
+            Current.Dispatcher.Invoke(priority, method);
+        }
 
-		public static void InvokeSafe( DispatcherPriority priority, Delegate method, object arg )
-		{
-			if ( Current == null )
-			{
-				return ;
-			}
+        public static void InvokeSafe(DispatcherPriority priority, Delegate method, object arg)
+        {
+            if (Current == null)
+            {
+                return;
+            }
 
-			Current.Dispatcher.Invoke( priority, method, arg ) ;
-		}
+            Current.Dispatcher.Invoke(priority, method, arg);
+        }
 
-		public static void InvokeSafe( DispatcherPriority priority, Delegate method, object arg, params object[] args )
-		{
-			if ( Current == null )
-			{
-				return ;
-			}
+        public static void InvokeSafe(DispatcherPriority priority, Delegate method, object arg, params object[] args)
+        {
+            if (Current == null)
+            {
+                return;
+            }
 
-			Current.Dispatcher.Invoke( priority, method, arg, args ) ;
-		}
+            Current.Dispatcher.Invoke(priority, method, arg, args);
+        }
 
-		public static void InvokeSafe( DispatcherPriority priority, Delegate method, params object[] args )
-		{
-			if ( Current == null )
-			{
-				return ;
-			}
+        public static void InvokeSafe(DispatcherPriority priority, Delegate method, params object[] args)
+        {
+            if (Current == null)
+            {
+                return;
+            }
 
-			Current.Dispatcher.Invoke( priority, method, args ) ;
-		}
-	}
+            Current.Dispatcher.Invoke(priority, method, args);
+        }
+    }
 }
