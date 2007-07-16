@@ -44,7 +44,7 @@ namespace xeus2.xeus.Middle
 
 		public void DisplaySearch( agsXMPP.protocol.iq.search.Search Search, Service service )
 		{
-			App.InvokeSafe( DispatcherPriority.Normal,
+            App.InvokeSafe(App._dispatcherPriority,
 			                new DisplayCallback( SearchService ), Search, service ) ;
 		}
 
@@ -61,7 +61,7 @@ namespace xeus2.xeus.Middle
 
 		public void DisplaySearchResult( agsXMPP.protocol.iq.search.Search Search, Service service )
 		{
-			App.InvokeSafe( DispatcherPriority.Normal,
+            App.InvokeSafe(App._dispatcherPriority,
 			                new DisplayCallback( SearchServiceResult ), Search, service ) ;
 		}
 	}

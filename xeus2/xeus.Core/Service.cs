@@ -1,8 +1,10 @@
 using System ;
 using System.Collections.Generic ;
+using System.Windows.Controls;
 using agsXMPP ;
 using agsXMPP.protocol.client ;
 using agsXMPP.protocol.iq.disco ;
+using agsXMPP.protocol.x.data;
 using xeus2.Properties ;
 using Uri=agsXMPP.Uri;
 
@@ -26,6 +28,8 @@ namespace xeus2.xeus.Core
 		private IQ _errorIq = null ;
 
 		private bool _isToplevel = false ;
+
+	    private Data _xData = null;
 
 		private bool _askedForDiscovery = false ;
 
@@ -364,7 +368,24 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		public override string ToString()
+	    public Data XData
+	    {
+	        get
+	        {
+	            return _xData;
+	        }
+	        set
+	        {
+	            _xData = value;
+	        }
+	    }
+
+        public void CreateColumns(ListView listView)
+        {
+            object v= listView.View;
+        }
+
+	    public override string ToString()
 		{
 			return Name ;
 		}

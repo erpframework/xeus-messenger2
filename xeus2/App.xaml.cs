@@ -12,6 +12,8 @@ namespace xeus2
 	/// </summary>
 	public partial class App : Application
 	{
+	    public const DispatcherPriority _dispatcherPriority = DispatcherPriority.Render;
+
 		public App()
 		{
 			// xeus2.Properties.Resources.Culture = new CultureInfo( "en-US" ) ;
