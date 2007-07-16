@@ -1010,24 +1010,15 @@
             </Grid.RowDefinitions>
             <Border
 			                x:Name="Border"
-			                BorderThickness="0,0,0,0"
-			                CornerRadius="0,0,0,0" BorderBrush="#FF515151" Padding="0,0,0,0" >
-              <Border.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                  <GradientStop Color="#FF696969" Offset="0"/>
-                  <GradientStop Color="#FF3E3E3E" Offset="1.0"/>
-                </LinearGradientBrush>
-              </Border.Background>
-              <Border.BitmapEffect>
-                <DropShadowBitmapEffect Direction="312" Opacity="0.625" ShadowDepth="3" Softness="0.46"/>
-              </Border.BitmapEffect>
+			                BorderThickness="1,1,1,1"
+			                CornerRadius="1,1,1,1" BorderBrush="#FF515151" Padding="0,0,0,0" Background="{DynamicResource background_design_2}" >
               <Grid>
-                <Rectangle Fill="#28E1E1E1" VerticalAlignment="Top" Height="11"/>
-                <TabPanel x:Name="HeaderPanel" Grid.Column="0" Grid.Row="0" Background="#00FFFFFF" IsItemsHost="True" Panel.ZIndex="1" KeyboardNavigation.TabIndex="1"/>
+                <TabPanel x:Name="HeaderPanel" Grid.Column="0" Grid.Row="0" Background="#00FFFFFF" IsItemsHost="True"
+					Panel.ZIndex="1" KeyboardNavigation.TabIndex="1" Margin="5,5,5,5"/>
               </Grid>
             </Border>
             <Grid x:Name="ContentPanel" Grid.Column="0" Grid.Row="1" KeyboardNavigation.DirectionalNavigation="Contained" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local">
-              <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Margin="0,0,0,0" x:Name="PART_SelectedContentHost" Content="{TemplateBinding SelectedContent}" ContentSource="SelectedContent" ContentTemplate="{TemplateBinding SelectedContentTemplate}"/>
+              <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Margin="5,2,5,2" x:Name="PART_SelectedContentHost" Content="{TemplateBinding SelectedContent}" ContentSource="SelectedContent" ContentTemplate="{TemplateBinding SelectedContentTemplate}"/>
             </Grid>
           </Grid>
           <ControlTemplate.Triggers>
