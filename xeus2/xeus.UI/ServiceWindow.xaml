@@ -15,6 +15,7 @@
     >
   <Window.Resources>
     <ObjectDataProvider x:Key="ServicesDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Services}"/>
+    <ObjectDataProvider x:Key="MucMarksDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:MucMarks}"/>
 
     <CollectionViewSource x:Key="Services" Source="{Binding Path=Categories, Mode=Default, Source={StaticResource ServicesDS}}">
       <CollectionViewSource.SortDescriptions>
@@ -34,9 +35,23 @@
       </CollectionViewSource.SortDescriptions>
     </CollectionViewSource>
 
+    <CollectionViewSource x:Key="MucMarks" Source="{Binding Path=Instance.MucMarks, Mode=Default, Source={StaticResource MucMarksDS}}">
+      <CollectionViewSource.SortDescriptions>
+        <scm:SortDescription PropertyName="Name" />
+      </CollectionViewSource.SortDescriptions>
+    </CollectionViewSource>
+
   </Window.Resources>
   <TabControl Foreground="{DynamicResource DefaultTextBrush2}">
-    <TabItem Header="Services" Foreground="{DynamicResource chat_back_design}">
+    <TabItem Foreground="{DynamicResource chat_back_design}">
+		<TabItem.Header>
+			<Border Padding="5,5,5,5">
+				<Grid>
+				<Rectangle Width="18" Height="18" Fill="{DynamicResource service_design}" HorizontalAlignment="Left"/>
+				<TextBlock Text="Services" Margin="24,0,0,0"/>
+				</Grid>
+			</Border>
+		</TabItem.Header>
       <DockPanel x:Name="topBar">
         <Border DockPanel.Dock="Top" Background="{DynamicResource back_x_design}" BorderBrush="{DynamicResource DefaultTextBrush2}" Padding="10,10,10,15">
           <DockPanel DockPanel.Dock="Top">
@@ -101,7 +116,15 @@
         </Border>
       </DockPanel>
     </TabItem>
-    <TabItem Header="MUC Rooms" Foreground="{DynamicResource chat_back_design}">
+    <TabItem Foreground="{DynamicResource chat_back_design}">
+	<TabItem.Header>
+		<Border Margin="5,0,0,0" Padding="5,5,5,5">
+			<Grid>
+			<Rectangle Width="18" Height="18" Fill="{DynamicResource muc_design}" HorizontalAlignment="Left"/>
+			<TextBlock Text="MUC Rooms" Margin="24,0,0,0"/>
+			</Grid>
+		</Border>
+	</TabItem.Header>
       <DockPanel>
         <Border DockPanel.Dock="Top" Background="{DynamicResource back_x_design}" Padding="0,0,0,5">
            	<DockPanel Margin="0,5,0,0" DockPanel.Dock="Top">
@@ -109,6 +132,22 @@
            		<TextBox x:Name="_filterMuc" DockPanel.Dock="Left" Margin="10,0,5,0"/>
            	</DockPanel>
 		    </Border>
+		<Border Background="{DynamicResource back_x_design}" DockPanel.Dock="Bottom" Padding="0,0,0,5">
+          <Expander Foreground="{DynamicResource DefaultTextBrush2}" Header="MUC Bookmarks" Margin="0,5,0,0">
+            <DockPanel>
+            	<DockPanel Margin="0,5,0,0" DockPanel.Dock="Top">
+            		<Rectangle Fill="{DynamicResource search_design}" Width="18" Margin="10,0,0,0" Height="18"/>
+            		<TextBox x:Name="_filterMucMarks" DockPanel.Dock="Left" Margin="10,0,5,0"/>
+            	</DockPanel>
+              <Border Background="{DynamicResource chat_back_design}" BorderBrush="{x:Null}" Margin="-1,10,-1,-1">
+                <ListBox DockPanel.Dock="Bottom" Background="{x:Null}"
+                 BorderBrush="{x:Null}"
+                 ItemsSource="{Binding Source={StaticResource MucMarks}}"
+                   x:Name="_mucMarksResult" MaxHeight="250" ItemTemplate="{DynamicResource ServicesTemplate}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="5,5,5,5" MinHeight="25" />
+              </Border>
+            </DockPanel>
+          </Expander>
+        </Border>
         <Border Background="{DynamicResource chat_back_design}" BorderBrush="{x:Null}" Margin="0,10,0,0" DockPanel.Dock="Top">
           <ListView DockPanel.Dock="Top" Background="{x:Null}"
            BorderBrush="{x:Null}" xeus2_xeus_Utils:WPFUtils.IsGridSortable="True"
@@ -116,10 +155,10 @@
              x:Name="_mucResult" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="5,5,5,5">
             <ListView.View>
               <GridView x:Name="_mucGridView">
-                <GridViewColumn Header="Room name">
+                <GridViewColumn Header="Room">
                   <GridViewColumn.CellTemplate>
                     <DataTemplate>
-                      <ContentControl ContentTemplate="{DynamicResource ServicesTemplate}" Content="{Binding}" />
+                      <ContentControl ContentTemplate="{DynamicResource ServicesTemplateMuc}" Content="{Binding}" />
                     </DataTemplate>
                   </GridViewColumn.CellTemplate>
                 </GridViewColumn>

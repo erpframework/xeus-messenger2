@@ -1,217 +1,216 @@
-using System ;
-using System.Collections.Generic ;
-using System.Windows.Threading ;
-using agsXMPP ;
-using agsXMPP.protocol.client ;
-using agsXMPP.protocol.iq.disco ;
-using agsXMPP.Xml.Dom ;
-using xeus2.Properties ;
+using System;
+using System.Collections.Generic;
+using agsXMPP;
+using agsXMPP.protocol.client;
+using agsXMPP.protocol.iq.disco;
+using agsXMPP.Xml.Dom;
+using xeus2.Properties;
 
 namespace xeus2.xeus.Core
 {
-	internal class Services : ObservableCollectionDisp< Service >
-	{
-		private static Services _instance = new Services() ;
+    internal class Services : ObservableCollectionDisp<Service>
+    {
+        private static Services _instance = new Services();
 
-		private Dictionary< string, Service > _allServices = new Dictionary< string, Service >() ;
+        private Dictionary<string, Service> _allServices = new Dictionary<string, Service>();
 
-		private delegate void ServiceItemCallback( IList<DiscoItem> discoItems, DiscoItem parent ) ;
+        private delegate void ServiceItemCallback(IList<DiscoItem> discoItems, DiscoItem parent);
 
-		private delegate void ServiceItemInfoCallback( DiscoItem discoItem, DiscoInfo info ) ;
+        private delegate void ServiceItemInfoCallback(DiscoItem discoItem, DiscoInfo info);
 
-		private delegate void OnServiceItemErrorCallback( IQ iq ) ;
+        private delegate void OnServiceItemErrorCallback(IQ iq);
 
-		private delegate void OnCommandsItemInfoCallback( DiscoItem discoItem, IQ iq ) ;
+        private delegate void OnCommandsItemInfoCallback(DiscoItem discoItem, IQ iq);
 
-		private string _sessionKey = string.Empty ;
+        private string _sessionKey = string.Empty;
 
         private ObservableCollectionDisp<Service> _filteredServices = new ObservableCollectionDisp<Service>();
 
-		public static Services Instance
-		{
-			get
-			{
-				return _instance ;
-			}
-		}
+        public static Services Instance
+        {
+            get
+            {
+                return _instance;
+            }
+        }
 
-		public static ServiceCategories Categories
-		{
-			get
-			{
-				return _categories ;
-			}
-		}
+        public static ServiceCategories Categories
+        {
+            get
+            {
+                return _categories;
+            }
+        }
 
-        ObservableCollectionDisp<Service> _allServicesCollection = new ObservableCollectionDisp<Service>();
+        private ObservableCollectionDisp<Service> _allServicesCollection = new ObservableCollectionDisp<Service>();
 
-	    private MucRooms _mucRooms = new MucRooms();
+        private MucRooms _mucRooms = new MucRooms();
 
         public ObservableCollectionDisp<Service> AllServices
-	    {
+        {
             get
-	        {
-	            return _allServicesCollection;
-	        }
-	    }
+            {
+                return _allServicesCollection;
+            }
+        }
 
-	    public string SessionKey
-		{
-			get
-			{
-				return _sessionKey ;
-			}
-		}
+        public string SessionKey
+        {
+            get
+            {
+                return _sessionKey;
+            }
+        }
 
         public ObservableCollectionDisp<Service> FilteredServices
-	    {
-	        get
-	        {
-	            foreach (Service service in _allServices.Values)
-	            {
-	                _filteredServices.Add(service);
-	            }
-	            return _filteredServices;
-	        }
-	    }
+        {
+            get
+            {
+                foreach (Service service in _allServices.Values)
+                {
+                    _filteredServices.Add(service);
+                }
+                return _filteredServices;
+            }
+        }
 
-	    public MucRooms MucRooms
-	    {
-	        get
-	        {
-	            return _mucRooms;
-	        }
-	    }
+        public MucRooms MucRooms
+        {
+            get
+            {
+                return _mucRooms;
+            }
+        }
 
-	    public new void Clear()
-		{
-			lock ( _syncObject )
-			{
-				_sessionKey = Guid.NewGuid().ToString() ;
+        public new void Clear()
+        {
+            lock (_syncObject)
+            {
+                _sessionKey = Guid.NewGuid().ToString();
 
                 _mucRooms.Clear();
-				_allServices.Clear() ;
+                _allServices.Clear();
                 _allServicesCollection.Clear();
 
-				Categories.Clear() ;
+                Categories.Clear();
 
-				base.Clear() ;
-			}
-		}
+                base.Clear();
+            }
+        }
 
 
+        private static ServiceCategories _categories = new ServiceCategories();
 
-		private static ServiceCategories _categories = new ServiceCategories() ;
-
-		public void OnCommandsItemInfo( object sender, DiscoItem discoItem, IQ iq )
-		{
+        public void OnCommandsItemInfo(object sender, DiscoItem discoItem, IQ iq)
+        {
             if (_sessionKey == string.Empty)
             {
                 return;
             }
 
             App.InvokeSafe(App._dispatcherPriority,
-			                new OnCommandsItemInfoCallback( OnCommandsItemInfo ), discoItem, iq ) ;
-		}
+                           new OnCommandsItemInfoCallback(OnCommandsItemInfo), discoItem, iq);
+        }
 
-		public void OnServiceItemInfo( object sender, DiscoItem discoItem, DiscoInfo info )
-		{
-			if ( _sessionKey == string.Empty )
-			{
-				return ;
-			}
-
-            App.InvokeSafe(App._dispatcherPriority,
-			                new ServiceItemInfoCallback( OnServiceItemInfo ), discoItem, info ) ;
-		}
-
-		public void OnServiceItem( object sender, IList<DiscoItem> discoItems, DiscoItem parent )
-		{
+        public void OnServiceItemInfo(object sender, DiscoItem discoItem, DiscoInfo info)
+        {
             if (_sessionKey == string.Empty)
             {
                 return;
             }
 
             App.InvokeSafe(App._dispatcherPriority,
-			                new ServiceItemCallback( OnServiceItems ), discoItems, parent ) ;
-		}
+                           new ServiceItemInfoCallback(OnServiceItemInfo), discoItem, info);
+        }
 
-		public void OnServiceItemError( object sender, IQ iq )
-		{
+        public void OnServiceItem(object sender, IList<DiscoItem> discoItems, DiscoItem parent)
+        {
+            if (_sessionKey == string.Empty)
+            {
+                return;
+            }
+
             App.InvokeSafe(App._dispatcherPriority,
-			                new OnServiceItemErrorCallback( OnServiceItemError ), iq ) ;
-		}
+                           new ServiceItemCallback(OnServiceItems), discoItems, parent);
+        }
 
-		public void OnServiceItemError( IQ iq )
-		{
-			EventInfo eventInfo = new EventInfo( string.Format( Resources.Error_ServiceDiscoFailed, iq.From, iq.Error.Code ) ) ;
-			Events.Instance.OnEvent( this, eventInfo ) ;
-		}
+        public void OnServiceItemError(object sender, IQ iq)
+        {
+            App.InvokeSafe(App._dispatcherPriority,
+                           new OnServiceItemErrorCallback(OnServiceItemError), iq);
+        }
 
-		public void OnCommandsItemInfo( DiscoItem discoItem, IQ iq )
-		{
-			lock ( _syncObject )
-			{
-				Service service = FindService( discoItem ) ;
+        public void OnServiceItemError(IQ iq)
+        {
+            EventInfo eventInfo =
+                new EventInfo(string.Format(Resources.Error_ServiceDiscoFailed, iq.From, iq.Error.Code));
+            Events.Instance.OnEvent(this, eventInfo);
+        }
 
-				if ( service != null )
-				{
-					foreach ( Node node in iq.Query.ChildNodes )
-					{
-						DiscoItem item = node as DiscoItem ;
+        public void OnCommandsItemInfo(DiscoItem discoItem, IQ iq)
+        {
+            lock (_syncObject)
+            {
+                Service service = FindService(discoItem);
 
-						if ( item != null )
-						{
-							Service command = FindService( item ) ;
+                if (service != null)
+                {
+                    foreach (Node node in iq.Query.ChildNodes)
+                    {
+                        DiscoItem item = node as DiscoItem;
 
-							if ( command == null )
-							{
-								// it is not in hierarchy
-								command = new Service( item, false ) ;
+                        if (item != null)
+                        {
+                            Service command = FindService(item);
 
-								_allServices.Add( command.Key, command ) ;
+                            if (command == null)
+                            {
+                                // it is not in hierarchy
+                                command = new Service(item, false);
+
+                                _allServices.Add(command.Key, command);
                                 _allServicesCollection.Add(command);
 
-								Account.Instance.AddDiscoInfoPrioritized( item ) ;
-							}
+                                Account.Instance.AddDiscoInfoPrioritized(item);
+                            }
 
-							lock ( service.Commands._syncObject )
-							{
-								service.Commands.Add( command ) ;
-							}
-						}
-					}
-				}
-			}
-		}
+                            lock (service.Commands._syncObject)
+                            {
+                                service.Commands.Add(command);
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
-		private void OnServiceItemInfo( DiscoItem discoItem, DiscoInfo info )
-		{
-			lock ( _syncObject )
-			{
-				Service service = FindService( discoItem ) ;
+        private void OnServiceItemInfo(DiscoItem discoItem, DiscoInfo info)
+        {
+            lock (_syncObject)
+            {
+                Service service = FindService(discoItem);
 
-				if ( service != null )
-				{
-					service.DiscoInfo = info ;
+                if (service != null)
+                {
+                    service.DiscoInfo = info;
 
-					if ( service.IsToplevel )
-					{
-						_categories.AddService( service ) ;
-					}
+                    if (service.IsToplevel)
+                    {
+                        _categories.AddService(service);
+                    }
 
                     if (service.IsChatRoom)
                     {
                         _mucRooms.AddMuc(service);
                     }
-				}
-			}
-		}
+                }
+            }
+        }
 
-		private void OnServiceItems( IList<DiscoItem> discoItems, DiscoItem parent )
-		{
-			lock ( _syncObject )
-			{
+        private void OnServiceItems(IList<DiscoItem> discoItems, DiscoItem parent)
+        {
+            lock (_syncObject)
+            {
                 List<Service> services = new List<Service>(discoItems.Count);
                 Service parentService = null;
 
@@ -247,32 +246,32 @@ namespace xeus2.xeus.Core
                         }
                     }
                 }
-			}
-		}
+            }
+        }
 
-		// unsafe, lock when calling
-		public Service FindService( DiscoItem discoItem )
-		{
-			Service service ;
+        // unsafe, lock when calling
+        public Service FindService(DiscoItem discoItem)
+        {
+            Service service;
 
-			_allServices.TryGetValue( Service.GetKey( discoItem ), out service ) ;
+            _allServices.TryGetValue(Service.GetKey(discoItem), out service);
 
-			return service ;
-		}
+            return service;
+        }
 
-		// unsafe, lock when calling
-		public Service FindService( Jid jid )
-		{
-			Service service ;
+        // unsafe, lock when calling
+        public Service FindService(Jid jid)
+        {
+            Service service;
 
-			_allServices.TryGetValue( Service.GetKey( jid ), out service ) ;
+            _allServices.TryGetValue(Service.GetKey(jid), out service);
 
-			return service ;
-		}
+            return service;
+        }
 
-		public void StopSession()
-		{
-			_sessionKey = string.Empty ;
-		}
-	}
+        public void StopSession()
+        {
+            _sessionKey = string.Empty;
+        }
+    }
 }
