@@ -83,32 +83,8 @@
   </HierarchicalDataTemplate>    
 
   <!-- Resource dictionary entries should be defined here. -->
-	<DrawingBrush x:Key="mucmark_design" Stretch="Uniform" PresentationOptions:Freeze="True">
-		<DrawingBrush.Drawing>
-			<DrawingGroup>
-				<DrawingGroup.Children>
-					<GeometryDrawing Geometry="F1 M 149.351,210.85L 68.6238,269.348L 99.0428,174.581L 17.1456,117.253L 118.932,117.253L 149.351,21.3162L 179.77,117.253L 281.556,117.253L 199.659,174.581L 230.078,269.348L 149.351,210.85 Z ">
-						<GeometryDrawing.Pen>
-							<Pen Thickness="20" LineJoin="Round" Brush="#FF4D4D4D"/>
-						</GeometryDrawing.Pen>
-						<GeometryDrawing.Brush>
-							<RadialGradientBrush RadiusX="0.509831" RadiusY="0.540987" Center="0.5,0.5" GradientOrigin="0.5,0.5">
-								<RadialGradientBrush.GradientStops>
-									<GradientStop Color="#FFFFFACC" Offset="0"/>
-									<GradientStop Color="#FFB8831A" Offset="1"/>
-								</RadialGradientBrush.GradientStops>
-								<RadialGradientBrush.RelativeTransform>
-									<TransformGroup/>
-								</RadialGradientBrush.RelativeTransform>
-							</RadialGradientBrush>
-						</GeometryDrawing.Brush>
-					</GeometryDrawing>
-				</DrawingGroup.Children>
-			</DrawingGroup>
-		</DrawingBrush.Drawing>
-	</DrawingBrush>
-  
-	<DrawingBrush x:Key="service_design" Stretch="Uniform" PresentationOptions:Freeze="True">
+	
+  <DrawingBrush x:Key="service_design" Stretch="Uniform" PresentationOptions:Freeze="True">
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
 				<DrawingGroup.Children>
@@ -857,7 +833,7 @@
 			</DrawingGroup>
 		</DrawingBrush.Drawing>
 	</DrawingBrush>
-	
+  
 	<DrawingBrush x:Key="run_design" Stretch="Uniform" PresentationOptions:Freeze="True" >
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
@@ -883,9 +859,34 @@
 				</DrawingGroup.Children>
 			</DrawingGroup>
 		</DrawingBrush.Drawing>
-	</DrawingBrush>    
+	</DrawingBrush>
 
-	<DataTemplate x:Key="ServicesTemplateMuc" >
+  <DrawingBrush x:Key="mucmark_design" Stretch="Uniform" PresentationOptions:Freeze="True" >
+    <DrawingBrush.Drawing>
+      <DrawingGroup>
+        <DrawingGroup.Children>
+          <GeometryDrawing Geometry="F1 M 124.781,57.8924L 131.27,57.8924L 131.27,71.4117L 128.026,65.792L 124.781,71.4117L 124.781,57.8924 Z ">
+            <GeometryDrawing.Pen>
+              <Pen LineJoin="Round" Brush="#FF2C2C2C"/>
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Brush>
+              <RadialGradientBrush RadiusX="0.950385" RadiusY="0.49021" Center="0.500001,0.500001" GradientOrigin="0.500001,0.500001">
+                <RadialGradientBrush.GradientStops>
+                  <GradientStop Color="#FFCCF0FF" Offset="0"/>
+                  <GradientStop Color="#FF1A65B8" Offset="1"/>
+                </RadialGradientBrush.GradientStops>
+                <RadialGradientBrush.RelativeTransform>
+                  <TransformGroup/>
+                </RadialGradientBrush.RelativeTransform>
+              </RadialGradientBrush>
+            </GeometryDrawing.Brush>
+          </GeometryDrawing>
+        </DrawingGroup.Children>
+      </DrawingGroup>
+    </DrawingBrush.Drawing>
+  </DrawingBrush>
+
+  <DataTemplate x:Key="ServicesTemplateMuc" >
       <StackPanel Orientation="Horizontal" MinHeight="24">
 	      <Button x:Name="_addMucMark" Content="add" Command="servicecmd:MucCommands.AddMucMark"
 	              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource mucmark_design}" ToolTip="Add Bookmark"/>
@@ -895,7 +896,19 @@
 	  </StackPanel>
 	</DataTemplate>
 
-    <HierarchicalDataTemplate x:Key="ServicesTemplate" ItemsSource="{Binding Path=Services}">
+  <DataTemplate x:Key="ServicesTemplateMucBookmark" >
+    <StackPanel Orientation="Horizontal" MinHeight="24">
+      <Button x:Name="_deleteMucMark" Content="add" Command="servicecmd:MucCommands.DeleteMucMark"
+              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource aff_outcast_design}" ToolTip="Add Bookmark"/>
+
+      <Button x:Name="_muc" Content="muc" Command="servicecmd:ServiceCommands.JoinMuc"
+              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource muc_design}" ToolTip="Join Multi-User Chat"/>
+
+      <TextBlock Text="{Binding Path=Name}" Margin="5,0,0,0"/>
+    </StackPanel>
+  </DataTemplate>
+
+  <HierarchicalDataTemplate x:Key="ServicesTemplate" ItemsSource="{Binding Path=Services}">
       <StackPanel Orientation="Horizontal" MinHeight="24" Margin="0,1,0,1">
 	    <Rectangle ToolTip="Service Type" x:Name="type" Width="16" Height="16" Margin="0,0,3,0" Visibility="Visible" Fill="{DynamicResource service_design}"/>
 

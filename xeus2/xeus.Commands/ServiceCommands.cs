@@ -323,6 +323,10 @@ namespace xeus2.xeus.Commands
 			{
 				e.CanExecute = ( Validation.IsChatRoomValid( ( ( string )e.Parameter ) ) ) ;
 			}
+            else if (e.Parameter is MucMark)
+            {
+                e.CanExecute = true;
+            }
 
 			e.Handled = true ;
 		}
@@ -337,6 +341,10 @@ namespace xeus2.xeus.Commands
 			{
 				Account.Instance.JoinMuc( ( string )e.Parameter ) ;
 			}
+            else if (e.Parameter is MucMark)
+            {
+                Account.Instance.JoinMuc((MucMark)e.Parameter);
+            }
 
 			e.Handled = true ;
 		}

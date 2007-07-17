@@ -740,6 +740,27 @@ namespace xeus2.xeus.Core
 			DiscoverReservedRoomNickname( service ) ;
 		}
 
+        public void JoinMuc(MucMark mucMark)
+        {
+            Service service;
+
+            Jid jid = new Jid(mucMark.Jid);
+
+            lock (Services.Instance._syncObject)
+            {
+                service = Services.Instance.FindService(jid);
+            }
+
+            if (service == null)
+            {
+                // not on this server
+                service = new Service(new DiscoItem(), false);
+                service.DiscoItem.Jid = new Jid(mucMark.Jid);
+            }
+
+            DiscoverReservedRoomNickname(service);
+        }
+
 		public void JoinMuc( Service service )
 		{
 			DiscoverReservedRoomNickname( service ) ;

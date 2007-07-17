@@ -134,6 +134,7 @@ namespace xeus2.xeus.UI
             new TextFilterService(_mucResult.ItemsSource as ListCollectionView, _filterMuc);
 
             ServiceCommands.RegisterCommands(this);
+            MucCommands.RegisterCommands(this);
         }
     }
 }

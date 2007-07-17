@@ -25,5 +25,10 @@ namespace xeus2.xeus.Core
         {
             Add(new MucMark(service, nick, password));
         }
+
+        public void DeleteBookmark(MucMark mark)
+        {
+            Remove(mark);
+        }
     }
 }
