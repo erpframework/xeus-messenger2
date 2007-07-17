@@ -5,6 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
     xmlns:xeus2_xeus_Core="clr-namespace:xeus2.xeus.Core"
     xmlns:xeus2_xeus_Utils="clr-namespace:xeus2.xeus.Utilities"
+	xmlns:xeus2_xeus_UI="clr-namespace:xeus2.xeus.UI"
     xmlns:servicecmd="clr-namespace:xeus2.xeus.Commands"
   	xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     x:Class="xeus2.xeus.UI.ServiceWindow"
@@ -35,7 +36,7 @@
       </CollectionViewSource.SortDescriptions>
     </CollectionViewSource>
 
-    <CollectionViewSource x:Key="MucMarks" Source="{Binding Path=Instance.MucMarks, Mode=Default, Source={StaticResource MucMarksDS}}">
+    <CollectionViewSource x:Key="MucMarks" Source="{Binding Path=Instance, Mode=Default, Source={StaticResource MucMarksDS}}">
       <CollectionViewSource.SortDescriptions>
         <scm:SortDescription PropertyName="Name" />
       </CollectionViewSource.SortDescriptions>
@@ -58,14 +59,6 @@
             <StackPanel Margin="0,0,0,5" Orientation="Horizontal" DockPanel.Dock="Top">
               <StackPanel DockPanel.Dock="Top">
                 <TextBlock Text="Discover Services" Style="{DynamicResource MegaTextBlockStyle}" RenderTransformOrigin="0.5,0.5" x:Name="textBlock">
-                  <TextBlock.RenderTransform>
-                    <TransformGroup>
-                      <ScaleTransform ScaleX="1" ScaleY="1"/>
-                      <SkewTransform AngleX="0"/>
-                      <RotateTransform Angle="0"/>
-                      <TranslateTransform X="0" Y="0"/>
-                    </TransformGroup>
-                  </TextBlock.RenderTransform>
                 </TextBlock>
                 <StackPanel Orientation="Horizontal">
                   <TextBlock Text="Discovered " Foreground="{DynamicResource DefaultTextBrush2}"/>
@@ -94,10 +87,7 @@
         <Border Background="{DynamicResource back_x_design}" DockPanel.Dock="Bottom" Padding="0,0,0,5">
           <Expander Foreground="{DynamicResource DefaultTextBrush2}" Header="Search" Margin="0,5,0,0">
             <DockPanel>
-            	<DockPanel Margin="0,5,0,0" DockPanel.Dock="Top">
-            		<Rectangle Fill="{DynamicResource search_design}" Width="18" Margin="10,0,0,0" Height="18"/>
-            		<TextBox x:Name="_filter" DockPanel.Dock="Left" Margin="10,0,5,0"/>
-            	</DockPanel>
+  			  <xeus2_xeus_UI:SearchBox x:Name="_filter" DockPanel.Dock="Top"/>
               <Border Background="{DynamicResource chat_back_design}" BorderBrush="{x:Null}" Margin="-1,10,-1,-1">
                 <ListBox DockPanel.Dock="Bottom" Background="{x:Null}"
                  BorderBrush="{x:Null}"
@@ -125,25 +115,40 @@
 			</Grid>
 		</Border>
 	</TabItem.Header>
-      <DockPanel>
-        <Border DockPanel.Dock="Top" Background="{DynamicResource back_x_design}" Padding="0,0,0,5">
-           	<DockPanel Margin="0,5,0,0" DockPanel.Dock="Top">
-           		<Rectangle Fill="{DynamicResource search_design}" Width="18" Margin="10,0,0,0" Height="18"/>
-           		<TextBox x:Name="_filterMuc" DockPanel.Dock="Left" Margin="10,0,5,0"/>
-           	</DockPanel>
-		    </Border>
-		<Border Background="{DynamicResource back_x_design}" DockPanel.Dock="Bottom" Padding="0,0,0,5">
+        <DockPanel>
+          <Border DockPanel.Dock="Top" Background="{DynamicResource back_x_design}" BorderBrush="{DynamicResource DefaultTextBrush2}" Padding="10,10,10,15">
+            <DockPanel DockPanel.Dock="Top">
+              <StackPanel Margin="0,0,0,5" Orientation="Horizontal" DockPanel.Dock="Top">
+                <StackPanel DockPanel.Dock="Top">
+                  <TextBlock Text="Manage MUC Bookmarks" Style="{DynamicResource MegaTextBlockStyle}" RenderTransformOrigin="0.5,0.5">
+                  </TextBlock>
+                </StackPanel>
+              </StackPanel>
+              <Rectangle Fill="#FFFFFFFF" Margin="0,5,0,10" Height="1" DockPanel.Dock="Top">
+                <Rectangle.OpacityMask>
+                  <RadialGradientBrush>
+                    <GradientStop Color="#FF000000" Offset="0"/>
+                    <GradientStop Color="#00FFFFFF" Offset="1"/>
+                  </RadialGradientBrush>
+                </Rectangle.OpacityMask>
+              </Rectangle>
+            </DockPanel>
+          </Border>
+
+          <Border DockPanel.Dock="Top" Background="{DynamicResource back_x_design}" Padding="0,0,0,5">
+ 			  <xeus2_xeus_UI:SearchBox x:Name="_filterMuc" DockPanel.Dock="Top"/>
+	      </Border>
+		    <Border Background="{DynamicResource back_x_design}" DockPanel.Dock="Bottom" Padding="0,0,0,5">
           <Expander Foreground="{DynamicResource DefaultTextBrush2}" Header="MUC Bookmarks" Margin="0,5,0,0">
             <DockPanel>
-            	<DockPanel Margin="0,5,0,0" DockPanel.Dock="Top">
-            		<Rectangle Fill="{DynamicResource search_design}" Width="18" Margin="10,0,0,0" Height="18"/>
-            		<TextBox x:Name="_filterMucMarks" DockPanel.Dock="Left" Margin="10,0,5,0"/>
-            	</DockPanel>
+              <xeus2_xeus_UI:SearchBox x:Name="_filterMucMarks" DockPanel.Dock="Top"/>
               <Border Background="{DynamicResource chat_back_design}" BorderBrush="{x:Null}" Margin="-1,10,-1,-1">
                 <ListBox DockPanel.Dock="Bottom" Background="{x:Null}"
                  BorderBrush="{x:Null}"
                  ItemsSource="{Binding Source={StaticResource MucMarks}}"
-                   x:Name="_mucMarksResult" MaxHeight="250" ItemTemplate="{DynamicResource ServicesTemplate}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="5,5,5,5" MinHeight="25" />
+                   x:Name="_mucMarksResult" MaxHeight="250"
+                         ItemTemplate="{DynamicResource ServicesTemplateMucBookmark}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="5,5,5,5" MinHeight="25" />
               </Border>
             </DockPanel>
           </Expander>

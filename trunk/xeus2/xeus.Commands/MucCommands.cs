@@ -41,7 +41,10 @@ namespace xeus2.xeus.Commands
         private static RoutedUICommand _addMucMark =
             new RoutedUICommand("Add MUC Bookmark", "AddMucMark", typeof(MucCommands));
 
-        public static RoutedUICommand ChangeStatus
+         private static RoutedUICommand _deleteMucMark =
+            new RoutedUICommand("Delete MUC Bookmark", "DeleteMucMark", typeof(MucCommands));
+
+       public static RoutedUICommand ChangeStatus
         {
             get
             {
@@ -129,6 +132,14 @@ namespace xeus2.xeus.Commands
             }
         }
 
+        public static RoutedUICommand DeleteMucMark
+        {
+            get
+            {
+                return _deleteMucMark;
+            }
+        }
+
         public static void RegisterCommands(Window window)
         {
             window.CommandBindings.Add(
@@ -163,6 +174,9 @@ namespace xeus2.xeus.Commands
 
             window.CommandBindings.Add(
                 new CommandBinding(_addMucMark, ExecuteAddMucMark, CanExecuteAddMucMark));
+
+            window.CommandBindings.Add(
+                new CommandBinding(_deleteMucMark, ExecuteDeleteMucMark, CanExecuteDeleteMucMark));
         }
 
         public static void CanExecuteChangeAccessLevel(object sender, CanExecuteRoutedEventArgs e)
@@ -367,7 +381,7 @@ namespace xeus2.xeus.Commands
 
             e.Handled = true;
 
-            e.CanExecute = ( service != null && service.IsRegistrable ) ;
+            e.CanExecute = ( service != null && service.IsChatRoom ) ;
         }
 
         public static void ExecuteAddMucMark(object sender, ExecutedRoutedEventArgs e)
@@ -375,6 +389,24 @@ namespace xeus2.xeus.Commands
             Service service = e.Parameter as Service ;
 
             MucMarks.Instance.AddBookmark(service);
+
+            e.Handled = true;
+        }
+
+        public static void CanExecuteDeleteMucMark(object sender, CanExecuteRoutedEventArgs e)
+        {
+            MucMark mucMark = e.Parameter as MucMark;
+
+            e.Handled = true;
+
+            e.CanExecute = (mucMark != null);
+        }
+
+        public static void ExecuteDeleteMucMark(object sender, ExecutedRoutedEventArgs e)
+        {
+            MucMark mucMark = e.Parameter as MucMark;
+
+            MucMarks.Instance.DeleteBookmark(mucMark);
 
             e.Handled = true;
         }
