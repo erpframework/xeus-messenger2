@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using agsXMPP.protocol.iq.disco;
 
 namespace xeus2.xeus.Core
 {
@@ -10,6 +11,7 @@ namespace xeus2.xeus.Core
         private string _jid;
         private string _password;
         private string _name;
+        private Service _service;
 
         public MucMark(Service service)
         {
@@ -41,6 +43,43 @@ namespace xeus2.xeus.Core
             get
             {
                 return _jid;
+            }
+        }
+
+        public string Nick
+        {
+            get
+            {
+                return _nick;
+            }
+            set
+            {
+                _nick = value;
+            }
+        }
+
+        public string Password
+        {
+            get
+            {
+                return _password;
+            }
+        }
+
+        public DiscoInfo DiscoInfo
+        {
+            set
+            {
+                _service = new Service(new DiscoItem(), false);
+                Service.DiscoInfo = value;
+            }
+        }
+
+        public Service Service
+        {
+            get
+            {
+                return _service;
             }
         }
     }

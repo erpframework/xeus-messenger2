@@ -758,10 +758,22 @@ namespace xeus2.xeus.Core
                 service.DiscoItem.Jid = new Jid(mucMark.Jid);
             }
 
-            DiscoverReservedRoomNickname(service);
+            DiscoverReservedRoomNickname(mucMark);
         }
 
-		public void JoinMuc( Service service )
+	    private void DiscoverReservedRoomNickname(MucMark mucMark)
+	    {
+            IQ iq = new IQ(IqType.get, MyJid, new Jid(mucMark.Jid));
+
+            iq.GenerateId();
+            DiscoInfo di = new DiscoInfo();
+            di.Node = "x-roomuser-item";
+            iq.Query = di;
+
+            _xmppConnection.IqGrabber.SendIq(iq, new IqCB(OnRoomNicknameResult), mucMark);
+	    }
+
+	    public void JoinMuc( Service service )
 		{
 			DiscoverReservedRoomNickname( service ) ;
 		}
@@ -801,7 +813,14 @@ namespace xeus2.xeus.Core
 				}
 			}
 
-			JoinMuc( data as Service, nick ) ;
+            if (data is Service)
+            {
+                JoinMuc(data as Service, nick);
+            }
+            else
+            {
+                JoinMuc(data as MucMark, nick);
+            }
 		}
 
 		protected void JoinMuc( Service service, string nick )
@@ -809,7 +828,34 @@ namespace xeus2.xeus.Core
 			MucInfo.Instance.MucLogin( service, nick ) ;
 		}
 
-		public MucRoom JoinMuc( Service service, string nick, string password )
+        protected void JoinMuc(MucMark mucMark, string nick)
+        {
+            if (!string.IsNullOrEmpty(nick))
+            {
+                mucMark.Nick = nick;
+            }
+            _discoManager.DisoverInformation(new Jid(mucMark.Jid), new IqCB(OnDiscoInfoResultMucRoom),
+                                             mucMark);
+        }
+
+        private void OnDiscoInfoResultMucRoom(object sender, IQ iq, object data)
+        {
+            if (iq.Error != null)
+            {
+                Services.Instance.OnServiceItemError(sender, iq);
+            }
+            else if (iq.Type == IqType.result && iq.Query is DiscoInfo)
+            {
+                DiscoInfo di = iq.Query as DiscoInfo;
+
+                MucMark mucMark = data as MucMark;
+                mucMark.DiscoInfo = di;
+
+                MucInfo.Instance.MucLogin(mucMark);
+            }
+        }
+
+        public MucRoom JoinMuc(Service service, string nick, string password)
 		{
 			if ( service.IsMucPasswordProtected )
 			{
