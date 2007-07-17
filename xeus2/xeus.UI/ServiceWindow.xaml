@@ -124,7 +124,7 @@
                   </TextBlock>
                 </StackPanel>
               </StackPanel>
-              <Rectangle Fill="#FFFFFFFF" Margin="0,5,0,10" Height="1" DockPanel.Dock="Top">
+              <Rectangle Fill="#FFFFFFFF" Margin="0,5,0,0" Height="1" DockPanel.Dock="Top">
                 <Rectangle.OpacityMask>
                   <RadialGradientBrush>
                     <GradientStop Color="#FF000000" Offset="0"/>
