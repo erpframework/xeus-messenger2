@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Text;
+using agsXMPP;
 using agsXMPP.protocol.iq.disco;
 
 namespace xeus2.xeus.Core
@@ -86,7 +87,10 @@ namespace xeus2.xeus.Core
         {
             set
             {
-                _service = new Service(new DiscoItem(), false);
+                DiscoItem discoItem = new DiscoItem();
+                discoItem.Jid = new Jid(_jid);
+                _service = new Service(discoItem, false);
+                
                 Service.DiscoInfo = value;
             }
         }
