@@ -20,7 +20,7 @@ namespace xeus2.xeus.Core
 				}
 				else
 				{
-					App.InvokeSafe( DispatcherPriority.Send,
+					App.InvokeSafe( DispatcherPriority.Background,
 					                new NotifyPropertyChangedHandler( NotifyPropertyChanged ), info ) ;
 				}
 			}
