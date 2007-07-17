@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using xeus.Data;
 
 namespace xeus2.xeus.Core
 {
@@ -43,6 +44,7 @@ namespace xeus2.xeus.Core
         {
             lock (_syncObject)
             {
+                Database.DeleteMucMark(mark);
                 Remove(mark);
             }
         }

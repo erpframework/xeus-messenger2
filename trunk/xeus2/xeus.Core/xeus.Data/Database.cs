@@ -379,6 +379,12 @@ namespace xeus.Data
 
 				foreach ( KeyValuePair< string, object > pair in values )
 				{
+                    if (pair.Key == "Id")
+                    {
+                        //don't insert auto id
+                        continue;
+                    }
+
 					if ( !isFirst )
 					{
 						queryUpdate.Append( "," ) ;
@@ -395,6 +401,12 @@ namespace xeus.Data
 
 				foreach ( KeyValuePair< string, object > pair in values )
 				{
+                    if (pair.Key == "Id")
+                    {
+                        //don't insert auto id
+                        continue;
+                    }
+
 					if ( !isFirst )
 					{
 						queryUpdate.Append( "," ) ;
@@ -519,5 +531,28 @@ namespace xeus.Data
 
 			return id ;
 		}
+
+	    public static void DeleteMucMark(MucMark mucMark)
+	    {
+            try
+            {
+                using (SQLiteTransaction transaction = _connection.BeginTransaction())
+                {
+                    using (SQLiteCommand command = _connection.CreateCommand())
+                    {
+                        command.CommandText = string.Format("DELETE FROM [MucMark] WHERE [Id]={0}", mucMark.Id);
+                        command.ExecuteNonQuery();
+                    }
+
+                    transaction.Commit();
+                }
+            }
+
+            catch (Exception e)
+            {
+                EventException eventError = new EventException("Error deleting MUC Bookmarks", e);
+                Events.Instance.OnEvent(null, eventError);
+            }
+        }
 	}
 }

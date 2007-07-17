@@ -27,6 +27,12 @@ namespace xeus2
 
             Database.OpenDatabase();
             Database.LoadMucMarks();
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+
             Database.CloseDatabase();
         }
 

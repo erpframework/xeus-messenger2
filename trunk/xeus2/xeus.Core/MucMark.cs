@@ -15,11 +15,11 @@ namespace xeus2.xeus.Core
         private Service _service;
         private DateTime _time;
 
-        private Int64 _id = 0;
+        private int _id = -1;
 
         public MucMark(DbDataReader reader)
 		{
-            _id = (long)reader["Id"];
+            _id = (int)(long)reader["Id"];
             _nick = reader["Nick"] as string;
             _jid = reader["Jid"] as string;
             _password = reader["Password"] as string;
@@ -115,7 +115,7 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public long Id
+        public int Id
         {
             get
             {
