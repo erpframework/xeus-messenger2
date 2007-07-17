@@ -148,9 +148,7 @@ namespace xeus2.xeus.UI
         {
             base.OnClosing(e);
 
-            Database.OpenDatabase();
             Database.SaveMucMarks();
-            Database.CloseDatabase();
         }
     }
 }
