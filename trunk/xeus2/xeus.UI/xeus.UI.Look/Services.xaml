@@ -904,7 +904,7 @@
       <Button x:Name="_muc" Content="muc" Command="servicecmd:ServiceCommands.JoinMuc"
               CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource muc_design}" ToolTip="Join Multi-User Chat"/>
 
-      <TextBlock Text="{Binding Path=Name}" Margin="5,0,0,0"/>
+      <TextBlock Text="{Binding Path=Description}" Margin="5,0,0,0"/>
     </StackPanel>
   </DataTemplate>
 
