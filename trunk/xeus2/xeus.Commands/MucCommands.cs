@@ -38,6 +38,9 @@ namespace xeus2.xeus.Commands
         private static RoutedUICommand _revokeVoice =
             new RoutedUICommand("Revoke Voice", "RevokeVoice", typeof (MucCommands));
 
+        private static RoutedUICommand _addMucMark =
+            new RoutedUICommand("Add MUC Bookmark", "AddMucMark", typeof(MucCommands));
+
         public static RoutedUICommand ChangeStatus
         {
             get
@@ -118,6 +121,14 @@ namespace xeus2.xeus.Commands
             }
         }
 
+        public static RoutedUICommand AddMucMark
+        {
+            get
+            {
+                return _addMucMark;
+            }
+        }
+
         public static void RegisterCommands(Window window)
         {
             window.CommandBindings.Add(
@@ -149,6 +160,9 @@ namespace xeus2.xeus.Commands
 
             window.CommandBindings.Add(
                 new CommandBinding(_revokeVoice, ExecuteRevokeVoice, CanExecuteRevokeVoice));
+
+            window.CommandBindings.Add(
+                new CommandBinding(_addMucMark, ExecuteAddMucMark, CanExecuteAddMucMark));
         }
 
         public static void CanExecuteChangeAccessLevel(object sender, CanExecuteRoutedEventArgs e)
@@ -343,6 +357,24 @@ namespace xeus2.xeus.Commands
         {
             //Service service = e.Parameter as Service ;
             //Account.Instance.GetService( service ) ;
+
+            e.Handled = true;
+        }
+
+        public static void CanExecuteAddMucMark(object sender, CanExecuteRoutedEventArgs e)
+        {
+            Service service = e.Parameter as Service ;
+
+            e.Handled = true;
+
+            e.CanExecute = ( service != null && service.IsRegistrable ) ;
+        }
+
+        public static void ExecuteAddMucMark(object sender, ExecutedRoutedEventArgs e)
+        {
+            Service service = e.Parameter as Service ;
+
+            MucMarks.Instance.AddBookmark(service);
 
             e.Handled = true;
         }

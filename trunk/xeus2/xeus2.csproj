@@ -137,6 +137,8 @@
     <Compile Include="xeus.Core\IContact.cs" />
     <Compile Include="xeus.Core\InlineMethod.cs" />
     <Compile Include="xeus.Core\MucContact.cs" />
+    <Compile Include="xeus.Core\MucMark.cs" />
+    <Compile Include="xeus.Core\MucMarks.cs" />
     <Compile Include="xeus.Core\MucMessage.cs" />
     <Compile Include="xeus.Core\MucMessages.cs" />
     <Compile Include="xeus.Core\MucRoom.cs" />
