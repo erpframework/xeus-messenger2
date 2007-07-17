@@ -18,17 +18,33 @@ namespace xeus2.xeus.Core
 
         public void AddBookmark(Service service)
         {
-            Add(new MucMark(service));
+            lock (_syncObject)
+            {
+                foreach (MucMark mark in this)
+                {
+                    if (mark.Jid == service.Jid.Bare)
+                    {
+                        return;
+                    }
+                }
+                Add(new MucMark(service));
+            }
         }
 
         public void AddBookmark(Service service, string nick, string password)
         {
-            Add(new MucMark(service, nick, password));
+            lock (_syncObject)
+            {
+                Add(new MucMark(service, nick, password));
+            }
         }
 
         public void DeleteBookmark(MucMark mark)
         {
-            Remove(mark);
+            lock (_syncObject)
+            {
+                Remove(mark);
+            }
         }
     }
 }

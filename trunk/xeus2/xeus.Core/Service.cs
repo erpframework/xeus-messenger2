@@ -309,7 +309,7 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				return ( DiscoInfo != null && DiscoInfo.HasFeature( MucFeature.muc_passwordprotected.ToString() ) ) ;
+				return ( DiscoInfo == null || DiscoInfo.HasFeature( MucFeature.muc_passwordprotected.ToString() ) ) ;
 			}
 		}
 
