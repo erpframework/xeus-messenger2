@@ -12,11 +12,14 @@ namespace xeus2.xeus.Core
         private string _password;
         private string _name;
         private Service _service;
+        private DateTime _time;
 
         public MucMark(Service service)
         {
             _jid = service.Jid.Bare;
             _name = service.Name;
+
+            _time = DateTime.Now;
         }
 
         public MucMark(Service service, string nick, string password) : this(service)
@@ -80,6 +83,22 @@ namespace xeus2.xeus.Core
             get
             {
                 return _service;
+            }
+        }
+
+        public DateTime Time
+        {
+            get
+            {
+                return _time;
+            }
+        }
+
+        public string Description
+        {
+            get
+            {
+                return string.Format("{0} ({1})", Name, Time);
             }
         }
     }
