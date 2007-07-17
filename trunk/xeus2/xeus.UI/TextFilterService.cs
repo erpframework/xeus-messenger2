@@ -35,6 +35,11 @@ namespace xeus2.xeus.UI
                             new RefreshCallback(Refresh));
         }
 
+        public TextFilterService(ICollectionView collectionView, SearchBox searchBox)
+            : this(collectionView, searchBox.TextBox)
+        {
+        }
+
         public TextFilterService(ICollectionView collectionView, TextBox textBox) : this()
         {
             string filterText = String.Empty;
