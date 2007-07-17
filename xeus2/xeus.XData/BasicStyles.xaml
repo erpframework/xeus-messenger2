@@ -60,6 +60,16 @@
 		</DrawingBrush.Drawing>
 	</DrawingBrush>
 	
+	<DrawingBrush x:Key="clear_design" PresentationOptions:Freeze="True" Stretch="Uniform" >
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<DrawingGroup.Children>
+					<GeometryDrawing Brush="#80000000" Geometry="F1 M 20.2578,9.6175L 16.3786,13.4967L 20.2578,17.3758L 18.2161,19.4175L 14.3369,15.5383L 10.4578,19.4175L 8.4161,17.3758L 12.2953,13.4967L 8.4161,9.6175L 10.4578,7.57583L 14.3369,11.455L 18.2161,7.57583L 20.2578,9.6175 Z "/>
+				</DrawingGroup.Children>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	
 	<DrawingBrush x:Key="background_design_2" PresentationOptions:Freeze="True">
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
@@ -248,6 +258,13 @@
 			</DrawingGroup>
 		</DrawingBrush.Drawing>
 	</DrawingBrush>
+
+	<Style x:Key="TransparentTextBoxStyle" TargetType="{x:Type TextBox}">
+		<Setter Property="Background" Value="{x:Null}"/>
+		<Setter Property="BorderBrush" Value="{x:Null}"/>
+		<Setter Property="BorderThickness" Value="0,0,0,0"/>
+    <Setter Property="MinHeight" Value="22"/>
+  </Style>
 
 	<Style x:Key="TextBoxBasic" TargetType="{x:Type TextBox}">
 		<Setter Property="Template" Value="{DynamicResource TextBoxBaseControlTemplate}"/>

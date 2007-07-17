@@ -90,6 +90,7 @@
     <Page Include="xeus.UI\RoomTopic.xaml" />
     <Page Include="xeus.UI\RosterWindow.xaml" />
     <Page Include="xeus.UI\Search.xaml" />
+    <Page Include="xeus.UI\SearchBox.xaml" />
     <Page Include="xeus.UI\ServiceWindow.xaml" />
     <Page Include="xeus.UI\xeus.UI.Look\ScrollBar.xaml" />
     <Page Include="xeus.XData\XDataContainer.xaml" />
@@ -217,6 +218,10 @@
     <Compile Include="xeus.UI\Search.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>Search.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xeus.UI\SearchBox.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>SearchBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\ServiceWindow.xaml.cs">
       <SubType>Code</SubType>
