@@ -9,6 +9,7 @@ namespace xeus2.xeus.Core
 			Debug,
 			Info,
 			Error,
+            Exception,
 			Fatal
 		}
 

@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using agsXMPP.protocol.x.data;
+using xeus.Data;
 using xeus2.xeus.Commands;
 using xeus2.xeus.Core;
 
@@ -141,6 +142,15 @@ namespace xeus2.xeus.UI
         void DisplayEmptyChecked(object sender, EventArgs args)
         {
             ICollectionView dataView = CollectionViewSource.GetDefaultView(_mucResult.ItemsSource);
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+
+            Database.OpenDatabase();
+            Database.SaveMucMarks();
+            Database.CloseDatabase();
         }
     }
 }

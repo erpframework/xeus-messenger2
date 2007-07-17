@@ -3,6 +3,8 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
+using xeus.Data;
+using xeus2.xeus.Core;
 using xeus2.xeus.Middle;
 
 namespace xeus2
@@ -17,11 +19,15 @@ namespace xeus2
         public App()
         {
             xeus2.Properties.Resources.Culture = new CultureInfo( "en-US" ) ;
-            string h = xeus2.Properties.Resources.Event_PresenceChange ;
+            // string h = xeus2.Properties.Resources.Event_PresenceChange ;
 
             Console.WriteLine("RCL: {0}", (RenderCapability.Tier >> 16));
 
             ErrorPopup.Instance.Init();
+
+            Database.OpenDatabase();
+            Database.LoadMucMarks();
+            Database.CloseDatabase();
         }
 
         public static bool CheckAccessSafe()

@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using agsXMPP.protocol.client ;
 
 namespace xeus2.xeus.Core
@@ -20,11 +17,6 @@ namespace xeus2.xeus.Core
 			{
 				return _error ;
 			}
-		}
-
-		public override string ToString()
-		{
-			return base.ToString();
 		}
 	}
 }
