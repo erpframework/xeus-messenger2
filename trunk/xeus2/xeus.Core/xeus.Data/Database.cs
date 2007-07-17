@@ -37,6 +37,13 @@ namespace xeus.Data
 		{
 			using ( SQLiteCommand cmd = _connection.CreateCommand() )
 			{
+                cmd.CommandText = "CREATE TABLE [MucMark] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT, "
+			                      + "[Nick] VARCHAR, [Jid] VARCHAR, "
+			                      + "[Password] VARCHAR, [Name] VARCHAR, "
+			                      + "[Time] INTEGER NOT NULL);";
+                cmd.ExecuteNonQuery();
+
+                /*
 				cmd.CommandText = "CREATE TABLE [Group] ([IsExpander] INTEGER NOT NULL DEFAULT '0',"
 				                  + "[Name] VARCHAR NOT NULL PRIMARY KEY UNIQUE);" ;
 				cmd.ExecuteNonQuery() ;
@@ -55,6 +62,7 @@ namespace xeus.Data
 				                  + "[CustomName] VARCHAR, [IdLastMessageFrom] INTEGER, "
 				                  + "[IdLastMessageTo] INTEGER);" ;
 				cmd.ExecuteNonQuery() ;
+                 */
 			}
 		}
 
@@ -62,6 +70,67 @@ namespace xeus.Data
 		{
 			_connection.Close() ;
 		}
+
+        public static void LoadMucMarks()
+        {
+ 			try
+			{
+                lock (MucMarks.Instance._syncObject)
+                {
+                    MucMarks.Instance.Clear();
+
+                    using (SQLiteCommand command = _connection.CreateCommand())
+                    {
+                        command.CommandText = "SELECT * FROM [MucMark] ORDER BY [Name]";
+
+                        SQLiteDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            MucMarks.Instance.Add(new MucMark(reader));
+                        }
+
+                        reader.Close();
+                    }
+                }
+			}
+
+			catch ( Exception e )
+			{
+                EventException eventError = new EventException("Error reading MUC Bookmarks", e);
+			    Events.Instance.OnEvent( null, eventError ) ;
+			}
+        }
+
+        public static void SaveMucMarks()
+        {
+            try
+            {
+                using (SQLiteTransaction transaction = _connection.BeginTransaction())
+                {
+                    foreach (MucMark mucMark in MucMarks.Instance)
+                    {
+                        Dictionary<string, object> values = new Dictionary<string, object>();
+
+                        values.Add("Id", mucMark.Id);
+                        values.Add("Nick", mucMark.Nick);
+                        values.Add("Jid", mucMark.Jid);
+                        values.Add("Password", mucMark.Password);
+                        values.Add("Name", mucMark.Name);
+                        values.Add("Time", mucMark.Time.ToBinary());
+
+                        mucMark.Id = SaveOrUpdate(values, "Id", "MucMark", true, _connection);
+                    }
+
+                    transaction.Commit();
+                }
+            }
+
+            catch (Exception e)
+            {
+                Events.Instance.OnEvent(null, new EventError(e.Message, null));
+            }
+        }
 
 		/*
 		public List< RosterItem > ReadRosterItems()
@@ -297,7 +366,7 @@ namespace xeus.Data
 			}
 		}
 		*/
-		private Int32 Insert( Dictionary< string, object > values, string table, bool readAutoId,
+		private static Int32 Insert( Dictionary< string, object > values, string table, bool readAutoId,
 		                      SQLiteConnection connection )
 		{
 			using ( SQLiteCommand commandUpdate = connection.CreateCommand() )
@@ -354,7 +423,7 @@ namespace xeus.Data
 			}
 		}
 
-		private void Update( Dictionary< string, object > values, string keyField, string table, SQLiteConnection connection )
+		private static void Update( Dictionary< string, object > values, string keyField, string table, SQLiteConnection connection )
 		{
 			using ( SQLiteCommand commandUpdate = connection.CreateCommand() )
 			{
@@ -391,7 +460,7 @@ namespace xeus.Data
 			}
 		}
 
-		private Int32 SaveOrUpdate( Dictionary< string, object > values, string keyField, string table, bool readAutoId,
+		private static Int32 SaveOrUpdate( Dictionary< string, object > values, string keyField, string table, bool readAutoId,
 		                            SQLiteConnection connection )
 		{
 			bool exists = false ;
@@ -430,7 +499,7 @@ namespace xeus.Data
 			return id ;
 		}
 
-		private int GetlastRowId( SQLiteConnection connection )
+		private static int GetlastRowId( SQLiteConnection connection )
 		{
 			int id = 0 ;
 

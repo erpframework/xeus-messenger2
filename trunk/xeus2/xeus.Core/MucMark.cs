@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Text;
 using agsXMPP.protocol.iq.disco;
 
@@ -13,6 +14,18 @@ namespace xeus2.xeus.Core
         private string _name;
         private Service _service;
         private DateTime _time;
+
+        private Int64 _id = 0;
+
+        public MucMark(DbDataReader reader)
+		{
+            _id = (long)reader["Id"];
+            _nick = reader["Nick"] as string;
+            _jid = reader["Jid"] as string;
+            _password = reader["Password"] as string;
+            _name = reader["Name"] as string;
+            _time = DateTime.FromBinary((long)reader["Time"]);
+		}
 
         public MucMark(Service service)
         {
@@ -99,6 +112,18 @@ namespace xeus2.xeus.Core
             get
             {
                 return string.Format("{0} ({1})", Name, Time);
+            }
+        }
+
+        public long Id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                _id = value;
             }
         }
     }
