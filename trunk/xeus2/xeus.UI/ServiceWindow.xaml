@@ -118,12 +118,7 @@
         <DockPanel>
           <Border DockPanel.Dock="Top" Background="{DynamicResource back_x_design}" BorderBrush="{DynamicResource DefaultTextBrush2}" Padding="10,10,10,15">
             <DockPanel DockPanel.Dock="Top">
-              <StackPanel Margin="0,0,0,5" Orientation="Horizontal" DockPanel.Dock="Top">
-                <StackPanel DockPanel.Dock="Top">
-                  <TextBlock Text="Manage MUC Bookmarks" Style="{DynamicResource MegaTextBlockStyle}" RenderTransformOrigin="0.5,0.5">
-                  </TextBlock>
-                </StackPanel>
-              </StackPanel>
+              <TextBlock DockPanel.Dock="Top" Text="Multi User Char Rooms" Style="{DynamicResource MegaTextBlockStyle}" RenderTransformOrigin="0.5,0.5"/>
               <Rectangle Fill="#FFFFFFFF" Margin="0,5,0,0" Height="1" DockPanel.Dock="Top">
                 <Rectangle.OpacityMask>
                   <RadialGradientBrush>
@@ -134,10 +129,12 @@
               </Rectangle>
             </DockPanel>
           </Border>
-
-          <Border DockPanel.Dock="Top" Background="{DynamicResource back_x_design}" Padding="0,0,0,5">
- 			  <xeus2_xeus_UI:SearchBox x:Name="_filterMuc" DockPanel.Dock="Top"/>
-	      </Border>
+        <Border DockPanel.Dock="Top" Background="{DynamicResource back_x_design}" Padding="0,0,0,5">
+          <StackPanel>
+            <xeus2_xeus_UI:SearchBox x:Name="_filterMuc" DockPanel.Dock="Top" />
+            <CheckBox Content="Display Empty Rooms" Checked="DisplayEmptyChecked" Margin="35,5,0,0" Foreground="{DynamicResource DefaultTextBrush2}"/>
+          </StackPanel>
+        </Border>
 		    <Border Background="{DynamicResource back_x_design}" DockPanel.Dock="Bottom" Padding="0,0,0,5">
           <Expander Foreground="{DynamicResource DefaultTextBrush2}" Header="MUC Bookmarks" Margin="0,5,0,0">
             <DockPanel>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -135,6 +136,11 @@ namespace xeus2.xeus.UI
 
             ServiceCommands.RegisterCommands(this);
             MucCommands.RegisterCommands(this);
+        }
+
+        void DisplayEmptyChecked(object sender, EventArgs args)
+        {
+            ICollectionView dataView = CollectionViewSource.GetDefaultView(_mucResult.ItemsSource);
         }
     }
 }

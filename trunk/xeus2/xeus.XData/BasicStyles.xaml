@@ -298,7 +298,11 @@
 		<Setter Property="Template" Value="{DynamicResource CheckBoxControlTemplate}"/>
 	</Style>
 
-	<Style x:Key="XDataListMulti" TargetType="{x:Type StackPanel}"/>
+  <Style TargetType="{x:Type CheckBox}">
+    <Setter Property="Template" Value="{DynamicResource CheckBoxControlTemplate}"/>
+  </Style>
+
+  <Style x:Key="XDataListMulti" TargetType="{x:Type StackPanel}"/>
 
 	<Style x:Key="XDataListSingle" TargetType="{x:Type ComboBox}">
 		<Setter Property="MinWidth" Value="150"/>
@@ -629,75 +633,76 @@
 		<Setter Property="Foreground" Value="{DynamicResource DefaultTextBoxBackBrush}"/>
 	</Style>
 
-	<ControlTemplate x:Key="CheckBoxControlTemplate" TargetType="{x:Type CheckBox}">
-		<BulletDecorator SnapsToDevicePixels="True" Background="#00FFFFFF">
-			<BulletDecorator.Bullet>
-				<Border Width="16" Height="16" Background="{DynamicResource DefaultTextBoxBackBrush}" BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" RenderTransformOrigin="0.5,0.5" x:Name="border">
-					<Border.RenderTransform>
-						<TransformGroup>
-							<ScaleTransform ScaleX="1" ScaleY="1"/>
-							<SkewTransform AngleX="0" AngleY="0"/>
-							<RotateTransform Angle="0"/>
-							<TranslateTransform X="0" Y="0"/>
-						</TransformGroup>
-					</Border.RenderTransform>
-					<Path RenderTransformOrigin="0.5,0.5" Fill="#FF000000" Stretch="Fill" Margin="1,1,1,1" x:Name="path" Data="M3.6621094,6.6519527 L4.8457031,6.6519527 L4.8457031,8.9195309 L7.1015625,8.9195309 L7.1015625,10.108984 L4.8457031,10.108984 L4.8457031,12.364843 L3.6621094,12.364843 L3.6621094,10.108984 L1.3945313,10.108984 L1.3945313,8.9195309 L3.6621094,8.9195309 z">
-						<Path.RenderTransform>
-							<TransformGroup>
-								<ScaleTransform ScaleX="1" ScaleY="1"/>
-								<SkewTransform AngleX="0" AngleY="0"/>
-								<RotateTransform Angle="45"/>
-								<TranslateTransform X="0" Y="0"/>
-							</TransformGroup>
-						</Path.RenderTransform>
-					</Path>
-				</Border>
-			</BulletDecorator.Bullet>
-			<ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" RecognizesAccessKey="True"/>
-		</BulletDecorator>
-		<ControlTemplate.Triggers>
-			<Trigger Property="IsMouseOver" Value="True">
-				<Setter Property="Background" TargetName="border" Value="{DynamicResource DefaultTextBoxBackBrushSelected}"/>
-			</Trigger>
-			<Trigger Property="IsPressed" Value="True">
-				<Setter Property="RenderTransform" TargetName="border">
-					<Setter.Value>
-						<TransformGroup>
-							<ScaleTransform ScaleX="0.9" ScaleY="0.9"/>
-							<SkewTransform AngleX="0" AngleY="0"/>
-							<RotateTransform Angle="0"/>
-							<TranslateTransform X="0" Y="0"/>
-						</TransformGroup>
-					</Setter.Value>
-				</Setter>
-			</Trigger>
-			<Trigger Property="IsChecked" Value="False">
-				<Setter Property="Visibility" TargetName="path" Value="Hidden"/>
-			</Trigger>
-			<Trigger Property="HasContent" Value="True">
-				<Setter Property="FocusVisualStyle">
-					<Setter.Value>
-						<Style>
-							<Setter Property="Control.Template">
-								<Setter.Value>
-									<ControlTemplate>
-										<Rectangle SnapsToDevicePixels="True" Stroke="#FF000000" StrokeDashArray="1 2" StrokeThickness="1" Margin="14,0,0,0"/>
-									</ControlTemplate>
-								</Setter.Value>
-							</Setter>
-						</Style>
-					</Setter.Value>
-				</Setter>
-				<Setter Property="Padding" Value="4,0,0,0"/>
-			</Trigger>
-			<Trigger Property="IsEnabled" Value="False">
-				<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-				<Setter Property="Opacity" TargetName="border" Value="0.5"/>
-			</Trigger>
-		</ControlTemplate.Triggers>
-	</ControlTemplate>
 
-	<ControlTemplate x:Key="ComboBoxControlTemplate" TargetType="{x:Type ComboBox}">
+  <ControlTemplate x:Key="CheckBoxControlTemplate" TargetType="{x:Type CheckBox}">
+    <BulletDecorator SnapsToDevicePixels="True" Background="#00FFFFFF">
+      <BulletDecorator.Bullet>
+        <Border Width="16" Height="16" Background="{DynamicResource DefaultTextBoxBackBrush}" BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" RenderTransformOrigin="0.5,0.5" x:Name="border">
+          <Border.RenderTransform>
+            <TransformGroup>
+              <ScaleTransform ScaleX="1" ScaleY="1"/>
+              <SkewTransform AngleX="0" AngleY="0"/>
+              <RotateTransform Angle="0"/>
+              <TranslateTransform X="0" Y="0"/>
+            </TransformGroup>
+          </Border.RenderTransform>
+          <Path RenderTransformOrigin="0.5,0.5" Fill="#FF000000" Stretch="Fill" Margin="1,1,1,1" x:Name="path" Data="M3.6621094,6.6519527 L4.8457031,6.6519527 L4.8457031,8.9195309 L7.1015625,8.9195309 L7.1015625,10.108984 L4.8457031,10.108984 L4.8457031,12.364843 L3.6621094,12.364843 L3.6621094,10.108984 L1.3945313,10.108984 L1.3945313,8.9195309 L3.6621094,8.9195309 z">
+            <Path.RenderTransform>
+              <TransformGroup>
+                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                <SkewTransform AngleX="0" AngleY="0"/>
+                <RotateTransform Angle="45"/>
+                <TranslateTransform X="0" Y="0"/>
+              </TransformGroup>
+            </Path.RenderTransform>
+          </Path>
+        </Border>
+      </BulletDecorator.Bullet>
+      <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" RecognizesAccessKey="True"/>
+    </BulletDecorator>
+    <ControlTemplate.Triggers>
+      <Trigger Property="IsMouseOver" Value="True">
+        <Setter Property="Background" TargetName="border" Value="{DynamicResource DefaultTextBoxBackBrushSelected}"/>
+      </Trigger>
+      <Trigger Property="IsPressed" Value="True">
+        <Setter Property="RenderTransform" TargetName="border">
+          <Setter.Value>
+            <TransformGroup>
+              <ScaleTransform ScaleX="0.9" ScaleY="0.9"/>
+              <SkewTransform AngleX="0" AngleY="0"/>
+              <RotateTransform Angle="0"/>
+              <TranslateTransform X="0" Y="0"/>
+            </TransformGroup>
+          </Setter.Value>
+        </Setter>
+      </Trigger>
+      <Trigger Property="IsChecked" Value="False">
+        <Setter Property="Visibility" TargetName="path" Value="Hidden"/>
+      </Trigger>
+      <Trigger Property="HasContent" Value="True">
+        <Setter Property="FocusVisualStyle">
+          <Setter.Value>
+            <Style>
+              <Setter Property="Control.Template">
+                <Setter.Value>
+                  <ControlTemplate>
+                    <Rectangle SnapsToDevicePixels="True" Stroke="#FF000000" StrokeDashArray="1 2" StrokeThickness="1" Margin="14,0,0,0"/>
+                  </ControlTemplate>
+                </Setter.Value>
+              </Setter>
+            </Style>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="Padding" Value="4,0,0,0"/>
+      </Trigger>
+      <Trigger Property="IsEnabled" Value="False">
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+        <Setter Property="Opacity" TargetName="border" Value="0.5"/>
+      </Trigger>
+    </ControlTemplate.Triggers>
+  </ControlTemplate>
+
+  <ControlTemplate x:Key="ComboBoxControlTemplate" TargetType="{x:Type ComboBox}">
 		<Grid SnapsToDevicePixels="True" x:Name="MainGrid">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="*"/>
