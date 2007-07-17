@@ -889,7 +889,8 @@
   <DataTemplate x:Key="ServicesTemplateMuc" >
       <StackPanel Orientation="Horizontal" MinHeight="24">
 	      <Button x:Name="_addMucMark" Content="add" Command="servicecmd:MucCommands.AddMucMark"
-	              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource mucmark_design}" ToolTip="Add Bookmark"/>
+	              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}"
+                Width="18" Background="{DynamicResource mucmark_design}" ToolTip="Add Bookmark"/>
 	      <Button x:Name="_muc" Content="muc" Command="servicecmd:ServiceCommands.JoinMuc"
 	              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource muc_design}" ToolTip="Join Multi-User Chat"/>
         <TextBlock Text="{Binding Path=Name}" Margin="5,0,0,0"/>
@@ -899,7 +900,8 @@
   <DataTemplate x:Key="ServicesTemplateMucBookmark" >
     <StackPanel Orientation="Horizontal" MinHeight="24">
       <Button x:Name="_deleteMucMark" Content="add" Command="servicecmd:MucCommands.DeleteMucMark"
-              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource aff_outcast_design}" ToolTip="Add Bookmark"/>
+              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18"
+              Background="{DynamicResource aff_outcast_design}" ToolTip="Delete Bookmark"/>
       <Button x:Name="_muc" Content="muc" Command="servicecmd:ServiceCommands.JoinMuc"
               CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource muc_design}" ToolTip="Join Multi-User Chat"/>
       <TextBlock Text="{Binding Path=Description}" Margin="5,0,0,0"/>
