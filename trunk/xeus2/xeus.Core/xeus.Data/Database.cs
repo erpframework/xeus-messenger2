@@ -37,7 +37,7 @@ namespace xeus.Data
 		{
 			using ( SQLiteCommand cmd = _connection.CreateCommand() )
 			{
-                cmd.CommandText = "CREATE TABLE [MucMark] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT, "
+                cmd.CommandText = "CREATE TABLE [MucMark] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, "
 			                      + "[Nick] VARCHAR, [Jid] VARCHAR, "
 			                      + "[Password] VARCHAR, [Name] VARCHAR, "
 			                      + "[Time] INTEGER NOT NULL);";
@@ -108,21 +108,24 @@ namespace xeus.Data
             {
                 using (SQLiteTransaction transaction = _connection.BeginTransaction())
                 {
-                    foreach (MucMark mucMark in MucMarks.Instance)
+                    lock (MucMarks.Instance._syncObject)
                     {
-                        Dictionary<string, object> values = new Dictionary<string, object>();
+                        foreach (MucMark mucMark in MucMarks.Instance)
+                        {
+                            Dictionary<string, object> values = new Dictionary<string, object>();
 
-                        values.Add("Id", mucMark.Id);
-                        values.Add("Nick", mucMark.Nick);
-                        values.Add("Jid", mucMark.Jid);
-                        values.Add("Password", mucMark.Password);
-                        values.Add("Name", mucMark.Name);
-                        values.Add("Time", mucMark.Time.ToBinary());
+                            values.Add("Id", mucMark.Id);
+                            values.Add("Nick", mucMark.Nick);
+                            values.Add("Jid", mucMark.Jid);
+                            values.Add("Password", mucMark.Password);
+                            values.Add("Name", mucMark.Name);
+                            values.Add("Time", mucMark.Time.ToBinary());
 
-                        mucMark.Id = SaveOrUpdate(values, "Id", "MucMark", true, _connection);
+                            mucMark.Id = SaveOrUpdate(values, "Id", "MucMark", true, _connection);
+                        }
+
+                        transaction.Commit();
                     }
-
-                    transaction.Commit();
                 }
             }
 
@@ -490,6 +493,8 @@ namespace xeus.Data
 					command.CommandText = query.ToString() ;
 
 					command.Parameters.Add( new SQLiteParameter( "keyparam", values[ keyField ] ) ) ;
+
+				    id = (int)values[keyField];
 
 					SQLiteDataReader reader = command.ExecuteReader() ;
 

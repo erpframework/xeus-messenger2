@@ -1,6 +1,7 @@
 using System.Windows ;
 using agsXMPP;
 using agsXMPP.protocol.iq.disco;
+using xeus.Data;
 using xeus2.xeus.Core ;
 
 namespace xeus2.xeus.UI
@@ -10,8 +11,12 @@ namespace xeus2.xeus.UI
 	/// </summary>
 	public partial class RoomLogin : Window
 	{
+	    private MucMark _mucMark;
+
         internal RoomLogin(MucMark mucMark)
         {
+            _mucMark = mucMark;
+
             Jid jid = new Jid(mucMark.Jid);
 
             Service service;
@@ -84,6 +89,22 @@ namespace xeus2.xeus.UI
 		protected void OnJoin( object sender, RoutedEventArgs eventArgs )
 		{
 			Middle.Muc.Instance.DisplayMuc( DataContext as Service, _nick.Text, _password.Password );
+
+            if (_mucMark != null)
+            {
+                if (!string.IsNullOrEmpty(_nick.Text))
+                {
+                    _mucMark.Nick = _nick.Text;
+                }
+
+                if (!string.IsNullOrEmpty(_password.Password))
+                {
+                    _mucMark.Password = _password.Password;
+                }
+
+                Database.SaveMucMarks();
+            }
+
 			Close() ;
 		}
 	}
