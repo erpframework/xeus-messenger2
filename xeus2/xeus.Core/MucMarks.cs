@@ -32,6 +32,14 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public void AddBookmark(MucRoom mucRoom)
+        {
+            lock (_syncObject)
+            {
+                AddBookmark(mucRoom.Service);
+            }
+        }
+
         public void AddBookmark(Service service, string nick, string password)
         {
             lock (_syncObject)
