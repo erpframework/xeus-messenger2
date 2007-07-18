@@ -205,11 +205,15 @@ namespace xeus2.xeus.Commands
 
         public static void CanExecuteChangeNick(object sender, CanExecuteRoutedEventArgs e)
         {
-            MucContact mucContact = e.Parameter as MucContact;
-
-            if (mucContact != null)
+            if (e.Parameter is MucContact)
             {
-                e.CanExecute = (mucContact.Nick == mucContact.MucRoom.Nick);
+                MucContact mucContact = e.Parameter as MucContact;
+                e.CanExecute = (mucContact != null && mucContact.Nick == mucContact.MucRoom.Nick);
+            }
+            else if (e.Parameter is MucRoom)
+            {
+                MucRoom mucRoom = e.Parameter as MucRoom;
+                e.CanExecute = (mucRoom != null && mucRoom.Nick == mucRoom.Me.Nick);
             }
 
             e.Handled = true;
@@ -217,11 +221,15 @@ namespace xeus2.xeus.Commands
 
         public static void ExecuteChangeNick(object sender, ExecutedRoutedEventArgs e)
         {
-            MucContact mucContact = e.Parameter as MucContact;
-
-            if (mucContact != null)
+            if (e.Parameter is MucContact)
             {
+                MucContact mucContact = e.Parameter as MucContact;
                 ChangeMucContactNick.Instance.DisplayNick(mucContact.MucRoom);
+            }
+            else if (e.Parameter is MucRoom)
+            {
+                MucRoom mucRoom = e.Parameter as MucRoom;
+                ChangeMucContactNick.Instance.DisplayNick(mucRoom);
             }
 
             e.Handled = true;
