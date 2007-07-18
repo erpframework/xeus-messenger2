@@ -81,6 +81,10 @@ namespace xeus2.xeus.Core
             {
                 return _password;
             }
+            set
+            {
+                _password = value;
+            }
         }
 
         public DiscoInfo DiscoInfo
