@@ -132,7 +132,7 @@
         <Border DockPanel.Dock="Top" Background="{DynamicResource back_x_design}" Padding="0,0,0,5">
           <StackPanel>
             <xeus2_xeus_UI:SearchBox x:Name="_filterMuc" DockPanel.Dock="Top" Margin="0,0,10,0" />
-            <CheckBox Content="Display Empty Rooms" Checked="DisplayEmptyChecked" Margin="35,5,0,0" Foreground="{DynamicResource DefaultTextBrush2}"/>
+            <CheckBox Content="Display Empty Rooms" x:Name="_checkDispEmpty"  Margin="35,5,0,0" Foreground="{DynamicResource DefaultTextBrush2}"/>
           </StackPanel>
         </Border>
 		    <Border Background="{DynamicResource back_x_design}" DockPanel.Dock="Bottom" Padding="0,0,0,5">
@@ -157,13 +157,9 @@
              x:Name="_mucResult" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="5,5,5,5">
             <ListView.View>
               <GridView x:Name="_mucGridView">
-                <GridViewColumn Header="Room">
-                  <GridViewColumn.CellTemplate>
-                    <DataTemplate>
-                      <ContentControl ContentTemplate="{DynamicResource ServicesTemplateMuc}" Content="{Binding}" />
-                    </DataTemplate>
-                  </GridViewColumn.CellTemplate>
-                </GridViewColumn>
+                <GridViewColumn Header="Room" CellTemplate="{DynamicResource ServicesTemplateMuc}"/>
+                <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Path=MucInfoDescription}"/>
+                <GridViewColumn Header="Occupants" DisplayMemberBinding="{Binding Path=MucInfoOccupants}" />
               </GridView>
             </ListView.View>
           </ListView>

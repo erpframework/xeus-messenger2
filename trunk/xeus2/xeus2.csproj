@@ -139,6 +139,7 @@
     <Compile Include="xeus.Core\IContact.cs" />
     <Compile Include="xeus.Core\InlineMethod.cs" />
     <Compile Include="xeus.Core\MucContact.cs" />
+    <Compile Include="xeus.Core\MucInfo.cs" />
     <Compile Include="xeus.Core\MucMark.cs" />
     <Compile Include="xeus.Core\MucMarks.cs" />
     <Compile Include="xeus.Core\MucMessage.cs" />
@@ -229,6 +230,7 @@
       <DependentUpon>ServiceWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\StyleManager.cs" />
+    <Compile Include="xeus.UI\TextFilterMucRoom.cs" />
     <Compile Include="xeus.UI\TextFilterService.cs" />
     <Compile Include="xeus.UI\Vista.cs" />
     <Compile Include="xeus.UI\xeus.UI.Look\ServiceTemplateSelector.cs" />
