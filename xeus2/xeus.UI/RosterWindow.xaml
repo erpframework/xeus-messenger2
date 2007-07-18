@@ -69,7 +69,7 @@
       </ListBox.GroupStyle>	      
 	  </ListBox>
       
-      <ListBox ItemsSource="{Binding Path=Instance, Mode=Default, Source={StaticResource EventsDS}}" Height="100"/>
+      <ListBox ItemsSource="{Binding Path=Instance, Mode=Default, Source={StaticResource EventsDS}}" Height="100" Style="{DynamicResource ListBoxStyleBlank}"/>
       
       <TextBlock Text="{Binding Source={StaticResource AccountDS}, Path=Instance.ItemsToDiscover}"/>
 
