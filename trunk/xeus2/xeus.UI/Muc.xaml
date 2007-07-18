@@ -16,22 +16,28 @@
 	
 	<ContextMenu x:Key="MucContactMenu" StaysOpen="True">
 		<!--<MenuItem Header="Move To Group"/>-->
-		  <MenuItem Command="xeus2_xeus_Commands:MucCommands.ChangeNick"
-		    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
-		<Separator/>
     <MenuItem Command="xeus2_xeus_Commands:MucCommands.Kick"
       CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
     <MenuItem Command="xeus2_xeus_Commands:MucCommands.Ban"
       CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
   </ContextMenu>
-	
+
+  <ContextMenu x:Key="MucMainMenu">
+    <MenuItem Command="xeus2_xeus_Commands:MucCommands.ChangeNick"
+	    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
+    <Separator/>
+    <MenuItem Command="xeus2_xeus_Commands:MucCommands.AddMucMark"
+	    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
+  </ContextMenu>
+
   </Window.Resources>
   
 	<DockPanel>
 		<Border Background="{DynamicResource back_x_design}" BorderBrush="{DynamicResource DefaultTextBrush2}" Padding="10,10,10,18" DockPanel.Dock="Top">
 				<StackPanel>
 					<Grid>
-						<Rectangle Fill="{DynamicResource muc_design}" Width="24" HorizontalAlignment="Left"/>
+						<Rectangle Fill="{DynamicResource muc_design}" Width="24" HorizontalAlignment="Left"
+                       ContextMenu="{DynamicResource MucMainMenu}"/>
 						<TextBlock Text="{Binding Path=Service.Name}" Style="{DynamicResource MegaTextBlockStyle}" Margin="34,0,0,0"/>
           </Grid>
           <ContentControl ContentTemplate="{DynamicResource MucRoomProps}" Content="{Binding Path=Service}" HorizontalAlignment="Left" Margin="34,0,0,0"/>
@@ -83,7 +89,7 @@
 		</Border>
       
 		<StackPanel Orientation="Horizontal" Margin="5,0,5,0" DockPanel.Dock="Bottom">
-			<TextBox x:Name="_text" MinWidth="200"/>
+			<TextBox x:Name="_text" MinWidth="200" TabIndex="0"/>
 			<Button Click="OnSendMessage" Content="Send"/>
 		</StackPanel>
       

@@ -377,18 +377,32 @@ namespace xeus2.xeus.Commands
 
         public static void CanExecuteAddMucMark(object sender, CanExecuteRoutedEventArgs e)
         {
-            Service service = e.Parameter as Service ;
+            if (e.Parameter is Service)
+            {
+                Service service = e.Parameter as Service;
+                e.CanExecute = (service != null && service.IsChatRoom);
+            }
+            else if (e.Parameter is MucRoom)
+            {
+                e.CanExecute = true;
+            }
 
             e.Handled = true;
 
-            e.CanExecute = ( service != null && service.IsChatRoom ) ;
         }
 
         public static void ExecuteAddMucMark(object sender, ExecutedRoutedEventArgs e)
         {
-            Service service = e.Parameter as Service ;
-
-            MucMarks.Instance.AddBookmark(service);
+            if (e.Parameter is Service)
+            {
+                Service service = e.Parameter as Service;
+                MucMarks.Instance.AddBookmark(service);
+            }
+            else if (e.Parameter is MucRoom)
+            {
+                MucRoom mucRoom = e.Parameter as MucRoom;
+                MucMarks.Instance.AddBookmark(mucRoom);
+            }
 
             e.Handled = true;
         }
