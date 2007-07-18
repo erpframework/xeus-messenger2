@@ -279,27 +279,32 @@ namespace xeus2.xeus.Core
 			SendMyPresence() ;
 		}
 
+        private void DiscoveryInternal( string serverJid )
+        {
+            StopDiscovery();
+
+            Services.Instance.Clear();
+
+            ServicesDoneCount = 0;
+            ServicesCount = 0;
+
+            Jid jid;
+
+            if (string.IsNullOrEmpty(serverJid))
+            {
+                jid = new Jid(_xmppConnection.Server);
+            }
+            else
+            {
+                jid = new Jid(serverJid);
+            }
+
+            Discovery(jid);           
+        }
+
 		public void Discovery( string serverJid )
 		{
-			StopDiscovery();
-
-			Services.Instance.Clear() ;
-
-			ServicesDoneCount = 0 ;
-			ServicesCount = 0 ;
-
-			Jid jid ;
-
-			if ( string.IsNullOrEmpty( serverJid ) )
-			{
-				jid = new Jid( _xmppConnection.Server ) ;
-			}
-			else
-			{
-				jid = new Jid( serverJid ) ;
-			}
-
-			Discovery( jid ) ;
+		    DiscoveryInternal(serverJid);
 		}
 
 		private void SendMyPresence()
