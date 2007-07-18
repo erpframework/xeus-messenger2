@@ -31,6 +31,7 @@ namespace xeus2.xeus.Core
 		private bool _isToplevel = false ;
 
 	    private Data _xData = null;
+	    private MucRoomInfo _mucInfo;
 
 		private bool _askedForDiscovery = false ;
 
@@ -75,6 +76,32 @@ namespace xeus2.xeus.Core
 				return DiscoItem.Jid ;
 			}
 		}
+
+	    public string MucInfoDescription
+	    {
+	        get
+	        {
+	            if (MucInfo != null)
+	            {
+	                return MucInfo.Description;
+	            }
+
+	            return null;
+	        }
+	    }
+
+        public int MucInfoOccupants
+        {
+            get
+            {
+                if (MucInfo != null)
+                {
+                    return MucInfo.Occupants;
+                }
+
+                return 0;
+            }
+        }
 
 		public List< string > Categories
 		{
@@ -379,8 +406,11 @@ namespace xeus2.xeus.Core
 	        {
 	            _xData = value;
 
+                _mucInfo = new MucRoomInfo(_xData);
+
                 NotifyPropertyChanged("XData");
                 NotifyPropertyChanged("XDataCollection");
+                NotifyPropertyChanged("MucInfo");
 	        }
 	    }
 
@@ -410,6 +440,14 @@ namespace xeus2.xeus.Core
 
 	            return collection;
             }
+	    }
+
+	    public MucRoomInfo MucInfo
+	    {
+	        get
+	        {
+	            return _mucInfo;
+	        }
 	    }
 
 	    public override string ToString()

@@ -156,13 +156,19 @@ namespace xeus2.xeus.Utilities
             Cursor oldCursor = lv.Cursor;
             lv.Cursor = Cursors.Wait;
 
-            string headerProperty = "Name";//((Binding)GetLastSorted(lv).Column.DisplayMemberBinding).Path.Path;
-            ICollectionView dataView = CollectionViewSource.GetDefaultView(lv.ItemsSource);
+            Binding binding = (Binding) GetLastSorted(lv).Column.DisplayMemberBinding;
 
-            dataView.SortDescriptions.Clear();
-            dataView.SortDescriptions.Add(new SortDescription(headerProperty, GetLastSortDirection(lv)));
+            if (binding != null)
+            {
+                string headerProperty = ((Binding) GetLastSorted(lv).Column.DisplayMemberBinding).Path.Path;
 
-            dataView.Refresh();
+                ICollectionView dataView =
+                    CollectionViewSource.GetDefaultView(lv.ItemsSource);
+
+                dataView.SortDescriptions.Clear();
+                dataView.SortDescriptions.Add(new SortDescription(headerProperty, GetLastSortDirection(lv)));
+                dataView.Refresh();
+            }
 
             lv.Cursor = oldCursor;
         }
