@@ -230,6 +230,7 @@
       <DependentUpon>ServiceWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\StyleManager.cs" />
+    <Compile Include="xeus.UI\TextFilterMucMark.cs" />
     <Compile Include="xeus.UI\TextFilterMucRoom.cs" />
     <Compile Include="xeus.UI\TextFilterService.cs" />
     <Compile Include="xeus.UI\Vista.cs" />

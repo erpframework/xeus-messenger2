@@ -1,14 +1,8 @@
-using System;
-using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Globalization;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using agsXMPP.protocol.x.data;
 using xeus.Data;
 using xeus2.xeus.Commands;
-using xeus2.xeus.Core;
 
 namespace xeus2.xeus.UI
 {
@@ -22,14 +16,14 @@ namespace xeus2.xeus.UI
             InitializeComponent();
         }
 
-        private TextFilterService _textFilterService;
-        private TextFilterMucRoom _textFilterMucRoom;
-
         public override void EndInit()
         {
             base.EndInit();
 
             new TextFilterService(_servicesResult.ItemsSource as ListCollectionView, _filter);
+
+            new TextFilterMucMark(_mucMarksResult.ItemsSource as ListCollectionView, _filterMucMarks);
+
             new TextFilterMucRoom(_mucResult.ItemsSource as ListCollectionView, _filterMuc, _checkDispEmpty);
 
             ServiceCommands.RegisterCommands(this);
