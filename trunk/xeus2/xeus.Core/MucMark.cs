@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Data.Common;
-using System.Text;
 using agsXMPP;
 using agsXMPP.protocol.iq.disco;
 
@@ -19,14 +17,14 @@ namespace xeus2.xeus.Core
         private int _id = -1;
 
         public MucMark(DbDataReader reader)
-		{
-            _id = (int)(long)reader["Id"];
+        {
+            _id = (int) (long) reader["Id"];
             _nick = reader["Nick"] as string;
             _jid = reader["Jid"] as string;
             _password = reader["Password"] as string;
             _name = reader["Name"] as string;
-            _time = DateTime.FromBinary((long)reader["Time"]);
-		}
+            _time = DateTime.FromBinary((long) reader["Time"]);
+        }
 
         public MucMark(Service service)
         {
@@ -94,7 +92,7 @@ namespace xeus2.xeus.Core
                 DiscoItem discoItem = new DiscoItem();
                 discoItem.Jid = new Jid(_jid);
                 _service = new Service(discoItem, false);
-                
+
                 Service.DiscoInfo = value;
             }
         }
