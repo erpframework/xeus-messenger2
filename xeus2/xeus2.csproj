@@ -71,7 +71,7 @@
     <Page Include="xeus.UI\xeus.UI.Look\MucRoster.xaml" />
     <Page Include="xeus.UI\xeus.UI.Look\Roster.xaml" />
     <Page Include="xeus.UI\xeus.UI.Look\Services.xaml" />
-    <Page Include="xeus.XData\BasicStyles.xaml" />
+    <Page Include="xeus.UI\xeus.UI.Look\BasicStyles.xaml" />
     <Resource Include="xeus.UI\service_service.png" />
   </ItemGroup>
   <ItemGroup>
