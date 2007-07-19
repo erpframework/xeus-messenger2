@@ -865,20 +865,36 @@
     <DrawingBrush.Drawing>
       <DrawingGroup>
         <DrawingGroup.Children>
-          <GeometryDrawing Geometry="F1 M 124.781,57.8924L 131.27,57.8924L 131.27,71.4117L 128.026,65.792L 124.781,71.4117L 124.781,57.8924 Z ">
+          <GeometryDrawing Geometry="F1 M 162.164,55.292L 166.748,53.0761L 172.947,59.3217L 169.408,59.2631L 169.7,63.5326L 162.164,55.292 Z ">
             <GeometryDrawing.Pen>
               <Pen LineJoin="Round" Brush="#FF2C2C2C"/>
             </GeometryDrawing.Pen>
             <GeometryDrawing.Brush>
-              <RadialGradientBrush RadiusX="0.950385" RadiusY="0.49021" Center="0.500001,0.500001" GradientOrigin="0.500001,0.500001">
-                <RadialGradientBrush.GradientStops>
+              <LinearGradientBrush StartPoint="1.20446,0.979048" EndPoint="2.22317,0.979048">
+                <LinearGradientBrush.RelativeTransform>
+                  <TransformGroup>
+                    <SkewTransform CenterX="1.20446" CenterY="0.979048" AngleX="1.61104" AngleY="0"/>
+                    <RotateTransform CenterX="1.20446" CenterY="0.979048" Angle="226.64"/>
+                  </TransformGroup>
+                </LinearGradientBrush.RelativeTransform>
+                <LinearGradientBrush.GradientStops>
                   <GradientStop Color="#FFCCF0FF" Offset="0"/>
                   <GradientStop Color="#FF1A65B8" Offset="1"/>
-                </RadialGradientBrush.GradientStops>
-                <RadialGradientBrush.RelativeTransform>
-                  <TransformGroup/>
-                </RadialGradientBrush.RelativeTransform>
-              </RadialGradientBrush>
+                </LinearGradientBrush.GradientStops>
+              </LinearGradientBrush>
+            </GeometryDrawing.Brush>
+          </GeometryDrawing>
+          <GeometryDrawing Geometry="F1 M 162.281,53.0591L 168.047,52.9854L 165.88,67.8187L 163.713,62.9854L 159.547,67.6521L 162.281,53.0591 Z M 164.736,54.252C 164.122,54.252 163.624,54.7495 163.624,55.3631C 163.624,55.9768 164.122,56.4742 164.736,56.4742C 165.349,56.4742 165.847,55.9768 165.847,55.3631C 165.847,54.7495 165.349,54.252 164.736,54.252 Z ">
+            <GeometryDrawing.Pen>
+              <Pen LineJoin="Round" Brush="#FF2C2C2C"/>
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Brush>
+              <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                <LinearGradientBrush.GradientStops>
+                  <GradientStop Color="#FFCCF0FF" Offset="0"/>
+                  <GradientStop Color="#FF8BB2DD" Offset="1"/>
+                </LinearGradientBrush.GradientStops>
+              </LinearGradientBrush>
             </GeometryDrawing.Brush>
           </GeometryDrawing>
         </DrawingGroup.Children>
