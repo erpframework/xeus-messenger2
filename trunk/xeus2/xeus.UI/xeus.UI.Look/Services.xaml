@@ -909,7 +909,7 @@
                 Width="18" Background="{DynamicResource mucmark_design}" ToolTip="Add Bookmark"/>
 	      <Button x:Name="_muc" Content="muc" Command="servicecmd:ServiceCommands.JoinMuc"
 	              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource muc_design}" ToolTip="Join Multi-User Chat"/>
-        <TextBlock Text="{Binding Path=Name}" Margin="5,0,0,0"/>
+        <TextBlock Text="{Binding Path=Name}" Margin="5,0,0,0" VerticalAlignment="Center" />
       </StackPanel>
 	</DataTemplate>
 
@@ -920,7 +920,7 @@
               Background="{DynamicResource aff_outcast_design}" ToolTip="Delete Bookmark"/>
       <Button x:Name="_muc" Content="muc" Command="servicecmd:ServiceCommands.JoinMuc"
               CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource muc_design}" ToolTip="Join Multi-User Chat"/>
-      <TextBlock Text="{Binding Path=Description}" Margin="5,0,0,0"/>
+      <TextBlock Text="{Binding Path=Description}" Margin="5,0,0,0" VerticalAlignment="Center" />
     </StackPanel>
   </DataTemplate>
 
@@ -1123,36 +1123,5 @@
 	  </StackPanel>
 	</StackPanel>
 	</DataTemplate>
-	
-        <Style TargetType="ListBoxItem">
-        	<Setter Property="Template" Value="{DynamicResource ListBoxItemControlTemplateServices}"/>
-            <Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-			
-	<ControlTemplate x:Key="ListBoxItemControlTemplateServices" TargetType="{x:Type ListBoxItem}">
-		<Border SnapsToDevicePixels="True" x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
-			<ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
-		</Border>
-		<ControlTemplate.Triggers>
-			<Trigger Property="IsSelected" Value="True">
-				<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
-				<Setter Property="Background" TargetName="Bd" Value="#19000000"/>
-			</Trigger>
-			<MultiTrigger>
-				<MultiTrigger.Conditions>
-					<Condition Property="IsSelected" Value="True"/>
-					<Condition Property="Selector.IsSelectionActive" Value="False"/>
-				</MultiTrigger.Conditions>
-				<Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-				<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-			</MultiTrigger>
-			<Trigger Property="IsEnabled" Value="False">
-				<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-			</Trigger>
-		</ControlTemplate.Triggers>
-	</ControlTemplate>
 			
   </ResourceDictionary>
