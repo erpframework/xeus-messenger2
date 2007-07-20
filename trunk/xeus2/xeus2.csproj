@@ -201,6 +201,7 @@
       <SubType>Code</SubType>
       <DependentUpon>Muc.xaml</DependentUpon>
     </Compile>
+    <Compile Include="xeus.UI\MucNicknames.cs" />
     <Compile Include="xeus.UI\Registration.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>Registration.xaml</DependentUpon>

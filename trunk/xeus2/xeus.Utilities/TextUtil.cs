@@ -12,7 +12,7 @@ namespace xeus2.xeus.Utilities
 			return _cultureInfo.TextInfo.ToTitleCase( text ) ;
 		}
 
-	    private const string _wordBoundaries = @" ;:\r\n\t<>.?/\+-*()[]{},";
+	    private const string _wordBoundaries = " ;:\r\n\t<>.?/\\+-*()[]{},";
 
         public static bool ContainsNick(string nick, string text)
         {
@@ -52,6 +52,19 @@ namespace xeus2.xeus.Utilities
             }
 
             return false;
+        }
+
+        public static string GetWordFromBack(string text, int position)
+        {
+            for (int i = position - 1; i >= 0; i--)
+            {
+                if ( _wordBoundaries.IndexOf(text[i]) >= 0)
+                {
+                    return text.Substring(i + 1, position - (i + 1));
+                }
+            }
+
+            return text.Substring(0, position - 1);
         }
 	}
 }

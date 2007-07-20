@@ -11,6 +11,14 @@
     SnapsToDevicePixels="True"
     >
 	<Window.Resources>
+    <ObjectDataProvider x:Key="MucMarksDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:MucMarks}"/>
+
+    <CollectionViewSource x:Key="MucMarks" Source="{Binding Path=Instance, Mode=Default, Source={StaticResource MucMarksDS}}">
+      <CollectionViewSource.SortDescriptions>
+        <scm:SortDescription PropertyName="Name" />
+      </CollectionViewSource.SortDescriptions>
+    </CollectionViewSource>
+
     <ObjectDataProvider x:Key="RosterDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Roster}"/>
 
     <CollectionViewSource x:Key="Contacts" Source="{Binding Path=Instance, Mode=Default, Source={StaticResource RosterDS}}">
@@ -76,6 +84,13 @@
       <Button Content="Services" Command="servicecmd:ServiceCommands.DisplayServices"/>
 
       <Button Command="servicecmd:AccountCommands.DisplayLogin" Content="Login"/>
-      
+
+      <ListBox DockPanel.Dock="Bottom" Background="{x:Null}"
+       BorderBrush="{x:Null}"
+       ItemsSource="{Binding Source={StaticResource MucMarks}}"
+         x:Name="_mucMarksResult"
+               ItemTemplate="{DynamicResource ServicesTemplateMucBookmark}"
+               ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="5,5,5,5" />
+
     </StackPanel>
 </Window>
