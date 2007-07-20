@@ -88,7 +88,9 @@
             ItemTemplateSelector="{DynamicResource ServiceTemplateSelector}"
             x:Name="_services" Style="{DynamicResource TreeViewStyleServices}"
             ItemContainerStyle="{DynamicResource TreeViewItemStyleService}"
-            Template="{DynamicResource TreeViewControlTemplate}" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5" />
+            Template="{DynamicResource TreeViewControlTemplate}"
+            
+            ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5" />
         </Border>
       </DockPanel>
     </TabItem>
