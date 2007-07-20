@@ -205,43 +205,75 @@
       </DrawingBrush.Drawing>
   </DrawingBrush>
 
+  <DrawingBrush x:Key="back_list_design" PresentationOptions:Freeze="True" >
+    <DrawingBrush.Drawing>
+      <DrawingGroup>
+        <DrawingGroup.Children>
+          <GeometryDrawing Brush="#80C0D5ED" Geometry="F1 M -897.671,-922.548L -4.46803e-005,-922.548L -4.46803e-005,-810.548L -897.671,-810.548L -897.671,-922.548 Z "/>
+          <GeometryDrawing Brush="#80FFFFFF" Geometry="F1 M -897.671,-919.748L -4.46803e-005,-919.748L -4.46803e-005,-869.348L -897.671,-869.348L -897.671,-919.748 Z "/>
+        </DrawingGroup.Children>
+      </DrawingGroup>
+    </DrawingBrush.Drawing>
+  </DrawingBrush>
+
+  <DrawingBrush x:Key="back_list_over_design" PresentationOptions:Freeze="True" >
+    <DrawingBrush.Drawing>
+      <DrawingGroup>
+        <DrawingGroup.Children>
+          <GeometryDrawing Brush="#FFEFEFEF" Geometry="F1 M -897.671,-922.548L -4.46803e-005,-922.548L -4.46803e-005,-810.548L -897.671,-810.548L -897.671,-922.548 Z "/>
+          <GeometryDrawing Brush="#80FFFFFF" Geometry="F1 M -897.671,-919.748L -4.46803e-005,-919.748L -4.46803e-005,-869.348L -897.671,-869.348L -897.671,-919.748 Z "/>
+        </DrawingGroup.Children>
+      </DrawingGroup>
+    </DrawingBrush.Drawing>
+  </DrawingBrush>
+
+  <DrawingBrush x:Key="back_list_inactive_design" PresentationOptions:Freeze="True" >
+    <DrawingBrush.Drawing>
+      <DrawingGroup>
+        <DrawingGroup.Children>
+          <GeometryDrawing Brush="#FFDFDFDF" Geometry="F1 M -897.671,-922.548L -4.46803e-005,-922.548L -4.46803e-005,-810.548L -897.671,-810.548L -897.671,-922.548 Z "/>
+          <GeometryDrawing Brush="#80FFFFFF" Geometry="F1 M -897.671,-919.748L -4.46803e-005,-919.748L -4.46803e-005,-869.348L -897.671,-869.348L -897.671,-919.748 Z "/>
+        </DrawingGroup.Children>
+      </DrawingGroup>
+    </DrawingBrush.Drawing>
+  </DrawingBrush>
 
   <DrawingBrush x:Key="background_design" PresentationOptions:Freeze="True" >
-		<DrawingBrush.Drawing>
-			<DrawingGroup>
-				<DrawingGroup.Children>
-					<GeometryDrawing Geometry="F1 M 11.3333,11.3334L 477.889,11.3334L 477.889,580.222L 11.3333,580.222L 11.3333,11.3334 Z ">
-						<GeometryDrawing.Brush>
-							<LinearGradientBrush StartPoint="0.5,0.90625" EndPoint="0.5,0.09375">
-								<LinearGradientBrush.GradientStops>
-									<GradientStop Color="#FF97D5E9" Offset="0"/>
-									<GradientStop Color="#FFFFFFFF" Offset="1"/>
-								</LinearGradientBrush.GradientStops>
-							</LinearGradientBrush>
-						</GeometryDrawing.Brush>
-					</GeometryDrawing>
-					<GeometryDrawing Geometry="F1 M 11.3333,11.3334L 32.611,11.3334L 32.611,580.222L 11.3333,580.222L 11.3333,11.3334 Z ">
-						<GeometryDrawing.Brush>
-							<LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
-								<LinearGradientBrush.GradientStops>
-									<GradientStop Color="#27000000" Offset="0"/>
-									<GradientStop Color="#00FFFFFF" Offset="1"/>
-								</LinearGradientBrush.GradientStops>
-							</LinearGradientBrush>
-						</GeometryDrawing.Brush>
-					</GeometryDrawing>
-					<GeometryDrawing Geometry="F1 M 477.889,580.222L 456.611,580.222L 456.611,11.3334L 477.889,11.3334L 477.889,580.222 Z ">
-						<GeometryDrawing.Brush>
-							<LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5">
-								<LinearGradientBrush.GradientStops>
-									<GradientStop Color="#27000000" Offset="0"/>
-									<GradientStop Color="#00FFFFFF" Offset="1"/>
-								</LinearGradientBrush.GradientStops>
-							</LinearGradientBrush>
-						</GeometryDrawing.Brush>
-					</GeometryDrawing>
-					<GeometryDrawing Geometry="F1 M 477.889,11.3334L 477.889,32.611L 11.3333,32.611L 11.3333,11.3334L 477.889,11.3334 Z ">
-						<GeometryDrawing.Brush>
+    <DrawingBrush.Drawing>
+      <DrawingGroup>
+        <DrawingGroup.Children>
+          <GeometryDrawing Geometry="F1 M 11.3333,11.3334L 477.889,11.3334L 477.889,580.222L 11.3333,580.222L 11.3333,11.3334 Z ">
+            <GeometryDrawing.Brush>
+              <LinearGradientBrush StartPoint="0.5,0.90625" EndPoint="0.5,0.09375">
+                <LinearGradientBrush.GradientStops>
+                  <GradientStop Color="#FF97D5E9" Offset="0"/>
+                  <GradientStop Color="#FFFFFFFF" Offset="1"/>
+                </LinearGradientBrush.GradientStops>
+              </LinearGradientBrush>
+            </GeometryDrawing.Brush>
+          </GeometryDrawing>
+          <GeometryDrawing Geometry="F1 M 11.3333,11.3334L 32.611,11.3334L 32.611,580.222L 11.3333,580.222L 11.3333,11.3334 Z ">
+            <GeometryDrawing.Brush>
+              <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                <LinearGradientBrush.GradientStops>
+                  <GradientStop Color="#27000000" Offset="0"/>
+                  <GradientStop Color="#00FFFFFF" Offset="1"/>
+                </LinearGradientBrush.GradientStops>
+              </LinearGradientBrush>
+            </GeometryDrawing.Brush>
+          </GeometryDrawing>
+          <GeometryDrawing Geometry="F1 M 477.889,580.222L 456.611,580.222L 456.611,11.3334L 477.889,11.3334L 477.889,580.222 Z ">
+            <GeometryDrawing.Brush>
+              <LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5">
+                <LinearGradientBrush.GradientStops>
+                  <GradientStop Color="#27000000" Offset="0"/>
+                  <GradientStop Color="#00FFFFFF" Offset="1"/>
+                </LinearGradientBrush.GradientStops>
+              </LinearGradientBrush>
+            </GeometryDrawing.Brush>
+          </GeometryDrawing>
+          <GeometryDrawing Geometry="F1 M 477.889,11.3334L 477.889,32.611L 11.3333,32.611L 11.3333,11.3334L 477.889,11.3334 Z ">
+            <GeometryDrawing.Brush>
 							<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 								<LinearGradientBrush.GradientStops>
 									<GradientStop Color="#27000000" Offset="0"/>
@@ -1141,14 +1173,17 @@
 		</Border>
 		<ControlTemplate.Triggers>
 			<Trigger Property="IsSelected" Value="True">
-				<Setter Property="Background" TargetName="Bd" Value="{DynamicResource back_tab_design}"/>
+				<Setter Property="Background" TargetName="Bd" Value="{DynamicResource back_list_design}"/>
 			</Trigger>
-			<MultiTrigger>
+      <Trigger Property="IsMouseOver" Value="True">
+        <Setter Property="Background" TargetName="Bd" Value="{DynamicResource back_list_over_design}"/>
+      </Trigger>
+      <MultiTrigger>
 				<MultiTrigger.Conditions>
 					<Condition Property="IsSelected" Value="True"/>
 					<Condition Property="Selector.IsSelectionActive" Value="False"/>
 				</MultiTrigger.Conditions>
-				<Setter Property="Background" TargetName="Bd" Value="{DynamicResource back_tab_over_design}"/>
+				<Setter Property="Background" TargetName="Bd" Value="{DynamicResource back_list_inactive_design}"/>
 			</MultiTrigger>
 			<Trigger Property="IsEnabled" Value="False">
 				<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>

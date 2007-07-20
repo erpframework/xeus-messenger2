@@ -33,6 +33,8 @@ namespace xeus2.xeus.UI
 
             DataContext = _mucRoom;
 
+            new MucNikcnames(_text, _mucRoom);
+
             MucCommands.RegisterCommands(this);
         }
 
