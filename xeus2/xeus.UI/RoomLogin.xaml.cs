@@ -13,7 +13,7 @@ namespace xeus2.xeus.UI
 	{
 	    private MucMark _mucMark;
 
-        internal RoomLogin(MucMark mucMark)
+        void Login(MucMark mucMark)
         {
             _mucMark = mucMark;
 
@@ -61,11 +61,28 @@ namespace xeus2.xeus.UI
             if (!string.IsNullOrEmpty(mucMark.Password))
             {
                 _password.Password = mucMark.Password;
-            }
+            }            
+        }
+        internal RoomLogin(MucMark mucMark)
+        {
+            Login(mucMark);
         }
 
 		internal RoomLogin( Service service, string forceNick )
 		{
+		    MucMark mucMark = MucMarks.Instance.Find(service);
+
+            if (mucMark != null)
+            {
+                if (!string.IsNullOrEmpty(forceNick))
+                {
+                    mucMark.Nick = forceNick;
+                }
+
+                Login(mucMark);
+                return;
+            }
+
 		    DataContext = service;
 
 			InitializeComponent() ;
