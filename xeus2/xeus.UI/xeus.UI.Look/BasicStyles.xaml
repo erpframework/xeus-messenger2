@@ -6,6 +6,7 @@
   <Style TargetType="{x:Type ListBoxItem}">
   	<Setter Property="Template" Value="{DynamicResource ListBoxItemControlTemplate}"/>
   	<Setter Property="Margin" Value="4,2,4,2"/>
+    <Setter Property="Padding" Value="4,2,4,2"/>
   </Style>
 
       <Style TargetType="{x:Type ToolTip}">
@@ -167,41 +168,41 @@
 	</DrawingBrush>
 
   <DrawingBrush x:Key="back_tab_design" PresentationOptions:Freeze="True" >
-    <DrawingBrush.Drawing>
-      <DrawingGroup>
-        <DrawingGroup.Children>
-          <GeometryDrawing Geometry="F1 M -5.96591e-007,0L 300,0L 300,300L -5.96591e-007,300L -5.96591e-007,0 Z ">
-            <GeometryDrawing.Brush>
-              <LinearGradientBrush StartPoint="0.5,0.00508474" EndPoint="0.5,0.994915">
-                <LinearGradientBrush.GradientStops>
-                  <GradientStop Color="#C080BDFF" Offset="0"/>
-                  <GradientStop Color="#9070B4FF" Offset="1"/>
-                </LinearGradientBrush.GradientStops>
-              </LinearGradientBrush>
-            </GeometryDrawing.Brush>
-          </GeometryDrawing>
-        </DrawingGroup.Children>
-      </DrawingGroup>
-    </DrawingBrush.Drawing>
+      <DrawingBrush.Drawing>
+        <DrawingGroup>
+          <DrawingGroup.Children>
+            <GeometryDrawing Geometry="F1 M -5.96591e-007,0L 300,0L 300,300L -5.96591e-007,300L -5.96591e-007,0 Z ">
+              <GeometryDrawing.Brush>
+                <LinearGradientBrush StartPoint="0.5,0.00508474" EndPoint="0.5,0.994915">
+                  <LinearGradientBrush.GradientStops>
+                    <GradientStop Color="#D9B0D3FA" Offset="0"/>
+                    <GradientStop Color="#D95D89BA" Offset="1"/>
+                  </LinearGradientBrush.GradientStops>
+                </LinearGradientBrush>
+              </GeometryDrawing.Brush>
+            </GeometryDrawing>
+          </DrawingGroup.Children>
+        </DrawingGroup>
+      </DrawingBrush.Drawing>
   </DrawingBrush>
 
   <DrawingBrush x:Key="back_tab_over_design"  PresentationOptions:Freeze="True">
-    <DrawingBrush.Drawing>
-      <DrawingGroup>
-        <DrawingGroup.Children>
-          <GeometryDrawing Geometry="F1 M -5.96591e-007,0L 300,0L 300,300L -5.96591e-007,300L -5.96591e-007,0 Z ">
-            <GeometryDrawing.Brush>
-              <LinearGradientBrush StartPoint="0.5,0.00508474" EndPoint="0.5,0.994915">
-                <LinearGradientBrush.GradientStops>
-                  <GradientStop Color="#4080BDFF" Offset="0"/>
-                  <GradientStop Color="#3070B4FF" Offset="1"/>
-                </LinearGradientBrush.GradientStops>
-              </LinearGradientBrush>
-            </GeometryDrawing.Brush>
-          </GeometryDrawing>
-        </DrawingGroup.Children>
-      </DrawingGroup>
-    </DrawingBrush.Drawing>
+      <DrawingBrush.Drawing>
+        <DrawingGroup>
+          <DrawingGroup.Children>
+            <GeometryDrawing Geometry="F1 M -1.07691e-005,0L 300,0L 300,300L -1.07691e-005,300L -1.07691e-005,0 Z ">
+              <GeometryDrawing.Brush>
+                <LinearGradientBrush StartPoint="0.5,0.00508474" EndPoint="0.5,0.994915">
+                  <LinearGradientBrush.GradientStops>
+                    <GradientStop Color="#67B0D3FA" Offset="0"/>
+                    <GradientStop Color="#675D89BA" Offset="1"/>
+                  </LinearGradientBrush.GradientStops>
+                </LinearGradientBrush>
+              </GeometryDrawing.Brush>
+            </GeometryDrawing>
+          </DrawingGroup.Children>
+        </DrawingGroup>
+      </DrawingBrush.Drawing>
   </DrawingBrush>
 
 
