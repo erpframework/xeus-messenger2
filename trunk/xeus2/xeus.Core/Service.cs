@@ -454,5 +454,26 @@ namespace xeus2.xeus.Core
 		{
 			return Name ;
 		}
+
+	    private bool? _isMucmarked = null;
+
+	    public bool IsMucMarked
+	    {
+	        get
+	        {
+                if (_isMucmarked == null)
+                {
+                    _isMucmarked = MucMarks.Instance.IsBookmarked(this);
+                }
+
+	            return (bool) _isMucmarked;
+	        }
+
+            set
+            {
+                _isMucmarked = value;
+                NotifyPropertyChanged("IsMucMarked");
+            }
+	    }
 	}
 }
