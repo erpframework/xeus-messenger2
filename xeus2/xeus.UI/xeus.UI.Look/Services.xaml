@@ -861,6 +861,47 @@
 		</DrawingBrush.Drawing>
 	</DrawingBrush>
 
+  <DrawingBrush x:Key="mucmark_add_design" Stretch="Uniform" PresentationOptions:Freeze="True" >
+    <DrawingBrush.Drawing>
+      <DrawingGroup>
+        <DrawingGroup.Children>
+          <GeometryDrawing Geometry="F1 M 162.164,55.292L 166.748,53.0761L 172.947,59.3217L 169.408,59.2631L 169.7,63.5326L 162.164,55.292 Z ">
+            <GeometryDrawing.Pen>
+              <Pen LineJoin="Round" Brush="#FF2C2C2C"/>
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Brush>
+              <LinearGradientBrush StartPoint="1.20445,0.979048" EndPoint="2.22317,0.979048">
+                <LinearGradientBrush.RelativeTransform>
+                  <TransformGroup>
+                    <SkewTransform CenterX="1.20445" CenterY="0.979048" AngleX="1.61114" AngleY="0"/>
+                    <RotateTransform CenterX="1.20445" CenterY="0.979048" Angle="226.64"/>
+                  </TransformGroup>
+                </LinearGradientBrush.RelativeTransform>
+                <LinearGradientBrush.GradientStops>
+                  <GradientStop Color="#FFCCF0FF" Offset="0"/>
+                  <GradientStop Color="#FF1A65B8" Offset="1"/>
+                </LinearGradientBrush.GradientStops>
+              </LinearGradientBrush>
+            </GeometryDrawing.Brush>
+          </GeometryDrawing>
+          <GeometryDrawing Geometry="F1 M 162.281,53.0591L 168.047,52.9854L 165.88,67.8187L 163.713,62.9854L 159.547,67.6521L 162.281,53.0591 Z M 164.736,54.252C 164.122,54.252 163.624,54.7495 163.624,55.3631C 163.624,55.9768 164.122,56.4742 164.736,56.4742C 165.349,56.4742 165.847,55.9768 165.847,55.3631C 165.847,54.7495 165.349,54.252 164.736,54.252 Z ">
+            <GeometryDrawing.Pen>
+              <Pen LineJoin="Round" Brush="#FF2C2C2C"/>
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Brush>
+              <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                <LinearGradientBrush.GradientStops>
+                  <GradientStop Color="#FFFFCDCC" Offset="0"/>
+                  <GradientStop Color="#FFDD8B8B" Offset="0.991525"/>
+                </LinearGradientBrush.GradientStops>
+              </LinearGradientBrush>
+            </GeometryDrawing.Brush>
+          </GeometryDrawing>
+        </DrawingGroup.Children>
+      </DrawingGroup>
+    </DrawingBrush.Drawing>
+  </DrawingBrush>
+
   <DrawingBrush x:Key="mucmark_design" Stretch="Uniform" PresentationOptions:Freeze="True" >
     <DrawingBrush.Drawing>
       <DrawingGroup>
@@ -906,11 +947,17 @@
       <StackPanel Orientation="Horizontal" MinHeight="24">
 	      <Button x:Name="_addMucMark" Content="add" Command="servicecmd:MucCommands.AddMucMark"
 	              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}"
-                Width="18" Background="{DynamicResource mucmark_design}" ToolTip="Add Bookmark"/>
+                Width="18" Background="{DynamicResource mucmark_add_design}" ToolTip="Add Bookmark"/>
 	      <Button x:Name="_muc" Content="muc" Command="servicecmd:ServiceCommands.JoinMuc"
 	              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource muc_design}" ToolTip="Join Multi-User Chat"/>
         <TextBlock Text="{Binding Path=Name}" Margin="5,0,0,0" VerticalAlignment="Center" />
       </StackPanel>
+  	<DataTemplate.Triggers>
+      <DataTrigger Binding="{Binding Path=IsMucMarked}" Value="true">
+  			<Setter Property="Background" TargetName="_addMucMark" Value="{DynamicResource mucmark_design}"/>
+        <Setter Property="IsEnabled" TargetName="_addMucMark" Value="False"/>
+      </DataTrigger>
+  	</DataTemplate.Triggers>
 	</DataTemplate>
 
   <DataTemplate x:Key="ServicesTemplateMucBookmark" >
