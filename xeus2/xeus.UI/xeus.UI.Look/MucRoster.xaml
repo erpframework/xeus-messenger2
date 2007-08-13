@@ -771,7 +771,7 @@
 	</DataTemplate>
 	
   <DataTemplate x:Key="MucContact">
-	  <Grid ToolTip="{Binding Mode=OneWay}" ContextMenu="{DynamicResource MucContactMenu}">
+	  <Grid ToolTip="{Binding Mode=OneWay}" ContextMenu="{DynamicResource MucContactMenu}" Margin="2,4,4,2">
       	<Rectangle x:Name="_affiliation" Width="24" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center"
 			Fill="{StaticResource aff_none_design}" Margin="0,0,0,5" />
       	<Rectangle x:Name="_show" Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Bottom"			/>
