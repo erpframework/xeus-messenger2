@@ -58,4 +58,7 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 [assembly: AssemblyVersion( "2.0.0" )]
 [assembly: AssemblyFileVersionAttribute( "2.0.0" )]
+[assembly: NeutralResourcesLanguage("en")]
+[assembly: SatelliteContractVersion("2.0.0.0")]
+
 //[assembly: NeutralResourcesLanguageAttribute( "en-US", UltimateResourceFallbackLocation.Satellite)]

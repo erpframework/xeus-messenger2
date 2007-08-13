@@ -29,10 +29,11 @@ namespace xeus2.xeus.UI
             {
                 TextBox textBox = (TextBox)sender;
                 string text = textBox.Text;
+                int caretIndex = textBox.CaretIndex;
 
                 if (_enumerator.Current == null)
                 {
-                    string possibleNick = Utilities.TextUtil.GetWordFromBack(text, textBox.CaretIndex);
+                    string possibleNick = Utilities.TextUtil.GetWordFromBack(text, caretIndex);
 
                     _before = text.Substring(0, textBox.CaretIndex - possibleNick.Length);
                     _after = text.Substring(textBox.CaretIndex, text.Length - textBox.CaretIndex);
@@ -47,9 +48,10 @@ namespace xeus2.xeus.UI
                     _enumerator = _possibleNicks.GetEnumerator();
                     _enumerator.MoveNext();
                 }
+                string delimiter = (_before == String.Empty) ? ": " : " ";
 
-
-                textBox.Text = _before + _enumerator.Current + _after;
+                textBox.Text = string.Format("{0}{1}{2}{3}", _before, _enumerator.Current, delimiter, _after);
+                textBox.CaretIndex = _before.Length + _enumerator.Current.Length + delimiter.Length;
 
                 e.Handled = true;
             }
