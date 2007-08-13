@@ -1,3 +1,4 @@
+using System;
 using System.Globalization ;
 using System.Threading ;
 
@@ -64,7 +65,7 @@ namespace xeus2.xeus.Utilities
                 }
             }
 
-            return text.Substring(0, position - 1);
+            return text.Substring(0, position);
         }
 	}
 }
