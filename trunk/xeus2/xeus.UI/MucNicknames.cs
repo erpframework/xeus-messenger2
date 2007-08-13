@@ -48,10 +48,14 @@ namespace xeus2.xeus.UI
                     _enumerator = _possibleNicks.GetEnumerator();
                     _enumerator.MoveNext();
                 }
-                string delimiter = (_before == String.Empty) ? ": " : " ";
 
-                textBox.Text = string.Format("{0}{1}{2}{3}", _before, _enumerator.Current, delimiter, _after);
-                textBox.CaretIndex = _before.Length + _enumerator.Current.Length + delimiter.Length;
+                if (_enumerator.Current != null)
+                {
+                    string delimiter = (_before == String.Empty) ? ": " : " ";
+
+                    textBox.Text = string.Format("{0}{1}{2}{3}", _before, _enumerator.Current, delimiter, _after);
+                    textBox.CaretIndex = _before.Length + _enumerator.Current.Length + delimiter.Length;
+                }
 
                 e.Handled = true;
             }

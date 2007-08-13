@@ -92,6 +92,7 @@
     <Page Include="xeus.UI\Search.xaml" />
     <Page Include="xeus.UI\SearchBox.xaml" />
     <Page Include="xeus.UI\ServiceWindow.xaml" />
+    <Page Include="xeus.UI\xeus.UI.Controls\MucConversation.xaml" />
     <Page Include="xeus.UI\xeus.UI.Look\ScrollBar.xaml" />
     <Page Include="xeus.XData\XDataContainer.xaml" />
     <Page Include="xeus.XData\XDataControl.xaml" />
@@ -235,6 +236,10 @@
     <Compile Include="xeus.UI\TextFilterMucRoom.cs" />
     <Compile Include="xeus.UI\TextFilterService.cs" />
     <Compile Include="xeus.UI\Vista.cs" />
+    <Compile Include="xeus.UI\xeus.UI.Controls\MucConversation.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>MucConversation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="xeus.UI\xeus.UI.Look\ServiceTemplateSelector.cs" />
     <Compile Include="xeus.Utilities\DisplayNameBuilder.cs" />
     <Compile Include="xeus.Utilities\ElementUtil.cs" />
