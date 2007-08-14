@@ -343,7 +343,7 @@ namespace xeus2.xeus.Core
             time.Background = _timeBackground;
 
             time.FontSize = time.FontSize / 1.3;
-            time.Inlines.Add( string.Format("  {0} ", message.DateTime));
+            time.Inlines.Add((DisplayTime) ? string.Format("  {0} ", message.DateTime) : String.Empty);
             time.DataContext = message.DateTime;
 
             _relativeTimes.Add(time);

@@ -1050,15 +1050,11 @@
               BorderThickness="0,0,0,0"
               CornerRadius="0,0,0,0" >
               <Grid>
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition/>
-                  <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
                 <ContentPresenter Grid.Column="0" x:Name="ContentSite"
                      VerticalAlignment="Center"
                      HorizontalAlignment="Stretch"
                      ContentSource="Header"
-                     RecognizesAccessKey="True" Grid.ColumnSpan="2" />
+                     RecognizesAccessKey="True" />
               </Grid>
             </Border>
           </Grid>
@@ -1066,8 +1062,7 @@
             <Trigger Property="IsSelected" Value="True">
               <Setter Property="Panel.ZIndex" Value="100" />
               <Setter Property="Background" TargetName="Border" Value="{StaticResource back_tab_design}"/>
-              <!--<Setter Property="BorderBrush" TargetName="Border" Value="#B7868686"/>-->
-              <Setter Property="BorderThickness" TargetName="Border" Value="0,0,0,0"/>
+              <!--<Setter Property="BorderThickness" TargetName="Border" Value="1,1,1,1"/>-->
               <Setter Property="CornerRadius" TargetName="Border" Value="2,2,2,2"/>
             </Trigger>
             <MultiTrigger>
@@ -1078,8 +1073,6 @@
               <Setter Property="Background" TargetName="Border" Value="{StaticResource back_tab_over_design}"/>
               <Setter Property="CornerRadius" TargetName="Border" Value="2,2,2,2"/>
             </MultiTrigger>
-            <Trigger Property="IsSelected" Value="false"/>
-            <Trigger Property="IsEnabled" Value="False"/>
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
