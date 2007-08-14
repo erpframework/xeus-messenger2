@@ -37,6 +37,8 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             new MucNikcnames(_text, _mucRoom);
 
             Unloaded += new RoutedEventHandler(MucConversation_Unloaded);
+
+            _mucRoom.DisplayTime = (bool)_displayTime.IsChecked;
         }
 
         private void MucConversation_Unloaded(object sender, RoutedEventArgs e)
@@ -101,7 +103,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 _scrollViewer = (ScrollViewer) _flowViewer.Template.FindName("PART_ContentHost", _flowViewer);
             }
 
-            if (_scrollViewer.VerticalOffset >= _scrollViewer.ScrollableHeight - 2.0)
+            if (_scrollViewer.VerticalOffset >= _scrollViewer.ScrollableHeight - 10.0)
             {
                 _scrollViewer.ScrollToBottom();
             }
@@ -163,6 +165,32 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         {
             _mucRoom.SendMessage(_text.Text);
             _text.Text = string.Empty;
+        }
+
+        protected void OnDispTimeChecked(object sender, RoutedEventArgs eventArgs)
+        {
+            if (_mucRoom != null)
+            {
+                _mucRoom.DisplayTime = true;
+            }
+        }
+
+        protected void OnDispTimeUnChecked(object sender, RoutedEventArgs eventArgs)
+        {
+            if (_mucRoom != null)
+            {
+                _mucRoom.DisplayTime = false;
+            }
+        }
+
+        protected void OnDispTimeEnter(object sender, RoutedEventArgs eventArgs)
+        {
+            _mucRoom.DisplayTime = !(bool)_displayTime.IsChecked;
+        }
+
+        protected void OnDispTimeLeave(object sender, RoutedEventArgs eventArgs)
+        {
+            _mucRoom.DisplayTime = (bool)_displayTime.IsChecked;
         }
     }
 }

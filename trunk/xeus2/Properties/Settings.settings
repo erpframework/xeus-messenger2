@@ -32,5 +32,8 @@
     <Setting Name="UI_GroupMessagesByMinutes" Type="System.Double" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>
+    <Setting Name="UI_DisplayTime_Muc" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
