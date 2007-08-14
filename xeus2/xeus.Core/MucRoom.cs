@@ -170,6 +170,7 @@ namespace xeus2.xeus.Core
                 RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         private string _subject;
+        private bool _displayTime;
 
         static Rectangle CreateRectangle(Brush brush)
         {
@@ -377,9 +378,30 @@ namespace xeus2.xeus.Core
         {
             foreach (Span time in _relativeTimes)
             {
-                DateTime dateTime = (DateTime)time.DataContext;
+                string text = String.Empty;
 
-                ((Run)(time.Inlines.FirstInline)).Text = string.Format("  {0}  ", Utilities.TimeUtilities.FormatRelativeTime(dateTime)) ;
+                if (DisplayTime)
+                {
+                    DateTime dateTime = (DateTime) time.DataContext;
+                    text = string.Format("  {0}  ", Utilities.TimeUtilities.FormatRelativeTime(dateTime));
+                }
+
+                ((Run)(time.Inlines.FirstInline)).Text = text;
+            }
+        }
+
+        public bool DisplayTime
+        {
+            get
+            {
+                return _displayTime;
+            }
+
+            set
+            {
+                _displayTime = value;
+
+                OnRelativeTimer();
             }
         }
 
