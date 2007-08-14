@@ -142,5 +142,17 @@ namespace xeus2.Properties {
                 this["UI_GroupMessagesByMinutes"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UI_DisplayTime_Muc {
+            get {
+                return ((bool)(this["UI_DisplayTime_Muc"]));
+            }
+            set {
+                this["UI_DisplayTime_Muc"] = value;
+            }
+        }
     }
 }
