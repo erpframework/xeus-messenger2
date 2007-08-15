@@ -5,7 +5,7 @@
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="BasicStyles.xaml"/>
+        <ResourceDictionary Source="..\xeus.UI\xeus.UI.Look\BasicStyles.xaml"/>
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</UserControl.Resources>
