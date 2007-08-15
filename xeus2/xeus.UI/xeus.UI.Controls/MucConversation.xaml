@@ -3,7 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Props="clr-namespace:xeus2.Properties"
     xmlns:xeus2_xeus_Core="clr-namespace:xeus2.xeus.Core"
-  	xmlns:xeus2_xeus_Commands="clr-namespace:xeus2.xeus.Commands" x:Class="xeus2.xeus.UI.xeus.UI.Controls.MucConversation"
+  	xmlns:xeus2_xeus_Commands="clr-namespace:xeus2.xeus.Commands"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2006" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+    x:Class="xeus2.xeus.UI.xeus.UI.Controls.MucConversation"
     >
 
   <UserControl.Resources>
@@ -87,26 +89,24 @@
       </StackPanel>
     </Border>
 
-  	<DockPanel Margin="5,5,5,5" DockPanel.Dock="Bottom">
-  		<Button Click="OnSendMessage" Content="Send" Margin="5,0,0,0" VerticalAlignment="Bottom" DockPanel.Dock="Right"/>
-  		<TextBox x:Name="_text" MinWidth="200" TabIndex="0" MaxLines="50" MinLines="2" TextWrapping="Wrap" AcceptsReturn="True" AutoWordSelection="True"/>
-  	</DockPanel>
+	<StackPanel Margin="5,5,5,5" DockPanel.Dock="Bottom">
+		<Grid>
+			<CheckBox x:Name="_displayTime"
+				Checked="OnDispTimeChecked" Unchecked="OnDispTimeUnChecked"
+				MouseEnter="OnDispTimeEnter" MouseLeave="OnDispTimeLeave"
+				ToolTip="Display Time" IsChecked="{Binding Path=UI_DisplayTime_Muc, Mode=TwoWay, Source={x:Static Props:Settings.Default}}" d:LayoutOverrides="Height" HorizontalAlignment="Right"/>
 
+		</Grid>
+	  	<Grid>
+	  		<Button Click="OnSendMessage" Content="Send" VerticalAlignment="Bottom" DockPanel.Dock="Right" HorizontalAlignment="Right" Width="50"/>
+	  		<TextBox x:Name="_text" MinWidth="200" TabIndex="0" MaxLines="50" MinLines="2" TextWrapping="Wrap" AcceptsReturn="True" AutoWordSelection="True" Margin="0,0,60,0"/>
+	  	</Grid>
+	</StackPanel>
+	
     <Border Background="{DynamicResource chat_back_design}" BorderBrush="{DynamicResource DefaultTextBrush2}">
-	  <Grid Margin="2,2,2,2">
-	  	<CheckBox x:Name="_displayTime" HorizontalAlignment="Right" Margin="0,0,2,2"
-			  Checked="OnDispTimeChecked" Unchecked="OnDispTimeUnChecked"
-      MouseEnter="OnDispTimeEnter" MouseLeave="OnDispTimeLeave"
-      VerticalAlignment="Bottom" ToolTip="Display Time">
-        <CheckBox.IsChecked>
-          <Binding Path="UI_DisplayTime_Muc" Source="{x:Static Props:Settings.Default}" Mode="TwoWay"/>
-        </CheckBox.IsChecked>
-      </CheckBox>
-
-      <FlowDocumentScrollViewer x:Name="_flowViewer"
+      <FlowDocumentScrollViewer x:Name="_flowViewer" Margin="2,2,2,2"
 	        Document="{Binding Path=ChatDocument}"
-	        DockPanel.Dock="Top" MaxZoom="300" MinZoom="50" ZoomIncrement="5" Style="{DynamicResource BasicFlowDocumentScrollViewerStyle}" Margin="0,0,0,20"/>
-	  </Grid>
+	        DockPanel.Dock="Top" MaxZoom="300" MinZoom="50" ZoomIncrement="5" Style="{DynamicResource BasicFlowDocumentScrollViewerStyle}" />
     </Border>
   </DockPanel>
 </UserControl>
