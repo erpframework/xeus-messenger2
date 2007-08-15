@@ -86,10 +86,9 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                             }
                     }
 
-                    MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, _mucRoom.Service.Jid,
-                                                                       message.ToString()), null);
+                    EventMucRoom eventMucRoom = new EventMucRoom(_mucRoom, mucContact.Presence.MucUser, message.ToString());
 
-                    _mucRoom.MucMessages.Add(mucMessage);
+                    Events.Instance.OnEvent(this, eventMucRoom);
                 }
             }
         }

@@ -7,18 +7,15 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Shapes;
-using System.Windows.Threading;
 using agsXMPP;
 using agsXMPP.Collections;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.x.muc;
-using agsXMPP.protocol.x.muc.iq.admin;
 using xeus2.Properties;
 using xeus2.xeus.UI;
-using Brush=System.Windows.Media.Brush;
-using Brushes=System.Windows.Media.Brushes;
-using FontFamily=System.Windows.Media.FontFamily;
+using xeus2.xeus.Utilities;
 using Uri=System.Uri;
 
 namespace xeus2.xeus.Core
@@ -30,7 +27,7 @@ namespace xeus2.xeus.Core
         private MucRoster _mucRoster = new MucRoster();
         private MucMessages _mucMessages = new MucMessages();
 
-        private Timer _timeTimer ;
+        private Timer _timeTimer;
 
         private Service _service;
         private XmppClientConnection _xmppClientConnection = null;
@@ -42,9 +39,11 @@ namespace xeus2.xeus.Core
 
         private FlowDocument _chatDocument = null;
 
-        List<Span> _relativeTimes = new List<Span>();
+        private List<Rectangle> _relativeTimes = new List<Rectangle>();
 
-        MucManager _mucManager = null;
+        private MucManager _mucManager = null;
+
+        private EventMucRoom _lastEvent = null;
 
         public MucContact Me
         {
@@ -80,6 +79,25 @@ namespace xeus2.xeus.Core
                                                       null);
 
             _mucMessages.CollectionChanged += new NotifyCollectionChangedEventHandler(_mucMessages_CollectionChanged);
+
+            Events.Instance.OnEventRaised += new Events.EventItemCallback(Instance_OnEventRaised);
+        }
+
+        void Instance_OnEventRaised(object sender, Event myEvent)
+        {
+            EventMucRoom eventMucRoom = myEvent as EventMucRoom;
+
+            if (eventMucRoom != null && eventMucRoom.MucRoom == this)
+            {
+                _lastEvent = eventMucRoom;
+
+                NotifyPropertyChanged("LastEvent");
+
+                MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
+                                                                   eventMucRoom.Message), null);
+
+                _mucMessages.Add(mucMessage);
+            }
         }
 
         private void _mucMessages_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -131,8 +149,6 @@ namespace xeus2.xeus.Core
             if (_chatDocument == null)
             {
                 _chatDocument = new FlowDocument();
-                //_chatDocument.Foreground = Brushes.Black;
-                //_chatDocument.Background = Brushes.White;
                 _chatDocument.FontFamily = new FontFamily("Segoe UI");
                 _chatDocument.TextAlignment = TextAlignment.Left;
             }
@@ -159,10 +175,13 @@ namespace xeus2.xeus.Core
         private static Brush _sysTextBrush;
         private static Brush _textDimBrush;
         private static Brush _contactForeground;
-        private static Brush _timeBackground;
         private static Brush _alternativeBackground;
         private static Brush _bulbBackground;
         private static Brush _ownAvatarBackground;
+        private static Brush _timeRecentBackground;
+        private static Brush _timeOlderBackground;
+        private static Brush _timeOldBackground;
+        private static Brush _timeOldestBackground;
 
         private readonly Regex _urlregex =
             new Regex(
@@ -172,7 +191,7 @@ namespace xeus2.xeus.Core
         private string _subject;
         private bool _displayTime;
 
-        static Rectangle CreateRectangle(Brush brush)
+        private static Rectangle CreateRectangle(Brush brush)
         {
             Rectangle rect = new Rectangle();
             rect.Fill = brush;
@@ -180,6 +199,37 @@ namespace xeus2.xeus.Core
             rect.Height = 20;
 
             return rect;
+        }
+
+        private static Brush GetMessageTimeBrush(MucMessage mucMessage)
+        {
+            Brush timeBrush;
+
+            switch (mucMessage.MessageOldness)
+            {
+                case MucMessage.MucMessageOldness.Recent:
+                    {
+                        timeBrush = _timeRecentBackground;
+                        break;
+                    }
+                case MucMessage.MucMessageOldness.Older:
+                    {
+                        timeBrush = _timeOlderBackground;
+                        break;
+                    }
+                case MucMessage.MucMessageOldness.Old:
+                    {
+                        timeBrush = _timeOldBackground;
+                        break;
+                    }
+                default:
+                    {
+                        timeBrush = _timeOldestBackground;
+                        break;
+                    }
+            }
+
+            return timeBrush;
         }
 
         public Block GenerateMessage(MucMessage message, MucMessage previousMessage)
@@ -194,11 +244,14 @@ namespace xeus2.xeus.Core
 
                 _alternativeBackground = StyleManager.GetBrush("back_alt");
 
-                _timeBackground = StyleManager.GetBrush("mucmsgtime_design");
-
                 _contactForeground = StyleManager.GetBrush("muc_contact_fore");
                 _bulbBackground = StyleManager.GetBrush("jabber_design");
                 _ownAvatarBackground = StyleManager.GetBrush("aff_none_design");
+
+                _timeRecentBackground = StyleManager.GetBrush("time_now_design");
+                _timeOlderBackground = StyleManager.GetBrush("time_older_design");
+                _timeOldBackground = StyleManager.GetBrush("time_old_design");
+                _timeOldestBackground = StyleManager.GetBrush("time_oldest_design");
             }
 
             if (_timeTimer == null)
@@ -222,6 +275,13 @@ namespace xeus2.xeus.Core
             paragraph.Margin = new Thickness(0.0, 5.0, 0.0, 5.0);
 
             bool newSection = (groupSection == null);
+
+            Rectangle timeRectangle = CreateRectangle(GetMessageTimeBrush(message));
+            timeRectangle.Margin = new Thickness(0.0, 0.0, 5.0, 0.0);
+            timeRectangle.DataContext = message;
+            _relativeTimes.Add(timeRectangle);
+
+            paragraph.Inlines.Add(timeRectangle);
 
             if (previousMessage == null
                 || previousMessage.Sender != message.Sender
@@ -328,28 +388,16 @@ namespace xeus2.xeus.Core
             }
             else if (!string.IsNullOrEmpty(message.Subject))
             {
-                paragraph.Inlines.Add("changed topic: " + message.Subject);
+                paragraph.Inlines.Add("Changed topic: " + message.Subject);
             }
 
             paragraph.DataContext = message;
 
             if (!string.IsNullOrEmpty(message.Body)
-                && Utilities.TextUtil.ContainsNick(Nick, message.Body))
+                && TextUtil.ContainsNick(Nick, message.Body))
             {
                 paragraph.Foreground = _forMeForegorund;
             }
-
-            Span time = new Span();
-            time.Background = _timeBackground;
-
-            time.FontSize = time.FontSize / 1.3;
-            time.Inlines.Add((DisplayTime) ? string.Format("  {0} ", message.DateTime) : String.Empty);
-            time.DataContext = message.DateTime;
-
-            _relativeTimes.Add(time);
-
-            paragraph.Inlines.Add("  ");
-            paragraph.Inlines.Add(time);
 
             if (newSection)
             {
@@ -368,25 +416,30 @@ namespace xeus2.xeus.Core
             return groupSection;
         }
 
-        void _timeTimer_Elapsed(object sender, ElapsedEventArgs e)
+        private void _timeTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             App.InvokeSafe(App._dispatcherPriority,
-                new TimerCallback(OnRelativeTimer));
+                           new TimerCallback(OnRelativeTimer));
         }
 
-        void OnRelativeTimer()
+        private void OnRelativeTimer()
         {
-            foreach (Span time in _relativeTimes)
+            foreach (Rectangle time in _relativeTimes)
             {
                 string text = String.Empty;
 
-                if (DisplayTime)
+                MucMessage message = (MucMessage) time.DataContext;
+                DateTime dateTime = message.DateTime;
+                text = string.Format("{0}\n{1}", dateTime, TimeUtilities.FormatRelativeTime(dateTime));
+
+                Brush brush = GetMessageTimeBrush(message);
+
+                if (time.Fill != brush)
                 {
-                    DateTime dateTime = (DateTime) time.DataContext;
-                    text = string.Format("  {0}  ", Utilities.TimeUtilities.FormatRelativeTime(dateTime));
+                    time.Fill = brush;
                 }
 
-                ((Run)(time.Inlines.FirstInline)).Text = text;
+                time.ToolTip = text;
             }
         }
 
@@ -456,7 +509,7 @@ namespace xeus2.xeus.Core
                         }
                         else
                         {
-                            Inline inline = ((Paragraph)(section.Blocks.FirstBlock)).Inlines.FirstInline;
+                            Inline inline = ((Paragraph) (section.Blocks.FirstBlock)).Inlines.FirstInline;
 
                             if (inline != null)
                             {
@@ -473,7 +526,7 @@ namespace xeus2.xeus.Core
                         if (mucMessage != null)
                         {
                             if (!string.IsNullOrEmpty(mucMessage.Body)
-                                                        && mucMessage.Body.IndexOf(Nick, 0, StringComparison.CurrentCultureIgnoreCase) >= 0)
+                                && mucMessage.Body.IndexOf(Nick, 0, StringComparison.CurrentCultureIgnoreCase) >= 0)
                             {
                                 section.Blocks.FirstBlock.Foreground = formeBrush;
                             }
@@ -542,9 +595,17 @@ namespace xeus2.xeus.Core
             private set
             {
                 _nick = value;
-                
+
                 NotifyPropertyChanged("Nick");
                 NotifyPropertyChanged("Me");
+            }
+        }
+
+        public EventMucRoom LastEvent
+        {
+            get
+            {
+                return _lastEvent;
             }
         }
 
@@ -598,14 +659,13 @@ namespace xeus2.xeus.Core
                     {
                         if (presence.MucUser.Status.Code == StatusCode.NewNickname)
                         {
-                            MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
-                                                                               string.Format(
-                                                                                   "'{0}' is now known as '{1}'",
-                                                                                   presence.From.Resource,
-                                                                                   presence.MucUser.Item.Nickname)),
-                                                                   null);
+                            EventMucRoom eventMucRoom = new EventMucRoom(this, presence.MucUser,
+                                                                         string.Format(
+                                                                             "'{0}' is now known as '{1}'",
+                                                                             presence.From.Resource,
+                                                                             presence.MucUser.Item.Nickname));
 
-                            _mucMessages.Add(mucMessage);
+                            Events.Instance.OnEvent(this, eventMucRoom);
 
                             // changed my nick
                             if (presence.From.Resource == Nick)
@@ -622,17 +682,16 @@ namespace xeus2.xeus.Core
                                 && !string.IsNullOrEmpty(presence.MucUser.Item.Reason))
                             {
                                 message = string.Format("{0} has been kicked from the room with reason '{1}'",
-                                                            presence.From.Resource, presence.MucUser.Item.Reason);
+                                                        presence.From.Resource, presence.MucUser.Item.Reason);
                             }
                             else
                             {
                                 message = string.Format("{0} has been kicked from the room", presence.From.Resource);
                             }
 
-                            MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
-                                                                               message, presence.From.Resource), null);
+                            EventMucRoom eventMucRoom = new EventMucRoom(this, presence.MucUser, message);
 
-                            _mucMessages.Add(mucMessage);
+                            Events.Instance.OnEvent(this, eventMucRoom);
                         }
 
                         if (presence.MucUser.Status.Code == StatusCode.Banned)
@@ -643,17 +702,16 @@ namespace xeus2.xeus.Core
                                 && !string.IsNullOrEmpty(presence.MucUser.Item.Reason))
                             {
                                 message = string.Format("{0} has been banned from the room with reason '{1}'",
-                                                            presence.From.Resource, presence.MucUser.Item.Reason);
+                                                        presence.From.Resource, presence.MucUser.Item.Reason);
                             }
                             else
                             {
                                 message = string.Format("{0} has been banned from the room", presence.From.Resource);
                             }
 
-                            MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
-                                                                               message, presence.From.Resource), null);
+                            EventMucRoom eventMucRoom = new EventMucRoom(this, presence.MucUser, message);
 
-                            _mucMessages.Add(mucMessage);
+                            Events.Instance.OnEvent(this, eventMucRoom);
                         }
                     }
 
@@ -687,7 +745,7 @@ namespace xeus2.xeus.Core
         {
             _mucManager.ChangeNickname(_service.Jid, nick);
         }
-        
+
         private void OnBanResult(object sender, IQ iq, object data)
         {
             string nick = "this user";
@@ -707,11 +765,11 @@ namespace xeus2.xeus.Core
         }
 
         private void OnKickResult(object sender, IQ iq, object data)
-		{
+        {
             string nick = "this user";
-            
+
             if (iq.Error != null)
-			{
+            {
                 if (iq.Error.Code == ErrorCode.NotAllowed)
                 {
                     MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
@@ -721,8 +779,8 @@ namespace xeus2.xeus.Core
 
                     _mucMessages.Add(mucMessage);
                 }
-			}
-		}
+            }
+        }
 
         public void Kick(string nick, string reason)
         {

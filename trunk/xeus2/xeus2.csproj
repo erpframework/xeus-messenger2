@@ -135,6 +135,7 @@
     <Compile Include="xeus.Core\EventError.cs" />
     <Compile Include="xeus.Core\EventException.cs" />
     <Compile Include="xeus.Core\EventInfo.cs" />
+    <Compile Include="xeus.Core\EventMucRoom.cs" />
     <Compile Include="xeus.Core\Events.cs" />
     <Compile Include="xeus.Core\EventStatusChanged.cs" />
     <Compile Include="xeus.Core\IContact.cs" />

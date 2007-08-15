@@ -10,6 +10,39 @@ namespace xeus2.xeus.Core
 
 		private DateTime _dateTime = DateTime.Now ;
 
+        public enum MucMessageOldness
+	    {
+    	    Recent,
+            Older,
+            Old,
+            Oldest
+	    }
+
+	    public MucMessageOldness MessageOldness
+	    {
+	        get
+	        {
+	            TimeSpan oldness = DateTime.Now - _dateTime;
+
+                if (oldness < new TimeSpan(0, 1, 0))
+                {
+                    return MucMessageOldness.Recent;
+                }
+                else if (oldness < new TimeSpan(0, 5, 0))
+                {
+                    return MucMessageOldness.Older;
+                }
+                else if (oldness < new TimeSpan(0, 15, 0))
+                {
+                    return MucMessageOldness.Old;
+                }
+                else
+                {
+                    return MucMessageOldness.Oldest;
+                }
+	        }
+	    }
+
 		public MucMessage( Message message, MucContact sender )
 		{
 			_message = message ;
@@ -60,14 +93,6 @@ namespace xeus2.xeus.Core
 				return _dateTime ;
 			}
 		}
-
-        public DateTime RelativeTime
-        {
-            get
-            {
-                return _dateTime;
-            }
-        }
 
 		public override string ToString()
 		{
