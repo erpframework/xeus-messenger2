@@ -90,13 +90,7 @@
     </Border>
 
 	<StackPanel Margin="5,5,5,5" DockPanel.Dock="Bottom">
-		<Grid>
-			<CheckBox x:Name="_displayTime"
-				Checked="OnDispTimeChecked" Unchecked="OnDispTimeUnChecked"
-				MouseEnter="OnDispTimeEnter" MouseLeave="OnDispTimeLeave"
-				ToolTip="Display Time" IsChecked="{Binding Path=UI_DisplayTime_Muc, Mode=TwoWay, Source={x:Static Props:Settings.Default}}" d:LayoutOverrides="Height" HorizontalAlignment="Right"/>
-
-		</Grid>
+		<ContentControl Content="{Binding Path=LastEvent}" ToolTip="Last Event" Margin="0,0,0,5"/>
 	  	<Grid>
 	  		<Button Click="OnSendMessage" Content="Send" VerticalAlignment="Bottom" DockPanel.Dock="Right" HorizontalAlignment="Right" Width="50"/>
 	  		<TextBox x:Name="_text" MinWidth="200" TabIndex="0" MaxLines="50" MinLines="2" TextWrapping="Wrap" AcceptsReturn="True" AutoWordSelection="True" Margin="0,0,60,0"/>
