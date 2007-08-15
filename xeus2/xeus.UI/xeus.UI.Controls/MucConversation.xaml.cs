@@ -38,7 +38,6 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
             Unloaded += new RoutedEventHandler(MucConversation_Unloaded);
 
-            _mucRoom.DisplayTime = (bool)_displayTime.IsChecked;
         }
 
         private void MucConversation_Unloaded(object sender, RoutedEventArgs e)
@@ -67,6 +66,8 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
                     message.Append(mucContact.Nick);
 
+                    EventMucRoom eventMucRoom;
+
                     switch (e.Action)
                     {
                         case NotifyCollectionChangedAction.Add:
@@ -77,16 +78,17 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                                 {
                                     message.AppendFormat(" and {0}", mucContact.Affiliation);
                                 }
+
+                                eventMucRoom = new EventMucRoom(TypicalEvent.Joined, _mucRoom, mucContact.Presence.MucUser, message.ToString());
                                 break;
                             }
                         default:
                             {
                                 message.Append(" has left the room");
+                                eventMucRoom = new EventMucRoom(TypicalEvent.Left, _mucRoom, mucContact.Presence.MucUser, message.ToString());
                                 break;
                             }
                     }
-
-                    EventMucRoom eventMucRoom = new EventMucRoom(_mucRoom, mucContact.Presence.MucUser, message.ToString());
 
                     Events.Instance.OnEvent(this, eventMucRoom);
                 }
@@ -164,32 +166,6 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         {
             _mucRoom.SendMessage(_text.Text);
             _text.Text = string.Empty;
-        }
-
-        protected void OnDispTimeChecked(object sender, RoutedEventArgs eventArgs)
-        {
-            if (_mucRoom != null)
-            {
-                _mucRoom.DisplayTime = true;
-            }
-        }
-
-        protected void OnDispTimeUnChecked(object sender, RoutedEventArgs eventArgs)
-        {
-            if (_mucRoom != null)
-            {
-                _mucRoom.DisplayTime = false;
-            }
-        }
-
-        protected void OnDispTimeEnter(object sender, RoutedEventArgs eventArgs)
-        {
-            _mucRoom.DisplayTime = !(bool)_displayTime.IsChecked;
-        }
-
-        protected void OnDispTimeLeave(object sender, RoutedEventArgs eventArgs)
-        {
-            _mucRoom.DisplayTime = (bool)_displayTime.IsChecked;
         }
     }
 }

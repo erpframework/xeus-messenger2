@@ -19,7 +19,7 @@ namespace xeus2.xeus.Core
 
 		public void OnEvent( object sender, Event myEvent )
 		{
-            App.InvokeSafe(DispatcherPriority.Send,
+            App.InvokeSafe(DispatcherPriority.Render,
 			                new EventItemCallback( OnEventInternal ), sender, myEvent ) ;
 		}
 
