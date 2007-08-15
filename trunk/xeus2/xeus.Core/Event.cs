@@ -2,7 +2,7 @@ using System ;
 
 namespace xeus2.xeus.Core
 {
-	internal abstract class Event
+	internal abstract class Event : NotifyInfoDispatcher
 	{
 		public enum EventSeverity
 		{
@@ -47,7 +47,20 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		public override string ToString()
+        public string RelativeTime
+        {
+            get
+            {
+                return Utilities.TimeUtilities.FormatRelativeTime(_time);
+            }
+        }
+
+        public void RefreshrelativeTime()
+        {
+            NotifyPropertyChanged("RelativeTime");
+        }
+        
+        public override string ToString()
 		{
 			return string.Format( "{0}: {1}", Severity, Message ) ;
 		}

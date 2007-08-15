@@ -2,8 +2,6 @@ using agsXMPP.protocol.x.muc;
 
 namespace xeus2.xeus.Core
 {
-    internal class EventMucRoom : Event
-    {
         public enum TypicalEvent
         {
             Undefined,
@@ -13,7 +11,9 @@ namespace xeus2.xeus.Core
             Banned,
             NickChange
         }
-
+    
+    internal class EventMucRoom : Event
+    {
         public MucRoom MucRoom
         {
             get

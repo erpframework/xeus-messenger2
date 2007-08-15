@@ -167,6 +167,14 @@ namespace xeus2.xeus.Core
                 _chatDocument.Blocks.Add(GenerateMessage(message, previousMessage));
             }
 
+            if (_timeTimer == null)
+            {
+                _timeTimer = new Timer(5000.0);
+                _timeTimer.AutoReset = true;
+                _timeTimer.Elapsed += new ElapsedEventHandler(_timeTimer_Elapsed);
+                _timeTimer.Start();
+            }
+
             NotifyPropertyChanged("ChatDocument");
         }
 
@@ -232,6 +240,20 @@ namespace xeus2.xeus.Core
             return timeBrush;
         }
 
+        Rectangle CreateTimeRect(MucMessage message)
+        {
+            Rectangle timeRectangle = new Rectangle();
+            timeRectangle.Fill = GetMessageTimeBrush(message);
+            timeRectangle.Width = 16;
+            timeRectangle.Height = 16;
+
+            timeRectangle.Margin = new Thickness(-10.0, 2.0, 4.0, 0.0);
+            //timeRectangle.DataContext = message;
+            _relativeTimes.Add(timeRectangle);
+
+            return timeRectangle;
+        }
+
         public Block GenerateMessage(MucMessage message, MucMessage previousMessage)
         {
             if (_forMeForegorund == null)
@@ -254,14 +276,6 @@ namespace xeus2.xeus.Core
                 _timeOldestBackground = StyleManager.GetBrush("time_oldest_design");
             }
 
-            if (_timeTimer == null)
-            {
-                _timeTimer = new Timer(5000.0);
-                _timeTimer.AutoReset = true;
-                _timeTimer.Elapsed += new ElapsedEventHandler(_timeTimer_Elapsed);
-                _timeTimer.Start();
-            }
-
             Section groupSection = null;
 
             if (_chatDocument != null)
@@ -276,12 +290,7 @@ namespace xeus2.xeus.Core
 
             bool newSection = (groupSection == null);
 
-            Rectangle timeRectangle = CreateRectangle(GetMessageTimeBrush(message));
-            timeRectangle.Margin = new Thickness(0.0, 0.0, 5.0, 0.0);
-            timeRectangle.DataContext = message;
-            _relativeTimes.Add(timeRectangle);
-
-            paragraph.Inlines.Add(timeRectangle);
+            paragraph.Inlines.Add(CreateTimeRect(message));
 
             if (previousMessage == null
                 || previousMessage.Sender != message.Sender
@@ -426,7 +435,7 @@ namespace xeus2.xeus.Core
         {
             foreach (Rectangle time in _relativeTimes)
             {
-                string text = String.Empty;
+                string text;
 
                 MucMessage message = (MucMessage) time.DataContext;
                 DateTime dateTime = message.DateTime;
@@ -440,6 +449,12 @@ namespace xeus2.xeus.Core
                 }
 
                 time.ToolTip = text;
+            }
+
+            // refresh relative time
+            if (_lastEvent != null)
+            {
+                _lastEvent.RefreshrelativeTime();
             }
         }
 
@@ -659,7 +674,8 @@ namespace xeus2.xeus.Core
                     {
                         if (presence.MucUser.Status.Code == StatusCode.NewNickname)
                         {
-                            EventMucRoom eventMucRoom = new EventMucRoom(this, presence.MucUser,
+                            EventMucRoom eventMucRoom = new EventMucRoom( TypicalEvent.NickChange,
+                                                                            this, presence.MucUser,
                                                                          string.Format(
                                                                              "'{0}' is now known as '{1}'",
                                                                              presence.From.Resource,
@@ -689,7 +705,7 @@ namespace xeus2.xeus.Core
                                 message = string.Format("{0} has been kicked from the room", presence.From.Resource);
                             }
 
-                            EventMucRoom eventMucRoom = new EventMucRoom(this, presence.MucUser, message);
+                            EventMucRoom eventMucRoom = new EventMucRoom(TypicalEvent.Kicked, this, presence.MucUser, message);
 
                             Events.Instance.OnEvent(this, eventMucRoom);
                         }
@@ -709,7 +725,7 @@ namespace xeus2.xeus.Core
                                 message = string.Format("{0} has been banned from the room", presence.From.Resource);
                             }
 
-                            EventMucRoom eventMucRoom = new EventMucRoom(this, presence.MucUser, message);
+                            EventMucRoom eventMucRoom = new EventMucRoom(TypicalEvent.Banned, this, presence.MucUser, message);
 
                             Events.Instance.OnEvent(this, eventMucRoom);
                         }
