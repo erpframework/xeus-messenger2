@@ -3,7 +3,7 @@ using agsXMPP.protocol.client ;
 
 namespace xeus2.xeus.Core
 {
-	internal class MucMessage
+	internal class MucMessage : NotifyInfoDispatcher
 	{
 		private readonly Message _message ;
 		private readonly MucContact _sender ;
@@ -93,6 +93,19 @@ namespace xeus2.xeus.Core
 				return _dateTime ;
 			}
 		}
+
+        public string RelativeTime
+        {
+            get
+            {
+                return Utilities.TimeUtilities.FormatRelativeTime(_dateTime);
+            }
+        }
+
+        public void RefreshRelativeTime()
+        {
+            NotifyPropertyChanged("RelativeTime");
+        }
 
 		public override string ToString()
 		{

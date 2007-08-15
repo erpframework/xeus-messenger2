@@ -55,7 +55,7 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public void RefreshrelativeTime()
+        public void RefreshRelativeTime()
         {
             NotifyPropertyChanged("RelativeTime");
         }
