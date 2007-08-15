@@ -45,6 +45,8 @@ namespace xeus2.xeus.Core
 
         private EventMucRoom _lastEvent = null;
 
+        private MucMessage _lastMessage = null;
+
         public MucContact Me
         {
             get
@@ -257,6 +259,9 @@ namespace xeus2.xeus.Core
 
         public Block GenerateMessage(MucMessage message, MucMessage previousMessage)
         {
+            _lastMessage = message;
+            NotifyPropertyChanged("LastMessage");
+
             if (_forMeForegorund == null)
             {
                 _forMeForegorund = StyleManager.GetBrush("forme_text_design");
@@ -455,7 +460,11 @@ namespace xeus2.xeus.Core
             // refresh relative time
             if (_lastEvent != null)
             {
-                _lastEvent.RefreshrelativeTime();
+                _lastEvent.RefreshRelativeTime();
+            }
+            if (_lastMessage != null)
+            {
+                _lastMessage.RefreshRelativeTime();
             }
         }
 
@@ -622,6 +631,14 @@ namespace xeus2.xeus.Core
             get
             {
                 return _lastEvent;
+            }
+        }
+
+        public MucMessage LastMessage
+        {
+            get
+            {
+                return _lastMessage;
             }
         }
 
