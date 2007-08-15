@@ -30,8 +30,6 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _mucRoom.MucMessages.CollectionChanged +=
                 new NotifyCollectionChangedEventHandler(MucMessages_CollectionChanged);
 
-            _mucRoom.MucRoster.CollectionChanged += new NotifyCollectionChangedEventHandler(MucRoster_CollectionChanged);
-
             DataContext = _mucRoom;
 
             new MucNikcnames(_text, _mucRoom);
@@ -43,56 +41,6 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         private void MucConversation_Unloaded(object sender, RoutedEventArgs e)
         {
             _mucRoom.LeaveRoom(Settings.Default.MucLeaveMsg);
-        }
-
-        private void MucRoster_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            IList items = null;
-
-            if (e.NewItems != null)
-            {
-                items = e.NewItems;
-            }
-            else if (e.OldItems != null)
-            {
-                items = e.OldItems;
-            }
-
-            if (items != null)
-            {
-                foreach (MucContact mucContact in items)
-                {
-                    StringBuilder message = new StringBuilder();
-
-                    message.Append(mucContact.Nick);
-
-                    EventMucRoom eventMucRoom;
-
-                    switch (e.Action)
-                    {
-                        case NotifyCollectionChangedAction.Add:
-                            {
-                                message.AppendFormat(" is {0}", mucContact.Role);
-
-                                if (mucContact.Affiliation != Affiliation.none)
-                                {
-                                    message.AppendFormat(" and {0}", mucContact.Affiliation);
-                                }
-
-                                eventMucRoom = new EventMucRoom(TypicalEvent.Joined, _mucRoom, mucContact.Presence.MucUser, message.ToString());
-                                break;
-                            }
-                        default:
-                            {
-                                message.Append(" has left the room");
-                                eventMucRoom = new EventMucRoom(TypicalEvent.Left, _mucRoom, mucContact.Presence.MucUser, message.ToString());
-                                break;
-                            }
-                    }
-
-                    Events.Instance.OnEvent(this, eventMucRoom);
-                }
-            }
         }
 
         private ScrollViewer _scrollViewer = null;
