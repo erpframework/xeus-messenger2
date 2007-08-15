@@ -85,6 +85,8 @@ namespace xeus2.xeus.Core
             Events.Instance.OnEventRaised += new Events.EventItemCallback(Instance_OnEventRaised);
         }
 
+        private DateTime _roomStart = DateTime.Now;
+
         void Instance_OnEventRaised(object sender, Event myEvent)
         {
             EventMucRoom eventMucRoom = myEvent as EventMucRoom;
@@ -95,10 +97,16 @@ namespace xeus2.xeus.Core
 
                 NotifyPropertyChanged("LastEvent");
 
-                MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
-                                                                   eventMucRoom.Message), null);
+                TimeSpan timeSpan = _roomStart - DateTime.Now;
 
-                _mucMessages.Add(mucMessage);
+                if (eventMucRoom.TypicalEventCode != TypicalEvent.Joined
+                    || timeSpan > new TimeSpan(0, 0, 5))
+                {
+                    MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
+                                                                       eventMucRoom.Message), null);
+
+                    _mucMessages.Add(mucMessage);
+                }
             }
         }
 
