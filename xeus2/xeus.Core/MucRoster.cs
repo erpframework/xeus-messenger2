@@ -1,5 +1,7 @@
+using System.Text;
 using agsXMPP ;
 using agsXMPP.protocol.client ;
+using agsXMPP.protocol.x.muc;
 using xeus2.xeus.Utilities ;
 
 namespace xeus2.xeus.Core
@@ -23,17 +25,24 @@ namespace xeus2.xeus.Core
 		{
 			lock ( _syncObject )
 			{
-				MucContact contact = Find( presence.From ) ;
+                StringBuilder message = new StringBuilder();
+                EventMucRoom eventMucRoom;
+                
+                MucContact contact = Find(presence.From);
+
+			    bool join = true;
 
 				if ( contact == null )
 				{
-                    Add(new MucContact(presence, mucRoom));
+				    contact = new MucContact(presence, mucRoom);
+                    Add(contact);
 				}
 				else
 				{
 					if ( presence.Type == PresenceType.unavailable )
 					{
 						Remove( contact ) ;
+					    join = false;
 					}
 					else
 					{
@@ -48,6 +57,29 @@ namespace xeus2.xeus.Core
                         }
 					}
 				}
+
+                message.Append(contact.Nick);
+
+                if (join)
+                {
+                    message.AppendFormat(" is {0}", contact.Role);
+
+                    if (contact.Affiliation != Affiliation.none)
+                    {
+                        message.AppendFormat(" and {0}", contact.Affiliation);
+                    }
+
+                    eventMucRoom =
+                        new EventMucRoom(TypicalEvent.Joined, mucRoom, contact.Presence.MucUser, message.ToString());
+                }
+                else
+                {
+                    message.Append(" has left the room");
+                    eventMucRoom =
+                        new EventMucRoom(TypicalEvent.Left, mucRoom, contact.Presence.MucUser, message.ToString());
+                }
+
+			    Events.Instance.OnEvent(this, eventMucRoom);
 			}
 		}
 	}
