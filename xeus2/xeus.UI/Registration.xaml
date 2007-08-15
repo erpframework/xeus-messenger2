@@ -10,7 +10,7 @@
 	<Window.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="..\xeus.XData\BasicStyles.xaml"/>
+        <ResourceDictionary Source="xeus.UI.Look\BasicStyles.xaml"/>
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Window.Resources>
