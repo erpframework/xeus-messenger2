@@ -248,6 +248,7 @@ namespace xeus2.xeus.Core
             timeRectangle.Height = 16;
 
             timeRectangle.Margin = new Thickness(-10.0, 2.0, 4.0, 0.0);
+            timeRectangle.Cursor = Cursors.Help;
             //timeRectangle.DataContext = message;
             _relativeTimes.Add(timeRectangle);
 
