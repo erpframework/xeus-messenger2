@@ -1,6 +1,7 @@
 using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using xeus2.Properties;
 using xeus2.xeus.Core;
 
@@ -40,6 +41,14 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _mucRoom.LeaveRoom(Settings.Default.MucLeaveMsg);
         }
 
+        void OnKeyPress(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return &&
+                                    (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
+            {
+                OnSendMessage(sender, e);
+            }
+        }
         private ScrollViewer _scrollViewer = null;
 
         private void MucMessages_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -49,7 +58,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 _scrollViewer = (ScrollViewer) _flowViewer.Template.FindName("PART_ContentHost", _flowViewer);
             }
 
-            if (_scrollViewer.VerticalOffset >= _scrollViewer.ScrollableHeight - 10.0)
+            if (_scrollViewer.VerticalOffset >= _scrollViewer.ScrollableHeight - 15.0)
             {
                 _scrollViewer.ScrollToBottom();
             }
