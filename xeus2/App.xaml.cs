@@ -18,7 +18,7 @@ namespace xeus2
 
         public App()
         {
-            xeus2.Properties.Resources.Culture = new CultureInfo( "en-US" ) ;
+            // xeus2.Properties.Resources.Culture = new CultureInfo( "en-US" ) ;
             // string h = xeus2.Properties.Resources.Event_PresenceChange ;
 
             Console.WriteLine("RCL: {0}", (RenderCapability.Tier >> 16));

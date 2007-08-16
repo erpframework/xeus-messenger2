@@ -208,22 +208,20 @@
   </DrawingBrush>
 
   <DrawingBrush x:Key="back_list_design" PresentationOptions:Freeze="True" >
-    <DrawingBrush.Drawing>
-      <DrawingGroup>
-        <DrawingGroup.Children>
-          <GeometryDrawing Brush="#80C0D5ED" Geometry="F1 M -897.671,-922.548L -4.46803e-005,-922.548L -4.46803e-005,-810.548L -897.671,-810.548L -897.671,-922.548 Z "/>
-          <GeometryDrawing Brush="#80FFFFFF" Geometry="F1 M -897.671,-919.748L -4.46803e-005,-919.748L -4.46803e-005,-869.348L -897.671,-869.348L -897.671,-919.748 Z "/>
-        </DrawingGroup.Children>
-      </DrawingGroup>
-    </DrawingBrush.Drawing>
+      <DrawingBrush.Drawing>
+        <DrawingGroup>
+          <DrawingGroup.Children>
+            <GeometryDrawing Brush="#80B6B6B6" Geometry="F1 M -897.671,-922.548L -4.46803e-005,-922.548L -4.46803e-005,-810.548L -897.671,-810.548L -897.671,-922.548 Z "/>
+          </DrawingGroup.Children>
+        </DrawingGroup>
+      </DrawingBrush.Drawing>
   </DrawingBrush>
 
   <DrawingBrush x:Key="back_list_over_design" PresentationOptions:Freeze="True" >
     <DrawingBrush.Drawing>
       <DrawingGroup>
         <DrawingGroup.Children>
-          <GeometryDrawing Brush="#FFEFEFEF" Geometry="F1 M -897.671,-922.548L -4.46803e-005,-922.548L -4.46803e-005,-810.548L -897.671,-810.548L -897.671,-922.548 Z "/>
-          <GeometryDrawing Brush="#80FFFFFF" Geometry="F1 M -897.671,-919.748L -4.46803e-005,-919.748L -4.46803e-005,-869.348L -897.671,-869.348L -897.671,-919.748 Z "/>
+          <GeometryDrawing Brush="#80CFDAE7" Geometry="F1 M -897.671,-922.548L -4.46803e-005,-922.548L -4.46803e-005,-810.548L -897.671,-810.548L -897.671,-922.548 Z "/>
         </DrawingGroup.Children>
       </DrawingGroup>
     </DrawingBrush.Drawing>
@@ -233,8 +231,7 @@
     <DrawingBrush.Drawing>
       <DrawingGroup>
         <DrawingGroup.Children>
-          <GeometryDrawing Brush="#FFDFDFDF" Geometry="F1 M -897.671,-922.548L -4.46803e-005,-922.548L -4.46803e-005,-810.548L -897.671,-810.548L -897.671,-922.548 Z "/>
-          <GeometryDrawing Brush="#80FFFFFF" Geometry="F1 M -897.671,-919.748L -4.46803e-005,-919.748L -4.46803e-005,-869.348L -897.671,-869.348L -897.671,-919.748 Z "/>
+          <GeometryDrawing Brush="#80CFDAE7" Geometry="F1 M -897.671,-922.548L -4.46803e-005,-922.548L -4.46803e-005,-810.548L -897.671,-810.548L -897.671,-922.548 Z "/>
         </DrawingGroup.Children>
       </DrawingGroup>
     </DrawingBrush.Drawing>
