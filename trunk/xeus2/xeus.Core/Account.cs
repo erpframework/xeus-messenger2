@@ -13,6 +13,7 @@ using agsXMPP.protocol.iq.roster ;
 using agsXMPP.protocol.iq.search ;
 using agsXMPP.protocol.x.data ;
 using agsXMPP.protocol.x.muc ;
+using agsXMPP.protocol.x.muc.iq.owner;
 using agsXMPP.Xml.Dom ;
 using xeus2.Properties ;
 using xeus2.xeus.Middle ;
@@ -878,5 +879,26 @@ namespace xeus2.xeus.Core
         {
             return new MucManager(_xmppConnection);
         }
-	}
+
+        public void DoSaveMucConfig(MucRoom mucRoom, Data data)
+        {
+            OwnerIq saveIq = new OwnerIq(IqType.set, mucRoom.Service.Jid);
+
+            saveIq.Query.AddChild(data);
+
+            _xmppConnection.IqGrabber.SendIq(saveIq, OnMucConfigSaved, mucRoom);
+        }
+
+        private void OnMucConfigSaved(object sender, IQ iq, object data)
+        {
+            MucRoom mucRoom = data as MucRoom;
+
+            if (iq.Error != null)
+            {
+                EventError eventError = new EventError(string.Format(Resources.EventError_MucConfigFailed,
+                                                                       mucRoom.Service.Name, iq.Error.Condition), iq.Error);
+                Events.Instance.OnEvent(this, eventError);
+            }
+        }
+    }
 }

@@ -29,5 +29,10 @@ namespace xeus2.xeus.UI
 
             _muc.Setup(mucRoom);
         }
+
+        void OnSaveConfig(object sender, RoutedEventArgs args)
+        {
+            _muc.Save();
+        }
     }
 }

@@ -312,7 +312,11 @@
               </Grid>
             </Border>
           </TabItem.Header>
-          <xeus2_xeus_XData:MucOptionsForm x:Name="_muc"/>
+          <Grid>
+            <xeus2_xeus_XData:MucOptionsForm x:Name="_muc" Margin="0,0,0,40"/>
+            <Button Content="Save Configuration"
+                    Click="OnSaveConfig" HorizontalAlignment="Center" Margin="0,0,0,5" VerticalAlignment="Bottom"/>
+          </Grid>
         </TabItem>
       </TabControl>   
     </Grid>
