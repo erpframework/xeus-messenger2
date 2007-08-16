@@ -254,12 +254,15 @@ namespace xeus2.xeus.Commands
             if (e.Parameter is MucContact)
             {
                 MucContact mucContact = e.Parameter as MucContact;
-                e.CanExecute = (mucContact != null && mucContact.MucRoom != null);
+                e.CanExecute = (mucContact != null && mucContact.MucRoom != null && mucContact.MucRoom.Me != null
+                                && mucContact.MucRoom.Me.Affiliation == Affiliation.owner);
+
             }
             else if (e.Parameter is MucRoom)
             {
                 MucRoom mucRoom = e.Parameter as MucRoom;
-                e.CanExecute = (mucRoom != null);
+                e.CanExecute = (mucRoom != null && mucRoom.Me != null
+                                && mucRoom.Me.Affiliation == Affiliation.owner);
             }
 
             e.Handled = true;
