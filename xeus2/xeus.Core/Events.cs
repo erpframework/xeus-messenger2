@@ -25,7 +25,7 @@ namespace xeus2.xeus.Core
 
 		public void OnEvent( object sender, Event myEvent )
 		{
-		    OnEvent(sender, myEvent, DispatcherPriority.ApplicationIdle);
+		    OnEvent(sender, myEvent, DispatcherPriority.Background);
 		}
 
 		public void OnEventInternal( object sender, Event myEvent )
