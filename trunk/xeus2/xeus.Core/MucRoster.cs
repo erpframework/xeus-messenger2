@@ -80,7 +80,7 @@ namespace xeus2.xeus.Core
                         new EventMucRoom(TypicalEvent.Left, mucRoom, contact.Presence.MucUser, message.ToString());
                 }
 
-			    Events.Instance.OnEvent(this, eventMucRoom, DispatcherPriority.Send);
+			    Events.Instance.OnEvent(this, eventMucRoom, DispatcherPriority.ApplicationIdle);
 			}
 		}
 	}

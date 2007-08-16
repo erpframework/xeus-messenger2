@@ -98,10 +98,9 @@ namespace xeus2.xeus.Core
 
                 NotifyPropertyChanged("LastEvent");
 
-                TimeSpan timeSpan = _roomStart - DateTime.Now;
+                TimeSpan timeSpan = DateTime.Now - _roomStart;
 
-                if (eventMucRoom.TypicalEventCode != TypicalEvent.Joined
-                    || timeSpan > new TimeSpan(0, 0, 5))
+                if (eventMucRoom.TypicalEventCode != TypicalEvent.Joined || timeSpan >= new TimeSpan(0, 0, 5))
                 {
                     MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
                                                                        eventMucRoom.Message), null);
@@ -161,6 +160,7 @@ namespace xeus2.xeus.Core
             {
                 _chatDocument = new FlowDocument();
                 _chatDocument.FontFamily = new FontFamily("Segoe UI");
+                _chatDocument.FontSize = 11.0;
                 _chatDocument.TextAlignment = TextAlignment.Left;
             }
 
@@ -710,7 +710,7 @@ namespace xeus2.xeus.Core
                                                                              presence.From.Resource,
                                                                              presence.MucUser.Item.Nickname));
 
-                            Events.Instance.OnEvent(this, eventMucRoom, DispatcherPriority.Send);
+                            Events.Instance.OnEvent(this, eventMucRoom, DispatcherPriority.ApplicationIdle);
 
                             // changed my nick
                             if (presence.From.Resource == Nick)
@@ -736,7 +736,7 @@ namespace xeus2.xeus.Core
 
                             EventMucRoom eventMucRoom = new EventMucRoom(TypicalEvent.Kicked, this, presence.MucUser, message);
 
-                            Events.Instance.OnEvent(this, eventMucRoom, DispatcherPriority.Send);
+                            Events.Instance.OnEvent(this, eventMucRoom, DispatcherPriority.ApplicationIdle);
                         }
 
                         if (presence.MucUser.Status.Code == StatusCode.Banned)
@@ -756,7 +756,7 @@ namespace xeus2.xeus.Core
 
                             EventMucRoom eventMucRoom = new EventMucRoom(TypicalEvent.Banned, this, presence.MucUser, message);
 
-                            Events.Instance.OnEvent(this, eventMucRoom, DispatcherPriority.Send);
+                            Events.Instance.OnEvent(this, eventMucRoom, DispatcherPriority.ApplicationIdle);
                         }
                     }
 
