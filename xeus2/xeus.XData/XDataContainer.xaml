@@ -9,6 +9,6 @@
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</UserControl.Resources>
-    	<WrapPanel x:Name="_container" 
-		 HorizontalAlignment="Center" />
+    	<WrapPanel x:Name="_container" HorizontalAlignment="Center"
+                 />
 </UserControl>
