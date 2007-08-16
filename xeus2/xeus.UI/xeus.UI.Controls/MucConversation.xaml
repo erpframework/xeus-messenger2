@@ -93,7 +93,7 @@
 			<Grid ToolTip="Last Message" DockPanel.Dock="Right">
 				<Rectangle Width="16" Height="16" Fill="{DynamicResource chat_design}" DockPanel.Dock="Right" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 				<TextBlock Text="{Binding Path=LastMessage.RelativeTime}" 
-					ToolTip="{Binding Path=LastMessage.DateTime}" Foreground="{DynamicResource DefaultTextBrush2}" DockPanel.Dock="Right" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" FontSize="11"/>
+					ToolTip="{Binding Path=LastMessage.DateTime}" Foreground="{DynamicResource DefaultTextBrush2}" DockPanel.Dock="Right" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" FontSize="11" TextWrapping="Wrap"/>
 			</Grid>
 			<ContentControl Content="{Binding Path=LastEvent}" ToolTip="Last Event" RenderTransformOrigin="0.5,0.5" x:Name="contentControl">
 				<ContentControl.RenderTransform>

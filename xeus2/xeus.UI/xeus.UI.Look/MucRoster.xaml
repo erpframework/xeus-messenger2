@@ -1226,8 +1226,8 @@
 	    	</Grid.RenderTransform>
 			<Rectangle x:Name="_code" HorizontalAlignment="Left" VerticalAlignment="Top" Width="20" Height="20" Fill="{DynamicResource jabber_design}"/>
 			<StackPanel Margin="22,0,0,0">
-				<TextBlock Text="{Binding Path=Message}" Foreground="{DynamicResource forme_text_design}" />
-				<TextBlock Text="{Binding Path=RelativeTime}" Foreground="{DynamicResource DefaultTextBrush2}" FontSize="11" />
+				<TextBlock Text="{Binding Path=Message}" Foreground="{DynamicResource forme_text_design}" TextWrapping="Wrap" />
+				<TextBlock Text="{Binding Path=RelativeTime}" Foreground="{DynamicResource DefaultTextBrush2}" FontSize="11" TextWrapping="Wrap" />
 			</StackPanel>
 		</Grid>
   	<DataTemplate.Triggers>

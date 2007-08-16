@@ -1,10 +1,6 @@
-using System.Collections;
 using System.Collections.Specialized;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using agsXMPP.protocol.client;
-using agsXMPP.protocol.x.muc;
 using xeus2.Properties;
 using xeus2.xeus.Core;
 
@@ -36,6 +32,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
             Unloaded += new RoutedEventHandler(MucConversation_Unloaded);
 
+            _text.Focus();
         }
 
         private void MucConversation_Unloaded(object sender, RoutedEventArgs e)
@@ -110,10 +107,36 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             return sender + ": " + result;
         }
 
+        string TextStartsWithNick(string text)
+        {
+            foreach (MucContact mucContact in _mucRoom.MucRoster)
+            {
+                if (text.StartsWith(string.Format("{0}:", mucContact.Nick)))
+                {
+                    return mucContact.Nick;
+                }
+            }
+
+            return null;
+        }
+
         protected void OnSendMessage(object sender, RoutedEventArgs eventArgs)
         {
             _mucRoom.SendMessage(_text.Text);
-            _text.Text = string.Empty;
+
+            string nick = TextStartsWithNick(_text.Text);
+
+            if (nick != null)
+            {
+                _text.Text = nick + ": ";
+                _text.SelectAll();
+            }
+            else
+            {
+                _text.Text = string.Empty;
+            }
+
+            _text.Focus();
         }
     }
 }

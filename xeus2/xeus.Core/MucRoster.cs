@@ -1,4 +1,5 @@
 using System.Text;
+using System.Windows.Threading;
 using agsXMPP ;
 using agsXMPP.protocol.client ;
 using agsXMPP.protocol.x.muc;
@@ -79,7 +80,7 @@ namespace xeus2.xeus.Core
                         new EventMucRoom(TypicalEvent.Left, mucRoom, contact.Presence.MucUser, message.ToString());
                 }
 
-			    Events.Instance.OnEvent(this, eventMucRoom);
+			    Events.Instance.OnEvent(this, eventMucRoom, DispatcherPriority.Send);
 			}
 		}
 	}
