@@ -24,6 +24,8 @@
     </ContextMenu>
 
     <ContextMenu x:Key="MucMainMenu">
+      <MenuItem Command="xeus2_xeus_Commands:MucCommands.Options"
+        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
       <MenuItem Command="xeus2_xeus_Commands:MucCommands.ChangeNick"
         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
       <Separator/>
@@ -36,8 +38,8 @@
     <Border Background="{DynamicResource back_x_design}" BorderBrush="{DynamicResource DefaultTextBrush2}" Padding="10,10,10,18" DockPanel.Dock="Top">
       <StackPanel>
         <Grid>
-          <Rectangle Fill="{DynamicResource muc_design}" Width="24" HorizontalAlignment="Left"
-                     ContextMenu="{DynamicResource MucMainMenu}"/>
+          <Button Style="{DynamicResource ImageButtonStyle}" x:Name="_contactButton"
+                  Background="{DynamicResource muc_design}" Width="24" HorizontalAlignment="Left" Click="OnContactClick" />
           <TextBlock Text="{Binding Path=Service.Name}" Style="{DynamicResource MegaTextBlockStyle}" Margin="34,0,0,0"/>
         </Grid>
         <ContentControl ContentTemplate="{DynamicResource MucRoomProps}" Content="{Binding Path=Service}" HorizontalAlignment="Left" Margin="34,0,0,0" ToolTip="Display Time"/>
@@ -95,7 +97,7 @@
 				<TextBlock Text="{Binding Path=LastMessage.RelativeTime}" 
 					ToolTip="{Binding Path=LastMessage.DateTime}" Foreground="{DynamicResource DefaultTextBrush2}" DockPanel.Dock="Right" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" FontSize="11" TextWrapping="Wrap"/>
 			</Grid>
-			<ContentControl Content="{Binding Path=LastEvent}" ToolTip="Last Event" RenderTransformOrigin="0.5,0.5" x:Name="contentControl">
+			<ContentControl Content="{Binding Path=LastEvent}" ToolTip="Last Event" Margin="0,0,5,0"  x:Name="contentControl">
 				<ContentControl.RenderTransform>
 					<TransformGroup>
 						<ScaleTransform ScaleX="1" ScaleY="1"/>

@@ -14,6 +14,9 @@ namespace xeus2.xeus.Commands
         private static RoutedUICommand _changeNick =
             new RoutedUICommand("Change Nickname", "ChangeNickmane", typeof (MucCommands));
 
+        private static RoutedUICommand _options =
+            new RoutedUICommand("Display Options", "DisplayOptions", typeof(MucCommands));
+
         private static RoutedUICommand _kick =
             new RoutedUICommand("Kick", "Kick", typeof (MucCommands));
 
@@ -140,6 +143,14 @@ namespace xeus2.xeus.Commands
             }
         }
 
+        public static RoutedUICommand Options
+        {
+            get
+            {
+                return _options;
+            }
+        }
+
         public static void RegisterCommands(Window window)
         {
             window.CommandBindings.Add(
@@ -147,6 +158,9 @@ namespace xeus2.xeus.Commands
 
             window.CommandBindings.Add(
                 new CommandBinding(_changeNick, ExecuteChangeNick, CanExecuteChangeNick));
+
+            window.CommandBindings.Add(
+                new CommandBinding(_options, ExecuteOptions, CanExecuteOptions));
 
             window.CommandBindings.Add(
                 new CommandBinding(_kick, ExecuteKick, CanExecuteKick));
@@ -235,6 +249,37 @@ namespace xeus2.xeus.Commands
             e.Handled = true;
         }
 
+        public static void CanExecuteOptions(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (e.Parameter is MucContact)
+            {
+                MucContact mucContact = e.Parameter as MucContact;
+                e.CanExecute = (mucContact != null && mucContact.MucRoom != null);
+            }
+            else if (e.Parameter is MucRoom)
+            {
+                MucRoom mucRoom = e.Parameter as MucRoom;
+                e.CanExecute = (mucRoom != null);
+            }
+
+            e.Handled = true;
+        }
+
+        public static void ExecuteOptions(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (e.Parameter is MucContact)
+            {
+                MucContact mucContact = e.Parameter as MucContact;
+                MucOptions.Instance.DisplayMucOptions(mucContact.MucRoom);
+            }
+            else if (e.Parameter is MucRoom)
+            {
+                MucRoom mucRoom = e.Parameter as MucRoom;
+                MucOptions.Instance.DisplayMucOptions(mucRoom);
+            }
+
+            e.Handled = true;
+        }
         public static void CanExecuteKick(object sender, CanExecuteRoutedEventArgs e)
         {
             MucContact mucContact = e.Parameter as MucContact;
