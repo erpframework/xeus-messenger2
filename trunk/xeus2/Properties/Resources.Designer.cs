@@ -421,6 +421,15 @@ namespace xeus2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MUC {0} configuration failed with &apos;{1}&apos;.
+        /// </summary>
+        internal static string EventError_MucConfigFailed {
+            get {
+                return ResourceManager.GetString("EventError_MucConfigFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknow Status Code.
         /// </summary>
         internal static string MucStatus_000 {

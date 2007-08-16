@@ -3,8 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="xeus2.xeus.XData.XDataControl"
     Width="320"
     >
- <Border Margin="2,2,2,2" Background="#33FFFFFF" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" Padding="3,3,3,3">
-    <StackPanel x:Name="_container" Orientation="Horizontal" HorizontalAlignment="Stretch">
+ <Border Margin="2,2,2,2" Background="#33FFFFFF" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" Padding="3,3,3,3" Grid.IsSharedSizeScope="True">
+    <StackPanel x:Name="_container" Orientation="Horizontal">
 	  <Grid Width="150" x:Name="_grid" HorizontalAlignment="Stretch">
       	<TextBlock x:Name="_description" Visibility="Collapsed" Style="{DynamicResource XDataLabel}" VerticalAlignment="Center" Margin="20,0,5,0"/>
       	<Rectangle x:Name="_required" Visibility="Collapsed" Fill="{DynamicResource required_design}" Width="16" Height="16" ToolTip="Required Field" HorizontalAlignment="Left" VerticalAlignment="Center" />
