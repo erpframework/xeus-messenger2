@@ -17,10 +17,15 @@ namespace xeus2.xeus.Core
 			}
 		}
 
+        public void OnEvent(object sender, Event myEvent, DispatcherPriority priority)
+        {
+            App.InvokeSafe(DispatcherPriority.ApplicationIdle,
+                            new EventItemCallback(OnEventInternal), sender, myEvent);
+        }
+
 		public void OnEvent( object sender, Event myEvent )
 		{
-            App.InvokeSafe(DispatcherPriority.ApplicationIdle,
-			                new EventItemCallback( OnEventInternal ), sender, myEvent ) ;
+		    OnEvent(sender, myEvent, DispatcherPriority.ApplicationIdle);
 		}
 
 		public void OnEventInternal( object sender, Event myEvent )
