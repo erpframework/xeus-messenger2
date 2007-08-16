@@ -26,6 +26,8 @@ namespace xeus2.xeus.UI
             _mucRoom = mucRoom;
 
             InitializeComponent();
+
+            _muc.Setup(mucRoom);
         }
     }
 }

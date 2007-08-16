@@ -873,5 +873,10 @@ namespace xeus2.xeus.Core
 
 			return new MucRoom( service, _xmppConnection, nick ) ;
 		}
+
+        public MucManager GetMucManager()
+        {
+            return new MucManager(_xmppConnection);
+        }
 	}
 }

@@ -227,7 +227,7 @@ namespace xeus2.xeus.Commands
             else if (e.Parameter is MucRoom)
             {
                 MucRoom mucRoom = e.Parameter as MucRoom;
-                e.CanExecute = (mucRoom != null && mucRoom.Nick == mucRoom.Me.Nick);
+                e.CanExecute = (mucRoom != null && mucRoom.Me != null && mucRoom.Nick == mucRoom.Me.Nick);
             }
 
             e.Handled = true;

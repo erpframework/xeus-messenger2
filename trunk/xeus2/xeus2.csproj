@@ -261,6 +261,7 @@
     <Compile Include="xeus.Utilities\WpfUtil.cs" />
     <Compile Include="xeus.XData\CommandExecute.cs" />
     <Compile Include="xeus.XData\InBandRegistration.cs" />
+    <Compile Include="xeus.XData\MucOptionsForm.cs" />
     <Compile Include="xeus.XData\RoomDetail.cs" />
     <Compile Include="xeus.XData\SearchService.cs" />
     <Compile Include="xeus.XData\XDataCheckBox.cs" />
