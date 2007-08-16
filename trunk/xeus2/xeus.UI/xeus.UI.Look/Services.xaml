@@ -5,6 +5,7 @@
 	xmlns:look="clr-namespace:xeus2.xeus.UI.Look"
 	xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" 	
 	xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic"
+xmlns:d="http://schemas.microsoft.com/expression/blend/2006" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
 >
   
   <HierarchicalDataTemplate x:Key="ServicesCategoryTemplate" ItemsSource="{Binding Path=Services}">
@@ -961,14 +962,18 @@
 	</DataTemplate>
 
   <DataTemplate x:Key="ServicesTemplateMucBookmark" >
-    <StackPanel Orientation="Horizontal" MinHeight="24">
-      <Button x:Name="_deleteMucMark" Content="add" Command="servicecmd:MucCommands.DeleteMucMark"
-              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18"
-              Background="{DynamicResource aff_outcast_design}" ToolTip="Delete Bookmark"/>
-      <Button x:Name="_muc" Content="muc" Command="servicecmd:ServiceCommands.JoinMuc"
-              CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource muc_design}" ToolTip="Join Multi-User Chat"/>
-      <TextBlock Text="{Binding Path=Description}" Margin="5,0,0,0" VerticalAlignment="Center" />
-    </StackPanel>
+  	<Grid>
+  		<Button x:Name="_deleteMucMark" Content="add" Command="servicecmd:MucCommands.DeleteMucMark"
+  			CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18"
+  			Background="{DynamicResource aff_outcast_design}" ToolTip="Delete Bookmark" HorizontalAlignment="Left" Height="18" VerticalAlignment="Top"/>
+  		<Button x:Name="_muc" Content="muc" Command="servicecmd:ServiceCommands.JoinMuc"
+  			CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource muc_design}" ToolTip="Join Multi-User Chat" HorizontalAlignment="Left" Margin="20,2,2,2" Height="18" VerticalAlignment="Top"/>
+		<StackPanel Margin="45,0,0,3">
+	  		<TextBlock Text="{Binding Path=Description}" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Top" />
+			  <TextBox Text="{Binding Path=Jid, Mode=OneWay}" Margin="-3,0,0,0"
+                 HorizontalAlignment="Stretch" TextWrapping="Wrap" FontSize="11" Style="{DynamicResource TransparentTextBoxStyle}" IsReadOnly="True" MinHeight="0" VerticalAlignment="Top" Height="16" Foreground="{DynamicResource muc_time_fore}" />
+		</StackPanel>
+  	</Grid>
   </DataTemplate>
 
   <HierarchicalDataTemplate x:Key="ServicesTemplate" ItemsSource="{Binding Path=Services}">
