@@ -85,6 +85,7 @@
     <Page Include="xeus.UI\KickReason.xaml" />
     <Page Include="xeus.UI\Login.xaml" />
     <Page Include="xeus.UI\Muc.xaml" />
+    <Page Include="xeus.UI\MucOptions.xaml" />
     <Page Include="xeus.UI\Registration.xaml" />
     <Page Include="xeus.UI\RoomInfo.xaml" />
     <Page Include="xeus.UI\RoomLogin.xaml" />
@@ -176,6 +177,7 @@
     <Compile Include="xeus.Middle\Login.cs" />
     <Compile Include="xeus.Middle\Muc.cs" />
     <Compile Include="xeus.Middle\MucInfo.cs" />
+    <Compile Include="xeus.Middle\MucOptions.cs" />
     <Compile Include="xeus.Middle\Notification.cs" />
     <Compile Include="xeus.Middle\Registration.cs" />
     <Compile Include="xeus.Middle\Search.cs" />
@@ -205,6 +207,10 @@
       <DependentUpon>Muc.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\MucNicknames.cs" />
+    <Compile Include="xeus.UI\MucOptions.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>MucOptions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="xeus.UI\Registration.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>Registration.xaml</DependentUpon>

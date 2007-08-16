@@ -1,6 +1,7 @@
 using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using xeus2.Properties;
 using xeus2.xeus.Core;
@@ -147,5 +148,14 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
             _text.Focus();
         }
+
+        protected void OnContactClick(object sender, RoutedEventArgs eventArgs)
+        {
+            ContextMenu menu = FindResource("MucMainMenu") as ContextMenu;
+
+            menu.PlacementTarget = _contactButton;
+
+            menu.IsOpen = true;
+        }    
     }
 }
