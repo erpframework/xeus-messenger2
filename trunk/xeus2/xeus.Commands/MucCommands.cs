@@ -23,6 +23,9 @@ namespace xeus2.xeus.Commands
         private static RoutedUICommand _ban =
             new RoutedUICommand("Ban", "Ban", typeof (MucCommands));
 
+        private static RoutedUICommand _removeOwner =
+            new RoutedUICommand("Ban", "Ban", typeof(MucCommands));
+
         private static RoutedUICommand _sendPrivateMessage =
             new RoutedUICommand("Send Private Message", "SendPrivateMessage", typeof (MucCommands));
 

@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
     xmlns:xeus2_xeus_XData="clr-namespace:xeus2.xeus.XData"
+    xmlns:xeus2_xeus_Controls="clr-namespace:xeus2.xeus.UI.xeus.UI.Controls"
     x:Class="xeus2.xeus.UI.MucOptions" 	
     Title="xeus2.xeus.UI" Height="300" Width="300"
     SnapsToDevicePixels="True"
@@ -15,27 +16,17 @@
       <DrawingBrush.Drawing>
         <DrawingGroup>
           <DrawingGroup.Children>
-            <GeometryDrawing Geometry="F1 M 452.887,300.645C 458.611,300.645 463.251,305.285 463.251,311.009C 463.251,316.733 458.611,321.374 452.887,321.374C 447.163,321.374 442.522,316.733 442.522,311.009C 442.522,305.285 447.163,300.645 452.887,300.645 Z ">
+            <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 412.171,287.794L 423.755,287.794C 424.491,287.794 425.088,288.391 425.088,289.128L 425.088,300.711C 425.088,301.447 424.491,302.044 423.755,302.044L 412.171,302.044C 411.435,302.044 410.838,301.447 410.838,300.711L 410.838,289.128C 410.838,288.391 411.435,287.794 412.171,287.794 Z ">
               <GeometryDrawing.Pen>
-                <Pen Thickness="2" LineJoin="Round" Brush="#FF686868"/>
+                <Pen LineJoin="Round" Brush="#FF404040"/>
               </GeometryDrawing.Pen>
-              <GeometryDrawing.Brush>
-                <LinearGradientBrush StartPoint="0.500001,0.956003" EndPoint="0.500001,0.0439972">
-                  <LinearGradientBrush.GradientStops>
-                    <GradientStop Color="#FF13308E" Offset="0"/>
-                    <GradientStop Color="#FFA7BBFF" Offset="1"/>
-                  </LinearGradientBrush.GradientStops>
-                </LinearGradientBrush>
-              </GeometryDrawing.Brush>
             </GeometryDrawing>
-            <GeometryDrawing Brush="#5FFFFFFF" Geometry="F1 M 452.822,301.552C 448.857,301.552 445.497,303.948 444.336,307.262C 446.8,308.159 449.708,308.677 452.822,308.677C 455.936,308.677 458.843,308.159 461.308,307.262C 460.147,303.948 456.787,301.552 452.822,301.552 Z "/>
-            <GeometryDrawing Brush="#27000000" Geometry="F1 M 452.923,320.37C 455.686,320.37 458.162,319.191 459.829,317.332C 457.923,316.717 455.576,316.354 453.036,316.354C 450.418,316.354 448.004,316.739 446.069,317.39C 447.735,319.216 450.188,320.37 452.923,320.37 Z "/>
-            <GeometryDrawing Geometry="F1 M 452.984,277.326C 458.708,277.326 463.348,281.966 463.348,287.69C 463.348,293.414 458.708,298.055 452.984,298.055C 447.26,298.055 442.619,293.414 442.619,287.69C 442.619,281.966 447.26,277.326 452.984,277.326 Z ">
+            <GeometryDrawing Geometry="F1 M 420.58,289.885C 421.903,289.885 422.975,290.957 422.975,292.28C 422.975,293.602 421.903,294.675 420.58,294.675C 419.258,294.675 418.185,293.602 418.185,292.28C 418.185,290.957 419.258,289.885 420.58,289.885 Z ">
               <GeometryDrawing.Pen>
-                <Pen Thickness="2" LineJoin="Round" Brush="#FF686868"/>
+                <Pen LineJoin="Round" Brush="#FF686868"/>
               </GeometryDrawing.Pen>
               <GeometryDrawing.Brush>
-                <LinearGradientBrush StartPoint="0.500001,0.956003" EndPoint="0.500001,0.0439971">
+                <LinearGradientBrush StartPoint="0.500005,0.913638" EndPoint="0.500005,0.0863616">
                   <LinearGradientBrush.GradientStops>
                     <GradientStop Color="#FFBA1965" Offset="0"/>
                     <GradientStop Color="#FFEFB6D0" Offset="1"/>
@@ -43,14 +34,193 @@
                 </LinearGradientBrush>
               </GeometryDrawing.Brush>
             </GeometryDrawing>
-            <GeometryDrawing Brush="#5FFFFFFF" Geometry="F1 M 452.919,278.233C 448.954,278.233 445.594,280.629 444.433,283.943C 446.897,284.84 449.805,285.358 452.919,285.358C 456.033,285.358 458.941,284.84 461.405,283.943C 460.244,280.629 456.884,278.233 452.919,278.233 Z "/>
-            <GeometryDrawing Brush="#27000000" Geometry="F1 M 453.02,297.051C 455.783,297.051 458.259,295.872 459.926,294.013C 458.021,293.398 455.673,293.034 453.133,293.034C 450.516,293.034 448.102,293.42 446.166,294.071C 447.832,295.897 450.285,297.051 453.02,297.051 Z "/>
-            <GeometryDrawing Geometry="F1 M 429.664,300.549C 435.388,300.549 440.029,305.189 440.029,310.913C 440.029,316.637 435.388,321.277 429.664,321.277C 423.94,321.277 419.3,316.637 419.3,310.913C 419.3,305.189 423.94,300.549 429.664,300.549 Z ">
+            <GeometryDrawing Geometry="F1 M 420.558,295.273C 421.88,295.273 422.953,296.345 422.953,297.668C 422.953,298.99 421.88,300.063 420.558,300.063C 419.235,300.063 418.163,298.99 418.163,297.668C 418.163,296.345 419.235,295.273 420.558,295.273 Z ">
               <GeometryDrawing.Pen>
-                <Pen Thickness="2" LineJoin="Round" Brush="#FF686868"/>
+                <Pen LineJoin="Round" Brush="#FF686868"/>
               </GeometryDrawing.Pen>
               <GeometryDrawing.Brush>
-                <LinearGradientBrush StartPoint="0.5,0.956003" EndPoint="0.5,0.0439972">
+                <LinearGradientBrush StartPoint="0.499997,0.913638" EndPoint="0.499997,0.0863616">
+                  <LinearGradientBrush.GradientStops>
+                    <GradientStop Color="#FF13308E" Offset="0"/>
+                    <GradientStop Color="#FFA7BBFF" Offset="1"/>
+                  </LinearGradientBrush.GradientStops>
+                </LinearGradientBrush>
+              </GeometryDrawing.Brush>
+            </GeometryDrawing>
+            <GeometryDrawing Geometry="F1 M 400.832,292.362C 399.126,292.362 397.69,294.213 397.271,296.726C 398.338,297.449 399.578,297.863 400.901,297.863C 402.173,297.863 403.368,297.48 404.407,296.808C 404.005,294.254 402.557,292.362 400.832,292.362 Z ">
+              <GeometryDrawing.Pen>
+                <Pen LineJoin="Round" Brush="#FF3D3D3D"/>
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Brush>
+                <RadialGradientBrush RadiusX="0.474269" RadiusY="0.645196" Center="0.499996,0.500002" GradientOrigin="0.499996,0.500002">
+                  <RadialGradientBrush.GradientStops>
+                    <GradientStop Color="#FFCBB36A" Offset="0"/>
+                    <GradientStop Color="#FF838222" Offset="0.716102"/>
+                    <GradientStop Color="#FF4E3A0A" Offset="0.995763"/>
+                  </RadialGradientBrush.GradientStops>
+                  <RadialGradientBrush.RelativeTransform>
+                    <TransformGroup/>
+                  </RadialGradientBrush.RelativeTransform>
+                </RadialGradientBrush>
+              </GeometryDrawing.Brush>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 399.722,292.335L 400.88,296.389L 402.143,292.335L 399.722,292.335 Z ">
+              <GeometryDrawing.Pen>
+                <Pen LineJoin="Round" Brush="#FF3D3D3D"/>
+              </GeometryDrawing.Pen>
+            </GeometryDrawing>
+            <GeometryDrawing Geometry="F1 M 400.857,288.544C 402.218,288.544 403.321,289.647 403.321,291.008C 403.321,292.369 402.218,293.472 400.857,293.472C 399.496,293.472 398.393,292.369 398.393,291.008C 398.393,289.647 399.496,288.544 400.857,288.544 Z ">
+              <GeometryDrawing.Pen>
+                <Pen LineJoin="Round" Brush="#FF3D3D3D"/>
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Brush>
+                <RadialGradientBrush RadiusX="0.430643" RadiusY="0.430656" Center="0.500005,0.500003" GradientOrigin="0.500005,0.500003">
+                  <RadialGradientBrush.GradientStops>
+                    <GradientStop Color="#FFEFD4BC" Offset="0"/>
+                    <GradientStop Color="#FFE7B572" Offset="0.716102"/>
+                    <GradientStop Color="#FFC39B6F" Offset="1"/>
+                  </RadialGradientBrush.GradientStops>
+                  <RadialGradientBrush.RelativeTransform>
+                    <TransformGroup/>
+                  </RadialGradientBrush.RelativeTransform>
+                </RadialGradientBrush>
+              </GeometryDrawing.Brush>
+            </GeometryDrawing>
+            <GeometryDrawing Geometry="F1 M 400.858,288.563C 399.924,288.563 399.111,289.083 398.693,289.849C 398.824,290.252 399.112,290.609 399.502,290.789C 400.05,291.042 400.799,290.949 401.328,290.717C 401.858,290.484 402.168,290.113 402.534,289.823C 402.642,289.739 402.754,289.661 402.854,289.582C 402.406,288.964 401.679,288.563 400.858,288.563 Z ">
+              <GeometryDrawing.Pen>
+                <Pen LineJoin="Round" Brush="#FF3D3D3D"/>
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Brush>
+                <RadialGradientBrush RadiusX="0.439149" RadiusY="0.671046" Center="0.499997,0.515104" GradientOrigin="0.499997,0.515104">
+                  <RadialGradientBrush.GradientStops>
+                    <GradientStop Color="#FFDDDB6D" Offset="0"/>
+                    <GradientStop Color="#FFAA903D" Offset="0.711864"/>
+                    <GradientStop Color="#FF8B7625" Offset="0.978814"/>
+                  </RadialGradientBrush.GradientStops>
+                  <RadialGradientBrush.RelativeTransform>
+                    <TransformGroup/>
+                  </RadialGradientBrush.RelativeTransform>
+                </RadialGradientBrush>
+              </GeometryDrawing.Brush>
+            </GeometryDrawing>
+            <GeometryDrawing Geometry="F1 M 395.471,296.987C 393.102,296.987 391.109,299.557 390.527,303.045C 392.008,304.049 393.73,304.623 395.566,304.623C 397.332,304.623 398.991,304.092 400.434,303.159C 399.876,299.613 397.866,296.987 395.471,296.987 Z ">
+              <GeometryDrawing.Pen>
+                <Pen LineJoin="Round" Brush="#FF3D3D3D"/>
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Brush>
+                <RadialGradientBrush RadiusX="0.491147" RadiusY="0.674204" Center="0.5,0.5" GradientOrigin="0.5,0.5">
+                  <RadialGradientBrush.GradientStops>
+                    <GradientStop Color="#FF6AB8CB" Offset="0"/>
+                    <GradientStop Color="#FF226B83" Offset="0.716102"/>
+                    <GradientStop Color="#FF0A2A4E" Offset="0.995763"/>
+                  </RadialGradientBrush.GradientStops>
+                  <RadialGradientBrush.RelativeTransform>
+                    <TransformGroup/>
+                  </RadialGradientBrush.RelativeTransform>
+                </RadialGradientBrush>
+              </GeometryDrawing.Brush>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 393.929,296.949L 395.537,302.577L 397.291,296.949L 393.929,296.949 Z ">
+              <GeometryDrawing.Pen>
+                <Pen LineJoin="Round" Brush="#FF3D3D3D"/>
+              </GeometryDrawing.Pen>
+            </GeometryDrawing>
+            <GeometryDrawing Geometry="F1 M 395.505,291.687C 397.394,291.687 398.925,293.218 398.925,295.107C 398.925,296.996 397.394,298.528 395.505,298.528C 393.616,298.528 392.085,296.996 392.085,295.107C 392.085,293.218 393.616,291.687 395.505,291.687 Z ">
+              <GeometryDrawing.Pen>
+                <Pen LineJoin="Round" Brush="#FF3D3D3D"/>
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Brush>
+                <RadialGradientBrush RadiusX="0.451973" RadiusY="0.451975" Center="0.500002,0.5" GradientOrigin="0.500002,0.5">
+                  <RadialGradientBrush.GradientStops>
+                    <GradientStop Color="#FFEFD4BC" Offset="0"/>
+                    <GradientStop Color="#FFE7B572" Offset="0.716102"/>
+                    <GradientStop Color="#FFC39B6F" Offset="1"/>
+                  </RadialGradientBrush.GradientStops>
+                  <RadialGradientBrush.RelativeTransform>
+                    <TransformGroup/>
+                  </RadialGradientBrush.RelativeTransform>
+                </RadialGradientBrush>
+              </GeometryDrawing.Brush>
+            </GeometryDrawing>
+            <GeometryDrawing Geometry="F1 M 395.507,291.713C 394.21,291.713 393.082,292.435 392.502,293.499C 392.683,294.057 393.083,294.553 393.625,294.803C 394.385,295.155 395.425,295.026 396.16,294.703C 396.895,294.38 397.325,293.864 397.834,293.462C 397.983,293.345 398.139,293.237 398.278,293.127C 397.656,292.27 396.647,291.713 395.507,291.713 Z ">
+              <GeometryDrawing.Pen>
+                <Pen LineJoin="Round" Brush="#FF3D3D3D"/>
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Brush>
+                <RadialGradientBrush RadiusX="0.464311" RadiusY="0.731629" Center="0.500002,0.516468" GradientOrigin="0.500002,0.516468">
+                  <RadialGradientBrush.GradientStops>
+                    <GradientStop Color="#FFB27137" Offset="0"/>
+                    <GradientStop Color="#FF6B440F" Offset="0.716102"/>
+                    <GradientStop Color="#FF2A1A07" Offset="0.995763"/>
+                  </RadialGradientBrush.GradientStops>
+                  <RadialGradientBrush.RelativeTransform>
+                    <TransformGroup/>
+                  </RadialGradientBrush.RelativeTransform>
+                </RadialGradientBrush>
+              </GeometryDrawing.Brush>
+            </GeometryDrawing>
+            <GeometryDrawing Geometry="F1 M 405.149,298.504C 402.086,298.504 399.509,301.827 398.756,306.337C 400.671,307.635 402.897,308.378 405.272,308.378C 407.555,308.378 409.701,307.691 411.566,306.484C 410.845,301.899 408.245,298.504 405.149,298.504 Z ">
+              <GeometryDrawing.Pen>
+                <Pen LineJoin="Round" Brush="#FF3D3D3D"/>
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Brush>
+                <RadialGradientBrush RadiusX="0.50157" RadiusY="0.692372" Center="0.499999,0.499999" GradientOrigin="0.499999,0.499999">
+                  <RadialGradientBrush.GradientStops>
+                    <GradientStop Color="#FFEBA588" Offset="0.00423729"/>
+                    <GradientStop Color="#FFD75231" Offset="0.703392"/>
+                    <GradientStop Color="#FF8E280F" Offset="0.995763"/>
+                  </RadialGradientBrush.GradientStops>
+                  <RadialGradientBrush.RelativeTransform>
+                    <TransformGroup/>
+                  </RadialGradientBrush.RelativeTransform>
+                </RadialGradientBrush>
+              </GeometryDrawing.Brush>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 403.155,298.455L 405.234,305.732L 407.502,298.455L 403.155,298.455 Z ">
+              <GeometryDrawing.Pen>
+                <Pen LineJoin="Round" Brush="#FF3D3D3D"/>
+              </GeometryDrawing.Pen>
+            </GeometryDrawing>
+            <GeometryDrawing Geometry="F1 M 405.193,291.65C 407.635,291.65 409.616,293.631 409.616,296.073C 409.616,298.516 407.635,300.496 405.193,300.496C 402.75,300.496 400.77,298.516 400.77,296.073C 400.77,293.631 402.75,291.65 405.193,291.65 Z ">
+              <GeometryDrawing.Pen>
+                <Pen LineJoin="Round" Brush="#FF3D3D3D"/>
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Brush>
+                <RadialGradientBrush RadiusX="0.46543" RadiusY="0.465429" Center="0.5,0.500002" GradientOrigin="0.5,0.500002">
+                  <RadialGradientBrush.GradientStops>
+                    <GradientStop Color="#FFEFD4BC" Offset="0"/>
+                    <GradientStop Color="#FFE7B572" Offset="0.716102"/>
+                    <GradientStop Color="#FFC39B6F" Offset="1"/>
+                  </RadialGradientBrush.GradientStops>
+                  <RadialGradientBrush.RelativeTransform>
+                    <TransformGroup/>
+                  </RadialGradientBrush.RelativeTransform>
+                </RadialGradientBrush>
+              </GeometryDrawing.Brush>
+            </GeometryDrawing>
+            <GeometryDrawing Geometry="F1 M 405.196,291.684C 403.518,291.684 402.059,292.617 401.309,293.993C 401.543,294.716 402.06,295.356 402.762,295.68C 403.744,296.134 405.089,295.968 406.039,295.55C 406.99,295.133 407.546,294.465 408.204,293.946C 408.397,293.794 408.599,293.655 408.778,293.513C 407.975,292.405 406.669,291.684 405.196,291.684 Z ">
+              <GeometryDrawing.Pen>
+                <Pen LineJoin="Round" Brush="#FF3D3D3D"/>
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Brush>
+                <RadialGradientBrush RadiusX="0.480374" RadiusY="0.772332" Center="0.499998,0.517383" GradientOrigin="0.499998,0.517383">
+                  <RadialGradientBrush.GradientStops>
+                    <GradientStop Color="#FFE59249" Offset="0"/>
+                    <GradientStop Color="#FFA06B22" Offset="0.716102"/>
+                    <GradientStop Color="#FF2A1A07" Offset="0.995763"/>
+                  </RadialGradientBrush.GradientStops>
+                  <RadialGradientBrush.RelativeTransform>
+                    <TransformGroup/>
+                  </RadialGradientBrush.RelativeTransform>
+                </RadialGradientBrush>
+              </GeometryDrawing.Brush>
+            </GeometryDrawing>
+            <GeometryDrawing Geometry="F1 M 415.192,295.251C 416.515,295.251 417.587,296.323 417.587,297.646C 417.587,298.968 416.515,300.04 415.192,300.04C 413.869,300.04 412.797,298.968 412.797,297.646C 412.797,296.323 413.869,295.251 415.192,295.251 Z ">
+              <GeometryDrawing.Pen>
+                <Pen LineJoin="Round" Brush="#FF686868"/>
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Brush>
+                <LinearGradientBrush StartPoint="0.500005,0.913638" EndPoint="0.500005,0.086362">
                   <LinearGradientBrush.GradientStops>
                     <GradientStop Color="#FF0EA83D" Offset="0"/>
                     <GradientStop Color="#FF98F1B3" Offset="1"/>
@@ -58,14 +228,12 @@
                 </LinearGradientBrush>
               </GeometryDrawing.Brush>
             </GeometryDrawing>
-            <GeometryDrawing Brush="#5FFFFFFF" Geometry="F1 M 429.6,301.456C 425.635,301.456 422.274,303.852 421.114,307.166C 423.578,308.063 426.486,308.581 429.6,308.581C 432.714,308.581 435.621,308.063 438.085,307.166C 436.925,303.852 433.564,301.456 429.6,301.456 Z "/>
-            <GeometryDrawing Brush="#27000000" Geometry="F1 M 429.7,320.273C 432.464,320.273 434.939,319.095 436.606,317.236C 434.701,316.62 432.353,316.257 429.814,316.257C 427.196,316.257 424.782,316.643 422.847,317.293C 424.513,319.119 426.966,320.273 429.7,320.273 Z "/>
-            <GeometryDrawing Geometry="F1 M 429.664,277.326C 435.388,277.326 440.029,281.966 440.029,287.69C 440.029,293.414 435.388,298.055 429.664,298.055C 423.94,298.055 419.3,293.414 419.3,287.69C 419.3,281.966 423.94,277.326 429.664,277.326 Z ">
+            <GeometryDrawing Geometry="F1 M 415.192,289.885C 416.515,289.885 417.587,290.957 417.587,292.28C 417.587,293.602 416.515,294.675 415.192,294.675C 413.869,294.675 412.797,293.602 412.797,292.28C 412.797,290.957 413.869,289.885 415.192,289.885 Z ">
               <GeometryDrawing.Pen>
-                <Pen Thickness="2" LineJoin="Round" Brush="#FF686868"/>
+                <Pen LineJoin="Round" Brush="#FF686868"/>
               </GeometryDrawing.Pen>
               <GeometryDrawing.Brush>
-                <LinearGradientBrush StartPoint="0.5,0.956003" EndPoint="0.5,0.0439971">
+                <LinearGradientBrush StartPoint="0.500005,0.913638" EndPoint="0.500005,0.086362">
                   <LinearGradientBrush.GradientStops>
                     <GradientStop Color="#FF589E0D" Offset="0.0211864"/>
                     <GradientStop Color="#FFCFF3A9" Offset="0.991525"/>
@@ -73,8 +241,6 @@
                 </LinearGradientBrush>
               </GeometryDrawing.Brush>
             </GeometryDrawing>
-            <GeometryDrawing Brush="#5FFFFFFF" Geometry="F1 M 429.6,278.233C 425.635,278.233 422.274,280.629 421.114,283.943C 423.578,284.84 426.486,285.358 429.6,285.358C 432.714,285.358 435.621,284.84 438.085,283.943C 436.925,280.629 433.564,278.233 429.6,278.233 Z "/>
-            <GeometryDrawing Brush="#27000000" Geometry="F1 M 429.7,297.051C 432.464,297.051 434.939,295.872 436.606,294.013C 434.701,293.398 432.353,293.034 429.814,293.034C 427.196,293.034 424.782,293.42 422.847,294.071C 424.513,295.897 426.966,297.051 429.7,297.051 Z "/>
           </DrawingGroup.Children>
         </DrawingGroup>
       </DrawingBrush.Drawing>
@@ -296,26 +462,35 @@
           <TabItem.Header>
             <Border Padding="5,5,5,5">
               <Grid>
-                <Rectangle Width="30" Height="18" Fill="{DynamicResource muc_affs_design}" HorizontalAlignment="Left"/>
-                <TextBlock Text="User Affiliations" Margin="35,0,0,0"/>
+                <Rectangle Width="30" Height="20" Fill="{DynamicResource muc_affs_design}" HorizontalAlignment="Left"/>
+                <TextBlock Text="User Affiliations" Margin="35,0,0,0" VerticalAlignment="Center"/>
               </Grid>
             </Border>
           </TabItem.Header>
-
+          <WrapPanel>
+            <xeus2_xeus_Controls:MucAffiliationList x:Name="_affOwner"/>
+            <xeus2_xeus_Controls:MucAffiliationList x:Name="_affAdmin"/>
+            <xeus2_xeus_Controls:MucAffiliationList x:Name="_affBanned"/>
+            <xeus2_xeus_Controls:MucAffiliationList x:Name="_affMembers"/>
+          </WrapPanel>
         </TabItem>
         <TabItem Foreground="{DynamicResource chat_back_design}">
           <TabItem.Header>
             <Border Padding="5,5,5,5">
               <Grid>
-                <Rectangle Width="18" Height="18" Fill="{DynamicResource muc_options_design}" HorizontalAlignment="Left"/>
-                <TextBlock Text="Room Options" Margin="24,0,0,0"/>
+                <Rectangle Width="35" Fill="{DynamicResource muc_options_design}" HorizontalAlignment="Left" Height="25"/>
+                <TextBlock Text="Room Options" Margin="38,0,0,0" VerticalAlignment="Center"/>
               </Grid>
             </Border>
           </TabItem.Header>
           <Grid Margin="0,5,0,0">
             <xeus2_xeus_XData:MucOptionsForm x:Name="_muc" Margin="0,0,0,40"/>
-            <Button Content="Save Configuration"
-                    Click="OnSaveConfig" HorizontalAlignment="Center" Margin="0,0,0,5" VerticalAlignment="Bottom"/>
+            <StackPanel Margin="0,0,0,5" VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
+              <Button Content="Save Configuration"
+                      Click="OnSaveConfig" Margin="0,0,5,0"/>
+              <Button Content="Reset Configuration"
+                      Click="OnResetConfig" Margin="5,0,0,0"/>
+            </StackPanel>
           </Grid>
         </TabItem>
       </TabControl>   
