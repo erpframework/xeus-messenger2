@@ -4,8 +4,8 @@
     Margin="10,10,10,10" Foreground="#FFFFFFFF"
     >
   <StackPanel x:Name="_container">
-  	<Grid>
-		<Rectangle Fill="{Binding Path=Icon, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Width="24" HorizontalAlignment="Left"/>
+  	<Grid HorizontalAlignment="Center">
+		<Rectangle Fill="{Binding Path=Icon, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Width="24" HorizontalAlignment="Left" Height="24"/>
     	<TextBlock x:Name="_title" Style="{DynamicResource MegaTextBlockStyle}" Margin="40,0,0,0"
 			/>
 	</Grid>

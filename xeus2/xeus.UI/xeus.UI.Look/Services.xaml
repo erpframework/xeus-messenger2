@@ -967,8 +967,8 @@ xmlns:d="http://schemas.microsoft.com/expression/blend/2006" xmlns:mc="http://sc
   			CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18"
   			Background="{DynamicResource aff_outcast_design}" ToolTip="Delete Bookmark" HorizontalAlignment="Left" Height="18" VerticalAlignment="Top"/>
   		<Button x:Name="_muc" Content="muc" Command="servicecmd:ServiceCommands.JoinMuc"
-  			CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource muc_design}" ToolTip="Join Multi-User Chat" HorizontalAlignment="Left" Margin="20,2,2,2" Height="18" VerticalAlignment="Top"/>
-		<StackPanel Margin="45,0,0,3">
+  			CommandParameter="{Binding}" Style="{DynamicResource ImageButtonStyle}" Width="18" Background="{DynamicResource muc_design}" ToolTip="Join Multi-User Chat" HorizontalAlignment="Left" Margin="23,2,2,2" Height="18" VerticalAlignment="Top"/>
+		<StackPanel Margin="48,0,0,3">
 	  		<TextBlock Text="{Binding Path=Description}" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Top" />
 			  <TextBox Text="{Binding Path=Jid, Mode=OneWay}" Margin="-3,0,0,0"
                  HorizontalAlignment="Stretch" TextWrapping="Wrap" FontSize="11" Style="{DynamicResource TransparentTextBoxStyle}" IsReadOnly="True" MinHeight="0" VerticalAlignment="Top" Height="16" Foreground="{DynamicResource muc_time_fore}" />
