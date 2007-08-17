@@ -1,11 +1,9 @@
-using System;
 using System.Windows.Media;
 using agsXMPP;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.x.data;
 using agsXMPP.protocol.x.muc;
 using xeus2.xeus.Core;
-using xeus2.xeus.UI;
 using xeus2.xeus.Utilities;
 
 namespace xeus2.xeus.XData
@@ -14,13 +12,14 @@ namespace xeus2.xeus.XData
     {
         private MucManager _manager;
         private MucRoom _mucRoom;
+
         private delegate void ResultCallback(object sender, IQ iq);
 
         public override DrawingBrush Icon
         {
             get
             {
-                return (DrawingBrush)FindResource("muc_options_design");
+                return (DrawingBrush) FindResource("muc_options_design");
             }
         }
 
@@ -29,8 +28,8 @@ namespace xeus2.xeus.XData
             _mucRoom = mucRoom;
             _manager = Account.Instance.GetMucManager();
             _manager.RequestConfigurationForm(mucRoom.Service.Jid, new IqCB(OnResultMucRoomOps));
-
         }
+
         private void OnResultMucRoomOps(object sender, IQ iq, object data)
         {
             App.InvokeSafe(App._dispatcherPriority,
@@ -59,6 +58,11 @@ namespace xeus2.xeus.XData
             Data data = GetResult();
 
             Account.Instance.DoSaveMucConfig(_mucRoom, data);
+        }
+
+        public void Reset()
+        {
+            _manager.AcceptDefaultConfiguration(_mucRoom.Service.Jid);
         }
     }
 }

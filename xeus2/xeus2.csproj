@@ -94,6 +94,7 @@
     <Page Include="xeus.UI\Search.xaml" />
     <Page Include="xeus.UI\SearchBox.xaml" />
     <Page Include="xeus.UI\ServiceWindow.xaml" />
+    <Page Include="xeus.UI\xeus.UI.Controls\MucAffiliationList.xaml" />
     <Page Include="xeus.UI\xeus.UI.Controls\MucConversation.xaml" />
     <Page Include="xeus.UI\xeus.UI.Look\ScrollBar.xaml" />
     <Page Include="xeus.XData\XDataContainer.xaml" />
@@ -142,6 +143,8 @@
     <Compile Include="xeus.Core\EventStatusChanged.cs" />
     <Compile Include="xeus.Core\IContact.cs" />
     <Compile Include="xeus.Core\InlineMethod.cs" />
+    <Compile Include="xeus.Core\MucAffContact.cs" />
+    <Compile Include="xeus.Core\MucAffContacts.cs" />
     <Compile Include="xeus.Core\MucContact.cs" />
     <Compile Include="xeus.Core\MucInfo.cs" />
     <Compile Include="xeus.Core\MucMark.cs" />
@@ -244,6 +247,10 @@
     <Compile Include="xeus.UI\TextFilterMucRoom.cs" />
     <Compile Include="xeus.UI\TextFilterService.cs" />
     <Compile Include="xeus.UI\Vista.cs" />
+    <Compile Include="xeus.UI\xeus.UI.Controls\MucAffiliationList.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>MucAffiliationList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="xeus.UI\xeus.UI.Controls\MucConversation.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>MucConversation.xaml</DependentUpon>
