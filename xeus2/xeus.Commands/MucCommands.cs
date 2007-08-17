@@ -1,5 +1,7 @@
+using System;
 using System.Windows;
 using System.Windows.Input;
+using agsXMPP.protocol.client;
 using agsXMPP.protocol.x.muc;
 using xeus2.xeus.Core;
 using xeus2.xeus.Middle;
@@ -23,8 +25,23 @@ namespace xeus2.xeus.Commands
         private static RoutedUICommand _ban =
             new RoutedUICommand("Ban", "Ban", typeof (MucCommands));
 
-        private static RoutedUICommand _removeOwner =
-            new RoutedUICommand("Ban", "Ban", typeof(MucCommands));
+        private static RoutedUICommand _grantOwner =
+            new RoutedUICommand("Grant Ownership", "GrantOwnership", typeof(MucCommands));
+
+        private static RoutedUICommand _grantMember =
+            new RoutedUICommand("Grant Membership", "GrantMembership", typeof(MucCommands));
+
+        private static RoutedUICommand _grantAdmin =
+            new RoutedUICommand("Grant Admin Privileges", "GrantAdminPrivileges", typeof(MucCommands));
+
+        private static RoutedUICommand _grantModerator =
+            new RoutedUICommand("Grant Moderator Privileges", "GrantModeratorPrivileges", typeof(MucCommands));
+
+        private static RoutedUICommand _revokeModerator =
+            new RoutedUICommand("Revoke Moderator Privileges", "RevokeModeratorPrivileges", typeof(MucCommands));
+
+        private static RoutedUICommand _revokeMember =
+            new RoutedUICommand("Revoke Membership", "RevokeMembership", typeof(MucCommands));
 
         private static RoutedUICommand _sendPrivateMessage =
             new RoutedUICommand("Send Private Message", "SendPrivateMessage", typeof (MucCommands));
@@ -154,6 +171,54 @@ namespace xeus2.xeus.Commands
             }
         }
 
+        public static RoutedUICommand GrantOwner
+        {
+            get
+            {
+                return _grantOwner;
+            }
+        }
+
+        public static RoutedUICommand GrantMember
+        {
+            get
+            {
+                return _grantMember;
+            }
+        }
+
+        public static RoutedUICommand GrantAdmin
+        {
+            get
+            {
+                return _grantAdmin;
+            }
+        }
+
+        public static RoutedUICommand GrantModerator
+        {
+            get
+            {
+                return _grantModerator;
+            }
+        }
+
+        public static RoutedUICommand RevokeModerator
+        {
+            get
+            {
+                return _revokeModerator;
+            }
+        }
+
+        public static RoutedUICommand RevokeMember
+        {
+            get
+            {
+                return _revokeMember;
+            }
+        }
+
         public static void RegisterCommands(Window window)
         {
             window.CommandBindings.Add(
@@ -172,6 +237,21 @@ namespace xeus2.xeus.Commands
                 new CommandBinding(_ban, ExecuteBan, CanExecuteBan));
 
             window.CommandBindings.Add(
+                new CommandBinding(_grantAdmin, ExecuteGrantAdmin, CanExecuteGrantAdmin));
+
+            window.CommandBindings.Add(
+                new CommandBinding(_grantMember, ExecuteGrantMember, CanExecuteGrantMember));
+
+            window.CommandBindings.Add(
+                new CommandBinding(_grantModerator, ExecuteGrantModerator, CanExecuteGrantModerator));
+
+            window.CommandBindings.Add(
+                new CommandBinding(_grantOwner, ExecuteGrantOwner, CanExecuteGrantOwner));
+
+            window.CommandBindings.Add(
+                new CommandBinding(_grantVoice, ExecuteGrantVoice, CanExecuteGrantVoice));
+
+            window.CommandBindings.Add(
                 new CommandBinding(_sendPrivateMessage, ExecuteSendPrivateMessage, CanExecuteSendPrivateMessage));
 
             window.CommandBindings.Add(
@@ -184,16 +264,177 @@ namespace xeus2.xeus.Commands
                 new CommandBinding(_modifySubject, ExecuteModifySubject, CanExecuteModifySubject));
 
             window.CommandBindings.Add(
-                new CommandBinding(_grantVoice, ExecuteGrantVoice, CanExecuteGrantVoice));
+                new CommandBinding(_revokeVoice, ExecuteRevokeVoice, CanExecuteRevokeVoice));
 
             window.CommandBindings.Add(
-                new CommandBinding(_revokeVoice, ExecuteRevokeVoice, CanExecuteRevokeVoice));
+                new CommandBinding(_revokeMember, ExecuteRevokeMember, CanExecuteRevokeMember));
+
+            window.CommandBindings.Add(
+                new CommandBinding(_revokeModerator, ExecuteRevokeModerator, CanExecuteRevokeModerator));
 
             window.CommandBindings.Add(
                 new CommandBinding(_addMucMark, ExecuteAddMucMark, CanExecuteAddMucMark));
 
             window.CommandBindings.Add(
                 new CommandBinding(_deleteMucMark, ExecuteDeleteMucMark, CanExecuteDeleteMucMark));
+        }
+
+        private static void CanExecuteRevokeModerator(object sender, CanExecuteRoutedEventArgs e)
+        {
+            MucContact mucContact = e.Parameter as MucContact;
+
+            if (mucContact != null)
+            {
+                e.CanExecute = (mucContact.MucRoom.Me.Affiliation == Affiliation.owner
+                                || mucContact.MucRoom.Me.Affiliation == Affiliation.admin)
+                                && (mucContact.Affiliation != Affiliation.owner
+                                    && mucContact.Affiliation != Affiliation.admin
+                                    )
+                                && (mucContact.Role == Role.moderator);
+            }
+
+            e.Handled = true;
+        }
+
+        private static void ExecuteRevokeModerator(object sender, ExecutedRoutedEventArgs e)
+        {
+            MucContact mucContact = e.Parameter as MucContact;
+
+            if (mucContact != null)
+            {
+                mucContact.MucRoom.RevokeModerator(mucContact);
+            }
+
+            e.Handled = true;
+        }
+
+        private static void CanExecuteRevokeMember(object sender, CanExecuteRoutedEventArgs e)
+        {
+            MucContact mucContact = e.Parameter as MucContact;
+
+            if (mucContact != null)
+            {
+                e.CanExecute = (mucContact.MucRoom.Me.Affiliation == Affiliation.owner
+                                || mucContact.MucRoom.Me.Affiliation == Affiliation.admin)
+                                && (mucContact.Affiliation == Affiliation.member);
+            }
+
+            e.Handled = true;
+        }
+
+        private static void ExecuteRevokeMember(object sender, ExecutedRoutedEventArgs e)
+        {
+            MucContact mucContact = e.Parameter as MucContact;
+
+            if (mucContact != null)
+            {
+                mucContact.MucRoom.RevokeMembership(mucContact);
+            }
+
+            e.Handled = true;
+        }
+
+        private static void CanExecuteGrantOwner(object sender, CanExecuteRoutedEventArgs e)
+        {
+            MucContact mucContact = e.Parameter as MucContact;
+
+            if (mucContact != null)
+            {
+                e.CanExecute = mucContact.UserJid != null
+                                && mucContact.MucRoom.Me.Affiliation == Affiliation.owner
+                                && mucContact.Affiliation != Affiliation.owner;
+            }
+
+            e.Handled = true;
+        }
+
+        private static void ExecuteGrantOwner(object sender, ExecutedRoutedEventArgs e)
+        {
+            MucContact mucContact = e.Parameter as MucContact;
+
+            if (mucContact != null)
+            {
+                mucContact.MucRoom.GrantOwnerPrivilege(mucContact);
+            }
+
+            e.Handled = true;
+        }
+
+        private static void CanExecuteGrantModerator(object sender, CanExecuteRoutedEventArgs e)
+        {
+            MucContact mucContact = e.Parameter as MucContact;
+
+            if (mucContact != null)
+            {
+                e.CanExecute = (mucContact.MucRoom.Me.Affiliation == Affiliation.owner
+                                    || mucContact.MucRoom.Me.Affiliation == Affiliation.admin)
+                                && (mucContact.Role != Role.moderator);
+            }
+
+            e.Handled = true;
+        }
+
+        private static void ExecuteGrantModerator(object sender, ExecutedRoutedEventArgs e)
+        {
+            MucContact mucContact = e.Parameter as MucContact;
+
+            if (mucContact != null)
+            {
+                mucContact.MucRoom.GrantModerator(mucContact);
+            }
+
+            e.Handled = true;
+        }
+
+        private static void CanExecuteGrantMember(object sender, CanExecuteRoutedEventArgs e)
+        {
+            MucContact mucContact = e.Parameter as MucContact;
+
+            if (mucContact != null)
+            {
+                e.CanExecute = (mucContact.MucRoom.Me.Affiliation == Affiliation.owner
+                                || mucContact.MucRoom.Me.Affiliation == Affiliation.admin)
+                                && (mucContact.Affiliation != Affiliation.owner
+                                    && mucContact.Affiliation != Affiliation.admin
+                                    && mucContact.Affiliation != Affiliation.member);
+            }
+        }
+
+        private static void ExecuteGrantMember(object sender, ExecutedRoutedEventArgs e)
+        {
+            MucContact mucContact = e.Parameter as MucContact;
+
+            if (mucContact != null)
+            {
+                mucContact.MucRoom.GrantMember(mucContact);
+            }
+
+            e.Handled = true;
+        }
+
+        private static void CanExecuteGrantAdmin(object sender, CanExecuteRoutedEventArgs e)
+        {
+            MucContact mucContact = e.Parameter as MucContact;
+
+            if (mucContact != null)
+            {
+                e.CanExecute = mucContact.UserJid != null
+                                && mucContact.MucRoom.Me.Affiliation == Affiliation.owner
+                                && mucContact.Affiliation != Affiliation.owner
+                                && mucContact.Affiliation != Affiliation.admin;
+            }
+        }
+
+        private static void ExecuteGrantAdmin(object sender, ExecutedRoutedEventArgs e)
+        {
+            MucContact mucContact = e.Parameter as MucContact;
+
+            if (mucContact != null)
+            {
+                mucContact.MucRoom.GrantAdmin(mucContact);
+            }
+
+            e.Handled = true;
         }
 
         public static void CanExecuteChangeAccessLevel(object sender, CanExecuteRoutedEventArgs e)
@@ -404,33 +645,54 @@ namespace xeus2.xeus.Commands
 
         public static void CanExecuteGrantVoice(object sender, CanExecuteRoutedEventArgs e)
         {
-            //Service service = e.Parameter as Service ;
+            MucContact mucContact = e.Parameter as MucContact;
+
+            if (mucContact != null)
+            {
+                e.CanExecute = (mucContact.MucRoom.Me.Role == Role.moderator)
+                                && (mucContact.Affiliation != Affiliation.owner
+                                    && mucContact.Affiliation != Affiliation.admin);
+            }
 
             e.Handled = true;
-            //e.CanExecute = ( service != null && service.IsRegistrable ) ;
         }
 
         public static void ExecuteGrantVoice(object sender, ExecutedRoutedEventArgs e)
         {
-            //Service service = e.Parameter as Service ;
-            //Account.Instance.GetService( service ) ;
+            MucContact mucContact = e.Parameter as MucContact;
+
+            if (mucContact != null)
+            {
+                mucContact.MucRoom.RevokeModerator(mucContact);
+            }
 
             e.Handled = true;
         }
 
         public static void CanExecuteRevokeVoice(object sender, CanExecuteRoutedEventArgs e)
         {
-            //Service service = e.Parameter as Service ;
+            MucContact mucContact = e.Parameter as MucContact;
+
+            if (mucContact != null)
+            {
+                e.CanExecute = (mucContact.MucRoom.Me.Role == Role.moderator)
+                                && (mucContact.Affiliation != Affiliation.owner
+                                    && mucContact.Affiliation != Affiliation.admin);
+            }
 
             e.Handled = true;
-            //e.CanExecute = ( service != null && service.IsRegistrable ) ;
         }
 
         public static void ExecuteRevokeVoice(object sender, ExecutedRoutedEventArgs e)
         {
-            //Service service = e.Parameter as Service ;
-            //Account.Instance.GetService( service ) ;
+            MucContact mucContact = e.Parameter as MucContact;
 
+            if (mucContact != null)
+            {
+                mucContact.MucRoom.RevokeVoice(mucContact);
+            }
+
+            e.Handled = true;
             e.Handled = true;
         }
 

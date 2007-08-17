@@ -858,5 +858,45 @@ namespace xeus2.xeus.Core
         {
             _mucMessages.CollectionChanged -= _mucMessages_CollectionChanged;
         }
+
+        public void GrantOwnerPrivilege(MucContact mucContact)
+        {
+            _mucManager.GrantOwnershipPrivileges(Service.Jid, mucContact.UserJid);
+        }
+
+        public void GrantModerator(MucContact contact)
+        {
+            _mucManager.GrantModeratorPrivilegesPrivileges(Service.Jid, contact.Nick);
+        }
+
+        public void GrantMember(MucContact contact)
+        {
+            _mucManager.GrantMembershipship(Service.Jid, contact.Nick, String.Empty);
+        }
+
+        public void GrantAdmin(MucContact contact)
+        {
+            _mucManager.GrantAdminPrivileges(Service.Jid, contact.UserJid);
+        }
+
+        public void RevokeModerator(MucContact contact)
+        {
+            _mucManager.RevokeModerator(Service.Jid, contact.Nick);
+        }
+
+        public void RevokeMembership(MucContact contact)
+        {
+            _mucManager.RevokeMembership(Service.Jid, contact.Nick);
+        }
+
+        public void RevokeVoice(MucContact contact)
+        {
+            _mucManager.RevokeVoice(Service.Jid, contact.Nick);
+        }
+    
+        public void GrantVoice(MucContact contact)
+        {
+            _mucManager.GrantVoice(Service.Jid, contact.Nick);
+        }
     }
 }

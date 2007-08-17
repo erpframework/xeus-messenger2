@@ -21,6 +21,23 @@
         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
       <MenuItem Command="xeus2_xeus_Commands:MucCommands.Ban"
         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
+      <Separator/>
+      <MenuItem Command="xeus2_xeus_Commands:MucCommands.GrantOwner"
+        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
+      <MenuItem Command="xeus2_xeus_Commands:MucCommands.GrantAdmin"
+        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
+      <MenuItem Command="xeus2_xeus_Commands:MucCommands.GrantMember"
+        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
+      <MenuItem Command="xeus2_xeus_Commands:MucCommands.RevokeMember"
+        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
+      <MenuItem Command="xeus2_xeus_Commands:MucCommands.GrantModerator"
+        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
+      <MenuItem Command="xeus2_xeus_Commands:MucCommands.RevokeModerator"
+        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
+      <MenuItem Command="xeus2_xeus_Commands:MucCommands.GrantVoice"
+        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
+      <MenuItem Command="xeus2_xeus_Commands:MucCommands.RevokeVoice"
+        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
     </ContextMenu>
 
     <ContextMenu x:Key="MucMainMenu">

@@ -13,6 +13,7 @@ namespace xeus2.xeus.Core
 		public MucContact( Presence presence, MucRoom mucRoom )
 		{
 		    _mucRoom = mucRoom;
+
 		    Presence = presence ;
 		}
 
@@ -173,5 +174,5 @@ namespace xeus2.xeus.Core
 		{
 			return Nick ;
 		}
-	}
+ 	}
 }

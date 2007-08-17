@@ -456,6 +456,7 @@
       </DrawingBrush.Drawing>
     </DrawingBrush>    
   </Window.Resources>
+  
     <Grid>
       <TabControl Foreground="{DynamicResource DefaultTextBrush2}">
         <TabItem Foreground="{DynamicResource chat_back_design}">
