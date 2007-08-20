@@ -34,5 +34,10 @@ namespace xeus2.xeus.Core
             _item = new Item(affiliation);
             _item.Jid = jid;
         }
+
+        public override string ToString()
+        {
+            return Jid;
+        }
     }
 }

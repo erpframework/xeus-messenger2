@@ -48,8 +48,6 @@ namespace xeus2.xeus.Core
 
             _manager = Account.Instance.GetMucManager();
 
-            _manager.RequestOwnerList(mucRoom.Service.Jid);
-
             _manager.RequestList(_affiliation, mucRoom.Service.Jid, new IqCB(OnRequestResult), null);
         }
 
@@ -109,6 +107,38 @@ namespace xeus2.xeus.Core
                             new IqCB(OnAddResult), new MucAffContact(new Jid(text), agsXMPP.protocol.x.muc.Affiliation.outcast));
                         break;
                     }
+            }
+        }
+
+        public void Remove(string text)
+        {
+            switch (Affiliation)
+            {
+                    /*
+                case agsXMPP.protocol.x.muc.Affiliation.owner:
+                    {
+                        _manager.GrantOwnershipPrivileges(_mucRoom.Service.Jid, new Jid(text),
+                            new IqCB(OnAddResult), new MucAffContact(new Jid(text), agsXMPP.protocol.x.muc.Affiliation.owner));
+                        break;
+                    }
+                case agsXMPP.protocol.x.muc.Affiliation.admin:
+                    {
+                        _manager.GrantAdminPrivileges(_mucRoom.Service.Jid, new Jid(text),
+                            new IqCB(OnAddResult), new MucAffContact(new Jid(text), agsXMPP.protocol.x.muc.Affiliation.admin));
+                        break;
+                    }
+                case agsXMPP.protocol.x.muc.Affiliation.member:
+                    {
+                        _manager.RevokeMembership(_mucRoom.Service.Jid, new Jid(text), String.Empty,
+                             new IqCB(OnAddResult), new MucAffContact(new Jid(text), agsXMPP.protocol.x.muc.Affiliation.member));
+                        break;
+                    }
+                case agsXMPP.protocol.x.muc.Affiliation.outcast:
+                    {
+                        _manager.(_mucRoom.Service.Jid, new Jid(text), String.Empty,
+                            new IqCB(OnAddResult), new MucAffContact(new Jid(text), agsXMPP.protocol.x.muc.Affiliation.outcast));
+                        break;
+                    }*/
             }
         }
 

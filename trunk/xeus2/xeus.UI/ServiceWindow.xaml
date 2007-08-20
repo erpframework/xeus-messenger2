@@ -44,7 +44,7 @@
 
   </Window.Resources>
   <TabControl Foreground="{DynamicResource DefaultTextBrush2}">
-    <TabItem Foreground="{DynamicResource chat_back_design}">
+    <TabItem Foreground="{DynamicResource tabitem_foreground}">
 		<TabItem.Header>
 			<Border Padding="5,5,5,5">
 				<Grid>
@@ -94,7 +94,7 @@
         </Border>
       </DockPanel>
     </TabItem>
-    <TabItem Foreground="{DynamicResource chat_back_design}">
+    <TabItem Foreground="{DynamicResource tabitem_foreground}">
 	<TabItem.Header>
 		<Border Margin="5,0,0,0" Padding="5,5,5,5">
 			<Grid>
@@ -127,7 +127,7 @@
         </Border>
       </DockPanel>
     </TabItem>
-    <TabItem Foreground="{DynamicResource chat_back_design}">
+    <TabItem Foreground="{DynamicResource tabitem_foreground}">
       <TabItem.Header>
         <Border Padding="5,5,5,5">
           <Grid>
