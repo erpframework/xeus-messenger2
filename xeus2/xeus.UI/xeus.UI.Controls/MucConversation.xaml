@@ -53,7 +53,8 @@
 
   <DockPanel>
     <Border Background="{DynamicResource back_x_design}" BorderBrush="{DynamicResource DefaultTextBrush2}" Padding="10,10,10,18" DockPanel.Dock="Top">
-      <StackPanel>
+	  <Expander>
+      <StackPanel Margin="0,5,0,0">
         <Grid>
           <Button Style="{DynamicResource ImageButtonStyle}" x:Name="_contactButton"
                   Background="{DynamicResource muc_design}" Width="24" HorizontalAlignment="Left" Click="OnContactClick" Height="24" />
@@ -105,6 +106,7 @@
           </ListBox.GroupStyle>
         </ListBox>
       </StackPanel>
+	  </Expander>
     </Border>
 
 	<StackPanel Margin="5,5,5,5" DockPanel.Dock="Bottom">

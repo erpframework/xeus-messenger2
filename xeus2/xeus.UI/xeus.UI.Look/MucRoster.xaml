@@ -17,7 +17,36 @@
   <SolidColorBrush x:Key="textdim_design" Color="#3F000000" PresentationOptions:Freeze="True" />
   <SolidColorBrush x:Key="back_alt" Color="#3FB1B1B1" PresentationOptions:Freeze="True" />
   <SolidColorBrush x:Key="forme_text_design" Color="#FFFF9040" PresentationOptions:Freeze="True" />
+  <SolidColorBrush x:Key="tabitem_foreground" Color="#FFDDDDDD" PresentationOptions:Freeze="True" />
 
+  <DrawingBrush x:Key="add_design" PresentationOptions:Freeze="True" Stretch="Uniform">
+    <DrawingBrush.Drawing>
+      <DrawingGroup>
+        <DrawingGroup.Children>
+          <GeometryDrawing Geometry="F1 M 8.0661,14.3856C 8.0661,13.4651 8.8123,12.7189 9.73277,12.7189L 13.5105,12.7189L 13.5105,8.94111C 13.5105,8.02064 14.2567,7.27444 15.1772,7.27444C 16.0977,7.27444 16.8439,8.02064 16.8439,8.94111L 16.8439,12.7189L 20.6217,12.7189C 21.5421,12.7189 22.2883,13.4651 22.2883,14.3856C 22.2883,15.306 21.5421,16.0522 20.6217,16.0522L 16.8439,16.0522L 16.8439,19.83C 16.8439,20.7505 16.0977,21.4967 15.1772,21.4967C 14.2567,21.4967 13.5105,20.7505 13.5105,19.83L 13.5105,16.0522L 9.73277,16.0522C 8.8123,16.0522 8.0661,15.306 8.0661,14.3856 Z ">
+            <GeometryDrawing.Pen>
+              <Pen LineJoin="Round" Brush="#FF3C3C3C"/>
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Brush>
+              <RadialGradientBrush RadiusX="0.5" RadiusY="0.5" Center="0.5,0.5" GradientOrigin="0.5,0.5">
+                <RadialGradientBrush.GradientStops>
+                  <GradientStop Color="#FFFFFEA5" Offset="0"/>
+                  <GradientStop Color="#FFD9CF35" Offset="0.716102"/>
+                  <GradientStop Color="#FFFFEC4A" Offset="0.995434"/>
+                </RadialGradientBrush.GradientStops>
+                <RadialGradientBrush.RelativeTransform>
+                  <TransformGroup>
+                    <RotateTransform CenterX="0.5" CenterY="0.5" Angle="-90"/>
+                  </TransformGroup>
+                </RadialGradientBrush.RelativeTransform>
+              </RadialGradientBrush>
+            </GeometryDrawing.Brush>
+          </GeometryDrawing>
+        </DrawingGroup.Children>
+      </DrawingGroup>
+    </DrawingBrush.Drawing>
+  </DrawingBrush>
+  
   <DrawingBrush x:Key="event_kicked_muc_design" PresentationOptions:Freeze="True" Stretch="Uniform">
     <DrawingBrush.Drawing>
       <DrawingGroup>
@@ -1275,13 +1304,9 @@
 
   <DataTemplate x:Key="MucAffContactItem">
     <Grid Margin="2,4,4,2">
-      <Rectangle x:Name="_affiliation" Width="24" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center"
+      <Rectangle x:Name="_affiliation" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center"
     Fill="{StaticResource aff_none_design}" Margin="0,0,0,5" />
-	  <StackPanel Margin="24,0,0,0" VerticalAlignment="Top" Orientation="Horizontal">
-	      <TextBlock Text="{Binding Path=Jid}" Foreground="{DynamicResource DefaultTextBrush2}"/>
-		    <Button Background="{DynamicResource delete_design}" Margin="5,0,0,0" Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"
-        />
-	  </StackPanel>
+    	<TextBlock Text="{Binding Path=Jid}" Foreground="{DynamicResource DefaultTextBrush2}" HorizontalAlignment="Left" Margin="24,0,0,11" Height="Auto"/>
     </Grid>
 
     <DataTemplate.Triggers>
