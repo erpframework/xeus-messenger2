@@ -9,7 +9,8 @@ namespace xeus2.xeus.Core
             Left,
             Kicked,
             Banned,
-            NickChange
+            NickChange,
+            Error
         }
     
     internal class EventMucRoom : Event
@@ -33,15 +34,8 @@ namespace xeus2.xeus.Core
         private readonly TypicalEvent _typicalEvent = TypicalEvent.Undefined;
         private readonly MucRoom _mucRoom;
 
-        public User User
-        {
-            get
-            {
-                return _user;
-            }
-        }
-
         private readonly User _user;
+        private MucContact _mucContact;
 
         public EventMucRoom(TypicalEvent typicalEvent, MucRoom mucRoom, User user, string message)
             : base(message, EventSeverity.Info)
@@ -50,7 +44,15 @@ namespace xeus2.xeus.Core
             _mucRoom = mucRoom;
             _user = user;
         }
-    
+
+        public EventMucRoom(TypicalEvent typicalEvent, MucRoom mucRoom, MucContact mucContact, string message)
+            : base(message, EventSeverity.Info)
+        {
+            _typicalEvent = typicalEvent;
+            _mucRoom = mucRoom;
+            _mucContact = mucContact;
+        }
+
         public EventMucRoom(MucRoom mucRoom, User user, string message)
             : base(message, EventSeverity.Info)
         {

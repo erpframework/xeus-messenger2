@@ -21,7 +21,7 @@ namespace xeus2.xeus.Middle
 
             if ((bool) banReason.ShowDialog())
             {
-                mucContact.MucRoom.Ban(mucContact.UserJid, banReason.Reason);
+                mucContact.MucRoom.Ban(mucContact, banReason.Reason);
             }
         }
     }

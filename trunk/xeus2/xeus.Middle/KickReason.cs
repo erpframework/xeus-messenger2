@@ -21,7 +21,7 @@ namespace xeus2.xeus.Middle
 
             if ((bool) kickReason.ShowDialog())
             {
-                mucContact.MucRoom.Kick(mucContact.Nick, kickReason.Reason);
+                mucContact.MucRoom.Kick(mucContact, kickReason.Reason);
             }
         }
     }
