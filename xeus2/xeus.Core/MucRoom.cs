@@ -793,48 +793,48 @@ namespace xeus2.xeus.Core
 
         private void OnBanResult(object sender, IQ iq, object data)
         {
-            string nick = "this user";
-
             if (iq.Error != null)
             {
                 if (iq.Error.Code == ErrorCode.NotAllowed)
                 {
-                    MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
-                                                                       string.Format(
-                                                                           "You are not allowed to ban {0}",
-                                                                           nick)), null);
+                    MucContact mucContact = data as MucContact;
 
-                    _mucMessages.Add(mucMessage);
+                    EventMucRoom eventMucRoom =
+                            new EventMucRoom(TypicalEvent.Error, this, mucContact, string.Format(
+                                                                           "You are not allowed to ban {0}",
+                                                                           mucContact.Nick));
+
+                    Events.Instance.OnEvent(this, eventMucRoom, DispatcherPriority.ApplicationIdle);
                 }
             }
         }
 
         private void OnKickResult(object sender, IQ iq, object data)
         {
-            string nick = "this user";
-
             if (iq.Error != null)
             {
                 if (iq.Error.Code == ErrorCode.NotAllowed)
                 {
-                    MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
-                                                                       string.Format(
-                                                                           "You are not allowed to kick {0}",
-                                                                           nick)), null);
+                    MucContact mucContact = data as MucContact;
 
-                    _mucMessages.Add(mucMessage);
+                    EventMucRoom eventMucRoom =
+                            new EventMucRoom(TypicalEvent.Error, this, mucContact, string.Format(
+                                                                           "You are not allowed to kick {0}",
+                                                                           mucContact.Nick));
+
+                    Events.Instance.OnEvent(this, eventMucRoom, DispatcherPriority.ApplicationIdle);
                 }
             }
         }
 
-        public void Kick(string nick, string reason)
+        public void Kick(MucContact mucContact, string reason)
         {
-            _mucManager.KickOccupant(_service.Jid, nick, reason, new IqCB(OnKickResult));
+            _mucManager.KickOccupant(_service.Jid, mucContact.Nick, reason, new IqCB(OnKickResult), mucContact);
         }
 
-        public void Ban(Jid jid, string reason)
+        public void Ban(MucContact mucContact, string reason)
         {
-            _mucManager.BanUser(_service.Jid, jid, reason, new IqCB(OnBanResult));
+            _mucManager.BanUser(_service.Jid, mucContact.UserJid, reason, new IqCB(OnBanResult), mucContact);
         }
 
         public void LeaveRoom(string message)
@@ -859,9 +859,22 @@ namespace xeus2.xeus.Core
             _mucMessages.CollectionChanged -= _mucMessages_CollectionChanged;
         }
 
+        private void OnPrivilegesResult(object sender, IQ iq, object data)
+        {
+            if (iq.Error != null)
+            {
+                MucContact mucContact = data as MucContact;
+
+                EventMucRoom eventMucRoom =
+                        new EventMucRoom(TypicalEvent.Error, this, mucContact, "Privilege change error");
+
+			    Events.Instance.OnEvent(this, eventMucRoom, DispatcherPriority.ApplicationIdle);
+            }
+        }
+
         public void GrantOwnerPrivilege(MucContact mucContact)
         {
-            _mucManager.GrantOwnershipPrivileges(Service.Jid, mucContact.UserJid);
+            _mucManager.GrantOwnershipPrivileges(Service.Jid, mucContact.UserJid, new IqCB(OnPrivilegesResult), mucContact);
         }
 
         public void GrantModerator(MucContact contact)
@@ -876,27 +889,27 @@ namespace xeus2.xeus.Core
 
         public void GrantAdmin(MucContact contact)
         {
-            _mucManager.GrantAdminPrivileges(Service.Jid, contact.UserJid);
+            _mucManager.GrantAdminPrivileges(Service.Jid, contact.UserJid, new IqCB(OnPrivilegesResult), contact);
         }
 
         public void RevokeModerator(MucContact contact)
         {
-            _mucManager.RevokeModerator(Service.Jid, contact.Nick);
+            _mucManager.RevokeModerator(Service.Jid, contact.Nick, String.Empty, new IqCB(OnPrivilegesResult), contact);
         }
 
         public void RevokeMembership(MucContact contact)
         {
-            _mucManager.RevokeMembership(Service.Jid, contact.Nick);
+            _mucManager.RevokeMembership(Service.Jid, contact.Nick, String.Empty, new IqCB(OnPrivilegesResult), contact);
         }
 
         public void RevokeVoice(MucContact contact)
         {
-            _mucManager.RevokeVoice(Service.Jid, contact.Nick);
+            _mucManager.RevokeVoice(Service.Jid, contact.Nick, String.Empty, new IqCB(OnPrivilegesResult), contact);
         }
     
         public void GrantVoice(MucContact contact)
         {
-            _mucManager.GrantVoice(Service.Jid, contact.Nick);
+            _mucManager.GrantVoice(Service.Jid, contact.Nick, String.Empty, new IqCB(OnPrivilegesResult), contact);
         }
     }
 }
