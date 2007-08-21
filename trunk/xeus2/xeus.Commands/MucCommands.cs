@@ -688,8 +688,7 @@ namespace xeus2.xeus.Commands
             if (mucContact != null)
             {
                 e.CanExecute = (mucContact.MucRoom.Me.Role == Role.moderator)
-                                && (mucContact.Affiliation != Affiliation.owner
-                                    && mucContact.Affiliation != Affiliation.admin);
+                                && (mucContact.Role == Role.visitor);
             }
 
             e.Handled = true;
@@ -714,8 +713,7 @@ namespace xeus2.xeus.Commands
             if (mucContact != null)
             {
                 e.CanExecute = (mucContact.MucRoom.Me.Role == Role.moderator)
-                                && (mucContact.Affiliation != Affiliation.owner
-                                    && mucContact.Affiliation != Affiliation.admin);
+                                && (mucContact.Role != Role.visitor);
             }
 
             e.Handled = true;
