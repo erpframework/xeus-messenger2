@@ -726,12 +726,12 @@ namespace xeus2.xeus.Core
                             if (presence.MucUser.Item != null
                                 && !string.IsNullOrEmpty(presence.MucUser.Item.Reason))
                             {
-                                message = string.Format("{0} has been kicked from the room with reason '{1}'",
+                                message = string.Format("{0} has been kicked with reason '{1}'",
                                                         presence.From.Resource, presence.MucUser.Item.Reason);
                             }
                             else
                             {
-                                message = string.Format("{0} has been kicked from the room", presence.From.Resource);
+                                message = string.Format("{0} has been kicked", presence.From.Resource);
                             }
 
                             EventMucRoom eventMucRoom = new EventMucRoom(TypicalEvent.Kicked, this, presence.MucUser, message);
@@ -746,12 +746,12 @@ namespace xeus2.xeus.Core
                             if (presence.MucUser.Item != null
                                 && !string.IsNullOrEmpty(presence.MucUser.Item.Reason))
                             {
-                                message = string.Format("{0} has been banned from the room with reason '{1}'",
+                                message = string.Format("{0} has been banned with reason '{1}'",
                                                         presence.From.Resource, presence.MucUser.Item.Reason);
                             }
                             else
                             {
-                                message = string.Format("{0} has been banned from the room", presence.From.Resource);
+                                message = string.Format("{0} has been banned", presence.From.Resource);
                             }
 
                             EventMucRoom eventMucRoom = new EventMucRoom(TypicalEvent.Banned, this, presence.MucUser, message);

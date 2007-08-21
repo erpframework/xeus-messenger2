@@ -5,6 +5,8 @@
   xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic"
   xmlns:Microsoft_Windows_Themes1="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
 
+  <SolidColorBrush x:Key="ListItemBorder" Color="#FF872D2D" PresentationOptions:Freeze="True" />
+
   <Style TargetType="{x:Type ListBoxItem}">
   	<Setter Property="Template" Value="{DynamicResource ListBoxItemControlTemplate}"/>
   	<!--<Setter Property="Margin" Value="4,2,4,2"/>
@@ -1160,7 +1162,8 @@
 	</Style>
 
 	<ControlTemplate x:Key="ListBoxItemControlTemplate" TargetType="{x:Type ListBoxItem}">
-		<Border SnapsToDevicePixels="True" x:Name="Bd" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3,3,3,3" Padding="{TemplateBinding Padding}">
+		<Border SnapsToDevicePixels="True" x:Name="Bd" CornerRadius="2,2,2,2" Padding="{TemplateBinding Padding}"
+            BorderThickness="1,1,1,1">
 			<ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
 		</Border>
 		<ControlTemplate.Triggers>

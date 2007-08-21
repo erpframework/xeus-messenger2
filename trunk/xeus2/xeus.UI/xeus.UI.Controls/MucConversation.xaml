@@ -52,15 +52,20 @@
   </UserControl.Resources>
 
   <DockPanel>
-    <Border Background="{DynamicResource back_x_design}" BorderBrush="{DynamicResource DefaultTextBrush2}" Padding="10,10,10,18" DockPanel.Dock="Top">
-	  <Expander>
-      <StackPanel Margin="0,5,0,0">
+    <Border Background="{DynamicResource back_x_design}" BorderBrush="{DynamicResource DefaultTextBrush2}" Padding="5,5,5,10" DockPanel.Dock="Top">
+      <Expander Foreground="{DynamicResource DefaultTextBrush2}" >
+	  <Expander.Header>
         <Grid>
-          <Button Style="{DynamicResource ImageButtonStyle}" x:Name="_contactButton"
-                  Background="{DynamicResource muc_design}" Width="24" HorizontalAlignment="Left" Click="OnContactClick" Height="24" />
-          <TextBlock Text="{Binding Path=Service.Name}" Style="{DynamicResource MegaTextBlockStyle}" Margin="34,0,0,0"/>
+		<StackPanel HorizontalAlignment="Left" Margin="35,0,0,0">
+			<TextBlock Text="{Binding Path=Service.Name}" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap" />
+	        	<ContentControl ContentTemplate="{DynamicResource MucRoomProps}" Content="{Binding Path=Service}" ToolTip="Display Time" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,10,0,0"/>
+		</StackPanel>
+        <Button Style="{DynamicResource ImageButtonStyle}" x:Name="_contactButton"
+                  Background="{DynamicResource muc_design}" Width="24" HorizontalAlignment="Left" Click="OnContactClick" Height="24" Margin="0,0,0,0" VerticalAlignment="Top" />
         </Grid>
-        <ContentControl ContentTemplate="{DynamicResource MucRoomProps}" Content="{Binding Path=Service}" HorizontalAlignment="Left" Margin="34,0,0,0" ToolTip="Display Time"/>
+	  </Expander.Header>
+	  
+      <StackPanel Margin="0,5,0,0">
         <Rectangle Fill="#FFFFFFFF" Margin="0,5,0,5" Height="1" DockPanel.Dock="Top">
           <Rectangle.OpacityMask>
             <RadialGradientBrush>
