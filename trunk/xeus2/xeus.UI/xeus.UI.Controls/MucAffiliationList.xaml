@@ -5,29 +5,27 @@
     x:Class="xeus2.xeus.UI.xeus.UI.Controls.MucAffiliationList"
     >
   <UserControl.Resources>
-    <ItemsPanelTemplate x:Key="ItemsPanelTemplateMucAff">
+    <!--<ItemsPanelTemplate x:Key="ItemsPanelTemplateMucAff">
       <VirtualizingStackPanel IsItemsHost="True"/>
-      <!--<WrapPanel IsItemsHost="True" />-->
-    </ItemsPanelTemplate>
+      <WrapPanel IsItemsHost="True" />
+    </ItemsPanelTemplate>-->
 
     <CollectionViewSource x:Key="MucAffContacts" Source="{Binding Path=AffContacts}">
     </CollectionViewSource>
   </UserControl.Resources>
 
-  <Grid>
-  	<TextBlock Text="{Binding Path=Affiliation}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="0"/>
-	  <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-        <TextBox x:Name="_name" MinWidth="100" VerticalAlignment="Top" Text="{Binding Path=SelectedValue, ElementName=_list, Mode=Default}"/>
-	      <Button HorizontalAlignment="Right" Margin="5,0,0,0" VerticalAlignment="Top"
-                Click="Add" Background="{DynamicResource add_design}" Style="{DynamicResource ImageButtonStyle}" Width="20" Height="20" ToolTip="Add"/>
-	      <Button HorizontalAlignment="Right" Margin="2,0,0,0" VerticalAlignment="Top"
-                Background="{DynamicResource delete_design}" Style="{DynamicResource ImageButtonStyle}" Width="20" Height="20" ToolTip="Remove"
-                Click="Remove" />
-      </StackPanel>
-		  <ListBox ItemsPanel="{StaticResource ItemsPanelTemplateMucAff}"
-               ItemTemplate="{DynamicResource MucAffContactItem}"
-               Background="{x:Null}" BorderBrush="{x:Null}"
-               Margin="0,50,0,0" ItemsSource="{Binding Source={StaticResource MucAffContacts}}"
-               ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name="_list" />
-    </Grid>
+<Border Margin="3,3,3,3" BorderBrush="{DynamicResource DefaultTextBrush}" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" Padding="3,3,3,3">	
+	<StackPanel>
+		<TextBlock Text="{Binding Path=Affiliation}"/>
+		<StackPanel Orientation="Horizontal">
+			<TextBox x:Name="_name" MinWidth="100" VerticalAlignment="Top"/>
+			<Button HorizontalAlignment="Right" Margin="5,0,0,0" VerticalAlignment="Top"
+				Click="Add" Content="Add"/>
+		</StackPanel>
+		<ListBox ItemTemplate="{DynamicResource MucAffContactItem}"
+			Background="{x:Null}" BorderBrush="{x:Null}"
+			ItemsSource="{Binding Source={StaticResource MucAffContacts}}"
+			ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name="_list" />
+	</StackPanel>
+</Border>
 </UserControl>

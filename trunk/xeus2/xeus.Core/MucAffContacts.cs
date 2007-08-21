@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using agsXMPP;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.x.muc;
 using agsXMPP.protocol.x.muc.iq.admin;
-using xeus2.xeus.Utilities;
-using Item = agsXMPP.protocol.x.muc.iq.admin.Item;
+using Item=agsXMPP.protocol.x.muc.iq.admin.Item;
 
 namespace xeus2.xeus.Core
 {
@@ -19,6 +17,7 @@ namespace xeus2.xeus.Core
         private ObservableCollectionDisp<MucAffContact> _affContacts = new ObservableCollectionDisp<MucAffContact>();
 
         public delegate void EventChangeCallback(object sender, MucAffContact mucAffContact);
+
         public event EventChangeCallback OnChange;
 
         public Affiliation Affiliation
@@ -71,7 +70,7 @@ namespace xeus2.xeus.Core
                     Item[] items = admin.GetItems();
                     foreach (Item item in items)
                     {
-                        contacts.Add(new MucAffContact(item));
+                        contacts.Add(new MucAffContact(item, this));
                     }
 
                     lock (_affContacts._syncObject)
@@ -86,34 +85,38 @@ namespace xeus2.xeus.Core
         {
             switch (Affiliation)
             {
-                case agsXMPP.protocol.x.muc.Affiliation.owner:
+                case Affiliation.owner:
                     {
                         _manager.GrantOwnershipPrivileges(_mucRoom.Service.Jid, new Jid(text),
-                            new IqCB(OnAddResult), new MucAffContact(new Jid(text), agsXMPP.protocol.x.muc.Affiliation.owner));
+                                                          new IqCB(OnAddResult),
+                                                          new MucAffContact(new Jid(text), Affiliation.owner, this));
                         break;
                     }
-                case agsXMPP.protocol.x.muc.Affiliation.admin:
+                case Affiliation.admin:
                     {
                         _manager.GrantAdminPrivileges(_mucRoom.Service.Jid, new Jid(text),
-                            new IqCB(OnAddResult), new MucAffContact(new Jid(text), agsXMPP.protocol.x.muc.Affiliation.admin));
+                                                      new IqCB(OnAddResult),
+                                                      new MucAffContact(new Jid(text), Affiliation.admin, this));
                         break;
                     }
-                case agsXMPP.protocol.x.muc.Affiliation.member:
+                case Affiliation.member:
                     {
-                       _manager.GrantMembership(_mucRoom.Service.Jid, new Jid(text), String.Empty,
-                            new IqCB(OnAddResult), new MucAffContact(new Jid(text), agsXMPP.protocol.x.muc.Affiliation.member));
+                        _manager.GrantMembership(_mucRoom.Service.Jid, new Jid(text), String.Empty,
+                                                 new IqCB(OnAddResult),
+                                                 new MucAffContact(new Jid(text), Affiliation.member, this));
                         break;
                     }
-                case agsXMPP.protocol.x.muc.Affiliation.outcast:
+                case Affiliation.outcast:
                     {
                         _manager.BanUser(_mucRoom.Service.Jid, new Jid(text), String.Empty,
-                            new IqCB(OnAddResult), new MucAffContact(new Jid(text), agsXMPP.protocol.x.muc.Affiliation.outcast));
+                                         new IqCB(OnAddResult),
+                                         new MucAffContact(new Jid(text), Affiliation.outcast, this));
                         break;
                     }
             }
         }
 
-        MucAffContact Find(string text)
+        private MucAffContact Find(string text)
         {
             lock (_affContacts._syncObject)
             {
@@ -129,16 +132,11 @@ namespace xeus2.xeus.Core
             return null;
         }
 
-        public void Remove(string text)
+        public void RemoveFromGroup(MucAffContact mucAffContact)
         {
-            MucAffContact mucAffContact = Find(text);
-
-            if (mucAffContact != null)
-            {
-                Item item = new Item(agsXMPP.protocol.x.muc.Affiliation.none, new Jid(mucAffContact.Jid));
-                _manager.ModifyList(_mucRoom.Service.Jid, new Item[] { item },
-                                    new IqCB(OnRemoveResult), mucAffContact);
-            }
+            Item item = new Item(Affiliation.none, new Jid(mucAffContact.Jid));
+            _manager.ModifyList(_mucRoom.Service.Jid, new Item[] {item},
+                                new IqCB(OnRemoveResult), mucAffContact);
         }
 
         private void OnRemoveResult(object sender, IQ iq, object data)

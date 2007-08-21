@@ -1,5 +1,6 @@
 using System.Windows;
 using agsXMPP.protocol.x.muc;
+using xeus2.xeus.Commands;
 using xeus2.xeus.Core;
 
 namespace xeus2.xeus.UI
@@ -18,6 +19,8 @@ namespace xeus2.xeus.UI
             _mucRoom = mucRoom;
 
             _muc.Setup(mucRoom);
+
+            MucCommands.RegisterCommands(this);
 
             _affOwner.AffContacts.SetupAffiliations(mucRoom, Affiliation.owner);
             _affOwner.AffContacts.OnChange += new MucAffContacts.EventChangeCallback(OnChange);
