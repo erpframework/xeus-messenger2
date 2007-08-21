@@ -39,7 +39,10 @@ namespace xeus2.xeus.Core
 
         internal void SetupAffiliations(MucRoom mucRoom, Affiliation affiliation)
         {
-            _affContacts.Clear();
+            lock (_affContacts._syncObject)
+            {
+                _affContacts.Clear();
+            }
 
             _affiliation = affiliation;
             _mucRoom = mucRoom;
@@ -110,35 +113,46 @@ namespace xeus2.xeus.Core
             }
         }
 
+        MucAffContact Find(string text)
+        {
+            lock (_affContacts._syncObject)
+            {
+                foreach (MucAffContact mucAffContact in _affContacts)
+                {
+                    if (mucAffContact.Jid == text.Trim())
+                    {
+                        return mucAffContact;
+                    }
+                }
+            }
+
+            return null;
+        }
+
         public void Remove(string text)
         {
-            switch (Affiliation)
+            MucAffContact mucAffContact = Find(text);
+
+            if (mucAffContact != null)
             {
-                    /*
-                case agsXMPP.protocol.x.muc.Affiliation.owner:
-                    {
-                        _manager.GrantOwnershipPrivileges(_mucRoom.Service.Jid, new Jid(text),
-                            new IqCB(OnAddResult), new MucAffContact(new Jid(text), agsXMPP.protocol.x.muc.Affiliation.owner));
-                        break;
-                    }
-                case agsXMPP.protocol.x.muc.Affiliation.admin:
-                    {
-                        _manager.GrantAdminPrivileges(_mucRoom.Service.Jid, new Jid(text),
-                            new IqCB(OnAddResult), new MucAffContact(new Jid(text), agsXMPP.protocol.x.muc.Affiliation.admin));
-                        break;
-                    }
-                case agsXMPP.protocol.x.muc.Affiliation.member:
-                    {
-                        _manager.RevokeMembership(_mucRoom.Service.Jid, new Jid(text), String.Empty,
-                             new IqCB(OnAddResult), new MucAffContact(new Jid(text), agsXMPP.protocol.x.muc.Affiliation.member));
-                        break;
-                    }
-                case agsXMPP.protocol.x.muc.Affiliation.outcast:
-                    {
-                        _manager.(_mucRoom.Service.Jid, new Jid(text), String.Empty,
-                            new IqCB(OnAddResult), new MucAffContact(new Jid(text), agsXMPP.protocol.x.muc.Affiliation.outcast));
-                        break;
-                    }*/
+                Item item = new Item(agsXMPP.protocol.x.muc.Affiliation.none, new Jid(mucAffContact.Jid));
+                _manager.ModifyList(_mucRoom.Service.Jid, new Item[] { item },
+                                    new IqCB(OnRemoveResult), mucAffContact);
+            }
+        }
+
+        private void OnRemoveResult(object sender, IQ iq, object data)
+        {
+            if (iq.Error != null)
+            {
+                Services.Instance.OnServiceItemError(sender, iq);
+            }
+            else if (iq.Type == IqType.result)
+            {
+                if (OnChange != null)
+                {
+                    OnChange(this, data as MucAffContact);
+                }
             }
         }
 
@@ -154,7 +168,10 @@ namespace xeus2.xeus.Core
                 {
                     OnChange(this, data as MucAffContact);
 
-                    _affContacts.Add(data as MucAffContact);
+                    lock (_affContacts._syncObject)
+                    {
+                        _affContacts.Add(data as MucAffContact);
+                    }
                 }
             }
         }
