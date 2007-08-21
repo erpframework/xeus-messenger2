@@ -31,10 +31,5 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _affContacts.AddNew(_name.Text);
             _name.Text = string.Empty;
         }
-
-        void Remove(object sender, RoutedEventArgs args)
-        {
-            _affContacts.Remove(_name.Text);
-        }
     }
 }

@@ -43,6 +43,9 @@ namespace xeus2.xeus.Commands
         private static RoutedUICommand _revokeMember =
             new RoutedUICommand("Revoke Membership", "RevokeMembership", typeof(MucCommands));
 
+        private static RoutedUICommand _affNone =
+            new RoutedUICommand("Remove from Group", "RemoveFromGroup", typeof(MucCommands));
+
         private static RoutedUICommand _sendPrivateMessage =
             new RoutedUICommand("Send Private Message", "SendPrivateMessage", typeof (MucCommands));
 
@@ -219,6 +222,14 @@ namespace xeus2.xeus.Commands
             }
         }
 
+        public static RoutedUICommand AffNone
+        {
+            get
+            {
+                return _affNone;
+            }
+        }
+
         public static void RegisterCommands(Window window)
         {
             window.CommandBindings.Add(
@@ -270,6 +281,9 @@ namespace xeus2.xeus.Commands
                 new CommandBinding(_revokeMember, ExecuteRevokeMember, CanExecuteRevokeMember));
 
             window.CommandBindings.Add(
+                new CommandBinding(_affNone, ExecuteAffNone, CanExecuteAffNone));
+
+            window.CommandBindings.Add(
                 new CommandBinding(_revokeModerator, ExecuteRevokeModerator, CanExecuteRevokeModerator));
 
             window.CommandBindings.Add(
@@ -277,6 +291,30 @@ namespace xeus2.xeus.Commands
 
             window.CommandBindings.Add(
                 new CommandBinding(_deleteMucMark, ExecuteDeleteMucMark, CanExecuteDeleteMucMark));
+        }
+
+        private static void CanExecuteAffNone(object sender, CanExecuteRoutedEventArgs e)
+        {
+            MucAffContact mucAffContact = e.Parameter as MucAffContact;
+
+            if (mucAffContact != null)
+            {
+                e.CanExecute = true;
+            }
+
+            e.Handled = true;
+        }
+
+        private static void ExecuteAffNone(object sender, ExecutedRoutedEventArgs e)
+        {
+            MucAffContact mucAffContact = e.Parameter as MucAffContact;
+
+            if (mucAffContact != null)
+            {
+                mucAffContact.MucAffContacts.RemoveFromGroup(mucAffContact);
+            }
+
+            e.Handled = true;
         }
 
         private static void CanExecuteRevokeModerator(object sender, CanExecuteRoutedEventArgs e)

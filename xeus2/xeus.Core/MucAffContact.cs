@@ -24,13 +24,25 @@ namespace xeus2.xeus.Core
 
         private readonly Item _item;
 
-        public MucAffContact(Item item)
+        public MucAffContacts MucAffContacts
         {
-            _item = item;
+            get
+            {
+                return _mucAffContacts;
+            }
         }
 
-        public MucAffContact(Jid jid, Affiliation affiliation)
+        readonly MucAffContacts _mucAffContacts;
+
+        public MucAffContact(Item item, MucAffContacts mucAffContacts)
         {
+            _item = item;
+            _mucAffContacts = mucAffContacts;
+        }
+
+        public MucAffContact(Jid jid, Affiliation affiliation, MucAffContacts mucAffContacts)
+        {
+            _mucAffContacts = mucAffContacts;
             _item = new Item(affiliation);
             _item.Jid = jid;
         }
