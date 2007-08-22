@@ -5,7 +5,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
     xmlns:xeus2_xeus_Core="clr-namespace:xeus2.xeus.Core"
     xmlns:xeus2_xeus_Utils="clr-namespace:xeus2.xeus.Utilities"
-	xmlns:xeus2_xeus_UI="clr-namespace:xeus2.xeus.UI"
+	  xmlns:xeus2_xeus_UI="clr-namespace:xeus2.xeus.UI"
+    xmlns:xeus2_xeus_Ctrl="clr-namespace:xeus2.xeus.UI.xeus.UI.Controls"
     xmlns:servicecmd="clr-namespace:xeus2.xeus.Commands"
   	xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     x:Class="xeus2.xeus.UI.ServiceWindow"
@@ -61,12 +62,7 @@
           </StackPanel>
         </Border>
           <Border DockPanel.Dock="Bottom" Background="{DynamicResource back_x_design}" Padding="10,10,10,10">
-            <DockPanel>
-              <Button Margin="10,0,0,0" Content="Create reserved" DockPanel.Dock="Right" x:Name="_create"/>
-              <Button Margin="10,0,0,0" Content="Join/Create" DockPanel.Dock="Right" x:Name="_join"/>
-              <Rectangle Margin="0,0,5,0" Width="18" Height="18" Fill="{DynamicResource muc_design}"/>
-              <TextBox x:Name="_jid"/>
-            </DockPanel>
+            <xeus2_xeus_Ctrl:CreateMucRoom/>
           </Border>
           <Border Background="{DynamicResource chat_back_design}" BorderBrush="{x:Null}" DockPanel.Dock="Top">
           <ListView DockPanel.Dock="Top" Background="{x:Null}" MouseDoubleClick="MucDblClick"

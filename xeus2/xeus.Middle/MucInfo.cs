@@ -71,14 +71,14 @@ namespace xeus2.xeus.Middle
 
         protected static void MucLoginInternalMark(MucMark mucMark)
         {
-            RoomLogin roomLogin = new RoomLogin(mucMark);
+            RoomLogin roomLogin = new RoomLogin(mucMark, null);
 
             roomLogin.Show();
         }
 
 		protected static void MucLoginInternal( Service service, string forceNick )
 		{
-			RoomLogin roomLogin = new RoomLogin( service, forceNick );
+			RoomLogin roomLogin = new RoomLogin( service.Jid.Bare, forceNick );
 
 			roomLogin.Show() ;
 		}

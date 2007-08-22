@@ -34,6 +34,13 @@ namespace xeus2.xeus.Core
             _time = DateTime.Now;
         }
 
+        public MucMark(string jid)
+        {
+            _jid = jid;
+
+            _time = DateTime.Now;           
+        }
+
         public MucMark(Service service, string nick, string password) : this(service)
         {
             _nick = nick;

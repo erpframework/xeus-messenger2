@@ -1249,22 +1249,22 @@
 		
 		<DataTemplate.Triggers>
 	  		<DataTrigger Binding="{Binding Path=IsMucPasswordProtected}" Value="False">
-	  			<Setter Property="Visibility" TargetName="_mucPasswd" Value="Collapsed"/>
+	  			<Setter Property="Opacity" TargetName="_mucPasswd" Value="0.2"/>
 	  		</DataTrigger>
 	  		<DataTrigger Binding="{Binding Path=IsMucHidden}" Value="False">
-	  			<Setter Property="Visibility" TargetName="_mucHidden" Value="Collapsed"/>
+	  			<Setter Property="Opacity" TargetName="_mucHidden" Value="0.2"/>
 	  		</DataTrigger>
 	  		<DataTrigger Binding="{Binding Path=IsMucTemporary}" Value="False">
-	  			<Setter Property="Visibility" TargetName="_mucTemp" Value="Collapsed"/>
+	  			<Setter Property="Opacity" TargetName="_mucTemp" Value="0.2"/>
 	  		</DataTrigger>
 	  		<DataTrigger Binding="{Binding Path=IsMucOpen}" Value="False">
-	  			<Setter Property="Visibility" TargetName="_mucOpen" Value="Collapsed"/>
+	  			<Setter Property="Opacity" TargetName="_mucOpen" Value="0.2"/>
 	  		</DataTrigger>
 	  		<DataTrigger Binding="{Binding Path=IsMucModerated}" Value="False">
-	  			<Setter Property="Visibility" TargetName="_mucModerated" Value="Collapsed"/>
+	  			<Setter Property="Opacity" TargetName="_mucModerated" Value="0.2"/>
 	  		</DataTrigger>
 	  		<DataTrigger Binding="{Binding Path=IsMucNonAnonymous}" Value="False">
-	  			<Setter Property="Visibility" TargetName="_mucNonAnon" Value="Collapsed"/>
+	  			<Setter Property="Opacity" TargetName="_mucNonAnon" Value="0.2"/>
 	  		</DataTrigger>
     </DataTemplate.Triggers>
 	</DataTemplate>

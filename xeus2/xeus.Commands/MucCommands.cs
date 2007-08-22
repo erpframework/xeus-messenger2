@@ -742,7 +742,8 @@ namespace xeus2.xeus.Commands
             }
             else if (e.Parameter is MucRoom)
             {
-                e.CanExecute = true;
+                MucRoom mucRoom = (MucRoom)e.Parameter;
+                e.CanExecute = !MucMarks.Instance.IsBookmarked(mucRoom.Service);
             }
 
             e.Handled = true;
