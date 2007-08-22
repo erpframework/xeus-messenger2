@@ -17,10 +17,6 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             InitializeComponent();
         }
 
-        private void OnReserved(object sender, RoutedEventArgs args)
-        {
-        }
-
         private void OnJoin(object sender, RoutedEventArgs args)
         {
             MucInfo.Instance.MucLogin(new MucMark(_jid.Text));
