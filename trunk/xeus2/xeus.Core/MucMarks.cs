@@ -95,16 +95,21 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public MucMark Find(Service service)
+        public MucMark Find(string bare)
         {
             MucMark mucMark;
 
             lock (_syncObject)
             {
-                _mucMarks.TryGetValue(service.Jid.Bare, out mucMark);
+                _mucMarks.TryGetValue(bare, out mucMark);
             }
 
             return mucMark;
+        }
+
+        public MucMark Find(Service service)
+        {
+            return Find(service.Jid.Bare);
         }
     }
 }

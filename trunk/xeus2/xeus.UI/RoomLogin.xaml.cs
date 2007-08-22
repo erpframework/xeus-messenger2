@@ -13,11 +13,21 @@ namespace xeus2.xeus.UI
 	{
 	    private MucMark _mucMark;
 
-        void Login(MucMark mucMark)
+        void Login(string bare, string forceNick)
         {
-            _mucMark = mucMark;
+            Jid jid = new Jid(bare);
 
-            Jid jid = new Jid(mucMark.Jid);
+            _mucMark = MucMarks.Instance.Find(bare);
+
+            if (_mucMark == null)
+            {
+                _mucMark = new MucMark(bare);
+            }
+
+            if (!string.IsNullOrEmpty(forceNick))
+            {
+                _mucMark.Nick = forceNick;
+            }
 
             Service service;
 
@@ -28,9 +38,9 @@ namespace xeus2.xeus.UI
 
             if (service == null)
             {
-                if (mucMark.Service != null)
+                if (_mucMark.Service != null)
                 {
-                    service = mucMark.Service;
+                    service = _mucMark.Service;
                 }
                 else
                 {
@@ -44,9 +54,9 @@ namespace xeus2.xeus.UI
 
             InitializeComponent();
 
-            if (!string.IsNullOrEmpty(mucMark.Nick))
+            if (!string.IsNullOrEmpty(_mucMark.Nick))
             {
-                _nick.Text = mucMark.Nick;
+                _nick.Text = _mucMark.Nick;
             }
             else
             {
@@ -58,17 +68,24 @@ namespace xeus2.xeus.UI
                 _passwordPanel.Visibility = Visibility.Collapsed;
             }
 
-            if (!string.IsNullOrEmpty(mucMark.Password))
+            if (!string.IsNullOrEmpty(_mucMark.Password))
             {
-                _password.Password = mucMark.Password;
+                _password.Password = _mucMark.Password;
             }            
         }
-        internal RoomLogin(MucMark mucMark)
+
+        internal RoomLogin(MucMark mucMark, string forceNick)
         {
-            Login(mucMark);
+            Login(mucMark.Jid, forceNick);
         }
 
-		internal RoomLogin( Service service, string forceNick )
+        internal RoomLogin(string jid, string forceNick)
+        {
+            Login(jid, forceNick);
+        }
+
+        /*
+        internal RoomLogin(Service service, string forceNick)
 		{
 		    MucMark mucMark = MucMarks.Instance.Find(service);
 
@@ -101,7 +118,7 @@ namespace xeus2.xeus.UI
 			{
 				_passwordPanel.Visibility = Visibility.Collapsed ;
 			}
-		}
+		}*/
 
 		protected void OnJoin( object sender, RoutedEventArgs eventArgs )
 		{
