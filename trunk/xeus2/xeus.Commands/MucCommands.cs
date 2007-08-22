@@ -70,6 +70,10 @@ namespace xeus2.xeus.Commands
          private static RoutedUICommand _deleteMucMark =
             new RoutedUICommand("Delete MUC Bookmark", "DeleteMucMark", typeof(MucCommands));
 
+        private static RoutedUICommand _destroyRoom =
+           new RoutedUICommand("Destroy Room", "DestroyRoom", typeof(MucCommands));
+
+
        public static RoutedUICommand ChangeStatus
         {
             get
@@ -230,6 +234,14 @@ namespace xeus2.xeus.Commands
             }
         }
 
+        public static RoutedUICommand DestroyRoom
+        {
+            get
+            {
+                return _destroyRoom;
+            }
+        }
+
         public static void RegisterCommands(Window window)
         {
             window.CommandBindings.Add(
@@ -291,6 +303,26 @@ namespace xeus2.xeus.Commands
 
             window.CommandBindings.Add(
                 new CommandBinding(_deleteMucMark, ExecuteDeleteMucMark, CanExecuteDeleteMucMark));
+
+            window.CommandBindings.Add(
+                new CommandBinding(_destroyRoom, ExecuteDestroyRoom, CanExecuteDestroyRoom));
+        }
+
+        private static void CanExecuteDestroyRoom(object sender, CanExecuteRoutedEventArgs e)
+        {
+            MucContact mucContact = e.Parameter as MucContact;
+
+            if (mucContact != null)
+            {
+                e.CanExecute = (mucContact.MucRoom.Me.Affiliation == Affiliation.owner);
+            }
+
+            e.Handled = true;
+        }
+
+        private static void ExecuteDestroyRoom(object sender, ExecutedRoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private static void CanExecuteAffNone(object sender, CanExecuteRoutedEventArgs e)

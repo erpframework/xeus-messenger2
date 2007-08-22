@@ -2,10 +2,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <DockPanel>
-    <Button Margin="10,0,0,0" Content="Create reserved" DockPanel.Dock="Right" x:Name="_create"
-            Click="OnReserved"/>
     <Button Margin="10,0,0,0" Content="Join/Create" DockPanel.Dock="Right" x:Name="_join"
-            Click="OnJoin"/>
+            Click="OnJoin" ToolTip="Join exisiting or create new MUC room"/>
     <Rectangle Margin="0,0,5,0" Width="18" Height="18" Fill="{DynamicResource muc_design}"/>
     <TextBox x:Name="_jid"/>
   </DockPanel>

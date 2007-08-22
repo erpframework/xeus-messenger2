@@ -107,6 +107,16 @@ namespace xeus2.xeus.Core
 
                     _mucMessages.Add(mucMessage);
                 }
+
+                if (eventMucRoom.TypicalEventCode == TypicalEvent.RoomCreated
+                    && eventMucRoom.User != null && eventMucRoom.User.Item != null
+                    && JidUtil.Equals(eventMucRoom.User.Item.Jid, Account.Instance.MyJid))
+                {
+                    MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
+                                                                       "If you want to make this room permanent open room cinfiguration and save it"), null);
+
+                    _mucMessages.Add(mucMessage);                    
+                }
             }
         }
 
@@ -697,6 +707,23 @@ namespace xeus2.xeus.Core
                 }
                 else
                 {
+                    if (presence.MucUser != null)
+                    {
+                        switch (presence.MucUser.Status.Code)
+                        {
+                            case StatusCode.RoomCreated:
+                                {
+                                    EventMucRoom eventMucRoom = new EventMucRoom(TypicalEvent.RoomCreated,
+                                                                                 this, presence.MucUser,
+                                                                                 "This MUC room has been just created");
+
+                                    Events.Instance.OnEvent(this, eventMucRoom, DispatcherPriority.ApplicationIdle);
+
+                                    break;
+                                }
+                        }
+                    }
+
                     if (presence.Type == PresenceType.unavailable
                         && presence.MucUser != null
                         && presence.MucUser.Status != null)
@@ -705,7 +732,7 @@ namespace xeus2.xeus.Core
                         {
                             EventMucRoom eventMucRoom = new EventMucRoom( TypicalEvent.NickChange,
                                                                             this, presence.MucUser,
-                                                                         string.Format(
+                                                                            string.Format(
                                                                              "'{0}' is now known as '{1}'",
                                                                              presence.From.Resource,
                                                                              presence.MucUser.Item.Nickname));
