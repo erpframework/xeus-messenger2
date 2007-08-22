@@ -1176,16 +1176,16 @@
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
 				<DrawingGroup.Children>
-					<GeometryDrawing Geometry="F1 M 13.5764,7.72222C 15.6723,7.72222 17.3715,9.42136 17.3715,11.5173C 17.3715,13.6133 15.6723,15.3125 13.5764,15.3125C 11.4804,15.3125 9.78124,13.6133 9.78124,11.5173C 9.78124,9.42136 11.4804,7.72222 13.5764,7.72222 Z ">
+					<GeometryDrawing Geometry="F1 M 13.5764,7.72223C 15.6723,7.72223 17.3715,9.42136 17.3715,11.5173C 17.3715,13.6133 15.6723,15.3125 13.5764,15.3125C 11.4804,15.3125 9.78124,13.6133 9.78124,11.5173C 9.78124,9.42136 11.4804,7.72223 13.5764,7.72223 Z ">
 						<GeometryDrawing.Pen>
-							<Pen LineJoin="Round" Brush="#803D3D3D"/>
+							<Pen LineJoin="Round" Brush="#FF3D3D3D"/>
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Brush>
 							<RadialGradientBrush RadiusX="0.457739" RadiusY="0.457739" Center="0.5,0.5" GradientOrigin="0.5,0.5">
 								<RadialGradientBrush.GradientStops>
-									<GradientStop Color="#80EFD4BC" Offset="0"/>
-									<GradientStop Color="#80E7B572" Offset="0.716102"/>
-									<GradientStop Color="#80C39B6F" Offset="1"/>
+									<GradientStop Color="#FFEFD4BC" Offset="0"/>
+									<GradientStop Color="#FFE7B572" Offset="0.716102"/>
+									<GradientStop Color="#FFC39B6F" Offset="1"/>
 								</RadialGradientBrush.GradientStops>
 								<RadialGradientBrush.RelativeTransform>
 									<TransformGroup/>
@@ -1195,14 +1195,14 @@
 					</GeometryDrawing>
 					<GeometryDrawing Geometry="F1 M 13.5787,7.75086C 12.1396,7.75086 10.8876,8.55186 10.2442,9.73234C 10.4448,10.3524 10.8885,10.9018 11.4902,11.18C 12.3336,11.5698 13.4872,11.4266 14.3028,11.0686C 15.1183,10.7106 15.5956,10.1377 16.1605,9.69217C 16.3259,9.56172 16.4988,9.44217 16.6531,9.32036C 15.9634,8.36936 14.8433,7.75086 13.5787,7.75086 Z ">
 						<GeometryDrawing.Pen>
-							<Pen LineJoin="Round" Brush="#803D3D3D"/>
+							<Pen LineJoin="Round" Brush="#FF3D3D3D"/>
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Brush>
 							<RadialGradientBrush RadiusX="0.471173" RadiusY="0.748818" Center="0.5,0.516855" GradientOrigin="0.5,0.516855">
 								<RadialGradientBrush.GradientStops>
-									<GradientStop Color="#80DDDB6D" Offset="0"/>
-									<GradientStop Color="#80AA903D" Offset="0.711864"/>
-									<GradientStop Color="#808B7625" Offset="0.978814"/>
+									<GradientStop Color="#FFDDDB6D" Offset="0"/>
+									<GradientStop Color="#FFAA903D" Offset="0.711864"/>
+									<GradientStop Color="#FF8B7625" Offset="0.978814"/>
 								</RadialGradientBrush.GradientStops>
 								<RadialGradientBrush.RelativeTransform>
 									<TransformGroup/>
@@ -1210,27 +1210,27 @@
 							</RadialGradientBrush>
 						</GeometryDrawing.Brush>
 					</GeometryDrawing>
-					<GeometryDrawing Brush="#80FFFFFF" Geometry="F1 M 13.6117,19.8048L 12.2653,15.0923C 12.6638,15.2344 13.093,15.3118 13.5403,15.3118C 14.1036,15.3118 14.6383,15.189 15.119,14.9688L 13.6117,19.8048 Z ">
+					<GeometryDrawing Geometry="F1 M 19.0448,20.4505C 17.4447,21.4858 15.6033,22.0753 13.644,22.0753C 11.6066,22.0753 9.69672,21.4379 8.05295,20.3246C 8.48881,17.7141 9.63662,15.5673 11.1442,14.4462C 11.8,14.987 12.6405,15.3118 13.5569,15.3118C 14.4652,15.3118 15.299,14.9927 15.9523,14.4605C 17.4746,15.6035 18.627,17.7943 19.0448,20.4505 Z ">
 						<GeometryDrawing.Pen>
-							<Pen LineJoin="Round" Brush="#803D3D3D"/>
-						</GeometryDrawing.Pen>
-					</GeometryDrawing>
-					<GeometryDrawing Geometry="F1 M 19.0448,20.4505C 17.4447,21.4858 15.6033,22.0753 13.644,22.0753C 11.6066,22.0753 9.69672,21.4379 8.05295,20.3246C 8.48881,17.7141 9.63661,15.5673 11.1442,14.4462C 11.8,14.987 12.6405,15.3118 13.5569,15.3118C 14.4652,15.3118 15.299,14.9927 15.9523,14.4605C 17.4746,15.6035 18.627,17.7943 19.0448,20.4505 Z ">
-						<GeometryDrawing.Pen>
-							<Pen LineJoin="Round" Brush="#803D3D3D"/>
+							<Pen LineJoin="Round" Brush="#FF3D3D3D"/>
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Brush>
 							<RadialGradientBrush RadiusX="0.5" RadiusY="0.694852" Center="0.5,0.5" GradientOrigin="0.5,0.5">
 								<RadialGradientBrush.GradientStops>
-									<GradientStop Color="#80CBB36A" Offset="0"/>
-									<GradientStop Color="#80838222" Offset="0.716102"/>
-									<GradientStop Color="#804E3A0A" Offset="0.995763"/>
+									<GradientStop Color="#FFCDC7B5" Offset="0"/>
+									<GradientStop Color="#FF8E8E74" Offset="0.707627"/>
+									<GradientStop Color="#FF4E3A0A" Offset="0.995763"/>
 								</RadialGradientBrush.GradientStops>
 								<RadialGradientBrush.RelativeTransform>
 									<TransformGroup/>
 								</RadialGradientBrush.RelativeTransform>
 							</RadialGradientBrush>
 						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 13.6117,19.8048L 12.2653,15.0923C 12.6638,15.2344 13.093,15.3118 13.5403,15.3118C 14.1036,15.3118 14.6383,15.189 15.119,14.9688L 13.6117,19.8048 Z ">
+						<GeometryDrawing.Pen>
+							<Pen LineJoin="Round" Brush="#FF3D3D3D"/>
+						</GeometryDrawing.Pen>
 					</GeometryDrawing>
 				</DrawingGroup.Children>
 			</DrawingGroup>
@@ -1239,32 +1239,62 @@
 
 	<DataTemplate x:Key="MucRoomProps">
 		<StackPanel Orientation="Horizontal">
-			<Rectangle Fill="{DynamicResource register_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucPasswd" Height="16" ToolTip="Password protected room"/>
-			<Rectangle Fill="{DynamicResource ghost_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucHidden" Height="16" ToolTip="Hidden room"/>
-			<Rectangle Fill="{DynamicResource wait_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucTemp" Height="16" ToolTip="Temporary room"/>
-			<Rectangle Fill="{DynamicResource aff_none_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucOpen" Height="16" ToolTip="Open room"/>
-			<Rectangle Fill="{DynamicResource aff_admin_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucModerated" Height="16" ToolTip="Moderated room"/>
-			<Rectangle Fill="{DynamicResource muc_nonanon_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucNonAnon" Height="16" ToolTip="Non-Anonymous room"/>
+			<Rectangle Fill="{DynamicResource register_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucPasswd" Height="16" ToolTip="Password protected room" Margin="2,0,2,0">
+				<Rectangle.BitmapEffect>
+					<OuterGlowBitmapEffect GlowColor="#FFFFFFFF" GlowSize="2"/>
+				</Rectangle.BitmapEffect>
+			</Rectangle>
+			<Rectangle Fill="{DynamicResource ghost_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucHidden" Height="16" ToolTip="Hidden room" Margin="2,0,2,0">
+				<Rectangle.BitmapEffect>
+					<OuterGlowBitmapEffect GlowColor="#FFFFFFFF" GlowSize="2"/>
+				</Rectangle.BitmapEffect>
+			</Rectangle>
+			<Rectangle Fill="{DynamicResource wait_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucTemp" Height="16" ToolTip="Temporary room" Margin="2,0,2,0">
+				<Rectangle.BitmapEffect>
+					<OuterGlowBitmapEffect GlowColor="#FFFFFFFF" GlowSize="2"/>
+				</Rectangle.BitmapEffect>
+			</Rectangle>
+			<Rectangle Fill="{DynamicResource aff_none_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucOpen" Height="16" ToolTip="Open room" Margin="2,0,2,0">
+				<Rectangle.BitmapEffect>
+					<OuterGlowBitmapEffect GlowColor="#FFFFFFFF" GlowSize="2"/>
+				</Rectangle.BitmapEffect>
+			</Rectangle>
+			<Rectangle Fill="{DynamicResource aff_admin_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucModerated" Height="16" ToolTip="Moderated room" Margin="2,0,2,0">
+				<Rectangle.BitmapEffect>
+					<OuterGlowBitmapEffect GlowColor="#FFFFFFFF" GlowSize="2"/>
+				</Rectangle.BitmapEffect>
+			</Rectangle>
+			<Rectangle Fill="{DynamicResource muc_nonanon_design}" Width="16" HorizontalAlignment="Left" x:Name="_mucNonAnon" Height="16" ToolTip="Non-Anonymous room" Margin="2,0,2,0">
+				<Rectangle.BitmapEffect>
+					<OuterGlowBitmapEffect GlowColor="#FFFFFFFF" GlowSize="2"/>
+				</Rectangle.BitmapEffect>
+			</Rectangle>
 		</StackPanel>
 		
 		<DataTemplate.Triggers>
 	  		<DataTrigger Binding="{Binding Path=IsMucPasswordProtected}" Value="False">
 	  			<Setter Property="Opacity" TargetName="_mucPasswd" Value="0.2"/>
+				<Setter Property="Rectangle.BitmapEffect" TargetName="_mucPasswd" Value="{x:Null}"/>
 	  		</DataTrigger>
 	  		<DataTrigger Binding="{Binding Path=IsMucHidden}" Value="False">
 	  			<Setter Property="Opacity" TargetName="_mucHidden" Value="0.2"/>
+				<Setter Property="Rectangle.BitmapEffect" TargetName="_mucHidden" Value="{x:Null}"/>
 	  		</DataTrigger>
 	  		<DataTrigger Binding="{Binding Path=IsMucTemporary}" Value="False">
 	  			<Setter Property="Opacity" TargetName="_mucTemp" Value="0.2"/>
+				<Setter Property="Rectangle.BitmapEffect" TargetName="_mucTemp" Value="{x:Null}"/>
 	  		</DataTrigger>
 	  		<DataTrigger Binding="{Binding Path=IsMucOpen}" Value="False">
 	  			<Setter Property="Opacity" TargetName="_mucOpen" Value="0.2"/>
+				<Setter Property="Rectangle.BitmapEffect" TargetName="_mucOpen" Value="{x:Null}"/>
 	  		</DataTrigger>
 	  		<DataTrigger Binding="{Binding Path=IsMucModerated}" Value="False">
 	  			<Setter Property="Opacity" TargetName="_mucModerated" Value="0.2"/>
+				<Setter Property="Rectangle.BitmapEffect" TargetName="_mucModerated" Value="{x:Null}"/>
 	  		</DataTrigger>
 	  		<DataTrigger Binding="{Binding Path=IsMucNonAnonymous}" Value="False">
 	  			<Setter Property="Opacity" TargetName="_mucNonAnon" Value="0.2"/>
+				<Setter Property="Rectangle.BitmapEffect" TargetName="_mucNonAnon" Value="{x:Null}"/>
 	  		</DataTrigger>
     </DataTemplate.Triggers>
 	</DataTemplate>
