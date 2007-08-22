@@ -713,7 +713,8 @@ namespace xeus2.xeus.Commands
             if (mucContact != null)
             {
                 e.CanExecute = (mucContact.MucRoom.Me.Role == Role.moderator)
-                                && (mucContact.Role != Role.visitor);
+                                && (mucContact.Role != Role.visitor
+                                    && mucContact.Affiliation != Affiliation.owner);
             }
 
             e.Handled = true;
