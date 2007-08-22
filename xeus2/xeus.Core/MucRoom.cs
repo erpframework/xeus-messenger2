@@ -707,7 +707,8 @@ namespace xeus2.xeus.Core
                 }
                 else
                 {
-                    if (presence.MucUser != null)
+                    if (presence.MucUser != null
+                        && presence.MucUser.Status != null)
                     {
                         switch (presence.MucUser.Status.Code)
                         {
