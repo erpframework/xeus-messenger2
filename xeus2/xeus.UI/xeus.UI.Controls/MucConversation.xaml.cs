@@ -2,7 +2,10 @@ using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
+using agsXMPP.protocol.x.muc;
 using xeus2.Properties;
 using xeus2.xeus.Core;
 
@@ -34,7 +37,63 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
             Unloaded += new RoutedEventHandler(MucConversation_Unloaded);
 
+            _mucRoom.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(_mucRoom_PropertyChanged);
+
             _text.Focus();
+        }
+
+        void _mucRoom_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Me" && _mucRoom.Me != null)
+            {
+                _mucRoom.Me.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Me_PropertyChanged);
+
+                SetMyAffIcon();
+            }
+        }
+
+        void Me_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Affiliation")
+            {
+                SetMyAffIcon();
+            }
+        }
+
+        void SetMyAffIcon()
+        {
+            Brush brush ; 
+
+            switch (_mucRoom.Me.Affiliation)
+            {
+                case Affiliation.admin:
+                    {
+                        brush = StyleManager.GetBrush("aff_admin_design");
+                        break;
+                    }
+                case Affiliation.member:
+                    {
+                        brush = StyleManager.GetBrush("aff_member_design");
+                        break;
+                    }
+                case Affiliation.outcast:
+                    {
+                        brush = StyleManager.GetBrush("aff_outcast_design");
+                        break;
+                    }
+                case Affiliation.owner:
+                    {
+                        brush = StyleManager.GetBrush("aff_owner_design");
+                        break;
+                    }
+                default:
+                    {
+                        brush = StyleManager.GetBrush("aff_none_design");
+                        break;
+                    }
+            }
+
+            _contactButton.Background = brush;
         }
 
         private void MucConversation_Unloaded(object sender, RoutedEventArgs e)

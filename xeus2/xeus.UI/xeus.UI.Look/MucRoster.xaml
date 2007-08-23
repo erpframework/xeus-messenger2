@@ -1439,7 +1439,11 @@
 				<TextBlock Text="Group" Foreground="{DynamicResource DefaultTextBrush2}"/>
 			   	<TextBlock Text="{Binding Path=Group}" Foreground="{DynamicResource DefaultTextBrush2}" TextWrapping="Wrap" Margin="90,0,0,0"/>
 			</Grid>
-		</StackPanel>
+        <Grid Margin="0,3,0,0">
+          <TextBlock Text="Real Jid" Foreground="{DynamicResource DefaultTextBrush2}"/>
+          <TextBlock Text="{Binding Path=UserJidText}" Foreground="{DynamicResource DefaultTextBrush2}" TextWrapping="Wrap" Margin="90,0,0,0"/>
+        </Grid>
+      </StackPanel>
 	</DataTemplate>
 	
 	<Style x:Key="BasicFlowDocumentScrollViewerStyle" TargetType="{x:Type FlowDocumentScrollViewer}">

@@ -17,11 +17,38 @@ namespace xeus2.xeus.Core
 		    Presence = presence ;
 		}
 
+        public string UserJidText
+        {
+            get
+            {
+                if (Presence != null
+                    && Presence.MucUser != null
+                    && Presence.MucUser.Item != null
+                    && Presence.MucUser.Item.Jid != null)
+                {
+                    return Presence.MucUser.Item.Jid.ToString();
+                }
+                else
+                {
+                    return "Undisclosed";
+                }
+            }
+        }
+
 	    public Jid UserJid
 	    {
 	        get
 	        {
-	            return Presence.MucUser.Item.Jid;
+                if (Presence != null
+                    && Presence.MucUser != null
+                    && Presence.MucUser.Item != null)
+                {
+                    return Presence.MucUser.Item.Jid;
+                }
+                else
+                {
+                    return null;
+                }
 	        }
 	    }
 
