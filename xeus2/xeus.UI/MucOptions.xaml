@@ -317,7 +317,7 @@
             <xeus2_xeus_Controls:MucAffiliationList x:Name="_affMembers"/>
           </WrapPanel>
         </TabItem>
-        <TabItem Foreground="{DynamicResource tabitem_foreground}">
+        <TabItem Foreground="{DynamicResource tabitem_foreground}" x:Name="_tabForm">
           <TabItem.Header>
             <Border Padding="5,5,5,5">
               <Grid>

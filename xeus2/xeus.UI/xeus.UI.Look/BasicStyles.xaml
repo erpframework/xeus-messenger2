@@ -1225,11 +1225,6 @@
       <Setter Property="HasDropShadow" Value="True"/>
   </Style>
 
-  <Style TargetType="{x:Type Menu}">
-    <Setter Property="OverridesDefaultStyle" Value="True"/>
-    <Setter Property="Template" Value="{DynamicResource ContextMenuControlTemplate}"/>
-  </Style>
-
   <ControlTemplate x:Key="ContextMenuControlTemplate" TargetType="{x:Type ContextMenu}">
     <Border Background="{DynamicResource back_menu_design}"
             BorderBrush="Black" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" Padding="2,2,2,2">
