@@ -569,14 +569,16 @@ namespace xeus2.xeus.Commands
             {
                 MucContact mucContact = e.Parameter as MucContact;
                 e.CanExecute = (mucContact != null && mucContact.MucRoom != null && mucContact.MucRoom.Me != null
-                                && mucContact.MucRoom.Me.Affiliation == Affiliation.owner);
+                                && (mucContact.MucRoom.Me.Affiliation == Affiliation.owner
+                                    || mucContact.MucRoom.Me.Affiliation == Affiliation.admin));
 
             }
             else if (e.Parameter is MucRoom)
             {
                 MucRoom mucRoom = e.Parameter as MucRoom;
                 e.CanExecute = (mucRoom != null && mucRoom.Me != null
-                                && mucRoom.Me.Affiliation == Affiliation.owner);
+                                && (mucRoom.Me.Affiliation == Affiliation.owner
+                                    || mucRoom.Me.Affiliation == Affiliation.admin));
             }
 
             e.Handled = true;

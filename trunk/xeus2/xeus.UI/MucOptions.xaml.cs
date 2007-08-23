@@ -33,6 +33,8 @@ namespace xeus2.xeus.UI
 
             _affMembers.AffContacts.SetupAffiliations(mucRoom, Affiliation.member);
             _affMembers.AffContacts.OnChange += new MucAffContacts.EventChangeCallback(OnChange);
+
+            _tabForm.IsEnabled = (_mucRoom.Me.Affiliation == Affiliation.owner);
         }
 
         void OnChange(object sender, MucAffContact mucAffContact)
