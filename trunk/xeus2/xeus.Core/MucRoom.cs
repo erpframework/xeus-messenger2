@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.Text.RegularExpressions;
 using System.Timers;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -15,6 +16,7 @@ using agsXMPP.Collections;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.x.muc;
 using xeus2.Properties;
+using xeus2.xeus.Commands;
 using xeus2.xeus.UI;
 using xeus2.xeus.Utilities;
 using Uri=System.Uri;
@@ -48,22 +50,14 @@ namespace xeus2.xeus.Core
 
         private MucMessage _lastMessage = null;
 
+        private MucContact _me = null;
+
+
         public MucContact Me
         {
             get
             {
-                lock (_mucRoster._syncObject)
-                {
-                    foreach (MucContact mucContact in _mucRoster)
-                    {
-                        if (mucContact.Nick == Nick)
-                        {
-                            return mucContact;
-                        }
-                    }
-                }
-
-                return null;
+                return _me;
             }
         }
 
@@ -113,7 +107,7 @@ namespace xeus2.xeus.Core
                     && JidUtil.Equals(eventMucRoom.User.Item.Jid, Account.Instance.MyJid))
                 {
                     MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
-                                                                       "If you want to make this room permanent open room cinfiguration and save it"), null);
+                                                                       "{CREATE_MUC_ROOM}"), null);
 
                     _mucMessages.Add(mucMessage);                    
                 }
@@ -358,7 +352,26 @@ namespace xeus2.xeus.Core
                 paragraph.Foreground = _sysTextBrush;
             }
 
-            if (!string.IsNullOrEmpty(message.Body))
+            bool isSpecialSystemMessage = false;
+
+            switch (message.Body)
+            {
+                case "{CREATE_MUC_ROOM}":
+                    {
+                        paragraph.Inlines.Add(
+                            "If you want to make this room permanent, configure it here ");
+
+                        Button buttonOpenConfig = new Button();
+                        buttonOpenConfig.Click += new RoutedEventHandler(buttonOpenConfig_Click);
+                        buttonOpenConfig.Content = "Open configuration";
+                        paragraph.Inlines.Add(buttonOpenConfig);
+
+                        isSpecialSystemMessage = true;
+                        break;
+                    }
+            }
+
+            if (!isSpecialSystemMessage && !string.IsNullOrEmpty(message.Body))
             {
                 MatchCollection matches = _urlregex.Matches(message.Body);
 
@@ -450,6 +463,11 @@ namespace xeus2.xeus.Core
             groupSection.Blocks.Add(paragraph);
 
             return groupSection;
+        }
+
+        void buttonOpenConfig_Click(object sender, RoutedEventArgs e)
+        {
+            MucCommands.Options.Execute(this, null);
         }
 
         private void _timeTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -788,7 +806,13 @@ namespace xeus2.xeus.Core
                         }
                     }
 
-                    MucRoster.OnPresence(presence, this);
+                    MucContact contact = MucRoster.OnPresence(presence, this);
+
+                    if (contact != null && contact.Nick == Nick)
+                    {
+                        _me = contact;
+                        NotifyPropertyChanged("Me");
+                    }
                 }
             }
             else

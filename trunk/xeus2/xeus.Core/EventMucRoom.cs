@@ -11,7 +11,8 @@ namespace xeus2.xeus.Core
             Banned,
             NickChange,
             Error,
-            RoomCreated
+            RoomCreated,
+            RoomPrepared
         }
     
     internal class EventMucRoom : Event

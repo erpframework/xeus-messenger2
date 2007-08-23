@@ -22,7 +22,7 @@ namespace xeus2.xeus.Core
 			return null ;
 		}
 
-		public void OnPresence( Presence presence, MucRoom mucRoom )
+		public MucContact OnPresence( Presence presence, MucRoom mucRoom )
 		{
 			lock ( _syncObject )
 			{
@@ -81,6 +81,8 @@ namespace xeus2.xeus.Core
                 }
 
 			    Events.Instance.OnEvent(this, eventMucRoom, DispatcherPriority.ApplicationIdle);
+
+			    return contact;
 			}
 		}
 	}
