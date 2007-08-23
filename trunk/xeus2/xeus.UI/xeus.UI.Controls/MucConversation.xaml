@@ -58,7 +58,7 @@
         <Grid>
 		<StackPanel HorizontalAlignment="Left" Margin="35,0,0,0">
 			<TextBlock Text="{Binding Path=Service.Name}" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap" />
-	        	<ContentControl ContentTemplate="{DynamicResource MucRoomProps}" Content="{Binding Path=Service}" ToolTip="Display Time" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,10,0,0"/>
+	        	<ContentControl ContentTemplate="{DynamicResource MucRoomProps}" Content="{Binding Path=Service}" ToolTip="Display Time" Margin="0,10,0,0"/>
 		</StackPanel>
         <Button Style="{DynamicResource ImageButtonStyle}" x:Name="_contactButton"
                   Background="{DynamicResource muc_design}" Width="24" HorizontalAlignment="Left" Click="OnContactClick" Height="24" Margin="0,0,0,0" VerticalAlignment="Top" />

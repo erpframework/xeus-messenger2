@@ -7,10 +7,31 @@
 
   <SolidColorBrush x:Key="ListItemBorder" Color="#FF872D2D" PresentationOptions:Freeze="True" />
 
+  <DrawingBrush x:Key="back_menu_design" PresentationOptions:Freeze="True" >
+    <DrawingBrush.Drawing>
+      <DrawingGroup>
+        <DrawingGroup.Children>
+          <GeometryDrawing Brush="#FF414C67" Geometry="F1 M 545.833,0.305064L 15.5833,0.305064L 15.5833,-145.168L 545.833,-145.168L 545.833,0.305064 Z "/>
+          <GeometryDrawing Geometry="F1 M 15.5833,0.305054L 545.833,0.305054L 545.833,-145.168L 15.5833,-145.168L 15.5833,0.305054 Z ">
+            <GeometryDrawing.Brush>
+              <RadialGradientBrush RadiusX="1" RadiusY="3.11351" Center="0.5,2.93038" GradientOrigin="0.5,2.93038">
+                <RadialGradientBrush.GradientStops>
+                  <GradientStop Color="#FF229FFF" Offset="0"/>
+                  <GradientStop Color="#5D000000" Offset="1"/>
+                </RadialGradientBrush.GradientStops>
+                <RadialGradientBrush.RelativeTransform>
+                  <TransformGroup/>
+                </RadialGradientBrush.RelativeTransform>
+              </RadialGradientBrush>
+            </GeometryDrawing.Brush>
+          </GeometryDrawing>
+        </DrawingGroup.Children>
+      </DrawingGroup>
+    </DrawingBrush.Drawing>
+  </DrawingBrush>
+  
   <Style TargetType="{x:Type ListBoxItem}">
   	<Setter Property="Template" Value="{DynamicResource ListBoxItemControlTemplate}"/>
-  	<!--<Setter Property="Margin" Value="4,2,4,2"/>
-    <Setter Property="Padding" Value="4,2,4,2"/>-->
   </Style>
 
       <Style TargetType="{x:Type ToolTip}">
@@ -298,20 +319,26 @@
 		</DrawingBrush.Drawing>
 	</DrawingBrush>
 
-	<Style x:Key="TransparentTextBoxStyle" TargetType="{x:Type TextBox}">
+  <ContextMenu x:Key="TextBoxStyleMenu">
+    <MenuItem Header="Cut" Command="Cut" />
+    <MenuItem Header="Copy" Command="Copy" />
+    <MenuItem Header="Paste" Command="Paste" />
+    <MenuItem Header="Select All" Command="SelectAll" />
+  </ContextMenu>
+
+  <Style x:Key="TransparentTextBoxStyle" TargetType="{x:Type TextBox}">
 		<Setter Property="Background" Value="{x:Null}"/>
 		<Setter Property="BorderBrush" Value="{x:Null}"/>
 		<Setter Property="BorderThickness" Value="0,0,0,0"/>
     <Setter Property="MinHeight" Value="22"/>
+    <Setter Property="ContextMenu" Value="{DynamicResource TextBoxStyleMenu}"/>
   </Style>
 
-	<Style x:Key="TextBoxBasic" TargetType="{x:Type TextBox}">
-		<Setter Property="Template" Value="{DynamicResource TextBoxBaseControlTemplate}"/>
-		<Setter Property="MinHeight" Value="22"/>
-		<!--
-		<Setter Property="VerticalScrollBarVisibility" Value="Disabled"/>
-		<Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>-->
-	</Style>
+  <Style x:Key="TextBoxBasic" TargetType="{x:Type TextBox}">
+    <Setter Property="Template" Value="{DynamicResource TextBoxBaseControlTemplate}"/>
+    <Setter Property="MinHeight" Value="22"/>
+    <Setter Property="ContextMenu" Value="{DynamicResource TextBoxStyleMenu}"/>
+  </Style>
 
 	<Style x:Key="LabelBasic" TargetType="{x:Type TextBlock}">
 		<Setter Property="Foreground" Value="{DynamicResource DefaultTextBrush2}"/>
@@ -397,7 +424,11 @@
 	<SolidColorBrush x:Key="DefaultTextBrush" Color="#FF454545" PresentationOptions:Freeze="True"/>
 	<SolidColorBrush x:Key="DefaultTextBrush2" Color="#FF919191" PresentationOptions:Freeze="True"/>
 
-	<Style x:Key="ProgressBarStyle" TargetType="{x:Type ProgressBar}" >
+  <SolidColorBrush x:Key="DefaultTextMenuBrush" Color="#FFC7D4E3" PresentationOptions:Freeze="True"/>
+  <SolidColorBrush x:Key="DefaultTextMenuBrushDisabled" Color="#FF516C88" PresentationOptions:Freeze="True"/>
+  <SolidColorBrush x:Key="DefaultTextMenuBrushSelected" Color="#88516C88" PresentationOptions:Freeze="True"/>
+
+  <Style x:Key="ProgressBarStyle" TargetType="{x:Type ProgressBar}" >
 		<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
 		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
 		<Setter Property="BorderBrush">
@@ -561,7 +592,7 @@
 
 	<ControlTemplate x:Key="TextBoxBaseControlTemplate" TargetType="{x:Type TextBox}">
 		<Border x:Name="Bd" BorderBrush="{DynamicResource TextBoxBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="1,1,1,1" Background="{DynamicResource DefaultTextBoxBackBrush}">
-			<ScrollViewer x:Name="PART_ContentHost" />
+      <ScrollViewer x:Name="PART_ContentHost" />
 		</Border>
 		<ControlTemplate.Triggers>
 			<Trigger Property="IsEnabled" Value="False">
@@ -1188,75 +1219,25 @@
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
 
-    <Style TargetType="{x:Type ContextMenu}">
-    <!--<Setter Property="OverridesDefaultStyle" Value="True"/>
-    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.MenuBrushKey}}"/>
-    <Setter Property="FontFamily" Value="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
-    <Setter Property="FontSize" Value="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}"/>
-    <Setter Property="FontStyle" Value="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}"/>
-    <Setter Property="FontWeight" Value="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}"/>
-    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.MenuTextBrushKey}}"/>
-    <Setter Property="VerticalContentAlignment" Value="Center"/>
-    <Setter Property="HorizontalContentAlignment" Value="Center"/>-->
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type ContextMenu}">
-          <Border Background="{DynamicResource back_x_design}"
-                  BorderBrush="#FF7B7B7B" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" Padding="2,2,2,2">
-            <ItemsPresenter />
-          </Border>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
+  <Style TargetType="{x:Type ContextMenu}">
+      <Setter Property="OverridesDefaultStyle" Value="True"/>
+      <Setter Property="Template" Value="{DynamicResource ContextMenuControlTemplate}"/>
+      <Setter Property="HasDropShadow" Value="True"/>
   </Style>
-<!--
-  <LinearGradientBrush x:Key="HorizontalNormalBrush" StartPoint="0,0" EndPoint="1,0">
-    <GradientBrush.GradientStops>
-      <GradientStopCollection>
-        <GradientStop Color="#FFF" Offset="0.0"/>
-        <GradientStop Color="#CCC" Offset="1.0"/>
-      </GradientStopCollection>
-    </GradientBrush.GradientStops>
-  </LinearGradientBrush>
 
-  <LinearGradientBrush x:Key="LightBrush" StartPoint="0,0" EndPoint="0,1">
-    <GradientBrush.GradientStops>
-      <GradientStopCollection>
-        <GradientStop Color="#FFF" Offset="0.0"/>
-        <GradientStop Color="#EEE" Offset="1.0"/>
-      </GradientStopCollection>
-    </GradientBrush.GradientStops>
-  </LinearGradientBrush>
+  <Style TargetType="{x:Type Menu}">
+    <Setter Property="OverridesDefaultStyle" Value="True"/>
+    <Setter Property="Template" Value="{DynamicResource ContextMenuControlTemplate}"/>
+  </Style>
 
-  <LinearGradientBrush x:Key="HorizontalLightBrush" StartPoint="0,0" EndPoint="1,0">
-    <GradientBrush.GradientStops>
-      <GradientStopCollection>
-        <GradientStop Color="#FFF" Offset="0.0"/>
-        <GradientStop Color="#EEE" Offset="1.0"/>
-      </GradientStopCollection>
-    </GradientBrush.GradientStops>
-  </LinearGradientBrush>
+  <ControlTemplate x:Key="ContextMenuControlTemplate" TargetType="{x:Type ContextMenu}">
+    <Border Background="{DynamicResource back_menu_design}"
+            BorderBrush="Black" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" Padding="2,2,2,2">
+      <ItemsPresenter />
+    </Border>
+  </ControlTemplate>
 
-  <LinearGradientBrush x:Key="DarkBrush" StartPoint="0,0" EndPoint="0,1">
-    <GradientBrush.GradientStops>
-      <GradientStopCollection>
-        <GradientStop Color="#FFF" Offset="0.0"/>
-        <GradientStop Color="#AAA" Offset="1.0"/>
-      </GradientStopCollection>
-    </GradientBrush.GradientStops>
-  </LinearGradientBrush>
-
-  <LinearGradientBrush x:Key="PressedBrush" StartPoint="0,0" EndPoint="0,1">
-    <GradientBrush.GradientStops>
-      <GradientStopCollection>
-        <GradientStop Color="#BBB" Offset="0.0"/>
-        <GradientStop Color="#EEE" Offset="0.1"/>
-        <GradientStop Color="#EEE" Offset="0.9"/>
-        <GradientStop Color="#FFF" Offset="1.0"/>
-      </GradientStopCollection>
-    </GradientBrush.GradientStops>
-  </LinearGradientBrush>
--->
+  <!--
   <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#888" />
 
   <SolidColorBrush x:Key="DisabledBackgroundBrush" Color="#EEE" />
@@ -1265,8 +1246,7 @@
 
   <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#DDD" />
 
-  
-  <!-- Border Brushes -->
+
   <LinearGradientBrush x:Key="NormalBorderBrush" StartPoint="0,0" EndPoint="0,1">
     <GradientBrush.GradientStops>
       <GradientStopCollection>
@@ -1309,7 +1289,6 @@
 
   <SolidColorBrush x:Key="LightBorderBrush" Color="#AAA" />
 
-  <!-- Miscellaneous Brushes -->
   <SolidColorBrush x:Key="GlyphBrush" Color="#444" />
 
   <SolidColorBrush x:Key="LightColorBrush" Color="#DDD" />
@@ -1329,7 +1308,6 @@
   	<Setter Property="Background" Value="{DynamicResource DisabledBackgroundBrush}"/>
   </Style>
 
-  <!-- TopLevelHeader -->
   <ControlTemplate x:Key="{x:Static MenuItem.TopLevelHeaderTemplateKey}"
                    TargetType="MenuItem">
     <Border Name="Border" >
@@ -1377,7 +1355,7 @@
       </Trigger>
     </ControlTemplate.Triggers>
   </ControlTemplate>
-  <!-- TopLevelItem -->
+ 
 
   <ControlTemplate
     x:Key="{x:Static MenuItem.TopLevelItemTemplateKey}"
@@ -1403,7 +1381,6 @@
     </ControlTemplate.Triggers>
   </ControlTemplate>
 
-  <!-- SubmenuItem -->
 
   <ControlTemplate
     x:Key="{x:Static MenuItem.SubmenuItemTemplateKey}"
@@ -1470,8 +1447,6 @@
     </ControlTemplate.Triggers>
   </ControlTemplate>
 
-  <!-- SubmenuHeader -->
-
   <ControlTemplate
     x:Key="{x:Static MenuItem.SubmenuHeaderTemplateKey}"
     TargetType="MenuItem">
@@ -1527,10 +1502,7 @@
       </Grid>
     </Border>
     <ControlTemplate.Triggers>
-      <!--
-    <Trigger Property="Icon" Value="{x:Null}">
-      <Setter TargetName="Icon" Property="Visibility" Value="Collapsed"/>
-    </Trigger>-->
+
       <Trigger Property="IsHighlighted" Value="true">
         <Setter Property="Background" TargetName="Border" Value="#FFFFFFFF"/>
       </Trigger>
@@ -1543,15 +1515,63 @@
       </Trigger>
     </ControlTemplate.Triggers>
   </ControlTemplate>
+-->
+  <ControlTemplate x:Key="{x:Static MenuItem.TopLevelHeaderTemplateKey}"
+                   TargetType="MenuItem">
+    <Border Name="Border" >
+      <Grid>
+        <ContentPresenter
+          Margin="6,3,6,3"
+          ContentSource="Header"
+          RecognizesAccessKey="True" />
+        <Popup
+          Name="Popup"
+          Placement="Bottom"
+          IsOpen="{TemplateBinding IsSubmenuOpen}"
+          AllowsTransparency="True"
+          Focusable="False">
+          <Border Name="SubmenuBorder" BorderThickness="0,0,0,0" CornerRadius="3,3,3,3" Padding="2,2,2,2" >
+            <StackPanel
+              IsItemsHost="True"
+              KeyboardNavigation.DirectionalNavigation="Cycle" />
+          </Border>
+        </Popup>
+      </Grid>
+    </Border>
+    <ControlTemplate.Triggers>
+      <Trigger Property="IsHighlighted" Value="true">
+        <Setter Property="Background" TargetName="Border" Value="{StaticResource DefaultTextMenuBrushSelected}"/>
+      </Trigger>
+      <Trigger Property="IsEnabled" Value="False">
+        <Setter Property="Foreground" Value="{StaticResource DefaultTextMenuBrushDisabled}"/>
+      </Trigger>
+    </ControlTemplate.Triggers>
+  </ControlTemplate>
 
-  <!-- MenuItem Style -->
-
-  <Style x:Key="{x:Type MenuItem}" TargetType="MenuItem">
+  <Style TargetType="{x:Type Separator}">
     <Setter Property="OverridesDefaultStyle" Value="True"/>
-  	<Setter Property="Foreground" Value="{DynamicResource LightColorBrush}"/>
+    <Setter Property="Height" Value="1"/>
+    <Setter Property="Margin" Value="0,4,0,4"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Separator}">
+          <Border BorderBrush="White"
+                  BorderThickness="1,1,1,1" Margin="5,0,5,0"/>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>  
+  
+  <Style TargetType="{x:Type MenuItem}">
+    <Setter Property="OverridesDefaultStyle" Value="True"/>
+  	<Setter Property="Foreground" Value="{StaticResource DefaultTextMenuBrush}"/>
+    <Setter Property="FontSize" Value="12"/>
+    <Setter Property="Template"
+            Value="{StaticResource {x:Static MenuItem.TopLevelHeaderTemplateKey}}"/>
     <Style.Triggers>
+      <!--
       <Trigger Property="IsMouseOver" Value="True">
-        <Setter Property="Foreground" Value="#FF243045"/>
+        <Setter Property="Foreground" Value="White"/>
       </Trigger>
       <Trigger Property="Role" Value="TopLevelHeader">
         <Setter Property="Template"
@@ -1570,6 +1590,7 @@
         <Setter Property="Template"
                 Value="{StaticResource {x:Static MenuItem.SubmenuItemTemplateKey}}"/>
       </Trigger>
+      -->
     </Style.Triggers>
   </Style>
 
