@@ -52,7 +52,6 @@ namespace xeus2.xeus.Core
 
         private MucContact _me = null;
 
-
         public MucContact Me
         {
             get
@@ -97,20 +96,21 @@ namespace xeus2.xeus.Core
                 if (eventMucRoom.TypicalEventCode != TypicalEvent.Joined || timeSpan >= new TimeSpan(0, 0, 5))
                 {
                     MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
-                                                                       eventMucRoom.Message), null);
+                                                                       string.Format("{{{0}}} {1}", eventMucRoom.TypicalEventCode, eventMucRoom.Message)), null);
 
                     _mucMessages.Add(mucMessage);
                 }
 
+                /*
                 if (eventMucRoom.TypicalEventCode == TypicalEvent.RoomCreated
                     && eventMucRoom.User != null && eventMucRoom.User.Item != null
                     && JidUtil.Equals(eventMucRoom.User.Item.Jid, Account.Instance.MyJid))
                 {
                     MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
-                                                                       "{CREATE_MUC_ROOM}"), null);
+                                                                       "{" + TypicalEvent.RoomCreated + "}"), null);
 
                     _mucMessages.Add(mucMessage);                    
-                }
+                }*/
             }
         }
 
@@ -206,6 +206,12 @@ namespace xeus2.xeus.Core
         private static Brush _timeOldBackground;
         private static Brush _timeOldestBackground;
 
+        private static Brush _eventBan;
+        private static Brush _eventKick;
+        private static Brush _eventLeft;
+        private static Brush _eventJoined;
+        private static Brush _eventChangedNick;
+
         private readonly Regex _urlregex =
             new Regex(
                 @"[""'=]?(http://|ftp://|https://|www\.|ftp\.[\w]+)([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])",
@@ -295,6 +301,12 @@ namespace xeus2.xeus.Core
                 _timeOlderBackground = StyleManager.GetBrush("time_older_design");
                 _timeOldBackground = StyleManager.GetBrush("time_old_design");
                 _timeOldestBackground = StyleManager.GetBrush("time_oldest_design");
+
+                _eventBan = StyleManager.GetBrush("aff_outcast_design"); ;
+                _eventKick = StyleManager.GetBrush("event_kicked_muc_design"); ;
+                _eventLeft = StyleManager.GetBrush("event_left_muc_design"); ;
+                _eventJoined = StyleManager.GetBrush("event_joined_muc_design"); ;
+                _eventChangedNick = StyleManager.GetBrush("event_nickchange_muc_design"); ;
             }
 
             Section groupSection = null;
@@ -352,28 +364,55 @@ namespace xeus2.xeus.Core
                 paragraph.Foreground = _sysTextBrush;
             }
 
-            bool isSpecialSystemMessage = false;
+            string body = message.Body;
 
-            switch (message.Body)
+
+            if (!string.IsNullOrEmpty(body))
             {
-                case "{CREATE_MUC_ROOM}":
-                    {
-                        paragraph.Inlines.Add(
-                            "If you want to make this room permanent, configure it here ");
+                if (body.StartsWith("{" + TypicalEvent.RoomCreated + "}"))
+                {
+                    paragraph.Inlines.Add(
+                        "If you want to make this room permanent, configure it here ");
 
-                        Button buttonOpenConfig = new Button();
-                        buttonOpenConfig.Click += new RoutedEventHandler(buttonOpenConfig_Click);
-                        buttonOpenConfig.Content = "Open configuration";
-                        paragraph.Inlines.Add(buttonOpenConfig);
+                    Button buttonOpenConfig = new Button();
+                    buttonOpenConfig.Click += new RoutedEventHandler(buttonOpenConfig_Click);
+                    buttonOpenConfig.Content = "Open configuration";
+                    paragraph.Inlines.Add(buttonOpenConfig);
 
-                        isSpecialSystemMessage = true;
-                        break;
-                    }
-            }
+                    body = PrepareBody(body, TypicalEvent.RoomCreated);
+                }
+                else if (body.StartsWith("{" + TypicalEvent.Banned + "}"))
+                {
+                    paragraph.Inlines.Add(CreateRectangle(_eventBan));
 
-            if (!isSpecialSystemMessage && !string.IsNullOrEmpty(message.Body))
-            {
-                MatchCollection matches = _urlregex.Matches(message.Body);
+                    body = PrepareBody(body, TypicalEvent.Banned);
+                }
+                else if (body.StartsWith("{" + TypicalEvent.Kicked + "}"))
+                {
+                    paragraph.Inlines.Add(CreateRectangle(_eventKick));
+
+                    body = PrepareBody(body, TypicalEvent.Kicked);
+                }
+                else if (body.StartsWith("{" + TypicalEvent.Joined + "}"))
+                {
+                    paragraph.Inlines.Add(CreateRectangle(_eventJoined));
+
+                    body = PrepareBody(body, TypicalEvent.Joined);
+                }
+                else if (body.StartsWith("{" + TypicalEvent.Left + "}"))
+                {
+                    paragraph.Inlines.Add(CreateRectangle(_eventLeft));
+
+                    body = PrepareBody(body, TypicalEvent.Left);
+                }
+                else if (body.StartsWith("{" + TypicalEvent.NickChange + "}"))
+                {
+                    paragraph.Inlines.Add(CreateRectangle(_eventChangedNick));
+
+                    body = PrepareBody(body, TypicalEvent.NickChange);
+                }
+
+                MatchCollection matches = _urlregex.Matches(body);
 
                 if (matches.Count > 0)
                 {
@@ -384,7 +423,7 @@ namespace xeus2.xeus.Core
                         founds[i] = matches[i].ToString();
                     }
 
-                    string[] bodies = message.Body.Split(founds, StringSplitOptions.RemoveEmptyEntries);
+                    string[] bodies = body.Split(founds, StringSplitOptions.RemoveEmptyEntries);
 
                     for (int j = 0; j < bodies.Length || j < founds.Length; j++)
                     {
@@ -432,7 +471,7 @@ namespace xeus2.xeus.Core
                 }
                 else
                 {
-                    paragraph.Inlines.Add(message.Body);
+                    paragraph.Inlines.Add(body);
                 }
             }
             else if (!string.IsNullOrEmpty(message.Subject))
@@ -442,8 +481,8 @@ namespace xeus2.xeus.Core
 
             paragraph.DataContext = message;
 
-            if (!string.IsNullOrEmpty(message.Body)
-                && TextUtil.ContainsNick(Nick, message.Body))
+            if (!string.IsNullOrEmpty(body)
+                && TextUtil.ContainsNick(Nick, body))
             {
                 paragraph.Foreground = _forMeForegorund;
             }
@@ -463,6 +502,11 @@ namespace xeus2.xeus.Core
             groupSection.Blocks.Add(paragraph);
 
             return groupSection;
+        }
+
+        string PrepareBody(string originalBody, TypicalEvent typicalEvent)
+        {
+            return originalBody.Replace("{" + typicalEvent + "}", String.Empty);
         }
 
         void buttonOpenConfig_Click(object sender, RoutedEventArgs e)
