@@ -11,10 +11,13 @@
     SnapsToDevicePixels="True"
     >
 	<Window.Resources>
-		<ResourceDictionary>
-			<ResourceDictionary.MergedDictionaries>
+
+    <ResourceDictionary>
+
+      <ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="xeus.UI.Look\BasicStyles.xaml"/>
 			</ResourceDictionary.MergedDictionaries>
+      
 			<ObjectDataProvider x:Key="MucMarksDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:MucMarks}"/>
 
 			<CollectionViewSource x:Key="MucMarks" Source="{Binding Path=Instance, Mode=Default, Source={StaticResource MucMarksDS}}">
