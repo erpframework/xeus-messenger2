@@ -358,10 +358,10 @@ namespace xeus2.xeus.Core
             }
 
 
-            if (body.StartsWith("/me "))
+            if (body.TrimStart().StartsWith("/me "))
             {
                 // /me
-                body.Replace("/me ", String.Empty);
+                body = body.Replace("/me ", String.Empty);
                 paragraph.Foreground = _meTextBrush;
             }
 
