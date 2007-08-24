@@ -725,7 +725,7 @@ namespace xeus2.xeus.Core
 		{
 		}
 
-		public void JoinMuc( string jidBare )
+		public void JoinMuc(string jidBare)
 		{
 			Service service ;
 
@@ -735,16 +735,42 @@ namespace xeus2.xeus.Core
 			{
 				service = Services.Instance.FindService( jid ) ;
 			}
-			
-			if ( service == null )
-			{
-				// not on this server
-				service = new Service( new DiscoItem(), false ) ;
-				service.DiscoItem.Jid = new Jid( jidBare ) ;
-			}
 
-			DiscoverReservedRoomNickname( service ) ;
+            if (service == null)
+            {
+                // not on this server
+                // service = new Service(new DiscoItem(), false);
+                // service.DiscoItem.Jid = new Jid(jidBare);
+                DiscoverSingleService(jidBare);
+            }
+            else
+            {
+                DiscoverReservedRoomNickname(service);
+            }
 		}
+
+        public void DiscoverSingleService(string jidBare)
+        {
+            Jid jid = new Jid(jidBare);
+
+            _discoManager.DisoverInformation(jid, new IqCB(OnSingleDiscoverResult));
+        }
+
+        private void OnSingleDiscoverResult(object sender, IQ iq, object data)
+        {
+            if (iq.Error != null)
+            {
+                Services.Instance.OnServiceItemError(sender, iq);
+            }
+            else if (iq.Type == IqType.result && iq.Query is DiscoInfo)
+            {
+                Service service = new Service(new DiscoItem(), false);
+                service.DiscoItem.Jid = iq.From;
+                service.DiscoInfo = (DiscoInfo)iq.Query;
+
+                DiscoverReservedRoomNickname(service);
+            }
+        }
 
         public void JoinMuc(MucMark mucMark)
         {
@@ -760,11 +786,14 @@ namespace xeus2.xeus.Core
             if (service == null)
             {
                 // not on this server
-                service = new Service(new DiscoItem(), false);
-                service.DiscoItem.Jid = new Jid(mucMark.Jid);
+                // service = new Service(new DiscoItem(), false);
+                // service.DiscoItem.Jid = new Jid(jidBare);
+                DiscoverSingleService(mucMark.Jid);
             }
-
-            DiscoverReservedRoomNickname(mucMark);
+            else
+            {
+                DiscoverReservedRoomNickname(mucMark);
+            }
         }
 
 	    private void DiscoverReservedRoomNickname(MucMark mucMark)

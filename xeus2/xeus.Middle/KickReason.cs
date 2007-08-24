@@ -16,12 +16,12 @@ namespace xeus2.xeus.Middle
 
         public void Kick(MucContact mucContact)
         {
-            UI.KickReason kickReason = new UI.KickReason();
+            UI.SingleValueBox kickReason = new UI.SingleValueBox("Kick reason", "Kick user");
             kickReason.DataContext = mucContact;
 
             if ((bool) kickReason.ShowDialog())
             {
-                mucContact.MucRoom.Kick(mucContact, kickReason.Reason);
+                mucContact.MucRoom.Kick(mucContact, kickReason.Text);
             }
         }
     }

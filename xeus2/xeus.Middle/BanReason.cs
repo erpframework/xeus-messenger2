@@ -16,12 +16,12 @@ namespace xeus2.xeus.Middle
 
         public void Ban(MucContact mucContact)
         {
-            UI.BanReason banReason = new UI.BanReason();
+            UI.SingleValueBox banReason = new UI.SingleValueBox("Ban reason", "Ban user");
             banReason.DataContext = mucContact;
 
             if ((bool) banReason.ShowDialog())
             {
-                mucContact.MucRoom.Ban(mucContact, banReason.Reason);
+                mucContact.MucRoom.Ban(mucContact, banReason.Text);
             }
         }
     }
