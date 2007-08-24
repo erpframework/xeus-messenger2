@@ -78,7 +78,7 @@ namespace xeus2.xeus.Middle
 
 		protected static void MucLoginInternal( Service service, string forceNick )
 		{
-			RoomLogin roomLogin = new RoomLogin( service.Jid.Bare, forceNick );
+			RoomLogin roomLogin = new RoomLogin( service, forceNick );
 
 			roomLogin.Show() ;
 		}
