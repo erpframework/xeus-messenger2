@@ -100,17 +100,6 @@ namespace xeus2.xeus.Core
 
                     _mucMessages.Add(mucMessage);
                 }
-
-                /*
-                if (eventMucRoom.TypicalEventCode == TypicalEvent.RoomCreated
-                    && eventMucRoom.User != null && eventMucRoom.User.Item != null
-                    && JidUtil.Equals(eventMucRoom.User.Item.Jid, Account.Instance.MyJid))
-                {
-                    MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
-                                                                       "{" + TypicalEvent.RoomCreated + "}"), null);
-
-                    _mucMessages.Add(mucMessage);                    
-                }*/
             }
         }
 
@@ -196,6 +185,7 @@ namespace xeus2.xeus.Core
         private static Brush _forMeForegorund;
         private static Brush _textBrush;
         private static Brush _sysTextBrush;
+        private static Brush _meTextBrush;
         private static Brush _textDimBrush;
         private static Brush _contactForeground;
         private static Brush _alternativeBackground;
@@ -289,6 +279,7 @@ namespace xeus2.xeus.Core
 
                 _textBrush = StyleManager.GetBrush("text_design");
                 _sysTextBrush = StyleManager.GetBrush("sys_text_design");
+                _meTextBrush = StyleManager.GetBrush("me_text_design");
                 _textDimBrush = StyleManager.GetBrush("textdim_design");
 
                 _alternativeBackground = StyleManager.GetBrush("back_alt");
@@ -358,14 +349,21 @@ namespace xeus2.xeus.Core
                 newSection = true;
             }
 
+            string body = message.Body;
+
             if (string.IsNullOrEmpty(message.Sender))
             {
                 // system message
                 paragraph.Foreground = _sysTextBrush;
             }
 
-            string body = message.Body;
 
+            if (body.StartsWith("/me "))
+            {
+                // /me
+                body.Replace("/me ", String.Empty);
+                paragraph.Foreground = _meTextBrush;
+            }
 
             if (!string.IsNullOrEmpty(body))
             {
