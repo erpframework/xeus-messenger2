@@ -357,16 +357,15 @@ namespace xeus2.xeus.Core
                 paragraph.Foreground = _sysTextBrush;
             }
 
-
-            if (body.TrimStart().StartsWith("/me "))
-            {
-                // /me
-                body = body.Replace("/me ", String.Empty);
-                paragraph.Foreground = _meTextBrush;
-            }
-
             if (!string.IsNullOrEmpty(body))
             {
+                if (body.TrimStart().StartsWith("/me "))
+                {
+                    // /me
+                    body = body.Replace("/me ", String.Empty);
+                    paragraph.Foreground = _meTextBrush;
+                }
+
                 if (body.StartsWith("{" + TypicalEvent.RoomCreated + "}"))
                 {
                     paragraph.Inlines.Add(
