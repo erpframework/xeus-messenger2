@@ -962,7 +962,7 @@ namespace xeus2.xeus.Core
                 MucContact mucContact = data as MucContact;
 
                 EventMucRoom eventMucRoom =
-                        new EventMucRoom(TypicalEvent.Error, this, mucContact, "Privilege change error");
+                        new EventMucRoom(TypicalEvent.Error, this, mucContact, "You have no privilege to do this");
 
 			    Events.Instance.OnEvent(this, eventMucRoom, DispatcherPriority.ApplicationIdle);
             }
@@ -1006,6 +1006,11 @@ namespace xeus2.xeus.Core
         public void GrantVoice(MucContact contact)
         {
             _mucManager.GrantVoice(Service.Jid, contact.Nick, String.Empty, new IqCB(OnPrivilegesResult), contact);
+        }
+
+        public void Destroy(MucContact contact)
+        {
+            _mucManager.DestroyRoom(_service.Jid, string.Empty, new IqCB(OnPrivilegesResult), contact);
         }
     }
 }

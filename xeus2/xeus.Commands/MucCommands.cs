@@ -310,11 +310,11 @@ namespace xeus2.xeus.Commands
 
         private static void CanExecuteDestroyRoom(object sender, CanExecuteRoutedEventArgs e)
         {
-            MucContact mucContact = e.Parameter as MucContact;
+            MucRoom mucRoom = e.Parameter as MucRoom;
 
-            if (mucContact != null)
+            if (mucRoom != null)
             {
-                e.CanExecute = (mucContact.MucRoom.Me.Affiliation == Affiliation.owner);
+                e.CanExecute = (mucRoom.Me.Affiliation == Affiliation.owner);
             }
 
             e.Handled = true;
@@ -322,7 +322,14 @@ namespace xeus2.xeus.Commands
 
         private static void ExecuteDestroyRoom(object sender, ExecutedRoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            MucRoom mucRoom = e.Parameter as MucRoom;
+
+            if (mucRoom != null)
+            {
+                mucRoom.Destroy(mucRoom.Me);
+            }
+
+            e.Handled = true;
         }
 
         private static void CanExecuteAffNone(object sender, CanExecuteRoutedEventArgs e)

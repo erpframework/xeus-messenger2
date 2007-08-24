@@ -20,13 +20,13 @@ namespace xeus2.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("DMKSoftware.CodeGenerators.Tools.StronglyTypedResourceBuilderEx", "2.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public sealed class Resources {
+    public sealed class Copy_of_Resources {
         
         private static global::System.Resources.ResourceManager _resourceManager;
         
         private static global::System.Globalization.CultureInfo _resourceCulture;
         
-        private Resources() {
+        private Copy_of_Resources() {
         }
         
         /// <summary>
@@ -36,7 +36,7 @@ namespace xeus2.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(_resourceManager, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("xeus2.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("xeus2.Properties.Copy of Resources", typeof(Copy_of_Resources).Assembly);
                     _resourceManager = temp;
                 }
                 return _resourceManager;

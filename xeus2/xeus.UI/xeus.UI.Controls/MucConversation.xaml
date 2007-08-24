@@ -34,6 +34,7 @@
         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
       <MenuItem Command="xeus2_xeus_Commands:MucCommands.RevokeModerator"
         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
+      <Separator/>
       <MenuItem Command="xeus2_xeus_Commands:MucCommands.GrantVoice"
         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
       <MenuItem Command="xeus2_xeus_Commands:MucCommands.RevokeVoice"
@@ -47,6 +48,9 @@
         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
       <Separator/>
       <MenuItem Command="xeus2_xeus_Commands:MucCommands.AddMucMark"
+        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
+      <Separator/>
+      <MenuItem Command="xeus2_xeus_Commands:MucCommands.DestroyRoom"
         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
     </ContextMenu>
   </UserControl.Resources>
@@ -121,16 +125,6 @@
 				<TextBlock Text="{Binding Path=LastMessage.RelativeTime}" 
 					ToolTip="{Binding Path=LastMessage.DateTime}" Foreground="{DynamicResource DefaultTextBrush2}" DockPanel.Dock="Right" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" FontSize="11" TextWrapping="Wrap"/>
 			</Grid>
-			<ContentControl Content="{Binding Path=LastEvent}" ToolTip="Last Event" Margin="0,0,5,0"  x:Name="contentControl">
-				<ContentControl.RenderTransform>
-					<TransformGroup>
-						<ScaleTransform ScaleX="1" ScaleY="1"/>
-						<SkewTransform AngleX="0" AngleY="0"/>
-						<RotateTransform Angle="0"/>
-						<TranslateTransform X="0" Y="0"/>
-					</TransformGroup>
-				</ContentControl.RenderTransform>
-			</ContentControl>
 		</DockPanel>
 	  	<Grid>
 	  		<Button Click="OnSendMessage" Content="Send" VerticalAlignment="Bottom" DockPanel.Dock="Right" HorizontalAlignment="Right" Width="50"/>
