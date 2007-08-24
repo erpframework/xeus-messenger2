@@ -4,11 +4,13 @@
     xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
     xmlns:xeus2_xeus_XData="clr-namespace:xeus2.xeus.XData"
     xmlns:xeus2_xeus_Controls="clr-namespace:xeus2.xeus.UI.xeus.UI.Controls"
+	xmlns:xeus2_xeus_UI="clr-namespace:xeus2.xeus.UI"
     x:Class="xeus2.xeus.UI.MucOptions" 	
-    Title="xeus2.xeus.UI" Height="300" Width="300"
+    Title="xeus2.xeus.UI" Height="300" Width="400"
     SnapsToDevicePixels="True"
   	Background="{DynamicResource back_x_design}"
     Foreground="#FFFFFFFF"
+    MinHeight="300" MinWidth="400"
     >
   
   <Window.Resources>
@@ -310,12 +312,19 @@
               </Grid>
             </Border>
           </TabItem.Header>
-          <WrapPanel>
-            <xeus2_xeus_Controls:MucAffiliationList x:Name="_affOwner"/>
-            <xeus2_xeus_Controls:MucAffiliationList x:Name="_affAdmin"/>
-            <xeus2_xeus_Controls:MucAffiliationList x:Name="_affBanned"/>
-            <xeus2_xeus_Controls:MucAffiliationList x:Name="_affMembers"/>
-          </WrapPanel>
+		  <DockPanel>
+		<Border Background="{DynamicResource back_x_design}" Padding="0,10,0,10" DockPanel.Dock="Bottom">
+            <xeus2_xeus_UI:SearchBox x:Name="_filterAffs" DockPanel.Dock="Top" Margin="0,0,10,0" />
+        </Border>
+		  <Border Background="{DynamicResource chat_back_design}" DockPanel.Dock="Top">
+	          <StackPanel>
+	            <xeus2_xeus_Controls:MucAffiliationList x:Name="_affOwner"/>
+	            <xeus2_xeus_Controls:MucAffiliationList x:Name="_affAdmin"/>
+	            <xeus2_xeus_Controls:MucAffiliationList x:Name="_affBanned"/>
+	            <xeus2_xeus_Controls:MucAffiliationList x:Name="_affMembers"/>
+	          </StackPanel>
+		  </Border>		  
+		  </DockPanel>
         </TabItem>
         <TabItem Foreground="{DynamicResource tabitem_foreground}" x:Name="_tabForm">
           <TabItem.Header>

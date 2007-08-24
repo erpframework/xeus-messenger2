@@ -141,4 +141,175 @@
   <data name="Event_UnknownPresence" xml:space="preserve">
     <value>Presence infocoming from unknow contact '{0}' ({1})</value>
   </data>
+  <data name="Error_InvalidContactProp" xml:space="preserve">
+    <value>Invalid contact property name '{0}'</value>
+  </data>
+  <data name="Error_InvDisplayName" xml:space="preserve">
+    <value>DisplayName can't be used here</value>
+  </data>
+  <data name="Error_CodeMsg" xml:space="preserve">
+    <value>Error {0} - {1}</value>
+  </data>
+  <data name="Constant_UserName" xml:space="preserve">
+    <value>User Name</value>
+  </data>
+  <data name="Constant_EnterLoginNameForService" xml:space="preserve">
+    <value>Enter you login name for this Service</value>
+  </data>
+  <data name="Constant_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Constant_EnterPasswordForService" xml:space="preserve">
+    <value>Enter your password for this Service</value>
+  </data>
+  <data name="Constant_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Constant_EnterEmailForService" xml:space="preserve">
+    <value>Enter an e-mail address for this Service</value>
+  </data>
+  <data name="Error_ServiceDiscoFailed" xml:space="preserve">
+    <value>Service discovery of '{0}' failed - Error {1}</value>
+  </data>
+  <data name="Constant_FirstName" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="Constant_LastName" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="Constant_Nickname" xml:space="preserve">
+    <value>Nickname</value>
+  </data>
+  <data name="Constant_EnterFirstNameForSearch" xml:space="preserve">
+    <value>Enter first name for Search</value>
+  </data>
+  <data name="Constant_EnterLastNameForSearch" xml:space="preserve">
+    <value>Enter last name for Search</value>
+  </data>
+  <data name="Constant_EnterNicknameForSearch" xml:space="preserve">
+    <value>Enter nickname for Search</value>
+  </data>
+  <data name="Constant_EnterEmailForSearch" xml:space="preserve">
+    <value>Enter email for Search</value>
+  </data>
+  <data name="Event_SearchFailed" xml:space="preserve">
+    <value>'{0}' Service search failed with '{1}'</value>
+  </data>
+  <data name="Even_SearchSucceeded" xml:space="preserve">
+    <value>'{0}' Service search succeeded</value>
+  </data>
+  <data name="Event_RegistrationFailed" xml:space="preserve">
+    <value>'{0}' Service registration failed with '{1}'</value>
+  </data>
+  <data name="Event_RegistrationSucceeded" xml:space="preserve">
+    <value>'{0}' Service registration succeeded</value>
+  </data>
+  <data name="Event_SearchInfoFailed" xml:space="preserve">
+    <value>Getting search Info of Service '{0}'</value>
+  </data>
+  <data name="Event_RegInfoFailed" xml:space="preserve">
+    <value>Getting registration Info of Service '{0}'</value>
+  </data>
+  <data name="Constant_Jid" xml:space="preserve">
+    <value>JID</value>
+  </data>
+  <data name="Event_CommandExecFailed" xml:space="preserve">
+    <value>Command execution of service {0} failed</value>
+  </data>
+  <data name="Constant_IncompleteData" xml:space="preserve">
+    <value>Incomplete data from server</value>
+  </data>
+  <data name="Role_Visitor" xml:space="preserve">
+    <value>Visitor</value>
+  </data>
+  <data name="Role_Participant" xml:space="preserve">
+    <value>Participant</value>
+  </data>
+  <data name="Role_Moderator" xml:space="preserve">
+    <value>Moderator</value>
+  </data>
+  <data name="Role_None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="MucStatus_100" xml:space="preserve">
+    <value>Any occupant is allowed to see full JIDs</value>
+  </data>
+  <data name="MucStatus_101" xml:space="preserve">
+    <value>Affiliation changed while not in the room</value>
+  </data>
+  <data name="MucStatus_102" xml:space="preserve">
+    <value>Room now shows unavailable members</value>
+  </data>
+  <data name="MucStatus_103" xml:space="preserve">
+    <value>Room now does not show unavailable members</value>
+  </data>
+  <data name="MucStatus_104" xml:space="preserve">
+    <value>Non-privacy-related room configuration change has occurred</value>
+  </data>
+  <data name="MucStatus_201" xml:space="preserve">
+    <value>A new room has been created</value>
+  </data>
+  <data name="MucStatus_301" xml:space="preserve">
+    <value>Banned from the room</value>
+  </data>
+  <data name="MucStatus_303" xml:space="preserve">
+    <value>New room nickname</value>
+  </data>
+  <data name="MucStatus_307" xml:space="preserve">
+    <value>Kicked from the room</value>
+  </data>
+  <data name="MucStatus_321" xml:space="preserve">
+    <value>Removed from the room because of an affiliation change</value>
+  </data>
+  <data name="MucStatus_322" xml:space="preserve">
+    <value>Removed from the room because the room has been changed to members-only and the user is not a member</value>
+  </data>
+  <data name="MucStatus_332" xml:space="preserve">
+    <value>Being removed from the room because of a system shutdown</value>
+  </data>
+  <data name="MucStatus_110" xml:space="preserve">
+    <value>Presence refers to one of its own room occupants</value>
+  </data>
+  <data name="MucStatus_170" xml:space="preserve">
+    <value>Room logging is now enabled</value>
+  </data>
+  <data name="MucStatus_171" xml:space="preserve">
+    <value>Room logging is now disabled</value>
+  </data>
+  <data name="MucStatus_172" xml:space="preserve">
+    <value>The room is now non-anonymous</value>
+  </data>
+  <data name="MucStatus_173" xml:space="preserve">
+    <value>Room is now semi-anonymous</value>
+  </data>
+  <data name="MucStatus_174" xml:space="preserve">
+    <value>Room is now fully-anonymous</value>
+  </data>
+  <data name="MucStatus_210" xml:space="preserve">
+    <value>Service has assigned or modified the roomnick</value>
+  </data>
+  <data name="MucStatus_000" xml:space="preserve">
+    <value>Unknow Status Code</value>
+  </data>
+  <data name="Error_DiscoFailed" xml:space="preserve">
+    <value>Discovery failed for '{0}'</value>
+  </data>
+  <data name="Error_CommandResultFailed" xml:space="preserve">
+    <value>Command result failed for '{0}'</value>
+  </data>
+  <data name="Error_RoomNickFailed" xml:space="preserve">
+    <value>Room nickname request for '{0}' failed</value>
+  </data>
+  <data name="Constant_AlreadyRegistered" xml:space="preserve">
+    <value>\nThis service is already registered</value>
+  </data>
+  <data name="Event_CommandCancelled" xml:space="preserve">
+    <value>Command {0} cancelled</value>
+  </data>
+  <data name="Constant_NoMessage" xml:space="preserve">
+    <value>No Message</value>
+  </data>
+  <data name="EventError_MucConfigFailed" xml:space="preserve">
+    <value>MUC {0} configuration failed with '{1}'</value>
+  </data>
 </root>
