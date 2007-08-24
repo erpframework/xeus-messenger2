@@ -13,41 +13,18 @@ namespace xeus2.xeus.UI
 	{
 	    private MucMark _mucMark;
 
-        void Login(string bare, string forceNick)
+        internal RoomLogin(Service service, string forceNick)
         {
-            Jid jid = new Jid(bare);
-
-            _mucMark = MucMarks.Instance.Find(bare);
+            _mucMark = MucMarks.Instance.Find(service);
 
             if (_mucMark == null)
             {
-                _mucMark = new MucMark(bare);
+                _mucMark = new MucMark(service);
             }
 
             if (!string.IsNullOrEmpty(forceNick))
             {
                 _mucMark.Nick = forceNick;
-            }
-
-            Service service;
-
-            lock (Services.Instance._syncObject)
-            {
-                service = Services.Instance.FindService(jid);
-            }
-
-            if (service == null)
-            {
-                if (_mucMark.Service != null)
-                {
-                    service = _mucMark.Service;
-                }
-                else
-                {
-                    // not on this server
-                    service = new Service(new DiscoItem(), false);
-                    service.DiscoItem.Jid = jid;
-                }
             }
 
             DataContext = service;
@@ -74,15 +51,15 @@ namespace xeus2.xeus.UI
             }            
         }
 
-        internal RoomLogin(MucMark mucMark, string forceNick)
+        internal RoomLogin(MucMark mucMark, string forceNick):this(mucMark.Service, forceNick)
         {
-            Login(mucMark.Jid, forceNick);
         }
 
+        /*
         internal RoomLogin(string jid, string forceNick)
         {
             Login(jid, forceNick);
-        }
+        }*/
 
         /*
         internal RoomLogin(Service service, string forceNick)
