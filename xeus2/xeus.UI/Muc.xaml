@@ -7,6 +7,6 @@
     Background="{x:Null}"
     >
   <Grid>
-    <local:MucConversation x:Name="_conversation"/>
+    <local:MultiTabControl x:Name="_multi"/>
   </Grid>
 </Window>
