@@ -727,9 +727,9 @@ namespace xeus2.xeus.Core
 
 		public void JoinMuc(string jidBare)
 		{
-			Service service ;
+			/*Service service ;
 
-			Jid jid = new Jid( jidBare ) ;
+			Jid jid = new Jid( jidBare ) ;*/
 
             DiscoverSingleService(jidBare);
 
@@ -775,7 +775,7 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public void JoinMuc(MucMark mucMark)
+        /*public void JoinMuc(MucMark mucMark)
         {
             Service service;
 
@@ -797,7 +797,7 @@ namespace xeus2.xeus.Core
             {
                 DiscoverReservedRoomNickname(mucMark);
             }
-        }
+        }*/
 
 	    private void DiscoverReservedRoomNickname(MucMark mucMark)
 	    {

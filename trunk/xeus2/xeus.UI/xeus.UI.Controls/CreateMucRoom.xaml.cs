@@ -20,11 +20,15 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         private void OnJoin(object sender, RoutedEventArgs args)
         {
+            /*
             DiscoItem discoItem = new DiscoItem();
             discoItem.Jid = new Jid(_jid.Text);
 
             Service service = new Service(discoItem, false);
             MucInfo.Instance.MucLogin(service, null);
+             */
+
+            Account.Instance.JoinMuc(_jid.Text);
         }
     }
 }

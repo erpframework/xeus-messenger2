@@ -343,7 +343,7 @@ namespace xeus2.xeus.Commands
 			}
             else if (e.Parameter is MucMark)
             {
-                Account.Instance.JoinMuc((MucMark)e.Parameter);
+                Account.Instance.JoinMuc(((MucMark)e.Parameter).Jid);
             }
 
 			e.Handled = true ;
