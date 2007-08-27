@@ -7,7 +7,6 @@
 
   <SolidColorBrush x:Key="ListItemBorder" Color="#FF872D2D" PresentationOptions:Freeze="True" />
   <SolidColorBrush x:Key="selection_design" Color="#FF5E8DBE" PresentationOptions:Freeze="True" />
-  <SolidColorBrush x:Key="notfound_design" Color="#FFB40000" PresentationOptions:Freeze="True" />
 
   <DrawingBrush x:Key="back_menu_design" PresentationOptions:Freeze="True" >
     <DrawingBrush.Drawing>
@@ -31,6 +30,8 @@
       </DrawingGroup>
     </DrawingBrush.Drawing>
   </DrawingBrush>
+  
+	<SolidColorBrush x:Key="notfound_design" Color="#FFDC0000"/>
   
   <Style TargetType="{x:Type ListBoxItem}">
   	<Setter Property="Template" Value="{DynamicResource ListBoxItemControlTemplate}"/>

@@ -731,6 +731,9 @@ namespace xeus2.xeus.Core
 
 			Jid jid = new Jid( jidBare ) ;
 
+            DiscoverSingleService(jidBare);
+
+            /*
 			lock ( Services.Instance._syncObject )
 			{
 				service = Services.Instance.FindService( jid ) ;
@@ -746,7 +749,7 @@ namespace xeus2.xeus.Core
             else
             {
                 DiscoverReservedRoomNickname(service);
-            }
+            }*/
 		}
 
         public void DiscoverSingleService(string jidBare)
