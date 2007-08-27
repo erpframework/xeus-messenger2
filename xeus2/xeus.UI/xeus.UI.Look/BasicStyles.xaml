@@ -6,6 +6,8 @@
   xmlns:Microsoft_Windows_Themes1="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
 
   <SolidColorBrush x:Key="ListItemBorder" Color="#FF872D2D" PresentationOptions:Freeze="True" />
+  <SolidColorBrush x:Key="selection_design" Color="#FF5E8DBE" PresentationOptions:Freeze="True" />
+  <SolidColorBrush x:Key="notfound_design" Color="#FFB40000" PresentationOptions:Freeze="True" />
 
   <DrawingBrush x:Key="back_menu_design" PresentationOptions:Freeze="True" >
     <DrawingBrush.Drawing>
@@ -90,10 +92,30 @@
 			</DrawingGroup>
 		</DrawingBrush.Drawing>
 	</DrawingBrush>
-	
-	<DrawingBrush x:Key="clear_design" PresentationOptions:Freeze="True" Stretch="Uniform" >
-		<DrawingBrush.Drawing>
-			<DrawingGroup>
+
+  <DrawingBrush x:Key="next_design" PresentationOptions:Freeze="True" Stretch="Uniform" >
+      <DrawingBrush.Drawing>
+        <DrawingGroup>
+          <DrawingGroup.Children>
+            <GeometryDrawing Brush="#80FFFFFF" Geometry="F1 M 17.7982,13.7687L 20.0098,13.7687L 16.3946,18.4203L 12.7793,13.7687L 14.9909,13.7687L 14.9909,11.198L 17.7982,11.198L 17.7982,13.7687 Z "/>
+          </DrawingGroup.Children>
+        </DrawingGroup>
+      </DrawingBrush.Drawing>
+  </DrawingBrush>
+
+  <DrawingBrush x:Key="close_design" PresentationOptions:Freeze="True" Stretch="Uniform" >
+    <DrawingBrush.Drawing>
+      <DrawingGroup>
+        <DrawingGroup.Children>
+          <GeometryDrawing Brush="#80FFFFFF" Geometry="F1 M 20.2578,9.6175L 16.3786,13.4967L 20.2578,17.3758L 18.2161,19.4175L 14.3369,15.5383L 10.4578,19.4175L 8.4161,17.3758L 12.2953,13.4967L 8.4161,9.6175L 10.4578,7.57583L 14.3369,11.455L 18.2161,7.57583L 20.2578,9.6175 Z "/>
+        </DrawingGroup.Children>
+      </DrawingGroup>
+    </DrawingBrush.Drawing>
+  </DrawingBrush>
+
+  <DrawingBrush x:Key="clear_design" PresentationOptions:Freeze="True" Stretch="Uniform" >
+    <DrawingBrush.Drawing>
+      <DrawingGroup>
 				<DrawingGroup.Children>
 					<GeometryDrawing Brush="#80000000" Geometry="F1 M 20.2578,9.6175L 16.3786,13.4967L 20.2578,17.3758L 18.2161,19.4175L 14.3369,15.5383L 10.4578,19.4175L 8.4161,17.3758L 12.2953,13.4967L 8.4161,9.6175L 10.4578,7.57583L 14.3369,11.455L 18.2161,7.57583L 20.2578,9.6175 Z "/>
 				</DrawingGroup.Children>
