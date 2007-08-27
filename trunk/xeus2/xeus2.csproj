@@ -97,6 +97,7 @@
     <Page Include="xeus.UI\xeus.UI.Controls\CreateMucRoom.xaml" />
     <Page Include="xeus.UI\xeus.UI.Controls\MucAffiliationList.xaml" />
     <Page Include="xeus.UI\xeus.UI.Controls\MucConversation.xaml" />
+    <Page Include="xeus.UI\xeus.UI.Controls\SearchText.xaml" />
     <Page Include="xeus.UI\xeus.UI.Look\ScrollBar.xaml" />
     <Page Include="xeus.XData\XDataContainer.xaml" />
     <Page Include="xeus.XData\XDataControl.xaml" />
@@ -265,6 +266,10 @@
     <Compile Include="xeus.UI\xeus.UI.Controls\MucConversation.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>MucConversation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xeus.UI\xeus.UI.Controls\SearchText.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>SearchText.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\xeus.UI.Look\ServiceTemplateSelector.cs" />
     <Compile Include="xeus.Utilities\DisplayNameBuilder.cs" />

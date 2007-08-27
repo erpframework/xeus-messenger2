@@ -81,7 +81,7 @@ namespace xeus2.xeus.Core
 
         private DateTime _roomStart = DateTime.Now;
 
-        void Instance_OnEventRaised(object sender, Event myEvent)
+        private void Instance_OnEventRaised(object sender, Event myEvent)
         {
             EventMucRoom eventMucRoom = myEvent as EventMucRoom;
 
@@ -96,7 +96,9 @@ namespace xeus2.xeus.Core
                 if (eventMucRoom.TypicalEventCode != TypicalEvent.Joined || timeSpan >= new TimeSpan(0, 0, 5))
                 {
                     MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
-                                                                       string.Format("{{{0}}} {1}", eventMucRoom.TypicalEventCode, eventMucRoom.Message)), null);
+                                                                       string.Format("{{{0}}} {1}",
+                                                                                     eventMucRoom.TypicalEventCode,
+                                                                                     eventMucRoom.Message)), null);
 
                     _mucMessages.Add(mucMessage);
                 }
@@ -202,6 +204,8 @@ namespace xeus2.xeus.Core
         private static Brush _eventJoined;
         private static Brush _eventChangedNick;
 
+        private static Brush _selectionFindBrush;
+
         private readonly Regex _urlregex =
             new Regex(
                 @"[""'=]?(http://|ftp://|https://|www\.|ftp\.[\w]+)([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])",
@@ -251,7 +255,7 @@ namespace xeus2.xeus.Core
             return timeBrush;
         }
 
-        Rectangle CreateTimeRect(MucMessage message)
+        private Rectangle CreateTimeRect(MucMessage message)
         {
             Rectangle timeRectangle = new Rectangle();
             timeRectangle.Fill = GetMessageTimeBrush(message);
@@ -293,11 +297,13 @@ namespace xeus2.xeus.Core
                 _timeOldBackground = StyleManager.GetBrush("time_old_design");
                 _timeOldestBackground = StyleManager.GetBrush("time_oldest_design");
 
-                _eventBan = StyleManager.GetBrush("aff_outcast_design"); ;
-                _eventKick = StyleManager.GetBrush("event_kicked_muc_design"); ;
-                _eventLeft = StyleManager.GetBrush("event_left_muc_design"); ;
-                _eventJoined = StyleManager.GetBrush("event_joined_muc_design"); ;
-                _eventChangedNick = StyleManager.GetBrush("event_nickchange_muc_design"); ;
+                _selectionFindBrush = StyleManager.GetBrush("selection_design");
+
+                _eventBan = StyleManager.GetBrush("aff_outcast_design");
+                _eventKick = StyleManager.GetBrush("event_kicked_muc_design");
+                _eventLeft = StyleManager.GetBrush("event_left_muc_design");
+                _eventJoined = StyleManager.GetBrush("event_joined_muc_design");
+                _eventChangedNick = StyleManager.GetBrush("event_nickchange_muc_design");
             }
 
             Section groupSection = null;
@@ -501,12 +507,12 @@ namespace xeus2.xeus.Core
             return groupSection;
         }
 
-        string PrepareBody(string originalBody, TypicalEvent typicalEvent)
+        private string PrepareBody(string originalBody, TypicalEvent typicalEvent)
         {
             return originalBody.Replace("{" + typicalEvent + "}", String.Empty);
         }
 
-        void buttonOpenConfig_Click(object sender, RoutedEventArgs e)
+        private void buttonOpenConfig_Click(object sender, RoutedEventArgs e)
         {
             MucCommands.Options.Execute(this, null);
         }
@@ -790,9 +796,9 @@ namespace xeus2.xeus.Core
                     {
                         if (presence.MucUser.Status.Code == StatusCode.NewNickname)
                         {
-                            EventMucRoom eventMucRoom = new EventMucRoom( TypicalEvent.NickChange,
-                                                                            this, presence.MucUser,
-                                                                            string.Format(
+                            EventMucRoom eventMucRoom = new EventMucRoom(TypicalEvent.NickChange,
+                                                                         this, presence.MucUser,
+                                                                         string.Format(
                                                                              "'{0}' is now known as '{1}'",
                                                                              presence.From.Resource,
                                                                              presence.MucUser.Item.Nickname));
@@ -821,7 +827,8 @@ namespace xeus2.xeus.Core
                                 message = string.Format("{0} has been kicked", presence.From.Resource);
                             }
 
-                            EventMucRoom eventMucRoom = new EventMucRoom(TypicalEvent.Kicked, this, presence.MucUser, message);
+                            EventMucRoom eventMucRoom =
+                                new EventMucRoom(TypicalEvent.Kicked, this, presence.MucUser, message);
 
                             Events.Instance.OnEvent(this, eventMucRoom, DispatcherPriority.ApplicationIdle);
                         }
@@ -841,7 +848,8 @@ namespace xeus2.xeus.Core
                                 message = string.Format("{0} has been banned", presence.From.Resource);
                             }
 
-                            EventMucRoom eventMucRoom = new EventMucRoom(TypicalEvent.Banned, this, presence.MucUser, message);
+                            EventMucRoom eventMucRoom =
+                                new EventMucRoom(TypicalEvent.Banned, this, presence.MucUser, message);
 
                             Events.Instance.OnEvent(this, eventMucRoom, DispatcherPriority.ApplicationIdle);
                         }
@@ -893,9 +901,9 @@ namespace xeus2.xeus.Core
                     MucContact mucContact = data as MucContact;
 
                     EventMucRoom eventMucRoom =
-                            new EventMucRoom(TypicalEvent.Error, this, mucContact, string.Format(
-                                                                           "You are not allowed to ban {0}",
-                                                                           mucContact.Nick));
+                        new EventMucRoom(TypicalEvent.Error, this, mucContact, string.Format(
+                                                                                   "You are not allowed to ban {0}",
+                                                                                   mucContact.Nick));
 
                     Events.Instance.OnEvent(this, eventMucRoom, DispatcherPriority.ApplicationIdle);
                 }
@@ -911,9 +919,9 @@ namespace xeus2.xeus.Core
                     MucContact mucContact = data as MucContact;
 
                     EventMucRoom eventMucRoom =
-                            new EventMucRoom(TypicalEvent.Error, this, mucContact, string.Format(
-                                                                           "You are not allowed to kick {0}",
-                                                                           mucContact.Nick));
+                        new EventMucRoom(TypicalEvent.Error, this, mucContact, string.Format(
+                                                                                   "You are not allowed to kick {0}",
+                                                                                   mucContact.Nick));
 
                     Events.Instance.OnEvent(this, eventMucRoom, DispatcherPriority.ApplicationIdle);
                 }
@@ -959,15 +967,16 @@ namespace xeus2.xeus.Core
                 MucContact mucContact = data as MucContact;
 
                 EventMucRoom eventMucRoom =
-                        new EventMucRoom(TypicalEvent.Error, this, mucContact, "You have no privilege to do this");
+                    new EventMucRoom(TypicalEvent.Error, this, mucContact, "You have no privilege to do this");
 
-			    Events.Instance.OnEvent(this, eventMucRoom, DispatcherPriority.ApplicationIdle);
+                Events.Instance.OnEvent(this, eventMucRoom, DispatcherPriority.ApplicationIdle);
             }
         }
 
         public void GrantOwnerPrivilege(MucContact mucContact)
         {
-            _mucManager.GrantOwnershipPrivileges(Service.Jid, mucContact.UserJid, new IqCB(OnPrivilegesResult), mucContact);
+            _mucManager.GrantOwnershipPrivileges(Service.Jid, mucContact.UserJid, new IqCB(OnPrivilegesResult),
+                                                 mucContact);
         }
 
         public void GrantModerator(MucContact contact)
@@ -999,7 +1008,7 @@ namespace xeus2.xeus.Core
         {
             _mucManager.RevokeVoice(Service.Jid, contact.Nick, String.Empty, new IqCB(OnPrivilegesResult), contact);
         }
-    
+
         public void GrantVoice(MucContact contact)
         {
             _mucManager.GrantVoice(Service.Jid, contact.Nick, String.Empty, new IqCB(OnPrivilegesResult), contact);
@@ -1008,6 +1017,64 @@ namespace xeus2.xeus.Core
         public void Destroy(MucContact contact)
         {
             _mucManager.DestroyRoom(_service.Jid, string.Empty, new IqCB(OnPrivilegesResult), contact);
+        }
+
+        internal List<TextRange> SelectText(Paragraph paragraph, string text)
+        {
+            List<TextRange> textRanges = new List<TextRange>();
+
+            for (Inline inline = paragraph.Inlines.FirstInline; inline != null; inline = inline.NextInline)
+            {
+                Run run = null;
+
+                Hyperlink hyperlink = inline as Hyperlink;
+
+                if (hyperlink != null)
+                {
+                    run = hyperlink.Inlines.FirstInline as Run;
+                }
+                else
+                {
+                    run = inline as Run;
+                }
+
+                if (run != null)
+                {
+                    int firstStart = 0;
+
+                    while (true)
+                    {
+                        if (firstStart > run.Text.Length - 1)
+                        {
+                            break;
+                        }
+
+                        int start = run.Text.IndexOf(text, firstStart, StringComparison.InvariantCultureIgnoreCase);
+                        int end = start + text.Length;
+
+                        firstStart = start + 1;
+
+                        if (start >= 0)
+                        {
+                            TextRange textRange;
+
+                            textRange = new TextRange(run.ContentStart.GetPositionAtOffset(start),
+                                                      run.ContentStart.GetPositionAtOffset(end));
+
+                            textRange.ApplyPropertyValue(Run.BackgroundProperty, _selectionFindBrush);
+
+                            textRanges.Add(textRange);
+                        }
+
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return textRanges;
         }
     }
 }

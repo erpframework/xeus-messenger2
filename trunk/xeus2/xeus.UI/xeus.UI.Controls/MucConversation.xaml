@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Props="clr-namespace:xeus2.Properties"
     xmlns:xeus2_xeus_Core="clr-namespace:xeus2.xeus.Core"
+    xmlns:xeus2_xeus_Controls="clr-namespace:xeus2.xeus.UI.xeus.UI.Controls"
   	xmlns:xeus2_xeus_Commands="clr-namespace:xeus2.xeus.Commands"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2006" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
     x:Class="xeus2.xeus.UI.xeus.UI.Controls.MucConversation"
@@ -156,6 +157,7 @@
 		<DockPanel Margin="0,2,0,5">
       <ContentPresenter DockPanel.Dock="Right" ContentTemplate="{StaticResource MucMessageOldness}"
                         Content="{Binding Path=LastMessage}"/>
+      <xeus2_xeus_Controls:SearchText x:Name="_inlineSearch" />
 		</DockPanel>
 	  	<Grid>
 	  		<Button Click="OnSendMessage" Content="Send" VerticalAlignment="Bottom" DockPanel.Dock="Right" HorizontalAlignment="Right" Width="50"/>
