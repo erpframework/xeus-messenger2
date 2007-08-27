@@ -226,17 +226,17 @@ namespace xeus2.xeus.Core
 
             switch (mucMessage.MessageOldness)
             {
-                case MucMessage.MucMessageOldness.Recent:
+                case MucMessageOldness.Recent:
                     {
                         timeBrush = _timeRecentBackground;
                         break;
                     }
-                case MucMessage.MucMessageOldness.Older:
+                case MucMessageOldness.Older:
                     {
                         timeBrush = _timeOlderBackground;
                         break;
                     }
-                case MucMessage.MucMessageOldness.Old:
+                case MucMessageOldness.Old:
                     {
                         timeBrush = _timeOldBackground;
                         break;

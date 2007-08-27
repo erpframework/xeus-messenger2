@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using agsXMPP;
+using agsXMPP.protocol.iq.disco;
 using agsXMPP.protocol.x.muc;
 using xeus2.xeus.Core;
 using xeus2.xeus.Middle;
@@ -19,7 +20,11 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         private void OnJoin(object sender, RoutedEventArgs args)
         {
-            MucInfo.Instance.MucLogin(new MucMark(_jid.Text));
+            DiscoItem discoItem = new DiscoItem();
+            discoItem.Jid = new Jid(_jid.Text);
+
+            Service service = new Service(discoItem, false);
+            MucInfo.Instance.MucLogin(service, null);
         }
     }
 }

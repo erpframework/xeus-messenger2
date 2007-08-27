@@ -11,7 +11,7 @@ namespace xeus2.xeus.UI
         {
             InitializeComponent();
 
-            Name = text;
+            Title = text;
             _ok.Content = buttonText;
         }
 

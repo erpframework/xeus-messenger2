@@ -9,6 +9,40 @@
     >
 
   <UserControl.Resources>
+
+    <DataTemplate DataType="{x:Type xeus2_xeus_Core:MucMessage}" x:Key="MucMessageOldness">
+      <Grid ToolTip="Last Message">
+        <Rectangle Width="16" Height="16" Fill="{DynamicResource time_oldest_design}"
+                   x:Name="_timeIcon" DockPanel.Dock="Right" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBlock Text="{Binding Path=RelativeTime}"
+					ToolTip="{Binding Path=DateTime}" Foreground="{DynamicResource DefaultTextBrush2}" HorizontalAlignment="Left"
+                   Margin="20,0,0,0" VerticalAlignment="Top" FontSize="11" TextWrapping="Wrap"/>
+      </Grid>
+      <DataTemplate.Triggers>
+        <DataTrigger Binding="{Binding Path=MessageOldness}">
+          <DataTrigger.Value>
+            <xeus2_xeus_Core:MucMessageOldness>Recent</xeus2_xeus_Core:MucMessageOldness>
+          </DataTrigger.Value>
+          <Setter  TargetName="_timeIcon" Property="Rectangle.Fill" Value="{DynamicResource time_now_design}"/>
+        </DataTrigger>
+        <DataTrigger Binding="{Binding Path=MessageOldness}">
+          <DataTrigger.Value>
+            <xeus2_xeus_Core:MucMessageOldness>Older</xeus2_xeus_Core:MucMessageOldness>
+          </DataTrigger.Value>
+          <Setter  TargetName="_timeIcon" Property="Rectangle.Fill" Value="{DynamicResource time_older_design}"/>
+        </DataTrigger>
+        <DataTrigger Binding="{Binding Path=MessageOldness}">
+          <DataTrigger.Value>
+            <xeus2_xeus_Core:MucMessageOldness>Old</xeus2_xeus_Core:MucMessageOldness>
+          </DataTrigger.Value>
+          <Setter  TargetName="_timeIcon" Property="Rectangle.Fill" Value="{DynamicResource time_old_design}"/>
+        </DataTrigger>
+        <DataTrigger Binding="{Binding Path=RelativeTime}" Value="{x:Null}">
+          <Setter  TargetName="_timeIcon" Property="Visibility" Value="Hidden"/>
+        </DataTrigger>
+      </DataTemplate.Triggers>
+    </DataTemplate>
+    
     <CollectionViewSource x:Key="MucContacts" Source="{Binding Path=MucRoster}">
       <CollectionViewSource.GroupDescriptions>
         <PropertyGroupDescription PropertyName="Group"/>
@@ -120,11 +154,8 @@
 
 	<StackPanel Margin="5,5,5,5" DockPanel.Dock="Bottom">
 		<DockPanel Margin="0,2,0,5">
-			<Grid ToolTip="Last Message" DockPanel.Dock="Right">
-				<Rectangle Width="16" Height="16" Fill="{DynamicResource chat_design}" DockPanel.Dock="Right" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-				<TextBlock Text="{Binding Path=LastMessage.RelativeTime}" 
-					ToolTip="{Binding Path=LastMessage.DateTime}" Foreground="{DynamicResource DefaultTextBrush2}" DockPanel.Dock="Right" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" FontSize="11" TextWrapping="Wrap"/>
-			</Grid>
+      <ContentPresenter DockPanel.Dock="Right" ContentTemplate="{StaticResource MucMessageOldness}"
+                        Content="{Binding Path=LastMessage}"/>
 		</DockPanel>
 	  	<Grid>
 	  		<Button Click="OnSendMessage" Content="Send" VerticalAlignment="Bottom" DockPanel.Dock="Right" HorizontalAlignment="Right" Width="50"/>
