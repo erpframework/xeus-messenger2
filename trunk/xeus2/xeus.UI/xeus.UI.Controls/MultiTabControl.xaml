@@ -9,7 +9,7 @@
     <DataTemplate x:Key="MultiTabItem" DataType="{x:Type xeus2_xeus_Controls:MultiTabItem}">
 		<StackPanel>
         <TextBlock Text="{Binding Path=Name}" Foreground="{DynamicResource TextBoxBorderBrush}" MinWidth="200" TextWrapping="Wrap" VerticalAlignment="Center"/>
-		<CheckBox IsChecked="{Binding Path=IsVisible}" Content="Is Visible"/>
+		<CheckBox IsChecked="{Binding Path=IsVisible, Mode=TwoWay}" Content="Is Visible"/>
 		</StackPanel>
     </DataTemplate>	
 	</UserControl.Resources>
@@ -19,6 +19,6 @@
 			   ItemsSource="{Binding}"
                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                x:Name="_tabs" ItemTemplate="{DynamicResource MultiTabItem}" BorderThickness="0,0,0,0"/>
-      <DockPanel x:Name="_container" DockPanel.Dock="Right" Focusable="True"/>
+      <Grid x:Name="_container" DockPanel.Dock="Right" Focusable="True"/>
     </DockPanel>
 </UserControl>
