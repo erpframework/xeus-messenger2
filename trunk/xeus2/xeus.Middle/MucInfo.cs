@@ -57,7 +57,7 @@ namespace xeus2.xeus.Middle
 			roomInfo.Show() ;
 		}
 
-		public void MucLogin( Service service, string forceNick )
+		public void MucLogin(Service service, string forceNick)
 		{
             App.InvokeSafe(App._dispatcherPriority,
 			                new MucLoginCallback( MucLoginInternal ), service, forceNick ) ;
@@ -76,9 +76,9 @@ namespace xeus2.xeus.Middle
             roomLogin.Show();
         }
 
-		protected static void MucLoginInternal( Service service, string forceNick )
+		protected static void MucLoginInternal(Service service, string forceNick)
 		{
-			RoomLogin roomLogin = new RoomLogin( service, forceNick );
+			RoomLogin roomLogin = new RoomLogin(service, forceNick);
 
 			roomLogin.Show() ;
 		}

@@ -3,20 +3,20 @@ using agsXMPP.protocol.client ;
 
 namespace xeus2.xeus.Core
 {
+    public enum MucMessageOldness
+    {
+        Recent,
+        Older,
+        Old,
+        Oldest
+    }
+
 	internal class MucMessage : NotifyInfoDispatcher
 	{
 		private readonly Message _message ;
 		private readonly MucContact _sender ;
 
 		private DateTime _dateTime = DateTime.Now ;
-
-        public enum MucMessageOldness
-	    {
-    	    Recent,
-            Older,
-            Old,
-            Oldest
-	    }
 
 	    public MucMessageOldness MessageOldness
 	    {
