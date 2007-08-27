@@ -53,10 +53,15 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
             _text.Focus();
 
+            _text.Loaded += new RoutedEventHandler(_text_Loaded);
+
             _flowViewer.PreviewKeyDown += new KeyEventHandler(MucConversation_PreviewKeyDown);
 
             PreviewKeyDown += new KeyEventHandler(MucConversation_PreviewKeyDownWindow);
+        }
 
+        void _text_Loaded(object sender, RoutedEventArgs e)
+        {
             _inlineSearch.Visibility = Visibility.Collapsed;
         }
 
@@ -86,7 +91,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             {
                 if (_inlineSearch.IsGlobalSearchKey(e.Key))
                 {
-                    _inlineSearch.SendKey(e.Key);
+                    e.Handled = _inlineSearch.SendKey(e.Key);
                 }
             }
         }
