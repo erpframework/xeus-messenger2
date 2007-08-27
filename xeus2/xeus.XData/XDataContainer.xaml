@@ -1,6 +1,7 @@
 ﻿<UserControl
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="xeus2.xeus.XData.XDataContainer"
+    x:Name="UserControl"
     >
 	<UserControl.Resources>
 		<ResourceDictionary>
@@ -9,6 +10,7 @@
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</UserControl.Resources>
-    	<WrapPanel x:Name="_container" HorizontalAlignment="Center"
+    	<WrapPanel x:Name="_container"
+                 HorizontalAlignment="Center" ScrollViewer.CanContentScroll="True" Grid.IsSharedSizeScope="True"
                  />
 </UserControl>

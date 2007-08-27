@@ -301,7 +301,6 @@
     </DrawingBrush>    
   </Window.Resources>
   
-    <Grid>
       <TabControl Foreground="{DynamicResource DefaultTextBrush2}">
         <TabItem Foreground="{DynamicResource tabitem_foreground}">
           <TabItem.Header>
@@ -335,16 +334,15 @@
               </Grid>
             </Border>
           </TabItem.Header>
-          <Grid Margin="0,5,0,0">
-            <xeus2_xeus_XData:MucOptionsForm x:Name="_muc" Margin="0,0,0,40"/>
-            <StackPanel Margin="0,0,0,5" VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
+          <DockPanel Margin="0,5,0,0">
+            <StackPanel Margin="0,0,0,5" VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" DockPanel.Dock="Bottom">
               <Button Content="Save Configuration"
                       Click="OnSaveConfig" Margin="0,0,5,0"/>
               <Button Content="Reset Configuration"
                       Click="OnResetConfig" Margin="5,0,0,0"/>
             </StackPanel>
-          </Grid>
+            <xeus2_xeus_XData:MucOptionsForm x:Name="_muc" DockPanel.Dock="Top"/>
+          </DockPanel>
         </TabItem>
       </TabControl>   
-    </Grid>
 </Window>
