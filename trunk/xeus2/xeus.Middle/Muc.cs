@@ -7,6 +7,8 @@ namespace xeus2.xeus.Middle
 	{
 		private static Muc _instance = new Muc() ;
 
+        UI.Muc _muc = new UI.Muc();
+
 		private delegate void MucLoginCallback( Service servie, string nick, string password ) ;
 
 		public static Muc Instance
@@ -26,9 +28,8 @@ namespace xeus2.xeus.Middle
 
 		protected void DisplayMucInternal( Service service, string nick, string password )
 		{
-			UI.Muc muc = new UI.Muc( service, nick, password );
-
-			muc.Show() ;
+            _muc.AddMuc(service, nick, password);
+			_muc.Show() ;
 		}
 	}
 }
