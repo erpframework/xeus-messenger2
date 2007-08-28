@@ -40,6 +40,19 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             }
         }
 
+        public bool DisplayControls
+        {
+            get
+            {
+                return (_controls.Visibility == Visibility.Visible);
+            }
+
+            set
+            {
+                _controls.Visibility = (value) ? Visibility.Visible : Visibility.Hidden;
+            }
+        }
+
         void OnClose(object sender, RoutedEventArgs args)
         {
             if (OnMultiWinEvent != null)

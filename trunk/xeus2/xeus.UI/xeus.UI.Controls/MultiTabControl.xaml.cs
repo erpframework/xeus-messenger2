@@ -133,6 +133,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 Grid.SetColumn(multiTabItem.GridSplitter, _container.ColumnDefinitions.Count - 1);
 
                 multiTabItem.IsLast = false;
+                multiTabItem.Container.DisplayControls = true;
             }
 
             // hide last splitter
@@ -140,6 +141,15 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             {
                 activeItems[(_container.ColumnDefinitions.Count - 1)].IsLast = true;
             }
+
+            if (_multiWindows.Count <= 1)
+            {
+                activeItems[(_container.ColumnDefinitions.Count - 1)].Container.DisplayControls = false;
+            }
+
+            _tabs.Visibility = (_multiWindows.Count <= 1)
+                                   ? System.Windows.Visibility.Collapsed
+                                   : System.Windows.Visibility.Visible;
         }
 
         internal ObservableCollectionDisp<MultiTabItem> MultiWindows

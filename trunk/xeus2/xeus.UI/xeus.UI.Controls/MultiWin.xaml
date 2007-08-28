@@ -3,7 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="xeus2.xeus.UI.xeus.UI.Controls.MultiWin"
     >
   <Grid>
-  	<StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal" Panel.ZIndex="1">
+  	<StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal" Panel.ZIndex="1"
+                x:Name="_controls">
 	    <Button Click="OnFlyOut" Background="{DynamicResource flyout_design}" Style="{DynamicResource ImageButtonStyle}" Width="12" Height="12"/>
 	    <Button Click="OnHide" Background="{DynamicResource hide_design}" Style="{DynamicResource ImageButtonStyle}" Width="12" Height="12"/>
 	    <Button Click="OnClose" Background="{DynamicResource close_design}" Style="{DynamicResource ImageButtonStyle}" Width="12" Height="12"/>
