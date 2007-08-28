@@ -9,6 +9,6 @@
 	    <Button Click="OnHide" Background="{DynamicResource hide_design}" Style="{DynamicResource ImageButtonStyle}" Width="12" Height="12"/>
 	    <Button Click="OnClose" Background="{DynamicResource close_design}" Style="{DynamicResource ImageButtonStyle}" Width="12" Height="12"/>
 	</StackPanel>
-    <Border x:Name="_container"/>
+    <Border x:Name="_container" Margin="0,8,0,0"/>
   </Grid>
 </UserControl>
