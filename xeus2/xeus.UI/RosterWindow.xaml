@@ -100,5 +100,7 @@
                ItemTemplate="{DynamicResource ServicesTemplateMucBookmark}"
                ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="5,5,5,5" />
 
+    	<GridSplitter Style="{DynamicResource GridSplitterStyle}" Width="5" Height="100"/>
+
     </StackPanel>
 </Window>
