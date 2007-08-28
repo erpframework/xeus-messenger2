@@ -147,11 +147,19 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 activeItems[(_container.ColumnDefinitions.Count - 1)].IsLast = true;
             }
 
+            // hide controls
             if (_multiWindows.Count <= 1)
             {
                 activeItems[(_container.ColumnDefinitions.Count - 1)].Container.DisplayControls = false;
             }
 
+            // hide Hide button
+            if (activeItems.Count <= 1)
+            {
+                activeItems[(_container.ColumnDefinitions.Count - 1)].Container.DisplayControls = false;
+            }
+
+            // hide tabs
             _tabs.Visibility = (_multiWindows.Count <= 1)
                                    ? System.Windows.Visibility.Collapsed
                                    : System.Windows.Visibility.Visible;
