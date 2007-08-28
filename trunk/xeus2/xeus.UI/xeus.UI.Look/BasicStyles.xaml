@@ -8,6 +8,42 @@
   <SolidColorBrush x:Key="ListItemBorder" Color="#FF872D2D" PresentationOptions:Freeze="True" />
   <SolidColorBrush x:Key="selection_design" Color="#FF5E8DBE" PresentationOptions:Freeze="True" />
 
+  <DrawingBrush x:Key="flyout_design" PresentationOptions:Freeze="True">
+    <DrawingBrush.Drawing>
+      <DrawingGroup>
+        <DrawingGroup.Children>
+          <GeometryDrawing Brush="#80FFFFFF" Geometry="F1 M 9.52443,5.78834L 18.9411,5.78834C 20.4139,5.78834 21.6078,6.98225 21.6078,8.45501L 21.6078,17.8717C 21.6078,19.3444 20.4139,20.5383 18.9411,20.5383L 9.52443,20.5383C 8.05167,20.5383 6.85776,19.3444 6.85776,17.8717L 6.85776,8.45501C 6.85776,6.98225 8.05167,5.78834 9.52443,5.78834 Z M 18.5657,8.35738L 10.5047,8.70209L 10.4649,8.74187L 12.4448,10.7218L 8.67355,14.493L 12.4448,18.2642L 16.216,14.493L 18.1959,16.4729L 18.2357,16.4331L 18.5657,8.35738 Z "/>
+        </DrawingGroup.Children>
+      </DrawingGroup>
+    </DrawingBrush.Drawing>
+  </DrawingBrush>
+  
+  <DrawingBrush x:Key="hide_design"  PresentationOptions:Freeze="True">
+    <DrawingBrush.Drawing>
+      <DrawingGroup>
+        <DrawingGroup.Children>
+          <GeometryDrawing Brush="#80FFFFFF" Geometry="F1 M 11.5661,2.95501L 20.9828,2.95501C 22.4555,2.95501 23.6494,4.14891 23.6494,5.62167L 23.6494,15.0383C 23.6494,16.5111 22.4555,17.705 20.9828,17.705L 11.5661,17.705C 10.0933,17.705 8.89943,16.5111 8.89943,15.0383L 8.89943,5.62167C 8.89943,4.14891 10.0933,2.95501 11.5661,2.95501 Z M 16.2848,15.9967L 21.7411,10.0529L 21.7411,9.99667L 18.9411,9.99667L 18.9411,4.66335L 13.6078,4.66335L 13.6078,9.99667L 10.8078,9.99667L 10.8078,10.0529L 16.2848,15.9967 Z "/>
+        </DrawingGroup.Children>
+      </DrawingGroup>
+    </DrawingBrush.Drawing>
+  </DrawingBrush>
+
+  <DrawingBrush x:Key="splitter_design" PresentationOptions:Freeze="True"
+	 Viewport="0,0,0.25,1.0" TileMode="Tile" Stretch="None">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<DrawingGroup.Children>
+					<GeometryDrawing Brush="#FF000000" Geometry="F1 M 152.361,50.5556C 156.503,50.5556 159.861,53.9134 159.861,58.0556C 159.861,62.1977 156.503,65.5556 152.361,65.5556C 148.219,65.5556 144.861,62.1977 144.861,58.0556C 144.861,53.9134 148.219,50.5556 152.361,50.5556 Z "/>
+					<GeometryDrawing Geometry="F1 M 152.278,66.0556C 156.42,66.0556 159.778,69.4134 159.778,73.5556C 159.778,77.6977 156.42,81.0556 152.278,81.0556C 148.136,81.0556 144.778,77.6977 144.778,73.5556C 144.778,69.4134 148.136,66.0556 152.278,66.0556 Z ">
+						<GeometryDrawing.Pen>
+							<Pen LineJoin="Round" Brush="#00FFFFFF"/>
+						</GeometryDrawing.Pen>
+					</GeometryDrawing>
+				</DrawingGroup.Children>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	
   <DrawingBrush x:Key="back_menu_design" PresentationOptions:Freeze="True" >
     <DrawingBrush.Drawing>
       <DrawingGroup>
@@ -1611,5 +1647,26 @@
       -->
     </Style.Triggers>
   </Style>
+
+	<Style x:Key="GridSplitterPreviewStyle">
+		<Setter Property="Control.Template">
+			<Setter.Value>
+				<ControlTemplate>
+					<Rectangle Fill="#80000000"/>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	
+	<Style TargetType="{x:Type GridSplitter}">
+		<Setter Property="PreviewStyle" Value="{StaticResource GridSplitterPreviewStyle}"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type GridSplitter}">
+					<Border BorderThickness="1,1,1,1" Background="#FF000000" BorderBrush="#FF000000"/>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
 
 </ResourceDictionary>
