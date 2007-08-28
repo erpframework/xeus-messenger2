@@ -6,20 +6,23 @@
    x:Name="UserControl"
     Unloaded="OnUnload"
     >
-	<UserControl.Resources>
+	
+  <UserControl.Resources>
     <DataTemplate x:Key="MultiTabItem" DataType="{x:Type xeus2_xeus_Controls:MultiTabItem}">
 		<StackPanel>
-        <TextBlock Text="{Binding Path=Name}" Foreground="{DynamicResource TextBoxBorderBrush}" MinWidth="200" TextWrapping="Wrap" VerticalAlignment="Center"/>
-		<CheckBox IsChecked="{Binding Path=IsVisible, Mode=TwoWay}" Content="Is Visible"/>
+        <TextBlock Text="{Binding Path=Name}" Foreground="{DynamicResource TextBoxBorderBrush}" MinWidth="200" TextWrapping="Wrap" HorizontalAlignment="Left"/>
+		<CheckBox IsChecked="{Binding Path=IsVisible, Mode=TwoWay}" HorizontalAlignment="Left"/>
 		</StackPanel>
     </DataTemplate>	
 	</UserControl.Resources>
+  
     <DockPanel>
-      <ListBox Background="{DynamicResource back_x_design}" Width="100" 
+      <ListBox 
                ItemsPanel="{DynamicResource ItemsPanelTemplateRoster}"
-			   ItemsSource="{Binding}"
+			         ItemsSource="{Binding}"
                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-               x:Name="_tabs" ItemTemplate="{DynamicResource MultiTabItem}" BorderThickness="0,0,0,0"/>
-      <Grid x:Name="_container" DockPanel.Dock="Right" Focusable="True"/>
+               x:Name="_tabs" ItemTemplate="{DynamicResource MultiTabItem}" BorderThickness="0,0,0,0"
+               DockPanel.Dock="Top" Background="{x:Null}" Height="40" ScrollViewer.VerticalScrollBarVisibility="Disabled" />
+      <Grid x:Name="_container" DockPanel.Dock="Bottom" Focusable="True"/>
     </DockPanel>
 </UserControl>

@@ -5,9 +5,12 @@
   <Grid>
   	<StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal" Panel.ZIndex="1"
                 x:Name="_controls">
-	    <Button Click="OnFlyOut" Background="{DynamicResource flyout_design}" Style="{DynamicResource ImageButtonStyle}" Width="12" Height="12"/>
-	    <Button Click="OnHide" Background="{DynamicResource hide_design}" Style="{DynamicResource ImageButtonStyle}" Width="12" Height="12"/>
-	    <Button Click="OnClose" Background="{DynamicResource close_design}" Style="{DynamicResource ImageButtonStyle}" Width="12" Height="12"/>
+	    <Button Click="OnFlyOut" ToolTip="Fly-out"
+              Background="{DynamicResource flyout_design}" Style="{DynamicResource ImageButtonStyle}" Width="12" Height="12"/>
+	    <Button Click="OnHide" ToolTip="Hide"
+              Background="{DynamicResource hide_design}" Style="{DynamicResource ImageButtonStyle}" Width="12" Height="12"/>
+	    <Button Click="OnClose" ToolTip="Close"
+              Background="{DynamicResource close_design}" Style="{DynamicResource ImageButtonStyle}" Width="12" Height="12"/>
 	</StackPanel>
     <Border x:Name="_container" Margin="0,8,0,0"/>
   </Grid>

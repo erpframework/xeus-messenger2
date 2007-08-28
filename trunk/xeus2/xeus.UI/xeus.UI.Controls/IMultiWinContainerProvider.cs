@@ -6,5 +6,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         {
             get;
         }
+
+        void ShrinkMainWindow(double points);
     }
 }
