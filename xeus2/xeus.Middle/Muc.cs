@@ -1,3 +1,4 @@
+using System;
 using xeus2.xeus.Core;
 using xeus2.xeus.UI.xeus.UI.Controls;
 
@@ -34,6 +35,17 @@ namespace xeus2.xeus.Middle
                 }
 
                 return _muc._multi;
+            }
+        }
+
+        public void ShrinkMainWindow(double points)
+        {
+            lock (_lock)
+            {
+                if (_muc != null)
+                {
+                    _muc.Width += points;
+                }
             }
         }
 
