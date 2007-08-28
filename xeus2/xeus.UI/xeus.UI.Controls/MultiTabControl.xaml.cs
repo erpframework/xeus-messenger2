@@ -13,6 +13,8 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
     {
         private ObservableCollectionDisp<MultiTabItem> _multiWindows = new ObservableCollectionDisp<MultiTabItem>();
 
+        private IMultiWinContainerProvider _multiWinContainerProvider = null;
+
         public MultiTabControl()
         {
             InitializeComponent();
@@ -98,7 +100,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                         {
                             _multiWindows.Remove(tabItem);
 
-                            MultiWinFlyout flyout = new MultiWinFlyout(this, tabItem.Container, tabItem.Name);
+                            MultiWinFlyout flyout = new MultiWinFlyout(_multiWinContainerProvider, tabItem.Container, tabItem.Name);
                             flyout.Show();
                             break;
                         }
@@ -170,6 +172,18 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             get
             {
                 return _multiWindows;
+            }
+        }
+
+        internal IMultiWinContainerProvider MultiWinContainerProvider
+        {
+            get
+            {
+                return _multiWinContainerProvider;
+            }
+            set
+            {
+                _multiWinContainerProvider = value;
             }
         }
 

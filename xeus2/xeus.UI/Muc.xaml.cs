@@ -15,6 +15,8 @@ namespace xeus2.xeus.UI
             InitializeComponent();
 
             MucCommands.RegisterCommands(this);
+
+            _multi.MultiWinContainerProvider = Middle.Muc.Instance;
         }
 
         internal void AddMuc(Service service, string nick, string password)
