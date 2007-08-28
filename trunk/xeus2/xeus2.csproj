@@ -262,6 +262,7 @@
       <SubType>Code</SubType>
       <DependentUpon>CreateMucRoom.xaml</DependentUpon>
     </Compile>
+    <Compile Include="xeus.UI\xeus.UI.Controls\IMultiWinContainerProvider.cs" />
     <Compile Include="xeus.UI\xeus.UI.Controls\MucAffiliationList.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>MucAffiliationList.xaml</DependentUpon>

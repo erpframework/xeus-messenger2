@@ -18,13 +18,13 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
     public partial class MultiWinFlyout : System.Windows.Window
     {
-        private readonly MultiTabControl _original;
+        private readonly IMultiWinContainerProvider _multiWinContainerProvider;
         private readonly MultiWin _content;
         private readonly string _name;
 
-        public MultiWinFlyout(MultiTabControl original, MultiWin content, string name)
+        internal MultiWinFlyout(IMultiWinContainerProvider multiWinContainerProvider, MultiWin content, string name)
         {
-            _original = original;
+            _multiWinContainerProvider = multiWinContainerProvider;
             _content = content;
             _name = name;
 
@@ -68,7 +68,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 case MultiWin.MultiWinEvent.Flyout:
                     {
                         _container.Child = null;
-                        _original.MultiWindows.Add(new MultiTabItem(_name,_content));
+                        _multiWinContainerProvider.MultiTabControl.MultiWindows.Add(new MultiTabItem(_name,_content));
                         Close();
                         break;
                     }
