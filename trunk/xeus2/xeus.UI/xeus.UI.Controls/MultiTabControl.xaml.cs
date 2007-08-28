@@ -93,11 +93,11 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 Grid.SetColumn(multiTabItem.Container, _container.ColumnDefinitions.Count - 1);
                 Grid.SetColumn(multiTabItem.GridSplitter, _container.ColumnDefinitions.Count - 1);
 
-                multiTabItem.GridSplitter.Visibility = System.Windows.Visibility.Visible;
+                multiTabItem.IsLast = false;
             }
 
             // hide last splitter
-            activeItems[(_container.ColumnDefinitions.Count - 1)].GridSplitter.Visibility = System.Windows.Visibility.Collapsed;
+            activeItems[(_container.ColumnDefinitions.Count - 1)].IsLast = true;
         }
 
         internal ObservableCollectionDisp<MultiTabItem> MultiWindows
@@ -106,6 +106,11 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             {
                 return _multiWindows;
             }
+        }
+
+        void OnUnload(object sender, RoutedEventArgs args)
+        {
+            _multiWindows.Clear();
         }
     }
 }

@@ -4,6 +4,7 @@
    xmlns:xeus2_xeus_Controls="clr-namespace:xeus2.xeus.UI.xeus.UI.Controls"
     x:Class="xeus2.xeus.UI.xeus.UI.Controls.MultiTabControl"
    x:Name="UserControl"
+    Unloaded="OnUnload"
     >
 	<UserControl.Resources>
     <DataTemplate x:Key="MultiTabItem" DataType="{x:Type xeus2_xeus_Controls:MultiTabItem}">

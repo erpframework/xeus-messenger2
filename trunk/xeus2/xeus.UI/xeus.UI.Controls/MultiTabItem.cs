@@ -6,7 +6,6 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 {
     internal class MultiTabItem : NotifyInfoDispatcher
     {
-
         public string Name
         {
             get
@@ -42,6 +41,28 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             }
         }
 
+        public bool IsLast
+        {
+            get
+            {
+                return (GridSplitter.Visibility == Visibility.Collapsed);
+            }
+
+            set
+            {
+                if (value)
+                {
+                    GridSplitter.Visibility = Visibility.Collapsed;
+                    Container.Margin = new Thickness(0, 0, 0, 0);
+                }
+                else
+                {
+                    GridSplitter.Visibility = Visibility.Visible;
+                    Container.Margin = new Thickness(0, 0, 4.0, 0);
+                }
+            }
+        }
+
         public GridSplitter GridSplitter
         {
             get
@@ -65,7 +86,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _name = name;
             _container = container;
 
-            _gridSplitter.Width = 5;
+            _gridSplitter.Width = 4;
             _gridSplitter.ResizeDirection = GridResizeDirection.Auto;
             _gridSplitter.ResizeBehavior = GridResizeBehavior.BasedOnAlignment;
         }
