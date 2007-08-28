@@ -44,6 +44,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                     {
                         foreach (MultiTabItem multiWin in e.NewItems)
                         {
+                            multiWin.Container.OnMultiWinEvent += new MultiWin.NotifyMultiWin(Container_OnMultiWinEvent);
                             multiWin.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(multiWin_PropertyChanged);
 
                             _container.Children.Add(multiWin.GridSplitter);
@@ -59,6 +60,44 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
                         break;
                     }
+            }
+        }
+
+        void Container_OnMultiWinEvent(MultiWin sender, MultiWin.MultiWinEvent multiWinEvent)
+        {
+            MultiTabItem tabItem = null;
+
+            lock (_multiWindows._syncObject)
+            {
+                foreach (MultiTabItem multiTabItem in _multiWindows)
+                {
+                    if (multiTabItem.Container == sender)
+                    {
+                        tabItem = multiTabItem;
+                        break;
+                    }
+                }               
+            }
+
+            if (tabItem != null)
+            {
+                switch (multiWinEvent)
+                {
+                    case MultiWin.MultiWinEvent.Close:
+                        {
+                            _multiWindows.Remove(tabItem);
+                            break;
+                        }
+                    case MultiWin.MultiWinEvent.Hide:
+                        {
+                            tabItem.IsVisible = false;
+                            break;
+                        }
+                    case MultiWin.MultiWinEvent.Flyout:
+                        {
+                            break;
+                        }
+                }
             }
         }
 
@@ -97,7 +136,10 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             }
 
             // hide last splitter
-            activeItems[(_container.ColumnDefinitions.Count - 1)].IsLast = true;
+            if (_container.ColumnDefinitions.Count > 0)
+            {
+                activeItems[(_container.ColumnDefinitions.Count - 1)].IsLast = true;
+            }
         }
 
         internal ObservableCollectionDisp<MultiTabItem> MultiWindows
