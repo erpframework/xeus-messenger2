@@ -16,8 +16,9 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         }
 
         private readonly string _name;
-        private GridSplitter _gridSplitter = new GridSplitter();
-        private ColumnDefinition _columnDefinition = new ColumnDefinition();
+
+        private readonly ColumnDefinition _columnDefinition = new ColumnDefinition();
+        private readonly GridSplitter _gridSplitter = new GridSplitter();
 
         public MultiWin Container
         {
