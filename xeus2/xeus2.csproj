@@ -99,6 +99,7 @@
     <Page Include="xeus.UI\xeus.UI.Controls\MucConversation.xaml" />
     <Page Include="xeus.UI\xeus.UI.Controls\MultiTabControl.xaml" />
     <Page Include="xeus.UI\xeus.UI.Controls\MultiWin.xaml" />
+    <Page Include="xeus.UI\xeus.UI.Controls\MultiWinFlyout.xaml" />
     <Page Include="xeus.UI\xeus.UI.Controls\SearchText.xaml" />
     <Page Include="xeus.UI\xeus.UI.Look\ScrollBar.xaml" />
     <Page Include="xeus.XData\XDataContainer.xaml" />
@@ -277,6 +278,10 @@
     <Compile Include="xeus.UI\xeus.UI.Controls\MultiWin.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>MultiWin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xeus.UI\xeus.UI.Controls\MultiWinFlyout.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>MultiWinFlyout.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\xeus.UI.Controls\SearchText.xaml.cs">
       <SubType>Code</SubType>
