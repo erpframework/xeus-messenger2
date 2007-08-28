@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Windows;
 using System.Windows.Controls;
 using xeus2.xeus.Core;
 
@@ -47,6 +48,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
                             _container.Children.Add(multiWin.GridSplitter);
                             _container.Children.Add(multiWin.Container);
+
                             RedistributeColumns();
                         }
                         break;
@@ -89,8 +91,13 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             {
                 _container.ColumnDefinitions.Add(multiTabItem.ColumnDefinition);
                 Grid.SetColumn(multiTabItem.Container, _container.ColumnDefinitions.Count - 1);
-                Grid.SetColumn(multiTabItem.GridSplitter, _container.ColumnDefinitions.Count);
+                Grid.SetColumn(multiTabItem.GridSplitter, _container.ColumnDefinitions.Count - 1);
+
+                multiTabItem.GridSplitter.Visibility = System.Windows.Visibility.Visible;
             }
+
+            // hide last splitter
+            activeItems[(_container.ColumnDefinitions.Count - 1)].GridSplitter.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         internal ObservableCollectionDisp<MultiTabItem> MultiWindows

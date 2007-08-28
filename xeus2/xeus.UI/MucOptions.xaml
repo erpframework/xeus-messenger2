@@ -312,7 +312,7 @@
             </Border>
           </TabItem.Header>
 		  <DockPanel>
-		<Border Background="{DynamicResource back_x_design}" Padding="0,10,0,10" DockPanel.Dock="Bottom">
+    		<Border Background="{DynamicResource back_x_design}" Padding="0,10,0,10" DockPanel.Dock="Bottom">
             <xeus2_xeus_UI:SearchBox x:Name="_filterAffs" DockPanel.Dock="Top" Margin="0,0,10,0" />
         </Border>
 		  <Border Background="{DynamicResource chat_back_design}" DockPanel.Dock="Top">
