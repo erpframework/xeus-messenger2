@@ -30,6 +30,8 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             {
                 case NotifyCollectionChangedAction.Remove:
                     {
+                        BeginInit();
+
                         foreach (MultiTabItem multiWin in e.OldItems)
                         {
                             _container.Children.Remove(multiWin.Container);
@@ -40,13 +42,19 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                             multiWin.PropertyChanged -= new System.ComponentModel.PropertyChangedEventHandler(multiWin_PropertyChanged);
                             multiWin.Container.OnMultiWinEvent -= new MultiWin.NotifyMultiWin(Container_OnMultiWinEvent);
 
-                            RedistributeColumns();
                         }
+
+                        RedistributeColumns();
+
+                        EndInit();
+
                         break;
                     }
                 case NotifyCollectionChangedAction.Add:
                 case NotifyCollectionChangedAction.Replace:
                     {
+                        BeginInit();
+
                         foreach (MultiTabItem multiWin in e.NewItems)
                         {
                             multiWin.Container.OnMultiWinEvent += new MultiWin.NotifyMultiWin(Container_OnMultiWinEvent);
@@ -55,15 +63,27 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                             _container.Children.Add(multiWin.Container);
                             _container.Children.Add(multiWin.GridSplitter);
 
-                            RedistributeColumns();
-
-                            _multiWinContainerProvider.ShrinkMainWindow(multiWin.Container.ActualWidth);
+                            if (_container.Children.Count > 2)
+                            {
+                                _multiWinContainerProvider.ShrinkMainWindow(multiWin.Container.ContentMinWidth);
+                            }
                         }
+                        
+                        RedistributeColumns();
+
+                        EndInit();
+
                         break;
                     }
                 case NotifyCollectionChangedAction.Reset:
                     {
+                        BeginInit();
+
                         _container.Children.Clear();
+
+                        RedistributeColumns();
+
+                        EndInit();
 
                         break;
                     }
@@ -155,13 +175,13 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             }
 
             // hide controls
-            if (_multiWindows.Count <= 1)
+            if (_multiWindows.Count <= 1 && activeItems.Count > 0)
             {
                 activeItems[(_container.ColumnDefinitions.Count - 1)].Container.DisplayControls = false;
             }
 
             // hide Hide button
-            if (activeItems.Count <= 1)
+            if (activeItems.Count <= 1 && activeItems.Count > 0)
             {
                 activeItems[(_container.ColumnDefinitions.Count - 1)].Container.DisplayControls = false;
             }
