@@ -1171,9 +1171,9 @@
           	<Border
           		x:Name="Border"
           		BorderThickness="1,1,1,1"
-          		CornerRadius="8,8,0,0" BorderBrush="{DynamicResource DefaultTextBrush}" Padding="0,0,0,0" Background="{DynamicResource background_design_2}" ClipToBounds="True" Margin="0,0,2,0" Width="Auto" Height="Auto" >
+          		BorderBrush="{DynamicResource DefaultTextBrush}" Padding="0,0,0,0" Background="{DynamicResource background_design_2}" ClipToBounds="True" Margin="0,0,2,0" Width="Auto" Height="Auto" >
           		<Grid>
-          			<Border CornerRadius="8,8,0,0" Opacity="0.1" Panel.ZIndex="1" VerticalAlignment="Top" Height="20" Background="#FFFFFFFF" IsEnabled="False" IsHitTestVisible="False"/>
+          			<Border Opacity="0.1" Panel.ZIndex="1" VerticalAlignment="Top" Height="20" Background="#FFFFFFFF" IsEnabled="False" IsHitTestVisible="False"/>
           			<TabPanel x:Name="HeaderPanel" IsItemsHost="True"
           				Panel.ZIndex="1" KeyboardNavigation.TabIndex="1" Margin="5,5,5,5"/>
 			

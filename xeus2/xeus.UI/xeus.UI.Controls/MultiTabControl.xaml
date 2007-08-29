@@ -19,9 +19,9 @@
   
     <DockPanel>
       <Expander DockPanel.Dock="Top" ToolTip="Expand list of tabs" IsExpanded="True" x:Name="_tabs" >
-	  	<Border CornerRadius="8,8,0,0" Background="{DynamicResource background_design_2}" BorderBrush="{DynamicResource DefaultTextBrush}" BorderThickness="1,1,1,1" >
+	  	<Border Background="{DynamicResource background_design_2}" BorderBrush="{DynamicResource DefaultTextBrush}" BorderThickness="1,1,1,1" >
         <Grid>
-          <Border CornerRadius="8,8,0,0" IsEnabled="False" IsHitTestVisible="False"
+          <Border IsEnabled="False" IsHitTestVisible="False"
                   Opacity="0.1" Panel.ZIndex="1" VerticalAlignment="Top" Height="20" Background="#FFFFFFFF"/>
             <ListBox
                    ItemsSource="{Binding}"
