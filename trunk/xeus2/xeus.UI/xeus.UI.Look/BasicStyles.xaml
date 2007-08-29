@@ -28,17 +28,6 @@
     </DrawingBrush.Drawing>
   </DrawingBrush>
 
-  <DrawingBrush x:Key="splitter_design" PresentationOptions:Freeze="True"
-	 Viewport="0,0,1,0.01" TileMode="Tile" Stretch="None">
-		<DrawingBrush.Drawing>
-			<DrawingGroup>
-				<DrawingGroup.Children>
-					<GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 146.946,47.7977L 148.006,47.7977L 148.006,48.8577L 146.946,48.8577L 146.946,47.7977 Z "/>
-				</DrawingGroup.Children>
-			</DrawingGroup>
-		</DrawingBrush.Drawing>
-  </DrawingBrush>
-
   <DrawingBrush x:Key="back_menu_design" PresentationOptions:Freeze="True" >
     <DrawingBrush.Drawing>
       <DrawingGroup>
@@ -1658,9 +1647,16 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type GridSplitter}">
-					<Border BorderThickness="1,1,1,1">
-						<Rectangle Fill="{DynamicResource splitter_design}" ClipToBounds="True" SnapsToDevicePixels="True" Width="1" Margin="0,5,0,5"/>
-					</Border>
+					<Border BorderThickness="1,1,1,1" Width="4" Background="{DynamicResource back_tab_design}" Opacity="0.4" x:Name="border" CornerRadius="3,3,3,3"
+                  Margin="0,5,1,5"/>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseDirectlyOver" Value="True">
+							<Setter Property="Opacity" TargetName="border" Value="0.8"/>
+						</Trigger>
+						<Trigger Property="IsMouseOver" SourceName="border" Value="True">
+							<Setter Property="Opacity" TargetName="border" Value="0.8"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
