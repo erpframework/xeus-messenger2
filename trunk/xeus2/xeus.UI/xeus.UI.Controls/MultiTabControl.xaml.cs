@@ -60,13 +60,13 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                             multiWin.Container.OnMultiWinEvent += new MultiWin.NotifyMultiWin(Container_OnMultiWinEvent);
                             multiWin.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(multiWin_PropertyChanged);
 
-                            _container.Children.Add(multiWin.Container);
-                            _container.Children.Add(multiWin.GridSplitter);
-
                             if (_container.Children.Count > 2)
                             {
                                 _multiWinContainerProvider.ShrinkMainWindow(multiWin.Container.ContentMinWidth);
                             }
+
+                            _container.Children.Add(multiWin.Container);
+                            _container.Children.Add(multiWin.GridSplitter);
                         }
                         
                         RedistributeColumns();
