@@ -23,16 +23,31 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             InitializeComponent();
         }
 
-        public MultiWin(UIElement element) : this()
+        public MultiWin(FrameworkElement element) : this()
         {
             ContentElement = element;
         }
 
-        public UIElement ContentElement
+        public double ContentMinWidth
         {
             get
             {
-                return _container.Child;
+                if (ContentElement == null)
+                {
+                    return 0.0;
+                }
+                else
+                {
+                    return ContentElement.MinWidth;
+                }
+            }
+        }
+
+        public FrameworkElement ContentElement
+        {
+            get
+            {
+                return _container.Child as FrameworkElement;
             }
             set
             {
