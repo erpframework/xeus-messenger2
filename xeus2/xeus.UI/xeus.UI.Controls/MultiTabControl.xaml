@@ -9,20 +9,29 @@
 	
   <UserControl.Resources>
     <DataTemplate x:Key="MultiTabItem" DataType="{x:Type xeus2_xeus_Controls:MultiTabItem}">
-		<StackPanel>
-        <TextBlock Text="{Binding Path=Name}" Foreground="{DynamicResource TextBoxBorderBrush}" MinWidth="200" TextWrapping="Wrap" HorizontalAlignment="Left"/>
-		<CheckBox IsChecked="{Binding Path=IsVisible, Mode=TwoWay}" HorizontalAlignment="Left"/>
+		<StackPanel ToolTip="{Binding Path=Name}" 
+		Margin="5,5,5,5" MaxWidth="100" Orientation="Horizontal" VerticalAlignment="Center">
+		<CheckBox IsChecked="{Binding Path=IsVisible, Mode=TwoWay}" ToolTip="Content visibility"/>
+        <TextBlock Text="{Binding Path=Name}" Foreground="{DynamicResource TextBoxBorderBrush}" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="5,0,0,0"/>
 		</StackPanel>
     </DataTemplate>	
 	</UserControl.Resources>
   
     <DockPanel>
-      <ListBox 
-               ItemsPanel="{DynamicResource ItemsPanelTemplateRoster}"
-			         ItemsSource="{Binding}"
-               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-               x:Name="_tabs" ItemTemplate="{DynamicResource MultiTabItem}" BorderThickness="0,0,0,0"
-               DockPanel.Dock="Top" Background="{x:Null}" Height="40" ScrollViewer.VerticalScrollBarVisibility="Disabled" />
+      <Expander DockPanel.Dock="Top" ToolTip="Expand list of tabs" IsExpanded="True">
+	  	<Border Background="{DynamicResource background_design_2}" BorderBrush="{DynamicResource DefaultTextBrush}" BorderThickness="1,1,1,1" CornerRadius="1,1,1,1">
+        <ListBox
+                 ItemsSource="{Binding}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 x:Name="_tabs" ItemTemplate="{DynamicResource MultiTabItem}" ScrollViewer.VerticalScrollBarVisibility="Disabled" MinHeight="45" IsSynchronizedWithCurrentItem="True" Background="{x:Null}" BorderThickness="0,0,0,0" Padding="5,5,5,5" ScrollViewer.CanContentScroll="False" >
+          <ListBox.ItemsPanel>
+            <ItemsPanelTemplate>
+              <WrapPanel />
+            </ItemsPanelTemplate>
+          </ListBox.ItemsPanel>
+        </ListBox>
+		</Border>
+      </Expander>
       <Grid x:Name="_container" DockPanel.Dock="Bottom" Focusable="True"/>
     </DockPanel>
 </UserControl>
