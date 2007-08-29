@@ -156,22 +156,13 @@
 							<LinearGradientBrush StartPoint="0.5,0.902014" EndPoint="0.5,0.0979868">
 								<LinearGradientBrush.GradientStops>
 									<GradientStop Color="#FF000000" Offset="0"/>
-									<GradientStop Color="#FF676767" Offset="0.990868"/>
+									<GradientStop Color="#FF5E5E5E" Offset="0.780822"/>
+									<GradientStop Color="#FF717171" Offset="0.90411"/>
+									<GradientStop Color="#FF858585" Offset="1"/>
 								</LinearGradientBrush.GradientStops>
 							</LinearGradientBrush>
 						</GeometryDrawing.Brush>
 					</GeometryDrawing>
-					<GeometryDrawing Geometry="F1 M 11.3333,485.333L 477.889,485.333L 477.889,532.667L 11.3333,532.667L 11.3333,485.333 Z ">
-						<GeometryDrawing.Brush>
-							<LinearGradientBrush StartPoint="0.5,5.29338" EndPoint="0.5,-4.29338">
-								<LinearGradientBrush.GradientStops>
-									<GradientStop Color="#9A000000" Offset="0"/>
-									<GradientStop Color="#9AFFFFFF" Offset="1"/>
-								</LinearGradientBrush.GradientStops>
-							</LinearGradientBrush>
-						</GeometryDrawing.Brush>
-					</GeometryDrawing>
-					<GeometryDrawing Brush="#80FFFFFF" Geometry="F1 M 11.3333,488.15L 477.889,488.15L 477.889,485.333L 11.3333,485.333L 11.3333,488.15 Z "/>
 				</DrawingGroup.Children>
 			</DrawingGroup>
 		</DrawingBrush.Drawing>
@@ -1075,6 +1066,7 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
+  
 	<Style TargetType="{x:Type Expander}">
 		<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
 		<Setter Property="VerticalContentAlignment" Value="Stretch"/>
@@ -1176,15 +1168,17 @@
               <RowDefinition x:Name="RowDefinition0" Height="Auto"/>
               <RowDefinition x:Name="RowDefinition1" Height="*"/>
             </Grid.RowDefinitions>
-            <Border
-			                x:Name="Border"
-			                BorderThickness="1,1,1,1"
-			                CornerRadius="1,1,1,1" BorderBrush="#FF515151" Padding="0,0,0,0" Background="{DynamicResource background_design_2}" >
-              <Grid>
-                <TabPanel x:Name="HeaderPanel" Grid.Column="0" Grid.Row="0" IsItemsHost="True"
-					        Panel.ZIndex="1" KeyboardNavigation.TabIndex="1" Margin="5,5,5,5"/>
-              </Grid>
-            </Border>
+          	<Border
+          		x:Name="Border"
+          		BorderThickness="1,1,1,1"
+          		CornerRadius="8,8,0,0" BorderBrush="{DynamicResource DefaultTextBrush}" Padding="0,0,0,0" Background="{DynamicResource background_design_2}" ClipToBounds="True" Margin="0,0,2,0" Width="Auto" Height="Auto" >
+          		<Grid>
+          			<Border CornerRadius="8,8,0,0" Opacity="0.1" Panel.ZIndex="1" VerticalAlignment="Top" Height="20" Background="#FFFFFFFF" IsEnabled="False" IsHitTestVisible="False"/>
+          			<TabPanel x:Name="HeaderPanel" IsItemsHost="True"
+          				Panel.ZIndex="1" KeyboardNavigation.TabIndex="1" Margin="5,5,5,5"/>
+			
+          		</Grid>
+          	</Border>
             <Grid x:Name="ContentPanel" Grid.Column="0" Grid.Row="1" KeyboardNavigation.DirectionalNavigation="Contained" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local">
               <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Margin="0,2,0,0" x:Name="PART_SelectedContentHost" Content="{TemplateBinding SelectedContent}" ContentSource="SelectedContent" ContentTemplate="{TemplateBinding SelectedContentTemplate}"/>
             </Grid>
@@ -1226,6 +1220,8 @@
         </ControlTemplate>
       </Setter.Value>
     </Setter>
+  	<Setter Property="SnapsToDevicePixels" Value="True"/>
+  	<Setter Property="ClipToBounds" Value="False"/>
   </Style>
 	
 	<Style TargetType="{x:Type ListBox}">
