@@ -60,13 +60,21 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                             multiWin.Container.OnMultiWinEvent += new MultiWin.NotifyMultiWin(Container_OnMultiWinEvent);
                             multiWin.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(multiWin_PropertyChanged);
 
-                            if (_container.Children.Count > 2)
-                            {
-                                _multiWinContainerProvider.ShrinkMainWindow(multiWin.Container.ContentMinWidth);
-                            }
-
                             _container.Children.Add(multiWin.Container);
                             _container.Children.Add(multiWin.GridSplitter);
+
+                            if (_container.Children.Count > 2)
+                            {
+                                if (multiWin.Container.ActualWidth > 0.0)
+                                {
+                                    _multiWinContainerProvider.ShrinkMainWindow(multiWin.Container.ActualWidth);
+                                }
+                                else
+                                {
+                                    _multiWinContainerProvider.ShrinkMainWindow(multiWin.Container.ContentMinWidth);
+                                }
+                            }
+
                         }
                         
                         RedistributeColumns();
@@ -123,9 +131,12 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                         }
                     case MultiWin.MultiWinEvent.Flyout:
                         {
+                            MultiWinFlyout flyout = new MultiWinFlyout(_multiWinContainerProvider, tabItem.Container, tabItem.Name);
+                            flyout.Width = tabItem.Container.ActualWidth;
+                            flyout.Height = tabItem.Container.ActualHeight;
+
                             _multiWindows.Remove(tabItem);
 
-                            MultiWinFlyout flyout = new MultiWinFlyout(_multiWinContainerProvider, tabItem.Container, tabItem.Name);
                             flyout.Show();
                             break;
                         }
