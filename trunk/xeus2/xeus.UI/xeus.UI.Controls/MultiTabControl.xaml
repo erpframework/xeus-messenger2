@@ -18,12 +18,12 @@
 	</UserControl.Resources>
   
     <DockPanel>
-      <Expander DockPanel.Dock="Top" ToolTip="Expand list of tabs" IsExpanded="True">
+      <Expander DockPanel.Dock="Top" ToolTip="Expand list of tabs" IsExpanded="True" x:Name="_tabs" >
 	  	<Border Background="{DynamicResource background_design_2}" BorderBrush="{DynamicResource DefaultTextBrush}" BorderThickness="1,1,1,1" CornerRadius="1,1,1,1">
         <ListBox
                  ItemsSource="{Binding}"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 x:Name="_tabs" ItemTemplate="{DynamicResource MultiTabItem}" ScrollViewer.VerticalScrollBarVisibility="Disabled" MinHeight="45" IsSynchronizedWithCurrentItem="True" Background="{x:Null}" BorderThickness="0,0,0,0" Padding="5,5,5,5" ScrollViewer.CanContentScroll="False" >
+                 ItemTemplate="{DynamicResource MultiTabItem}" ScrollViewer.VerticalScrollBarVisibility="Disabled" MinHeight="45" IsSynchronizedWithCurrentItem="True" Background="{x:Null}" BorderThickness="0,0,0,0" Padding="5,5,5,5" ScrollViewer.CanContentScroll="False" >
           <ListBox.ItemsPanel>
             <ItemsPanelTemplate>
               <WrapPanel />

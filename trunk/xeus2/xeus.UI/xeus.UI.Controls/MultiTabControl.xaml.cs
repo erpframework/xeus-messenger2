@@ -180,11 +180,12 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 activeItems[(_container.ColumnDefinitions.Count - 1)].Container.DisplayControls = false;
             }
 
+            /*
             // hide Hide button
             if (activeItems.Count <= 1 && activeItems.Count > 0)
             {
                 activeItems[(_container.ColumnDefinitions.Count - 1)].Container.DisplayControls = false;
-            }
+            }*/
 
             // hide tabs
             _tabs.Visibility = (_multiWindows.Count <= 1)
