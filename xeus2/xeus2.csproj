@@ -176,6 +176,7 @@
     <Compile Include="xeus.Core\ServiceCategory.cs" />
     <Compile Include="xeus.Core\ServiceCommandExecution.cs" />
     <Compile Include="xeus.Core\Services.cs" />
+    <Compile Include="xeus.Core\xeus.Data\MucMarkManager.cs" />
     <Compile Include="xeus.Core\XeusException.cs" />
     <Compile Include="xeus.Core\XeusHyperlink.cs" />
     <Compile Include="xeus.Core\xeus.Data\Database.cs" />

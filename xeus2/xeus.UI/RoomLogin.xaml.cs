@@ -55,48 +55,6 @@ namespace xeus2.xeus.UI
         {
         }
 
-        /*
-        internal RoomLogin(string jid, string forceNick)
-        {
-            Login(jid, forceNick);
-        }*/
-
-        /*
-        internal RoomLogin(Service service, string forceNick)
-		{
-		    MucMark mucMark = MucMarks.Instance.Find(service);
-
-            if (mucMark != null)
-            {
-                if (!string.IsNullOrEmpty(forceNick))
-                {
-                    mucMark.Nick = forceNick;
-                }
-
-                Login(mucMark);
-                return;
-            }
-
-		    DataContext = service;
-
-			InitializeComponent() ;
-
-			if ( !string.IsNullOrEmpty( forceNick ) )
-			{
-				_nick.Text = forceNick ;
-				_nick.IsEnabled = false ;
-			}
-            else
-			{
-			    _nick.Text = Account.Instance.MyJid.User;
-			}
-
-			if (!service.IsMucPasswordProtected)
-			{
-				_passwordPanel.Visibility = Visibility.Collapsed ;
-			}
-		}*/
-
 		protected void OnJoin( object sender, RoutedEventArgs eventArgs )
 		{
 			Middle.Muc.Instance.DisplayMuc( DataContext as Service, _nick.Text, _password.Password );
@@ -113,7 +71,7 @@ namespace xeus2.xeus.UI
                     _mucMark.Password = _password.Password;
                 }
 
-                Database.SaveMucMarks();
+                Account.Instance.MucMarkManager.SaveBookmarks();
             }
 
 			Close() ;
