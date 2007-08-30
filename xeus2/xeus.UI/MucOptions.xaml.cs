@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Windows;
 using agsXMPP.protocol.x.muc;
 using xeus2.xeus.Commands;
@@ -34,15 +35,25 @@ namespace xeus2.xeus.UI
             _affMembers.AffContacts.SetupAffiliations(mucRoom, Affiliation.member);
             _affMembers.AffContacts.OnChange += new MucAffContacts.EventChangeCallback(OnChange);
 
+            _affMembers.Loaded += new RoutedEventHandler(_affMembers_Loaded);
+
             _tabForm.IsEnabled = (_mucRoom.Me.Affiliation == Affiliation.owner);
+        }
+
+        void _affMembers_Loaded(object sender, RoutedEventArgs e)
+        {
+            new TextFilterMucAffs(new ICollectionView[] { _affOwner.View, _affAdmin.View, _affBanned.View, _affMembers.View }, _filterAffs);
         }
 
         void OnChange(object sender, MucAffContact mucAffContact)
         {
-            _affOwner.AffContacts.Remove(mucAffContact);
-            _affAdmin.AffContacts.Remove(mucAffContact);
-            _affBanned.AffContacts.Remove(mucAffContact);
-            _affMembers.AffContacts.Remove(mucAffContact);
+            if (mucAffContact != null)
+            {
+                _affOwner.AffContacts.Remove(mucAffContact);
+                _affAdmin.AffContacts.Remove(mucAffContact);
+                _affBanned.AffContacts.Remove(mucAffContact);
+                _affMembers.AffContacts.Remove(mucAffContact);
+            }
         }
 
         private void OnSaveConfig(object sender, RoutedEventArgs args)

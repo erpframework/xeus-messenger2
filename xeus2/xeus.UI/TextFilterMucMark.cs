@@ -2,14 +2,13 @@ using System;
 using System.ComponentModel;
 using System.Timers;
 using System.Windows.Controls;
-using System.Windows.Threading;
 using xeus2.xeus.Core;
 
 namespace xeus2.xeus.UI
 {
     internal class TextFilterMucMark
     {
-        Timer _keyTime = new Timer(500);
+        private Timer _keyTime = new Timer(500);
         private ICollectionView _collectionView;
 
         private delegate void RefreshCallback();
@@ -21,7 +20,7 @@ namespace xeus2.xeus.UI
             _keyTime.Elapsed += new ElapsedEventHandler(_keyTime_Elapsed);
         }
 
-        void Refresh()
+        private void Refresh()
         {
             if (_collectionView != null)
             {
@@ -29,10 +28,10 @@ namespace xeus2.xeus.UI
             }
         }
 
-        void _keyTime_Elapsed(object sender, ElapsedEventArgs e)
+        private void _keyTime_Elapsed(object sender, ElapsedEventArgs e)
         {
             App.InvokeSafe(App._dispatcherPriority,
-                            new RefreshCallback(Refresh));
+                           new RefreshCallback(Refresh));
         }
 
         public TextFilterMucMark(ICollectionView collectionView, SearchBox searchBox)
@@ -57,7 +56,8 @@ namespace xeus2.xeus.UI
                                             }
 
                                             return
-                                                mucMark.Name.IndexOf(filterText, 0, StringComparison.CurrentCultureIgnoreCase) >=
+                                                mucMark.Name.IndexOf(filterText, 0,
+                                                                     StringComparison.CurrentCultureIgnoreCase) >=
                                                 0;
                                         };
 

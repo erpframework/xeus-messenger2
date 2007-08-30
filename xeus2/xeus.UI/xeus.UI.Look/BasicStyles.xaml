@@ -1129,7 +1129,6 @@
             <Trigger Property="IsSelected" Value="True">
               <Setter Property="Panel.ZIndex" Value="100" />
               <Setter Property="Background" TargetName="Border" Value="{StaticResource back_tab_design}"/>
-              <!--<Setter Property="BorderThickness" TargetName="Border" Value="1,1,1,1"/>-->
               <Setter Property="CornerRadius" TargetName="Border" Value="2,2,2,2"/>
             </Trigger>
             <MultiTrigger>
@@ -1140,12 +1139,13 @@
               <Setter Property="Background" TargetName="Border" Value="{StaticResource back_tab_over_design}"/>
               <Setter Property="CornerRadius" TargetName="Border" Value="2,2,2,2"/>
             </MultiTrigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Opacity" Value="0.3"/>
+            </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
-    <!--<Setter Property="HeaderTemplate" Value="{DynamicResource RosterItemTab}"/>-->
-    <!--<Setter Property="HeaderTemplate" Value="{DynamicResource RosterItemTab}"/>-->
   </Style>
 
 
