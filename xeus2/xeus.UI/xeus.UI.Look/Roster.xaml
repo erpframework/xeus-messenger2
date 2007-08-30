@@ -8,7 +8,7 @@
     <WrapPanel IsItemsHost="True" />
 	</ItemsPanelTemplate>
 
-	<DataTemplate x:Key="Contact">
+	<DataTemplate x:Key="MetaContact">
 		<StackPanel>
 			<TextBlock Text="{Binding Path=DisplayName}"/>
 			<TextBlock Text="{Binding Path=StatusText}"/>

@@ -13,5 +13,7 @@ namespace xeus2.xeus.Core
 
 		string FullName { get ; }
 		string NickName { get ; }
+
+        string CustomName { get; }
 	}
 }

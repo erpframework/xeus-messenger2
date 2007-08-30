@@ -4,7 +4,7 @@ using System.Windows.Threading ;
 
 namespace xeus2.xeus.Core
 {
-	internal class NotifyInfoDispatcher : INotifyPropertyChanged
+	public class NotifyInfoDispatcher : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged ;
 

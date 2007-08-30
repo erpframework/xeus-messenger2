@@ -75,7 +75,7 @@ namespace xeus2.xeus.Core
 		protected void Cleanup()
 		{
 			Services.Instance.Clear();
-			Roster.Instance.Clear();
+			Roster.Instance.Items.Clear();
 		}
 
 		public void Login()

@@ -8,13 +8,13 @@ using xeus2.xeus.Utilities ;
 
 namespace xeus2.xeus.Core
 {
-	internal class Contact : NotifyInfoDispatcher, IContact
+	public class Contact : NotifyInfoDispatcher, IContact
 	{
 		private RosterItem _rosterItem = null ;
 		private Presence _presence = new Presence() ;
-		DisplayNameBuilder _displayNameBuilder = new DisplayNameBuilder();
+	    private string _customName;
 
-		public Contact( RosterItem rosterItem )
+	    public Contact( RosterItem rosterItem )
 		{
 			_rosterItem = rosterItem ;
 		}
@@ -23,7 +23,20 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				return _displayNameBuilder.GetDisplayName( this ) ;
+                if (!string.IsNullOrEmpty(CustomName))
+                {
+                    return CustomName;
+                }
+                else if (!string.IsNullOrEmpty(FullName))
+                {
+                    return FullName;
+                }
+                else if (!string.IsNullOrEmpty(NickName))
+                {
+                    return NickName;
+                }
+
+				return Jid.ToString() ;
 			}
 		}
 
@@ -94,7 +107,15 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		public override string ToString()
+	    public string CustomName
+	    {
+	        get
+	        {
+	            return _customName;
+	        }
+	    }
+
+	    public override string ToString()
 		{
 			return string.Format( "{0} / {1}", Jid, Presence.Status ) ;
 		}
