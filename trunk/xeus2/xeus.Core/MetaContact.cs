@@ -113,6 +113,14 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public string XStatusText
+        {
+            get
+            {
+                return GetValueSafe("XStatusText") as string;
+            }
+        }
+
         public string FullName
         {
             get

@@ -10,6 +10,7 @@ namespace xeus2.xeus.Core
 		string DisplayName { get ; }
 		string Group { get ; }
 		string StatusText { get ; }
+        string XStatusText { get; }
 
 		string FullName { get ; }
 		string NickName { get ; }
