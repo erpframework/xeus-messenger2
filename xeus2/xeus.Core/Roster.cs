@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using agsXMPP;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.iq.roster;
+using agsXMPP.protocol.iq.vcard;
 using xeus2.Properties;
 using xeus2.xeus.Utilities;
 
@@ -82,9 +83,33 @@ namespace xeus2.xeus.Core
                 {
                     EventPresenceChanged eventPresenceChanged =
                         new EventPresenceChanged(contact, contact.Presence, presence);
+
                     Events.Instance.OnEvent(this, eventPresenceChanged);
 
                     contact.Presence = presence;
+
+                    if (!contact.HasVCardRecieved)
+                    {
+			            VcardIq viq = new VcardIq( IqType.get, contact.Jid ) ;
+			            Account.Instance.XmppConnection.IqGrabber.SendIq( viq, new IqCB( VcardResult ), contact ) ;
+                    }
+                }
+            }
+        }
+
+        private void VcardResult( object sender, IQ iq, object data )
+        {
+            if (iq.Type == IqType.error || iq.Error != null)
+            {
+                Events.Instance.OnEvent(this,
+                                        new EventError(String.Format("V-Card receiving error from {0}", iq.From), null));
+            }
+            else if (iq.Type == IqType.result)
+            {
+                if (iq.Vcard != null)
+                {
+                    Contact contact = (Contact)data;
+                    contact.SetVcard(iq.Vcard);
                 }
             }
         }
@@ -129,7 +154,11 @@ namespace xeus2.xeus.Core
             lock (_items._syncObject)
             {
                 // for now
-                _items.Add(new MetaContact(new Contact(item)));
+                Contact contact = new Contact(item);
+
+                _realContacts.Add(item.Jid.Bare, contact);
+
+                _items.Add(new MetaContact(contact));
             }
         }
 
@@ -142,6 +171,8 @@ namespace xeus2.xeus.Core
                 if (metaContact != null)
                 {
                     metaContact.SubContacts.Remove(contact);
+                    
+                    _realContacts.Remove(contact.Jid.Bare);
 
                     if (metaContact.SubContacts.Count == 0)
                     {

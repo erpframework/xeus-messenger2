@@ -87,39 +87,39 @@ namespace xeus2.xeus.Core
 
 		public void Open()
 		{
-			_discoManager = new DiscoManager( _xmppConnection ) ;
+			_discoManager = new DiscoManager( XmppConnection ) ;
 
-			_xmppConnection.UseCompression = true ;
-			_xmppConnection.Priority = Settings.Default.XmppPriority ;
-			_xmppConnection.AutoResolveConnectServer = true ;
+			XmppConnection.UseCompression = true ;
+			XmppConnection.Priority = Settings.Default.XmppPriority ;
+			XmppConnection.AutoResolveConnectServer = true ;
 
-			_xmppConnection.ConnectServer = null ;
-			_xmppConnection.Resource = Settings.Default.XmppResource ;
-			_xmppConnection.SocketConnectionType = SocketConnectionType.Direct ;
-			_xmppConnection.UseStartTLS = true ;
+			XmppConnection.ConnectServer = null ;
+			XmppConnection.Resource = Settings.Default.XmppResource ;
+			XmppConnection.SocketConnectionType = SocketConnectionType.Direct ;
+			XmppConnection.UseStartTLS = true ;
 
-			_xmppConnection.AutoRoster = true ;
-			_xmppConnection.AutoAgents = true ;
+			XmppConnection.AutoRoster = true ;
+			XmppConnection.AutoAgents = true ;
 
-			_xmppConnection.Username = Settings.Default.XmppUserName ;
-			_xmppConnection.Password = Settings.Default.XmppPassword ;
-			_xmppConnection.Server = Settings.Default.XmppServer ;
+			XmppConnection.Username = Settings.Default.XmppUserName ;
+			XmppConnection.Password = Settings.Default.XmppPassword ;
+			XmppConnection.Server = Settings.Default.XmppServer ;
 
-			_xmppConnection.OnClose += new ObjectHandler( _xmppConnection_OnClose ) ;
-			_xmppConnection.OnLogin += new ObjectHandler( _xmppConnection_OnLogin ) ;
-			_xmppConnection.OnRosterItem += new XmppClientConnection.RosterHandler( _xmppConnection_OnRosterItem ) ;
-			_xmppConnection.OnRosterEnd += new ObjectHandler( _xmppConnection_OnRosterEnd ) ;
-			_xmppConnection.OnPresence += new PresenceHandler( _xmppConnection_OnPresence ) ;
-			_xmppConnection.OnError += new ErrorHandler( _xmppConnection_OnError ) ;
-			_xmppConnection.OnAuthError += new XmppElementHandler( _xmppConnection_OnAuthError ) ;
+			XmppConnection.OnClose += new ObjectHandler( _xmppConnection_OnClose ) ;
+			XmppConnection.OnLogin += new ObjectHandler( _xmppConnection_OnLogin ) ;
+			XmppConnection.OnRosterItem += new XmppClientConnection.RosterHandler( _xmppConnection_OnRosterItem ) ;
+			XmppConnection.OnRosterEnd += new ObjectHandler( _xmppConnection_OnRosterEnd ) ;
+			XmppConnection.OnPresence += new PresenceHandler( _xmppConnection_OnPresence ) ;
+			XmppConnection.OnError += new ErrorHandler( _xmppConnection_OnError ) ;
+			XmppConnection.OnAuthError += new XmppElementHandler( _xmppConnection_OnAuthError ) ;
 
-			_xmppConnection.OnIq += new IqHandler( _xmppConnection_OnIq ) ;
+			XmppConnection.OnIq += new IqHandler( _xmppConnection_OnIq ) ;
 
 			Settings.Default.Save() ;
 
-			_mucManager = new MucManager( _xmppConnection ) ;
+			_mucManager = new MucManager( XmppConnection ) ;
 
-			_xmppConnection.Open() ;
+			XmppConnection.Open() ;
 
 			_discoTime.Elapsed += new ElapsedEventHandler( _discoTime_Elapsed ) ;
 
@@ -294,7 +294,7 @@ namespace xeus2.xeus.Core
 
             if (string.IsNullOrEmpty(serverJid))
             {
-                jid = new Jid(_xmppConnection.Server);
+                jid = new Jid(XmppConnection.Server);
             }
             else
             {
@@ -311,8 +311,8 @@ namespace xeus2.xeus.Core
 
 		private void SendMyPresence()
 		{
-			_xmppConnection.Show = Settings.Default.XmppMyPresence ;
-			_xmppConnection.SendMyPresence() ;
+			XmppConnection.Show = Settings.Default.XmppMyPresence ;
+			XmppConnection.SendMyPresence() ;
 		}
 
 		private void _xmppConnection_OnRosterItem( object sender, RosterItem item )
@@ -326,7 +326,7 @@ namespace xeus2.xeus.Core
 		{
 			IsLogged = true ;
 
-            _mucMarkManager = new MucMarkManager(_xmppConnection);
+            _mucMarkManager = new MucMarkManager(XmppConnection);
 		    _mucMarkManager.LoadMucMarks();
 		}
 
@@ -359,7 +359,7 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				return _xmppConnection.Priority ;
+				return XmppConnection.Priority ;
 			}
 		}
 
@@ -367,7 +367,7 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				return _xmppConnection.MyJID ;
+				return XmppConnection.MyJID ;
 			}
 		}
 
@@ -422,6 +422,14 @@ namespace xeus2.xeus.Core
 	        get
 	        {
 	            return _mucMarkManager;
+	        }
+	    }
+
+	    public XmppClientConnection XmppConnection
+	    {
+	        get
+	        {
+	            return _xmppConnection;
 	        }
 	    }
 
@@ -517,7 +525,7 @@ namespace xeus2.xeus.Core
 			searchIq.To = service.Jid ;
 			searchIq.Query.AddChild( data ) ;
 
-			_xmppConnection.IqGrabber.SendIq( searchIq, OnServiceSearched, service ) ;
+			XmppConnection.IqGrabber.SendIq( searchIq, OnServiceSearched, service ) ;
 		}
 
 		public void DoSearchService( Service service, string first, string last, string nick, string email )
@@ -528,7 +536,7 @@ namespace xeus2.xeus.Core
 			searchIq.Query.Nickname = nick ;
 			searchIq.Query.Email = email ;
 
-			_xmppConnection.IqGrabber.SendIq( searchIq, OnServiceSearched, service ) ;
+			XmppConnection.IqGrabber.SendIq( searchIq, OnServiceSearched, service ) ;
 		}
 
 		private void OnServiceSearched( object sender, IQ iq, object data )
@@ -558,7 +566,7 @@ namespace xeus2.xeus.Core
 			registerIq.To = service.Jid ;
 			registerIq.Query.AddChild( data ) ;
 
-			_xmppConnection.IqGrabber.SendIq( registerIq, OnServiceRegistered, service ) ;
+			XmppConnection.IqGrabber.SendIq( registerIq, OnServiceRegistered, service ) ;
 		}
 
 		public void DoRegisterService( Service service, Dictionary< string, string > values )
@@ -570,7 +578,7 @@ namespace xeus2.xeus.Core
 				registerIq.Query.AddTag( value.Key, value.Value ) ;
 			}
 
-			_xmppConnection.IqGrabber.SendIq( registerIq, OnServiceRegistered, service ) ;
+			XmppConnection.IqGrabber.SendIq( registerIq, OnServiceRegistered, service ) ;
 		}
 
 		private void OnServiceRegistered( object sender, IQ iq, object data )
@@ -594,14 +602,14 @@ namespace xeus2.xeus.Core
 		{
 			RegisterIq registerIq = new RegisterIq( IqType.get, service.Jid ) ;
 
-			_xmppConnection.IqGrabber.SendIq( registerIq, OnRegisterServiceGet, service ) ;
+			XmppConnection.IqGrabber.SendIq( registerIq, OnRegisterServiceGet, service ) ;
 		}
 
 		public void GetServiceSearch( Service service )
 		{
 			SearchIq searchIq = new SearchIq( IqType.get, service.Jid ) ;
 
-			_xmppConnection.IqGrabber.SendIq( searchIq, OnRegisterServiceGetSearch, service ) ;
+			XmppConnection.IqGrabber.SendIq( searchIq, OnRegisterServiceGetSearch, service ) ;
 		}
 
 		private void OnRegisterServiceGetSearch( object sender, IQ iq, object data )
@@ -654,7 +662,7 @@ namespace xeus2.xeus.Core
 
 			commandIq.AddChild( command ) ;
 
-			_xmppConnection.IqGrabber.SendIq( commandIq, OnCommandResult, service ) ;
+			XmppConnection.IqGrabber.SendIq( commandIq, OnCommandResult, service ) ;
 		}
 
 		private void OnCommandResult( object sender, IQ iq, object data )
@@ -694,7 +702,7 @@ namespace xeus2.xeus.Core
 		{
 			if ( IsLogged )
 			{
-				_xmppConnection.Close() ;
+				XmppConnection.Close() ;
 			}
 		}
 
@@ -712,7 +720,7 @@ namespace xeus2.xeus.Core
 
 			commandIq.AddChild( commandExec ) ;
 
-			_xmppConnection.IqGrabber.SendIq( commandIq, OnCommandResult, command ) ;
+			XmppConnection.IqGrabber.SendIq( commandIq, OnCommandResult, command ) ;
 		}
 
 		public void ServiceCommandComplete( ServiceCommandExecution command )
@@ -741,29 +749,7 @@ namespace xeus2.xeus.Core
 
 		public void JoinMuc(string jidBare)
 		{
-			/*Service service ;
-
-			Jid jid = new Jid( jidBare ) ;*/
-
             DiscoverSingleService(jidBare);
-
-            /*
-			lock ( Services.Instance._syncObject )
-			{
-				service = Services.Instance.FindService( jid ) ;
-			}
-
-            if (service == null)
-            {
-                // not on this server
-                // service = new Service(new DiscoItem(), false);
-                // service.DiscoItem.Jid = new Jid(jidBare);
-                DiscoverSingleService(jidBare);
-            }
-            else
-            {
-                DiscoverReservedRoomNickname(service);
-            }*/
 		}
 
         public void DiscoverSingleService(string jidBare)
@@ -789,42 +775,6 @@ namespace xeus2.xeus.Core
             }
         }
 
-        /*public void JoinMuc(MucMark mucMark)
-        {
-            Service service;
-
-            Jid jid = new Jid(mucMark.Jid);
-
-            lock (Services.Instance._syncObject)
-            {
-                service = Services.Instance.FindService(jid);
-            }
-
-            if (service == null)
-            {
-                // not on this server
-                // service = new Service(new DiscoItem(), false);
-                // service.DiscoItem.Jid = new Jid(jidBare);
-                DiscoverSingleService(mucMark.Jid);
-            }
-            else
-            {
-                DiscoverReservedRoomNickname(mucMark);
-            }
-        }*/
-
-	    private void DiscoverReservedRoomNickname(MucMark mucMark)
-	    {
-            IQ iq = new IQ(IqType.get, MyJid, new Jid(mucMark.Jid));
-
-            iq.GenerateId();
-            DiscoInfo di = new DiscoInfo();
-            di.Node = "x-roomuser-item";
-            iq.Query = di;
-
-            _xmppConnection.IqGrabber.SendIq(iq, new IqCB(OnRoomNicknameResult), mucMark);
-	    }
-
 	    public void JoinMuc( Service service )
 		{
 			DiscoverReservedRoomNickname( service ) ;
@@ -839,7 +789,7 @@ namespace xeus2.xeus.Core
 			di.Node = "x-roomuser-item" ;
 			iq.Query = di ;
 
-			_xmppConnection.IqGrabber.SendIq( iq, new IqCB( OnRoomNicknameResult ), service ) ;
+			XmppConnection.IqGrabber.SendIq( iq, new IqCB( OnRoomNicknameResult ), service ) ;
 		}
 
 		private void OnRoomNicknameResult( object sender, IQ iq, object data )
@@ -918,12 +868,12 @@ namespace xeus2.xeus.Core
 				_mucManager.JoinRoom( service.Jid, nick ) ;
 			}
 
-			return new MucRoom( service, _xmppConnection, nick ) ;
+			return new MucRoom( service, XmppConnection, nick ) ;
 		}
 
         public MucManager GetMucManager()
         {
-            return new MucManager(_xmppConnection);
+            return new MucManager(XmppConnection);
         }
 
         public void DoSaveMucConfig(MucRoom mucRoom, Data data)
@@ -932,7 +882,7 @@ namespace xeus2.xeus.Core
 
             saveIq.Query.AddChild(data);
 
-            _xmppConnection.IqGrabber.SendIq(saveIq, OnMucConfigSaved, mucRoom);
+            XmppConnection.IqGrabber.SendIq(saveIq, OnMucConfigSaved, mucRoom);
         }
 
         private void OnMucConfigSaved(object sender, IQ iq, object data)
