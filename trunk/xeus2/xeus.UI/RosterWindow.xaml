@@ -57,7 +57,6 @@
 	</Window.Background>
 
     <StackPanel>
-      
       <ListBox ItemsSource="{Binding Source={StaticResource Contacts}}" Height="100"
                ItemsPanel="{DynamicResource ItemsPanelTemplateRoster}"
                ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemTemplate="{DynamicResource Contact}"
@@ -99,8 +98,6 @@
          x:Name="_mucMarksResult"
                ItemTemplate="{DynamicResource ServicesTemplateMucBookmark}"
                ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="5,5,5,5" />
-
-    	<GridSplitter Style="{DynamicResource GridSplitterStyle}" Width="5" Height="100"/>
 
     </StackPanel>
 </Window>
