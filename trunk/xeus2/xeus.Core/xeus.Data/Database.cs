@@ -37,11 +37,11 @@ namespace xeus.Data
 		{
 			using ( SQLiteCommand cmd = _connection.CreateCommand() )
 			{
-                cmd.CommandText = "CREATE TABLE [MucMark] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, "
+                /*cmd.CommandText = "CREATE TABLE [MucMark] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, "
 			                      + "[Nick] VARCHAR, [Jid] VARCHAR, "
 			                      + "[Password] VARCHAR, [Name] VARCHAR, "
 			                      + "[Time] INTEGER NOT NULL);";
-                cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();*/
 
                 /*
 				cmd.CommandText = "CREATE TABLE [Group] ([IsExpander] INTEGER NOT NULL DEFAULT '0',"
@@ -71,6 +71,7 @@ namespace xeus.Data
 			_connection.Close() ;
 		}
 
+        /*
         public static void LoadMucMarks()
         {
  			try
@@ -100,8 +101,9 @@ namespace xeus.Data
                 EventException eventError = new EventException("Error reading MUC Bookmarks", e);
 			    Events.Instance.OnEvent( null, eventError ) ;
 			}
-        }
+        }*/
 
+        /*
         public static void SaveMucMarks()
         {
             try
@@ -133,7 +135,7 @@ namespace xeus.Data
             {
                 Events.Instance.OnEvent(null, new EventError(e.Message, null));
             }
-        }
+        }*/
 
 		/*
 		public List< RosterItem > ReadRosterItems()
@@ -537,6 +539,7 @@ namespace xeus.Data
 			return id ;
 		}
 
+        /*
 	    public static void DeleteMucMark(MucMark mucMark)
 	    {
             try
@@ -558,6 +561,6 @@ namespace xeus.Data
                 EventException eventError = new EventException("Error deleting MUC Bookmarks", e);
                 Events.Instance.OnEvent(null, eventError);
             }
-        }
+        }*/
 	}
 }

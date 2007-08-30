@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using agsXMPP;
+using agsXMPP.protocol.extensions.bookmarks;
 using xeus.Data;
 
 namespace xeus2.xeus.Core
@@ -29,6 +30,21 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public void AddBookmark(Conference conference)
+        {
+            lock (Services.Instance._syncObject)
+            {
+                Service service = Services.Instance.FindService(conference.Jid);
+                
+                if (service != null)
+                {
+                    service.IsMucMarked = true;
+                }
+            }
+
+            Add(new MucMark(conference));
+        }
+
         public void AddBookmark(MucRoom mucRoom)
         {
             AddBookmark(mucRoom.Service);
@@ -38,7 +54,6 @@ namespace xeus2.xeus.Core
         {
             lock (_syncObject)
             {
-                Database.DeleteMucMark(mark);
                 Remove(mark);
 
                 lock (Services.Instance._syncObject)
@@ -50,6 +65,8 @@ namespace xeus2.xeus.Core
                     }
                 }
             }
+
+            Account.Instance.MucMarkManager.SaveBookmarks();
         }
 
         protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)

@@ -16,6 +16,7 @@ using agsXMPP.protocol.x.muc ;
 using agsXMPP.protocol.x.muc.iq.owner;
 using agsXMPP.Xml.Dom ;
 using xeus2.Properties ;
+using xeus2.xeus.Core.xeus.Data;
 using xeus2.xeus.Middle ;
 using Search=xeus2.xeus.Middle.Search;
 using Timer=System.Timers.Timer;
@@ -319,9 +320,14 @@ namespace xeus2.xeus.Core
 			Roster.Instance.OnRosterItem( sender, item ) ;
 		}
 
+	    private MucMarkManager _mucMarkManager;
+
 		private void _xmppConnection_OnLogin( object sender )
 		{
 			IsLogged = true ;
+
+            _mucMarkManager = new MucMarkManager(_xmppConnection);
+		    _mucMarkManager.LoadMucMarks();
 		}
 
 		private void _xmppConnection_OnClose( object sender )
@@ -411,7 +417,15 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		private static bool CheckSessionKey( object data )
+	    public MucMarkManager MucMarkManager
+	    {
+	        get
+	        {
+	            return _mucMarkManager;
+	        }
+	    }
+
+	    private static bool CheckSessionKey( object data )
 		{
 			DiscoverySessionData sessionData = data as DiscoverySessionData ;
 

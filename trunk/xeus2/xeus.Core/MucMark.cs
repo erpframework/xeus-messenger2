@@ -1,6 +1,7 @@
 using System;
 using System.Data.Common;
 using agsXMPP;
+using agsXMPP.protocol.extensions.bookmarks;
 using agsXMPP.protocol.iq.disco;
 
 namespace xeus2.xeus.Core
@@ -14,18 +15,6 @@ namespace xeus2.xeus.Core
         private Service _service;
         private DateTime _time;
 
-        private int _id = -1;
-
-        public MucMark(DbDataReader reader)
-        {
-            _id = (int) (long) reader["Id"];
-            _nick = reader["Nick"] as string;
-            _jid = reader["Jid"] as string;
-            _password = reader["Password"] as string;
-            _name = reader["Name"] as string;
-            _time = DateTime.FromBinary((long) reader["Time"]);
-        }
-
         public MucMark(Service service)
         {
             _jid = service.Jid.Bare;
@@ -38,6 +27,20 @@ namespace xeus2.xeus.Core
         {
             _jid = jid;
 
+            _time = DateTime.Now;
+        }
+
+        public MucMark(Conference conference)
+        {
+            _nick = conference.Nickname;
+
+            if (!string.IsNullOrEmpty(conference.Password))
+            {
+                _password = conference.Password;
+            }
+
+            _jid = conference.Jid.Bare;
+            _name = conference.Name;
             _time = DateTime.Now;
         }
 
@@ -125,18 +128,6 @@ namespace xeus2.xeus.Core
             get
             {
                 return string.Format("{0} ({1})", Name, Time);
-            }
-        }
-
-        public int Id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                _id = value;
             }
         }
     }

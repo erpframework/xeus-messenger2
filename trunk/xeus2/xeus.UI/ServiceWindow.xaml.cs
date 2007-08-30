@@ -5,6 +5,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using xeus.Data;
 using xeus2.xeus.Commands;
+using xeus2.xeus.Core;
 
 namespace xeus2.xeus.UI
 {
@@ -60,7 +61,7 @@ namespace xeus2.xeus.UI
         {
             base.OnClosing(e);
 
-            Database.SaveMucMarks();
+            Account.Instance.MucMarkManager.SaveBookmarks();
         }
     }
 }

@@ -25,14 +25,8 @@ namespace xeus2.xeus.Middle
         {
             get
             {
-                lock (_lock)
-                {
-                    if (_muc == null || !_muc.IsVisible)
-                    {
-                        _muc = new UI.Muc();
-                        _muc.Show();
-                    }
-                }
+                GetMucWindow();
+                _muc.Show();
 
                 return _muc._multi;
             }
@@ -49,6 +43,27 @@ namespace xeus2.xeus.Middle
             }
         }
 
+        void GetMucWindow()
+        {
+            lock (_lock)
+            {
+                if (_muc == null || !_muc.IsVisible)
+                {
+                    _muc = new UI.Muc();
+                    _muc.Closed += new EventHandler(_muc_Closed);
+                }
+            }           
+        }
+
+        void _muc_Closed(object sender, EventArgs e)
+        {
+            lock (_lock)
+            {
+                _muc.Closed -= new EventHandler(_muc_Closed);
+                _muc = null;
+            }
+        }
+
         public void DisplayMuc(Service service, string nick, string password)
         {
             App.InvokeSafe(App._dispatcherPriority,
@@ -57,13 +72,7 @@ namespace xeus2.xeus.Middle
 
         protected void DisplayMucInternal(Service service, string nick, string password)
         {
-            lock (_lock)
-            {
-                if (_muc == null || !_muc.IsVisible)
-                {
-                    _muc = new UI.Muc();
-                }
-            }
+            GetMucWindow();
 
             _muc.AddMuc(service, nick, password);
             _muc.Show();
