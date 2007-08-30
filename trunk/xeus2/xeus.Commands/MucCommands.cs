@@ -312,7 +312,7 @@ namespace xeus2.xeus.Commands
         {
             MucRoom mucRoom = e.Parameter as MucRoom;
 
-            if (mucRoom != null)
+            if (mucRoom != null && mucRoom.Me != null)
             {
                 e.CanExecute = (mucRoom.Me.Affiliation == Affiliation.owner);
             }

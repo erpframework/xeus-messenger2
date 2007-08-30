@@ -51,18 +51,18 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _inlineSearch.TextChanged += new TextChangedEventHandler(_inlineSearch_TextChanged);
             _inlineSearch.Closed += new SearchText.ClosedHandler(_inlineSearch_Closed);
 
-            _text.Focus();
-
             _text.Loaded += new RoutedEventHandler(_text_Loaded);
 
             _flowViewer.PreviewKeyDown += new KeyEventHandler(MucConversation_PreviewKeyDown);
 
             PreviewKeyDown += new KeyEventHandler(MucConversation_PreviewKeyDownWindow);
+
         }
 
         void _text_Loaded(object sender, RoutedEventArgs e)
         {
             _inlineSearch.Visibility = Visibility.Collapsed;
+            _text.Focus();
         }
 
         void MucConversation_PreviewKeyDown(object sender, KeyEventArgs e)

@@ -302,7 +302,7 @@
   </Window.Resources>
   
       <TabControl Foreground="{DynamicResource DefaultTextBrush2}">
-        <TabItem Foreground="{DynamicResource tabitem_foreground}">
+        <TabItem Foreground="{DynamicResource tabitem_foreground}"  x:Name="_tabAffs">
           <TabItem.Header>
             <Border Padding="5,5,5,5">
               <Grid>
@@ -311,20 +311,21 @@
               </Grid>
             </Border>
           </TabItem.Header>
-		  <DockPanel>
-    		<Border Background="{DynamicResource back_x_design}" Padding="0,10,0,10" DockPanel.Dock="Bottom">
-            <xeus2_xeus_UI:SearchBox x:Name="_filterAffs" DockPanel.Dock="Top" Margin="0,0,10,0" />
-        </Border>
-		  <Border Background="{DynamicResource chat_back_design}" DockPanel.Dock="Top">
-	          <StackPanel>
-	            <xeus2_xeus_Controls:MucAffiliationList x:Name="_affOwner"/>
-	            <xeus2_xeus_Controls:MucAffiliationList x:Name="_affAdmin"/>
-	            <xeus2_xeus_Controls:MucAffiliationList x:Name="_affBanned"/>
-	            <xeus2_xeus_Controls:MucAffiliationList x:Name="_affMembers"/>
-	          </StackPanel>
-		  </Border>		  
-		  </DockPanel>
+          <DockPanel>
+            <Border Background="{DynamicResource back_x_design}" Padding="0,10,0,10" DockPanel.Dock="Bottom">
+              <xeus2_xeus_UI:SearchBox x:Name="_filterAffs" DockPanel.Dock="Top" Margin="0,0,10,0" />
+            </Border>
+            <Border Background="{DynamicResource chat_back_design}" DockPanel.Dock="Top">
+              <StackPanel>
+                <xeus2_xeus_Controls:MucAffiliationList x:Name="_affOwner"/>
+                <xeus2_xeus_Controls:MucAffiliationList x:Name="_affAdmin"/>
+                <xeus2_xeus_Controls:MucAffiliationList x:Name="_affBanned"/>
+                <xeus2_xeus_Controls:MucAffiliationList x:Name="_affMembers"/>
+              </StackPanel>
+            </Border>
+          </DockPanel>
         </TabItem>
+        
         <TabItem Foreground="{DynamicResource tabitem_foreground}" x:Name="_tabForm">
           <TabItem.Header>
             <Border Padding="5,5,5,5">
@@ -344,5 +345,6 @@
             <xeus2_xeus_XData:MucOptionsForm x:Name="_muc" DockPanel.Dock="Top"/>
           </DockPanel>
         </TabItem>
+ 
       </TabControl>   
 </Window>

@@ -77,6 +77,11 @@ namespace xeus2.xeus.Core
                     {
                         _affContacts.Add(contacts);
                     }
+
+                    if (OnChange != null)
+                    {
+                        OnChange(this, null);
+                    }
                 }
             }
         }
@@ -114,22 +119,6 @@ namespace xeus2.xeus.Core
                         break;
                     }
             }
-        }
-
-        private MucAffContact Find(string text)
-        {
-            lock (_affContacts._syncObject)
-            {
-                foreach (MucAffContact mucAffContact in _affContacts)
-                {
-                    if (mucAffContact.Jid == text.Trim())
-                    {
-                        return mucAffContact;
-                    }
-                }
-            }
-
-            return null;
         }
 
         public void RemoveFromGroup(MucAffContact mucAffContact)
