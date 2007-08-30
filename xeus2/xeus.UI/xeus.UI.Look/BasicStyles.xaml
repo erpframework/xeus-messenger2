@@ -1642,8 +1642,10 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type GridSplitter}">
-					<Border BorderThickness="1,1,1,1" Width="4" Background="{DynamicResource back_tab_design}" Opacity="0.4" x:Name="border" CornerRadius="3,3,3,3"
-                  Margin="0,5,1,5"/>
+					<Border Width="5" Opacity="0.4" x:Name="border" Padding="1,5,1,5" Background="#00FFFFFF">
+			      		<Line Stroke="#FFFFFFFF" StrokeDashArray="2 2" X1="1" X2="1"  StrokeThickness="1" Y2="{Binding Path=ActualHeight, ElementName=border, Mode=Default}"/>
+				  	</Border>
+
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsMouseDirectlyOver" Value="True">
 							<Setter Property="Opacity" TargetName="border" Value="0.8"/>
