@@ -100,6 +100,7 @@
     <Page Include="xeus.UI\xeus.UI.Controls\MultiTabControl.xaml" />
     <Page Include="xeus.UI\xeus.UI.Controls\MultiWin.xaml" />
     <Page Include="xeus.UI\xeus.UI.Controls\MultiWinFlyout.xaml" />
+    <Page Include="xeus.UI\xeus.UI.Controls\RosterControl.xaml" />
     <Page Include="xeus.UI\xeus.UI.Controls\SearchText.xaml" />
     <Page Include="xeus.UI\xeus.UI.Look\ScrollBar.xaml" />
     <Page Include="xeus.XData\XDataContainer.xaml" />
@@ -152,6 +153,7 @@
     <Compile Include="xeus.Core\EventStatusChanged.cs" />
     <Compile Include="xeus.Core\IContact.cs" />
     <Compile Include="xeus.Core\InlineMethod.cs" />
+    <Compile Include="xeus.Core\MetaContact.cs" />
     <Compile Include="xeus.Core\MucAffContact.cs" />
     <Compile Include="xeus.Core\MucAffContacts.cs" />
     <Compile Include="xeus.Core\MucContact.cs" />
@@ -164,7 +166,6 @@
     <Compile Include="xeus.Core\MucRooms.cs" />
     <Compile Include="xeus.Core\MucRoster.cs" />
     <Compile Include="xeus.Core\MucStatusCodeTexts.cs" />
-    <Compile Include="xeus.Core\MultiContact.cs" />
     <Compile Include="xeus.Core\NotifyDispatcher.cs" />
     <Compile Include="xeus.Core\ObservableCollectionDisp.cs" />
     <Compile Include="xeus.Core\Roster.cs" />
@@ -285,6 +286,10 @@
     <Compile Include="xeus.UI\xeus.UI.Controls\MultiWinFlyout.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>MultiWinFlyout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xeus.UI\xeus.UI.Controls\RosterControl.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>RosterControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\xeus.UI.Controls\SearchText.xaml.cs">
       <SubType>Code</SubType>

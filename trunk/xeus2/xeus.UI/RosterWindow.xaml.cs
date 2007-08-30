@@ -32,9 +32,6 @@ namespace xeus2
 
             base.OnClosed(e);
         }
-
-        private void RosterMouseDoubleClick(object sender, RoutedEventArgs args)
-        {
-        }
+         
     }
 }
