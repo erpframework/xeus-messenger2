@@ -101,6 +101,14 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public string Resource
+        {
+            get
+            {
+                return (string)GetValueSafe("Resource");
+            }
+        }
+
         public string DisplayName
         {
             get

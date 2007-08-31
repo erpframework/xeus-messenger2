@@ -41,11 +41,7 @@
 
 			<ObjectDataProvider x:Key="AccountDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Account}"/>
 			<ObjectDataProvider x:Key="EventsDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Events}"/>
-
-   
 		</ResourceDictionary>
-
-   
 	</Window.Resources>
 
 	<Window.Background>
@@ -57,10 +53,11 @@
 
     <StackPanel>
       <local:RosterControl x:Name="_roster" Height="250"/>
+      <Button Click="ChangeRosterSize"/>
       
       <ListBox ItemsSource="{Binding Path=Instance, Mode=Default, Source={StaticResource EventsDS}}" Height="100" Style="{DynamicResource ListBoxStyleBlank}"/>
       
-      <TextBlock Text="{Binding Source={StaticResource AccountDS}, Path=Instance.ItemsToDiscover}"/>
+      <!--<TextBlock Text="{Binding Source={StaticResource AccountDS}, Path=Instance.ItemsToDiscover}"/>-->
 
       <Button Content="Services" Command="servicecmd:ServiceCommands.DisplayServices"/>
 

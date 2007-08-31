@@ -131,6 +131,14 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public string Resource
+        {
+            get
+            {
+                return Jid.Resource;
+            }
+        }
+
         public string Group
         {
             get

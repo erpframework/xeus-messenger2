@@ -2,6 +2,7 @@ using System;
 using System.Windows;
 using xeus2.xeus.Commands;
 using xeus2.xeus.Core;
+using xeus2.xeus.UI.xeus.UI.Controls;
 
 namespace xeus2
 {
@@ -31,6 +32,10 @@ namespace xeus2
 
             base.OnClosed(e);
         }
-         
+
+        protected void ChangeRosterSize(object sebnder, RoutedEventArgs e)
+        {
+            _roster.ItemSize = RosterItemSize.Medium;
+        } 
     }
 }

@@ -8,7 +8,9 @@ namespace xeus2.xeus.Core
 	{
 		Jid Jid { get ; }
 		Presence Presence { get ; }
-		string DisplayName { get ; }
+        string Resource { get; }
+		
+        string DisplayName { get ; }
 		string Group { get ; }
 		string StatusText { get ; }
         string XStatusText { get; }
