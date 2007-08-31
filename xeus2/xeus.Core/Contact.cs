@@ -184,6 +184,18 @@ namespace xeus2.xeus.Core
         {
             get
             {
+                if (_image == null)
+                {
+                    if (!IsService)
+                    {
+                        _image = Storage.GetDefaultAvatar();
+                    }
+                    else
+                    {
+                        _image = Storage.GetDefaultServiceImage();
+                    }
+                }
+
                 return _image;
             }
         }
@@ -244,21 +256,11 @@ namespace xeus2.xeus.Core
 
                     BitmapImage image = Storage.ImageFromPhoto(vcard.Photo);
 
-                    _image = image;
-
-                    if (_image == null)
+                    if (image != null)
                     {
-                        if (IsService)
-                        {
-                            _image = Storage.GetDefaultServiceImage();
-                        }
-                        else
-                        {
-                            _image = Storage.GetDefaultAvatar();
-                        }
+                        _image = image;
+                        NotifyPropertyChanged("Image");
                     }
-
-                    NotifyPropertyChanged("Image");
 
                     /*
                         Organization organization = vcard.Organization;
