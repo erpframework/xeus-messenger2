@@ -1,27 +1,34 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel;
+using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.protocol.client;
 using FastDynamicPropertyAccessor;
+using xeus2.xeus.Utilities;
 
 namespace xeus2.xeus.Core
 {
     internal class MetaContact : NotifyInfoDispatcher, IContact
     {
         private ObservableCollectionDisp<Contact> _subContacts = new ObservableCollectionDisp<Contact>();
+        private Contact _activeContact = null;
 
-        static Dictionary<string, PropertyAccessor> _propertyAccessors = new Dictionary<string, PropertyAccessor>();
+        private static Dictionary<string, PropertyAccessor> _propertyAccessors =
+            new Dictionary<string, PropertyAccessor>();
+
         private object _propertyAccessorLock = new object();
 
         public MetaContact(Contact contact)
         {
+            _activeContact = contact;
+
             AddContact(contact);
         }
 
         public void AddContact(Contact contact)
         {
-            contact.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(contact_PropertyChanged);
+            contact.PropertyChanged += new PropertyChangedEventHandler(contact_PropertyChanged);
 
             lock (SubContacts._syncObject)
             {
@@ -41,7 +48,7 @@ namespace xeus2.xeus.Core
         {
             foreach (Contact contact in SubContacts)
             {
-                if (Utilities.JidUtil.BareEquals(jid, contact.Jid))
+                if (JidUtil.BareEquals(jid, contact.Jid))
                 {
                     return contact;
                 }
@@ -50,12 +57,17 @@ namespace xeus2.xeus.Core
             return null;
         }
 
-        void contact_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void contact_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            NotifyPropertyChanged(e.PropertyName);
+            /// needs to switch active contact when presence changes
+
+            if (sender == _activeContact)
+            {
+                NotifyPropertyChanged(e.PropertyName);
+            }
         }
 
-        object GetValueSafe(string name)
+        private object GetValueSafe(string name)
         {
             PropertyAccessor propertyAccessor;
 
@@ -66,18 +78,18 @@ namespace xeus2.xeus.Core
                 if (propertyAccessor == null)
                 {
                     propertyAccessor =
-                        new PropertyAccessor(typeof(Contact), name);
+                        new PropertyAccessor(typeof (Contact), name);
                 }
             }
 
-            return propertyAccessor.Get(_subContacts[0]);
+            return propertyAccessor.Get(_activeContact);
         }
 
         public Jid Jid
         {
             get
             {
-                return GetValueSafe("Jid") as Jid;
+                return (Jid) GetValueSafe("Jid");
             }
         }
 
@@ -85,7 +97,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return GetValueSafe("Presence") as Presence;
+                return (Presence) GetValueSafe("Presence");
             }
         }
 
@@ -93,7 +105,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return GetValueSafe("DisplayName") as string;
+                return (string) GetValueSafe("DisplayName");
             }
         }
 
@@ -101,7 +113,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return GetValueSafe("Group") as string;
+                return (string) GetValueSafe("Group");
             }
         }
 
@@ -109,7 +121,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return GetValueSafe("StatusText") as string;
+                return (string) GetValueSafe("StatusText");
             }
         }
 
@@ -117,7 +129,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return GetValueSafe("XStatusText") as string;
+                return (string) GetValueSafe("XStatusText");
             }
         }
 
@@ -125,7 +137,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return GetValueSafe("FullName") as string;
+                return (string) GetValueSafe("FullName");
             }
         }
 
@@ -133,7 +145,15 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return GetValueSafe("NickName") as string;
+                return (string) GetValueSafe("NickName");
+            }
+        }
+
+        public BitmapImage Image
+        {
+            get
+            {
+                return (BitmapImage)GetValueSafe("Image");
             }
         }
 
@@ -141,7 +161,15 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return GetValueSafe("CustomName") as string;
+                return (string) GetValueSafe("CustomName");
+            }
+        }
+
+        public bool IsService
+        {
+            get
+            {
+                return (bool) GetValueSafe("IsService");
             }
         }
 

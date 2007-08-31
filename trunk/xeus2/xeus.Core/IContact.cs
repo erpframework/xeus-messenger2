@@ -1,3 +1,4 @@
+using System.Windows.Media.Imaging;
 using agsXMPP ;
 using agsXMPP.protocol.client ;
 
@@ -14,7 +15,10 @@ namespace xeus2.xeus.Core
 
 		string FullName { get ; }
 		string NickName { get ; }
+        BitmapImage Image { get; }
 
         string CustomName { get; }
+
+        bool IsService { get; }
 	}
 }

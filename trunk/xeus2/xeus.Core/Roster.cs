@@ -99,18 +99,18 @@ namespace xeus2.xeus.Core
 
         private void VcardResult( object sender, IQ iq, object data )
         {
+            Contact contact = (Contact)data;
+
             if (iq.Type == IqType.error || iq.Error != null)
             {
                 Events.Instance.OnEvent(this,
                                         new EventError(String.Format("V-Card receiving error from {0}", iq.From), null));
+
+                contact.SetVcard(null);
             }
             else if (iq.Type == IqType.result)
             {
-                if (iq.Vcard != null)
-                {
-                    Contact contact = (Contact)data;
-                    contact.SetVcard(iq.Vcard);
-                }
+                contact.SetVcard(iq.Vcard);
             }
         }
 

@@ -10,6 +10,8 @@
 
 	<DataTemplate x:Key="MetaContact">
 		<StackPanel>
+			<Image Source="{Binding Path=Image}"  
+				Stretch="Uniform" Width="48" IsEnabled="False" />
 			<TextBlock Text="{Binding Path=DisplayName}"/>
 			<TextBlock Text="{Binding Path=StatusText}"/>
 		</StackPanel>
