@@ -193,7 +193,7 @@ namespace xeus.Data
 
 		public static BitmapImage GetDefaultAvatar()
 		{
-			return GetAvatar( "pack://application:,,,/xeus.UI/xeus.Images/service_service.png", ref _defaultAvatar ) ;
+			return GetAvatar( "pack://application:,,,/xeus.UI/xeus.Images/avatar_default.png", ref _defaultAvatar ) ;
 		}
 
 		public static BitmapImage GetDefaultServiceImage()
