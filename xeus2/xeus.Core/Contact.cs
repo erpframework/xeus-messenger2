@@ -1,9 +1,11 @@
 using System;
+using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.protocol.Base;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.iq.vcard;
 using agsXMPP.Xml.Dom;
+using xeus.Data;
 using xeus2.Properties;
 
 namespace xeus2.xeus.Core
@@ -16,6 +18,7 @@ namespace xeus2.xeus.Core
         private Presence _presence = new Presence();
         private string _customName;
         private string _xStatusText;
+        private string _nickName;
 
         private bool _hasVCardRecieved = false;
 
@@ -113,6 +116,12 @@ namespace xeus2.xeus.Core
                         {
                             _xStatusText = _statusText;
                         }
+
+                        if (_presence.Nickname != null
+                            && !string.IsNullOrEmpty(_presence.Nickname.Value))
+                        {
+                            _nickName = _presence.Nickname.Value;
+                        }
                     }
                 }
 
@@ -137,6 +146,7 @@ namespace xeus2.xeus.Core
 
         private string _statusText = "Not available";
         private string _fullName;
+        private BitmapImage _image;
 
         public string StatusText
         {
@@ -166,12 +176,15 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                if (_presence.Nickname == null)
-                {
-                    return String.Empty;
-                }
+                return _nickName;
+            }
+        }
 
-                return _presence.Nickname.ToString();
+        public BitmapImage Image
+        {
+            get
+            {
+                return _image;
             }
         }
 
@@ -180,6 +193,14 @@ namespace xeus2.xeus.Core
             get
             {
                 return _customName;
+            }
+        }
+
+        public bool IsService
+        {
+            get
+            {
+                return (_rosterItem == null || string.IsNullOrEmpty(_rosterItem.Jid.User));
             }
         }
 
@@ -198,63 +219,60 @@ namespace xeus2.xeus.Core
 
         public void SetVcard(Vcard vcard)
         {
-            if (vcard != null)
+            if (App.Current.Dispatcher.CheckAccess())
             {
-                if (App.Current.Dispatcher.CheckAccess())
+                _hasVCardRecieved = true;
+                NotifyPropertyChanged("HasVCardRecieved");
+
+                if (vcard != null)
                 {
-                    _hasVCardRecieved = true;
-
                     /*
-                    Birthday = vcard.Birthday;
-                    Description = vcard.Description;
+                        Birthday = vcard.Birthday;
+                        Description = vcard.Description;
 
-                    Email email = vcard.GetPreferedEmailAddress();
-                    if (email != null)
-                    {
-                        EmailPreferred = email.UserId;
-                    }
-                     */
+                        Email email = vcard.GetPreferedEmailAddress();
+                        if (email != null)
+                        {
+                            EmailPreferred = email.UserId;
+                        }
+                         */
 
                     _fullName = vcard.Fullname;
+                    _nickName = vcard.Nickname;
 
                     NotifyPropertyChanged("FullName");
-                    NotifyPropertyChanged("HasVCardRecieved");
 
-                    // _nickName = vcard.Nickname;
-
-                    /*
-                    Organization organization = vcard.Organization;
-                    if (organization != null)
-                    {
-                        Organization = vcard.Organization.Name;
-                    }
-
-                    
-                    Role = vcard.Role;
-                    Title = vcard.Title;
-                    Url = vcard.Url;
-                    
                     BitmapImage image = Storage.ImageFromPhoto(vcard.Photo);
 
-                    Image = image;
-                     */
+                    _image = image;
+
+                    if (_image == null)
+                    {
+                        if (IsService)
+                        {
+                            _image = Storage.GetDefaultServiceImage();
+                        }
+                        else
+                        {
+                            _image = Storage.GetDefaultAvatar();
+                        }
+                    }
+
+                    NotifyPropertyChanged("Image");
+
+                    /*
+                        Organization organization = vcard.Organization;
+                        if (organization != null)
+                        {
+                            Organization = vcard.Organization.Name;
+                        }
+
+                    
+                        Role = vcard.Role;
+                        Title = vcard.Title;
+                        Url = vcard.Url;
+                        */
                 }
-                /*
-                if (Image == null)
-                {
-                    if (!IsInitialized)
-                    {
-                        Image = Storage.GetDefaultAvatar();
-                    }
-                    else if (IsService)
-                    {
-                        Image = Storage.GetDefaultServiceAvatar();
-                    }
-                    else
-                    {
-                        Image = Storage.GetDefaultAvatar();
-                    }
-                }*/
             }
             else
             {
