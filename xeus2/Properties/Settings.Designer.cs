@@ -154,5 +154,17 @@ namespace xeus2.Properties {
                 this["UI_DisplayTime_Muc"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Small")]
+        public string UI_RosterItemSize {
+            get {
+                return ((string)(this["UI_RosterItemSize"]));
+            }
+            set {
+                this["UI_RosterItemSize"] = value;
+            }
+        }
     }
 }
