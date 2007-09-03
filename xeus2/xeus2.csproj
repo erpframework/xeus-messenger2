@@ -1,4 +1,4 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -28,6 +28,13 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <ApplicationExtension>.application</ApplicationExtension>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <ApplicationRevision>0</ApplicationRevision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -69,44 +76,149 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.IdentityModel" />
-    <Page Include="xeus.UI\xeus.UI.Look\Events.xaml" />
-    <Page Include="xeus.UI\xeus.UI.Look\MucRoster.xaml" />
-    <Page Include="xeus.UI\xeus.UI.Look\Roster.xaml" />
-    <Page Include="xeus.UI\xeus.UI.Look\Services.xaml" />
-    <Page Include="xeus.UI\xeus.UI.Look\BasicStyles.xaml" />
+    <Page Include="xeus.UI\xeus.UI.Look\Events.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\xeus.UI.Look\MucRoster.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\xeus.UI.Look\Roster.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\xeus.UI.Look\Services.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\xeus.UI.Look\BasicStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Resource Include="xeus.UI\service_service.png" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml" />
-    <Page Include="xeus.UI\ChangeNickInRoom.xaml" />
-    <Page Include="xeus.UI\ChooseCommand.xaml" />
-    <Page Include="xeus.UI\CommandExecute.xaml" />
-    <Page Include="xeus.UI\InfoPopup.xaml" />
-    <Page Include="xeus.UI\Login.xaml" />
-    <Page Include="xeus.UI\Muc.xaml" />
-    <Page Include="xeus.UI\MucOptions.xaml" />
-    <Page Include="xeus.UI\Registration.xaml" />
-    <Page Include="xeus.UI\RoomInfo.xaml" />
-    <Page Include="xeus.UI\RoomLogin.xaml" />
-    <Page Include="xeus.UI\RoomTopic.xaml" />
-    <Page Include="xeus.UI\RosterWindow.xaml" />
-    <Page Include="xeus.UI\Search.xaml" />
-    <Page Include="xeus.UI\SearchBox.xaml" />
-    <Page Include="xeus.UI\ServiceWindow.xaml" />
-    <Page Include="xeus.UI\SingleValueBox.xaml" />
-    <Page Include="xeus.UI\xeus.UI.Controls\CreateMucRoom.xaml" />
-    <Page Include="xeus.UI\xeus.UI.Controls\MucAffiliationList.xaml" />
-    <Page Include="xeus.UI\xeus.UI.Controls\MucConversation.xaml" />
-    <Page Include="xeus.UI\xeus.UI.Controls\MultiTabControl.xaml" />
-    <Page Include="xeus.UI\xeus.UI.Controls\MultiWin.xaml" />
-    <Page Include="xeus.UI\xeus.UI.Controls\MultiWinFlyout.xaml" />
-    <Page Include="xeus.UI\xeus.UI.Controls\RosterControl.xaml" />
-    <Page Include="xeus.UI\xeus.UI.Controls\SearchText.xaml" />
-    <Page Include="xeus.UI\xeus.UI.Look\ScrollBar.xaml" />
-    <Page Include="xeus.XData\XDataContainer.xaml" />
-    <Page Include="xeus.XData\XDataControl.xaml" />
-    <Page Include="xeus.XData\XDataFromBase.xaml" />
-    <Page Include="xeus.XData\XDataResultView.xaml" />
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="xeus.UI\ChangeNickInRoom.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\ChooseCommand.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\CommandExecute.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\InfoPopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\Login.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\Muc.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\MucOptions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\Registration.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\RoomInfo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\RoomLogin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\RoomTopic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\RosterWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\Search.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\SearchBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\ServiceWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\SingleValueBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\xeus.UI.Controls\CreateMucRoom.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\xeus.UI.Controls\MucAffiliationList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\xeus.UI.Controls\MucConversation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\xeus.UI.Controls\MultiTabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\xeus.UI.Controls\MultiWin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\xeus.UI.Controls\MultiWinFlyout.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\xeus.UI.Controls\RosterControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\xeus.UI.Controls\SearchText.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\xeus.UI.Look\ScrollBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.XData\XDataContainer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.XData\XDataControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.XData\XDataFromBase.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.XData\XDataResultView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -380,5 +492,4 @@
     <Resource Include="xeus.UI\xeus.Images\avatar_default.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildBinPath)\Microsoft.WinFX.targets" />
 </Project>
