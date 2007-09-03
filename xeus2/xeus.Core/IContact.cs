@@ -12,12 +12,14 @@ namespace xeus2.xeus.Core
 		
         string DisplayName { get ; }
 		string Group { get ; }
+        bool IsAvailable { get; }
 		string StatusText { get ; }
         string XStatusText { get; }
 
 		string FullName { get ; }
 		string NickName { get ; }
         BitmapImage Image { get; }
+        bool IsImageTransparent { get; }
 
         string CustomName { get; }
 

@@ -35,7 +35,7 @@ namespace xeus2
 
         protected void ChangeRosterSize(object sebnder, RoutedEventArgs e)
         {
-            _roster.ItemSize = RosterItemSize.Medium;
+            _roster.ItemSize = RosterItemSize.Big;
         } 
     }
 }

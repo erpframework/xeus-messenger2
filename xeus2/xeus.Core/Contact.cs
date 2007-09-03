@@ -126,6 +126,7 @@ namespace xeus2.xeus.Core
                 }
 
                 NotifyPropertyChanged("Presence");
+                NotifyPropertyChanged("IsAvailable");
                 NotifyPropertyChanged("StatusText");
                 NotifyPropertyChanged("XStatusText");
             }
@@ -149,6 +150,14 @@ namespace xeus2.xeus.Core
                 }
 
                 return Resources.Constant_General;
+            }
+        }
+
+        public bool IsAvailable
+        {
+            get
+            {
+                return (_presence != null && _presence.Type == PresenceType.available);
             }
         }
 
@@ -205,6 +214,21 @@ namespace xeus2.xeus.Core
                 }
 
                 return _image;
+            }
+        }
+
+        public bool IsImageTransparent
+        {
+            get
+            {
+                if (_image == null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return (_image.Format.BitsPerPixel >= 32);
+                }
             }
         }
 
@@ -268,7 +292,9 @@ namespace xeus2.xeus.Core
                     {
                         _image = image;
                         NotifyPropertyChanged("Image");
+                        NotifyPropertyChanged("IsImageTransparent");
                     }
+
 
                     /*
                         Organization organization = vcard.Organization;

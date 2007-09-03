@@ -125,6 +125,14 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public bool IsAvailable
+        {
+            get
+            {
+                return (bool)GetValueSafe("IsAvailable");
+            }
+        }
+
         public string StatusText
         {
             get
@@ -162,6 +170,14 @@ namespace xeus2.xeus.Core
             get
             {
                 return (BitmapImage)GetValueSafe("Image");
+            }
+        }
+
+        public bool IsImageTransparent
+        {
+            get
+            {
+                return (bool)GetValueSafe("IsImageTransparent");
             }
         }
 
