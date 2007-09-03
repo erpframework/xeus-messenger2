@@ -12,25 +12,6 @@
   <SolidColorBrush x:Key="roster_status_text" Color="#FFBBBBBB" PresentationOptions:Freeze="True" />
   <SolidColorBrush x:Key="roster_image_border" Color="#FF6D6D6D" PresentationOptions:Freeze="True" />
 
-  <DrawingBrush x:Key="contact_back_big_design" PresentationOptions:Freeze="True">
-	<DrawingBrush.Drawing>
-		<DrawingGroup>
-			<DrawingGroup.Children>
-				<GeometryDrawing Geometry="F1 M 118,11.7778L 192.667,11.7778L 192.667,86.4444L 118,86.4444L 118,11.7778 Z ">
-					<GeometryDrawing.Brush>
-						<LinearGradientBrush StartPoint="0.5,1.0067" EndPoint="0.5,-0.00669643">
-							<LinearGradientBrush.GradientStops>
-								<GradientStop Color="#FF515151" Offset="0"/>
-								<GradientStop Color="#FF141414" Offset="1"/>
-							</LinearGradientBrush.GradientStops>
-						</LinearGradientBrush>
-					</GeometryDrawing.Brush>
-				</GeometryDrawing>
-			</DrawingGroup.Children>
-		</DrawingGroup>
-	</DrawingBrush.Drawing>
-</DrawingBrush>
-
 	<DrawingBrush x:Key="contact_back_big_glow_design" PresentationOptions:Freeze="True">
     <DrawingBrush.Drawing>
       <DrawingGroup>
@@ -40,17 +21,7 @@
       </DrawingGroup>
     </DrawingBrush.Drawing>
   </DrawingBrush>
-	
-	<DrawingBrush x:Key="contact_back_big_shadow_design"  PresentationOptions:Freeze="True">
-		<DrawingBrush.Drawing>
-			<DrawingGroup>
-				<DrawingGroup.Children>
-					<GeometryDrawing Brush="#1A000000" Geometry="F1 M 143.667,12L 210.889,12C 211.993,12 212.889,12.8954 212.889,14L 212.889,87.7778C 212.889,88.8823 211.993,89.7778 210.889,89.7778L 143.667,89.7778C 142.562,89.7778 141.667,88.8823 141.667,87.7778L 141.667,14C 141.667,12.8954 142.562,12 143.667,12 Z "/>
-				</DrawingGroup.Children>
-			</DrawingGroup>
-		</DrawingBrush.Drawing>
-	</DrawingBrush>
-	
+
 	
   <ItemsPanelTemplate x:Key="ItemsPanelTemplateRoster">
 		<!--<VirtualizingStackPanel IsItemsHost="True"/>-->
@@ -76,10 +47,22 @@
   <DataTemplate x:Key="MetaContactBig">
 	<Grid Margin="2,2,2,2" MaxWidth="75" MinWidth="50" x:Name="_grid">
 	  <Rectangle Margin="1,1,1,0" Fill="{DynamicResource contact_back_big_glow_design}" VerticalAlignment="Top" Height="20" Panel.ZIndex="1" SnapsToDevicePixels="True"/>
-    <a:SystemDropShadowChrome Color="#2000">
-	    <Border Background="{DynamicResource contact_back_big_design}" BorderBrush="#FF474747" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" Margin="0,0,1,1" SnapsToDevicePixels="True">
+    <a:SystemDropShadowChrome Color="#9000" Margin="-2,-2,1,1">
+      <Rectangle/>
+    </a:SystemDropShadowChrome>
+    <Border ClipToBounds="True"
+            BorderBrush="#FF474747" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" SnapsToDevicePixels="True">
+      <Border.Background>
+        <LinearGradientBrush StartPoint="0.5,1.0" EndPoint="0.5,0.0">
+          <LinearGradientBrush.GradientStops>
+            <GradientStop Color="#FF515151" Offset="0"/>
+            <GradientStop Color="#FF141414" Offset="1"/>
+          </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+      </Border.Background>
+
       <StackPanel>
-      <Border  Margin="5,5,5,5" x:Name="_imageBorder" BorderBrush="{DynamicResource contact_back_big_shadow_design}">
+        <Border Margin="5,5,5,5" x:Name="_imageBorder" BorderBrush="{DynamicResource contact_back_big_shadow_design}">
         <Image Source="{Binding Path=Image}"
 			    Stretch="Uniform" Width="48" IsEnabled="False" Height="48"/>
       </Border>
@@ -87,7 +70,6 @@
         <TextBlock Text="{Binding Path=StatusText}" Foreground="{StaticResource roster_status_text}" Margin="4,0,4,0" FontSize="10" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
       </StackPanel>
     </Border>
-    </a:SystemDropShadowChrome>      
 	</Grid>
     <DataTemplate.Triggers>
       <DataTrigger Binding="{Binding Path=IsImageTransparent}" Value="False">

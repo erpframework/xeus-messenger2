@@ -291,6 +291,13 @@ namespace xeus2.xeus.Core
                     if (image != null)
                     {
                         _image = image;
+
+                        if (!IsImageTransparent)
+                        {
+                            int u = 0;
+
+                        }
+
                         NotifyPropertyChanged("Image");
                         NotifyPropertyChanged("IsImageTransparent");
                     }
