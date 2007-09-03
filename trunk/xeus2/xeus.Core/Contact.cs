@@ -15,7 +15,7 @@ namespace xeus2.xeus.Core
         public delegate void VcardHandler(Vcard vcard);
 
         private RosterItem _rosterItem = null;
-        private Presence _presence = new Presence();
+        private Presence _presence = null;
         private string _customName;
         private string _xStatusText;
         private string _nickName;

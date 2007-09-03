@@ -24,8 +24,21 @@ namespace xeus2.xeus.Core
 		{
 			get
 			{
-				return string.Format( Resources.Event_PresenceChange,
-				                      Contact.DisplayName, OldPresence.Show, NewPresence.Show ) ;
+                if (OldPresence == null)
+                {
+                    return string.Format(Resources.Event_PresenceChange,
+                                          Contact.DisplayName, "No presence", NewPresence.Show);
+                }
+                else if (NewPresence == null)
+                {
+                    return string.Format(Resources.Event_PresenceChange,
+                                          Contact.DisplayName, OldPresence.Show, "No presence");
+                }
+                else
+                {
+                    return string.Format(Resources.Event_PresenceChange,
+                                          Contact.DisplayName, OldPresence.Show, NewPresence.Show);
+                }
 			}
 		}
 

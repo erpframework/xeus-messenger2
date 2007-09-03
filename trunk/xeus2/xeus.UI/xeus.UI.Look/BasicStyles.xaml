@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
 	xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" 	
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic"
-  xmlns:Microsoft_Windows_Themes1="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic"
+    xmlns:Microsoft_Windows_Themes1="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
 
   <SolidColorBrush x:Key="ListItemBorder" Color="#FF872D2D" PresentationOptions:Freeze="True" />
   <SolidColorBrush x:Key="selection_design" Color="#FF5E8DBE" PresentationOptions:Freeze="True" />
@@ -51,9 +51,36 @@
     </DrawingBrush.Drawing>
   </DrawingBrush>
   
-	<SolidColorBrush x:Key="notfound_design" Color="#FFDC0000"/>
-  
-  <Style TargetType="{x:Type ListBoxItem}">
+    <SolidColorBrush x:Key="notfound_design" Color="#FFDC0000"/>
+
+    <ControlTemplate x:Key="ListBoxItemControlTemplate" TargetType="{x:Type ListBoxItem}">
+        <Border SnapsToDevicePixels="True" x:Name="Bd" CornerRadius="2,2,2,2" Padding="{TemplateBinding Padding}"
+            BorderThickness="1,1,1,1">
+            <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" TargetName="Bd" Value="{DynamicResource back_list_design}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" TargetName="Bd" Value="{DynamicResource back_list_over_design}"/>
+                <Setter Property="Opacity" TargetName="Bd" Value="0.5"/>
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsSelected" Value="True"/>
+                    <Condition Property="Selector.IsSelectionActive" Value="False"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Background" TargetName="Bd" Value="{DynamicResource back_list_inactive_design}"/>
+                <Setter Property="Opacity" TargetName="Bd" Value="0.5"/>
+            </MultiTrigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    
+    <Style TargetType="{x:Type ListBoxItem}">
   	<Setter Property="Template" Value="{DynamicResource ListBoxItemControlTemplate}"/>
   </Style>
 
@@ -1229,33 +1256,6 @@
 		<Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
 		<Setter Property="VerticalContentAlignment" Value="Center"/>
 	</Style>
-
-	<ControlTemplate x:Key="ListBoxItemControlTemplate" TargetType="{x:Type ListBoxItem}">
-		<Border SnapsToDevicePixels="True" x:Name="Bd" CornerRadius="2,2,2,2" Padding="{TemplateBinding Padding}"
-            BorderThickness="1,1,1,1">
-			<ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
-		</Border>
-		<ControlTemplate.Triggers>
-			<Trigger Property="IsSelected" Value="True">
-				<Setter Property="Background" TargetName="Bd" Value="{DynamicResource back_list_design}"/>
-			</Trigger>
-      <Trigger Property="IsMouseOver" Value="True">
-        <Setter Property="Background" TargetName="Bd" Value="{DynamicResource back_list_over_design}"/>
-      	<Setter Property="Opacity" TargetName="Bd" Value="0.5"/>
-      </Trigger>
-      <MultiTrigger>
-				<MultiTrigger.Conditions>
-					<Condition Property="IsSelected" Value="True"/>
-					<Condition Property="Selector.IsSelectionActive" Value="False"/>
-				</MultiTrigger.Conditions>
-				<Setter Property="Background" TargetName="Bd" Value="{DynamicResource back_list_inactive_design}"/>
-      	<Setter Property="Opacity" TargetName="Bd" Value="0.5"/>
-			</MultiTrigger>
-			<Trigger Property="IsEnabled" Value="False">
-				<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-			</Trigger>
-		</ControlTemplate.Triggers>
-	</ControlTemplate>
 
   <Style TargetType="{x:Type ContextMenu}">
       <Setter Property="OverridesDefaultStyle" Value="True"/>
