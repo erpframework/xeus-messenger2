@@ -9,15 +9,11 @@
 
   <UserControl.Resources>
     <ObjectDataProvider x:Key="RosterDS" ObjectType="{x:Type xeus2_xeus_Core:Roster}"/>
-
     <CollectionViewSource x:Key="Contacts" Source="{Binding Path=Instance.Items, Mode=Default, Source={StaticResource RosterDS}}">
       <CollectionViewSource.GroupDescriptions>
         <PropertyGroupDescription PropertyName="Group"/>
       </CollectionViewSource.GroupDescriptions>
     </CollectionViewSource>
-    
-  	<ObjectDataProvider x:Key="CreateMucRoomDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Control:CreateMucRoom}"/>
-    
   </UserControl.Resources>
 	<ListBox ItemsSource="{Binding Source={StaticResource Contacts}}"
 		ItemsPanel="{DynamicResource ItemsPanelTemplateRoster}"
