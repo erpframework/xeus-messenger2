@@ -115,6 +115,10 @@ namespace xeus2.xeus.Core
                 {
                     askVCard = (avatar.Hash.ToLowerInvariant() != Storage.GetPhotoHashCode(vcard.Photo));
                 }
+                else
+                {
+                    askVCard = false;
+                }
             }
 
             if (askVCard)

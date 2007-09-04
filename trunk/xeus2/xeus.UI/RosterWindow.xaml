@@ -54,21 +54,14 @@
     <StackPanel>
       <local:RosterControl x:Name="_roster" Height="250"/>
       <Button Click="ChangeRosterSize"/>
-      
       <ListBox ItemsSource="{Binding Path=Instance, Mode=Default, Source={StaticResource EventsDS}}" Height="100" Style="{DynamicResource ListBoxStyleBlank}"/>
-      
-      <!--<TextBlock Text="{Binding Source={StaticResource AccountDS}, Path=Instance.ItemsToDiscover}"/>-->
-
       <Button Content="Services" Command="servicecmd:ServiceCommands.DisplayServices"/>
-
       <Button Command="servicecmd:AccountCommands.DisplayLogin" Content="Login"/>
-
       <ListBox DockPanel.Dock="Bottom" Background="{x:Null}"
        BorderBrush="{x:Null}"
        ItemsSource="{Binding Source={StaticResource MucMarks}}"
          x:Name="_mucMarksResult"
                ItemTemplate="{DynamicResource ServicesTemplateMucBookmark}"
                ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="5,5,5,5" />
-
     </StackPanel>
 </Window>

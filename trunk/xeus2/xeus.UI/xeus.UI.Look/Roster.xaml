@@ -8,10 +8,9 @@
   >
     <!-- Resource dictionary entries should be defined here. -->
 
-    <SolidColorBrush x:Key="roster_name_text" Color="#FF2A2A2A" PresentationOptions:Freeze="True" />
+    <SolidColorBrush x:Key="roster_name_text" Color="#FFEEEEEE" PresentationOptions:Freeze="True" />
     <SolidColorBrush x:Key="roster_status_text" Color="#FFBBBBBB" PresentationOptions:Freeze="True" />
     <SolidColorBrush x:Key="roster_image_border" Color="#FF6D6D6D" PresentationOptions:Freeze="True" />
-    <SolidColorBrush x:Key="roster_name_back" Color="#FFCCD5DE" PresentationOptions:Freeze="True" />
 
     <DrawingBrush x:Key="contact_back_big_glow_design" PresentationOptions:Freeze="True">
         <DrawingBrush.Drawing>
@@ -46,7 +45,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="MetaContactBig">
-            <Grid Margin="3,3,3,3" MaxWidth="85" x:Name="_grid">
+            <Grid Margin="3,3,3,3" MaxWidth="100" x:Name="_grid">
                 <Rectangle Margin="1,1,1,0"
                  Fill="{DynamicResource contact_back_big_glow_design}"
                  VerticalAlignment="Top" Height="20" Panel.ZIndex="1" SnapsToDevicePixels="True"/>
@@ -66,14 +65,18 @@
                     </Border.Background>
 
                     <StackPanel>
-                        <Border Margin="5,5,5,5" x:Name="_imageBorder" BorderBrush="{DynamicResource roster_image_border}">
-                            <Image Source="{Binding Path=Image}"
-			    Stretch="Uniform" Width="64" IsEnabled="False" Height="64"/>
-                        </Border>
-                        <Border Background="{StaticResource roster_name_back}" CornerRadius="1,1,1,1" Margin="3,2,3,2">
-                            <TextBlock Text="{Binding Path=DisplayName}" Foreground="{StaticResource roster_name_text}" Margin="3,0,3,0" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
-                        </Border>
-                        <TextBlock Text="{Binding Path=StatusText}" Foreground="{StaticResource roster_status_text}" Margin="4,0,4,0" FontSize="10" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
+						<Grid>
+							<Rectangle Panel.ZIndex="1" 
+                                Width="16" Height="16" HorizontalAlignment="Left" Margin="5,0,0,5" x:Name="_show" VerticalAlignment="Bottom"/>
+	                        <Border Margin="5,5,5,5" x:Name="_imageBorder" Width="64" Height="64"
+	                                BorderBrush="{DynamicResource roster_image_border}"
+	                                CornerRadius="1,1,1,1">
+	                            <Image Source="{Binding Path=Image}" SnapsToDevicePixels="True"
+				                    Stretch="Uniform" IsEnabled="False"/>
+	                        </Border>
+						</Grid>
+                        <TextBlock Text="{Binding Path=DisplayName}" Foreground="{StaticResource roster_name_text}" Margin="3,0,3,0" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                        <TextBlock Text="{Binding Path=XStatusText}" Foreground="{StaticResource roster_status_text}" Margin="4,0,4,0" FontSize="10" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
                     </StackPanel>
                 </Border>
             </Grid>
@@ -84,6 +87,20 @@
             <DataTrigger Binding="{Binding Path=IsAvailable}" Value="False">
                 <Setter Property="Opacity" TargetName="_grid" Value="0.5"/>
             </DataTrigger>
+
+            <DataTrigger Binding="{Binding Path=Show}" Value="dnd">
+                <Setter Property="Fill" TargetName="_show" Value="{DynamicResource dnd_design}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Show}" Value="away">
+                <Setter Property="Fill" TargetName="_show" Value="{DynamicResource away_design}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Show}" Value="xa">
+                <Setter Property="Fill" TargetName="_show" Value="{DynamicResource xaway_design}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Show}" Value="chat">
+                <Setter Property="Fill" TargetName="_show" Value="{DynamicResource chat_design}"/>
+            </DataTrigger>
+
         </DataTemplate.Triggers>
     </DataTemplate>
 
