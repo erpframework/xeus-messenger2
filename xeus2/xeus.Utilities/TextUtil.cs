@@ -1,5 +1,6 @@
 using System;
 using System.Globalization ;
+using System.Text;
 using System.Threading ;
 
 namespace xeus2.xeus.Utilities
@@ -66,6 +67,18 @@ namespace xeus2.xeus.Utilities
             }
 
             return text.Substring(0, position);
+        }
+
+        public static string HexEncode(byte[] bytes)
+        {
+            StringBuilder builder = new StringBuilder(bytes.Length);
+
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                builder.AppendFormat("{0:x2}", bytes[i]);
+            }
+
+            return builder.ToString();
         }
 	}
 }

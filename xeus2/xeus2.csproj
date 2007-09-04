@@ -251,6 +251,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="xeus.Commands\AccountCommands.cs" />
     <Compile Include="xeus.Commands\MucCommands.cs" />
     <Compile Include="xeus.Commands\ServiceCommands.cs" />

@@ -4,6 +4,9 @@ using agsXMPP;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.iq.roster;
 using agsXMPP.protocol.iq.vcard;
+using agsXMPP.protocol.x;
+using agsXMPP.Xml.Dom;
+using xeus.Data;
 using xeus2.Properties;
 using xeus2.xeus.Utilities;
 
@@ -11,15 +14,15 @@ namespace xeus2.xeus.Core
 {
     internal class Roster
     {
-        private ObservableCollectionDisp<MetaContact> _items = new ObservableCollectionDisp<MetaContact>();
+        private readonly ObservableCollectionDisp<MetaContact> _items = new ObservableCollectionDisp<MetaContact>();
 
         private delegate void RosterItemCallback(RosterItem item);
 
         private delegate void PresenceCallback(Presence presence);
 
-        private static Roster _instance = new Roster();
+        private static readonly Roster _instance = new Roster();
 
-        private Dictionary<string, Contact> _realContacts = new Dictionary<string, Contact>();
+        private readonly Dictionary<string, Contact> _realContacts = new Dictionary<string, Contact>();
 
         public static Roster Instance
         {
@@ -90,10 +93,34 @@ namespace xeus2.xeus.Core
 
                     if (!contact.HasVCardRecieved)
                     {
-			            VcardIq viq = new VcardIq( IqType.get, contact.Jid ) ;
-			            Account.Instance.XmppConnection.IqGrabber.SendIq( viq, new IqCB( VcardResult ), contact ) ;
+                        SetFreshVcard(contact, presence);
                     }
                 }
+            }
+        }
+
+        void SetFreshVcard(Contact contact, Presence presence)
+        {
+            Vcard vcard = Storage.GetVcard(contact.Jid.Bare, Settings.Default.VCardExpirationDays);
+
+            bool askVCard = true;
+
+            if (vcard != null)
+            {
+                contact.SetVcard(vcard);
+
+                Avatar avatar = presence.SelectSingleElement(typeof(Avatar)) as Avatar;
+
+                if (avatar != null && vcard.Photo != null)
+                {
+                    askVCard = (avatar.Hash.ToLowerInvariant() != Storage.GetPhotoHashCode(vcard.Photo));
+                }
+            }
+
+            if (askVCard)
+            {
+                VcardIq viq = new VcardIq(IqType.get, contact.Jid);
+                Account.Instance.XmppConnection.IqGrabber.SendIq(viq, new IqCB(VcardResult), contact);
             }
         }
 
@@ -111,6 +138,12 @@ namespace xeus2.xeus.Core
             else if (iq.Type == IqType.result)
             {
                 contact.SetVcard(iq.Vcard);
+
+                //save it
+                if (iq.Vcard != null)
+                {
+                    Storage.CacheVCard(iq.Vcard, contact.Jid.Bare);
+                }
             }
         }
 
