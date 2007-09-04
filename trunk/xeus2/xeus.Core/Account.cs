@@ -5,11 +5,11 @@ using System.Threading;
 using System.Timers ;
 using agsXMPP ;
 using agsXMPP.net ;
+using agsXMPP.protocol.Base;
 using agsXMPP.protocol.client ;
 using agsXMPP.protocol.extensions.commands ;
 using agsXMPP.protocol.iq.disco ;
 using agsXMPP.protocol.iq.register ;
-using agsXMPP.protocol.iq.roster ;
 using agsXMPP.protocol.iq.search ;
 using agsXMPP.protocol.x.data ;
 using agsXMPP.protocol.x.muc ;
@@ -18,6 +18,7 @@ using agsXMPP.Xml.Dom ;
 using xeus2.Properties ;
 using xeus2.xeus.Core.xeus.Data;
 using xeus2.xeus.Middle ;
+using RosterItem=agsXMPP.protocol.iq.roster.RosterItem;
 using Search=xeus2.xeus.Middle.Search;
 using Timer=System.Timers.Timer;
 using Uri=agsXMPP.Uri;
@@ -26,8 +27,8 @@ namespace xeus2.xeus.Core
 {
 	internal class DiscoverySessionData
 	{
-		private string _sessionKey ;
-		private object _data ;
+		private readonly string _sessionKey ;
+		private readonly object _data ;
 
 		public DiscoverySessionData( object data )
 		{
@@ -54,11 +55,11 @@ namespace xeus2.xeus.Core
 
 	internal class Account : NotifyInfoDispatcher
 	{
-		private Timer _discoTime = new Timer( 250 ) ;
+		private readonly Timer _discoTime = new Timer( 250 ) ;
 
-		private static Account _instance = new Account() ;
+		private static readonly Account _instance = new Account() ;
 
-		private XmppClientConnection _xmppConnection = new XmppClientConnection() ;
+		private readonly XmppClientConnection _xmppConnection = new XmppClientConnection() ;
 		private DiscoManager _discoManager ;
 
 		private MucManager _mucManager = null ;
@@ -72,7 +73,7 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		protected void Cleanup()
+		protected static void Cleanup()
 		{
 			Services.Instance.Clear();
 			Roster.Instance.Items.Clear();
@@ -105,15 +106,15 @@ namespace xeus2.xeus.Core
 			XmppConnection.Password = Settings.Default.XmppPassword ;
 			XmppConnection.Server = Settings.Default.XmppServer ;
 
-			XmppConnection.OnClose += new ObjectHandler( _xmppConnection_OnClose ) ;
-			XmppConnection.OnLogin += new ObjectHandler( _xmppConnection_OnLogin ) ;
-			XmppConnection.OnRosterItem += new XmppClientConnection.RosterHandler( _xmppConnection_OnRosterItem ) ;
-			XmppConnection.OnRosterEnd += new ObjectHandler( _xmppConnection_OnRosterEnd ) ;
-			XmppConnection.OnPresence += new PresenceHandler( _xmppConnection_OnPresence ) ;
-			XmppConnection.OnError += new ErrorHandler( _xmppConnection_OnError ) ;
-			XmppConnection.OnAuthError += new XmppElementHandler( _xmppConnection_OnAuthError ) ;
+			XmppConnection.OnClose += _xmppConnection_OnClose ;
+			XmppConnection.OnLogin += _xmppConnection_OnLogin ;
+			XmppConnection.OnRosterItem += _xmppConnection_OnRosterItem ;
+			XmppConnection.OnRosterEnd += _xmppConnection_OnRosterEnd ;
+			XmppConnection.OnPresence += _xmppConnection_OnPresence ;
+			XmppConnection.OnError += _xmppConnection_OnError ;
+			XmppConnection.OnAuthError += _xmppConnection_OnAuthError ;
 
-			XmppConnection.OnIq += new IqHandler( _xmppConnection_OnIq ) ;
+			XmppConnection.OnIq += _xmppConnection_OnIq ;
 
 			Settings.Default.Save() ;
 
@@ -121,19 +122,19 @@ namespace xeus2.xeus.Core
 
 			XmppConnection.Open() ;
 
-			_discoTime.Elapsed += new ElapsedEventHandler( _discoTime_Elapsed ) ;
+			_discoTime.Elapsed += _discoTime_Elapsed ;
 
 		    _discoTime.AutoReset = false;
             _discoTime.Start();
 		}
 
-        private ArrayList _pendingDiscoInfo = ArrayList.Synchronized(new ArrayList());
-        private ArrayList _pendingCommand = ArrayList.Synchronized(new ArrayList());
+        private readonly ArrayList _pendingDiscoInfo = ArrayList.Synchronized(new ArrayList());
+        private readonly ArrayList _pendingCommand = ArrayList.Synchronized(new ArrayList());
 
 		private int _servicesCount ;
 		private int _servicesDoneCount ;
 
-        object _discoLock = new object();
+	    readonly object _discoLock = new object();
 	    private volatile bool _working = false;
 
 		private void _discoTime_Elapsed( object sender, ElapsedEventArgs e )
@@ -161,7 +162,7 @@ namespace xeus2.xeus.Core
 
                             _discoManager.DisoverItems(discoItem.Jid,
                                                         Uri.COMMANDS,
-                                                        new IqCB(OnCommandsServerResult),
+                                                        OnCommandsServerResult,
                                                         new DiscoverySessionData(discoItem));
 
                         }
@@ -180,7 +181,7 @@ namespace xeus2.xeus.Core
                             else
                             {
                                 _discoManager.DisoverInformation(discoItem.Jid, discoItem.Node,
-                                                                 new IqCB(OnDiscoInfoResult),
+                                                                 OnDiscoInfoResult,
                                                                  new DiscoverySessionData(discoItem));
                             }
                             
@@ -191,7 +192,7 @@ namespace xeus2.xeus.Core
 
                             if (discoItem.Node != null)
                             {
-                                _discoManager.DisoverItems(jid, discoItem.Node, new IqCB(OnDiscoServerResult),
+                                _discoManager.DisoverItems(jid, discoItem.Node, OnDiscoServerResult,
                                                            new DiscoverySessionData(discoItem));
                             }
                             else
