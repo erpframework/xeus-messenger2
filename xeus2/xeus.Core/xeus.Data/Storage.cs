@@ -306,6 +306,8 @@ namespace xeus.Data
                     bitmap.CacheOption = BitmapCacheOption.OnLoad;
                     bitmap.StreamSource = memoryStream;
                     bitmap.EndInit();
+                    
+                    bitmap.Freeze();
                     return bitmap;
                 }
                 else if (photo.HasTag("EXTVAL"))
@@ -316,6 +318,7 @@ namespace xeus.Data
                     bitmap.UriSource = new Uri(photo.GetTag("EXTVAL"));
                     bitmap.EndInit();
 
+                    bitmap.Freeze();
                     return bitmap;
                 }
                 else if (photo.TextBase64.Length > 0)
@@ -328,6 +331,7 @@ namespace xeus.Data
                     bitmap.StreamSource = memoryStream;
                     bitmap.EndInit();
 
+                    bitmap.Freeze();
                     return bitmap;
                 }
                 else

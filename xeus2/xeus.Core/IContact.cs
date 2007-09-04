@@ -13,6 +13,7 @@ namespace xeus2.xeus.Core
         string DisplayName { get ; }
 		string Group { get ; }
         bool IsAvailable { get; }
+        string Show { get; }
 		string StatusText { get ; }
         string XStatusText { get; }
 

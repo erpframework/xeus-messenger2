@@ -133,6 +133,14 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public string Show
+        {
+            get
+            {
+                return (string)GetValueSafe("Show");
+            }
+        }
+
         public string StatusText
         {
             get

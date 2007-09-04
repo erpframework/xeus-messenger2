@@ -1,4 +1,5 @@
 using System;
+using System.Drawing.Imaging;
 using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.protocol.Base;
@@ -14,7 +15,7 @@ namespace xeus2.xeus.Core
     {
         public delegate void VcardHandler(Vcard vcard);
 
-        private RosterItem _rosterItem = null;
+        private readonly RosterItem _rosterItem = null;
         private Presence _presence = null;
         private string _customName;
         private string _xStatusText;
@@ -108,21 +109,17 @@ namespace xeus2.xeus.Core
                                 }
                         }
 
-                        if (_presence.Status != null && _presence.Status != String.Empty)
-                        {
-                            _xStatusText = _presence.Status;
-                        }
-                        else
-                        {
-                            _xStatusText = _statusText;
-                        }
-
                         if (_presence.Nickname != null
                             && !string.IsNullOrEmpty(_presence.Nickname.Value))
                         {
                             _nickName = _presence.Nickname.Value;
                         }
                     }
+
+                    if (!string.IsNullOrEmpty(_presence.Status))
+                    {
+                        _xStatusText = _presence.Status;
+                   }
                 }
 
                 NotifyPropertyChanged("Presence");
@@ -161,6 +158,21 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public string Show
+        {
+            get
+            {
+                if (_presence != null)
+                {
+                    return _presence.Show.ToString();
+                }
+                else
+                {
+                    return "NotAvailable";
+                }
+            }
+        }
+
         private string _statusText = "Not available";
         private string _fullName;
         private BitmapImage _image;
@@ -177,7 +189,14 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return _xStatusText;
+                if (string.IsNullOrEmpty(_xStatusText))
+                {
+                    return StatusText;
+                }
+                else
+                {
+                    return _xStatusText;
+                }
             }
         }
 
@@ -227,7 +246,7 @@ namespace xeus2.xeus.Core
                 }
                 else
                 {
-                    return (_image.Format.BitsPerPixel >= 32);
+                    return (_image.Format.Masks.Count >= 4);
                 }
             }
         }
@@ -291,12 +310,6 @@ namespace xeus2.xeus.Core
                     if (image != null)
                     {
                         _image = image;
-
-                        if (!IsImageTransparent)
-                        {
-                            int u = 0;
-
-                        }
 
                         NotifyPropertyChanged("Image");
                         NotifyPropertyChanged("IsImageTransparent");

@@ -53,6 +53,16 @@
   
     <SolidColorBrush x:Key="notfound_design" Color="#FFDC0000"/>
 
+    <DrawingBrush x:Key="back_list_design" PresentationOptions:Freeze="True" >
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#80B6B6B6" Geometry="F1 M -897.671,-922.548L -4.46803e-005,-922.548L -4.46803e-005,-810.548L -897.671,-810.548L -897.671,-922.548 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
     <ControlTemplate x:Key="ListBoxItemControlTemplate" TargetType="{x:Type ListBoxItem}">
         <Border SnapsToDevicePixels="True" x:Name="Bd" CornerRadius="2,2,2,2" Padding="{TemplateBinding Padding}"
             BorderThickness="1,1,1,1">
@@ -286,16 +296,6 @@
                 </LinearGradientBrush>
               </GeometryDrawing.Brush>
             </GeometryDrawing>
-          </DrawingGroup.Children>
-        </DrawingGroup>
-      </DrawingBrush.Drawing>
-  </DrawingBrush>
-
-  <DrawingBrush x:Key="back_list_design" PresentationOptions:Freeze="True" >
-      <DrawingBrush.Drawing>
-        <DrawingGroup>
-          <DrawingGroup.Children>
-            <GeometryDrawing Brush="#80B6B6B6" Geometry="F1 M -897.671,-922.548L -4.46803e-005,-922.548L -4.46803e-005,-810.548L -897.671,-810.548L -897.671,-922.548 Z "/>
           </DrawingGroup.Children>
         </DrawingGroup>
       </DrawingBrush.Drawing>
