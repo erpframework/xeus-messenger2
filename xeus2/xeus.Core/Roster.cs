@@ -5,7 +5,6 @@ using agsXMPP.protocol.client;
 using agsXMPP.protocol.iq.roster;
 using agsXMPP.protocol.iq.vcard;
 using agsXMPP.protocol.x;
-using agsXMPP.Xml.Dom;
 using xeus.Data;
 using xeus2.Properties;
 using xeus2.xeus.Utilities;
@@ -14,13 +13,8 @@ namespace xeus2.xeus.Core
 {
     internal class Roster
     {
-        private readonly ObservableCollectionDisp<MetaContact> _items = new ObservableCollectionDisp<MetaContact>();
-
-        private delegate void RosterItemCallback(RosterItem item);
-
-        private delegate void PresenceCallback(Presence presence);
-
         private static readonly Roster _instance = new Roster();
+        private readonly ObservableCollectionDisp<MetaContact> _items = new ObservableCollectionDisp<MetaContact>();
 
         private readonly Dictionary<string, Contact> _realContacts = new Dictionary<string, Contact>();
 
@@ -99,7 +93,7 @@ namespace xeus2.xeus.Core
             }
         }
 
-        void SetFreshVcard(Contact contact, Presence presence)
+        private void SetFreshVcard(Contact contact, Presence presence)
         {
             Vcard vcard = Storage.GetVcard(contact.Jid.Bare, Settings.Default.VCardExpirationDays);
 
@@ -109,7 +103,7 @@ namespace xeus2.xeus.Core
             {
                 contact.SetVcard(vcard);
 
-                Avatar avatar = presence.SelectSingleElement(typeof(Avatar)) as Avatar;
+                Avatar avatar = presence.SelectSingleElement(typeof (Avatar)) as Avatar;
 
                 if (avatar != null && vcard.Photo != null)
                 {
@@ -128,16 +122,22 @@ namespace xeus2.xeus.Core
             }
         }
 
-        private void VcardResult( object sender, IQ iq, object data )
+        private void VcardResult(object sender, IQ iq, object data)
         {
-            Contact contact = (Contact)data;
+            Contact contact = (Contact) data;
 
             if (iq.Type == IqType.error || iq.Error != null)
             {
-                Events.Instance.OnEvent(this,
-                                        new EventError(String.Format("V-Card receiving error from {0}", iq.From), null));
-
-                contact.SetVcard(null);
+                if (iq.Error.Code == ErrorCode.NotFound)
+                {
+                    contact.SetVcard(null);
+                }
+                else
+                {
+                    Events.Instance.OnEvent(this,
+                                            new EventError(String.Format("V-Card receiving error from {0}", iq.From),
+                                                           null));
+                }
             }
             else if (iq.Type == IqType.result)
             {
@@ -186,7 +186,7 @@ namespace xeus2.xeus.Core
             return contact;
         }
 
-        void AddRosterItem(RosterItem item)
+        private void AddRosterItem(RosterItem item)
         {
             lock (_items._syncObject)
             {
@@ -199,7 +199,7 @@ namespace xeus2.xeus.Core
             }
         }
 
-        void RemoveRosterItem(Contact contact)
+        private void RemoveRosterItem(Contact contact)
         {
             lock (_items._syncObject)
             {
@@ -208,7 +208,7 @@ namespace xeus2.xeus.Core
                 if (metaContact != null)
                 {
                     metaContact.SubContacts.Remove(contact);
-                    
+
                     _realContacts.Remove(contact.Jid.ToString());
 
                     if (metaContact.SubContacts.Count == 0)
@@ -234,5 +234,17 @@ namespace xeus2.xeus.Core
 
             return null;
         }
+
+        #region Nested type: PresenceCallback
+
+        private delegate void PresenceCallback(Presence presence);
+
+        #endregion
+
+        #region Nested type: RosterItemCallback
+
+        private delegate void RosterItemCallback(RosterItem item);
+
+        #endregion
     }
 }
