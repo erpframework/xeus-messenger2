@@ -196,6 +196,11 @@ namespace xeus2.xeus.Core
         {
             get
             {
+                if (IsService)
+                {
+                    return "Service";
+                }
+
                 foreach (Element element in _rosterItem.GetGroups())
                 {
                     return element.Value;
