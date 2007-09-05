@@ -103,7 +103,7 @@ namespace xeus2.xeus.Core
 
                         Array.Sort(presences, _presenceCompare);
 
-                        _presence = presences[0];
+                        _presence = presences[presences.Length - 1];
                     }
                     else
                     {
