@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 using agsXMPP;
@@ -21,6 +20,10 @@ namespace xeus2.xeus.Core
 
         #endregion
 
+        private static readonly PresenceCompare _presenceCompare = new PresenceCompare();
+        private readonly Dictionary<string, Presence> _presences = new Dictionary<string, Presence>(3);
+        private readonly object _presencesLock = new object();
+
         private readonly RosterItem _rosterItem = null;
         private string _customName;
         private string _fullName;
@@ -31,9 +34,6 @@ namespace xeus2.xeus.Core
         private Presence _presence = null;
         private string _statusText = "Not available";
         private string _xStatusText;
-
-        private readonly Dictionary<string, Presence> _presences = new Dictionary<string, Presence>(3);
-        private readonly object _presencesLock = new object();
 
         public Contact(RosterItem rosterItem)
         {
@@ -79,13 +79,14 @@ namespace xeus2.xeus.Core
             }
         }
 
-        private static readonly PresenceCompare _presenceCompare = new PresenceCompare();
-
         public Presence Presence
         {
             get
             {
-                return _presence;
+                lock (_presencesLock)
+                {
+                    return _presence;
+                }
             }
 
             set
@@ -122,10 +123,6 @@ namespace xeus2.xeus.Core
                     }
                     else
                     {
-                        if (Presence.From.ToString().Contains("spike"))
-                        {
-                            
-                        }
                         switch (_presence.Show)
                         {
                             case ShowType.away:
@@ -174,6 +171,7 @@ namespace xeus2.xeus.Core
                 NotifyPropertyChanged("XStatusText");
                 NotifyPropertyChanged("Show");
                 NotifyPropertyChanged("Priority");
+                NotifyPropertyChanged("Resource");
             }
         }
 
@@ -181,7 +179,16 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return Jid.Resource;
+                if (_presence == null || _presence.From == null
+                    || _presence.From.Resource == null
+                    || _presence.From.Resource.TrimStart() == String.Empty)
+                {
+                    return null;
+                }
+                else
+                {
+                    return _presence.From.Resource;
+                }
             }
         }
 

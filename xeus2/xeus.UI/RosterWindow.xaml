@@ -63,5 +63,7 @@
                ItemTemplate="{DynamicResource ServicesTemplateMucBookmark}"
                ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="5,5,5,5" />
         <local:RosterControl x:Name="_roster" DockPanel.Dock="Top"/>
+		
+			
     </DockPanel>
 </Window>
