@@ -10,13 +10,13 @@
 
     <SolidColorBrush x:Key="roster_name_text" Color="#FFEEEEEE" PresentationOptions:Freeze="True" />
     <SolidColorBrush x:Key="roster_status_text" Color="#FFBBBBBB" PresentationOptions:Freeze="True" />
-    <SolidColorBrush x:Key="roster_image_border" Color="#FF6D6D6D" PresentationOptions:Freeze="True" />
-
+    <SolidColorBrush x:Key="roster_image_border" Color="#FF444444" PresentationOptions:Freeze="True" />
+   
     <DrawingBrush x:Key="contact_back_big_glow_design" PresentationOptions:Freeze="True">
         <DrawingBrush.Drawing>
             <DrawingGroup>
                 <DrawingGroup.Children>
-                    <GeometryDrawing Brush="#1AFFFFFF" Geometry="F1 M 139.278,12L 210.5,12L 210.5,29.3683C 199.181,27.6085 187.235,26.6666 174.889,26.6666C 162.542,26.6666 150.597,27.6085 139.278,29.3683L 139.278,12 Z "/>
+                    <GeometryDrawing Brush="#1AFFFFFF" Geometry="F1 M 139.278,12L 210.5,12L 210.5,29.3683C 199.181,27.6085 187.639,32.6841 174.889,33.6666C 162.528,34.3508 148.861,33.6841 139.278,29.3683L 139.278,12 Z "/>
                 </DrawingGroup.Children>
             </DrawingGroup>
         </DrawingBrush.Drawing>
@@ -46,7 +46,9 @@
 
     <DataTemplate x:Key="MetaContactBig">
             <Grid Margin="3,3,3,3" MaxWidth="100" x:Name="_grid">
-                <Rectangle Margin="1,1,1,0"
+            <Rectangle Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top"
+                    x:Name="_show" Panel.ZIndex="1" Margin="5,5,0,0"/>
+            <Rectangle Margin="1,1,1,0"
                  Fill="{DynamicResource contact_back_big_glow_design}"
                  VerticalAlignment="Top" Height="20" Panel.ZIndex="1" SnapsToDevicePixels="True"/>
                 <a:SystemDropShadowChrome Color="#9000" Margin="-2,-2,1,1">
@@ -63,42 +65,69 @@
                             </LinearGradientBrush.GradientStops>
                         </LinearGradientBrush>
                     </Border.Background>
-
                     <StackPanel>
-						<Grid>
-							<Rectangle Panel.ZIndex="1" 
-                                Width="16" Height="16" HorizontalAlignment="Left" Margin="5,0,0,5" x:Name="_show" VerticalAlignment="Bottom"/>
-	                        <Border Margin="5,5,5,5" x:Name="_imageBorder" Width="64" Height="64"
+	                        <Border Margin="5,5,5,0" x:Name="_imageBorder" Width="48" Height="48"
 	                                BorderBrush="{DynamicResource roster_image_border}"
-	                                CornerRadius="1,1,1,1">
-	                            <Image Source="{Binding Path=Image}" SnapsToDevicePixels="True"
-				                    Stretch="Uniform" IsEnabled="False"/>
-	                        </Border>
-						</Grid>
-                        <TextBlock Text="{Binding Path=DisplayName}" Foreground="{StaticResource roster_name_text}" Margin="3,0,3,0" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
-                        <TextBlock Text="{Binding Path=XStatusText}" Foreground="{StaticResource roster_status_text}" Margin="4,0,4,0" FontSize="10" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
+	                                CornerRadius="2,2,2,2" SnapsToDevicePixels="True" ClipToBounds="True">
+                            <Image Source="{Binding Path=Image}" x:Name="_image"
+                                                       Stretch="Uniform" IsEnabled="False">
+                            <Image.OpacityMask>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0.5">
+                                    <GradientStop Color="#DD000000" Offset="0"/>
+                                    <GradientStop Color="#88FFFFFF" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Image.OpacityMask>
+                        </Image>
+                    </Border>
+                            <Border Width="48" Height="24" Opacity="0.2">
+                                <Border.OpacityMask>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <LinearGradientBrush.GradientStops>
+                                            <GradientStop Offset="0" Color="Black"/>
+                                            <GradientStop Offset=".6" Color="Transparent"/>
+                                        </LinearGradientBrush.GradientStops>
+                                    </LinearGradientBrush>
+                                </Border.OpacityMask>
+                                <Border.Background>
+                                    <VisualBrush Visual="{Binding ElementName=_imageBorder}">
+                                        <VisualBrush.Transform>
+                                            <ScaleTransform ScaleX="1" ScaleY="-1" CenterX="24" CenterY="12" />
+                                        </VisualBrush.Transform>
+                                    </VisualBrush>
+                                </Border.Background>
+                            </Border>
+                            <TextBlock Margin="0,-8,0,0" Text="{Binding Path=DisplayName}" Foreground="{StaticResource roster_name_text}" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                            <TextBlock Text="{Binding Path=XStatusText}" Foreground="{StaticResource roster_status_text}" Margin="4,0,4,7" FontSize="10" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
                     </StackPanel>
                 </Border>
             </Grid>
         <DataTemplate.Triggers>
             <DataTrigger Binding="{Binding Path=IsImageTransparent}" Value="False">
-                <Setter Property="BorderThickness" TargetName="_imageBorder" Value="2,2,2,2"/>
+                <Setter Property="BorderThickness" TargetName="_imageBorder" Value="1,1,1,1"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=IsAvailable}" Value="False">
-                <Setter Property="Opacity" TargetName="_grid" Value="0.5"/>
+                <Setter Property="Opacity" TargetName="_grid" Value="0.35"/>
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Path=Show}" Value="dnd">
                 <Setter Property="Fill" TargetName="_show" Value="{DynamicResource dnd_design}"/>
+                <Setter Property="Visibility" TargetName="_show" Value="Visible"/>
+                <Setter Property="Opacity" TargetName="_image" Value="0.4"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Show}" Value="away">
                 <Setter Property="Fill" TargetName="_show" Value="{DynamicResource away_design}"/>
+                <Setter Property="Visibility" TargetName="_show" Value="Visible"/>
+                <Setter Property="Opacity" TargetName="_image" Value="0.4"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Show}" Value="xa">
                 <Setter Property="Fill" TargetName="_show" Value="{DynamicResource xaway_design}"/>
+                <Setter Property="Visibility" TargetName="_show" Value="Visible"/>
+                <Setter Property="Opacity" TargetName="_image" Value="0.4"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Show}" Value="chat">
                 <Setter Property="Fill" TargetName="_show" Value="{DynamicResource chat_design}"/>
+                <Setter Property="Visibility" TargetName="_show" Value="Visible"/>
+                <Setter Property="Opacity" TargetName="_image" Value="0.4"/>
             </DataTrigger>
 
         </DataTemplate.Triggers>

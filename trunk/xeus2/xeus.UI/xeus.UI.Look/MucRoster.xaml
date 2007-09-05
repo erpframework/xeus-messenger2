@@ -571,8 +571,49 @@
 			</DrawingGroup>
 		</DrawingBrush.Drawing>
 	</DrawingBrush>
-  
-	<DrawingBrush x:Key="xaway_design" PresentationOptions:Freeze="True" Stretch="Uniform">
+
+    <DrawingBrush x:Key="chat_design" PresentationOptions:Freeze="True" Stretch="Uniform">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Geometry="F1 M 160.05,24.0999C 236.238,24.0999 298,85.8623 298,162.05C 298,238.238 236.238,300 160.05,300C 83.8622,300 22.0999,238.238 22.0999,162.05C 22.0999,85.8623 83.8622,24.0999 160.05,24.0999 Z ">
+                        <GeometryDrawing.Brush>
+                            <RadialGradientBrush RadiusX="0.5" RadiusY="0.5" Center="0.5,0.5" GradientOrigin="0.5,0.5">
+                                <RadialGradientBrush.GradientStops>
+                                    <GradientStop Color="#FF000000" Offset="0.135593"/>
+                                    <GradientStop Color="#00000000" Offset="1"/>
+                                </RadialGradientBrush.GradientStops>
+                                <RadialGradientBrush.RelativeTransform>
+                                    <TransformGroup/>
+                                </RadialGradientBrush.RelativeTransform>
+                            </RadialGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                    <GeometryDrawing Geometry="F1 M 148.8,27.299C 215.627,27.299 269.801,81.473 269.801,148.3C 269.801,215.127 215.627,269.301 148.8,269.301C 81.973,269.301 27.799,215.127 27.799,148.3C 27.799,81.473 81.973,27.299 148.8,27.299 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="20" LineJoin="Round" Brush="#FF4D4D4D"/>
+                        </GeometryDrawing.Pen>
+                        <GeometryDrawing.Brush>
+                            <RadialGradientBrush RadiusX="0.479445" RadiusY="0.479445" Center="0.5,0.5" GradientOrigin="0.5,0.5">
+                                <RadialGradientBrush.GradientStops>
+                                    <GradientStop Color="#FFD1FFCC" Offset="0"/>
+                                    <GradientStop Color="#FF1AB822" Offset="1"/>
+                                </RadialGradientBrush.GradientStops>
+                                <RadialGradientBrush.RelativeTransform>
+                                    <TransformGroup/>
+                                </RadialGradientBrush.RelativeTransform>
+                            </RadialGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 89.5128,213.983C 103.037,206.197 108.539,192.878 110.688,185.042C 90.9883,175.282 77.9761,158.439 77.9761,139.297C 77.9761,109.116 110.327,84.6494 150.233,84.6494C 190.139,84.6494 222.49,109.116 222.49,139.297C 222.49,169.479 190.139,193.945 150.233,193.945C 148.313,193.945 146.411,193.889 144.529,193.778C 130.065,212.6 89.5128,213.983 89.5128,213.983 Z "/>
+                    <GeometryDrawing Brush="#3EFFFFFF" Geometry="F1 M 148.619,37.4447C 100.367,37.4447 59.4564,67.2297 45.2421,108.457C 76.1264,119.822 112.122,126.34 150.554,126.34C 187.563,126.34 222.313,120.296 252.415,109.699C 238.6,67.8293 197.354,37.4447 148.619,37.4447 Z "/>
+                    <GeometryDrawing Brush="#2C000000" Geometry="F1 M 148.989,258.988C 171.569,258.988 192.627,252.303 210.384,240.759C 191.523,235.694 170.161,232.837 147.529,232.837C 125.727,232.837 105.103,235.488 86.7589,240.21C 104.689,252.092 126.054,258.988 148.989,258.988 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+    
+    <DrawingBrush x:Key="xaway_design" PresentationOptions:Freeze="True" Stretch="Uniform">
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
 				<DrawingGroup.Children>

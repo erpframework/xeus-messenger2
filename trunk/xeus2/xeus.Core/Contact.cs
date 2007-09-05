@@ -126,6 +126,7 @@ namespace xeus2.xeus.Core
                 NotifyPropertyChanged("IsAvailable");
                 NotifyPropertyChanged("StatusText");
                 NotifyPropertyChanged("XStatusText");
+                NotifyPropertyChanged("Show");
             }
         }
 
