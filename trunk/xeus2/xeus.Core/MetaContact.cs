@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Media.Imaging;
@@ -11,13 +11,13 @@ namespace xeus2.xeus.Core
 {
     internal class MetaContact : NotifyInfoDispatcher, IContact
     {
-        private ObservableCollectionDisp<Contact> _subContacts = new ObservableCollectionDisp<Contact>();
-        private Contact _activeContact = null;
-
-        private static Dictionary<string, PropertyAccessor> _propertyAccessors =
+        private static readonly Dictionary<string, PropertyAccessor> _propertyAccessors =
             new Dictionary<string, PropertyAccessor>();
 
-        private object _propertyAccessorLock = new object();
+        private Contact _activeContact = null;
+
+        private readonly object _propertyAccessorLock = new object();
+        private readonly ObservableCollectionDisp<Contact> _subContacts = new ObservableCollectionDisp<Contact>();
 
         public MetaContact(Contact contact)
         {
@@ -26,64 +26,15 @@ namespace xeus2.xeus.Core
             AddContact(contact);
         }
 
-        public void AddContact(Contact contact)
+        public ObservableCollectionDisp<Contact> SubContacts
         {
-            contact.PropertyChanged += new PropertyChangedEventHandler(contact_PropertyChanged);
-
-            lock (SubContacts._syncObject)
+            get
             {
-                SubContacts.Add(contact);
+                return _subContacts;
             }
         }
 
-        public void AddFomMetaContact(MetaContact metaContact)
-        {
-            foreach (Contact contact in metaContact.SubContacts)
-            {
-                AddContact(contact);
-            }
-        }
-
-        public Contact FindContact(Jid jid)
-        {
-            foreach (Contact contact in SubContacts)
-            {
-                if (JidUtil.BareEquals(jid, contact.Jid))
-                {
-                    return contact;
-                }
-            }
-
-            return null;
-        }
-
-        private void contact_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            /// needs to switch active contact when presence changes
-
-            if (sender == _activeContact)
-            {
-                NotifyPropertyChanged(e.PropertyName);
-            }
-        }
-
-        private object GetValueSafe(string name)
-        {
-            PropertyAccessor propertyAccessor;
-
-            lock (_propertyAccessorLock)
-            {
-                _propertyAccessors.TryGetValue(name, out propertyAccessor);
-
-                if (propertyAccessor == null)
-                {
-                    propertyAccessor =
-                        new PropertyAccessor(typeof (Contact), name);
-                }
-            }
-
-            return propertyAccessor.Get(_activeContact);
-        }
+        #region IContact Members
 
         public Jid Jid
         {
@@ -105,7 +56,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return (string)GetValueSafe("Resource");
+                return (string) GetValueSafe("Resource");
             }
         }
 
@@ -129,7 +80,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return (bool)GetValueSafe("IsAvailable");
+                return (bool) GetValueSafe("IsAvailable");
             }
         }
 
@@ -137,7 +88,15 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return (string)GetValueSafe("Show");
+                return (string) GetValueSafe("Show");
+            }
+        }
+
+        public int Priority
+        {
+            get
+            {
+                return (int) GetValueSafe("Priority");
             }
         }
 
@@ -177,7 +136,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return (BitmapImage)GetValueSafe("Image");
+                return (BitmapImage) GetValueSafe("Image");
             }
         }
 
@@ -185,7 +144,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return (bool)GetValueSafe("IsImageTransparent");
+                return (bool) GetValueSafe("IsImageTransparent");
             }
         }
 
@@ -205,12 +164,79 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public ObservableCollectionDisp<Contact> SubContacts
+        #endregion
+
+        public void AddContact(Contact contact)
         {
-            get
+            contact.PropertyChanged += contact_PropertyChanged;
+
+            lock (SubContacts._syncObject)
             {
-                return _subContacts;
+                SubContacts.Add(contact);
             }
+        }
+
+        public void AddFomMetaContact(MetaContact metaContact)
+        {
+            foreach (Contact contact in metaContact.SubContacts)
+            {
+                AddContact(contact);
+            }
+        }
+
+        public Contact FindContact(Jid jid)
+        {
+            foreach (Contact contact in SubContacts)
+            {
+                if (JidUtil.Equals(jid, contact.Jid))
+                {
+                    return contact;
+                }
+            }
+
+            return null;
+        }
+
+        private void contact_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            lock (_subContacts._syncObject)
+            {
+                if (_subContacts.Count > 1)
+                {
+                    /*
+                    ArrayList.Adapter(_subContacts).Sort(_presenceCompare);
+
+                    if (_subContacts[0] != _activeContact)
+                    {
+                        _activeContact = _subContacts[0];
+
+                        // reload all properties
+                    }*/
+                }
+            }
+
+            if (sender == _activeContact)
+            {
+                NotifyPropertyChanged(e.PropertyName);
+            }
+        }
+
+        private object GetValueSafe(string name)
+        {
+            PropertyAccessor propertyAccessor;
+
+            lock (_propertyAccessorLock)
+            {
+                _propertyAccessors.TryGetValue(name, out propertyAccessor);
+
+                if (propertyAccessor == null)
+                {
+                    propertyAccessor =
+                        new PropertyAccessor(typeof (Contact), name);
+                }
+            }
+
+            return propertyAccessor.Get(_activeContact);
         }
     }
 }

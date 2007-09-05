@@ -60,7 +60,7 @@ namespace xeus2.xeus.Core
                         Events.Instance.OnEvent(this, new EventInfo(
                                                           String.Format(Resources.Event_AnotherClient,
                                                                         presence.From.Resource, presence.Priority,
-                                                                        Account.Instance.MyJid.Bare, presence.Show)));
+                                                                        Account.Instance.MyJid, presence.Show)));
 
                         if (presence.Priority > Account.Instance.MyPriority)
                         {
@@ -193,7 +193,7 @@ namespace xeus2.xeus.Core
                 // for now
                 Contact contact = new Contact(item);
 
-                _realContacts.Add(item.Jid.Bare, contact);
+                _realContacts.Add(item.Jid.ToString(), contact);
 
                 _items.Add(new MetaContact(contact));
             }
@@ -209,7 +209,7 @@ namespace xeus2.xeus.Core
                 {
                     metaContact.SubContacts.Remove(contact);
                     
-                    _realContacts.Remove(contact.Jid.Bare);
+                    _realContacts.Remove(contact.Jid.ToString());
 
                     if (metaContact.SubContacts.Count == 0)
                     {
