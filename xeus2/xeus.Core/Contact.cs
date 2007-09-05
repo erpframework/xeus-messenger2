@@ -1,5 +1,6 @@
 using System;
-using System.Drawing.Imaging;
+using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.protocol.Base;
@@ -8,25 +9,46 @@ using agsXMPP.protocol.iq.vcard;
 using agsXMPP.Xml.Dom;
 using xeus.Data;
 using xeus2.Properties;
+using xeus2.xeus.Utilities;
 
 namespace xeus2.xeus.Core
 {
     public class Contact : NotifyInfoDispatcher, IContact
     {
+        #region Delegates
+
         public delegate void VcardHandler(Vcard vcard);
 
+        #endregion
+
         private readonly RosterItem _rosterItem = null;
-        private Presence _presence = null;
         private string _customName;
-        private string _xStatusText;
-        private string _nickName;
+        private string _fullName;
 
         private bool _hasVCardRecieved = false;
+        private BitmapImage _image;
+        private string _nickName;
+        private Presence _presence = null;
+        private string _statusText = "Not available";
+        private string _xStatusText;
+
+        private readonly Dictionary<string, Presence> _presences = new Dictionary<string, Presence>(3);
+        private readonly object _presencesLock = new object();
 
         public Contact(RosterItem rosterItem)
         {
             _rosterItem = rosterItem;
         }
+
+        public bool HasVCardRecieved
+        {
+            get
+            {
+                return _hasVCardRecieved;
+            }
+        }
+
+        #region IContact Members
 
         public string DisplayName
         {
@@ -57,6 +79,8 @@ namespace xeus2.xeus.Core
             }
         }
 
+        private static readonly PresenceCompare _presenceCompare = new PresenceCompare();
+
         public Presence Presence
         {
             get
@@ -66,7 +90,25 @@ namespace xeus2.xeus.Core
 
             set
             {
-                _presence = value;
+                lock (_presencesLock)
+                {
+                    // find best presence
+                    _presences[value.From.ToString()] = value;
+
+                    if (_presences.Count > 1)
+                    {
+                        Presence[] presences = new Presence[_presences.Values.Count];
+                        _presences.Values.CopyTo(presences, 0);
+
+                        Array.Sort(presences, _presenceCompare);
+
+                        _presence = presences[0];
+                    }
+                    else
+                    {
+                        _presence = value;
+                    }
+                }
 
                 if (_presence == null || _presence.Type != PresenceType.available)
                 {
@@ -80,6 +122,10 @@ namespace xeus2.xeus.Core
                     }
                     else
                     {
+                        if (Presence.From.ToString().Contains("spike"))
+                        {
+                            
+                        }
                         switch (_presence.Show)
                         {
                             case ShowType.away:
@@ -119,7 +165,7 @@ namespace xeus2.xeus.Core
                     if (!string.IsNullOrEmpty(_presence.Status))
                     {
                         _xStatusText = _presence.Status;
-                   }
+                    }
                 }
 
                 NotifyPropertyChanged("Presence");
@@ -127,6 +173,7 @@ namespace xeus2.xeus.Core
                 NotifyPropertyChanged("StatusText");
                 NotifyPropertyChanged("XStatusText");
                 NotifyPropertyChanged("Show");
+                NotifyPropertyChanged("Priority");
             }
         }
 
@@ -174,9 +221,20 @@ namespace xeus2.xeus.Core
             }
         }
 
-        private string _statusText = "Not available";
-        private string _fullName;
-        private BitmapImage _image;
+        public int Priority
+        {
+            get
+            {
+                if (_presence == null)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return _presence.Priority;
+                }
+            }
+        }
 
         public string StatusText
         {
@@ -268,13 +326,7 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public bool HasVCardRecieved
-        {
-            get
-            {
-                return _hasVCardRecieved;
-            }
-        }
+        #endregion
 
         public override string ToString()
         {

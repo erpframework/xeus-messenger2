@@ -15,6 +15,13 @@
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
+    <ApplicationExtension>.application</ApplicationExtension>
+    <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
     <PublishUrl>Publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,16 +32,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>false</MapFileExtensions>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <ApplicationExtension>.application</ApplicationExtension>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>2.0</OldToolsVersion>
     <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -413,6 +414,7 @@
     <Compile Include="xeus.Utilities\ElementUtil.cs" />
     <Compile Include="xeus.Utilities\IPropertyAccessor.cs" />
     <Compile Include="xeus.Utilities\JidUtil.cs" />
+    <Compile Include="xeus.Utilities\PresenceCompare.cs" />
     <Compile Include="xeus.Utilities\PropertyAccessor.cs" />
     <Compile Include="xeus.Utilities\PropertyAccessorException.cs" />
     <Compile Include="xeus.Utilities\TextUtil.cs" />
@@ -485,8 +487,13 @@
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
       <Visible>False</Visible>
-      <ProductName>.NET Framework 2.0</ProductName>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
       <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>

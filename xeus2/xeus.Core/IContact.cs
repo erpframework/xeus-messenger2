@@ -7,13 +7,17 @@ namespace xeus2.xeus.Core
 	public interface IContact
 	{
 		Jid Jid { get ; }
-		Presence Presence { get ; }
+
+        Presence Presence { get ; }
+        int Priority { get; }
         string Resource { get; }
 		
         string DisplayName { get ; }
 		string Group { get ; }
+        
         bool IsAvailable { get; }
         string Show { get; }
+
 		string StatusText { get ; }
         string XStatusText { get; }
 

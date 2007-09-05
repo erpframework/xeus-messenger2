@@ -47,7 +47,7 @@
     <DataTemplate x:Key="MetaContactBig">
             <Grid Margin="3,3,3,3" MaxWidth="100" x:Name="_grid">
             <Rectangle Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top"
-                    x:Name="_show" Panel.ZIndex="1" Margin="5,5,0,0"/>
+                    x:Name="_show" Panel.ZIndex="1" Margin="3,3,0,0"/>
             <Rectangle Margin="1,1,1,0"
                  Fill="{DynamicResource contact_back_big_glow_design}"
                  VerticalAlignment="Top" Height="20" Panel.ZIndex="1" SnapsToDevicePixels="True"/>
@@ -68,9 +68,9 @@
                     <StackPanel>
 	                        <Border Margin="5,5,5,0" x:Name="_imageBorder" Width="48" Height="48"
 	                                BorderBrush="{DynamicResource roster_image_border}"
-	                                CornerRadius="2,2,2,2" SnapsToDevicePixels="True" ClipToBounds="True">
+	                                CornerRadius="2,2,2,2" SnapsToDevicePixels="True">
                             <Image Source="{Binding Path=Image}" x:Name="_image"
-                                                       Stretch="Uniform" IsEnabled="False">
+                                  ClipToBounds="True" Stretch="UniformToFill" IsEnabled="False">
                             <Image.OpacityMask>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0.5">
                                     <GradientStop Color="#DD000000" Offset="0"/>
