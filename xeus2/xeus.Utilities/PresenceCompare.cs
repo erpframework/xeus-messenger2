@@ -1,18 +1,31 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections;
 using agsXMPP.protocol.client;
-using xeus2.xeus.Core;
 
 namespace xeus2.xeus.Utilities
 {
     internal class PresenceCompare : IComparer
     {
+        #region IComparer Members
+
         public int Compare(object x, object y)
         {
-            Presence presence = (Presence)x;
-            Presence presenceY = (Presence)y;
+            if (x == y)
+            {
+                return 0;
+            }
+
+            if (x == null)
+            {
+                return -1;
+            }
+
+            if (y == null)
+            {
+                return 1;
+            }
+
+            Presence presence = (Presence) x;
+            Presence presenceY = (Presence) y;
 
             int ptX = GetPointsOfPresence(presence);
             int ptY = GetPointsOfPresence(presenceY);
@@ -30,7 +43,7 @@ namespace xeus2.xeus.Utilities
                 {
                     return (ptX > ptY) ? 1 : -1;
                 }
-                
+
                 if (presence.Priority == presenceY.Priority)
                 {
                     return 0;
@@ -42,7 +55,9 @@ namespace xeus2.xeus.Utilities
             }
         }
 
-        static int GetPointsOfShowType(Presence presence)
+        #endregion
+
+        private static int GetPointsOfShowType(Presence presence)
         {
             if (presence == null)
             {
@@ -77,13 +92,13 @@ namespace xeus2.xeus.Utilities
             }
         }
 
-        static int GetPointsOfPresence(Presence presence)
+        private static int GetPointsOfPresence(Presence presence)
         {
             if (presence == null || presence.Type == PresenceType.unavailable)
             {
                 return 0;
             }
-            
+
             if (presence.Type == PresenceType.invisible)
             {
                 return 1;

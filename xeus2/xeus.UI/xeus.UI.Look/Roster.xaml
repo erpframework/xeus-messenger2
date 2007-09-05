@@ -20,8 +20,8 @@
                         <GeometryDrawing.Brush>
                             <LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5">
                                 <LinearGradientBrush.GradientStops>
-                                    <GradientStop Color="#27000000" Offset="0"/>
-                                    <GradientStop Color="#00FFFFFF" Offset="1"/>
+                                    <GradientStop Color="#FF000000" Offset="0"/>
+                                    <GradientStop Color="#00999999" Offset="1"/>
                                 </LinearGradientBrush.GradientStops>
                             </LinearGradientBrush>
                         </GeometryDrawing.Brush>
@@ -65,14 +65,14 @@
 
     <DataTemplate x:Key="MetaContactBig">
         <Grid Margin="3,3,3,3" MaxWidth="100" x:Name="_grid">
-            <Grid VerticalAlignment="Top" x:Name="_resource" Margin="0,3,0,0">
+            <Grid VerticalAlignment="Top" x:Name="_resource" Margin="0,3,0,0" MaxHeight="90">
                 <Rectangle Margin="3,10,0,0" Fill="#33000000" StrokeThickness="0" RadiusX="3" RadiusY="3"/>
-                <Rectangle Panel.ZIndex="1"
-                    Margin="0,0,0,2" Fill="{StaticResource right_shadow}" StrokeThickness="0" RadiusX="3" RadiusY="3"/>
+                <Rectangle Panel.ZIndex="2" Width="10" HorizontalAlignment="Left"
+                    Margin="11,0,0,2" Fill="{StaticResource right_shadow}" StrokeThickness="0"/>
                 <Border BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" Margin="0,0,0,2" Padding="0,0,8,0"
                         Background="#FFe5e5e5" BorderBrush="{DynamicResource roster_image_border}">
                     <TextBlock Margin="0,5,0,5" VerticalAlignment="Center" Foreground="#FF000000"
-                               Text="{Binding Path=Resource}" FontSize="10" SnapsToDevicePixels="True">
+                               Text="{Binding Path=Resource}" FontSize="10" TextTrimming="CharacterEllipsis">
                         <TextBlock.LayoutTransform>
                             <TransformGroup>
                                 <ScaleTransform ScaleX="1" ScaleY="1"/>
@@ -172,7 +172,6 @@
             <DataTrigger Binding="{Binding Path=Show}" Value="chat">
                 <Setter Property="Fill" TargetName="_show" Value="{DynamicResource chat_design}"/>
                 <Setter Property="Visibility" TargetName="_show" Value="Visible"/>
-                <Setter Property="Opacity" TargetName="_image" Value="0.4"/>
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
