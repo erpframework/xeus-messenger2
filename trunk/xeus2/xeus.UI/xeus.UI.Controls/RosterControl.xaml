@@ -4,42 +4,155 @@
     xmlns:xeus2_xeus_Core="clr-namespace:xeus2.xeus.Core"
     xmlns:xeus2_xeus_Control="clr-namespace:xeus2.xeus.UI.xeus.UI.Controls"
     x:Class="xeus2.xeus.UI.xeus.UI.Controls.RosterControl"
-   xmlns:d="http://schemas.microsoft.com/expression/blend/2006" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+    xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" 	
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
    >
 
-  <UserControl.Resources>
-    <ObjectDataProvider x:Key="RosterDS" ObjectType="{x:Type xeus2_xeus_Core:Roster}"/>
-    <CollectionViewSource x:Key="Contacts" Source="{Binding Path=Instance.Items, Mode=Default, Source={StaticResource RosterDS}}">
-      <CollectionViewSource.GroupDescriptions>
-        <PropertyGroupDescription PropertyName="Group"/>
-      </CollectionViewSource.GroupDescriptions>
-    </CollectionViewSource>
-  </UserControl.Resources>
-	<ListBox ItemsSource="{Binding Source={StaticResource Contacts}}"
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="RosterDS" ObjectType="{x:Type xeus2_xeus_Core:Roster}"/>
+        <CollectionViewSource x:Key="Contacts" Source="{Binding Path=Instance.Items, Mode=Default, Source={StaticResource RosterDS}}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="Group"/>
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+
+        <DrawingBrush x:Key="xeus_back_design" PresentationOptions:Freeze="True">
+            <DrawingBrush.Drawing>
+                <DrawingGroup>
+                    <DrawingGroup.Children>
+                        <GeometryDrawing Geometry="F1 M 11.3333,11.3334L 477.889,11.3334L 477.889,580.222L 11.3333,580.222L 11.3333,11.3334 Z ">
+                            <GeometryDrawing.Brush>
+                                <LinearGradientBrush StartPoint="0.5,0.90625" EndPoint="0.5,0.09375">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#FFCBECF4" Offset="0"/>
+                                        <GradientStop Color="#FFFFFFFF" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </GeometryDrawing.Brush>
+                        </GeometryDrawing>
+                        <GeometryDrawing Geometry="F1 M 11.3333,11.3334L 32.611,11.3334L 32.611,580.222L 11.3333,580.222L 11.3333,11.3334 Z ">
+                            <GeometryDrawing.Brush>
+                                <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#27000000" Offset="0"/>
+                                        <GradientStop Color="#00FFFFFF" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </GeometryDrawing.Brush>
+                        </GeometryDrawing>
+                        <GeometryDrawing Geometry="F1 M 477.889,580.222L 456.611,580.222L 456.611,11.3334L 477.889,11.3334L 477.889,580.222 Z ">
+                            <GeometryDrawing.Brush>
+                                <LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#27000000" Offset="0"/>
+                                        <GradientStop Color="#00FFFFFF" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </GeometryDrawing.Brush>
+                        </GeometryDrawing>
+                        <GeometryDrawing Geometry="F1 M 477.889,11.3334L 477.889,32.611L 11.3333,32.611L 11.3333,11.3334L 477.889,11.3334 Z ">
+                            <GeometryDrawing.Brush>
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#27000000" Offset="0"/>
+                                        <GradientStop Color="#00FFFFFF" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </GeometryDrawing.Brush>
+                        </GeometryDrawing>
+                        <GeometryDrawing Geometry="F1 M 11.3333,580.222L 11.3333,558.945L 477.889,558.945L 477.889,580.222L 11.3333,580.222 Z ">
+                            <GeometryDrawing.Brush>
+                                <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#27000000" Offset="0"/>
+                                        <GradientStop Color="#00FFFFFF" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </GeometryDrawing.Brush>
+                        </GeometryDrawing>
+                        <GeometryDrawing Brush="#1A94CDDB" Geometry="F1 M 11.3333,11.3331L 477.889,11.3331L 477.889,120.753C 403.742,109.666 328.133,141.643 244.611,147.833C 163.637,152.143 74.1108,147.943 11.3333,120.753L 11.3333,11.3331 Z "/>
+                    </DrawingGroup.Children>
+                </DrawingGroup>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+
+        <DrawingBrush x:Key="xeus_logo_back_design" PresentationOptions:Freeze="True" Stretch="Uniform">
+            <DrawingBrush.Drawing>
+                <DrawingGroup>
+                    <DrawingGroup.Children>
+                        <GeometryDrawing Brush="#4DFFFFFF" Geometry="F1 M 230.337,314.452L 262.885,314.452C 266.17,314.452 268.833,317.115 268.833,320.4L 268.833,320.4C 268.833,323.685 266.17,326.348 262.885,326.348L 230.337,326.348C 227.052,326.348 224.389,323.685 224.389,320.4L 224.389,320.4C 224.389,317.115 227.052,314.452 230.337,314.452 Z ">
+                            <GeometryDrawing.Pen>
+                                <Pen Thickness="2" LineJoin="Round" Brush="#4D3C3C3C"/>
+                            </GeometryDrawing.Pen>
+                        </GeometryDrawing>
+                        <GeometryDrawing Brush="#4D363636" Geometry="F1 M 232.457,317.952L 230.596,320.756L 232.426,323.494L 231.394,323.494L 230.308,321.698C 230.24,321.586 230.159,321.445 230.064,321.275L 230.043,321.275C 230.025,321.307 229.94,321.448 229.789,321.698L 228.682,323.494L 227.66,323.494L 229.55,320.776L 227.742,317.952L 228.774,317.952L 229.842,319.846C 229.922,319.987 229.999,320.132 230.074,320.279L 230.097,320.279L 231.479,317.952L 232.457,317.952 Z ">
+                            <GeometryDrawing.Pen>
+                                <Pen Thickness="1" LineJoin="Round" Brush="#4D363636"/>
+                            </GeometryDrawing.Pen>
+                        </GeometryDrawing>
+                        <GeometryDrawing Brush="#4D363636" Geometry="F1 M 243.51,320.944L 239.631,320.944C 239.646,321.546 239.812,322.01 240.131,322.338C 240.45,322.665 240.889,322.829 241.447,322.829C 242.075,322.829 242.652,322.644 243.177,322.274L 243.177,323.087C 242.693,323.432 242.051,323.605 241.252,323.605C 240.471,323.605 239.858,323.355 239.412,322.855C 238.967,322.355 238.744,321.651 238.744,320.743C 238.744,319.887 238.985,319.189 239.467,318.65C 239.949,318.111 240.548,317.841 241.264,317.841C 241.978,317.841 242.531,318.074 242.923,318.54C 243.314,319.006 243.51,319.653 243.51,320.482L 243.51,320.944 Z M 242.623,320.169C 242.62,319.679 242.497,319.298 242.254,319.026C 242.012,318.753 241.675,318.617 241.243,318.617C 240.826,318.617 240.472,318.76 240.181,319.046C 239.89,319.333 239.711,319.707 239.643,320.169L 242.623,320.169 Z ">
+                            <GeometryDrawing.Pen>
+                                <Pen Thickness="1" LineJoin="Round" Brush="#4D363636"/>
+                            </GeometryDrawing.Pen>
+                        </GeometryDrawing>
+                        <GeometryDrawing Brush="#4D363636" Geometry="F1 M 254.926,323.494L 254.04,323.494L 254.04,322.569L 254.017,322.569C 253.644,323.259 253.066,323.605 252.282,323.605C 250.941,323.605 250.271,322.821 250.271,321.253L 250.271,317.952L 251.158,317.952L 251.158,321.092C 251.158,322.25 251.613,322.829 252.524,322.829C 252.965,322.829 253.328,322.67 253.613,322.354C 253.897,322.038 254.04,321.624 254.04,321.114L 254.04,317.952L 254.926,317.952L 254.926,323.494 Z ">
+                            <GeometryDrawing.Pen>
+                                <Pen Thickness="1" LineJoin="Round" Brush="#4D363636"/>
+                            </GeometryDrawing.Pen>
+                        </GeometryDrawing>
+                        <GeometryDrawing Brush="#4D363636" Geometry="F1 M 261.909,323.262L 261.909,322.274C 262.394,322.644 262.927,322.829 263.509,322.829C 264.29,322.829 264.68,322.582 264.68,322.089C 264.68,321.943 264.647,321.818 264.58,321.716C 264.513,321.614 264.422,321.523 264.308,321.444C 264.193,321.365 264.059,321.294 263.904,321.231C 263.749,321.168 263.583,321.103 263.405,321.034C 263.159,320.939 262.943,320.841 262.756,320.743C 262.569,320.644 262.413,320.533 262.287,320.408C 262.162,320.284 262.068,320.143 262.004,319.986C 261.941,319.828 261.909,319.644 261.909,319.432C 261.909,319.174 261.969,318.945 262.089,318.747C 262.209,318.548 262.369,318.382 262.569,318.247C 262.769,318.113 262.997,318.011 263.253,317.943C 263.509,317.875 263.774,317.841 264.046,317.841C 264.53,317.841 264.963,317.929 265.345,318.106L 265.345,319.06C 264.929,318.765 264.451,318.617 263.911,318.617C 263.741,318.617 263.588,318.635 263.452,318.671C 263.316,318.706 263.199,318.757 263.101,318.822C 263.004,318.887 262.929,318.965 262.875,319.056C 262.822,319.146 262.796,319.247 262.796,319.356C 262.796,319.499 262.822,319.62 262.875,319.717C 262.927,319.814 263.004,319.9 263.106,319.975C 263.207,320.05 263.331,320.118 263.476,320.179C 263.622,320.24 263.787,320.306 263.972,320.378C 264.219,320.472 264.44,320.568 264.636,320.666C 264.832,320.765 264.998,320.876 265.136,321C 265.274,321.123 265.381,321.266 265.455,321.427C 265.529,321.588 265.567,321.78 265.567,322.003C 265.567,322.275 265.507,322.512 265.387,322.713C 265.267,322.913 265.106,323.08 264.904,323.212C 264.703,323.344 264.471,323.443 264.209,323.508C 263.947,323.572 263.672,323.605 263.385,323.605C 262.818,323.605 262.326,323.49 261.909,323.262 Z ">
+                            <GeometryDrawing.Pen>
+                                <Pen Thickness="1" LineJoin="Round" Brush="#4D363636"/>
+                            </GeometryDrawing.Pen>
+                        </GeometryDrawing>
+                        <GeometryDrawing Brush="#4DEFEFEF" Geometry="F1 M 246.488,271.207C 257.738,271.207 266.858,280.327 266.858,291.577C 266.858,302.828 257.738,311.948 246.488,311.948C 235.237,311.948 226.117,302.828 226.117,291.577C 226.117,280.327 235.237,271.207 246.488,271.207 Z ">
+                            <GeometryDrawing.Pen>
+                                <Pen Thickness="2" LineJoin="Round" Brush="#4D343434"/>
+                            </GeometryDrawing.Pen>
+                        </GeometryDrawing>
+                        <GeometryDrawing Brush="#4DFFFFFF" Geometry="F1 M 246.457,272.915C 238.334,272.915 231.447,277.929 229.054,284.87C 234.253,286.783 240.313,287.881 246.783,287.881C 253.013,287.881 258.863,286.863 263.931,285.079C 261.605,278.03 254.662,272.915 246.457,272.915 Z "/>
+                        <GeometryDrawing Brush="#2C696969" Geometry="F1 M 246.519,310.212C 250.321,310.212 253.866,309.086 256.855,307.143C 253.68,306.29 250.084,305.809 246.274,305.809C 242.603,305.809 239.131,306.256 236.043,307.051C 239.062,309.051 242.658,310.212 246.519,310.212 Z "/>
+                        <GeometryDrawing Brush="#4DEFEFEF" Geometry="F1 M 235.938,302.071C 234.587,300.72 234.587,298.53 235.938,297.179L 241.482,291.635L 235.938,286.091C 234.587,284.74 234.587,282.55 235.938,281.199C 237.289,279.849 239.479,279.849 240.83,281.199L 246.374,286.743L 251.918,281.199C 253.269,279.849 255.459,279.849 256.81,281.199C 258.161,282.55 258.161,284.74 256.81,286.091L 251.266,291.635L 256.81,297.179C 258.161,298.53 258.161,300.72 256.81,302.071C 255.459,303.422 253.269,303.422 251.918,302.071L 246.374,296.527L 240.83,302.071C 239.479,303.422 237.289,303.422 235.938,302.071 Z ">
+                            <GeometryDrawing.Pen>
+                                <Pen Thickness="2" LineJoin="Round" Brush="#4D3C3C3C"/>
+                            </GeometryDrawing.Pen>
+                        </GeometryDrawing>
+                    </DrawingGroup.Children>
+                </DrawingGroup>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+
+    </UserControl.Resources>
+    <Grid>
+    <ListBox ItemsSource="{Binding Source={StaticResource Contacts}}"
 		ItemsPanel="{DynamicResource ItemsPanelTemplateRoster}"
     ItemTemplate="{DynamicResource MetaContactSmall}" 
     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
     MouseDoubleClick="RosterMouseDoubleClick"
-		x:Name="_roster" Background="{DynamicResource chat_back_design}" BorderBrush="{x:Null}" BorderThickness="0,0,0,0">
-		<ListBox.GroupStyle>
-			<GroupStyle>
-				<GroupStyle.ContainerStyle>
-					<Style TargetType="{x:Type GroupItem}">
-						<Setter Property="Template">
-							<Setter.Value>
-								<ControlTemplate TargetType="{x:Type GroupItem}">
-									<Expander>
-										<Expander.Header>
-											<TextBlock Text="{Binding Path=Name}"/>
-										</Expander.Header>
-										<ItemsPresenter/>
-									</Expander>
-								</ControlTemplate>
-							</Setter.Value>
-						</Setter>
-					</Style>
-				</GroupStyle.ContainerStyle>
-			</GroupStyle>
-		</ListBox.GroupStyle>
-	</ListBox>
+		x:Name="_roster" Background="{StaticResource xeus_back_design}" BorderBrush="{x:Null}" BorderThickness="0,0,0,0">
+        <ListBox.GroupStyle>
+            <GroupStyle>
+                <GroupStyle.ContainerStyle>
+                    <Style TargetType="{x:Type GroupItem}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type GroupItem}">
+                                    <Expander>
+                                        <Expander.Header>
+                                            <TextBlock Text="{Binding Path=Name}"/>
+                                        </Expander.Header>
+                                        <ItemsPresenter/>
+                                    </Expander>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </GroupStyle.ContainerStyle>
+            </GroupStyle>
+        </ListBox.GroupStyle>
+    </ListBox>
+        <Rectangle HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="32" Height="32"                   Fill="{StaticResource xeus_logo_back_design}" Margin="0,0,5,5" Opacity="0.5"
+                   IsHitTestVisible="False"/>
+   </Grid>
 </UserControl>

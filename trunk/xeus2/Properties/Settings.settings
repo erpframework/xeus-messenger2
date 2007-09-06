@@ -35,8 +35,8 @@
     <Setting Name="UI_DisplayTime_Muc" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="UI_RosterItemSize" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Small</Value>
+    <Setting Name="UI_RosterItemSize" Type="xeus2.xeus.UI.xeus.UI.Controls.RosterItemSize" Scope="User">
+      <Value Profile="(Default)">Big</Value>
     </Setting>
     <Setting Name="VCardExpirationDays" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">5</Value>

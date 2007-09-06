@@ -11,7 +11,7 @@
     <SolidColorBrush x:Key="roster_name_text" Color="#FFEEEEEE" PresentationOptions:Freeze="True" />
     <SolidColorBrush x:Key="roster_status_text" Color="#FFBBBBBB" PresentationOptions:Freeze="True" />
     <SolidColorBrush x:Key="roster_image_border" Color="#FF444444" PresentationOptions:Freeze="True" />
-
+    
     <DrawingBrush x:Key="right_shadow" PresentationOptions:Freeze="True">
         <DrawingBrush.Drawing>
             <DrawingGroup>
@@ -64,7 +64,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="MetaContactBig">
-        <Grid Margin="3,3,3,3" MaxWidth="120" x:Name="_grid">
+        <Grid Margin="3,3,3,3" x:Name="_grid">
             <Grid VerticalAlignment="Top" x:Name="_resource" Margin="0,3,0,0" MaxHeight="90">
                 <Rectangle Margin="3,10,0,0" Fill="#33000000" StrokeThickness="0" RadiusX="3" RadiusY="3"/>
                 <Rectangle Panel.ZIndex="2" Width="10" HorizontalAlignment="Left"
@@ -84,7 +84,7 @@
                     </TextBlock>
                 </Border>
             </Grid>
-            <Grid Margin="15,0,0,0" x:Name="_item">
+            <Grid Margin="15,0,0,0" x:Name="_item" MaxWidth="100" >
             <Rectangle Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top"
                     x:Name="_show" Panel.ZIndex="1" Margin="3,3,0,0"/>
             <Rectangle Margin="1,1,1,0"

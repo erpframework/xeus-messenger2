@@ -166,8 +166,6 @@ namespace xeus2.xeus.Core
                 if (contact == null)
                 {
                     AddRosterItem(item);
-
-                    Account.Instance.RequestVCard(item);
                 }
                 else if (item.Subscription == SubscriptionType.remove)
                 {
@@ -188,14 +186,23 @@ namespace xeus2.xeus.Core
 
         private void AddRosterItem(RosterItem item)
         {
+            Contact contact;
+
             lock (_items._syncObject)
             {
                 // for now
-                Contact contact = new Contact(item);
+                contact = new Contact(item);
 
                 _realContacts.Add(item.Jid.ToString(), contact);
 
                 _items.Add(new MetaContact(contact));
+            }
+
+            Vcard vcard = Storage.GetVcard(contact.Jid.Bare, 99999);
+
+            if (vcard != null)
+            {
+                contact.SetVcard(vcard);
             }
         }
 
