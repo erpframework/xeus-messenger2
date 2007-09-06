@@ -26,7 +26,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         {
             InitializeComponent();
 
-            ItemSize = Settings.Default.UI_RosterItemSize;
+            ItemSize = RosterItemSize.Medium;//Settings.Default.UI_RosterItemSize;
         }
 
         public RosterItemSize ItemSize
