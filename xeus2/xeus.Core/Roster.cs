@@ -40,7 +40,7 @@ namespace xeus2.xeus.Core
                            new PresenceCallback(OnPresence), presence);
         }
 
-        private void OnPresence(Presence presence)
+        void OnContactPresence(Presence presence)
         {
             lock (_items._syncObject)
             {
@@ -90,12 +90,69 @@ namespace xeus2.xeus.Core
                         SetFreshVcard(contact, presence);
                     }
                 }
+            }            
+        }
+
+        void OnSubscribePresence(Presence presence)
+        {
+            switch (presence.Type)
+            {
+                case PresenceType.subscribe:
+                    {
+                        break;
+                    }
+                case PresenceType.subscribed:
+                    {
+                        break;
+                    }
+                case PresenceType.unsubscribe:
+                    {
+                        break;
+                    }
+                case PresenceType.unsubscribed:
+                    {
+                        break;
+                    }
+            }
+        }
+
+        private void OnPresence(Presence presence)
+        {
+            if (presence.MucUser != null)
+            {
+                return;
+            }
+
+            if (presence.Error != null)
+            {
+                EventError eventError = new EventError(string.Format("Presence error from {0}", presence.From),
+                                                        presence.Error);
+                Events.Instance.OnEvent(this, eventError);
+            }
+            else
+            {
+                switch (presence.Type)
+                {
+                    case PresenceType.subscribe:
+                    case PresenceType.subscribed:
+                    case PresenceType.unsubscribe:
+                    case PresenceType.unsubscribed:
+                        {
+                            OnSubscribePresence(presence);
+                            break;
+                        }
+                    default:
+                        {
+                            OnContactPresence(presence);
+                            break;
+                        }
+                }
             }
         }
 
         private void SetFreshVcard(Contact contact, Presence presence)
         {
-            Vcard vcard = Storage.GetVcard(contact.Jid.Bare, Settings.Default.VCardExpirationDays);
+            Vcard vcard = Storage.GetVcard(contact.Jid, Settings.Default.VCardExpirationDays);
 
             bool askVCard = true;
 
@@ -198,7 +255,7 @@ namespace xeus2.xeus.Core
                 _items.Add(new MetaContact(contact));
             }
 
-            Vcard vcard = Storage.GetVcard(contact.Jid.Bare, 99999);
+            Vcard vcard = Storage.GetVcard(contact.Jid, 99999);
 
             if (vcard != null)
             {

@@ -67,10 +67,18 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="UIAutomationTypes" />
     <Reference Include="ReachFramework" />
     <Reference Include="System.Printing" />
@@ -195,6 +203,10 @@
     <Page Include="xeus.UI\xeus.UI.Controls\RosterControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\xeus.UI.Controls\RosterHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="xeus.UI\xeus.UI.Controls\SearchText.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -404,6 +416,9 @@
     <Compile Include="xeus.UI\xeus.UI.Controls\RosterControl.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>RosterControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xeus.UI\xeus.UI.Controls\RosterHeader.xaml.cs">
+      <DependentUpon>RosterHeader.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\xeus.UI.Controls\SearchText.xaml.cs">
       <SubType>Code</SubType>

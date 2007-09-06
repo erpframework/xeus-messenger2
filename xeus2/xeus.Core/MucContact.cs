@@ -1,21 +1,21 @@
-using agsXMPP ;
-using agsXMPP.protocol.client ;
-using agsXMPP.protocol.x.muc ;
-using xeus2.Properties ;
+using agsXMPP;
+using agsXMPP.protocol.client;
+using agsXMPP.protocol.x.muc;
+using xeus2.Properties;
 
 namespace xeus2.xeus.Core
 {
-	internal class MucContact : NotifyInfoDispatcher
-	{
-		private Presence _presence;
-	    private MucRoom _mucRoom;
+    internal class MucContact : NotifyInfoDispatcher
+    {
+        private MucRoom _mucRoom;
+        private Presence _presence;
 
-		public MucContact( Presence presence, MucRoom mucRoom )
-		{
-		    _mucRoom = mucRoom;
+        public MucContact(Presence presence, MucRoom mucRoom)
+        {
+            _mucRoom = mucRoom;
 
-		    Presence = presence ;
-		}
+            Presence = presence;
+        }
 
         public string UserJidText
         {
@@ -35,10 +35,10 @@ namespace xeus2.xeus.Core
             }
         }
 
-	    public Jid UserJid
-	    {
-	        get
-	        {
+        public Jid UserJid
+        {
+            get
+            {
                 if (Presence != null
                     && Presence.MucUser != null
                     && Presence.MucUser.Item != null)
@@ -49,59 +49,59 @@ namespace xeus2.xeus.Core
                 {
                     return null;
                 }
-	        }
-	    }
+            }
+        }
 
-	    public Jid Jid
-		{
-			get
-			{
-				return Presence.From ;
-			}
-		}
+        public Jid Jid
+        {
+            get
+            {
+                return Presence.From;
+            }
+        }
 
-		public Role Role
-		{
-			get
-			{
-				return Presence.MucUser.Item.Role ;
-			}
-		}
+        public Role Role
+        {
+            get
+            {
+                return Presence.MucUser.Item.Role;
+            }
+        }
 
-		public string MucStatusCode
-		{
-			get
-			{
-				if ( _presence.MucUser.Status != null )
-				{
-					return  _presence.MucUser.Status.Code.ToString() ;
-				}
-				else
-				{
-					return null ;
-				}
-			}
-		}
+        public string MucStatusCode
+        {
+            get
+            {
+                if (_presence.MucUser.Status != null)
+                {
+                    return _presence.MucUser.Status.Code.ToString();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
 
-		public string MucStatusCodeText
-		{
-			get
-			{
-				if ( _presence.MucUser.Status != null )
-				{
-					return MucStatusCodeTexts.GetCodeText( _presence.MucUser.Status ) ;
-				}
-				else
-				{
-					return null ;
-				}
-			}
-		}
+        public string MucStatusCodeText
+        {
+            get
+            {
+                if (_presence.MucUser.Status != null)
+                {
+                    return MucStatusCodeTexts.GetCodeText(_presence.MucUser.Status);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
 
-		public string StatusText
-		{
-			get
-			{
+        public string StatusText
+        {
+            get
+            {
                 if (string.IsNullOrEmpty(Presence.Status))
                 {
                     return Resources.Constant_NoMessage;
@@ -110,96 +110,96 @@ namespace xeus2.xeus.Core
                 {
                     return Presence.Status;
                 }
-			}
-		}
+            }
+        }
 
-		public ShowType Show
-		{
-			get
-			{
-				return Presence.Show ;
-			}
-		}
+        public ShowType Show
+        {
+            get
+            {
+                return Presence.Show;
+            }
+        }
 
-		public Affiliation Affiliation
-		{
-			get
-			{
-				return Presence.MucUser.Item.Affiliation ;
-			}
-		}
+        public Affiliation Affiliation
+        {
+            get
+            {
+                return Presence.MucUser.Item.Affiliation;
+            }
+        }
 
-		public string Group
-		{
-			get
-			{
-				switch ( Role )
-				{
-					case Role.visitor:
-						{
-							return Resources.Role_Visitor ;
-						}
-					case Role.participant:
-						{
-							return Resources.Role_Participant ;
-						}
-					case Role.moderator:
-						{
-							return Resources.Role_Moderator ;
-						}
-					default:
-						{
-							return Resources.Role_None ;
-						}
-				}
-			}
-		}
+        public string Group
+        {
+            get
+            {
+                switch (Role)
+                {
+                    case Role.visitor:
+                        {
+                            return Resources.Role_Visitor;
+                        }
+                    case Role.participant:
+                        {
+                            return Resources.Role_Participant;
+                        }
+                    case Role.moderator:
+                        {
+                            return Resources.Role_Moderator;
+                        }
+                    default:
+                        {
+                            return Resources.Role_None;
+                        }
+                }
+            }
+        }
 
-		public string Nick
-		{
-			get
-			{
-				if ( string.IsNullOrEmpty( Presence.MucUser.Item.Nickname ) )
-				{
-					return Jid.Resource ;
-				}
-				else
-				{
-					return Presence.MucUser.Item.Nickname ;
-				}
-			}
-		}
+        public string Nick
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Presence.MucUser.Item.Nickname))
+                {
+                    return Jid.Resource;
+                }
+                else
+                {
+                    return Presence.MucUser.Item.Nickname;
+                }
+            }
+        }
 
-		public Presence Presence
-		{
-			get
-			{
-				return _presence ;
-			}
-			set
-			{
-				_presence = value ;
+        public Presence Presence
+        {
+            get
+            {
+                return _presence;
+            }
+            set
+            {
+                _presence = value;
 
-				NotifyPropertyChanged( "Nick" ) ;
-				NotifyPropertyChanged( "Group" ) ;
-				NotifyPropertyChanged( "Role" ) ;
+                NotifyPropertyChanged("Nick");
+                NotifyPropertyChanged("Group");
+                NotifyPropertyChanged("Role");
                 NotifyPropertyChanged("Affiliation");
-				NotifyPropertyChanged( "StatusText" ) ;
-				NotifyPropertyChanged( "Show" ) ;
-			}
-		}
+                NotifyPropertyChanged("StatusText");
+                NotifyPropertyChanged("Show");
+            }
+        }
 
-	    public MucRoom MucRoom
-	    {
-	        get
-	        {
-	            return _mucRoom;
-	        }
-	    }
+        public MucRoom MucRoom
+        {
+            get
+            {
+                return _mucRoom;
+            }
+        }
 
-	    public override string ToString()
-		{
-			return Nick ;
-		}
- 	}
+        public override string ToString()
+        {
+            return Nick;
+        }
+    }
 }

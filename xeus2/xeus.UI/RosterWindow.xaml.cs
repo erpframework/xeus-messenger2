@@ -23,6 +23,8 @@ namespace xeus2
             ServiceCommands.RegisterCommands(this);
             AccountCommands.RegisterCommands(this);
 
+            _header.DataContext = Account.Instance;
+
             Account.Instance.Open();
         }
 
