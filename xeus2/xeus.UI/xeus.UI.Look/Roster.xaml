@@ -49,7 +49,7 @@
 
     <DataTemplate x:Key="MetaContactSmall">
         <Grid Margin="3,3,3,3" x:Name="_grid">
-            <Grid VerticalAlignment="Bottom" x:Name="_resource" Margin="3,-1,5,0" MaxWidth="160" Visibility="Visible" HorizontalAlignment="Left">
+            <Grid VerticalAlignment="Bottom" x:Name="_resource" Margin="3,-1,5,0" Visibility="Visible" HorizontalAlignment="Left">
                 <Border BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" Margin="0,0,0,2"
                         Background="#FFe5e5e5" BorderBrush="{DynamicResource roster_image_border}">
                     <TextBlock Margin="5,0,5,0" VerticalAlignment="Center" Foreground="#FF000000"
@@ -122,12 +122,118 @@
     </DataTemplate>
 
     <DataTemplate x:Key="MetaContactMedium">
-        <StackPanel>
-            <Image Source="{Binding Path=Image}"
-				Stretch="Uniform" Width="16" IsEnabled="False" RenderTransformOrigin="0.5,0.5" Height="16" />
-            <TextBlock Text="{Binding Path=DisplayName}"/>
-            <TextBlock Text="{Binding Path=StatusText}"/>
-        </StackPanel>
+        <Grid Margin="3,3,3,3" x:Name="_grid" MaxWidth="160">
+            <Grid VerticalAlignment="Bottom" x:Name="_resource" Margin="3,-1,5,0" Visibility="Visible" HorizontalAlignment="Left">
+                <Border BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" Margin="0,0,0,2"
+                        Background="#FFe5e5e5" BorderBrush="{DynamicResource roster_image_border}">
+                    <TextBlock Margin="5,0,5,0" VerticalAlignment="Center" Foreground="#FF000000"
+                               Text="{Binding Path=Resource}" FontSize="10" TextTrimming="CharacterEllipsis" HorizontalAlignment="Left">
+                        <TextBlock.LayoutTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                <SkewTransform AngleX="0" AngleY="0"/>
+                                <RotateTransform/>
+                                <TranslateTransform X="0" Y="0"/>
+                            </TransformGroup>
+                        </TextBlock.LayoutTransform>
+                    </TextBlock>
+                </Border>
+            </Grid>
+            <Grid Margin="0,0,0,15" x:Name="_item" >
+                <Rectangle Margin="1,1,1,0"
+                 Fill="{DynamicResource contact_back_big_glow_design}"
+                 VerticalAlignment="Top" Height="20" Panel.ZIndex="1" SnapsToDevicePixels="True"/>
+                <a:SystemDropShadowChrome Color="#9999" Margin="-4,-4,1,1">
+                </a:SystemDropShadowChrome>
+                <Border ClipToBounds="True" Padding="3,3,3,3"
+                    BorderBrush="#FFAAAAAA" BorderThickness="1,1,1,1"
+                    CornerRadius="3,3,3,3" SnapsToDevicePixels="True">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0.5,1.0" EndPoint="0.5,0.0">
+                            <LinearGradientBrush.GradientStops>
+                                <GradientStop Color="#FF515151" Offset="0"/>
+                                <GradientStop Color="#FF141414" Offset="1"/>
+                            </LinearGradientBrush.GradientStops>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Grid>
+                    <StackPanel HorizontalAlignment="Left">
+                        <Border Margin="1,1,1,-5" x:Name="_imageBorder" Width="32" Height="32"
+	                                BorderBrush="{DynamicResource roster_image_border}"
+	                                CornerRadius="2,2,2,2" SnapsToDevicePixels="True">
+                            <Image Source="{Binding Path=Image}" x:Name="_image"
+                                  ClipToBounds="True" Stretch="UniformToFill" IsEnabled="False">
+                                <Image.OpacityMask>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0.5">
+                                        <GradientStop Color="#DD000000" Offset="0"/>
+                                        <GradientStop Color="#88FFFFFF" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Image.OpacityMask>
+                            </Image>
+                        </Border>
+                        <Border Width="32" Height="16" Opacity="0.5" Margin="0,2,0,0">
+                            <Border.OpacityMask>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Offset="0" Color="Black"/>
+                                        <GradientStop Offset=".6" Color="Transparent"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Border.OpacityMask>
+                            <Border.Background>
+                                <VisualBrush Visual="{Binding ElementName=_imageBorder}">
+                                    <VisualBrush.Transform>
+                                        <ScaleTransform ScaleX="1" ScaleY="-1" CenterX="16" CenterY="8" />
+                                    </VisualBrush.Transform>
+                                </VisualBrush>
+                            </Border.Background>
+                        </Border>
+                    </StackPanel>
+                    <StackPanel Margin="35,0,0,0">
+                        <TextBlock Margin="3,0,3,0" Text="{Binding Path=DisplayName}" Foreground="{StaticResource roster_name_text}" FontSize="11"
+                                       TextAlignment="Left" TextTrimming="CharacterEllipsis"/>
+                            <Grid>
+                                <Rectangle Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                    x:Name="_show" Panel.ZIndex="1" Margin="0,0,4,0"/>
+                                <TextBlock Text="{Binding Path=XStatusText}" x:Name="_statusText"
+                                           Foreground="{StaticResource roster_status_text}"
+                                           Margin="4,0,4,0" FontSize="10" TextAlignment="Left" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow"/>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Path=IsAvailable}" Value="False">
+                <Setter Property="Opacity" TargetName="_grid" Value="0.35"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding Path=Resource}" Value="{x:Null}">
+                <Setter Property="Visibility" TargetName="_resource" Value="Collapsed"/>
+                <Setter Property="Margin" TargetName="_item" Value="0,0,0,0"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding Path=Show}" Value="dnd">
+                <Setter Property="Fill" TargetName="_show" Value="{DynamicResource dnd_design}"/>
+                <Setter Property="Margin" TargetName="_statusText" Value="20,0,0,0"/>
+                <Setter Property="Opacity" TargetName="_image" Value="0.4"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Show}" Value="away">
+                <Setter Property="Fill" TargetName="_show" Value="{DynamicResource away_design}"/>
+                <Setter Property="Margin" TargetName="_statusText" Value="20,0,0,0"/>
+                <Setter Property="Opacity" TargetName="_image" Value="0.4"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Show}" Value="xa">
+                <Setter Property="Fill" TargetName="_show" Value="{DynamicResource xaway_design}"/>
+                <Setter Property="Margin" TargetName="_statusText" Value="20,0,0,0"/>
+                <Setter Property="Opacity" TargetName="_image" Value="0.4"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Show}" Value="chat">
+                <Setter Property="Fill" TargetName="_show" Value="{DynamicResource chat_design}"/>
+                <Setter Property="Margin" TargetName="_statusText" Value="20,0,0,0"/>
+            </DataTrigger>
+        </DataTemplate.Triggers>
     </DataTemplate>
 
     <DataTemplate x:Key="MetaContactBig">
