@@ -48,10 +48,77 @@
     </ItemsPanelTemplate>
 
     <DataTemplate x:Key="MetaContactSmall">
-        <StackPanel>
-            <TextBlock Text="{Binding Path=DisplayName}"/>
-            <TextBlock Text="{Binding Path=StatusText}"/>
-        </StackPanel>
+        <Grid Margin="3,3,3,3" x:Name="_grid">
+            <Grid VerticalAlignment="Bottom" x:Name="_resource" Margin="3,-1,5,0" MaxWidth="160" Visibility="Visible" HorizontalAlignment="Left">
+                <Border BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" Margin="0,0,0,2"
+                        Background="#FFe5e5e5" BorderBrush="{DynamicResource roster_image_border}">
+                    <TextBlock Margin="5,0,5,0" VerticalAlignment="Center" Foreground="#FF000000"
+                               Text="{Binding Path=Resource}" FontSize="10" TextTrimming="CharacterEllipsis" HorizontalAlignment="Left">
+                        <TextBlock.LayoutTransform>
+                        	<TransformGroup>
+                        		<ScaleTransform ScaleX="1" ScaleY="1"/>
+                        		<SkewTransform AngleX="0" AngleY="0"/>
+                        		<RotateTransform/>
+                        		<TranslateTransform X="0" Y="0"/>
+                        	</TransformGroup>
+                        </TextBlock.LayoutTransform>
+                    </TextBlock>
+                </Border>
+            </Grid>
+            <Grid Margin="0,0,0,15" x:Name="_item" >
+                <Rectangle Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center"
+                    x:Name="_show" Panel.ZIndex="1" Margin="4,0,0,0"/>
+                <Rectangle Margin="1,1,1,0"
+                 Fill="{DynamicResource contact_back_big_glow_design}"
+                 VerticalAlignment="Top" Height="20" Panel.ZIndex="1" SnapsToDevicePixels="True"/>
+                <a:SystemDropShadowChrome Color="#9999" Margin="-4,-4,1,1">
+                </a:SystemDropShadowChrome>
+                <Border ClipToBounds="True" Padding="3,3,3,3"
+                    BorderBrush="#FFAAAAAA" BorderThickness="1,1,1,1"
+                    CornerRadius="3,3,3,3" SnapsToDevicePixels="True">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0.5,1.0" EndPoint="0.5,0.0">
+                            <LinearGradientBrush.GradientStops>
+                                <GradientStop Color="#FF515151" Offset="0"/>
+                                <GradientStop Color="#FF141414" Offset="1"/>
+                            </LinearGradientBrush.GradientStops>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <StackPanel x:Name="_container">
+                        <TextBlock Margin="3,0,3,0" Text="{Binding Path=DisplayName}" Foreground="{StaticResource roster_name_text}" FontSize="11"
+                                       TextAlignment="Left" TextTrimming="CharacterEllipsis"/>
+                        <TextBlock Text="{Binding Path=XStatusText}" Foreground="{StaticResource roster_status_text}" Margin="4,0,4,0" FontSize="10" TextAlignment="Left" TextTrimming="CharacterEllipsis"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Path=IsAvailable}" Value="False">
+                <Setter Property="Opacity" TargetName="_grid" Value="0.35"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding Path=Resource}" Value="{x:Null}">
+                <Setter Property="Visibility" TargetName="_resource" Value="Collapsed"/>
+                <Setter Property="Margin" TargetName="_item" Value="0,0,0,0"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding Path=Show}" Value="dnd">
+                <Setter Property="Fill" TargetName="_show" Value="{DynamicResource dnd_design}"/>
+                <Setter Property="Margin" TargetName="_container" Value="17,0,0,0"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Show}" Value="away">
+                <Setter Property="Fill" TargetName="_show" Value="{DynamicResource away_design}"/>
+                <Setter Property="Margin" TargetName="_container" Value="17,0,0,0"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Show}" Value="xa">
+                <Setter Property="Fill" TargetName="_show" Value="{DynamicResource xaway_design}"/>
+                <Setter Property="Margin" TargetName="_container" Value="17,0,0,0"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Show}" Value="chat">
+                <Setter Property="Fill" TargetName="_show" Value="{DynamicResource chat_design}"/>
+                <Setter Property="Margin" TargetName="_container" Value="17,0,0,0"/>
+            </DataTrigger>
+        </DataTemplate.Triggers>
     </DataTemplate>
 
     <DataTemplate x:Key="MetaContactMedium">

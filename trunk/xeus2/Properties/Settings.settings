@@ -36,7 +36,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="UI_RosterItemSize" Type="xeus2.xeus.UI.xeus.UI.Controls.RosterItemSize" Scope="User">
-      <Value Profile="(Default)">Big</Value>
+      <Value Profile="(Default)">Small</Value>
     </Setting>
     <Setting Name="VCardExpirationDays" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">5</Value>

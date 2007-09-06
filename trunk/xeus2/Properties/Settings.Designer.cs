@@ -157,7 +157,7 @@ namespace xeus2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Big")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Small")]
         public global::xeus2.xeus.UI.xeus.UI.Controls.RosterItemSize UI_RosterItemSize {
             get {
                 return ((global::xeus2.xeus.UI.xeus.UI.Controls.RosterItemSize)(this["UI_RosterItemSize"]));
