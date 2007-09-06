@@ -52,18 +52,11 @@
 	</Window.Background>
 
     <DockPanel>
-      <Button Click="ChangeRosterSize" DockPanel.Dock="Bottom"/>
-      <ListBox Height="100" ItemsSource="{Binding Path=Instance, Mode=Default, Source={StaticResource EventsDS}}" Style="{DynamicResource ListBoxStyleBlank}" DockPanel.Dock="Bottom"/>
+	  <WrapPanel DockPanel.Dock="Top" Background="{DynamicResource back_x_design}"/>
+	  <WrapPanel DockPanel.Dock="Bottom" Background="{DynamicResource back_x_design}">
       <Button Content="Services" Command="servicecmd:ServiceCommands.DisplayServices" DockPanel.Dock="Bottom"/>
       <Button Command="servicecmd:AccountCommands.DisplayLogin" Content="Login" DockPanel.Dock="Bottom"/>
-      <ListBox Height="100" DockPanel.Dock="Bottom" Background="{x:Null}"
-       BorderBrush="{x:Null}"
-       ItemsSource="{Binding Source={StaticResource MucMarks}}"
-         x:Name="_mucMarksResult"
-               ItemTemplate="{DynamicResource ServicesTemplateMucBookmark}"
-               ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="5,5,5,5" />
-        <local:RosterControl x:Name="_roster" DockPanel.Dock="Top"/>
-		
-			
+	  </WrapPanel>
+      <local:RosterControl x:Name="_roster" DockPanel.Dock="Top"/>
     </DockPanel>
 </Window>

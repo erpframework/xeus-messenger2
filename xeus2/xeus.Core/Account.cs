@@ -744,10 +744,6 @@ namespace xeus2.xeus.Core
 			ExecuteServiceCommand( command, Action.cancel ) ;
 		}
 
-		public void RequestVCard( RosterItem item )
-		{
-		}
-
 		public void JoinMuc(string jidBare)
 		{
             DiscoverSingleService(jidBare);

@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using xeus2.Properties;
 
 namespace xeus2.xeus.UI.xeus.UI.Controls
 {
@@ -24,6 +25,8 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         public RosterControl()
         {
             InitializeComponent();
+
+            ItemSize = Settings.Default.UI_RosterItemSize;
         }
 
         public RosterItemSize ItemSize
