@@ -6,10 +6,12 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using agsXMPP;
 using agsXMPP.protocol.iq.vcard;
 using agsXMPP.Xml.Dom;
 using xeus2.xeus.Core;
 using xeus2.xeus.Utilities;
+using Uri=System.Uri;
 
 namespace xeus.Data
 {
@@ -98,14 +100,14 @@ namespace xeus.Data
             }
         }
 
-        public static Vcard GetVcard(string jid, int daysToExpire)
+        public static Vcard GetVcard(Jid jid, int daysToExpire)
         {
             Vcard vcard = null;
 
             try
             {
                 DirectoryInfo directoryInfo = GetCacheFolder();
-                FileInfo fileInfo = new FileInfo(string.Format("{0}\\{1:d}", directoryInfo.FullName, jid.GetHashCode()));
+                FileInfo fileInfo = new FileInfo(string.Format("{0}\\{1:d}", directoryInfo.FullName, jid.Bare.GetHashCode()));
 
                 if (fileInfo.CreationTime.AddDays(daysToExpire) < DateTime.Now)
                 {

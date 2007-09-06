@@ -52,7 +52,8 @@
 	</Window.Background>
 
     <DockPanel>
-	  <WrapPanel DockPanel.Dock="Top" Background="{DynamicResource back_x_design}"/>
+	  <local:RosterHeader x:Name="_header"
+          DockPanel.Dock="Top" Background="{DynamicResource back_x_design}"/>
 	  <WrapPanel DockPanel.Dock="Bottom" Background="{DynamicResource back_x_design}">
       <Button Content="Services" Command="servicecmd:ServiceCommands.DisplayServices" DockPanel.Dock="Bottom"/>
       <Button Command="servicecmd:AccountCommands.DisplayLogin" Content="Login" DockPanel.Dock="Bottom"/>

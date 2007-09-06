@@ -25,7 +25,7 @@
                             <GeometryDrawing.Brush>
                                 <LinearGradientBrush StartPoint="0.5,0.90625" EndPoint="0.5,0.09375">
                                     <LinearGradientBrush.GradientStops>
-                                        <GradientStop Color="#FFCBECF4" Offset="0"/>
+                                        <GradientStop Color="#FFCBEEF4" Offset="0"/>
                                         <GradientStop Color="#FFFFFFFF" Offset="1"/>
                                     </LinearGradientBrush.GradientStops>
                                 </LinearGradientBrush>
@@ -71,7 +71,7 @@
                                 </LinearGradientBrush>
                             </GeometryDrawing.Brush>
                         </GeometryDrawing>
-                        <GeometryDrawing Brush="#1A94CDDB" Geometry="F1 M 11.3333,11.3331L 477.889,11.3331L 477.889,120.753C 403.742,109.666 328.133,141.643 244.611,147.833C 163.637,152.143 74.1108,147.943 11.3333,120.753L 11.3333,11.3331 Z "/>
+                        <GeometryDrawing Brush="#1A8DCBDB" Geometry="F1 M 11.3333,11.3331L 477.889,11.3331L 477.889,120.753C 403.742,109.666 328.133,141.643 244.611,147.833C 163.637,152.143 74.1108,147.943 11.3333,120.753L 11.3333,11.3331 Z "/>
                     </DrawingGroup.Children>
                 </DrawingGroup>
             </DrawingBrush.Drawing>

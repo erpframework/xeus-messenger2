@@ -1,150 +1,260 @@
-using System ;
+using System;
 using System.Collections;
-using System.Collections.Generic ;
+using System.Collections.Generic;
 using System.Threading;
-using System.Timers ;
-using agsXMPP ;
-using agsXMPP.net ;
-using agsXMPP.protocol.Base;
-using agsXMPP.protocol.client ;
-using agsXMPP.protocol.extensions.commands ;
-using agsXMPP.protocol.iq.disco ;
-using agsXMPP.protocol.iq.register ;
-using agsXMPP.protocol.iq.search ;
-using agsXMPP.protocol.x.data ;
-using agsXMPP.protocol.x.muc ;
+using System.Timers;
+using System.Windows.Media.Imaging;
+using agsXMPP;
+using agsXMPP.net;
+using agsXMPP.protocol.client;
+using agsXMPP.protocol.extensions.commands;
+using agsXMPP.protocol.iq.disco;
+using agsXMPP.protocol.iq.register;
+using agsXMPP.protocol.iq.roster;
+using agsXMPP.protocol.iq.search;
+using agsXMPP.protocol.iq.vcard;
+using agsXMPP.protocol.x.data;
+using agsXMPP.protocol.x.muc;
 using agsXMPP.protocol.x.muc.iq.owner;
-using agsXMPP.Xml.Dom ;
-using xeus2.Properties ;
+using agsXMPP.Xml.Dom;
+using xeus.Data;
+using xeus2.Properties;
 using xeus2.xeus.Core.xeus.Data;
-using xeus2.xeus.Middle ;
-using RosterItem=agsXMPP.protocol.iq.roster.RosterItem;
-using Search=xeus2.xeus.Middle.Search;
+using xeus2.xeus.Middle;
+using Search=agsXMPP.protocol.iq.search.Search;
 using Timer=System.Timers.Timer;
 using Uri=agsXMPP.Uri;
 
 namespace xeus2.xeus.Core
 {
-	internal class DiscoverySessionData
-	{
-		private readonly string _sessionKey ;
-		private readonly object _data ;
+    internal class DiscoverySessionData
+    {
+        private readonly object _data;
+        private readonly string _sessionKey;
 
-		public DiscoverySessionData( object data )
-		{
-			_data = data ;
-			_sessionKey = Services.Instance.SessionKey ;
-		}
+        public DiscoverySessionData(object data)
+        {
+            _data = data;
+            _sessionKey = Services.Instance.SessionKey;
+        }
 
-		public string SessionKey
-		{
-			get
-			{
-				return _sessionKey ;
-			}
-		}
+        public string SessionKey
+        {
+            get
+            {
+                return _sessionKey;
+            }
+        }
 
-		public object Data
-		{
-			get
-			{
-				return _data ;
-			}
-		}
-	}
+        public object Data
+        {
+            get
+            {
+                return _data;
+            }
+        }
+    }
 
-	internal class Account : NotifyInfoDispatcher
-	{
-		private readonly Timer _discoTime = new Timer( 250 ) ;
-
-		private static readonly Account _instance = new Account() ;
-
-		private readonly XmppClientConnection _xmppConnection = new XmppClientConnection() ;
-		private DiscoManager _discoManager ;
-
-		private MucManager _mucManager = null ;
-		private bool _isLogged = false ;
-
-		public static Account Instance
-		{
-			get
-			{
-				return _instance ;
-			}
-		}
-
-		protected static void Cleanup()
-		{
-			Services.Instance.Clear();
-			Roster.Instance.Items.Clear();
-		}
-
-		public void Login()
-		{
-			Close() ;
-			Cleanup() ;
-			Open() ;
-		}
-
-		public void Open()
-		{
-			_discoManager = new DiscoManager( XmppConnection ) ;
-
-			XmppConnection.UseCompression = true ;
-			XmppConnection.Priority = Settings.Default.XmppPriority ;
-			XmppConnection.AutoResolveConnectServer = true ;
-
-			XmppConnection.ConnectServer = null ;
-			XmppConnection.Resource = Settings.Default.XmppResource ;
-			XmppConnection.SocketConnectionType = SocketConnectionType.Direct ;
-			XmppConnection.UseStartTLS = true ;
-
-			XmppConnection.AutoRoster = true ;
-			XmppConnection.AutoAgents = true ;
-
-			XmppConnection.Username = Settings.Default.XmppUserName ;
-			XmppConnection.Password = Settings.Default.XmppPassword ;
-			XmppConnection.Server = Settings.Default.XmppServer ;
-
-			XmppConnection.OnClose += _xmppConnection_OnClose ;
-			XmppConnection.OnLogin += _xmppConnection_OnLogin ;
-			XmppConnection.OnRosterItem += _xmppConnection_OnRosterItem ;
-			XmppConnection.OnRosterEnd += _xmppConnection_OnRosterEnd ;
-			XmppConnection.OnPresence += _xmppConnection_OnPresence ;
-			XmppConnection.OnError += _xmppConnection_OnError ;
-			XmppConnection.OnAuthError += _xmppConnection_OnAuthError ;
-
-			XmppConnection.OnIq += _xmppConnection_OnIq ;
-
-			Settings.Default.Save() ;
-
-			_mucManager = new MucManager( XmppConnection ) ;
-
-			XmppConnection.Open() ;
-
-			_discoTime.Elapsed += _discoTime_Elapsed ;
-
-		    _discoTime.AutoReset = false;
-            _discoTime.Start();
-		}
-
-        private readonly ArrayList _pendingDiscoInfo = ArrayList.Synchronized(new ArrayList());
+    internal class Account : NotifyInfoDispatcher
+    {
+        private static readonly Account _instance = new Account();
+        private readonly object _discoLock = new object();
+        private readonly Timer _discoTime = new Timer(250);
         private readonly ArrayList _pendingCommand = ArrayList.Synchronized(new ArrayList());
+        private readonly ArrayList _pendingDiscoInfo = ArrayList.Synchronized(new ArrayList());
 
-		private int _servicesCount ;
-		private int _servicesDoneCount ;
+        private readonly XmppClientConnection _xmppConnection = new XmppClientConnection();
+        private DiscoManager _discoManager;
 
-	    readonly object _discoLock = new object();
-	    private volatile bool _working = false;
+        private bool _isLogged = false;
+        private MucManager _mucManager = null;
+        private MucMarkManager _mucMarkManager;
+        private int _servicesCount;
+        private int _servicesDoneCount;
+        private volatile bool _working = false;
 
-		private void _discoTime_Elapsed( object sender, ElapsedEventArgs e )
-		{
+        private BitmapImage _myImage = null;
+
+        public static Account Instance
+        {
+            get
+            {
+                return _instance;
+            }
+        }
+
+        public int MyPriority
+        {
+            get
+            {
+                return XmppConnection.Priority;
+            }
+        }
+
+        public Jid MyJid
+        {
+            get
+            {
+                return XmppConnection.MyJID;
+            }
+        }
+
+        public ShowType MyShow
+        {
+            get
+            {
+                return XmppConnection.Show;
+            }
+        }
+
+        public string MyResource
+        {
+            get
+            {
+                return XmppConnection.Resource;
+            }
+        }
+
+        public bool IsLogged
+        {
+            get
+            {
+                return _isLogged;
+            }
+
+            protected set
+            {
+                if (_isLogged != value)
+                {
+                    NotifyPropertyChanged("IsLogged");
+                }
+
+                _isLogged = value;
+            }
+        }
+
+        public int ServicesCount
+        {
+            get
+            {
+                return _servicesCount;
+            }
+            set
+            {
+                _servicesCount = value;
+
+                NotifyPropertyChanged("ServicesCount");
+            }
+        }
+
+        public int ServicesDoneCount
+        {
+            get
+            {
+                return _servicesDoneCount;
+            }
+            set
+            {
+                _servicesDoneCount = value;
+
+                NotifyPropertyChanged("ServicesDoneCount");
+            }
+        }
+
+        public MucMarkManager MucMarkManager
+        {
+            get
+            {
+                return _mucMarkManager;
+            }
+        }
+
+        public XmppClientConnection XmppConnection
+        {
+            get
+            {
+                return _xmppConnection;
+            }
+        }
+
+        public BitmapImage MyImage
+        {
+            get
+            {
+                return _myImage;
+            }
+        }
+
+        protected static void Cleanup()
+        {
+            Services.Instance.Clear();
+            Roster.Instance.Items.Clear();
+        }
+
+        public void Login()
+        {
+            Close();
+            Cleanup();
+            Open();
+        }
+
+        public void Open()
+        {
+            _discoManager = new DiscoManager(XmppConnection);
+
+            XmppConnection.UseCompression = true;
+            XmppConnection.AutoResolveConnectServer = true;
+
+            XmppConnection.ConnectServer = null;
+
+            XmppConnection.Resource = Settings.Default.XmppResource;
+            XmppConnection.Priority = Settings.Default.XmppPriority;
+
+            XmppConnection.SocketConnectionType = SocketConnectionType.Direct;
+            XmppConnection.UseStartTLS = true;
+
+            XmppConnection.AutoRoster = true;
+            XmppConnection.AutoAgents = true;
+
+            XmppConnection.Username = Settings.Default.XmppUserName;
+            XmppConnection.Password = Settings.Default.XmppPassword;
+            XmppConnection.Server = Settings.Default.XmppServer;
+
+            XmppConnection.OnClose += _xmppConnection_OnClose;
+            XmppConnection.OnLogin += _xmppConnection_OnLogin;
+            XmppConnection.OnRosterItem += _xmppConnection_OnRosterItem;
+            XmppConnection.OnRosterEnd += _xmppConnection_OnRosterEnd;
+            XmppConnection.OnPresence += _xmppConnection_OnPresence;
+            XmppConnection.OnError += _xmppConnection_OnError;
+            XmppConnection.OnAuthError += _xmppConnection_OnAuthError;
+
+            XmppConnection.OnIq += _xmppConnection_OnIq;
+
+            Settings.Default.Save();
+
+            _mucManager = new MucManager(XmppConnection);
+
+            XmppConnection.Open();
+
+            NotifyPropertyChanged("MyResource");
+            NotifyPropertyChanged("MyPriority");
+            NotifyPropertyChanged("MyJid");
+
+            _discoTime.Elapsed += _discoTime_Elapsed;
+
+            _discoTime.AutoReset = false;
+
+            LoadMyAvatar();
+        }
+
+        private void _discoTime_Elapsed(object sender, ElapsedEventArgs e)
+        {
             if (_working)
             {
                 _discoTime.Start();
                 return;
             }
-		    
+
             Thread.CurrentThread.Priority = ThreadPriority.Lowest;
 
             lock (_discoLock)
@@ -157,14 +267,13 @@ namespace xeus2.xeus.Core
                     {
                         if (_pendingCommand.Count > 0)
                         {
-                            DiscoItem discoItem = (DiscoItem)_pendingCommand[0];
+                            DiscoItem discoItem = (DiscoItem) _pendingCommand[0];
                             _pendingCommand.RemoveAt(0);
 
                             _discoManager.DisoverItems(discoItem.Jid,
-                                                        Uri.COMMANDS,
-                                                        OnCommandsServerResult,
-                                                        new DiscoverySessionData(discoItem));
-
+                                                       Uri.COMMANDS,
+                                                       OnCommandsServerResult,
+                                                       new DiscoverySessionData(discoItem));
                         }
                         else if (_pendingDiscoInfo.Count > 0)
                         {
@@ -184,7 +293,7 @@ namespace xeus2.xeus.Core
                                                                  OnDiscoInfoResult,
                                                                  new DiscoverySessionData(discoItem));
                             }
-                            
+
                             // one option
                             Jid jid;
 
@@ -210,79 +319,96 @@ namespace xeus2.xeus.Core
                     _discoTime.Start();
                 }
             }
-		}
+        }
 
-		public void StopDiscovery()
-		{
+        public void StopDiscovery()
+        {
             _pendingDiscoInfo.Clear();
 
-			Services.Instance.StopSession() ;
-		}
+            Services.Instance.StopSession();
+        }
 
-		private void _xmppConnection_OnIq( object sender, IQ iq )
-		{
-		}
+        private void _xmppConnection_OnIq(object sender, IQ iq)
+        {
+        }
 
-		private void _xmppConnection_OnAuthError( object sender, Element e )
-		{
-			EventError eventError = new EventError( Resources.Event_AuthFailed, null ) ;
-			Events.Instance.OnEvent( this, eventError ) ;
-		}
+        private void _xmppConnection_OnAuthError(object sender, Element e)
+        {
+            EventError eventError = new EventError(Resources.Event_AuthFailed, null);
+            Events.Instance.OnEvent(this, eventError);
+        }
 
-		private void _xmppConnection_OnError( object sender, Exception ex )
-		{
-			EventError eventError = new EventError( ex.Message, null ) ;
-			Events.Instance.OnEvent( this, eventError ) ;
-		}
+        private void _xmppConnection_OnError(object sender, Exception ex)
+        {
+            EventError eventError = new EventError(ex.Message, null);
+            Events.Instance.OnEvent(this, eventError);
+        }
 
-		private void _xmppConnection_OnPresence( object sender, Presence pres )
-		{
-			if ( pres.MucUser != null )
-			{
-				return ;
-			}
+        private void _xmppConnection_OnPresence(object sender, Presence pres)
+        {
+            Roster.Instance.OnPresence(sender, pres);
+        }
 
-			if ( pres.Error != null )
-			{
-				EventError eventError = new EventError( string.Format( "Presence error from {0}", pres.From ),
-				                                        pres.Error ) ;
-				Events.Instance.OnEvent( this, eventError ) ;
-			}
-			else
-			{
-				switch ( pres.Type )
-				{
-					case PresenceType.subscribe:
-						{
-							break ;
-						}
-					case PresenceType.subscribed:
-						{
-							break ;
-						}
-					case PresenceType.unsubscribe:
-						{
-							break ;
-						}
-					case PresenceType.unsubscribed:
-						{
-							break ;
-						}
-					default:
-						{
-							Roster.Instance.OnPresence( sender, pres ) ;
-							break ;
-						}
-				}
-			}
-		}
+        private void _xmppConnection_OnRosterEnd(object sender)
+        {
+            SendMyPresence();
+            AskMyVcard();
+        }
 
-		private void _xmppConnection_OnRosterEnd( object sender )
-		{
-			SendMyPresence() ;
-		}
+        void AskMyVcard()
+        {
+            VcardIq viq = new VcardIq(IqType.get, MyJid);
+            XmppConnection.IqGrabber.SendIq(viq, new IqCB(VcardResult), null);
+        }
 
-        private void DiscoveryInternal( string serverJid )
+        private void VcardResult(object sender, IQ iq, object data)
+        {
+            if (iq.Type == IqType.error || iq.Error != null)
+            {
+                if (iq.Error.Code == ErrorCode.NotFound)
+                {
+                    SetMyVcard(null);
+                }
+                else
+                {
+                    Events.Instance.OnEvent(this,
+                                            new EventError("Error receiving my V-Card",null));
+                }
+            }
+            else if (iq.Type == IqType.result)
+            {
+                SetMyVcard(iq.Vcard);
+
+                //save it
+                if (iq.Vcard != null)
+                {
+                    Storage.CacheVCard(iq.Vcard, MyJid.Bare);
+                }
+            }
+        }
+
+        void SetMyVcard(Vcard vcard)
+        {
+            if (vcard != null)
+            {
+                _myImage = Storage.ImageFromPhoto(vcard.Photo);
+            }
+
+            if (_myImage == null)
+            {
+                _myImage = Storage.GetDefaultAvatar();
+            }
+
+            NotifyPropertyChanged("MyImage");
+        }
+
+        void LoadMyAvatar()
+        {
+            Vcard vcard = Storage.GetVcard(MyJid, 9999);
+            SetMyVcard(vcard);
+        }
+
+        private void DiscoveryInternal(string serverJid)
         {
             StopDiscovery();
 
@@ -290,6 +416,8 @@ namespace xeus2.xeus.Core
 
             ServicesDoneCount = 0;
             ServicesCount = 0;
+
+            _discoTime.Start();
 
             Jid jid;
 
@@ -302,44 +430,44 @@ namespace xeus2.xeus.Core
                 jid = new Jid(serverJid);
             }
 
-            Discovery(jid);           
+            Discovery(jid);
         }
 
-		public void Discovery( string serverJid )
-		{
-		    DiscoveryInternal(serverJid);
-		}
+        public void Discovery(string serverJid)
+        {
+            DiscoveryInternal(serverJid);
+        }
 
-		private void SendMyPresence()
-		{
-			XmppConnection.Show = Settings.Default.XmppMyPresence ;
-			XmppConnection.SendMyPresence() ;
-		}
+        private void SendMyPresence()
+        {
+            XmppConnection.Show = Settings.Default.XmppMyPresence;
+            XmppConnection.SendMyPresence();
 
-		private void _xmppConnection_OnRosterItem( object sender, RosterItem item )
-		{
-			Roster.Instance.OnRosterItem( sender, item ) ;
-		}
+            NotifyPropertyChanged("MyShow");
+        }
 
-	    private MucMarkManager _mucMarkManager;
+        private void _xmppConnection_OnRosterItem(object sender, RosterItem item)
+        {
+            Roster.Instance.OnRosterItem(sender, item);
+        }
 
-		private void _xmppConnection_OnLogin( object sender )
-		{
-			IsLogged = true ;
+        private void _xmppConnection_OnLogin(object sender)
+        {
+            IsLogged = true;
 
             _mucMarkManager = new MucMarkManager(XmppConnection);
-		    _mucMarkManager.LoadMucMarks();
-		}
+            _mucMarkManager.LoadMucMarks();
+        }
 
-		private void _xmppConnection_OnClose( object sender )
-		{
-			IsLogged = false ;
-		}
+        private void _xmppConnection_OnClose(object sender)
+        {
+            IsLogged = false;
+        }
 
-		private void Discovery( Jid jid )
-		{
-			_discoManager.DisoverItems( jid, new IqCB( OnDiscoServerResult ), new DiscoverySessionData( null ) ) ;
-		}
+        private void Discovery(Jid jid)
+        {
+            _discoManager.DisoverItems(jid, new IqCB(OnDiscoServerResult), new DiscoverySessionData(null));
+        }
 
         public void AddDiscoInfo(DiscoItem discoItem)
         {
@@ -351,403 +479,326 @@ namespace xeus2.xeus.Core
             _pendingDiscoInfo.Insert(0, discoItem);
         }
 
-        void AddCommand(DiscoItem discoItem)
+        private void AddCommand(DiscoItem discoItem)
         {
             _pendingCommand.Add(discoItem);
         }
-        
-        public int MyPriority
-		{
-			get
-			{
-				return XmppConnection.Priority ;
-			}
-		}
 
-		public Jid MyJid
-		{
-			get
-			{
-				return XmppConnection.MyJID ;
-			}
-		}
+        private static bool CheckSessionKey(object data)
+        {
+            DiscoverySessionData sessionData = data as DiscoverySessionData;
 
-		public bool IsLogged
-		{
-			get
-			{
-				return _isLogged ;
-			}
+            return (Services.Instance.SessionKey != string.Empty
+                    && sessionData.SessionKey == Services.Instance.SessionKey);
+        }
 
-			protected set
-			{
-				if ( _isLogged != value )
-				{
-					NotifyPropertyChanged( "IsLogged" ) ;
-				}
+        private void OnDiscoServerResult(object sender, IQ iq, object data)
+        {
+            if (!CheckSessionKey(data))
+            {
+                return;
+            }
 
-				_isLogged = value ;
-			}
-		}
-
-		public int ServicesCount
-		{
-			get
-			{
-				return _servicesCount ;
-			}
-			set
-			{
-				_servicesCount = value ;
-
-				NotifyPropertyChanged( "ServicesCount" ) ;
-			}
-		}
-
-		public int ServicesDoneCount
-		{
-			get
-			{
-				return _servicesDoneCount ;
-			}
-			set
-			{
-				_servicesDoneCount = value ;
-
-				NotifyPropertyChanged( "ServicesDoneCount" ) ;
-			}
-		}
-
-	    public MucMarkManager MucMarkManager
-	    {
-	        get
-	        {
-	            return _mucMarkManager;
-	        }
-	    }
-
-	    public XmppClientConnection XmppConnection
-	    {
-	        get
-	        {
-	            return _xmppConnection;
-	        }
-	    }
-
-	    private static bool CheckSessionKey( object data )
-		{
-			DiscoverySessionData sessionData = data as DiscoverySessionData ;
-
-			return ( Services.Instance.SessionKey != string.Empty
-			         && sessionData.SessionKey == Services.Instance.SessionKey ) ;
-		}
-
-		private void OnDiscoServerResult( object sender, IQ iq, object data )
-		{
-			if ( !CheckSessionKey( data ) )
-			{
-				return ;
-			}
-
-			if ( iq.Error != null )
-			{
+            if (iq.Error != null)
+            {
                 EventInfo eventError = new EventInfo(string.Format(Resources.Error_DiscoFailed, iq.From));
-				Events.Instance.OnEvent( this, eventError ) ;
-			}
-			else if ( iq.Type == IqType.result )
-			{
-				Element query = iq.Query ;
+                Events.Instance.OnEvent(this, eventError);
+            }
+            else if (iq.Type == IqType.result)
+            {
+                Element query = iq.Query;
 
-				if ( query != null && query is DiscoItems )
-				{
-					DiscoItems items = query as DiscoItems ;
-					DiscoItem[] itms = items.GetDiscoItems() ;
+                if (query != null && query is DiscoItems)
+                {
+                    DiscoItems items = query as DiscoItems;
+                    DiscoItem[] itms = items.GetDiscoItems();
 
                     DiscoverySessionData sessionData = data as DiscoverySessionData;
                     Services.Instance.OnServiceItem(sender, itms, sessionData.Data as DiscoItem);
-				}
-			}
-		}
+                }
+            }
+        }
 
-    	private void OnDiscoInfoResult( object sender, IQ iq, object data )
-		{
-			if ( !CheckSessionKey( data ) )
-			{
-				return ;
-			}
+        private void OnDiscoInfoResult(object sender, IQ iq, object data)
+        {
+            if (!CheckSessionKey(data))
+            {
+                return;
+            }
 
-			if ( iq.Error != null )
-			{
-				ServicesDoneCount++ ;
+            if (iq.Error != null)
+            {
+                ServicesDoneCount++;
 
-				Services.Instance.OnServiceItemError( sender, iq ) ;
-			}
-			else if ( iq.Type == IqType.result && iq.Query is DiscoInfo )
-			{
-				DiscoInfo di = iq.Query as DiscoInfo ;
+                Services.Instance.OnServiceItemError(sender, iq);
+            }
+            else if (iq.Type == IqType.result && iq.Query is DiscoInfo)
+            {
+                DiscoInfo di = iq.Query as DiscoInfo;
 
-				DiscoverySessionData sessionData = data as DiscoverySessionData ;
+                DiscoverySessionData sessionData = data as DiscoverySessionData;
 
-				DiscoItem discoItem = sessionData.Data as DiscoItem ;
+                DiscoItem discoItem = sessionData.Data as DiscoItem;
 
-				Services.Instance.OnServiceItemInfo( sender, discoItem, di ) ;
+                Services.Instance.OnServiceItemInfo(sender, discoItem, di);
 
-				ServicesDoneCount++ ;
+                ServicesDoneCount++;
 
-				if ( di.HasFeature( Uri.COMMANDS ) && di.Node == null )
-				{
-				    AddCommand(discoItem);
-				}
-			}
-		}
+                if (di.HasFeature(Uri.COMMANDS) && di.Node == null)
+                {
+                    AddCommand(discoItem);
+                }
+            }
+        }
 
-		private void OnCommandsServerResult( object sender, IQ iq, object data )
-		{
-			if ( !CheckSessionKey( data ) )
-			{
-				return ;
-			}
+        private void OnCommandsServerResult(object sender, IQ iq, object data)
+        {
+            if (!CheckSessionKey(data))
+            {
+                return;
+            }
 
-			if ( iq.Error != null )
-			{
-				EventError eventError = new EventError( string.Format( Resources.Error_CommandResultFailed, iq.From ), iq.Error ) ;
-				Events.Instance.OnEvent( this, eventError ) ;
-			}
-			else if ( iq.Type == IqType.result )
-			{
-				DiscoverySessionData discoverySessionData = data as DiscoverySessionData ;
-				Services.Instance.OnCommandsItemInfo( this, discoverySessionData.Data as DiscoItem, iq ) ;
-			}
-		}
+            if (iq.Error != null)
+            {
+                EventError eventError =
+                    new EventError(string.Format(Resources.Error_CommandResultFailed, iq.From), iq.Error);
+                Events.Instance.OnEvent(this, eventError);
+            }
+            else if (iq.Type == IqType.result)
+            {
+                DiscoverySessionData discoverySessionData = data as DiscoverySessionData;
+                Services.Instance.OnCommandsItemInfo(this, discoverySessionData.Data as DiscoItem, iq);
+            }
+        }
 
-		public void DoSearchService( Service service, Data data )
-		{
-			SearchIq searchIq = new SearchIq( IqType.set, service.Jid ) ;
-			searchIq.To = service.Jid ;
-			searchIq.Query.AddChild( data ) ;
+        public void DoSearchService(Service service, Data data)
+        {
+            SearchIq searchIq = new SearchIq(IqType.set, service.Jid);
+            searchIq.To = service.Jid;
+            searchIq.Query.AddChild(data);
 
-			XmppConnection.IqGrabber.SendIq( searchIq, OnServiceSearched, service ) ;
-		}
+            XmppConnection.IqGrabber.SendIq(searchIq, OnServiceSearched, service);
+        }
 
-		public void DoSearchService( Service service, string first, string last, string nick, string email )
-		{
-			SearchIq searchIq = new SearchIq( IqType.set, service.Jid ) ;
-			searchIq.Query.Firstname = first ;
-			searchIq.Query.Lastname = last ;
-			searchIq.Query.Nickname = nick ;
-			searchIq.Query.Email = email ;
+        public void DoSearchService(Service service, string first, string last, string nick, string email)
+        {
+            SearchIq searchIq = new SearchIq(IqType.set, service.Jid);
+            searchIq.Query.Firstname = first;
+            searchIq.Query.Lastname = last;
+            searchIq.Query.Nickname = nick;
+            searchIq.Query.Email = email;
 
-			XmppConnection.IqGrabber.SendIq( searchIq, OnServiceSearched, service ) ;
-		}
+            XmppConnection.IqGrabber.SendIq(searchIq, OnServiceSearched, service);
+        }
 
-		private void OnServiceSearched( object sender, IQ iq, object data )
-		{
-			Service service = data as Service ;
+        private void OnServiceSearched(object sender, IQ iq, object data)
+        {
+            Service service = data as Service;
 
-			agsXMPP.protocol.iq.search.Search search = iq.Query as agsXMPP.protocol.iq.search.Search ;
+            Search search = iq.Query as Search;
 
-			if ( iq.Error != null )
-			{
-				EventError eventError = new EventError( string.Format( Resources.Event_SearchFailed,
-				                                                       service.Name, iq.Error.Condition ), iq.Error ) ;
-				Events.Instance.OnEvent( this, eventError ) ;
-			}
-			else if ( iq.Type == IqType.result && search != null )
-			{
-				Search.Instance.DisplaySearchResult( search, ( Service ) data ) ;
+            if (iq.Error != null)
+            {
+                EventError eventError = new EventError(string.Format(Resources.Event_SearchFailed,
+                                                                     service.Name, iq.Error.Condition), iq.Error);
+                Events.Instance.OnEvent(this, eventError);
+            }
+            else if (iq.Type == IqType.result && search != null)
+            {
+                Middle.Search.Instance.DisplaySearchResult(search, (Service) data);
 
-				EventInfo eventinfo = new EventInfo( string.Format( Resources.Even_SearchSucceeded, service.Name ) ) ;
-				Events.Instance.OnEvent( this, eventinfo ) ;
-			}
-		}
+                EventInfo eventinfo = new EventInfo(string.Format(Resources.Even_SearchSucceeded, service.Name));
+                Events.Instance.OnEvent(this, eventinfo);
+            }
+        }
 
-		public void DoRegisterService( Service service, Data data )
-		{
-			RegisterIq registerIq = new RegisterIq( IqType.set, service.Jid ) ;
-			registerIq.To = service.Jid ;
-			registerIq.Query.AddChild( data ) ;
+        public void DoRegisterService(Service service, Data data)
+        {
+            RegisterIq registerIq = new RegisterIq(IqType.set, service.Jid);
+            registerIq.To = service.Jid;
+            registerIq.Query.AddChild(data);
 
-			XmppConnection.IqGrabber.SendIq( registerIq, OnServiceRegistered, service ) ;
-		}
+            XmppConnection.IqGrabber.SendIq(registerIq, OnServiceRegistered, service);
+        }
 
-		public void DoRegisterService( Service service, Dictionary< string, string > values )
-		{
-			RegisterIq registerIq = new RegisterIq( IqType.set, service.Jid ) ;
+        public void DoRegisterService(Service service, Dictionary<string, string> values)
+        {
+            RegisterIq registerIq = new RegisterIq(IqType.set, service.Jid);
 
-			foreach ( KeyValuePair< string, string > value in values )
-			{
-				registerIq.Query.AddTag( value.Key, value.Value ) ;
-			}
+            foreach (KeyValuePair<string, string> value in values)
+            {
+                registerIq.Query.AddTag(value.Key, value.Value);
+            }
 
-			XmppConnection.IqGrabber.SendIq( registerIq, OnServiceRegistered, service ) ;
-		}
+            XmppConnection.IqGrabber.SendIq(registerIq, OnServiceRegistered, service);
+        }
 
-		private void OnServiceRegistered( object sender, IQ iq, object data )
-		{
-			Service service = data as Service ;
+        private void OnServiceRegistered(object sender, IQ iq, object data)
+        {
+            Service service = data as Service;
 
-			if ( iq.Error != null )
-			{
-				EventError eventError = new EventError( string.Format( Resources.Event_RegistrationFailed,
-				                                                       service.Name, iq.Error.Condition ), iq.Error ) ;
-				Events.Instance.OnEvent( this, eventError ) ;
-			}
-			else if ( iq.Type == IqType.result )
-			{
-				EventInfo eventinfo = new EventInfo( string.Format( Resources.Event_RegistrationSucceeded, service.Name ) ) ;
-				Events.Instance.OnEvent( this, eventinfo ) ;
-			}
-		}
+            if (iq.Error != null)
+            {
+                EventError eventError = new EventError(string.Format(Resources.Event_RegistrationFailed,
+                                                                     service.Name, iq.Error.Condition), iq.Error);
+                Events.Instance.OnEvent(this, eventError);
+            }
+            else if (iq.Type == IqType.result)
+            {
+                EventInfo eventinfo = new EventInfo(string.Format(Resources.Event_RegistrationSucceeded, service.Name));
+                Events.Instance.OnEvent(this, eventinfo);
+            }
+        }
 
-		public void GetService( Service service )
-		{
-			RegisterIq registerIq = new RegisterIq( IqType.get, service.Jid ) ;
+        public void GetService(Service service)
+        {
+            RegisterIq registerIq = new RegisterIq(IqType.get, service.Jid);
 
-			XmppConnection.IqGrabber.SendIq( registerIq, OnRegisterServiceGet, service ) ;
-		}
+            XmppConnection.IqGrabber.SendIq(registerIq, OnRegisterServiceGet, service);
+        }
 
-		public void GetServiceSearch( Service service )
-		{
-			SearchIq searchIq = new SearchIq( IqType.get, service.Jid ) ;
+        public void GetServiceSearch(Service service)
+        {
+            SearchIq searchIq = new SearchIq(IqType.get, service.Jid);
 
-			XmppConnection.IqGrabber.SendIq( searchIq, OnRegisterServiceGetSearch, service ) ;
-		}
+            XmppConnection.IqGrabber.SendIq(searchIq, OnRegisterServiceGetSearch, service);
+        }
 
-		private void OnRegisterServiceGetSearch( object sender, IQ iq, object data )
-		{
-			agsXMPP.protocol.iq.search.Search search = iq.Query as agsXMPP.protocol.iq.search.Search ;
+        private void OnRegisterServiceGetSearch(object sender, IQ iq, object data)
+        {
+            Search search = iq.Query as Search;
 
-			if ( iq.Error != null )
-			{
-				Service service = data as Service ;
+            if (iq.Error != null)
+            {
+                Service service = data as Service;
 
-				EventError eventError = new EventError( string.Format( Resources.Event_SearchInfoFailed,
-				                                                       service.Name ), iq.Error ) ;
+                EventError eventError = new EventError(string.Format(Resources.Event_SearchInfoFailed,
+                                                                     service.Name), iq.Error);
 
-				Events.Instance.OnEvent( this, eventError ) ;
-			}
-			else if ( iq.Type == IqType.result && search != null )
-			{
-				Search.Instance.DisplaySearch( search, ( Service ) data ) ;
-			}
-		}
+                Events.Instance.OnEvent(this, eventError);
+            }
+            else if (iq.Type == IqType.result && search != null)
+            {
+                Middle.Search.Instance.DisplaySearch(search, (Service) data);
+            }
+        }
 
-		private void OnRegisterServiceGet( object sender, IQ iq, object data )
-		{
-			Register register = iq.Query as Register ;
+        private void OnRegisterServiceGet(object sender, IQ iq, object data)
+        {
+            Register register = iq.Query as Register;
 
-			if ( iq.Error != null )
-			{
-				Service service = data as Service ;
+            if (iq.Error != null)
+            {
+                Service service = data as Service;
 
-				EventError eventError = new EventError( string.Format( Resources.Event_RegInfoFailed,
-				                                                       service.Name ), iq.Error ) ;
+                EventError eventError = new EventError(string.Format(Resources.Event_RegInfoFailed,
+                                                                     service.Name), iq.Error);
 
-				Events.Instance.OnEvent( this, eventError ) ;
-			}
-			else if ( iq.Type == IqType.result && register != null )
-			{
-				Registration.Instance.DisplayInBandRegistration( register, ( Service ) data ) ;
-			}
-		}
+                Events.Instance.OnEvent(this, eventError);
+            }
+            else if (iq.Type == IqType.result && register != null)
+            {
+                Registration.Instance.DisplayInBandRegistration(register, (Service) data);
+            }
+        }
 
-		public void ServiceCommand( Service service )
-		{
-			IQ commandIq = new IQ( IqType.set ) ;
+        public void ServiceCommand(Service service)
+        {
+            IQ commandIq = new IQ(IqType.set);
 
-			commandIq.GenerateId() ;
-			commandIq.To = service.Jid ;
+            commandIq.GenerateId();
+            commandIq.To = service.Jid;
 
-			Command command = new Command( service.Node ) ;
-			command.Action = Action.execute ;
+            Command command = new Command(service.Node);
+            command.Action = Action.execute;
 
-			commandIq.AddChild( command ) ;
+            commandIq.AddChild(command);
 
-			XmppConnection.IqGrabber.SendIq( commandIq, OnCommandResult, service ) ;
-		}
+            XmppConnection.IqGrabber.SendIq(commandIq, OnCommandResult, service);
+        }
 
-		private void OnCommandResult( object sender, IQ iq, object data )
-		{
-			if ( iq.Error != null )
-			{
-				Service service = data as Service ;
+        private void OnCommandResult(object sender, IQ iq, object data)
+        {
+            if (iq.Error != null)
+            {
+                Service service = data as Service;
 
-				EventError eventError = new EventError( string.Format( Resources.Event_CommandExecFailed,
-				                                                       service.Name ), iq.Error ) ;
+                EventError eventError = new EventError(string.Format(Resources.Event_CommandExecFailed,
+                                                                     service.Name), iq.Error);
 
-				Events.Instance.OnEvent( this, eventError ) ;
-			}
-			else if ( iq.Type == IqType.result )
-			{
-				foreach ( Node node in iq.ChildNodes )
-				{
-					Command command = node as Command ;
+                Events.Instance.OnEvent(this, eventError);
+            }
+            else if (iq.Type == IqType.result)
+            {
+                foreach (Node node in iq.ChildNodes)
+                {
+                    Command command = node as Command;
 
-					if ( command != null )
-					{
-						Service service = data as Service ;
+                    if (command != null)
+                    {
+                        Service service = data as Service;
 
-						if ( service == null )
-						{
-							service = ( data as ServiceCommandExecution ).Service ;
-						}
+                        if (service == null)
+                        {
+                            service = (data as ServiceCommandExecution).Service;
+                        }
 
-						CommandExecutor.Instance.DisplayQuestionaire( command, service ) ;
-						break ;
-					}
-				}
-			}
-		}
+                        CommandExecutor.Instance.DisplayQuestionaire(command, service);
+                        break;
+                    }
+                }
+            }
+        }
 
-		public void Close()
-		{
-			if ( IsLogged )
-			{
-				XmppConnection.Close() ;
-			}
-		}
+        public void Close()
+        {
+            if (IsLogged)
+            {
+                XmppConnection.Close();
+            }
+        }
 
-		protected void ExecuteServiceCommand( ServiceCommandExecution command, Action action )
-		{
-			IQ commandIq = new IQ( IqType.set ) ;
+        protected void ExecuteServiceCommand(ServiceCommandExecution command, Action action)
+        {
+            IQ commandIq = new IQ(IqType.set);
 
-			commandIq.GenerateId() ;
-			commandIq.To = command.Service.Jid ;
+            commandIq.GenerateId();
+            commandIq.To = command.Service.Jid;
 
-			Command commandExec = new Command( command.Command.Node ) ;
-			commandExec.Action = action ;
-			commandExec.SessionId = command.Command.SessionId ;
-			commandExec.Data = command.GetResult() ;
+            Command commandExec = new Command(command.Command.Node);
+            commandExec.Action = action;
+            commandExec.SessionId = command.Command.SessionId;
+            commandExec.Data = command.GetResult();
 
-			commandIq.AddChild( commandExec ) ;
+            commandIq.AddChild(commandExec);
 
-			XmppConnection.IqGrabber.SendIq( commandIq, OnCommandResult, command ) ;
-		}
+            XmppConnection.IqGrabber.SendIq(commandIq, OnCommandResult, command);
+        }
 
-		public void ServiceCommandComplete( ServiceCommandExecution command )
-		{
-			ExecuteServiceCommand( command, Action.complete ) ;
-		}
+        public void ServiceCommandComplete(ServiceCommandExecution command)
+        {
+            ExecuteServiceCommand(command, Action.complete);
+        }
 
-		public void ServiceCommandNext( ServiceCommandExecution command )
-		{
-			ExecuteServiceCommand( command, Action.next ) ;
-		}
+        public void ServiceCommandNext(ServiceCommandExecution command)
+        {
+            ExecuteServiceCommand(command, Action.next);
+        }
 
-		public void ServiceCommandPrevious( ServiceCommandExecution command )
-		{
-			ExecuteServiceCommand( command, Action.prev ) ;
-		}
+        public void ServiceCommandPrevious(ServiceCommandExecution command)
+        {
+            ExecuteServiceCommand(command, Action.prev);
+        }
 
-		public void ServiceCommandCancel( ServiceCommandExecution command )
-		{
-			ExecuteServiceCommand( command, Action.cancel ) ;
-		}
+        public void ServiceCommandCancel(ServiceCommandExecution command)
+        {
+            ExecuteServiceCommand(command, Action.cancel);
+        }
 
-		public void JoinMuc(string jidBare)
-		{
+        public void JoinMuc(string jidBare)
+        {
             DiscoverSingleService(jidBare);
-		}
+        }
 
         public void DiscoverSingleService(string jidBare)
         {
@@ -766,51 +817,51 @@ namespace xeus2.xeus.Core
             {
                 Service service = new Service(new DiscoItem(), false);
                 service.DiscoItem.Jid = iq.From;
-                service.DiscoInfo = (DiscoInfo)iq.Query;
+                service.DiscoInfo = (DiscoInfo) iq.Query;
 
                 DiscoverReservedRoomNickname(service);
             }
         }
 
-	    public void JoinMuc( Service service )
-		{
-			DiscoverReservedRoomNickname( service ) ;
-		}
-		
-		protected void DiscoverReservedRoomNickname( Service service )
-		{
-			IQ iq = new IQ( IqType.get, MyJid, service.Jid ) ;
+        public void JoinMuc(Service service)
+        {
+            DiscoverReservedRoomNickname(service);
+        }
 
-			iq.GenerateId() ;
-			DiscoInfo di = new DiscoInfo() ;
-			di.Node = "x-roomuser-item" ;
-			iq.Query = di ;
+        protected void DiscoverReservedRoomNickname(Service service)
+        {
+            IQ iq = new IQ(IqType.get, MyJid, service.Jid);
 
-			XmppConnection.IqGrabber.SendIq( iq, new IqCB( OnRoomNicknameResult ), service ) ;
-		}
+            iq.GenerateId();
+            DiscoInfo di = new DiscoInfo();
+            di.Node = "x-roomuser-item";
+            iq.Query = di;
 
-		private void OnRoomNicknameResult( object sender, IQ iq, object data )
-		{
-			string nick = null ;
+            XmppConnection.IqGrabber.SendIq(iq, new IqCB(OnRoomNicknameResult), service);
+        }
 
-			if ( iq.Error != null )
-			{
-				EventError eventError = new EventError( string.Format( Resources.Error_RoomNickFailed,
-				                                                       iq.From ), iq.Error ) ;
+        private void OnRoomNicknameResult(object sender, IQ iq, object data)
+        {
+            string nick = null;
 
-				Events.Instance.OnEvent( this, eventError ) ;
-			}
-			else if ( iq.Type == IqType.result && iq.Query is DiscoInfo )
-			{
-				DiscoInfo di = iq.Query as DiscoInfo ;
+            if (iq.Error != null)
+            {
+                EventError eventError = new EventError(string.Format(Resources.Error_RoomNickFailed,
+                                                                     iq.From), iq.Error);
 
-				if ( di != null && di.Node == "x-roomuser-item"
-				     && di.GetIdentities() != null
-				     && di.GetIdentities().Length > 0 )
-				{
-					nick = di.GetIdentities()[ 0 ].Name ;
-				}
-			}
+                Events.Instance.OnEvent(this, eventError);
+            }
+            else if (iq.Type == IqType.result && iq.Query is DiscoInfo)
+            {
+                DiscoInfo di = iq.Query as DiscoInfo;
+
+                if (di != null && di.Node == "x-roomuser-item"
+                    && di.GetIdentities() != null
+                    && di.GetIdentities().Length > 0)
+                {
+                    nick = di.GetIdentities()[0].Name;
+                }
+            }
 
             if (data is Service)
             {
@@ -820,12 +871,12 @@ namespace xeus2.xeus.Core
             {
                 JoinMuc(data as MucMark, nick);
             }
-		}
+        }
 
-		protected void JoinMuc( Service service, string nick )
-		{
-			MucInfo.Instance.MucLogin( service, nick ) ;
-		}
+        protected void JoinMuc(Service service, string nick)
+        {
+            MucInfo.Instance.MucLogin(service, nick);
+        }
 
         protected void JoinMuc(MucMark mucMark, string nick)
         {
@@ -855,18 +906,18 @@ namespace xeus2.xeus.Core
         }
 
         public MucRoom JoinMuc(Service service, string nick, string password)
-		{
-			if ( service.IsMucPasswordProtected )
-			{
-				_mucManager.JoinRoom( service.Jid, nick, password ) ;
-			}
-			else
-			{
-				_mucManager.JoinRoom( service.Jid, nick ) ;
-			}
+        {
+            if (service.IsMucPasswordProtected)
+            {
+                _mucManager.JoinRoom(service.Jid, nick, password);
+            }
+            else
+            {
+                _mucManager.JoinRoom(service.Jid, nick);
+            }
 
-			return new MucRoom( service, XmppConnection, nick ) ;
-		}
+            return new MucRoom(service, XmppConnection, nick);
+        }
 
         public MucManager GetMucManager()
         {
@@ -889,7 +940,7 @@ namespace xeus2.xeus.Core
             if (iq.Error != null)
             {
                 EventError eventError = new EventError(string.Format(Resources.EventError_MucConfigFailed,
-                                                                       mucRoom.Service.Name, iq.Error.Condition), iq.Error);
+                                                                     mucRoom.Service.Name, iq.Error.Condition), iq.Error);
                 Events.Instance.OnEvent(this, eventError);
             }
         }

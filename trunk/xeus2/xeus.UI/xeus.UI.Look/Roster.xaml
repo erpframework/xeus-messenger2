@@ -117,7 +117,7 @@
                             </Image.OpacityMask>
                         </Image>
                     </Border>
-                            <Border Width="48" Height="24" Opacity="0.2">
+                            <Border Width="48" Height="24" Opacity="0.4">
                                 <Border.OpacityMask>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                         <LinearGradientBrush.GradientStops>
