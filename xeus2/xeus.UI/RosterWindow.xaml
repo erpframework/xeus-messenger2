@@ -11,53 +11,58 @@
     Title="xeus2" Height="500" Width="300"
     SnapsToDevicePixels="True"
     >
-	<Window.Resources>
+    <Window.Resources>
 
-    <ResourceDictionary>
+        <ResourceDictionary>
 
-      <ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="xeus.UI.Look\BasicStyles.xaml"/>
-			</ResourceDictionary.MergedDictionaries>
-      
-			<ObjectDataProvider x:Key="MucMarksDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:MucMarks}"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="xeus.UI.Look\BasicStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
-			<CollectionViewSource x:Key="MucMarks" Source="{Binding Path=Instance, Mode=Default, Source={StaticResource MucMarksDS}}">
-				<CollectionViewSource.SortDescriptions>
-					<scm:SortDescription PropertyName="Name" />
-				</CollectionViewSource.SortDescriptions>
-			</CollectionViewSource>
+            <ObjectDataProvider x:Key="MucMarksDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:MucMarks}"/>
 
-			<CollectionViewSource x:Key="Contacts" Source="{Binding Path=Instance, Mode=Default, Source={StaticResource RosterDS}}">
-				<CollectionViewSource.GroupDescriptions>
-					<PropertyGroupDescription PropertyName="Group"/>
-				</CollectionViewSource.GroupDescriptions>
-			</CollectionViewSource>
+            <CollectionViewSource x:Key="MucMarks" Source="{Binding Path=Instance, Mode=Default, Source={StaticResource MucMarksDS}}">
+                <CollectionViewSource.SortDescriptions>
+                    <scm:SortDescription PropertyName="Name" />
+                </CollectionViewSource.SortDescriptions>
+            </CollectionViewSource>
 
-			<ObjectDataProvider x:Key="ServicesDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Services}"/>
+            <CollectionViewSource x:Key="Contacts" Source="{Binding Path=Instance, Mode=Default, Source={StaticResource RosterDS}}">
+                <CollectionViewSource.GroupDescriptions>
+                    <PropertyGroupDescription PropertyName="Group"/>
+                </CollectionViewSource.GroupDescriptions>
+            </CollectionViewSource>
 
-			<CollectionViewSource x:Key="Services" Source="{Binding Path=Instance, Mode=Default, Source={StaticResource ServicesDS}}"/>
+            <ObjectDataProvider x:Key="ServicesDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Services}"/>
 
-			<CollectionViewSource x:Key="Services2" Source="{Binding Path=Categories, Mode=Default, Source={StaticResource ServicesDS}}"/>
+            <CollectionViewSource x:Key="Services" Source="{Binding Path=Instance, Mode=Default, Source={StaticResource ServicesDS}}"/>
 
-			<ObjectDataProvider x:Key="AccountDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Account}"/>
-			<ObjectDataProvider x:Key="EventsDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Events}"/>
-		</ResourceDictionary>
-	</Window.Resources>
+            <CollectionViewSource x:Key="Services2" Source="{Binding Path=Categories, Mode=Default, Source={StaticResource ServicesDS}}"/>
 
-	<Window.Background>
-		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-			<GradientStop Color="#FFF1F7FD" Offset="0"/>
-			<GradientStop Color="#FFFFFFFF" Offset="1"/>
-		</LinearGradientBrush>
-	</Window.Background>
+            <ObjectDataProvider x:Key="AccountDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Account}"/>
+            <ObjectDataProvider x:Key="EventsDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Events}"/>
+        	<Storyboard x:Key="OnMouseEnter1">
+        		<ThicknessAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="_header" Storyboard.TargetProperty="(FrameworkElement.Margin)">
+        			<SplineThicknessKeyFrame KeyTime="00:00:00" Value="0,-75,0,0"/>
+        			<SplineThicknessKeyFrame KeyTime="00:00:00.2000000" Value="0,0,0,0"/>
+        		</ThicknessAnimationUsingKeyFrames>
+        	</Storyboard>
+        	<Storyboard x:Key="OnMouseLeave1">
+        		<ThicknessAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="_header" Storyboard.TargetProperty="(FrameworkElement.Margin)">
+        			<SplineThicknessKeyFrame KeyTime="00:00:00" Value="0,0,0,0"/>
+        			<SplineThicknessKeyFrame KeyTime="00:00:00.2000000" Value="0,-75,0,0"/>
+        		</ThicknessAnimationUsingKeyFrames>
+        	</Storyboard>
+        </ResourceDictionary>
+    </Window.Resources>
 
-    <DockPanel>
-	  <local:RosterHeader x:Name="_header"
-          DockPanel.Dock="Top" Background="{DynamicResource back_x_design}"/>
-	  <WrapPanel DockPanel.Dock="Bottom" Background="{DynamicResource back_x_design}">
-      <Button Content="Services" Command="servicecmd:ServiceCommands.DisplayServices" DockPanel.Dock="Bottom"/>
-      <Button Command="servicecmd:AccountCommands.DisplayLogin" Content="Login" DockPanel.Dock="Bottom"/>
-	  </WrapPanel>
-      <local:RosterControl x:Name="_roster" DockPanel.Dock="Top"/>
-    </DockPanel>
+        <DockPanel>
+        		<local:RosterHeader x:Name="_header" DockPanel.Dock="Top" />
+            <WrapPanel DockPanel.Dock="Bottom" Background="{DynamicResource back_x_design}">
+                <Button Content="Services" Command="servicecmd:ServiceCommands.DisplayServices" DockPanel.Dock="Bottom"/>
+                <Button Command="servicecmd:AccountCommands.DisplayLogin" Content="Login" DockPanel.Dock="Bottom"/>
+            </WrapPanel>
+            <local:RosterControl x:Name="_roster" DockPanel.Dock="Top"/>
+        </DockPanel>
+	
 </Window>
