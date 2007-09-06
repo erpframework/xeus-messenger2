@@ -95,7 +95,7 @@ namespace xeus2.xeus.Core
 
                 if (eventMucRoom.TypicalEventCode != TypicalEvent.Joined || timeSpan >= new TimeSpan(0, 0, 5))
                 {
-                    MucMessage mucMessage = new MucMessage(new Message(Account.Instance.MyJid, Service.Jid,
+                    MucMessage mucMessage = new MucMessage(new Message(Account.Instance.Self.Jid, Service.Jid,
                                                                        string.Format("{{{0}}} {1}",
                                                                                      eventMucRoom.TypicalEventCode,
                                                                                      eventMucRoom.Message)), null);

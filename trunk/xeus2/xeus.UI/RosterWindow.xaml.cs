@@ -23,7 +23,7 @@ namespace xeus2
             ServiceCommands.RegisterCommands(this);
             AccountCommands.RegisterCommands(this);
 
-            _header.DataContext = Account.Instance;
+            _header.SetSelfContact(Account.Instance.Self);
 
             Account.Instance.Open();
         }

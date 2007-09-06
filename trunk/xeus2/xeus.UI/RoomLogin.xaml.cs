@@ -37,7 +37,7 @@ namespace xeus2.xeus.UI
             }
             else
             {
-                _nick.Text = Account.Instance.MyJid.User;
+                _nick.Text = Account.Instance.Self.Jid.User;
             }
 
             if (!service.IsMucPasswordProtected)

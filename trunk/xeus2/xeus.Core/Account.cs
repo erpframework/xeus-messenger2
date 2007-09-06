@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Timers;
-using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.net;
 using agsXMPP.protocol.client;
@@ -12,16 +11,14 @@ using agsXMPP.protocol.iq.disco;
 using agsXMPP.protocol.iq.register;
 using agsXMPP.protocol.iq.roster;
 using agsXMPP.protocol.iq.search;
-using agsXMPP.protocol.iq.vcard;
 using agsXMPP.protocol.x.data;
 using agsXMPP.protocol.x.muc;
 using agsXMPP.protocol.x.muc.iq.owner;
 using agsXMPP.Xml.Dom;
-using xeus.Data;
 using xeus2.Properties;
 using xeus2.xeus.Core.xeus.Data;
 using xeus2.xeus.Middle;
-using Search=agsXMPP.protocol.iq.search.Search;
+using Search=xeus2.xeus.Middle.Search;
 using Timer=System.Timers.Timer;
 using Uri=agsXMPP.Uri;
 
@@ -64,6 +61,8 @@ namespace xeus2.xeus.Core
         private readonly ArrayList _pendingDiscoInfo = ArrayList.Synchronized(new ArrayList());
 
         private readonly XmppClientConnection _xmppConnection = new XmppClientConnection();
+        private readonly SelfContact _selfContact;
+
         private DiscoManager _discoManager;
 
         private bool _isLogged = false;
@@ -72,8 +71,6 @@ namespace xeus2.xeus.Core
         private int _servicesCount;
         private int _servicesDoneCount;
         private volatile bool _working = false;
-
-        private BitmapImage _myImage = null;
 
         public static Account Instance
         {
@@ -88,30 +85,6 @@ namespace xeus2.xeus.Core
             get
             {
                 return XmppConnection.Priority;
-            }
-        }
-
-        public Jid MyJid
-        {
-            get
-            {
-                return XmppConnection.MyJID;
-            }
-        }
-
-        public ShowType MyShow
-        {
-            get
-            {
-                return XmppConnection.Show;
-            }
-        }
-
-        public string MyResource
-        {
-            get
-            {
-                return XmppConnection.Resource;
             }
         }
 
@@ -177,11 +150,11 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public BitmapImage MyImage
+        public SelfContact Self
         {
             get
             {
-                return _myImage;
+                return _selfContact;
             }
         }
 
@@ -196,6 +169,11 @@ namespace xeus2.xeus.Core
             Close();
             Cleanup();
             Open();
+        }
+
+        Account()
+        {
+            _selfContact = new SelfContact(_xmppConnection);
         }
 
         public void Open()
@@ -236,15 +214,11 @@ namespace xeus2.xeus.Core
 
             XmppConnection.Open();
 
-            NotifyPropertyChanged("MyResource");
-            NotifyPropertyChanged("MyPriority");
-            NotifyPropertyChanged("MyJid");
-
             _discoTime.Elapsed += _discoTime_Elapsed;
 
             _discoTime.AutoReset = false;
 
-            LoadMyAvatar();
+            _selfContact.LoadMyAvatar();
         }
 
         private void _discoTime_Elapsed(object sender, ElapsedEventArgs e)
@@ -352,60 +326,7 @@ namespace xeus2.xeus.Core
         private void _xmppConnection_OnRosterEnd(object sender)
         {
             SendMyPresence();
-            AskMyVcard();
-        }
-
-        void AskMyVcard()
-        {
-            VcardIq viq = new VcardIq(IqType.get, MyJid);
-            XmppConnection.IqGrabber.SendIq(viq, new IqCB(VcardResult), null);
-        }
-
-        private void VcardResult(object sender, IQ iq, object data)
-        {
-            if (iq.Type == IqType.error || iq.Error != null)
-            {
-                if (iq.Error.Code == ErrorCode.NotFound)
-                {
-                    SetMyVcard(null);
-                }
-                else
-                {
-                    Events.Instance.OnEvent(this,
-                                            new EventError("Error receiving my V-Card",null));
-                }
-            }
-            else if (iq.Type == IqType.result)
-            {
-                SetMyVcard(iq.Vcard);
-
-                //save it
-                if (iq.Vcard != null)
-                {
-                    Storage.CacheVCard(iq.Vcard, MyJid.Bare);
-                }
-            }
-        }
-
-        void SetMyVcard(Vcard vcard)
-        {
-            if (vcard != null)
-            {
-                _myImage = Storage.ImageFromPhoto(vcard.Photo);
-            }
-
-            if (_myImage == null)
-            {
-                _myImage = Storage.GetDefaultAvatar();
-            }
-
-            NotifyPropertyChanged("MyImage");
-        }
-
-        void LoadMyAvatar()
-        {
-            Vcard vcard = Storage.GetVcard(MyJid, 9999);
-            SetMyVcard(vcard);
+            _selfContact.AskMyVcard();
         }
 
         private void DiscoveryInternal(string serverJid)
@@ -443,7 +364,7 @@ namespace xeus2.xeus.Core
             XmppConnection.Show = Settings.Default.XmppMyPresence;
             XmppConnection.SendMyPresence();
 
-            NotifyPropertyChanged("MyShow");
+            _selfContact.StatusChange();
         }
 
         private void _xmppConnection_OnRosterItem(object sender, RosterItem item)
@@ -595,7 +516,7 @@ namespace xeus2.xeus.Core
         {
             Service service = data as Service;
 
-            Search search = iq.Query as Search;
+            agsXMPP.protocol.iq.search.Search search = iq.Query as agsXMPP.protocol.iq.search.Search;
 
             if (iq.Error != null)
             {
@@ -605,7 +526,7 @@ namespace xeus2.xeus.Core
             }
             else if (iq.Type == IqType.result && search != null)
             {
-                Middle.Search.Instance.DisplaySearchResult(search, (Service) data);
+                Search.Instance.DisplaySearchResult(search, (Service) data);
 
                 EventInfo eventinfo = new EventInfo(string.Format(Resources.Even_SearchSucceeded, service.Name));
                 Events.Instance.OnEvent(this, eventinfo);
@@ -666,7 +587,7 @@ namespace xeus2.xeus.Core
 
         private void OnRegisterServiceGetSearch(object sender, IQ iq, object data)
         {
-            Search search = iq.Query as Search;
+            agsXMPP.protocol.iq.search.Search search = iq.Query as agsXMPP.protocol.iq.search.Search;
 
             if (iq.Error != null)
             {
@@ -679,7 +600,7 @@ namespace xeus2.xeus.Core
             }
             else if (iq.Type == IqType.result && search != null)
             {
-                Middle.Search.Instance.DisplaySearch(search, (Service) data);
+                Search.Instance.DisplaySearch(search, (Service) data);
             }
         }
 
@@ -830,7 +751,7 @@ namespace xeus2.xeus.Core
 
         protected void DiscoverReservedRoomNickname(Service service)
         {
-            IQ iq = new IQ(IqType.get, MyJid, service.Jid);
+            IQ iq = new IQ(IqType.get, _selfContact.Jid, service.Jid);
 
             iq.GenerateId();
             DiscoInfo di = new DiscoInfo();
