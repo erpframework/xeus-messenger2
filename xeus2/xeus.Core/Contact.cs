@@ -369,6 +369,8 @@ namespace xeus2.xeus.Core
                     _nickName = vcard.Nickname;
 
                     NotifyPropertyChanged("FullName");
+                    NotifyPropertyChanged("NickName");
+                    NotifyPropertyChanged("DisplayName");
 
                     BitmapImage image = Storage.ImageFromPhoto(vcard.Photo);
 

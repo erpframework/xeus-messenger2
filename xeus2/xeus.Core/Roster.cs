@@ -48,13 +48,13 @@ namespace xeus2.xeus.Core
 
                 if (contact == null)
                 {
-                    if (JidUtil.BareEquals(presence.From, Account.Instance.MyJid))
+                    if (JidUtil.BareEquals(presence.From, Account.Instance.Self.Jid))
                     {
                         // it's me from another client
                         Events.Instance.OnEvent(this, new EventInfo(
                                                           String.Format(Resources.Event_AnotherClient,
                                                                         presence.From.Resource, presence.Priority,
-                                                                        Account.Instance.MyJid, presence.Show)));
+                                                                        Account.Instance.Self.Jid, presence.Show)));
 
                         if (presence.Priority > Account.Instance.MyPriority)
                         {
