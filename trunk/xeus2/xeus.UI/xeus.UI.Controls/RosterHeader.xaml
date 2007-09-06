@@ -3,41 +3,31 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:a="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" 
     x:Class="xeus2.xeus.UI.xeus.UI.Controls.RosterHeader" 
-    Background="{DynamicResource back_x_design}" 
     >
-	<Expander BorderThickness="0,0,0,0" >
+	<Grid Margin="4,4,4,4">
+	<a:SystemDropShadowChrome Color="#4000" Margin="-10,-10,0,0"/>
+	<Rectangle Margin="2,2,2,4" VerticalAlignment="Top" Height="4" Fill="#FF1B1B1B" RadiusX="4" RadiusY="4" Panel.ZIndex="1"/>
+	<Border BorderBrush="#FF1C1C1C" BorderThickness="1,1,1,1" CornerRadius="4,4,4,4">
+		<Border.Background>
+			<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+				<GradientStop Color="#FF010101" Offset="0"/>
+				<GradientStop Color="#FF444444" Offset="1"/>
+			</LinearGradientBrush>
+		</Border.Background>
 		<StackPanel Orientation="Horizontal">
-			<Grid>
-				<StackPanel>		
-					<Border Margin="5,5,5,0" x:Name="_imageBorder"
-						BorderBrush="{DynamicResource roster_image_border}" Width="32" Height="32">
-						<Image Source="{Binding Path=MyImage}" x:Name="_image"
-							ClipToBounds="True" Stretch="UniformToFill" IsEnabled="False">
-							<Image.OpacityMask>
-								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0.5">
-									<GradientStop Color="#DD000000" Offset="0"/>
-									<GradientStop Color="#88FFFFFF" Offset="1"/>
-								</LinearGradientBrush>
-							</Image.OpacityMask>
-						</Image>
-					</Border>
-					<Border Width="32" Height="16" Opacity="0.4">
-						<Border.OpacityMask>
-							<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-								<GradientStop Offset="0" Color="Black"/>
-								<GradientStop Offset=".6" Color="Transparent"/>
-							</LinearGradientBrush>
-						</Border.OpacityMask>
-						<Border.Background>
-							<VisualBrush Visual="{Binding ElementName=_imageBorder}">
-								<VisualBrush.Transform>
-									<ScaleTransform ScaleX="1" ScaleY="-1" CenterX="16" CenterY="8" />
-								</VisualBrush.Transform>
-							</VisualBrush>
-						</Border.Background>
-					</Border>
-				</StackPanel>
-			</Grid>
+			<Border Margin="5,5,5,5" x:Name="_imageBorder"
+				BorderBrush="{DynamicResource roster_image_border}" Width="32" Height="32">
+				<Image Source="{Binding Path=MyImage}" x:Name="_image"
+					ClipToBounds="True" Stretch="UniformToFill" IsEnabled="False">
+					<Image.OpacityMask>
+						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0.5">
+							<GradientStop Color="#DD000000" Offset="0"/>
+							<GradientStop Color="#88FFFFFF" Offset="1"/>
+						</LinearGradientBrush>
+					</Image.OpacityMask>
+				</Image>
+			</Border>
 		</StackPanel>
-	</Expander>
+	</Border>
+	</Grid>
 </UserControl>
