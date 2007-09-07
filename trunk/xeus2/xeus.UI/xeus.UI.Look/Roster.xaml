@@ -122,7 +122,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="MetaContactMedium">
-        <Grid Margin="3,3,3,3" x:Name="_grid" MaxWidth="160">
+        <Grid Margin="3,3,3,3" x:Name="_grid" MaxWidth="160" MaxHeight="70">
             <Grid VerticalAlignment="Bottom" x:Name="_resource" Margin="3,-1,5,0" Visibility="Visible" HorizontalAlignment="Left">
                 <Border BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" Margin="0,0,0,2"
                         Background="#FFe5e5e5" BorderBrush="{DynamicResource roster_image_border}">
@@ -197,7 +197,7 @@
                                     x:Name="_show" Panel.ZIndex="1" Margin="0,0,4,0"/>
                                 <TextBlock Text="{Binding Path=XStatusText}" x:Name="_statusText"
                                            Foreground="{StaticResource roster_status_text}"
-                                           Margin="4,0,4,0" FontSize="10" TextAlignment="Left" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow"/>
+                                           Margin="4,0,4,0" FontSize="10" TextAlignment="Left" TextWrapping="Wrap" MaxHeight="30" TextTrimming="CharacterEllipsis"/>
                             </Grid>
                         </StackPanel>
                     </Grid>

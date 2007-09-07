@@ -8,8 +8,8 @@
 
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type xeus2_xeus_Core:SelfContact}">
-            <StackPanel Orientation="Horizontal">
-                <Border Margin="5,5,5,5" x:Name="_imageBorder"
+            <StackPanel Orientation="Horizontal" Margin="5,0,5,0">
+                <Border Margin="0,5,5,5" x:Name="_imageBorder"
 				BorderBrush="{DynamicResource roster_image_border}" Width="32" Height="32">
                     <Image Source="{Binding Path=Image}" x:Name="_image"
 					ClipToBounds="True" Stretch="UniformToFill" IsEnabled="False">
@@ -22,9 +22,9 @@
                     </Image>
                 </Border>
                 <StackPanel VerticalAlignment="Center" Margin="0,2,0,0">
-                    <TextBlock Text="{Binding Path=DisplayName}" FontSize="14" Foreground="{DynamicResource DefaultTextBrush2}"/>
-                    <TextBox Margin="-3,0,0,0" Text="{Binding Path=Jid, Mode=OneWay}" Foreground="{DynamicResource DefaultTextBrush2}"
-					 Style="{DynamicResource TransparentTextBoxStyle}" IsReadOnly="True"/>
+                    <TextBlock Text="{Binding Path=DisplayName}" FontSize="14" Foreground="{DynamicResource DefaultTextBrush}"/>
+                    <TextBox Margin="-3,0,0,0" Text="{Binding Path=Jid, Mode=OneWay}" Foreground="{DynamicResource DefaultTextBrush}"
+					 Style="{DynamicResource TransparentTextBoxStyle}" IsReadOnly="True" Focusable="False" IsEnabled="True" IsTabStop="False"/>
                 </StackPanel>
             </StackPanel>
             <DataTemplate.Triggers>
@@ -35,19 +35,33 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <Grid Margin="4,4,4,4">
-        <a:SystemDropShadowChrome Color="#4000" Margin="-10,-10,0,0"/>
-        <Rectangle Margin="2,2,2,4" VerticalAlignment="Top" Height="4" Fill="#FF1B1B1B" RadiusX="4" RadiusY="4" Panel.ZIndex="1"/>
-        <Border BorderBrush="#FF1C1C1C" BorderThickness="1,1,1,1" CornerRadius="4,4,4,4" x:Name="_border" Cursor="Hand">
+    <Grid Margin="4,4,4,4" MinHeight="50" MinWidth="80" HorizontalAlignment="Left">
+        <a:SystemDropShadowChrome Color="#4555" Margin="-10,-10,0,0"/>
+        <Rectangle Margin="2,1,2,1" VerticalAlignment="Top" Height="5" RadiusX="4" RadiusY="4" Panel.ZIndex="1" Opacity="0.44" StrokeThickness="0">
+        	<Rectangle.Fill>
+        		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+        			<GradientStop Color="#FFFFFFFF" Offset="0"/>
+        			<GradientStop Color="#00B5DDEC" Offset="1"/>
+        		</LinearGradientBrush>
+        	</Rectangle.Fill>
+        </Rectangle>
+        <Border Margin="1,1,1,0" VerticalAlignment="Top" Height="25" Panel.ZIndex="1" Opacity="0.2" Background="#FFFFFDFD" CornerRadius="4,4,0,0" />
+        <Rectangle Margin="1.5,2,1.5,1" VerticalAlignment="Bottom" Height="5" RadiusX="4" RadiusY="100" Panel.ZIndex="1" Opacity="0.58" StrokeThickness="0">
+        	<Rectangle.Fill>
+        		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+        			<GradientStop Color="#0043A1C0" Offset="0"/>
+        			<GradientStop Color="#FFFFFFFF" Offset="1"/>
+        		</LinearGradientBrush>
+        	</Rectangle.Fill>
+        </Rectangle>
+        <Border BorderBrush="#FF8E989C" BorderThickness="1,1,1,1" CornerRadius="4,4,4,4" x:Name="_border" Cursor="Hand">
             <Border.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF010101" Offset="0"/>
-                    <GradientStop Color="#FF444444" Offset="1"/>
+                    <GradientStop Color="#FFD6EFF8" Offset="0"/>
+                    <GradientStop Color="#FF228FB4" Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
-            <StackPanel Orientation="Horizontal">
-                <ContentControl x:Name="_self"/>
-            </StackPanel>
+            <ContentControl x:Name="_self"/>
         </Border>
     </Grid>
 </UserControl>
