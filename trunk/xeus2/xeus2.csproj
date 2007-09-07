@@ -425,6 +425,7 @@
       <SubType>Code</SubType>
       <DependentUpon>SearchText.xaml</DependentUpon>
     </Compile>
+    <Compile Include="xeus.UI\xeus.UI.Look\EnumToBoolConverter.cs" />
     <Compile Include="xeus.UI\xeus.UI.Look\ServiceTemplateSelector.cs" />
     <Compile Include="xeus.Utilities\DisplayNameBuilder.cs" />
     <Compile Include="xeus.Utilities\ElementUtil.cs" />
