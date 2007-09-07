@@ -1645,7 +1645,6 @@
 					<Border Width="5" Opacity="0.4" x:Name="border" Padding="1,5,1,5" Background="#00FFFFFF">
 			      		<Line Stroke="#FFFFFFFF" StrokeDashArray="2 2" X1="1" X2="1"  StrokeThickness="1" Y2="{Binding Path=ActualHeight, ElementName=border, Mode=Default}"/>
 				  	</Border>
-
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsMouseDirectlyOver" Value="True">
 							<Setter Property="Opacity" TargetName="border" Value="0.8"/>
@@ -1674,14 +1673,39 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type RadioButton}">
-					<ControlTemplate.Triggers>
-						<Trigger Property="IsEnabled" Value="false">
-							<Setter Property="Opacity" Value="0.5"/>
-						</Trigger>
-					</ControlTemplate.Triggers>
+                    <Border x:Name="exborder" BorderBrush="{TemplateBinding Foreground}" Margin="2,2,2,2"
+                            CornerRadius="4,4,4,4">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" Margin="2,2,2,2"
+                                BorderBrush="{TemplateBinding Foreground}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" TargetName="exborder" Value="0.5"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Margin" TargetName="exborder" Value="1,1,0,0"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="BorderThickness" TargetName="exborder" Value="1,1,1,1"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
-	</Style>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="RenderTransform">
+                    <Setter.Value>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="1.1" ScaleY="1.1"/>
+                            <SkewTransform AngleX="0" AngleY="0"/>
+                            <RotateTransform Angle="0"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
 </ResourceDictionary>

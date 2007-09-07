@@ -13,7 +13,7 @@ namespace xeus2.xeus.UI.xeus.UI.Look
             if (value != null)
             {
                 object par = Enum.Parse(value.GetType(), (string)parameter);
-                return (value == par);
+                return (value.ToString() == par.ToString());
             }
 
             return false;
@@ -21,7 +21,7 @@ namespace xeus2.xeus.UI.xeus.UI.Look
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            return Enum.Parse(targetType, (string)parameter);
         }
 
         #endregion

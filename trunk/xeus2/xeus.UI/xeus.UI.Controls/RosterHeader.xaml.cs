@@ -9,14 +9,9 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
     /// </summary>
     public partial class RosterHeader : UserControl
     {
-        readonly Thickness _openMargin ;
-        readonly Thickness _closedMargin = new Thickness(4,-40,4,4);
-        
         public RosterHeader()
         {
             InitializeComponent();
-
-            _openMargin = Margin;
         }
 
         public void SetSelfContact(SelfContact self)
