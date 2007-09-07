@@ -10,7 +10,5 @@
 	<Window.Resources>
 		<ResourceDictionary/>
 	</Window.Resources>
-  <StackPanel>
-    <xeus2_xeus_XData:RoomDetail x:Name="_detail"/>
-  </StackPanel>
+	<xeus2_xeus_XData:RoomDetail x:Name="_detail"/>
 </Window>

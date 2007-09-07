@@ -5,17 +5,19 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2006"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
     xmlns:xeus2_xeus_Core="clr-namespace:xeus2.xeus.Core"
+    xmlns:xeus2_xeus_Controls="clr-namespace:xeus2.xeus.UI.xeus.UI.Controls"
+    xmlns:xeus2_xeus_Look="clr-namespace:xeus2.xeus.UI.xeus.UI.Look"
     xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     xmlns:servicecmd="clr-namespace:xeus2.xeus.Commands"
     xmlns:local="clr-namespace:xeus2.xeus.UI.xeus.UI.Controls"
+    xmlns:Properties="clr-namespace:xeus2.Properties;assembly="
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
     x:Class="xeus2.RosterWindow"
     Title="xeus2" Height="500" Width="300"
     SnapsToDevicePixels="True"
     >
     <Window.Resources>
-
         <ResourceDictionary>
-
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="xeus.UI.Look\BasicStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
@@ -102,14 +104,57 @@
                     </DrawingGroup>
                 </DrawingBrush.Drawing>
             </DrawingBrush>
+
+            <xeus2_xeus_Look:EnumToBoolConverter x:Key="EnumMatchToBooleanConverter" />
         </ResourceDictionary>
     </Window.Resources>
 
-        <DockPanel>
-            <WrapPanel DockPanel.Dock="Bottom" Background="{DynamicResource back_x_design}">
-                <Button Content="Services" Command="servicecmd:ServiceCommands.DisplayServices" DockPanel.Dock="Bottom"/>
-                <Button Command="servicecmd:AccountCommands.DisplayLogin" Content="Login" DockPanel.Dock="Bottom"/>
-            </WrapPanel>
+    <DockPanel>
+        <WrapPanel DockPanel.Dock="Bottom" Background="{DynamicResource back_x_design}">
+            <Button Content="Services" Command="servicecmd:ServiceCommands.DisplayServices" DockPanel.Dock="Bottom"/>
+            <Button Command="servicecmd:AccountCommands.DisplayLogin" Content="Login" DockPanel.Dock="Bottom"/>
+
+            <StackPanel>
+                <RadioButton Style="{DynamicResource RadioButtonImageStyle}"
+                       x:Name="_rSmall"
+                       IsChecked="{Binding Path=UI_RosterItemSize, Mode=TwoWay,
+                       Source={x:Static Properties:Settings.Default},
+                       Converter={StaticResource EnumMatchToBooleanConverter}, ConverterParameter=Small}"/>
+                <RadioButton Style="{DynamicResource RadioButtonImageStyle}"
+                       x:Name="_rMeduim"
+                       IsChecked="{Binding Path=UI_RosterItemSize, Mode=TwoWay,
+                       Source={x:Static Properties:Settings.Default},
+                       Converter={StaticResource EnumMatchToBooleanConverter}, ConverterParameter=Medium}"/>
+                <RadioButton Style="{DynamicResource RadioButtonImageStyle}"
+                       x:Name="_rBig"
+                       IsChecked="{Binding Path=UI_RosterItemSize,
+                       Source={x:Static Properties:Settings.Default},
+                       Mode=TwoWay, Converter={StaticResource EnumMatchToBooleanConverter}, ConverterParameter=Big}"/>
+            </StackPanel>
+
+<!--
+            <ListBox 
+                ItemsSource="{Binding Source={StaticResource RosterSizes}}" Height="50">
+                <ListBox.SelectedValue>
+                    <Binding Path="UI_RosterItemSize" Source="{x:Static Properties:Settings.Default}" Mode="TwoWay"/>
+                </ListBox.SelectedValue>
+                <ListBox.Resources>
+                    <Style x:Key="{x:Type ListBoxItem}" TargetType="{x:Type ListBoxItem}" >
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Border Background="Transparent">
+                                        <RadioButton Content="{TemplateBinding ContentControl.Content}"  
+                                                                        IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}},Path=IsSelected}"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Resources>
+            </ListBox>
+           -->
+        </WrapPanel>
         <DockPanel Background="{StaticResource xeus_back_design}" DockPanel.Dock="Top" >
             <local:RosterHeader x:Name="_header" DockPanel.Dock="Top"/>
             <local:RosterControl x:Name="_roster" DockPanel.Dock="Top"/>

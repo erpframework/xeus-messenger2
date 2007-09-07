@@ -1659,4 +1659,29 @@
 		</Setter>
 	</Style>
 
+	<SolidColorBrush x:Key="CheckBoxStroke" Color="#8E8F8F"/>
+	<Style x:Key="CheckRadioFocusVisual">
+		<Setter Property="Control.Template">
+			<Setter.Value>
+				<ControlTemplate>
+					<Rectangle SnapsToDevicePixels="true" Margin="14,0,0,0" Stroke="Black" StrokeDashArray="1 2" StrokeThickness="1"/>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	
+	<Style x:Key="RadioButtonImageStyle" TargetType="{x:Type RadioButton}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type RadioButton}">
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsEnabled" Value="false">
+							<Setter Property="Opacity" Value="0.5"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
 </ResourceDictionary>
