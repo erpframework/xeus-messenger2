@@ -16,14 +16,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         {
             InitializeComponent();
 
-            _border.PreviewMouseDown += RosterHeader_PreviewMouseDoubleClick;
-
             _openMargin = Margin;
-        }
-
-        void RosterHeader_PreviewMouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            Margin = (Margin == _openMargin) ? _closedMargin : _openMargin;
         }
 
         public void SetSelfContact(SelfContact self)

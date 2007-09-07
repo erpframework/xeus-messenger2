@@ -127,16 +127,7 @@
                 <Border BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" Margin="0,0,0,2"
                         Background="#FFe5e5e5" BorderBrush="{DynamicResource roster_image_border}">
                     <TextBlock Margin="5,0,5,0" VerticalAlignment="Center" Foreground="#FF000000"
-                               Text="{Binding Path=Resource}" FontSize="10" TextTrimming="CharacterEllipsis" HorizontalAlignment="Left">
-                        <TextBlock.LayoutTransform>
-                            <TransformGroup>
-                                <ScaleTransform ScaleX="1" ScaleY="1"/>
-                                <SkewTransform AngleX="0" AngleY="0"/>
-                                <RotateTransform/>
-                                <TranslateTransform X="0" Y="0"/>
-                            </TransformGroup>
-                        </TextBlock.LayoutTransform>
-                    </TextBlock>
+                               Text="{Binding Path=Resource}" FontSize="10" TextTrimming="CharacterEllipsis" HorizontalAlignment="Left"/>
                 </Border>
             </Grid>
             <Grid Margin="0,0,0,15" x:Name="_item" >
