@@ -150,7 +150,7 @@
                 </DrawingBrush.Drawing>
             </DrawingBrush>
 
-            <xeus2_xeus_Look:EnumToBoolConverter x:Key="EnumMatchToBooleanConverter" />
+            <!-- <xeus2_xeus_Look:EnumToBoolConverter x:Key="EnumMatchToBooleanConverter" /> -->
         </ResourceDictionary>
     </Window.Resources>
 
@@ -158,7 +158,13 @@
         <WrapPanel DockPanel.Dock="Bottom" Background="{DynamicResource back_x_design}">
             <Button Content="Services" Command="servicecmd:ServiceCommands.DisplayServices" DockPanel.Dock="Bottom"/>
             <Button Command="servicecmd:AccountCommands.DisplayLogin" Content="Login" DockPanel.Dock="Bottom"/>
+            <Button  Click="DisplayPopupRosterSize" Content="sfgsdfg"/>
+            <Popup x:Name="_rosterSizePopup" AllowsTransparency="True"
+                   Placement="MousePoint" StaysOpen="False">
+                <xeus2_xeus_Controls:RosterSizeSelection Panel.ZIndex="100"/>
+            </Popup>
 
+            <!--
             <StackPanel Orientation="Horizontal">
                 <RadioButton Style="{DynamicResource RadioButtonImageStyle}"
                        Background="{StaticResource size_small_design}"
@@ -184,7 +190,7 @@
                        IsChecked="{Binding Path=UI_RosterItemSize,
                        Source={x:Static Properties:Settings.Default},
                        Mode=TwoWay, Converter={StaticResource EnumMatchToBooleanConverter}, ConverterParameter=Big}"/>
-            </StackPanel>
+            </StackPanel>-->
         </WrapPanel>
         <DockPanel Background="{StaticResource xeus_back_design}" DockPanel.Dock="Top" >
             <local:RosterHeader x:Name="_header" DockPanel.Dock="Top"/>
