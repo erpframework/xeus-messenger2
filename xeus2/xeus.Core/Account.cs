@@ -359,6 +359,12 @@ namespace xeus2.xeus.Core
             DiscoveryInternal(serverJid);
         }
 
+        public void SendMyPresence(ShowType showType)
+        {
+            Settings.Default.XmppMyPresence = showType;
+            SendMyPresence();
+        }
+
         private void SendMyPresence()
         {
             XmppConnection.Show = Settings.Default.XmppMyPresence;

@@ -216,6 +216,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="xeus.UI\xeus.UI.Controls\StatusesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="xeus.UI\xeus.UI.Controls\StatusTextControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="xeus.UI\xeus.UI.Look\ScrollBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -271,6 +279,7 @@
     <Compile Include="Settings.cs" />
     <Compile Include="xeus.Commands\AccountCommands.cs" />
     <Compile Include="xeus.Commands\MucCommands.cs" />
+    <Compile Include="xeus.Commands\RosterCommands.cs" />
     <Compile Include="xeus.Commands\ServiceCommands.cs" />
     <Compile Include="xeus.Core\Account.cs" />
     <Compile Include="xeus.Core\Contact.cs" />
@@ -432,6 +441,12 @@
     <Compile Include="xeus.UI\xeus.UI.Controls\SearchText.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>SearchText.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xeus.UI\xeus.UI.Controls\StatusesControl.xaml.cs">
+      <DependentUpon>StatusesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xeus.UI\xeus.UI.Controls\StatusTextControl.xaml.cs">
+      <DependentUpon>StatusTextControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\xeus.UI.Look\EnumToBoolConverter.cs" />
     <Compile Include="xeus.UI\xeus.UI.Look\ServiceTemplateSelector.cs" />

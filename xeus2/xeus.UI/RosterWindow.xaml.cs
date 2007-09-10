@@ -22,6 +22,7 @@ namespace xeus2
 
             ServiceCommands.RegisterCommands(this);
             AccountCommands.RegisterCommands(this);
+            RosterCommands.RegisterCommands(this);
 
             _header.SetSelfContact(Account.Instance.Self);
 
@@ -43,6 +44,6 @@ namespace xeus2
         private void DisplayPopupRosterSize(object sender, RoutedEventArgs e)
         {
             _rosterSizePopup.IsOpen = true;
-        } 
+        }
     }
 }
