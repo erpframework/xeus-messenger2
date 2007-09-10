@@ -208,6 +208,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="xeus.UI\xeus.UI.Controls\RosterSizeSelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="xeus.UI\xeus.UI.Controls\SearchText.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -270,6 +274,7 @@
     <Compile Include="xeus.Commands\ServiceCommands.cs" />
     <Compile Include="xeus.Core\Account.cs" />
     <Compile Include="xeus.Core\Contact.cs" />
+    <Compile Include="xeus.Core\DummyContact.cs" />
     <Compile Include="xeus.Core\Event.cs" />
     <Compile Include="xeus.Core\EventError.cs" />
     <Compile Include="xeus.Core\EventException.cs" />
@@ -420,6 +425,9 @@
     </Compile>
     <Compile Include="xeus.UI\xeus.UI.Controls\RosterHeader.xaml.cs">
       <DependentUpon>RosterHeader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xeus.UI\xeus.UI.Controls\RosterSizeSelection.xaml.cs">
+      <DependentUpon>RosterSizeSelection.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\xeus.UI.Controls\SearchText.xaml.cs">
       <SubType>Code</SubType>

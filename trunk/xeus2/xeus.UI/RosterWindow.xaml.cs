@@ -38,6 +38,11 @@ namespace xeus2
         protected void ChangeRosterSize(object sebnder, RoutedEventArgs e)
         {
             _roster.ItemSize = RosterItemSize.Big;
+        }
+
+        private void DisplayPopupRosterSize(object sender, RoutedEventArgs e)
+        {
+            _rosterSizePopup.IsOpen = true;
         } 
     }
 }
