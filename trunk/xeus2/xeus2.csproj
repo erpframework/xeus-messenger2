@@ -112,6 +112,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="xeus.UI\AskAuthorization.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="xeus.UI\ChangeNickInRoom.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -323,6 +327,7 @@
     <Compile Include="xeus.Core\XeusHyperlink.cs" />
     <Compile Include="xeus.Core\xeus.Data\Database.cs" />
     <Compile Include="xeus.Core\xeus.Data\Storage.cs" />
+    <Compile Include="xeus.Middle\Authorization.cs" />
     <Compile Include="xeus.Middle\BanReason.cs" />
     <Compile Include="xeus.Middle\ChangeMucContactNick.cs" />
     <Compile Include="xeus.Middle\ChangeMucTopic.cs" />
@@ -338,6 +343,9 @@
     <Compile Include="xeus.Middle\Search.cs" />
     <Compile Include="xeus.Middle\Services.cs" />
     <Compile Include="xeus.Middle\WindowManager.cs" />
+    <Compile Include="xeus.UI\AskAuthorization.xaml.cs">
+      <DependentUpon>AskAuthorization.xaml</DependentUpon>
+    </Compile>
     <Compile Include="xeus.UI\ChangeNickInRoom.cs" />
     <Compile Include="xeus.UI\ChooseCommand.xaml.cs">
       <SubType>Code</SubType>

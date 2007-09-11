@@ -851,6 +851,11 @@ namespace xeus2.xeus.Core
             return new MucManager(XmppConnection);
         }
 
+        public PresenceManager GetPresenceManager()
+        {
+            return new PresenceManager(XmppConnection);
+        }
+
         public void DoSaveMucConfig(MucRoom mucRoom, Data data)
         {
             OwnerIq saveIq = new OwnerIq(IqType.set, mucRoom.Service.Jid);
