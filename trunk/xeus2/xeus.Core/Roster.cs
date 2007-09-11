@@ -94,6 +94,49 @@ namespace xeus2.xeus.Core
             }            
         }
 
+        public void AuthorizeContact(IContact contact, bool approve)
+        {
+            if (approve)
+            {
+                ApproveAuthorization(contact);
+            }
+            else
+            {
+                Account.Instance.GetPresenceManager().RefuseSubscriptionRequest(contact.Jid);
+
+                EventInfo eventinfo =
+                    new EventInfo(string.Format("'{0} ({1})' - authorization denied", contact.DisplayName, contact.Jid));
+                Events.Instance.OnEvent(this, eventinfo);
+            }
+        }
+
+        public void RequestAuthorization(IContact contact)
+        {
+            Account.Instance.GetPresenceManager().Subcribe(contact.Jid);
+
+            EventInfo eventinfo =
+                new EventInfo(string.Format("You've asked '{0} ({1})' for authorization", contact.DisplayName, contact.Jid));
+            Events.Instance.OnEvent(this, eventinfo);
+        }
+
+        public void RemoveAuthorization(IContact contact)
+        {
+            Account.Instance.GetPresenceManager().RefuseSubscriptionRequest(contact.Jid);
+
+            EventInfo eventinfo =
+                new EventInfo(string.Format("You've asked '{0} ({1})' for authorization", contact.DisplayName, contact.Jid));
+            Events.Instance.OnEvent(this, eventinfo);
+        }
+
+        public void ApproveAuthorization(IContact contact)
+        {
+            Account.Instance.GetPresenceManager().ApproveSubscriptionRequest(contact.Jid);
+
+            EventInfo eventinfo =
+                new EventInfo(string.Format("'{0} ({1})' is now authorized", contact.DisplayName, contact.Jid));
+            Events.Instance.OnEvent(this, eventinfo);
+        }
+
         void OnSubscribePresence(Presence presence)
         {
             Contact contact;
@@ -126,6 +169,10 @@ namespace xeus2.xeus.Core
                             EventInfo eventinfo =
                                 new EventInfo(string.Format("'{0} ({1})' just authorized you", contact.DisplayName, contact.Jid));
                             Events.Instance.OnEvent(this, eventinfo);
+
+                            // try to get v-card instantly
+                            VcardIq viq = new VcardIq(IqType.get, contact.Jid);
+                            Account.Instance.XmppConnection.IqGrabber.SendIq(viq, new IqCB(VcardResult), contact);
                         }
 
                         break;

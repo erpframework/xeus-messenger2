@@ -22,6 +22,7 @@
                 <ResourceDictionary Source="xeus.UI.Look\BasicStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
+            <!--
             <ObjectDataProvider x:Key="MucMarksDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:MucMarks}"/>
 
             <CollectionViewSource x:Key="MucMarks" Source="{Binding Path=Instance, Mode=Default, Source={StaticResource MucMarksDS}}">
@@ -29,6 +30,7 @@
                     <scm:SortDescription PropertyName="Name" />
                 </CollectionViewSource.SortDescriptions>
             </CollectionViewSource>
+            -->
 
             <CollectionViewSource x:Key="Contacts" Source="{Binding Path=Instance, Mode=Default, Source={StaticResource RosterDS}}">
                 <CollectionViewSource.GroupDescriptions>
@@ -36,6 +38,7 @@
                 </CollectionViewSource.GroupDescriptions>
             </CollectionViewSource>
 
+            <!--
             <ObjectDataProvider x:Key="ServicesDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Services}"/>
 
             <CollectionViewSource x:Key="Services" Source="{Binding Path=Instance, Mode=Default, Source={StaticResource ServicesDS}}"/>
@@ -44,6 +47,7 @@
 
             <ObjectDataProvider x:Key="AccountDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Account}"/>
             <ObjectDataProvider x:Key="EventsDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Events}"/>
+            -->
 
             <DrawingBrush x:Key="xeus_back_design" PresentationOptions:Freeze="True">
                 <DrawingBrush.Drawing>
@@ -119,13 +123,13 @@
             </Popup>
         </WrapPanel>
         <Border x:Name="border2" Padding="5,1,5,1" Background="{x:Null}" DockPanel.Dock="Bottom">
-            <Line Stroke="#FF999999" StrokeDashArray="2 2" X1="1" SnapsToDevicePixels="True"
+            <Line Stroke="#FF555555" StrokeDashArray="2 2" X1="1" SnapsToDevicePixels="True"
                       StrokeThickness="1" X2="{Binding Path=ActualWidth, ElementName=border2, Mode=Default}"/>
         </Border>
         <DockPanel DockPanel.Dock="Top" >
             <local:RosterHeader x:Name="_header" DockPanel.Dock="Top"/>
             <Border x:Name="border" Padding="5,1,5,1" Background="{x:Null}" DockPanel.Dock="Top">
-                <Line Stroke="#FF999999" StrokeDashArray="2 2" X1="1" SnapsToDevicePixels="True"
+                <Line Stroke="#FF555555" StrokeDashArray="2 2" X1="1" SnapsToDevicePixels="True"
                       StrokeThickness="1" X2="{Binding Path=ActualWidth, ElementName=border, Mode=Default}"/>
             </Border>
             <local:RosterControl x:Name="_roster" DockPanel.Dock="Top"/>
