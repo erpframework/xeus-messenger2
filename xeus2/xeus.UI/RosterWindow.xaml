@@ -104,56 +104,11 @@
                     </DrawingGroup>
                 </DrawingBrush.Drawing>
             </DrawingBrush>
-
-            <DrawingBrush x:Key="size_small_design" PresentationOptions:Freeze="True">
-                <DrawingBrush.Drawing>
-                    <DrawingGroup>
-                        <DrawingGroup.Children>
-                            <GeometryDrawing Geometry="F1 M 7,5.69454L 94.6667,5.69454L 94.6667,93.3612L 7,93.3612L 7,5.69454 Z ">
-                                <GeometryDrawing.Pen>
-                                    <Pen Thickness="1" LineJoin="Round" Brush="#00FFFFFF"/>
-                                </GeometryDrawing.Pen>
-                            </GeometryDrawing>
-                            <GeometryDrawing Brush="#FFCDCDCD" Geometry="F1 M 44.3889,39.0834L 57.2778,39.0834C 59.4869,39.0834 61.2778,40.8743 61.2778,43.0834L 61.2778,55.9723C 61.2778,58.1814 59.4869,59.9723 57.2778,59.9723L 44.3889,59.9723C 42.1798,59.9723 40.3889,58.1814 40.3889,55.9723L 40.3889,43.0834C 40.3889,40.8743 42.1798,39.0834 44.3889,39.0834 Z "/>
-                        </DrawingGroup.Children>
-                    </DrawingGroup>
-                </DrawingBrush.Drawing>
-            </DrawingBrush>
-
-            <DrawingBrush x:Key="size_medium_design" PresentationOptions:Freeze="True">
-                <DrawingBrush.Drawing>
-                    <DrawingGroup>
-                        <DrawingGroup.Children>
-                            <GeometryDrawing Geometry="F1 M 7,5.69454L 94.6667,5.69454L 94.6667,93.3612L 7,93.3612L 7,5.69454 Z ">
-                                <GeometryDrawing.Pen>
-                                    <Pen Thickness="1" LineJoin="Round" Brush="#00FFFFFF"/>
-                                </GeometryDrawing.Pen>
-                            </GeometryDrawing>
-                            <GeometryDrawing Brush="#FFCDCDCD" Geometry="F1 M 29.3889,24.0834L 72.2778,24.0834C 74.4869,24.0834 76.2778,25.8743 76.2778,28.0834L 76.2778,70.9723C 76.2778,73.1814 74.4869,74.9723 72.2778,74.9723L 29.3889,74.9723C 27.1798,74.9723 25.3889,73.1814 25.3889,70.9723L 25.3889,28.0834C 25.3889,25.8743 27.1798,24.0834 29.3889,24.0834 Z "/>
-                        </DrawingGroup.Children>
-                    </DrawingGroup>
-                </DrawingBrush.Drawing>
-            </DrawingBrush>
-
-            <DrawingBrush x:Key="size_big_design" PresentationOptions:Freeze="True">
-                <DrawingBrush.Drawing>
-                    <DrawingGroup>
-                        <DrawingGroup.Children>
-                            <GeometryDrawing Geometry="F1 M 7,5.69454L 94.6667,5.69454L 94.6667,93.3612L 7,93.3612L 7,5.69454 Z ">
-                                <GeometryDrawing.Pen>
-                                    <Pen Thickness="1" LineJoin="Round" Brush="#00FFFFFF"/>
-                                </GeometryDrawing.Pen>
-                            </GeometryDrawing>
-                            <GeometryDrawing Brush="#FFCDCDCD" Geometry="F1 M 15.0556,9.75009L 86.6111,9.75009C 88.8203,9.75009 90.6111,11.541 90.6111,13.7501L 90.6111,85.3056C 90.6111,87.5148 88.8203,89.3056 86.6111,89.3056L 15.0556,89.3056C 12.8464,89.3056 11.0556,87.5148 11.0556,85.3056L 11.0556,13.7501C 11.0556,11.541 12.8464,9.75009 15.0556,9.75009 Z "/>
-                        </DrawingGroup.Children>
-                    </DrawingGroup>
-                </DrawingBrush.Drawing>
-            </DrawingBrush>
         </ResourceDictionary>
     </Window.Resources>
 
-    <DockPanel>
-        <WrapPanel DockPanel.Dock="Bottom" Background="{DynamicResource back_x_design}">
+    <DockPanel Background="{StaticResource xeus_back_design}" >
+        <WrapPanel DockPanel.Dock="Bottom" Margin="5,5,5,5">
             <xeus2_xeus_Controls:StatusTextControl/> 
             <Button Content="Services" Command="servicecmd:ServiceCommands.DisplayServices" DockPanel.Dock="Bottom"/>
             <Button Command="servicecmd:AccountCommands.DisplayLogin" Content="Login" DockPanel.Dock="Bottom"/>
@@ -163,8 +118,16 @@
                 <xeus2_xeus_Controls:RosterSizeSelection Panel.ZIndex="100"/>
             </Popup>
         </WrapPanel>
-        <DockPanel Background="{StaticResource xeus_back_design}" DockPanel.Dock="Top" >
+        <Border x:Name="border2" Padding="5,1,5,1" Background="{x:Null}" DockPanel.Dock="Bottom">
+            <Line Stroke="#FF999999" StrokeDashArray="2 2" X1="1" SnapsToDevicePixels="True"
+                      StrokeThickness="1" X2="{Binding Path=ActualWidth, ElementName=border2, Mode=Default}"/>
+        </Border>
+        <DockPanel DockPanel.Dock="Top" >
             <local:RosterHeader x:Name="_header" DockPanel.Dock="Top"/>
+            <Border x:Name="border" Padding="5,1,5,1" Background="{x:Null}" DockPanel.Dock="Top">
+                <Line Stroke="#FF999999" StrokeDashArray="2 2" X1="1" SnapsToDevicePixels="True"
+                      StrokeThickness="1" X2="{Binding Path=ActualWidth, ElementName=border, Mode=Default}"/>
+            </Border>
             <local:RosterControl x:Name="_roster" DockPanel.Dock="Top"/>
         </DockPanel>
     </DockPanel>
