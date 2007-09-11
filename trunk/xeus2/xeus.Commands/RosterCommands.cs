@@ -179,7 +179,7 @@ namespace xeus2.xeus.Commands
 
         private static void ExecuteGoOnline(object sender, ExecutedRoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            Account.Instance.SendMyPresence(ShowType.NONE);
         }
 
         private static void CanExecuteViewSmall(object sender, CanExecuteRoutedEventArgs e)

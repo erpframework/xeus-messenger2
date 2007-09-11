@@ -8,7 +8,7 @@
         <Rectangle Opacity="0.5" Fill="{DynamicResource chat_back_design}" Stroke="{DynamicResource DefaultBorderBrush}" RadiusX="3" RadiusY="3"/>
         <StackPanel Orientation="Horizontal" Margin="3,3,3,1">
             <Button Style="{DynamicResource ImageButtonStyle}" Click="Button_Click"
-                    Command="rostercmd:RosterCommands.GoOnline" Background="{DynamicResource online_design}" Width="24" Height="24"/>
+                    Command="rostercmd:RosterCommands.GoOnline" Background="{DynamicResource online_design}" Width="24" Height="24" Template="{DynamicResource ImageButtonControlTemplate}"/>
             <Button Style="{DynamicResource ImageButtonStyle}" Click="Button_Click"
                     Command="rostercmd:RosterCommands.GoAway" Background="{DynamicResource away_design}" Width="24" Height="24"/>
             <Button Style="{DynamicResource ImageButtonStyle}" Click="Button_Click"
