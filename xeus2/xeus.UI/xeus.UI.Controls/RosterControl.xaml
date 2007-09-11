@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:xeus2_xeus_Core="clr-namespace:xeus2.xeus.Core"
     xmlns:xeus2_xeus_Control="clr-namespace:xeus2.xeus.UI.xeus.UI.Controls"
+  	xmlns:xeus2_xeus_Commands="clr-namespace:xeus2.xeus.Commands"
     x:Class="xeus2.xeus.UI.xeus.UI.Controls.RosterControl"
     xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" 	
     xmlns:d="http://schemas.microsoft.com/expression/blend/2006"
@@ -18,7 +19,15 @@
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
 
-
+        <ContextMenu x:Key="ContactMenu">
+            <MenuItem Command="xeus2_xeus_Commands:RosterCommands.AuthRequestFrom"
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
+            <MenuItem Command="xeus2_xeus_Commands:RosterCommands.AuthSendTo"
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
+            <MenuItem Command="xeus2_xeus_Commands:RosterCommands.AuthRemoveFrom"
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
+        </ContextMenu>
+        
         <DrawingBrush x:Key="xeus_logo_back_design" PresentationOptions:Freeze="True" Stretch="Uniform">
             <DrawingBrush.Drawing>
                 <DrawingGroup>

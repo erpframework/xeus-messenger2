@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Threading;
 using xeus.Data;
+using xeus2.Properties;
 using xeus2.xeus.Middle;
 
 namespace xeus2
@@ -27,9 +28,10 @@ namespace xeus2
 
         protected override void OnExit(ExitEventArgs e)
         {
-            base.OnExit(e);
-
             Database.CloseDatabase();
+            Settings.Default.Save();
+
+            base.OnExit(e);
         }
 
         public static bool CheckAccessSafe()

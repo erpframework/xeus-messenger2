@@ -2,17 +2,22 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     x:Class="xeus2.xeus.UI.AskAuthorization"
-    Title="xeus2.xeus.UI" Width="400"
+    Title="xeus2.xeus.UI"
     MinHeight="150" MinWidth="300" Background="{DynamicResource back_x_design}"
     Foreground="{DynamicResource DefaultTextBrush2}"
     x:Name="Window"
-    ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Height="150">
-	<StackPanel Orientation="Horizontal">
-		<ContentPresenter x:Name="_contact" ContentTemplate="{DynamicResource MetaContactBig}" Width="130"/>
+    ResizeMode="NoResize" WindowStartupLocation="CenterOwner" SizeToContent="WidthAndHeight">
+	<StackPanel Margin="10,10,10,10">
 		<StackPanel>
-			<TextBlock Text="You are asked to authorize the contact"/>
-			<RadioButton/>
-			<RadioButton/>
+			<TextBlock Text="You are asked to authorize the contact" Margin="0,0,0,10" TextWrapping="Wrap" FontSize="14"/>
+			<StackPanel Orientation="Horizontal">
+				<ContentPresenter x:Name="_contact" ContentTemplate="{DynamicResource ContactCard}"/>
+				<StackPanel Orientation="Vertical" HorizontalAlignment="Right" Margin="50,0,0,0">
+					<Button Click="OnApprove" Margin="0,0,0,5" Content="Approve"/>
+	                <Button Click="OnRefuse" Margin="0,0,0,0" Content="Refuse"/>
+				</StackPanel>
+			</StackPanel>
 		</StackPanel>
-	</StackPanel>
+        <TextBlock Text="Approving will also add the person to your contact list if it is not already there." HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,10,0,0" Width="250"/>
+    </StackPanel>
 </Window>

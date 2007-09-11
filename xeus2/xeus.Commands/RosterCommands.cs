@@ -36,6 +36,10 @@ namespace xeus2.xeus.Commands
         private static RoutedUICommand _goFreeForChat =
             new RoutedUICommand("Go Free for Chat", "GoFreeForChat", typeof(RosterCommands));
 
+        private static RoutedUICommand _authSendTo = new RoutedUICommand("Resend Authorization To Contact", "AuthSendTo", typeof(RosterCommands));
+        private static RoutedUICommand _authRequestFrom = new RoutedUICommand("Request Authorization From Contact", "AuthRequestFrom", typeof(RosterCommands));
+        private static RoutedUICommand _authRemoveFrom = new RoutedUICommand("Remove Your Authorization From Contact", "AuthRemoveFrom", typeof(RosterCommands));
+
         public static RoutedUICommand ViewBig
         {
             get
@@ -100,6 +104,30 @@ namespace xeus2.xeus.Commands
             }
         }
 
+        public static RoutedUICommand AuthSendTo
+        {
+            get
+            {
+                return _authSendTo;
+            }
+        }
+
+        public static RoutedUICommand AuthRequestFrom
+        {
+            get
+            {
+                return _authRequestFrom;
+            }
+        }
+
+        public static RoutedUICommand AuthRemoveFrom
+        {
+            get
+            {
+                return _authRemoveFrom;
+            }
+        }
+
         public static void RegisterCommands(Window window)
         {
             window.CommandBindings.Add(
@@ -125,6 +153,66 @@ namespace xeus2.xeus.Commands
 
             window.CommandBindings.Add(
                 new CommandBinding(_goFreeForChat, ExecuteGoFreeForChat, CanExecuteGoFreeForChat));
+
+            window.CommandBindings.Add(
+                new CommandBinding(_authSendTo, ExecuteAuthSendTo, CanExecuteAuthSendTo));
+
+            window.CommandBindings.Add(
+                new CommandBinding(_authRemoveFrom, ExecuteAuthRemoveFrom, CanExecuteAuthRemoveFrom));
+
+            window.CommandBindings.Add(
+                new CommandBinding(_authRequestFrom, ExecuteAuthRequestFrom, CanExecuteAuthRequestFrom));
+        }
+
+        private static void CanExecuteAuthRequestFrom(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = e.Parameter is IContact;
+            e.Handled = true;
+        }
+
+        private static void ExecuteAuthRequestFrom(object sender, ExecutedRoutedEventArgs e)
+        {
+            IContact contact = e.Parameter as IContact;
+
+            if (contact != null)
+            {
+                Roster.Instance.RequestAuthorization(contact);
+                e.Handled = true;
+            }
+        }
+
+        private static void CanExecuteAuthRemoveFrom(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = e.Parameter is IContact;
+            e.Handled = true;
+        }
+
+        private static void ExecuteAuthRemoveFrom(object sender, ExecutedRoutedEventArgs e)
+        {
+            IContact contact = e.Parameter as IContact;
+
+            if (contact != null)
+            {
+                Roster.Instance.RemoveAuthorization(contact);
+                e.Handled = true;
+            }
+        }
+
+        private static void CanExecuteAuthSendTo(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = e.Parameter is IContact;
+            e.Handled = true;
+        }
+
+        private static void ExecuteAuthSendTo(object sender, ExecutedRoutedEventArgs e)
+        {
+            IContact contact = e.Parameter as IContact;
+
+            if (contact != null)
+            {
+                Roster.Instance.ApproveAuthorization(contact);
+                e.Handled = true;
+            }
         }
 
         private static void CanExecuteGoFreeForChat(object sender, CanExecuteRoutedEventArgs e)

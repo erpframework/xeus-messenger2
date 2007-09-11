@@ -16,27 +16,22 @@ namespace xeus2.xeus.UI
             _contact.Content = contact;
         }
 
-        void Refuse()
-        {
-            IContact contact = (IContact) DataContext;
-
-            Account.Instance.GetPresenceManager().RefuseSubscriptionRequest(contact.Jid);
-
-            EventInfo eventinfo =
-                new EventInfo(string.Format("'{0}' - authorization denied", contact.Jid));
-            Events.Instance.OnEvent(this, eventinfo);
-        }
-
-        void Approve()
+        void OnRefuse(object sender, RoutedEventArgs args)
         {
             IContact contact = (IContact)DataContext;
 
-            Account.Instance.GetPresenceManager().ApproveSubscriptionRequest(contact.Jid);
+            Roster.Instance.AuthorizeContact(contact, false);
 
-            EventInfo eventinfo =
-                new EventInfo(string.Format("'{0} ({1})' is now authorized", contact.DisplayName, contact.Jid));
-            Events.Instance.OnEvent(this, eventinfo);
-            
+            Close();
+        }
+
+        void OnApprove(object sender, RoutedEventArgs args)
+        {
+            IContact contact = (IContact)DataContext;
+
+            Roster.Instance.AuthorizeContact(contact, true);
+
+            Close();
         }
     }
 }
