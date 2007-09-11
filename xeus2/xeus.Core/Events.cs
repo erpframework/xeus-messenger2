@@ -9,6 +9,8 @@ namespace xeus2.xeus.Core
 
 		private static Events _instance = new Events() ;
 
+	    private const uint _maxEvents = 100;
+
 		public static Events Instance
 		{
 			get
@@ -30,9 +32,17 @@ namespace xeus2.xeus.Core
 
 		public void OnEventInternal( object sender, Event myEvent )
 		{
-			Add( myEvent ) ;
+            lock (_syncObject)
+            {
+                Add(myEvent);
 
-			if ( OnEventRaised != null )
+                if (Count > _maxEvents)
+                {
+                    RemoveAt(0);
+                }
+            }
+
+		    if ( OnEventRaised != null )
 			{
 				OnEventRaised( sender, myEvent ) ;
 			}
