@@ -34,6 +34,7 @@ namespace xeus2.xeus.Core
         private Presence _presence = null;
         private string _statusText = "Not available";
         private string _xStatusText;
+        private string _avatarHash = String.Empty;
 
         public Contact(RosterItem rosterItem)
         {
@@ -351,6 +352,14 @@ namespace xeus2.xeus.Core
             return string.Format("{0} / {1}", Jid, Presence.Status);
         }
 
+        public string AvataHash
+        {
+            get
+            {
+                return _avatarHash;
+            }
+        }
+
         public void SetVcard(Vcard vcard)
         {
             if (App.Current.Dispatcher.CheckAccess())
@@ -373,10 +382,12 @@ namespace xeus2.xeus.Core
 
                     _fullName = vcard.Fullname;
                     _nickName = vcard.Nickname;
+                    _avatarHash = Storage.GetPhotoHashCode(vcard.Photo);
 
                     NotifyPropertyChanged("FullName");
                     NotifyPropertyChanged("NickName");
                     NotifyPropertyChanged("DisplayName");
+                    NotifyPropertyChanged("AvatarHash");
 
                     BitmapImage image = Storage.ImageFromPhoto(vcard.Photo);
 

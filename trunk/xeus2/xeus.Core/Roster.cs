@@ -90,6 +90,19 @@ namespace xeus2.xeus.Core
                     {
                         SetFreshVcard(contact, presence);
                     }
+                    else
+                    {
+                        Avatar avatar = presence.SelectSingleElement(typeof(Avatar)) as Avatar;
+
+                        if (avatar != null)
+                        {
+                            if (avatar.Hash.ToLowerInvariant() != contact.AvataHash)
+                            {
+                                VcardIq viq = new VcardIq(IqType.get, contact.Jid);
+                                Account.Instance.XmppConnection.IqGrabber.SendIq(viq, new IqCB(VcardResult), contact);
+                            }
+                        }
+                    }
                 }
             }            
         }
