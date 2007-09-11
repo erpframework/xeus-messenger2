@@ -7,6 +7,7 @@ using agsXMPP.protocol.iq.vcard;
 using agsXMPP.protocol.x;
 using xeus.Data;
 using xeus2.Properties;
+using xeus2.xeus.Middle;
 using xeus2.xeus.Utilities;
 
 namespace xeus2.xeus.Core
@@ -95,14 +96,38 @@ namespace xeus2.xeus.Core
 
         void OnSubscribePresence(Presence presence)
         {
+            Contact contact;
+
+            lock (_realContacts)
+            {
+                contact = FindContact(presence.From);
+            }
+
             switch (presence.Type)
             {
                 case PresenceType.subscribe:
                     {
+                        VcardIq viq = new VcardIq(IqType.get, presence.From);
+                        Account.Instance.XmppConnection.IqGrabber.SendIq(viq, new IqCB(VcardResultAuth),
+                                                                            (contact ?? (object)presence));
+
                         break;
                     }
                 case PresenceType.subscribed:
                     {
+                        if (contact == null)
+                        {
+                            EventInfo eventinfo =
+                                new EventInfo(string.Format("'{0}' just authorized you", presence.From));
+                            Events.Instance.OnEvent(this, eventinfo);
+                        }
+                        else
+                        {
+                            EventInfo eventinfo =
+                                new EventInfo(string.Format("'{0} ({1})' just authorized you", contact.DisplayName, contact.Jid));
+                            Events.Instance.OnEvent(this, eventinfo);
+                        }
+
                         break;
                     }
                 case PresenceType.unsubscribe:
@@ -111,6 +136,19 @@ namespace xeus2.xeus.Core
                     }
                 case PresenceType.unsubscribed:
                     {
+                        if (contact == null)
+                        {
+                            EventInfo eventinfo =
+                                new EventInfo(string.Format("'{0}' removed your authorization", presence.From));
+                            Events.Instance.OnEvent(this, eventinfo);
+                        }
+                        else
+                        {
+                            EventInfo eventinfo =
+                                new EventInfo(string.Format("'{0} ({1})' removed your authorization", contact.DisplayName, contact.Jid));
+                            Events.Instance.OnEvent(this, eventinfo);
+                        }
+
                         break;
                     }
             }
@@ -206,6 +244,46 @@ namespace xeus2.xeus.Core
                     Storage.CacheVCard(iq.Vcard, contact.Jid.Bare);
                 }
             }
+        }
+
+        private void VcardResultAuth(object sender, IQ iq, object data)
+        {
+            Contact contact;
+
+            if (data is Presence)
+            {
+                contact = new Contact((Presence)data);
+            }
+            else
+            {
+                contact = (Contact) data;
+            }
+
+            if (iq.Type == IqType.error || iq.Error != null)
+            {
+                if (iq.Error.Code == ErrorCode.NotFound)
+                {
+                    contact.SetVcard(null);
+                }
+                else
+                {
+                    Events.Instance.OnEvent(this,
+                                            new EventError(String.Format("V-Card receiving error from {0}", iq.From),
+                                                           null));
+                }
+            }
+            else if (iq.Type == IqType.result)
+            {
+                contact.SetVcard(iq.Vcard);
+
+                //save it
+                if (iq.Vcard != null)
+                {
+                    Storage.CacheVCard(iq.Vcard, contact.Jid.Bare);
+                }
+            }
+
+            Authorization.Instance.Ask(contact);
         }
 
         public void OnRosterItem(object sender, RosterItem item)

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Media.Imaging;
+﻿using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.protocol.client;
 using xeus.Data;
@@ -10,6 +7,8 @@ namespace xeus2.xeus.Core
 {
     public class DummyContact : IContact
     {
+        #region IContact Members
+
         public Jid Jid
         {
             get
@@ -137,5 +136,7 @@ namespace xeus2.xeus.Core
                 return false;
             }
         }
+
+        #endregion
     }
 }

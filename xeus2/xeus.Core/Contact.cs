@@ -40,6 +40,12 @@ namespace xeus2.xeus.Core
             _rosterItem = rosterItem;
         }
 
+        public Contact(Presence presence)
+        {
+            _rosterItem = new RosterItem();
+            _rosterItem.Jid = presence.From;
+        }
+
         public bool HasVCardRecieved
         {
             get
