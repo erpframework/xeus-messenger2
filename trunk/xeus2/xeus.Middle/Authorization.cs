@@ -6,7 +6,7 @@ namespace xeus2.xeus.Middle
 {
     internal class Authorization
     {
-        private static Authorization _instance = new Authorization();
+        private static readonly Authorization _instance = new Authorization();
 
         public static Authorization Instance
         {
@@ -18,8 +18,17 @@ namespace xeus2.xeus.Middle
 
         private void Show(Contact contact)
         {
-            AskAuthorization authorization = new AskAuthorization(contact);
-            authorization.Show();
+            try
+            {
+                AskAuthorization authorization = new AskAuthorization(contact);
+
+                authorization.Show();
+            }
+
+            catch (WindowExistsException e)
+            {
+                e.ExistingWindow.Activate();
+            }
         }
 
         public void Ask(Contact contact)
