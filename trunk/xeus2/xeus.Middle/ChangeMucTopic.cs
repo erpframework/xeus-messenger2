@@ -1,13 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using xeus2.xeus.Core;
+using xeus2.xeus.UI;
 
 namespace xeus2.xeus.Middle
 {
     internal class ChangeMucTopic
     {
-        private static ChangeMucTopic _instance = new ChangeMucTopic();
+        private static readonly ChangeMucTopic _instance = new ChangeMucTopic();
 
         public static ChangeMucTopic Instance
         {
@@ -19,10 +17,9 @@ namespace xeus2.xeus.Middle
 
         public void DisplayTopic(MucRoom mucRoom)
         {
-            UI.RoomTopic topic = new UI.RoomTopic();
-            topic.DataContext = mucRoom;
+            RoomTopic topic = new RoomTopic(mucRoom);
 
-            if ((bool)topic.ShowDialog())
+            if ((bool) topic.ShowDialog())
             {
                 mucRoom.ChangeMucTopic(topic.Topic);
             }
