@@ -6,9 +6,11 @@ namespace xeus2.xeus.UI
     /// <summary>
     /// Interaction logic for AskAuthorization.xaml
     /// </summary>
-    public partial class AskAuthorization : Window
+    public partial class AskAuthorization : BaseWindow
     {
-        public AskAuthorization(Contact contact)
+        public const string _keyBase = "AskAuthorization";
+
+        public AskAuthorization(Contact contact) : base(_keyBase, contact.Jid.Bare)
         {
             InitializeComponent();
 
