@@ -10,9 +10,11 @@ namespace xeus2
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class RosterWindow : Window
+    public partial class RosterWindow : BaseWindow
     {
-        public RosterWindow()
+        public const string _keyBase = "Roster";
+
+        public RosterWindow() : base(_keyBase, string.Empty)
         {
             InitializeComponent();
         }
@@ -36,7 +38,7 @@ namespace xeus2
 
             base.OnClosed(e);
 
-            BaseWindow.CloseAllWindows();
+            CloseAllWindows();
         }
 
         protected void ChangeRosterSize(object sebnder, RoutedEventArgs e)

@@ -6,9 +6,11 @@ namespace xeus2.xeus.UI
 	/// <summary>
 	/// Interaction logic for Search.xaml
 	/// </summary>
-	public partial class Search : Window
+	public partial class Search : BaseWindow
 	{
-		internal Search( agsXMPP.protocol.iq.search.Search search, Service service )
+	    public const string _keyBase = "Search";
+
+		internal Search( agsXMPP.protocol.iq.search.Search search, Service service ) : base(_keyBase, service.Jid.Bare)
 		{
 			InitializeComponent() ;
 
