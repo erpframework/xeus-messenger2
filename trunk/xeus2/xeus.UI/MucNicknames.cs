@@ -8,7 +8,7 @@ namespace xeus2.xeus.UI
 {
     internal class MucNikcnames
     {
-        private MucRoom _mucRoom;
+        private readonly MucRoom _mucRoom;
 
         List<string> _possibleNicks = new List<string>();
         private List<string>.Enumerator _enumerator = new List<string>.Enumerator();
@@ -18,7 +18,7 @@ namespace xeus2.xeus.UI
 
         public MucNikcnames(TextBox textBox, MucRoom mucRoom)
         {
-            textBox.PreviewKeyDown += new KeyEventHandler(textBox_KeyDown);
+            textBox.PreviewKeyDown += textBox_KeyDown;
 
             _mucRoom = mucRoom;
         }

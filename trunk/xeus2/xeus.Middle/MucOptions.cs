@@ -1,14 +1,11 @@
-using System.ComponentModel;
-using System.Windows;
 using xeus2.xeus.Core;
+using xeus2.xeus.UI;
 
 namespace xeus2.xeus.Middle
 {
-    internal class MucOptions : WindowManager<MucRoom, UI.MucOptions>
+    internal class MucOptions
     {
-        private delegate void DisplayCallback(MucRoom mucRoom);
-
-        private static MucOptions _instance = new MucOptions();
+        private static readonly MucOptions _instance = new MucOptions();
 
         public static MucOptions Instance
         {
@@ -20,23 +17,16 @@ namespace xeus2.xeus.Middle
 
         protected void MucOptionsOpen(MucRoom mucRoom)
         {
-            UI.MucOptions mucOptions = GetWindow(mucRoom);
-
-            if (mucOptions == null)
+            try
             {
-                mucOptions = new UI.MucOptions(mucRoom);
-                mucOptions.Closing += new CancelEventHandler(registration_Closing);
-                mucOptions.DataContext = mucRoom;
-                AddWindow(mucRoom, mucOptions);
+                UI.MucOptions mucOptions = new UI.MucOptions(mucRoom);
+                mucOptions.Show();
             }
 
-            mucOptions.Show();
-        }
-
-        private void registration_Closing(object sender, CancelEventArgs e)
-        {
-            RemoveWindow(((Window) sender).DataContext as MucRoom);
-            ((Window) sender).Closing -= registration_Closing;
+            catch (WindowExistsException e)
+            {
+                e.ExistingWindow.Activate();
+            }
         }
 
         public void DisplayMucOptions(MucRoom mucRoom)
@@ -44,5 +34,11 @@ namespace xeus2.xeus.Middle
             App.InvokeSafe(App._dispatcherPriority,
                            new DisplayCallback(MucOptionsOpen), mucRoom);
         }
+
+        #region Nested type: DisplayCallback
+
+        private delegate void DisplayCallback(MucRoom mucRoom);
+
+        #endregion
     }
 }
