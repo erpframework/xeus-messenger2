@@ -86,6 +86,23 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public Jid FullJid
+        {
+            get
+            {
+                if (Presence == null)
+                {
+                    return Jid;
+                }
+                else
+                {
+                    return Presence.From;
+                }
+            }
+        }
+
+        private bool _iqAvatarLoadedFromCache = false;
+
         public Presence Presence
         {
             get
@@ -179,6 +196,22 @@ namespace xeus2.xeus.Core
                 NotifyPropertyChanged("Show");
                 NotifyPropertyChanged("Priority");
                 NotifyPropertyChanged("Resource");
+
+                if (!_iqAvatarLoadedFromCache)
+                {
+                    string hash;
+                    BitmapImage image = Storage.GetIqAvatar(_presence.From.Bare, out hash);
+
+                    if (image != null)
+                    {
+                        Image = image;
+
+                        _avatarHash = hash;
+                        NotifyPropertyChanged("AvatarHash");
+                    }
+
+                    _iqAvatarLoadedFromCache = true;
+                }
             }
         }
 
@@ -312,6 +345,17 @@ namespace xeus2.xeus.Core
 
                 return _image;
             }
+
+            private set
+            {
+                if (value != null)
+                {
+                    _image = value;
+
+                    NotifyPropertyChanged("Image");
+                    NotifyPropertyChanged("IsImageTransparent");
+                }
+            }
         }
 
         public bool IsImageTransparent
@@ -352,7 +396,7 @@ namespace xeus2.xeus.Core
             return string.Format("{0} / {1}", Jid, Presence.Status);
         }
 
-        public string AvataHash
+        public string AvatarHash
         {
             get
             {
@@ -382,23 +426,19 @@ namespace xeus2.xeus.Core
 
                     _fullName = vcard.Fullname;
                     _nickName = vcard.Nickname;
-                    _avatarHash = Storage.GetPhotoHashCode(vcard.Photo);
 
                     NotifyPropertyChanged("FullName");
                     NotifyPropertyChanged("NickName");
                     NotifyPropertyChanged("DisplayName");
-                    NotifyPropertyChanged("AvatarHash");
 
-                    BitmapImage image = Storage.ImageFromPhoto(vcard.Photo);
+                    string hash;
+                    Image = Storage.ImageFromPhoto(vcard.Photo, out hash);
 
-                    if (image != null)
+                    if (Image != null)
                     {
-                        _image = image;
-
-                        NotifyPropertyChanged("Image");
-                        NotifyPropertyChanged("IsImageTransparent");
+                        _avatarHash = hash;
+                        NotifyPropertyChanged("AvatarHash");
                     }
-
 
                     /*
                         Organization organization = vcard.Organization;
@@ -417,6 +457,18 @@ namespace xeus2.xeus.Core
             else
             {
                 App.InvokeSafe(App._dispatcherPriority, new VcardHandler(SetVcard), vcard);
+            }
+        }
+
+        public void SetIqAvatar(byte[] data)
+        {
+            string hash;
+            Image = Storage.BitmapFromBytes(data, out hash);
+
+            if (Image != null)
+            {
+                _avatarHash = hash;
+                NotifyPropertyChanged("AvatarHash");
             }
         }
     }

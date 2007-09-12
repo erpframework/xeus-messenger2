@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using agsXMPP;
 using agsXMPP.protocol.client;
+using agsXMPP.protocol.iq.avatar;
 using agsXMPP.protocol.iq.roster;
 using agsXMPP.protocol.iq.vcard;
-using agsXMPP.protocol.x;
 using xeus.Data;
 using xeus2.Properties;
 using xeus2.xeus.Middle;
 using xeus2.xeus.Utilities;
+using Avatar=agsXMPP.protocol.x.Avatar;
 
 namespace xeus2.xeus.Core
 {
@@ -90,22 +91,59 @@ namespace xeus2.xeus.Core
                     {
                         SetFreshVcard(contact, presence);
                     }
-                    else
-                    {
-                        Avatar avatar = presence.SelectSingleElement(typeof(Avatar)) as Avatar;
 
-                        if (avatar != null)
-                        {
-                            if (avatar.Hash.ToLowerInvariant() != contact.AvataHash)
-                            {
-                                VcardIq viq = new VcardIq(IqType.get, contact.Jid);
-                                Account.Instance.XmppConnection.IqGrabber.SendIq(viq, new IqCB(VcardResult), contact);
-                            }
-                        }
-                    }
+                    RefreshIqAvatar(contact);
                 }
             }            
         }
+
+        void RefreshIqAvatar(Contact contact)
+        {
+            if (contact.Presence != null)
+            {
+                Avatar avatar = contact.Presence.SelectSingleElement(typeof (Avatar)) as Avatar;
+
+                if (avatar != null)
+                {
+                    string hash;
+                    Storage.GetIqAvatar(contact.Jid.Bare, out hash);
+
+                    if (avatar.Hash.ToLowerInvariant() != contact.AvatarHash)
+                    {
+                        AvatarIq aiq = new AvatarIq(IqType.get, contact.FullJid);
+                        Account.Instance.XmppConnection.IqGrabber.SendIq(aiq, new IqCB(IqAvatarResult), contact);
+                    }
+                }
+            }
+        }
+
+        private void IqAvatarResult(object sender, IQ iq, object data)
+        {
+            Contact contact = (Contact)data;
+
+            if (iq.Type == IqType.error || iq.Error != null)
+            {
+                if (iq.Error.Code != ErrorCode.NotFound)
+                {
+                    Events.Instance.OnEvent(this,
+                                            new EventError(String.Format("Iq-Avatar receiving error from {0}", iq.From),
+                                                           null));
+                }
+            }
+            else if (iq.Type == IqType.result)
+            {
+                agsXMPP.protocol.iq.avatar.Avatar avatar = iq.Query as agsXMPP.protocol.iq.avatar.Avatar;
+
+                if (avatar != null && avatar.Data != null)
+                {
+                    contact.SetIqAvatar(avatar.Data);
+
+                    //save it
+                    Storage.CacheIqAvatar(avatar.Data, contact.Jid.Bare);
+                }
+            }
+        }
+
 
         public void AuthorizeContact(IContact contact, bool approve)
         {
@@ -252,25 +290,11 @@ namespace xeus2.xeus.Core
         {
             Vcard vcard = Storage.GetVcard(contact.Jid, Settings.Default.VCardExpirationDays);
 
-            bool askVCard = true;
-
             if (vcard != null)
             {
                 contact.SetVcard(vcard);
-
-                Avatar avatar = presence.SelectSingleElement(typeof (Avatar)) as Avatar;
-
-                if (avatar != null && vcard.Photo != null)
-                {
-                    askVCard = (avatar.Hash.ToLowerInvariant() != Storage.GetPhotoHashCode(vcard.Photo));
-                }
-                else
-                {
-                    askVCard = false;
-                }
             }
-
-            if (askVCard)
+            else 
             {
                 VcardIq viq = new VcardIq(IqType.get, contact.Jid);
                 Account.Instance.XmppConnection.IqGrabber.SendIq(viq, new IqCB(VcardResult), contact);
