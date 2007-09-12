@@ -6,11 +6,15 @@ namespace xeus2.xeus.UI
 	/// <summary>
 	/// Interaction logic for ChooseCommand.xaml
 	/// </summary>
-	public partial class ChooseCommand : Window
+	public partial class ChooseCommand : BaseWindow
 	{
-		public ChooseCommand()
+	    public const string _keyBase = "ChooseCommand";
+
+	    internal ChooseCommand(Service service):base(_keyBase, service.Jid.Bare)
 		{
 			InitializeComponent() ;
+
+	        DataContext = service;
 		}
 
 		internal Service Service

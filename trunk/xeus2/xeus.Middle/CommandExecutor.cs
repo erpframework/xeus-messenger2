@@ -85,9 +85,7 @@ namespace xeus2.xeus.Middle
                 }
             }
 
-            ChooseCommand chooseCommand = new ChooseCommand();
-            chooseCommand.DataContext = service;
-
+            ChooseCommand chooseCommand = new ChooseCommand(service);
             chooseCommand.ShowDialog();
 
             if ((bool) chooseCommand.DialogResult)
