@@ -1,45 +1,49 @@
-using System ;
-using System.Windows ;
-using agsXMPP.protocol.x.data ;
-using xeus2.xeus.Commands ;
-using xeus2.xeus.Core ;
+using System;
+using System.Windows;
+using agsXMPP.protocol.x.data;
+using xeus2.xeus.Commands;
+using xeus2.xeus.Core;
 
 namespace xeus2.xeus.UI
 {
-	/// <summary>
-	/// Interaction logic for CommandExecute.xaml
-	/// </summary>
-	public partial class CommandExecute : Window
-	{
-		internal CommandExecute( ServiceCommandExecution serviceCommandExecution )
-		{
-			InitializeComponent() ;
+    /// <summary>
+    /// Interaction logic for CommandExecute.xaml
+    /// </summary>
+    public partial class CommandExecute : BaseWindow
+    {
+        public const string _keyBase = "CommandExecute";
 
-			_execute.Setup( serviceCommandExecution ) ;
-			serviceCommandExecution.CommandExec = this ;
-		}
+        internal CommandExecute(ServiceCommandExecution serviceCommandExecution):base(_keyBase, serviceCommandExecution.Service.Jid.ToString())
+        {
+            InitializeComponent();
 
-		internal void Redisplay( ServiceCommandExecution serviceCommandExecution )
-		{
-			_execute.Setup( serviceCommandExecution ) ;
-			serviceCommandExecution.CommandExec = this ;
-		}
+            DataContext = serviceCommandExecution;
 
-		protected void OnClose( object sender, RoutedEventArgs eventArgs )
-		{
-			Close() ;
-		}
+            _execute.Setup(serviceCommandExecution);
+            serviceCommandExecution.CommandExec = this;
+        }
 
-		protected override void OnInitialized( System.EventArgs e )
-		{
-			base.OnInitialized( e );
+        internal void Redisplay(ServiceCommandExecution serviceCommandExecution)
+        {
+            _execute.Setup(serviceCommandExecution);
+            serviceCommandExecution.CommandExec = this;
+        }
 
-			ServiceCommands.RegisterCommands( this );
-		}
+        protected void OnClose(object sender, RoutedEventArgs eventArgs)
+        {
+            Close();
+        }
 
-		public Data GetResult()
-		{
-			return _execute.GetResult() ;
-		}
-	}
+        protected override void OnInitialized(EventArgs e)
+        {
+            base.OnInitialized(e);
+
+            ServiceCommands.RegisterCommands(this);
+        }
+
+        public Data GetResult()
+        {
+            return _execute.GetResult();
+        }
+    }
 }
