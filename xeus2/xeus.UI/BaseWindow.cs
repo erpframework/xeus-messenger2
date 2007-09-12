@@ -31,9 +31,14 @@ namespace xeus2.xeus.UI
             }
         }
 
+        public static string MakeKey(string keyBase, string key)
+        {
+            return string.Format("/{0}/{1}", keyBase, key);
+        }
+
         public BaseWindow(string keyBase, string key)
         {
-            _key = string.Format("/{0}/{1}", keyBase, key);
+            _key = MakeKey(keyBase, key);
 
             BaseWindow exisitngWindow = Find(_key);
 
@@ -75,7 +80,7 @@ namespace xeus2.xeus.UI
             Closed -= BaseWindow_Closed;
         }
 
-        public BaseWindow Find(string key)
+        public static BaseWindow Find(string key)
         {
             BaseWindow baseWindow;
 

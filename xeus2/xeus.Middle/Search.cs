@@ -4,14 +4,15 @@ using System.Text;
 using System.Windows ;
 using System.Windows.Threading ;
 using xeus2.xeus.Core ;
+using xeus2.xeus.UI;
 
 namespace xeus2.xeus.Middle
 {
-	internal class Search : WindowManager< Service, UI.Search >
+	internal class Search
 	{
 		private delegate void DisplayCallback( agsXMPP.protocol.iq.search.Search search, Service service ) ;
 
-		private static Search _instance = new Search() ;
+		private static readonly Search _instance = new Search() ;
 
 		public static Search Instance
 		{
@@ -23,23 +24,17 @@ namespace xeus2.xeus.Middle
 
 		protected void SearchService( agsXMPP.protocol.iq.search.Search search, Service service )
 		{
-			UI.Search searchWindow = GetWindow( service ) ;
+            try
+            {
+                UI.Search searchWindow = new UI.Search(search, service);
 
-			if ( searchWindow == null )
+                searchWindow.Show();
+            }
+
+		    catch ( WindowExistsException e )
 			{
-				searchWindow = new UI.Search( search, service ) ;
-				searchWindow.Closing += new System.ComponentModel.CancelEventHandler( searchWindow_Closing );
-				searchWindow.DataContext = service ;
-				AddWindow( service, searchWindow );
+			    e.ExistingWindow.Activate();
 			}
-
-			searchWindow.Show() ;
-		}
-
-		void searchWindow_Closing( object sender, System.ComponentModel.CancelEventArgs e )
-		{
-			RemoveWindow( ( ( Window )sender ).DataContext as Service );
-			( ( Window ) sender ).Closing -= searchWindow_Closing ;
 		}
 
 		public void DisplaySearch( agsXMPP.protocol.iq.search.Search Search, Service service )
@@ -50,12 +45,13 @@ namespace xeus2.xeus.Middle
 
 		protected void SearchServiceResult( agsXMPP.protocol.iq.search.Search search, Service service )
 		{
-			UI.Search searchWindow = GetWindow( service ) ;
+            BaseWindow window = BaseWindow.Find(BaseWindow.MakeKey(UI.Search._keyBase, service.Jid.Bare));
 
-			if ( searchWindow != null )
+            if (window != null)
 			{
-				searchWindow.DisplaySearchResult( search, service );
-				searchWindow.Show() ;
+                ((UI.Search)window).DisplaySearchResult(search, service);
+                window.Show();
+                window.Activate();
 			}
 		}
 

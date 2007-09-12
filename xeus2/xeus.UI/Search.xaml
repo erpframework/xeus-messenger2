@@ -1,7 +1,8 @@
-﻿<Window
+﻿<UI:BaseWindow
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:xeus2_xeus_XData="clr-namespace:xeus2.xeus.XData"
+    xmlns:UI="clr-namespace:xeus2.xeus.UI;assembly="
     x:Class="xeus2.xeus.UI.Search"
     Title="xeus2.xeus.UI"
     MinWidth="300" ResizeMode="CanResizeWithGrip" Background="{DynamicResource back_x_design}"
@@ -19,4 +20,4 @@
     <Button Click="OnSearch" HorizontalAlignment="Center" Margin="0,10,0,10" Content="Search" DockPanel.Dock="Top"/>
   	<xeus2_xeus_XData:XDataResultView x:Name="_resultView" DockPanel.Dock="Top"/>
   </DockPanel>
-</Window>
+</UI:BaseWindow>
