@@ -1,13 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using xeus2.xeus.Core;
+using xeus2.xeus.UI;
 
 namespace xeus2.xeus.Middle
 {
     internal class ChangeMucContactNick
     {
-        private static ChangeMucContactNick _instance = new ChangeMucContactNick();
+        private static readonly ChangeMucContactNick _instance = new ChangeMucContactNick();
 
         public static ChangeMucContactNick Instance
         {
@@ -19,10 +17,9 @@ namespace xeus2.xeus.Middle
 
         public void DisplayNick(MucRoom mucRoom)
         {
-            UI.ChangeNickInRoom room = new UI.ChangeNickInRoom();
-            room.DataContext = mucRoom;
+            ChangeNickInRoom room = new ChangeNickInRoom(mucRoom);
 
-            if ((bool)room.ShowDialog())
+            if ((bool) room.ShowDialog())
             {
                 mucRoom.ChangeNickname(room.Nick);
             }
