@@ -346,6 +346,7 @@
     <Compile Include="xeus.UI\AskAuthorization.xaml.cs">
       <DependentUpon>AskAuthorization.xaml</DependentUpon>
     </Compile>
+    <Compile Include="xeus.UI\BaseWindow.cs" />
     <Compile Include="xeus.UI\ChangeNickInRoom.cs" />
     <Compile Include="xeus.UI\ChooseCommand.xaml.cs">
       <SubType>Code</SubType>
@@ -410,6 +411,7 @@
     <Compile Include="xeus.UI\TextFilterMucRoom.cs" />
     <Compile Include="xeus.UI\TextFilterService.cs" />
     <Compile Include="xeus.UI\Vista.cs" />
+    <Compile Include="xeus.UI\WindowExistsException.cs" />
     <Compile Include="xeus.UI\xeus.UI.Controls\CreateMucRoom.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>CreateMucRoom.xaml</DependentUpon>
