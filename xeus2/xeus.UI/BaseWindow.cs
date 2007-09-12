@@ -25,9 +25,9 @@ namespace xeus2.xeus.UI
                 _windows.Values.CopyTo(baseWindows, 0);
             }
 
-            foreach (BaseWindow window in baseWindows)
+            for (int i = baseWindows.Length - 1; i >= 0; i-- )
             {
-                window.Close();
+                baseWindows[i].Close();
             }
         }
 

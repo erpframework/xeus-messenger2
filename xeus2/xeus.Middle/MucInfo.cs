@@ -52,9 +52,16 @@ namespace xeus2.xeus.Middle
 
 		protected void DisplayMucInfoInternal( Service service )
 		{
-			RoomInfo roomInfo = new RoomInfo( service ) ;
-			roomInfo.DataContext = service ;
-			roomInfo.Show() ;
+            try
+            {
+                RoomInfo roomInfo = new RoomInfo(service);
+                roomInfo.Show();
+            }
+
+            catch (WindowExistsException e)
+            {
+                e.ExistingWindow.Activate();
+            }
 		}
 
 		public void MucLogin(Service service, string forceNick)
