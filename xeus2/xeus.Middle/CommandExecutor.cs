@@ -22,18 +22,19 @@ namespace xeus2.xeus.Middle
 
         protected void DisplayQuestionaireInternal(Command command, Service service)
         {
-            CommandExecute commandExecuteWindow = GetWindow(service.Jid.ToString());
-
             ServiceCommandExecution serviceCommandExecution = new ServiceCommandExecution(command, service);
 
-            if (commandExecuteWindow == null)
+            CommandExecute commandExecuteWindow;
+
+            try
             {
                 commandExecuteWindow = new CommandExecute(serviceCommandExecution);
-                commandExecuteWindow.Closing += commandExecuteWindow_Closing;
-                AddWindow(service.Jid.ToString(), commandExecuteWindow);
+                commandExecuteWindow.Show();
             }
-            else
+
+            catch (WindowExistsException e)
             {
+                commandExecuteWindow = (CommandExecute)e.ExistingWindow;
                 commandExecuteWindow.Redisplay(serviceCommandExecution);
             }
 
@@ -44,19 +45,6 @@ namespace xeus2.xeus.Middle
 
                 commandExecuteWindow.Close();
             }
-            else
-            {
-                commandExecuteWindow.DataContext = serviceCommandExecution;
-                commandExecuteWindow.Show();
-            }
-        }
-
-        private void commandExecuteWindow_Closing(object sender, CancelEventArgs e)
-        {
-            ServiceCommandExecution execution = ((Window) sender).DataContext as ServiceCommandExecution;
-            RemoveWindow(execution.Service.Jid.ToString());
-
-            ((Window) sender).Closing -= commandExecuteWindow_Closing;
         }
 
         public void DisplayQuestionaire(Command command, Service service)
