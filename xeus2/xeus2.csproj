@@ -342,7 +342,6 @@
     <Compile Include="xeus.Middle\Registration.cs" />
     <Compile Include="xeus.Middle\Search.cs" />
     <Compile Include="xeus.Middle\Services.cs" />
-    <Compile Include="xeus.Middle\WindowManager.cs" />
     <Compile Include="xeus.UI\AskAuthorization.xaml.cs">
       <DependentUpon>AskAuthorization.xaml</DependentUpon>
     </Compile>

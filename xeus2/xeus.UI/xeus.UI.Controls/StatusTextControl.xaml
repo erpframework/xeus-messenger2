@@ -8,28 +8,31 @@
     >
 	<UserControl.Resources>
 		<DrawingBrush x:Key="send_up_design" Stretch="Uniform">
-		<DrawingBrush.Drawing>
-			<DrawingGroup>
-				<DrawingGroup.Children>
-					<GeometryDrawing Brush="#4D000000" Geometry="F1 M 44.0222,70.9444L 44.0222,54.8206L 35.5714,54.8206L 51.8333,26.6542L 68.0952,54.8206L 59.6445,54.8206L 59.6445,70.9444L 44.0222,70.9444 Z "/>
-				</DrawingGroup.Children>
-			</DrawingGroup>
-		</DrawingBrush.Drawing>
-	</DrawingBrush>
+            <DrawingBrush.Drawing>
+                <DrawingGroup>
+                    <DrawingGroup.Children>
+                        <GeometryDrawing Brush="#4D000000" Geometry="F1 M 84.3354,49.1667L 36.2073,21.3799L 36.2073,76.9534L 84.3354,49.1667 Z "/>
+                    </DrawingGroup.Children>
+                </DrawingGroup>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
 
         <DataTemplate x:Key="SelfStatus">
-			<Border Background="{DynamicResource DefaultTextBoxBackBrush}"
-			BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" BorderBrush="{DynamicResource DefaultBorderBrush}">
+			<Border Background="#99B0B0B0"
+			BorderThickness="1,1,1,1" CornerRadius="2,2,2,2">
             <StackPanel Orientation="Horizontal" >
                 <Button Margin="4,0,3,0" x:Name="_show" Click="_status_Click"
-                    HorizontalAlignment="Left" VerticalAlignment="Center" Width="14" Height="14" Background="{DynamicResource online_design}" Style="{DynamicResource ImageButtonStyle}"/>
-                <Popup x:Name="_statusPopup" AllowsTransparency="True"
+                    HorizontalAlignment="Left" VerticalAlignment="Center" Width="16" Height="16" Background="{DynamicResource online_design}" Style="{DynamicResource ImageButtonStyle}"/>
+                <Popup AllowsTransparency="True"
                    Placement="MousePoint" StaysOpen="False" Initialized="_statusPopup_Initialized">
                     <xeus2_xeus_Controls:StatusesControl Panel.ZIndex="100"/>
                 </Popup>
-                <TextBox x:Name="_text" MaxLength="50" MinWidth="100" Style="{DynamicResource TransparentTextBoxStyle}"/>
+                <TextBox MaxLength="50" MinWidth="100"
+                         Text="{Binding Path=StatusText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{DynamicResource TransparentTextBoxStyle}"
+                         Margin="0,2,0,0" VerticalAlignment="Center" PreviewKeyDown="_text_PreviewKeyDown"/>
                 <Button Margin="4,0,3,0" x:Name="_send" Background="{StaticResource send_up_design}" Click="_send_Click"
-                    HorizontalAlignment="Left" VerticalAlignment="Center" Width="14" Height="14" ToolTip="Send (Enter)" Style="{DynamicResource ImageButtonStyle}"/>
+                    HorizontalAlignment="Left" VerticalAlignment="Center" Width="8" Height="8" ToolTip="Send (Enter)" Style="{DynamicResource ImageButtonStyle}"/>
             </StackPanel>
 			</Border>
 
@@ -50,8 +53,6 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <Grid>
-        <ContentPresenter x:Name="_content" ContentTemplate="{StaticResource SelfStatus}"/>
-    </Grid>
+	<ContentPresenter x:Name="_content" ContentTemplate="{StaticResource SelfStatus}"/>
 
 </UserControl>

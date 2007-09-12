@@ -4,7 +4,7 @@ namespace xeus2.xeus.Middle
 {
     internal class BanReason
     {
-        private static BanReason _instance = new BanReason();
+        private static readonly BanReason _instance = new BanReason();
 
         public static BanReason Instance
         {

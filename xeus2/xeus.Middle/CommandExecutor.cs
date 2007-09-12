@@ -8,7 +8,7 @@ using xeus2.xeus.Utilities;
 
 namespace xeus2.xeus.Middle
 {
-    internal class CommandExecutor : WindowManager<string, CommandExecute>
+    internal class CommandExecutor
     {
         private static readonly CommandExecutor _instance = new CommandExecutor();
 
