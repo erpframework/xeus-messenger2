@@ -1,19 +1,18 @@
-using System.Windows ;
-using agsXMPP;
-using agsXMPP.protocol.iq.disco;
-using xeus.Data;
-using xeus2.xeus.Core ;
+using System.Windows;
+using xeus2.xeus.Core;
 
 namespace xeus2.xeus.UI
 {
-	/// <summary>
-	/// Interaction logic for RoomLogin.xaml
-	/// </summary>
-	public partial class RoomLogin : Window
-	{
-	    private MucMark _mucMark;
+    /// <summary>
+    /// Interaction logic for RoomLogin.xaml
+    /// </summary>
+    public partial class RoomLogin : BaseWindow
+    {
+        private readonly MucMark _mucMark;
+		
+		public const string _keyBase = "MUCRoom";
 
-        internal RoomLogin(Service service, string forceNick)
+        internal RoomLogin(Service service, string forceNick):base(_keyBase, service.Jid.ToString())
         {
             _mucMark = MucMarks.Instance.Find(service);
 
@@ -48,16 +47,16 @@ namespace xeus2.xeus.UI
             if (!string.IsNullOrEmpty(_mucMark.Password))
             {
                 _password.Password = _mucMark.Password;
-            }            
+            }
         }
 
-        internal RoomLogin(MucMark mucMark, string forceNick):this(mucMark.Service, forceNick)
+        internal RoomLogin(MucMark mucMark, string forceNick) : this(mucMark.Service, forceNick)
         {
         }
 
-		protected void OnJoin( object sender, RoutedEventArgs eventArgs )
-		{
-			Middle.Muc.Instance.DisplayMuc( DataContext as Service, _nick.Text, _password.Password );
+        protected void OnJoin(object sender, RoutedEventArgs eventArgs)
+        {
+            Middle.Muc.Instance.DisplayMuc(DataContext as Service, _nick.Text, _password.Password);
 
             if (_mucMark != null)
             {
@@ -74,7 +73,7 @@ namespace xeus2.xeus.UI
                 Account.Instance.MucMarkManager.SaveBookmarks();
             }
 
-			Close() ;
-		}
-	}
+            Close();
+        }
+    }
 }
