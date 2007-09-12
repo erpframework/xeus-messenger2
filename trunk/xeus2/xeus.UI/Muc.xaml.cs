@@ -1,4 +1,3 @@
-using System.Windows;
 using xeus2.xeus.Commands;
 using xeus2.xeus.Core;
 using xeus2.xeus.UI.xeus.UI.Controls;
@@ -8,9 +7,11 @@ namespace xeus2.xeus.UI
     /// <summary>
     /// Interaction logic for Muc.xaml
     /// </summary>
-    public partial class Muc : Window
+    public partial class Muc : BaseWindow
     {
-        internal Muc()
+        public const string _keyBase = "MUC";
+
+        internal Muc() : base(_keyBase, string.Empty)
         {
             InitializeComponent();
 
