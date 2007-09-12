@@ -1,49 +1,45 @@
-using System.Windows ;
-using System.Windows.Threading ;
-using agsXMPP.protocol.iq.register ;
-using xeus2.xeus.Core ;
+using agsXMPP.protocol.iq.register;
+using xeus2.xeus.Core;
+using xeus2.xeus.UI;
 
 namespace xeus2.xeus.Middle
 {
-	internal class Registration : WindowManager< Service, UI.Registration >
-	{
-		private delegate void DisplayCallback( Register register, Service service ) ;
+    internal class Registration
+    {
+        private static readonly Registration _instance = new Registration();
 
-		private static Registration _instance = new Registration() ;
+        public static Registration Instance
+        {
+            get
+            {
+                return _instance;
+            }
+        }
 
-		public static Registration Instance
-		{
-			get
-			{
-				return _instance ;
-			}
-		}
+        protected void InBandRegistration(Register register, Service service)
+        {
+            try
+            {
+                UI.Registration registration = new UI.Registration(register, service);
+                registration.Show();
+            }
 
-		protected void InBandRegistration( Register register, Service service )
-		{
-			UI.Registration registration = GetWindow( service ) ;
+            catch (WindowExistsException e)
+            {
+                e.ExistingWindow.Activate();
+            }
+        }
 
-			if ( registration == null )
-			{
-				registration = new UI.Registration( register, service ) ;
-				registration.Closing += new System.ComponentModel.CancelEventHandler( registration_Closing );
-				registration.DataContext = service ;
-				AddWindow( service, registration );
-			}
-
-			registration.Show() ;
-		}
-
-		void registration_Closing( object sender, System.ComponentModel.CancelEventArgs e )
-		{
-			RemoveWindow( ( ( Window )sender ).DataContext as Service );
-			( ( Window ) sender ).Closing -= registration_Closing ;
-		}
-
-		public void DisplayInBandRegistration( Register register, Service service )
-		{
+        public void DisplayInBandRegistration(Register register, Service service)
+        {
             App.InvokeSafe(App._dispatcherPriority,
-			                new DisplayCallback( InBandRegistration ), register, service ) ;
-		}
-	}
+                           new DisplayCallback(InBandRegistration), register, service);
+        }
+
+        #region Nested type: DisplayCallback
+
+        private delegate void DisplayCallback(Register register, Service service);
+
+        #endregion
+    }
 }

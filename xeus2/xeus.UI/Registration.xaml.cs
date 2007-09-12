@@ -7,11 +7,15 @@ namespace xeus2.xeus.UI
 	/// <summary>
 	/// Interaction logic for Registration.xaml
 	/// </summary>
-	public partial class Registration : Window
+	public partial class Registration : BaseWindow
 	{
-		internal Registration( Register register, Service service )
+	    public const string _keyBase = "Registration";
+
+		internal Registration( Register register, Service service ) : base(_keyBase, service.Jid.Bare)
 		{
 			InitializeComponent() ;
+
+            DataContext = service;
 
 			_registration.Setup( register, service ) ;
 		}

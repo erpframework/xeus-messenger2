@@ -15,6 +15,22 @@ namespace xeus2.xeus.UI
             throw new NotImplementedException();
         }
 
+        public static void CloseAllWindows()
+        {
+            BaseWindow[] baseWindows;
+
+            lock (_lock)
+            {
+                baseWindows = new BaseWindow[_windows.Values.Count];
+                _windows.Values.CopyTo(baseWindows, 0);
+            }
+
+            foreach (BaseWindow window in baseWindows)
+            {
+                window.Close();
+            }
+        }
+
         public BaseWindow(string keyBase, string key)
         {
             _key = string.Format("/{0}/{1}", keyBase, key);
