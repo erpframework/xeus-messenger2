@@ -212,7 +212,8 @@ namespace xeus2.xeus.Core
         {
             if (vcard != null)
             {
-                _image = Storage.ImageFromPhoto(vcard.Photo);
+                string hash;
+                _image = Storage.ImageFromPhoto(vcard.Photo, out hash);
 
                 _fullName = vcard.Fullname;
                 _nickName = vcard.Nickname;

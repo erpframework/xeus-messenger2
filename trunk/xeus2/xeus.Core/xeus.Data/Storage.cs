@@ -258,6 +258,12 @@ namespace xeus.Data
             }
         }*/
 
+
+        static string GetImageDataHash(byte[] pic)
+        {
+            return TextUtil.HexEncode(_sha1.ComputeHash(pic));            
+        }
+
         public static string GetPhotoHashCode(Photo photo)
         {
             if (photo == null)
@@ -280,7 +286,7 @@ namespace xeus.Data
 
                 if (pic != null)
                 {
-                    return TextUtil.HexEncode(_sha1.ComputeHash(pic));
+                    return GetImageDataHash(pic);
                 }
             }
 
@@ -291,8 +297,27 @@ namespace xeus.Data
             return String.Empty;
         }
 
-        public static BitmapImage ImageFromPhoto(Photo photo)
+        public static BitmapImage BitmapFromBytes(byte[] bytes, out string hash)
         {
+            MemoryStream memoryStream = new MemoryStream(bytes, 0, bytes.Length);
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;
+            bitmap.StreamSource = memoryStream;
+            bitmap.EndInit();
+
+            bitmap.Freeze();
+
+            hash = GetImageDataHash(bytes);
+
+            return bitmap;
+            
+        }
+
+        public static BitmapImage ImageFromPhoto(Photo photo, out string hash)
+        {
+            hash = String.Empty;
+
             try
             {
                 if (photo == null)
@@ -302,15 +327,8 @@ namespace xeus.Data
                 else if (photo.HasTag("BINVAL"))
                 {
                     byte[] pic = Convert.FromBase64String(photo.GetTag("BINVAL"));
-                    MemoryStream memoryStream = new MemoryStream(pic, 0, pic.Length);
-                    BitmapImage bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmap.StreamSource = memoryStream;
-                    bitmap.EndInit();
-                    
-                    bitmap.Freeze();
-                    return bitmap;
+
+                    return BitmapFromBytes(pic, out hash);
                 }
                 else if (photo.HasTag("EXTVAL"))
                 {
@@ -326,15 +344,8 @@ namespace xeus.Data
                 else if (photo.TextBase64.Length > 0)
                 {
                     byte[] pic = Convert.FromBase64String(photo.Value);
-                    MemoryStream memoryStream = new MemoryStream(pic, 0, pic.Length);
-                    BitmapImage bitmap = new BitmapImage();
-                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmap.BeginInit();
-                    bitmap.StreamSource = memoryStream;
-                    bitmap.EndInit();
 
-                    bitmap.Freeze();
-                    return bitmap;
+                    return BitmapFromBytes(pic, out hash);
                 }
                 else
                 {
@@ -346,6 +357,65 @@ namespace xeus.Data
             {
                 return null;
             }
+        }
+
+        public static void CacheIqAvatar(byte[] data, string bare)
+        {
+            try
+            {
+                DirectoryInfo directoryInfo = GetCacheFolder();
+
+                using (
+                    FileStream fileStream =
+                        new FileStream(string.Format("{0}\\{1:d}.avatar", directoryInfo.FullName, bare.GetHashCode()),
+                                       FileMode.Create, FileAccess.Write, FileShare.None))
+                {
+                    using (BinaryWriter streamWriter = new BinaryWriter(fileStream))
+                    {
+                        streamWriter.Write(data);
+                    }
+                }
+            }
+
+            catch (Exception e)
+            {
+                Events.Instance.OnEvent(null, new EventError(e.Message, null));
+            }
+        }
+
+        public static BitmapImage GetIqAvatar(string bare, out string hash)
+        {
+            hash = String.Empty;
+
+            try
+            {
+                DirectoryInfo directoryInfo = GetCacheFolder();
+
+                using (
+                    FileStream fileStream =
+                        new FileStream(string.Format("{0}\\{1:d}.avatar", directoryInfo.FullName, bare.GetHashCode()),
+                                       FileMode.Open, FileAccess.Read, FileShare.Read))
+                {
+                    byte[] data = new byte[fileStream.Length];
+
+                    using (BinaryReader reader = new BinaryReader(fileStream))
+                    {
+                        reader.Read(data, 0, data.Length);
+                    }
+
+                    return BitmapFromBytes(data, out hash);
+                }
+            }
+
+            catch (Exception e)
+            {
+                if (!(e is FileNotFoundException))
+                {
+                    Events.Instance.OnEvent(null, new EventError(e.Message, null));
+                }
+            }
+
+            return null;
         }
     }
 }
