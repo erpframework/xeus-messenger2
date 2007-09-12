@@ -12,11 +12,15 @@ namespace xeus2.xeus.UI
     /// <summary>
     /// Interaction logic for ServiceWindow.xaml
     /// </summary>
-    public partial class ServiceWindow : Window
+    public partial class ServiceWindow : BaseWindow
     {
-        public ServiceWindow()
+        public const string _keyBase = "ServiceWindow";
+
+        public ServiceWindow() : base(_keyBase, string.Empty)
         {
             InitializeComponent();
+
+            DataContext = Account.Instance;
         }
 
         public override void EndInit()

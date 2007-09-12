@@ -365,7 +365,7 @@ namespace xeus2.xeus.Core
             SendMyPresence();
         }
 
-        private void SendMyPresence()
+        public void SendMyPresence()
         {
             XmppConnection.Show = Settings.Default.XmppMyPresence;
             XmppConnection.SendMyPresence();

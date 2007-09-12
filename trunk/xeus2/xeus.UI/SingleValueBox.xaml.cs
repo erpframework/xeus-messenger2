@@ -5,9 +5,11 @@ namespace xeus2.xeus.UI
     /// <summary>
     /// Interaction logic for SingleValueBox.xaml
     /// </summary>
-    public partial class SingleValueBox : Window
+    public partial class SingleValueBox : BaseWindow
     {
-        public SingleValueBox(string text, string buttonText)
+        public const string _keyBase = "SingleValueBox";
+
+        public SingleValueBox(string text, string buttonText) : base(_keyBase, text)
         {
             InitializeComponent();
 

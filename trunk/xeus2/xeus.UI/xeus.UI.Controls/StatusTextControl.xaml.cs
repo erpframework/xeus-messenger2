@@ -1,6 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using xeus2.xeus.Core;
 
 namespace xeus2.xeus.UI.xeus.UI.Controls
@@ -10,6 +12,8 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
     /// </summary>
     public partial class StatusTextControl : UserControl
     {
+        private Popup _statusPopup;
+
         public StatusTextControl()
         {
             InitializeComponent();
@@ -17,10 +21,9 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _content.Content = Account.Instance.Self;
         }
 
-        private Popup _statusPopup;
-
         private void _send_Click(object sender, RoutedEventArgs e)
         {
+            SendStatusText();
         }
 
         private void _status_Click(object sender, RoutedEventArgs e)
@@ -28,9 +31,22 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _statusPopup.IsOpen = true;
         }
 
-        private void _statusPopup_Initialized(object sender, System.EventArgs e)
+        private void _statusPopup_Initialized(object sender, EventArgs e)
         {
-            _statusPopup = (Popup)sender;
+            _statusPopup = (Popup) sender;
+        }
+
+        private void _text_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                SendStatusText();
+            }
+        }
+
+        private void SendStatusText()
+        {
+            Account.Instance.SendMyPresence();
         }
     }
 }

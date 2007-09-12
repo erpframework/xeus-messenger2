@@ -97,7 +97,12 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                throw new NotImplementedException();
+                return _clientConnection.Status;
+            }
+
+            set
+            {
+                _clientConnection.Status = value;
             }
         }
 
@@ -174,6 +179,7 @@ namespace xeus2.xeus.Core
         public void StatusChange()
         {
             NotifyPropertyChanged("Show");
+            NotifyPropertyChanged("StatusText");
         }
 
         public void AskMyVcard()
