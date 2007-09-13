@@ -1,3 +1,4 @@
+using System;
 using agsXMPP;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.x.muc;
@@ -5,9 +6,9 @@ using xeus2.Properties;
 
 namespace xeus2.xeus.Core
 {
-    internal class MucContact : NotifyInfoDispatcher
+    internal class MucContact : NotifyInfoDispatcher, IJid
     {
-        private MucRoom _mucRoom;
+        private readonly MucRoom _mucRoom;
         private Presence _presence;
 
         public MucContact(Presence presence, MucRoom mucRoom)
@@ -35,7 +36,7 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public Jid UserJid
+        public Jid Jid
         {
             get
             {
@@ -52,7 +53,7 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public Jid Jid
+        public Jid MucJid
         {
             get
             {
@@ -159,9 +160,9 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                if (string.IsNullOrEmpty(Presence.MucUser.Item.Nickname))
+                if (Jid == null)
                 {
-                    return Jid.Resource;
+                    return MucJid.Resource;
                 }
                 else
                 {

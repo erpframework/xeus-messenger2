@@ -442,7 +442,7 @@ namespace xeus2.xeus.Commands
 
             if (mucContact != null)
             {
-                e.CanExecute = mucContact.UserJid != null
+                e.CanExecute = mucContact.Jid != null
                                 && mucContact.MucRoom.Me.Affiliation == Affiliation.owner
                                 && mucContact.Affiliation != Affiliation.owner;
             }
@@ -520,7 +520,7 @@ namespace xeus2.xeus.Commands
 
             if (mucContact != null)
             {
-                e.CanExecute = mucContact.UserJid != null
+                e.CanExecute = mucContact.Jid != null
                                 && mucContact.MucRoom.Me.Affiliation == Affiliation.owner
                                 && mucContact.Affiliation != Affiliation.owner
                                 && mucContact.Affiliation != Affiliation.admin;

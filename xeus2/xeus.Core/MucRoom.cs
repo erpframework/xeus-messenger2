@@ -25,40 +25,57 @@ namespace xeus2.xeus.Core
 {
     internal class MucRoom : NotifyInfoDispatcher, IDisposable
     {
-        private delegate void TimerCallback();
-
-        private MucRoster _mucRoster = new MucRoster();
-        private MucMessages _mucMessages = new MucMessages();
-
-        private Timer _timeTimer;
-
-        private Service _service;
-        private XmppClientConnection _xmppClientConnection = null;
-        private string _nick;
+        #region Delegates
 
         public delegate void MucContactHandler(MucMessage mucMessage);
 
-        public event MucContactHandler OnClickMucContact;
+        #endregion
+
+        private static Brush _alternativeBackground;
+        private static Brush _bulbBackground;
+        private static Brush _contactForeground;
+
+        private static Brush _eventBan;
+        private static Brush _eventChangedNick;
+        private static Brush _eventJoined;
+        private static Brush _eventKick;
+        private static Brush _eventLeft;
+        private static Brush _forMeForegorund;
+        private static Brush _meTextBrush;
+        private static Brush _ownAvatarBackground;
+
+        private static Brush _selectionFindBrush;
+        private static Brush _sysTextBrush;
+        private static Brush _textBrush;
+        private static Brush _textDimBrush;
+        private static Brush _timeOldBackground;
+        private static Brush _timeOlderBackground;
+        private static Brush _timeOldestBackground;
+        private static Brush _timeRecentBackground;
+
+        private readonly Regex _urlregex =
+            new Regex(
+                @"[""'=]?(http://|ftp://|https://|www\.|ftp\.[\w]+)([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])",
+                RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         private FlowDocument _chatDocument = null;
 
-        private List<Rectangle> _relativeTimes = new List<Rectangle>();
-
-        private MucManager _mucManager = null;
-
+        private bool _displayTime;
         private EventMucRoom _lastEvent = null;
 
         private MucMessage _lastMessage = null;
 
         private MucContact _me = null;
-
-        public MucContact Me
-        {
-            get
-            {
-                return _me;
-            }
-        }
+        private readonly MucManager _mucManager = null;
+        private readonly MucMessages _mucMessages = new MucMessages();
+        private readonly MucRoster _mucRoster = new MucRoster();
+        private string _nick;
+        private readonly List<Rectangle> _relativeTimes = new List<Rectangle>();
+        private readonly DateTime _roomStart = DateTime.Now;
+        private readonly Service _service;
+        private string _subject;
+        private Timer _timeTimer;
+        private readonly XmppClientConnection _xmppClientConnection = null;
 
         public MucRoom(Service service, XmppClientConnection xmppClientConnection, string nick)
         {
@@ -68,18 +85,125 @@ namespace xeus2.xeus.Core
             _mucManager = new MucManager(_xmppClientConnection);
             _nick = nick;
 
-            _xmppClientConnection.MesagageGrabber.Add(service.Jid, new BareJidComparer(), new MessageCB(MessageCallback),
-                                                      null);
-            _xmppClientConnection.PresenceGrabber.Add(service.Jid, new BareJidComparer(),
-                                                      new PresenceCB(PresenceCallback),
-                                                      null);
+            _xmppClientConnection.MesagageGrabber.Add(service.Jid, new BareJidComparer(), MessageCallback, null);
+            _xmppClientConnection.PresenceGrabber.Add(service.Jid, new BareJidComparer(), PresenceCallback, null);
 
-            _mucMessages.CollectionChanged += new NotifyCollectionChangedEventHandler(_mucMessages_CollectionChanged);
+            _mucMessages.CollectionChanged += _mucMessages_CollectionChanged;
 
-            Events.Instance.OnEventRaised += new Events.EventItemCallback(Instance_OnEventRaised);
+            Events.Instance.OnEventRaised += Instance_OnEventRaised;
         }
 
-        private DateTime _roomStart = DateTime.Now;
+        public MucContact Me
+        {
+            get
+            {
+                return _me;
+            }
+        }
+
+        public string Subject
+        {
+            set
+            {
+                _subject = value;
+                NotifyPropertyChanged("Subject");
+            }
+
+            get
+            {
+                return _subject;
+            }
+        }
+
+        public bool DisplayTime
+        {
+            get
+            {
+                return _displayTime;
+            }
+
+            set
+            {
+                _displayTime = value;
+
+                OnRelativeTimer();
+            }
+        }
+
+        public MucRoster MucRoster
+        {
+            get
+            {
+                return _mucRoster;
+            }
+        }
+
+        public MucMessages MucMessages
+        {
+            get
+            {
+                return _mucMessages;
+            }
+        }
+
+        public Service Service
+        {
+            get
+            {
+                return _service;
+            }
+        }
+
+        public FlowDocument ChatDocument
+        {
+            get
+            {
+                return _chatDocument;
+            }
+        }
+
+        public string Nick
+        {
+            get
+            {
+                return _nick;
+            }
+
+            private set
+            {
+                _nick = value;
+
+                NotifyPropertyChanged("Nick");
+                NotifyPropertyChanged("Me");
+            }
+        }
+
+        public EventMucRoom LastEvent
+        {
+            get
+            {
+                return _lastEvent;
+            }
+        }
+
+        public MucMessage LastMessage
+        {
+            get
+            {
+                return _lastMessage;
+            }
+        }
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            _mucMessages.CollectionChanged -= _mucMessages_CollectionChanged;
+        }
+
+        #endregion
+
+        public event MucContactHandler OnClickMucContact;
 
         private void Instance_OnEventRaised(object sender, Event myEvent)
         {
@@ -135,20 +259,6 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public string Subject
-        {
-            set
-            {
-                _subject = value;
-                NotifyPropertyChanged("Subject");
-            }
-
-            get
-            {
-                return _subject;
-            }
-        }
-
         protected void GenerateChatDocument(IList messages)
         {
             if (_chatDocument == null)
@@ -177,42 +287,12 @@ namespace xeus2.xeus.Core
             {
                 _timeTimer = new Timer(5000.0);
                 _timeTimer.AutoReset = true;
-                _timeTimer.Elapsed += new ElapsedEventHandler(_timeTimer_Elapsed);
+                _timeTimer.Elapsed += _timeTimer_Elapsed;
                 _timeTimer.Start();
             }
 
             NotifyPropertyChanged("ChatDocument");
         }
-
-        private static Brush _forMeForegorund;
-        private static Brush _textBrush;
-        private static Brush _sysTextBrush;
-        private static Brush _meTextBrush;
-        private static Brush _textDimBrush;
-        private static Brush _contactForeground;
-        private static Brush _alternativeBackground;
-        private static Brush _bulbBackground;
-        private static Brush _ownAvatarBackground;
-        private static Brush _timeRecentBackground;
-        private static Brush _timeOlderBackground;
-        private static Brush _timeOldBackground;
-        private static Brush _timeOldestBackground;
-
-        private static Brush _eventBan;
-        private static Brush _eventKick;
-        private static Brush _eventLeft;
-        private static Brush _eventJoined;
-        private static Brush _eventChangedNick;
-
-        private static Brush _selectionFindBrush;
-
-        private readonly Regex _urlregex =
-            new Regex(
-                @"[""'=]?(http://|ftp://|https://|www\.|ftp\.[\w]+)([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])",
-                RegexOptions.IgnoreCase | RegexOptions.Compiled);
-
-        private string _subject;
-        private bool _displayTime;
 
         private static Rectangle CreateRectangle(Brush brush)
         {
@@ -343,9 +423,9 @@ namespace xeus2.xeus.Core
                     paragraph.Inlines.Add(contactName);
                     paragraph.Inlines.Add("  ");
 
-                    contactName.MouseDown += new MouseButtonEventHandler(contactName_MouseDown);
-                    contactName.MouseEnter += new MouseEventHandler(contactName_MouseEnter);
-                    contactName.MouseLeave += new MouseEventHandler(contactName_MouseLeave);
+                    contactName.MouseDown += contactName_MouseDown;
+                    contactName.MouseEnter += contactName_MouseEnter;
+                    contactName.MouseLeave += contactName_MouseLeave;
                 }
                 else
                 {
@@ -378,7 +458,7 @@ namespace xeus2.xeus.Core
                         "If you want to make this room permanent, configure it here ");
 
                     Button buttonOpenConfig = new Button();
-                    buttonOpenConfig.Click += new RoutedEventHandler(buttonOpenConfig_Click);
+                    buttonOpenConfig.Click += buttonOpenConfig_Click;
                     buttonOpenConfig.Content = "Open configuration";
                     paragraph.Inlines.Add(buttonOpenConfig);
 
@@ -507,7 +587,7 @@ namespace xeus2.xeus.Core
             return groupSection;
         }
 
-        private string PrepareBody(string originalBody, TypicalEvent typicalEvent)
+        private static string PrepareBody(string originalBody, TypicalEvent typicalEvent)
         {
             return originalBody.Replace("{" + typicalEvent + "}", String.Empty);
         }
@@ -551,21 +631,6 @@ namespace xeus2.xeus.Core
             if (_lastMessage != null)
             {
                 _lastMessage.RefreshRelativeTime();
-            }
-        }
-
-        public bool DisplayTime
-        {
-            get
-            {
-                return _displayTime;
-            }
-
-            set
-            {
-                _displayTime = value;
-
-                OnRelativeTimer();
             }
         }
 
@@ -661,70 +726,6 @@ namespace xeus2.xeus.Core
 
                     e.Handled = true;
                 }
-            }
-        }
-
-        public MucRoster MucRoster
-        {
-            get
-            {
-                return _mucRoster;
-            }
-        }
-
-        public MucMessages MucMessages
-        {
-            get
-            {
-                return _mucMessages;
-            }
-        }
-
-        public Service Service
-        {
-            get
-            {
-                return _service;
-            }
-        }
-
-        public FlowDocument ChatDocument
-        {
-            get
-            {
-                return _chatDocument;
-            }
-        }
-
-        public string Nick
-        {
-            get
-            {
-                return _nick;
-            }
-
-            private set
-            {
-                _nick = value;
-
-                NotifyPropertyChanged("Nick");
-                NotifyPropertyChanged("Me");
-            }
-        }
-
-        public EventMucRoom LastEvent
-        {
-            get
-            {
-                return _lastEvent;
-            }
-        }
-
-        public MucMessage LastMessage
-        {
-            get
-            {
-                return _lastMessage;
             }
         }
 
@@ -898,7 +899,7 @@ namespace xeus2.xeus.Core
             {
                 if (iq.Error.Code == ErrorCode.NotAllowed)
                 {
-                    MucContact mucContact = data as MucContact;
+                    MucContact mucContact = (MucContact)data;
 
                     EventMucRoom eventMucRoom =
                         new EventMucRoom(TypicalEvent.Error, this, mucContact, string.Format(
@@ -916,7 +917,7 @@ namespace xeus2.xeus.Core
             {
                 if (iq.Error.Code == ErrorCode.NotAllowed)
                 {
-                    MucContact mucContact = data as MucContact;
+                    MucContact mucContact = (MucContact)data;
 
                     EventMucRoom eventMucRoom =
                         new EventMucRoom(TypicalEvent.Error, this, mucContact, string.Format(
@@ -930,12 +931,12 @@ namespace xeus2.xeus.Core
 
         public void Kick(MucContact mucContact, string reason)
         {
-            _mucManager.KickOccupant(_service.Jid, mucContact.Nick, reason, new IqCB(OnKickResult), mucContact);
+            _mucManager.KickOccupant(_service.Jid, mucContact.Nick, reason, OnKickResult, mucContact);
         }
 
         public void Ban(MucContact mucContact, string reason)
         {
-            _mucManager.BanUser(_service.Jid, mucContact.UserJid, reason, new IqCB(OnBanResult), mucContact);
+            _mucManager.BanUser(_service.Jid, mucContact.Jid, reason, OnBanResult, mucContact);
         }
 
         public void LeaveRoom(string message)
@@ -955,11 +956,6 @@ namespace xeus2.xeus.Core
             _xmppClientConnection.PresenceGrabber.Remove(_service.Jid);
         }
 
-        public void Dispose()
-        {
-            _mucMessages.CollectionChanged -= _mucMessages_CollectionChanged;
-        }
-
         private void OnPrivilegesResult(object sender, IQ iq, object data)
         {
             if (iq.Error != null)
@@ -975,7 +971,7 @@ namespace xeus2.xeus.Core
 
         public void GrantOwnerPrivilege(MucContact mucContact)
         {
-            _mucManager.GrantOwnershipPrivileges(Service.Jid, mucContact.UserJid, new IqCB(OnPrivilegesResult),
+            _mucManager.GrantOwnershipPrivileges(Service.Jid, mucContact.Jid, OnPrivilegesResult,
                                                  mucContact);
         }
 
@@ -991,41 +987,41 @@ namespace xeus2.xeus.Core
 
         public void GrantAdmin(MucContact contact)
         {
-            _mucManager.GrantAdminPrivileges(Service.Jid, contact.UserJid, new IqCB(OnPrivilegesResult), contact);
+            _mucManager.GrantAdminPrivileges(Service.Jid, contact.Jid, OnPrivilegesResult, contact);
         }
 
         public void RevokeModerator(MucContact contact)
         {
-            _mucManager.RevokeModerator(Service.Jid, contact.Nick, String.Empty, new IqCB(OnPrivilegesResult), contact);
+            _mucManager.RevokeModerator(Service.Jid, contact.Nick, String.Empty, OnPrivilegesResult, contact);
         }
 
         public void RevokeMembership(MucContact contact)
         {
-            _mucManager.RevokeMembership(Service.Jid, contact.Nick, String.Empty, new IqCB(OnPrivilegesResult), contact);
+            _mucManager.RevokeMembership(Service.Jid, contact.Nick, String.Empty, OnPrivilegesResult, contact);
         }
 
         public void RevokeVoice(MucContact contact)
         {
-            _mucManager.RevokeVoice(Service.Jid, contact.Nick, String.Empty, new IqCB(OnPrivilegesResult), contact);
+            _mucManager.RevokeVoice(Service.Jid, contact.Nick, String.Empty, OnPrivilegesResult, contact);
         }
 
         public void GrantVoice(MucContact contact)
         {
-            _mucManager.GrantVoice(Service.Jid, contact.Nick, String.Empty, new IqCB(OnPrivilegesResult), contact);
+            _mucManager.GrantVoice(Service.Jid, contact.Nick, String.Empty, OnPrivilegesResult, contact);
         }
 
         public void Destroy(MucContact contact)
         {
-            _mucManager.DestroyRoom(_service.Jid, string.Empty, new IqCB(OnPrivilegesResult), contact);
+            _mucManager.DestroyRoom(_service.Jid, string.Empty, OnPrivilegesResult, contact);
         }
 
-        internal List<TextRange> SelectText(Paragraph paragraph, string text)
+        internal static List<TextRange> SelectText(Paragraph paragraph, string text)
         {
             List<TextRange> textRanges = new List<TextRange>();
 
             for (Inline inline = paragraph.Inlines.FirstInline; inline != null; inline = inline.NextInline)
             {
-                Run run = null;
+                Run run;
 
                 Hyperlink hyperlink = inline as Hyperlink;
 
@@ -1076,5 +1072,11 @@ namespace xeus2.xeus.Core
 
             return textRanges;
         }
+
+        #region Nested type: TimerCallback
+
+        private delegate void TimerCallback();
+
+        #endregion
     }
 }
