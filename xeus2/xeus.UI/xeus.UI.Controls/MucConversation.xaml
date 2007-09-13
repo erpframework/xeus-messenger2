@@ -12,8 +12,7 @@
     >
 
     <UserControl.Resources>
-
-        <DataTemplate DataType="{x:Type xeus2_xeus_Core:MucMessage}" x:Key="MucMessageOldness">
+        <DataTemplate DataType="{x:Type xeus2_xeus_Core:MucMessage}" x:Key="MessageOldness">
             <Grid ToolTip="Last Message">
                 <Rectangle Width="16" Height="16" Fill="{DynamicResource time_oldest_design}"
                    x:Name="_timeIcon" DockPanel.Dock="Right" HorizontalAlignment="Left" VerticalAlignment="Top"/>
@@ -24,19 +23,19 @@
             <DataTemplate.Triggers>
                 <DataTrigger Binding="{Binding Path=MessageOldness}">
                     <DataTrigger.Value>
-                        <xeus2_xeus_Core:MucMessageOldness>Recent</xeus2_xeus_Core:MucMessageOldness>
+                        <xeus2_xeus_Core:MessageOldness>Recent</xeus2_xeus_Core:MessageOldness>
                     </DataTrigger.Value>
                     <Setter  TargetName="_timeIcon" Property="Rectangle.Fill" Value="{DynamicResource time_now_design}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=MessageOldness}">
                     <DataTrigger.Value>
-                        <xeus2_xeus_Core:MucMessageOldness>Older</xeus2_xeus_Core:MucMessageOldness>
+                        <xeus2_xeus_Core:MessageOldness>Older</xeus2_xeus_Core:MessageOldness>
                     </DataTrigger.Value>
                     <Setter  TargetName="_timeIcon" Property="Rectangle.Fill" Value="{DynamicResource time_older_design}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=MessageOldness}">
                     <DataTrigger.Value>
-                        <xeus2_xeus_Core:MucMessageOldness>Old</xeus2_xeus_Core:MucMessageOldness>
+                        <xeus2_xeus_Core:MessageOldness>Old</xeus2_xeus_Core:MessageOldness>
                     </DataTrigger.Value>
                     <Setter  TargetName="_timeIcon" Property="Rectangle.Fill" Value="{DynamicResource time_old_design}"/>
                 </DataTrigger>
@@ -163,7 +162,7 @@
 
         <StackPanel Margin="5,5,5,5" DockPanel.Dock="Bottom">
             <DockPanel Margin="0,2,0,5">
-                <ContentPresenter DockPanel.Dock="Right" ContentTemplate="{StaticResource MucMessageOldness}"
+                <ContentPresenter DockPanel.Dock="Right" ContentTemplate="{StaticResource MessageOldness}"
                         Content="{Binding Path=LastMessage}"/>
                 <xeus2_xeus_Controls:SearchText x:Name="_inlineSearch" />
             </DockPanel>

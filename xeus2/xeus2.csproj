@@ -120,6 +120,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="xeus.UI\Chat.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="xeus.UI\ChooseCommand.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -179,6 +183,10 @@
     <Page Include="xeus.UI\SingleValueBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\xeus.UI.Controls\Conversation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="xeus.UI\xeus.UI.Controls\CreateMucRoom.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -303,6 +311,8 @@
     <Compile Include="xeus.Core\IContact.cs" />
     <Compile Include="xeus.Core\IJid.cs" />
     <Compile Include="xeus.Core\InlineMethod.cs" />
+    <Compile Include="xeus.Core\Message.cs" />
+    <Compile Include="xeus.Core\MessageBase.cs" />
     <Compile Include="xeus.Core\MetaContact.cs" />
     <Compile Include="xeus.Core\MucAffContact.cs" />
     <Compile Include="xeus.Core\MucAffContacts.cs" />
@@ -337,6 +347,7 @@
     <Compile Include="xeus.Middle\BanReason.cs" />
     <Compile Include="xeus.Middle\ChangeMucContactNick.cs" />
     <Compile Include="xeus.Middle\ChangeMucTopic.cs" />
+    <Compile Include="xeus.Middle\Chat.cs" />
     <Compile Include="xeus.Middle\CommandExecutor.cs" />
     <Compile Include="xeus.Middle\ErrorPopup.cs" />
     <Compile Include="xeus.Middle\KickReason.cs" />
@@ -353,6 +364,9 @@
     </Compile>
     <Compile Include="xeus.UI\BaseWindow.cs" />
     <Compile Include="xeus.UI\ChangeNickInRoom.cs" />
+    <Compile Include="xeus.UI\Chat.xaml.cs">
+      <DependentUpon>Chat.xaml</DependentUpon>
+    </Compile>
     <Compile Include="xeus.UI\ChooseCommand.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>ChooseCommand.xaml</DependentUpon>
@@ -418,6 +432,9 @@
     <Compile Include="xeus.UI\Vista.cs" />
     <Compile Include="xeus.UI\WindowExistsException.cs" />
     <Compile Include="xeus.UI\WindowManager.cs" />
+    <Compile Include="xeus.UI\xeus.UI.Controls\Conversation.xaml.cs">
+      <DependentUpon>Conversation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="xeus.UI\xeus.UI.Controls\CreateMucRoom.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>CreateMucRoom.xaml</DependentUpon>

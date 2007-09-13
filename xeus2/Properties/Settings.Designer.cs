@@ -190,5 +190,41 @@ namespace xeus2.Properties {
                 this["XmppStatusText"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int UI_MsgOldnest_Recent_Min {
+            get {
+                return ((int)(this["UI_MsgOldnest_Recent_Min"]));
+            }
+            set {
+                this["UI_MsgOldnest_Recent_Min"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int UI_MsgOldnest_Older_Min {
+            get {
+                return ((int)(this["UI_MsgOldnest_Older_Min"]));
+            }
+            set {
+                this["UI_MsgOldnest_Older_Min"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        public int UI_MsgOldnest_Old_Min {
+            get {
+                return ((int)(this["UI_MsgOldnest_Old_Min"]));
+            }
+            set {
+                this["UI_MsgOldnest_Old_Min"] = value;
+            }
+        }
     }
 }

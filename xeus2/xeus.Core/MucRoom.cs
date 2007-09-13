@@ -219,7 +219,7 @@ namespace xeus2.xeus.Core
 
                 if (eventMucRoom.TypicalEventCode != TypicalEvent.Joined || timeSpan >= new TimeSpan(0, 0, 5))
                 {
-                    MucMessage mucMessage = new MucMessage(new Message(Account.Instance.Self.Jid, Service.Jid,
+                    MucMessage mucMessage = new MucMessage(new agsXMPP.protocol.client.Message(Account.Instance.Self.Jid, Service.Jid,
                                                                        string.Format("{{{0}}} {1}",
                                                                                      eventMucRoom.TypicalEventCode,
                                                                                      eventMucRoom.Message)), null);
@@ -310,17 +310,17 @@ namespace xeus2.xeus.Core
 
             switch (mucMessage.MessageOldness)
             {
-                case MucMessageOldness.Recent:
+                case MessageOldness.Recent:
                     {
                         timeBrush = _timeRecentBackground;
                         break;
                     }
-                case MucMessageOldness.Older:
+                case MessageOldness.Older:
                     {
                         timeBrush = _timeOlderBackground;
                         break;
                     }
-                case MucMessageOldness.Old:
+                case MessageOldness.Old:
                     {
                         timeBrush = _timeOldBackground;
                         break;
@@ -731,7 +731,7 @@ namespace xeus2.xeus.Core
 
         //public MucContact
 
-        private void MessageCallback(object sender, Message msg, object data)
+        private void MessageCallback(object sender, agsXMPP.protocol.client.Message msg, object data)
         {
             if (App.CheckAccessSafe())
             {
@@ -874,7 +874,7 @@ namespace xeus2.xeus.Core
 
         public void SendMessage(string text)
         {
-            Message message = new Message();
+            agsXMPP.protocol.client.Message message = new agsXMPP.protocol.client.Message();
 
             message.Type = MessageType.groupchat;
             message.To = _service.Jid;

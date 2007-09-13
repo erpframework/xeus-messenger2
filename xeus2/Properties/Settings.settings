@@ -44,5 +44,14 @@
     <Setting Name="XmppStatusText" Type="System.String" Scope="User">
       <Value Profile="(Default)">No status message</Value>
     </Setting>
+    <Setting Name="UI_MsgOldnest_Recent_Min" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="UI_MsgOldnest_Older_Min" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="UI_MsgOldnest_Old_Min" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">15</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
