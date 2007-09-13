@@ -29,5 +29,9 @@ namespace xeus2.xeus.Core
         string CustomName { get; }
 
         bool IsService { get; }
+
+        string ClientVersion { get; }
+        string ClientNode { get; }
+        string[] ClientExtensions { get; }
 	}
 }

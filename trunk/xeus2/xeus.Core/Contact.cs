@@ -4,6 +4,7 @@ using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.protocol.Base;
 using agsXMPP.protocol.client;
+using agsXMPP.protocol.extensions.caps;
 using agsXMPP.protocol.iq.vcard;
 using agsXMPP.Xml.Dom;
 using xeus.Data;
@@ -103,6 +104,8 @@ namespace xeus2.xeus.Core
 
         private bool _iqAvatarLoadedFromCache = false;
 
+        private Capabilities _capabilities;
+
         public Presence Presence
         {
             get
@@ -187,6 +190,17 @@ namespace xeus2.xeus.Core
                     {
                         _xStatusText = _presence.Status;
                     }
+                }
+
+                Capabilities capabilities = _presence.SelectSingleElement(typeof(Capabilities)) as Capabilities;
+
+                if (capabilities != null)
+                {
+                    _capabilities = capabilities;
+
+                    NotifyPropertyChanged("ClientVersion");
+                    NotifyPropertyChanged("ClientNode");
+                    NotifyPropertyChanged("ClientExtensions");
                 }
 
                 NotifyPropertyChanged("Presence");
@@ -386,6 +400,51 @@ namespace xeus2.xeus.Core
             get
             {
                 return (_rosterItem == null || string.IsNullOrEmpty(_rosterItem.Jid.User));
+            }
+        }
+
+        public string ClientVersion
+        {
+            get
+            {
+                if (_capabilities == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return _capabilities.Version;
+                }
+            }
+        }
+
+        public string ClientNode
+        {
+            get
+            {
+                if (_capabilities == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return _capabilities.Node;
+                }
+            }
+        }
+
+        public string[] ClientExtensions
+        {
+            get
+            {
+                if (_capabilities == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return _capabilities.Extensions;
+                }
             }
         }
 
