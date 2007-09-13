@@ -20,6 +20,8 @@ namespace xeus2.xeus.UI
         {
             InitializeComponent();
 
+            GeneralCommands.RegisterCommands(this);
+
             DataContext = Account.Instance;
         }
 

@@ -286,6 +286,7 @@
     </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="xeus.Commands\AccountCommands.cs" />
+    <Compile Include="xeus.Commands\GeneralCommands.cs" />
     <Compile Include="xeus.Commands\MucCommands.cs" />
     <Compile Include="xeus.Commands\RosterCommands.cs" />
     <Compile Include="xeus.Commands\ServiceCommands.cs" />

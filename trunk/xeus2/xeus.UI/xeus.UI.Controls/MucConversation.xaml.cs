@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -18,13 +17,17 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
     /// <summary>
     /// Interaction logic for MucConversation.xaml
     /// </summary>
-    public partial class MucConversation : UserControl
+    public partial class MucConversation
     {
+        private readonly InlineMethod _inlineMethod = new InlineMethod();
+        private MucMessage _lastFoundItem = null;
+        private string _lastSearch = String.Empty;
         private MucRoom _mucRoom;
-
-        private InlineMethod _inlineMethod = new InlineMethod();
-
-        private delegate void SelectItemCallback(MucMessage item);
+        private List<TextRange> _previousTextRanges = new List<TextRange>();
+        private ScrollViewer _scrollViewer = null;
+        private List<KeyValuePair<string, MucMessage>> _texts = null;
+        private readonly object _textsLock = new object();
+        private string _textToSearch = String.Empty;
 
         public MucConversation()
         {
@@ -35,37 +38,35 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         {
             _mucRoom = Account.Instance.JoinMuc(service, nick, password);
 
-            _mucRoom.OnClickMucContact += new MucRoom.MucContactHandler(_mucRoom_OnClickMucContact);
-            _mucRoom.MucMessages.CollectionChanged +=
-                new NotifyCollectionChangedEventHandler(MucMessages_CollectionChanged);
+            _mucRoom.OnClickMucContact += _mucRoom_OnClickMucContact;
+            _mucRoom.MucMessages.CollectionChanged += MucMessages_CollectionChanged;
 
             DataContext = _mucRoom;
 
             new MucNikcnames(_text, _mucRoom);
 
-            Unloaded += new RoutedEventHandler(MucConversation_Unloaded);
+            Unloaded += MucConversation_Unloaded;
 
-            _mucRoom.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(_mucRoom_PropertyChanged);
+            _mucRoom.PropertyChanged += _mucRoom_PropertyChanged;
 
-            _inlineMethod.Finished += new InlineMethod.InlineResultHandler(_inlineMethod_Finished);
-            _inlineSearch.TextChanged += new TextChangedEventHandler(_inlineSearch_TextChanged);
-            _inlineSearch.Closed += new SearchText.ClosedHandler(_inlineSearch_Closed);
+            _inlineMethod.Finished += _inlineMethod_Finished;
+            _inlineSearch.TextChanged += _inlineSearch_TextChanged;
+            _inlineSearch.Closed += _inlineSearch_Closed;
 
-            _text.Loaded += new RoutedEventHandler(_text_Loaded);
+            _text.Loaded += _text_Loaded;
 
-            _flowViewer.PreviewKeyDown += new KeyEventHandler(MucConversation_PreviewKeyDown);
+            _flowViewer.PreviewKeyDown += MucConversation_PreviewKeyDown;
 
-            PreviewKeyDown += new KeyEventHandler(MucConversation_PreviewKeyDownWindow);
-
+            PreviewKeyDown += MucConversation_PreviewKeyDownWindow;
         }
 
-        void _text_Loaded(object sender, RoutedEventArgs e)
+        private void _text_Loaded(object sender, RoutedEventArgs e)
         {
             _inlineSearch.Visibility = Visibility.Collapsed;
             _text.Focus();
         }
 
-        void MucConversation_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void MucConversation_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             // all from the viewer
             if (_inlineSearch != null)
@@ -74,7 +75,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             }
         }
 
-        void MucConversation_PreviewKeyDownWindow(object sender, KeyEventArgs e)
+        private void MucConversation_PreviewKeyDownWindow(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
             {
@@ -96,14 +97,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             }
         }
 
-        object _textsLock = new object();
-        private List<KeyValuePair<string, MucMessage>> _texts = null;
-        private string _lastSearch = String.Empty;
-        private string _textToSearch = String.Empty;
-        private MucMessage _lastFoundItem = null;
-        private List<TextRange> _previousTextRanges = new List<TextRange>();
-
-        void _inlineSearch_Closed(bool isEnter)
+        private void _inlineSearch_Closed(bool isEnter)
         {
             lock (_textsLock)
             {
@@ -112,7 +106,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             }
         }
 
-        void CleanSelection()
+        private void CleanSelection()
         {
             foreach (TextRange range in _previousTextRanges)
             {
@@ -122,14 +116,14 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _previousTextRanges.Clear();
         }
 
-        void _inlineSearch_TextChanged(object sender, TextChangedEventArgs e)
+        private void _inlineSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             _inlineMethod.Go(new InlineParam(SearchInList, _inlineSearch.Text));
         }
 
-        void _inlineMethod_Finished(object result)
+        private void _inlineMethod_Finished(object result)
         {
-            MucMessage mucMessage = (MucMessage)result;
+            MucMessage mucMessage = (MucMessage) result;
             SelectItem(mucMessage);
         }
 
@@ -172,14 +166,14 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             else
             {
                 App.Current.Dispatcher.BeginInvoke(DispatcherPriority.Send,
-                                                  new SelectItemCallback(SelectItem), item);
+                                                   new SelectItemCallback(SelectItem), item);
             }
         }
 
-        void SelectText(Paragraph paragraph, string text)
+        private void SelectText(Paragraph paragraph, string text)
         {
             CleanSelection();
-            _previousTextRanges = _mucRoom.SelectText(paragraph, text);
+            _previousTextRanges = MucRoom.SelectText(paragraph, text);
         }
 
         private object SearchInList(ref bool stop, object param)
@@ -206,9 +200,9 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
             MucMessage found = null;
 
-            _textToSearch = (string)param;
+            _textToSearch = (string) param;
 
-            string toFound = ((string)param).ToUpper();
+            string toFound = ((string) param).ToUpper();
 
             bool searchNext = (_lastSearch == toFound);
 
@@ -246,7 +240,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                         return null;
                     }
 
-                    if (((string)param) == String.Empty)
+                    if (((string) param) == String.Empty)
                     {
                         return null;
                     }
@@ -263,17 +257,17 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             return found;
         }
 
-        void _mucRoom_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void _mucRoom_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "Me" && _mucRoom.Me != null)
             {
-                _mucRoom.Me.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Me_PropertyChanged);
+                _mucRoom.Me.PropertyChanged += Me_PropertyChanged;
 
                 SetMyAffIcon();
             }
         }
 
-        void Me_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void Me_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "Affiliation")
             {
@@ -281,9 +275,9 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             }
         }
 
-        void SetMyAffIcon()
+        private void SetMyAffIcon()
         {
-            Brush brush ; 
+            Brush brush;
 
             switch (_mucRoom.Me.Affiliation)
             {
@@ -322,15 +316,14 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _mucRoom.LeaveRoom(Settings.Default.MucLeaveMsg);
         }
 
-        void OnKeyPress(object sender, KeyEventArgs e)
+        private void OnKeyPress(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return &&
-                                    (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
+                (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
             {
                 OnSendMessage(sender, e);
             }
         }
-        private ScrollViewer _scrollViewer = null;
 
         private void MucMessages_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -397,7 +390,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             return sender + ": " + result;
         }
 
-        string TextStartsWithNick(string text)
+        private string TextStartsWithNick(string text)
         {
             foreach (MucContact mucContact in _mucRoom.MucRoster)
             {
@@ -431,11 +424,17 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         protected void OnContactClick(object sender, RoutedEventArgs eventArgs)
         {
-            ContextMenu menu = FindResource("MucMainMenu") as ContextMenu;
+            ContextMenu menu = (ContextMenu) FindResource("MucMainMenu");
 
             menu.PlacementTarget = _contactButton;
 
             menu.IsOpen = true;
-        }    
+        }
+
+        #region Nested type: SelectItemCallback
+
+        private delegate void SelectItemCallback(MucMessage item);
+
+        #endregion
     }
 }

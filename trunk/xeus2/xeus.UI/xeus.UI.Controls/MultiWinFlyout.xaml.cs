@@ -1,25 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace xeus2.xeus.UI.xeus.UI.Controls
 {
     /// <summary>
     /// Interaction logic for MultiWinFlyout.xaml
     /// </summary>
-
-    public partial class MultiWinFlyout : System.Windows.Window
+    public partial class MultiWinFlyout : Window
     {
-        private readonly IMultiWinContainerProvider _multiWinContainerProvider;
         private readonly MultiWin _content;
+        private readonly IMultiWinContainerProvider _multiWinContainerProvider;
         private readonly string _name;
 
         internal MultiWinFlyout(IMultiWinContainerProvider multiWinContainerProvider, MultiWin content, string name)
@@ -32,26 +22,26 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
             InitializeComponent();
 
-            Loaded += new RoutedEventHandler(MultiWinFlyout_Loaded);
+            Loaded += MultiWinFlyout_Loaded;
         }
 
-        void MultiWinFlyout_Loaded(object sender, RoutedEventArgs e)
+        private void MultiWinFlyout_Loaded(object sender, RoutedEventArgs e)
         {
             _container.Child = _content;
 
             _content.DisplayControls = true;
-            _content.OnMultiWinEvent += new MultiWin.NotifyMultiWin(content_OnMultiWinEvent);
+            _content.OnMultiWinEvent += content_OnMultiWinEvent;
         }
 
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
 
-            _content.OnMultiWinEvent -= new MultiWin.NotifyMultiWin(content_OnMultiWinEvent);
-            Loaded -= new RoutedEventHandler(MultiWinFlyout_Loaded);
+            _content.OnMultiWinEvent -= content_OnMultiWinEvent;
+            Loaded -= MultiWinFlyout_Loaded;
         }
 
-        void content_OnMultiWinEvent(MultiWin sender, MultiWin.MultiWinEvent multiWinEvent)
+        private void content_OnMultiWinEvent(MultiWin sender, MultiWin.MultiWinEvent multiWinEvent)
         {
             switch (multiWinEvent)
             {
@@ -68,11 +58,10 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 case MultiWin.MultiWinEvent.Flyout:
                     {
                         _container.Child = null;
-                        _multiWinContainerProvider.MultiTabControl.MultiWindows.Add(new MultiTabItem(_name,_content));
+                        _multiWinContainerProvider.MultiTabControl.MultiWindows.Add(new MultiTabItem(_name, _content));
                         Close();
                         break;
                     }
-                
             }
         }
     }

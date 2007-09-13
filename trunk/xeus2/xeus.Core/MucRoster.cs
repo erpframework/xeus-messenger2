@@ -13,7 +13,7 @@ namespace xeus2.xeus.Core
 		{
 			foreach ( MucContact item in Items )
 			{
-				if ( JidUtil.Equals( jid, item.Jid ) )
+				if ( JidUtil.Equals( jid, item.MucJid ) )
 				{
 					return item ;
 				}

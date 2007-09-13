@@ -16,6 +16,7 @@ namespace xeus2.xeus.UI
             InitializeComponent();
 
             MucCommands.RegisterCommands(this);
+            GeneralCommands.RegisterCommands(this);
 
             _multi.MultiWinContainerProvider = Middle.Muc.Instance;
         }
