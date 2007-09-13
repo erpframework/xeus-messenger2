@@ -17,11 +17,91 @@
     Title="xeus2" Height="500" Width="300"
     SnapsToDevicePixels="True"
     >
-    <Window.Resources>
+    <UI:BaseWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="xeus.UI.Look\BasicStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <DrawingBrush x:Key="roster_size_design" PresentationOptions:Freeze="True" Stretch="Uniform">
+                <DrawingBrush.Drawing>
+                    <DrawingGroup>
+                        <DrawingGroup.Children>
+                            <GeometryDrawing Geometry="F1 M 123.1,12.3778L 165.035,12.3778C 167.244,12.3778 169.035,14.1686 169.035,16.3778L 169.035,31.9333C 169.035,34.1425 167.244,35.9333 165.035,35.9333L 123.1,35.9333C 120.891,35.9333 119.1,34.1425 119.1,31.9333L 119.1,16.3778C 119.1,14.1686 120.891,12.3778 123.1,12.3778 Z ">
+                                <GeometryDrawing.Pen>
+                                    <Pen LineJoin="Round" Brush="#FFA2A2A2"/>
+                                </GeometryDrawing.Pen>
+                                <GeometryDrawing.Brush>
+                                    <LinearGradientBrush StartPoint="0.5,0.986062" EndPoint="0.5,0.013938">
+                                        <LinearGradientBrush.GradientStops>
+                                            <GradientStop Color="#FF515151" Offset="0"/>
+                                            <GradientStop Color="#FF141414" Offset="1"/>
+                                        </LinearGradientBrush.GradientStops>
+                                    </LinearGradientBrush>
+                                </GeometryDrawing.Brush>
+                            </GeometryDrawing>
+                            <GeometryDrawing Geometry="F1 M 128.543,22.3544C 125.191,22.3544 122.372,25.9899 121.548,30.9249C 123.644,32.3445 126.079,33.1573 128.677,33.1573C 131.175,33.1573 133.523,32.4056 135.563,31.0856C 134.774,26.069 131.93,22.3544 128.543,22.3544 Z ">
+                                <GeometryDrawing.Pen>
+                                    <Pen LineJoin="Round" Brush="#FF3D3D3D"/>
+                                </GeometryDrawing.Pen>
+                                <GeometryDrawing.Brush>
+                                    <RadialGradientBrush RadiusX="0.504714" RadiusY="0.697895" Center="0.5,0.5" GradientOrigin="0.5,0.5">
+                                        <RadialGradientBrush.GradientStops>
+                                            <GradientStop Color="#FFEBA588" Offset="0.00423729"/>
+                                            <GradientStop Color="#FFD75231" Offset="0.703392"/>
+                                            <GradientStop Color="#FF8E280F" Offset="0.995763"/>
+                                        </RadialGradientBrush.GradientStops>
+                                        <RadialGradientBrush.RelativeTransform>
+                                            <TransformGroup/>
+                                        </RadialGradientBrush.RelativeTransform>
+                                    </RadialGradientBrush>
+                                </GeometryDrawing.Brush>
+                            </GeometryDrawing>
+                            <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 126.361,22.3005L 128.636,30.2622L 131.117,22.3005L 126.361,22.3005 Z ">
+                                <GeometryDrawing.Pen>
+                                    <Pen LineJoin="Round" Brush="#FF3D3D3D"/>
+                                </GeometryDrawing.Pen>
+                            </GeometryDrawing>
+                            <GeometryDrawing Geometry="F1 M 128.591,14.8558C 131.263,14.8558 133.43,17.0223 133.43,19.6949C 133.43,22.3675 131.263,24.534 128.591,24.534C 125.918,24.534 123.751,22.3675 123.751,19.6949C 123.751,17.0223 125.918,14.8558 128.591,14.8558 Z ">
+                                <GeometryDrawing.Pen>
+                                    <Pen LineJoin="Round" Brush="#FF3D3D3D"/>
+                                </GeometryDrawing.Pen>
+                                <GeometryDrawing.Brush>
+                                    <RadialGradientBrush RadiusX="0.469531" RadiusY="0.469531" Center="0.5,0.5" GradientOrigin="0.5,0.5">
+                                        <RadialGradientBrush.GradientStops>
+                                            <GradientStop Color="#FFEFD4BC" Offset="0"/>
+                                            <GradientStop Color="#FFE7B572" Offset="0.716102"/>
+                                            <GradientStop Color="#FFC39B6F" Offset="1"/>
+                                        </RadialGradientBrush.GradientStops>
+                                        <RadialGradientBrush.RelativeTransform>
+                                            <TransformGroup/>
+                                        </RadialGradientBrush.RelativeTransform>
+                                    </RadialGradientBrush>
+                                </GeometryDrawing.Brush>
+                            </GeometryDrawing>
+                            <GeometryDrawing Geometry="F1 M 128.594,14.8923C 126.759,14.8923 125.162,15.9136 124.342,17.4189C 124.598,18.2094 125.163,18.9101 125.931,19.2648C 127.006,19.7619 128.477,19.5792 129.517,19.1227C 130.557,18.6662 131.165,17.9358 131.886,17.3677C 132.097,17.2013 132.317,17.0489 132.514,16.8935C 131.634,15.6809 130.206,14.8923 128.594,14.8923 Z ">
+                                <GeometryDrawing.Pen>
+                                    <Pen LineJoin="Round" Brush="#FF3D3D3D"/>
+                                </GeometryDrawing.Pen>
+                                <GeometryDrawing.Brush>
+                                    <RadialGradientBrush RadiusX="0.485305" RadiusY="0.785155" Center="0.5,0.517673" GradientOrigin="0.5,0.517673">
+                                        <RadialGradientBrush.GradientStops>
+                                            <GradientStop Color="#FFE59249" Offset="0"/>
+                                            <GradientStop Color="#FFA06B22" Offset="0.716102"/>
+                                            <GradientStop Color="#FF2A1A07" Offset="0.995763"/>
+                                        </RadialGradientBrush.GradientStops>
+                                        <RadialGradientBrush.RelativeTransform>
+                                            <TransformGroup/>
+                                        </RadialGradientBrush.RelativeTransform>
+                                    </RadialGradientBrush>
+                                </GeometryDrawing.Brush>
+                            </GeometryDrawing>
+                            <GeometryDrawing Brush="#FFE7E7E7" Geometry="F1 M 146.306,19.4028L 145.996,26.9912L 145.958,27.0286L 144.098,25.1682L 140.554,28.7119L 137.01,25.1682L 140.554,21.6245L 138.694,19.7641L 138.731,19.7267L 146.306,19.4028 Z "/>
+                            <GeometryDrawing Brush="#FFE7E7E7" Geometry="F1 M 165.352,16.0745L 164.801,29.5727L 164.734,29.6392L 161.425,26.3299L 155.121,32.6334L 148.818,26.3299L 155.121,20.0265L 151.812,16.7171L 151.879,16.6507L 165.352,16.0745 Z "/>
+                        </DrawingGroup.Children>
+                    </DrawingGroup>
+                </DrawingBrush.Drawing>
+            </DrawingBrush>
 
             <CollectionViewSource x:Key="Contacts" Source="{Binding Path=Instance, Mode=Default, Source={StaticResource RosterDS}}">
                 <CollectionViewSource.GroupDescriptions>
@@ -89,12 +169,12 @@
                 </DrawingBrush.Drawing>
             </DrawingBrush>
         </ResourceDictionary>
-    </Window.Resources>
+    </UI:BaseWindow.Resources>
 
     <DockPanel Background="{StaticResource xeus_back_design}" >
         <WrapPanel DockPanel.Dock="Bottom" Margin="5,5,5,5">
             <xeus2_xeus_Controls:StatusTextControl/>
-            <Button Click="DisplayPopupRosterSize" Content="sfgsdfg" Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
+            <Button Click="DisplayPopupRosterSize" Content="sfgsdfg" Style="{DynamicResource ImageButtonStyle}" Background="{DynamicResource roster_size_design}" Width="40" Height="20"/>
             <Popup x:Name="_rosterSizePopup" AllowsTransparency="True"
                    Placement="MousePoint" StaysOpen="False">
                 <xeus2_xeus_Controls:RosterSizeSelection Panel.ZIndex="100"/>
@@ -105,22 +185,22 @@
                       StrokeThickness="1" X2="{Binding Path=ActualWidth, ElementName=border2, Mode=Default}"/>
         </Border>
         <DockPanel DockPanel.Dock="Top" >
-            <DockPanel DockPanel.Dock="Top" >
-				<WrapPanel Margin="10,0,10,0" VerticalAlignment="Center" DockPanel.Dock="Right"> 
+            <Grid DockPanel.Dock="Top" >
+                <xeus2_xeus_Controls:RosterHeader x:Name="_header"/>
+				<WrapPanel Margin="10,13,10,0" DockPanel.Dock="Right" HorizontalAlignment="Right"> 
 					<Button Command="servicecmd:AccountCommands.DisplayLogin" Content="Login" DockPanel.Dock="Bottom" Background="{DynamicResource register_design}" Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
                 <Button Background="{DynamicResource service_design}"
                         Content="Services" Command="servicecmd:ServiceCommands.DisplayServices" 
                         Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
                 <Popup x:Name="_mucMarksPopup" AllowsTransparency="True"
-                   Placement="MousePoint" StaysOpen="False">
-                        <xeus2_xeus_Controls:MucMarksListSelection Panel.ZIndex="100"/>
-                    </Popup>
-                    <Button Background="{DynamicResource mucmark_design}" Content="MUC Bookmarks"
+		                  Placement="MousePoint" StaysOpen="False">
+					<xeus2_xeus_Controls:MucMarksListSelection Panel.ZIndex="100"/>
+                </Popup>
+                <Button Background="{DynamicResource mucmark_design}" Content="MUC Bookmarks"
                         Click="MucMarkPopup"
                         Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
 				</WrapPanel>
-                <xeus2_xeus_Controls:RosterHeader x:Name="_header"/>
-            </DockPanel>
+            </Grid>
             <Border x:Name="border" Padding="5,1,5,1" Background="{x:Null}" DockPanel.Dock="Top">
                 <Line Stroke="#FF555555" StrokeDashArray="2 2" X1="1" SnapsToDevicePixels="True"
                       StrokeThickness="1" X2="{Binding Path=ActualWidth, ElementName=border, Mode=Default}"/>

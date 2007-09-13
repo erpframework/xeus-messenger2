@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Timers;
 using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.protocol.client;
@@ -11,6 +12,8 @@ namespace xeus2.xeus.Core
 {
     public class SelfContact : NotifyInfoDispatcher, IContact
     {
+        private readonly Timer _updateTimer = new Timer(500);
+
         private BitmapImage _image;
         private string _fullName;
         private string _nickName;
@@ -43,9 +46,10 @@ namespace xeus2.xeus.Core
             set
             {
                 Settings.Default.XmppPriority = value;
-                Account.Instance.SendMyPresence();
+                
             }
         }
+
 
         public string Resource
         {
@@ -57,7 +61,7 @@ namespace xeus2.xeus.Core
             set
             {
                 Settings.Default.XmppResource = value;
-                Account.Instance.SendMyPresence();
+                RestartTimer();
             }
         }
 
@@ -116,7 +120,7 @@ namespace xeus2.xeus.Core
             set
             {
                 Settings.Default.XmppMyPresence = value;
-                Account.Instance.SendMyPresence();
+                RestartTimer();
             }
         }
 
@@ -130,7 +134,7 @@ namespace xeus2.xeus.Core
             set
             {
                 Settings.Default.XmppStatusText = value;
-                Account.Instance.SendMyPresence();
+                RestartTimer();
             }
         }
 
@@ -232,6 +236,18 @@ namespace xeus2.xeus.Core
 
         #endregion
 
+
+        public SelfContact()
+        {
+            _updateTimer.AutoReset = false;
+            _updateTimer.Elapsed += _updateTimer_Elapsed;
+        }
+
+        static void _updateTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            Account.Instance.SendMyPresence();
+        }
+
         public void AskMyVcard()
         {
             VcardIq viq = new VcardIq(IqType.get, Jid);
@@ -262,6 +278,12 @@ namespace xeus2.xeus.Core
                     Storage.CacheVCard(iq.Vcard, Jid.Bare);
                 }
             }
+        }
+
+        void RestartTimer()
+        {
+            _updateTimer.Stop();
+            _updateTimer.Start();
         }
 
         private void SetMyVcard(Vcard vcard)

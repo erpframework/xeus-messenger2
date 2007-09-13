@@ -7,19 +7,9 @@
    
     >
 	<UserControl.Resources>
-		<DrawingBrush x:Key="send_up_design" Stretch="Uniform">
-            <DrawingBrush.Drawing>
-                <DrawingGroup>
-                    <DrawingGroup.Children>
-                        <GeometryDrawing Brush="#4D000000" Geometry="F1 M 84.3354,49.1667L 36.2073,21.3799L 36.2073,76.9534L 84.3354,49.1667 Z "/>
-                    </DrawingGroup.Children>
-                </DrawingGroup>
-            </DrawingBrush.Drawing>
-        </DrawingBrush>
-
         <DataTemplate x:Key="SelfStatus">
 			<Border Background="#99B0B0B0"
-			BorderThickness="1,1,1,1" CornerRadius="2,2,2,2">
+			BorderThickness="1,1,1,1" CornerRadius="3,3,3,3">
             <StackPanel Orientation="Horizontal" >
                 <Button Margin="4,0,3,0" x:Name="_show" Click="_status_Click"
                     HorizontalAlignment="Left" VerticalAlignment="Center" Width="16" Height="16" Background="{DynamicResource online_design}" Style="{DynamicResource ImageButtonStyle}"/>
@@ -31,8 +21,6 @@
                          Text="{Binding Path=StatusText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          Style="{DynamicResource TransparentTextBoxStyle}"
                          Margin="0,2,0,0" VerticalAlignment="Center" PreviewKeyDown="_text_PreviewKeyDown"/>
-                <Button Margin="4,0,3,0" x:Name="_send" Background="{StaticResource send_up_design}" Click="_send_Click"
-                    HorizontalAlignment="Left" VerticalAlignment="Center" Width="8" Height="8" ToolTip="Send (Enter)" Style="{DynamicResource ImageButtonStyle}"/>
             </StackPanel>
 			</Border>
 
