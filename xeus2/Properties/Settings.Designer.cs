@@ -178,5 +178,17 @@ namespace xeus2.Properties {
                 this["VCardExpirationDays"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("No status message")]
+        public string XmppStatusText {
+            get {
+                return ((string)(this["XmppStatusText"]));
+            }
+            set {
+                this["XmppStatusText"] = value;
+            }
+        }
     }
 }

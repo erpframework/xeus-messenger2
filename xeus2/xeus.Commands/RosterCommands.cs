@@ -12,33 +12,33 @@ namespace xeus2.xeus.Commands
 {
     public static class RosterCommands
     {
-        private static RoutedUICommand _viewBig =
+        private static readonly RoutedUICommand _viewBig =
             new RoutedUICommand("Big Roster Items", "BigRosterItems", typeof(RosterCommands));
 
-        private static RoutedUICommand _viewMedium =
+        private static readonly RoutedUICommand _viewMedium =
             new RoutedUICommand("Medium Roster Items", "MediumRosterItems", typeof(RosterCommands));
         
-        private static RoutedUICommand _viewSmall =
+        private static readonly RoutedUICommand _viewSmall =
             new RoutedUICommand("Small Roster Items", "SmallRosterItems", typeof(RosterCommands));
 
-        private static RoutedUICommand _goOnline =
+        private static readonly RoutedUICommand _goOnline =
             new RoutedUICommand("Go Online", "GoOnline", typeof(RosterCommands));
 
-        private static RoutedUICommand _goAway =
+        private static readonly RoutedUICommand _goAway =
             new RoutedUICommand("Go Away", "GoAway", typeof(RosterCommands));
 
-        private static RoutedUICommand _goXAway =
+        private static readonly RoutedUICommand _goXAway =
             new RoutedUICommand("Go XAway", "GoXAway", typeof(RosterCommands));
 
-        private static RoutedUICommand _goDND =
+        private static readonly RoutedUICommand _goDND =
             new RoutedUICommand("Go Do not Disturb", "GoDoNotDisturb", typeof(RosterCommands));
 
-        private static RoutedUICommand _goFreeForChat =
+        private static readonly RoutedUICommand _goFreeForChat =
             new RoutedUICommand("Go Free for Chat", "GoFreeForChat", typeof(RosterCommands));
 
-        private static RoutedUICommand _authSendTo = new RoutedUICommand("Resend Authorization To Contact", "AuthSendTo", typeof(RosterCommands));
-        private static RoutedUICommand _authRequestFrom = new RoutedUICommand("Request Authorization From Contact", "AuthRequestFrom", typeof(RosterCommands));
-        private static RoutedUICommand _authRemoveFrom = new RoutedUICommand("Remove Your Authorization From Contact", "AuthRemoveFrom", typeof(RosterCommands));
+        private static readonly RoutedUICommand _authSendTo = new RoutedUICommand("Resend Authorization To Contact", "AuthSendTo", typeof(RosterCommands));
+        private static readonly RoutedUICommand _authRequestFrom = new RoutedUICommand("Request Authorization From Contact", "AuthRequestFrom", typeof(RosterCommands));
+        private static readonly RoutedUICommand _authRemoveFrom = new RoutedUICommand("Remove Your Authorization From Contact", "AuthRemoveFrom", typeof(RosterCommands));
 
         public static RoutedUICommand ViewBig
         {
@@ -223,7 +223,7 @@ namespace xeus2.xeus.Commands
 
         private static void ExecuteGoFreeForChat(object sender, ExecutedRoutedEventArgs e)
         {
-            Account.Instance.SendMyPresence(ShowType.chat);
+            Account.Instance.Self.MyShow = ShowType.chat;
         }
 
         private static void CanExecuteGoDND(object sender, CanExecuteRoutedEventArgs e)
@@ -234,7 +234,7 @@ namespace xeus2.xeus.Commands
 
         private static void ExecuteGoDND(object sender, ExecutedRoutedEventArgs e)
         {
-            Account.Instance.SendMyPresence(ShowType.dnd);
+            Account.Instance.Self.MyShow = ShowType.dnd;
         }
 
         private static void CanExecuteGoXAway(object sender, CanExecuteRoutedEventArgs e)
@@ -245,7 +245,7 @@ namespace xeus2.xeus.Commands
 
         private static void ExecuteGoXAway(object sender, ExecutedRoutedEventArgs e)
         {
-            Account.Instance.SendMyPresence(ShowType.xa);
+            Account.Instance.Self.MyShow = ShowType.xa;
         }
 
         private static void CanExecuteGoAway(object sender, CanExecuteRoutedEventArgs e)
@@ -256,7 +256,7 @@ namespace xeus2.xeus.Commands
 
         private static void ExecuteGoAway(object sender, ExecutedRoutedEventArgs e)
         {
-            Account.Instance.SendMyPresence(ShowType.away);
+            Account.Instance.Self.MyShow = ShowType.away;
         }
 
         private static void CanExecuteGoOnline(object sender, CanExecuteRoutedEventArgs e)
@@ -267,7 +267,7 @@ namespace xeus2.xeus.Commands
 
         private static void ExecuteGoOnline(object sender, ExecutedRoutedEventArgs e)
         {
-            Account.Instance.SendMyPresence(ShowType.NONE);
+            Account.Instance.Self.MyShow = ShowType.NONE;
         }
 
         private static void CanExecuteViewSmall(object sender, CanExecuteRoutedEventArgs e)

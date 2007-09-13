@@ -164,6 +164,30 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public string ClientVersion
+        {
+            get
+            {
+                return (string)GetValueSafe("ClientVersion");
+            }
+        }
+
+        public string ClientNode
+        {
+            get
+            {
+                return (string)GetValueSafe("ClientNode");
+            }
+        }
+
+        public string[] ClientExtensions
+        {
+            get
+            {
+                return (string[])GetValueSafe("ClientExtensions");
+            }
+        }
+
         #endregion
 
         public void AddContact(Contact contact)

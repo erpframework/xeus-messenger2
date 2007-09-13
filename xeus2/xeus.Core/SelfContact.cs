@@ -1,15 +1,16 @@
 ﻿using System;
+using System.Reflection;
 using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.iq.vcard;
 using xeus.Data;
+using xeus2.Properties;
 
 namespace xeus2.xeus.Core
 {
     public class SelfContact : NotifyInfoDispatcher, IContact
     {
-        private XmppClientConnection _clientConnection = null;
         private BitmapImage _image;
         private string _fullName;
         private string _nickName;
@@ -20,7 +21,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return _clientConnection.MyJID;
+                return Account.Instance.XmppConnection.MyJID;
             }
         }
 
@@ -36,7 +37,13 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return _clientConnection.Priority;
+                return Account.Instance.XmppConnection.Priority;
+            }
+
+            set
+            {
+                Settings.Default.XmppPriority = value;
+                Account.Instance.SendMyPresence();
             }
         }
 
@@ -44,7 +51,13 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return _clientConnection.Resource;
+                return Account.Instance.XmppConnection.Resource;
+            }
+
+            set
+            {
+                Settings.Default.XmppResource = value;
+                Account.Instance.SendMyPresence();
             }
         }
 
@@ -89,7 +102,21 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return _clientConnection.Show.ToString();
+                return Account.Instance.XmppConnection.Show.ToString();
+            }
+        }
+
+        public ShowType MyShow
+        {
+            get
+            {
+                return Account.Instance.XmppConnection.Show;
+            }
+
+            set
+            {
+                Settings.Default.XmppMyPresence = value;
+                Account.Instance.SendMyPresence();
             }
         }
 
@@ -97,12 +124,13 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return _clientConnection.Status;
+                return Account.Instance.XmppConnection.Status;
             }
 
             set
             {
-                _clientConnection.Status = value;
+                Settings.Default.XmppStatusText = value;
+                Account.Instance.SendMyPresence();
             }
         }
 
@@ -169,23 +197,45 @@ namespace xeus2.xeus.Core
             }
         }
 
-        #endregion
-
-        public SelfContact(XmppClientConnection clientConnection)
+        public string ClientVersion
         {
-            _clientConnection = clientConnection;
+            get
+            {
+                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            }
         }
 
-        public void StatusChange()
+        public string ClientNode
+        {
+            get
+            {
+                return "http://xeus.net/caps";
+            }
+        }
+
+        public string[] ClientExtensions
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        public void PresenceChange()
         {
             NotifyPropertyChanged("Show");
             NotifyPropertyChanged("StatusText");
+            NotifyPropertyChanged("MyShow");
+            NotifyPropertyChanged("Priority");
+            NotifyPropertyChanged("Resource");
         }
+
+        #endregion
 
         public void AskMyVcard()
         {
             VcardIq viq = new VcardIq(IqType.get, Jid);
-            _clientConnection.IqGrabber.SendIq(viq, new IqCB(VcardResult), null);
+            Account.Instance.XmppConnection.IqGrabber.SendIq(viq, new IqCB(VcardResult), null);
         }
 
         private void VcardResult(object sender, IQ iq, object data)

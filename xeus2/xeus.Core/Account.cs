@@ -61,7 +61,6 @@ namespace xeus2.xeus.Core
         private readonly ArrayList _pendingDiscoInfo = ArrayList.Synchronized(new ArrayList());
 
         private readonly XmppClientConnection _xmppConnection = new XmppClientConnection();
-        private readonly SelfContact _selfContact;
 
         private DiscoManager _discoManager;
 
@@ -71,6 +70,8 @@ namespace xeus2.xeus.Core
         private int _servicesCount;
         private int _servicesDoneCount;
         private volatile bool _working = false;
+        
+        private readonly SelfContact _selfContact = new SelfContact();
 
         public static Account Instance
         {
@@ -158,6 +159,14 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public XmppConnectionState ConnectionState
+        {
+            get
+            {
+                return _connectionState;
+            }
+        }
+
         protected static void Cleanup()
         {
             Services.Instance.Clear();
@@ -169,11 +178,6 @@ namespace xeus2.xeus.Core
             Close();
             Cleanup();
             Open();
-        }
-
-        Account()
-        {
-            _selfContact = new SelfContact(_xmppConnection);
         }
 
         public void Open()
@@ -205,8 +209,11 @@ namespace xeus2.xeus.Core
             XmppConnection.OnPresence += _xmppConnection_OnPresence;
             XmppConnection.OnError += _xmppConnection_OnError;
             XmppConnection.OnAuthError += _xmppConnection_OnAuthError;
+            XmppConnection.OnXmppConnectionStateChanged += XmppConnection_OnXmppConnectionStateChanged;
 
             XmppConnection.OnIq += _xmppConnection_OnIq;
+
+            _mucMarkManager = new MucMarkManager(XmppConnection);
 
             Settings.Default.Save();
 
@@ -219,6 +226,16 @@ namespace xeus2.xeus.Core
             _discoTime.AutoReset = false;
 
             _selfContact.LoadMyAvatar();
+        }
+
+
+        private XmppConnectionState _connectionState = XmppConnectionState.Disconnected;
+
+        void XmppConnection_OnXmppConnectionStateChanged(object sender, XmppConnectionState state)
+        {
+            _connectionState = state;
+
+            NotifyPropertyChanged("ConnectionState");
         }
 
         private void _discoTime_Elapsed(object sender, ElapsedEventArgs e)
@@ -359,18 +376,16 @@ namespace xeus2.xeus.Core
             DiscoveryInternal(serverJid);
         }
 
-        public void SendMyPresence(ShowType showType)
-        {
-            Settings.Default.XmppMyPresence = showType;
-            SendMyPresence();
-        }
-
         public void SendMyPresence()
         {
             XmppConnection.Show = Settings.Default.XmppMyPresence;
+            XmppConnection.Status = Settings.Default.XmppStatusText;
+            XmppConnection.Resource = Settings.Default.XmppResource;
+            XmppConnection.Priority = Settings.Default.XmppPriority;
+
             XmppConnection.SendMyPresence();
 
-            _selfContact.StatusChange();
+            _selfContact.PresenceChange();
         }
 
         private void _xmppConnection_OnRosterItem(object sender, RosterItem item)
@@ -382,7 +397,6 @@ namespace xeus2.xeus.Core
         {
             IsLogged = true;
 
-            _mucMarkManager = new MucMarkManager(XmppConnection);
             _mucMarkManager.LoadMucMarks();
         }
 

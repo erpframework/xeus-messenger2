@@ -137,6 +137,30 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public string ClientVersion
+        {
+            get
+            {
+                return "1.0";
+            }
+        }
+
+        public string ClientNode
+        {
+            get
+            {
+                return "http://xeus.net/caps";
+            }
+        }
+
+        public string[] ClientExtensions
+        {
+            get
+            {
+                return null;
+            }
+        }
+
         #endregion
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using agsXMPP;
 using agsXMPP.protocol.client;
+using agsXMPP.protocol.extensions.caps;
 using agsXMPP.protocol.iq.avatar;
 using agsXMPP.protocol.iq.roster;
 using agsXMPP.protocol.iq.vcard;
