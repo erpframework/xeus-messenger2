@@ -81,9 +81,9 @@
     <Grid>
     <ListBox ItemsSource="{Binding Source={StaticResource Contacts}}"
 		ItemsPanel="{DynamicResource ItemsPanelTemplateRoster}"
-    ItemTemplate="{DynamicResource MetaContactSmall}" 
-    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-    MouseDoubleClick="RosterMouseDoubleClick" Background="{x:Null}"
+        ItemTemplate="{DynamicResource MetaContactSmall}" 
+        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+        MouseDoubleClick="RosterMouseDoubleClick" Background="{x:Null}"
 		x:Name="_roster" BorderBrush="{x:Null}" BorderThickness="0,0,0,0">
         <ListBox.GroupStyle>
             <GroupStyle>

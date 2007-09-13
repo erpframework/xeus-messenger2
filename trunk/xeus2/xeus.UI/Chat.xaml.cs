@@ -25,9 +25,17 @@ namespace xeus2.xeus.UI
             Conversation conversation = new Conversation();
             conversation.ConversationInit(contact);
 
-            MultiWin multiWin = new MultiWin(conversation, _keyBase, contact.Jid.ToString());
+            try
+            {
+                MultiWin multiWin = new MultiWin(conversation, _keyBase, contact.Jid.ToString());
 
-            _multi.MultiWindows.Add(new MultiTabItem(contact.DisplayName, multiWin));
+                _multi.MultiWindows.Add(new MultiTabItem(contact.DisplayName, multiWin));
+            }
+
+            catch (WindowExistsException e)
+            {
+                e.ActivateControl();
+            }
         }
     }
 }
