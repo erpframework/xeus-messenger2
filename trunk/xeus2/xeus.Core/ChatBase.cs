@@ -1,0 +1,258 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Shapes;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Timers;
+using System.Windows.Documents;
+using agsXMPP;
+using xeus2.xeus.UI;
+using xeus2.xeus.Utilities;
+using Brush=System.Windows.Media.Brush;
+using Timer=System.Timers.Timer;
+
+namespace xeus2.xeus.Core
+{
+    internal abstract class ChatBase<T> : NotifyInfoDispatcher where T: MessageBase
+    {
+        #region Nested type: TimerCallback
+
+        private delegate void TimerCallback();
+
+        #endregion
+
+        protected T _lastMessage = null;
+
+        private bool _displayTime;
+
+        protected static Brush _alternativeBackground;
+        protected static Brush _bulbBackground;
+        protected static Brush _contactForeground;
+
+        protected static Brush _forMeForegorund;
+        protected static Brush _meTextBrush;
+
+        protected static Brush _selectionFindBrush;
+        protected static Brush _sysTextBrush;
+        protected static Brush _textBrush;
+        protected static Brush _textDimBrush;
+        protected static Brush _timeOldBackground;
+        protected static Brush _timeOlderBackground;
+        protected static Brush _timeOldestBackground;
+        protected static Brush _timeRecentBackground;
+
+        protected static Brush _eventBan;
+        protected static Brush _eventChangedNick;
+        protected static Brush _eventJoined;
+        protected static Brush _eventKick;
+        protected static Brush _eventLeft;
+
+        protected static Brush _ownAvatarBackground;
+
+        protected readonly Regex _urlregex =
+            new Regex(
+                @"[""'=]?(http://|ftp://|https://|www\.|ftp\.[\w]+)([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])",
+                RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+        protected FlowDocument _chatDocument = null;
+
+        protected readonly List<Rectangle> _relativeTimes = new List<Rectangle>();
+        protected readonly DateTime _roomStart = DateTime.Now;
+
+        protected Timer _timeTimer;
+
+        protected XmppClientConnection _xmppClientConnection = null;
+
+        public abstract ObservableCollectionDisp<T> Messages
+        {
+            get;
+        }
+
+        protected static Brush GetMessageTimeBrush(MessageBase mucMessage)
+        {
+            Brush timeBrush;
+
+            switch (mucMessage.MessageOldness)
+            {
+                case MessageOldness.Recent:
+                    {
+                        timeBrush = _timeRecentBackground;
+                        break;
+                    }
+                case MessageOldness.Older:
+                    {
+                        timeBrush = _timeOlderBackground;
+                        break;
+                    }
+                case MessageOldness.Old:
+                    {
+                        timeBrush = _timeOldBackground;
+                        break;
+                    }
+                default:
+                    {
+                        timeBrush = _timeOldestBackground;
+                        break;
+                    }
+            }
+
+            return timeBrush;
+        }
+
+        protected Rectangle CreateTimeRect(MessageBase message)
+        {
+            Rectangle timeRectangle = new Rectangle();
+            timeRectangle.Fill = GetMessageTimeBrush(message);
+            timeRectangle.Width = 16;
+            timeRectangle.Height = 16;
+
+            timeRectangle.Margin = new Thickness(-10.0, 2.0, 4.0, 0.0);
+            timeRectangle.Cursor = Cursors.Arrow;
+            _relativeTimes.Add(timeRectangle);
+
+            return timeRectangle;
+        }
+
+        static readonly object _brushLock = new object();
+
+        protected static void LoadBrushes()
+        {
+            lock (_brushLock)
+            {
+                if (_forMeForegorund == null)
+                {
+                    _forMeForegorund = StyleManager.GetBrush("forme_text_design");
+
+                    _textBrush = StyleManager.GetBrush("text_design");
+                    _sysTextBrush = StyleManager.GetBrush("sys_text_design");
+                    _meTextBrush = StyleManager.GetBrush("me_text_design");
+                    _textDimBrush = StyleManager.GetBrush("textdim_design");
+
+                    _alternativeBackground = StyleManager.GetBrush("back_alt");
+
+                    _contactForeground = StyleManager.GetBrush("muc_contact_fore");
+                    _bulbBackground = StyleManager.GetBrush("jabber_design");
+                    _ownAvatarBackground = StyleManager.GetBrush("aff_none_design");
+
+                    _timeRecentBackground = StyleManager.GetBrush("time_now_design");
+                    _timeOlderBackground = StyleManager.GetBrush("time_older_design");
+                    _timeOldBackground = StyleManager.GetBrush("time_old_design");
+                    _timeOldestBackground = StyleManager.GetBrush("time_oldest_design");
+
+                    _selectionFindBrush = StyleManager.GetBrush("selection_design");
+
+                    _eventBan = StyleManager.GetBrush("aff_outcast_design");
+                    _eventKick = StyleManager.GetBrush("event_kicked_muc_design");
+                    _eventLeft = StyleManager.GetBrush("event_left_muc_design");
+                    _eventJoined = StyleManager.GetBrush("event_joined_muc_design");
+                    _eventChangedNick = StyleManager.GetBrush("event_nickchange_muc_design");
+                }
+            }
+        }
+
+        protected abstract Block GenerateMessage(T message, T previousMessage);
+
+        protected void GenerateChatDocument(IList messages)
+        {
+            if (_chatDocument == null)
+            {
+                _chatDocument = new FlowDocument();
+                _chatDocument.FontFamily = new FontFamily("Segoe UI");
+                _chatDocument.FontSize = 11.0;
+                _chatDocument.TextAlignment = TextAlignment.Left;
+            }
+
+            foreach (T message in messages)
+            {
+                int index = Messages.IndexOf(message);
+
+                T previousMessage = null;
+
+                if (index >= 1)
+                {
+                    previousMessage = Messages[index - 1];
+                }
+
+                _chatDocument.Blocks.Add(GenerateMessage(message, previousMessage));
+            }
+
+            if (_timeTimer == null)
+            {
+                _timeTimer = new Timer(5000.0);
+                _timeTimer.AutoReset = true;
+                _timeTimer.Elapsed += _timeTimer_Elapsed;
+                _timeTimer.Start();
+            }
+
+            NotifyPropertyChanged("ChatDocument");
+        }
+
+        private void _timeTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            App.InvokeSafe(App._dispatcherPriority,
+                           new TimerCallback(OnRelativeTimer));
+        }
+
+        private void OnRelativeTimer()
+        {
+            foreach (Rectangle time in _relativeTimes)
+            {
+                string text;
+
+                MucMessage message = (MucMessage)time.DataContext;
+                DateTime dateTime = message.DateTime;
+                text = string.Format("{0}\n{1}", dateTime, TimeUtilities.FormatRelativeTime(dateTime));
+
+                Brush brush = GetMessageTimeBrush(message);
+
+                if (time.Fill != brush)
+                {
+                    time.Fill = brush;
+                }
+
+                time.ToolTip = text;
+            }
+
+            if (_lastMessage != null)
+            {
+                _lastMessage.RefreshRelativeTime();
+            }
+        }
+
+        public FlowDocument ChatDocument
+        {
+            get
+            {
+                return _chatDocument;
+            }
+        }
+
+        public T LastMessage
+        {
+            get
+            {
+                return _lastMessage;
+            }
+        }
+
+        public bool DisplayTime
+        {
+            get
+            {
+                return _displayTime;
+            }
+
+            set
+            {
+                _displayTime = value;
+
+                OnRelativeTimer();
+            }
+        }
+    }
+}
