@@ -45,6 +45,13 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             }
         }
 
+        void ChangeTemplate(DataTemplate dataTemplate)
+        {
+            _roster.BeginInit();
+            _roster.ItemTemplate = dataTemplate;
+            _roster.EndInit();
+        }
+
         public RosterItemSize ItemSize
         {
             get
@@ -65,7 +72,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                                 _dataTemplateBig = StyleManager.GetDataTemplate("MetaContactBig");
                             }
 
-                            _roster.ItemTemplate = _dataTemplateBig;
+                            ChangeTemplate(_dataTemplateBig);
                             break;
                         }
                     case RosterItemSize.Medium:
@@ -75,7 +82,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                                 _dataTemplateMedium = StyleManager.GetDataTemplate("MetaContactMedium");
                             }
 
-                            _roster.ItemTemplate = _dataTemplateMedium;
+                            ChangeTemplate(_dataTemplateMedium);
                             break;
                         }
                     default:
@@ -85,7 +92,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                                 _dataTemplateSmall = StyleManager.GetDataTemplate("MetaContactSmall");
                             }
 
-                            _roster.ItemTemplate = _dataTemplateSmall;
+                            ChangeTemplate(_dataTemplateSmall);
                             break;
                         }
                 }

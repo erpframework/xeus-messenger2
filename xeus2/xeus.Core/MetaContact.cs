@@ -257,6 +257,12 @@ namespace xeus2.xeus.Core
                 {
                     propertyAccessor =
                         new PropertyAccessor(typeof (Contact), name);
+
+                    _propertyAccessors.Add(name, propertyAccessor);
+                }
+                else
+                {
+                    
                 }
             }
 
