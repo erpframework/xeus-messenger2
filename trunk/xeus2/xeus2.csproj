@@ -469,7 +469,6 @@
     </Compile>
     <Compile Include="xeus.UI\xeus.UI.Look\EnumToBoolConverter.cs" />
     <Compile Include="xeus.UI\xeus.UI.Look\ServiceTemplateSelector.cs" />
-    <Compile Include="xeus.Utilities\DisplayNameBuilder.cs" />
     <Compile Include="xeus.Utilities\ElementUtil.cs" />
     <Compile Include="xeus.Utilities\IPropertyAccessor.cs" />
     <Compile Include="xeus.Utilities\JidUtil.cs" />
