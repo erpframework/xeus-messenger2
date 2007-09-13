@@ -56,8 +56,7 @@
 				<TextBlock Text="Choose Command to Execute" Foreground="{DynamicResource DefaultTextBrush2}"/>
 			</StackPanel>
 		</Border>
-		<Button Content="Execute" IsDefault="True" Click="OnExecute" HorizontalAlignment="Center" Margin="0,10,0,10" DockPanel.Dock="Bottom" 
-			IsEnabled="{Binding Path=SelectedItems.Count, ElementName=_listCommands}"/>
+		<Button Content="Execute" IsDefault="True" Click="OnExecute" HorizontalAlignment="Center" Margin="0,10,0,10" DockPanel.Dock="Bottom"/>
 		<Border DockPanel.Dock="Top" Margin="5,5,5,5" Background="{DynamicResource chat_back_design}" BorderBrush="{DynamicResource DefaultTextBrush2}" BorderThickness="1,1,1,1" CornerRadius="6,6,6,6">
 		<ListBox x:Name="_listCommands" ItemsSource="{Binding Path=Commands}"
 		 ItemTemplate="{DynamicResource ServiceSimple}"

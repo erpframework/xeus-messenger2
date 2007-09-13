@@ -34,6 +34,8 @@ namespace xeus2.xeus.UI
                     baseWindow.Close();
                 }
             }
+
+            _windows.Clear();
         }
 
         public static void Add(string key, ContentControl ctrl)
