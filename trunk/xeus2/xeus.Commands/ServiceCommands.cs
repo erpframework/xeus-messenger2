@@ -1,6 +1,7 @@
 using System ;
 using System.Windows ;
 using System.Windows.Input ;
+using agsXMPP;
 using agsXMPP.protocol.extensions.commands ;
 using xeus2.xeus.Core ;
 using xeus2.xeus.Middle ;
@@ -339,7 +340,7 @@ namespace xeus2.xeus.Commands
 			}
 			else if ( e.Parameter is string )
 			{
-				Account.Instance.JoinMuc( ( string )e.Parameter ) ;
+				Account.Instance.JoinMuc( new Jid(( string )e.Parameter) ) ;
 			}
             else if (e.Parameter is MucMark)
             {

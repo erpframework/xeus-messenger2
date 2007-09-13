@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using agsXMPP;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.extensions.bookmarks;
@@ -19,7 +16,7 @@ namespace xeus2.xeus.Core.xeus.Data
 
         public void LoadMucMarks()
         {
-            _bookmarkManager.RequestBookmarks(new IqCB(OnRequestResult));
+            _bookmarkManager.RequestBookmarks(OnRequestResult);
         }
 
         private void OnRequestResult(object sender, IQ iq, object data)
@@ -59,11 +56,11 @@ namespace xeus2.xeus.Core.xeus.Data
                 int i = 0;
                 foreach (MucMark mucMark in MucMarks.Instance)
                 {
-                    conferences[i++] = new Conference(new Jid(mucMark.Jid), mucMark.Name, mucMark.Password);
+                    conferences[i++] = new Conference(mucMark.Jid, mucMark.Name, mucMark.Password);
                 }
             }
 
-            _bookmarkManager.StoreBookmarks(conferences, new IqCB(OnStoreResult));
+            _bookmarkManager.StoreBookmarks(conferences, OnStoreResult);
         }
 
         private void OnStoreResult(object sender, IQ iq, object data)
