@@ -736,15 +736,13 @@ namespace xeus2.xeus.Core
             ExecuteServiceCommand(command, Action.cancel);
         }
 
-        public void JoinMuc(string jidBare)
+        public void JoinMuc(Jid jid)
         {
-            DiscoverSingleService(jidBare);
+            DiscoverSingleService(jid);
         }
 
-        public void DiscoverSingleService(string jidBare)
+        public void DiscoverSingleService(Jid jid)
         {
-            Jid jid = new Jid(jidBare);
-
             _discoManager.DisoverInformation(jid, new IqCB(OnSingleDiscoverResult));
         }
 
@@ -825,8 +823,7 @@ namespace xeus2.xeus.Core
             {
                 mucMark.Nick = nick;
             }
-            _discoManager.DisoverInformation(new Jid(mucMark.Jid), new IqCB(OnDiscoInfoResultMucRoom),
-                                             mucMark);
+            _discoManager.DisoverInformation(mucMark.Jid, new IqCB(OnDiscoInfoResultMucRoom), mucMark);
         }
 
         private void OnDiscoInfoResultMucRoom(object sender, IQ iq, object data)

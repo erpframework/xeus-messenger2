@@ -6,24 +6,24 @@ using agsXMPP.protocol.iq.disco;
 
 namespace xeus2.xeus.Core
 {
-    internal class MucMark
+    internal class MucMark : IJid
     {
         private string _nick;
-        private string _jid;
+        private readonly Jid _jid;
         private string _password;
-        private string _name;
+        private readonly string _name;
         private Service _service;
-        private DateTime _time;
+        private readonly DateTime _time;
 
         public MucMark(Service service)
         {
-            _jid = service.Jid.Bare;
+            _jid = service.Jid;
             _name = service.Name;
 
             _time = DateTime.Now;
         }
 
-        public MucMark(string jid)
+        public MucMark(Jid jid)
         {
             _jid = jid;
 
@@ -39,7 +39,7 @@ namespace xeus2.xeus.Core
                 _password = conference.Password;
             }
 
-            _jid = conference.Jid.Bare;
+            _jid = conference.Jid;
             _name = conference.Name;
             _time = DateTime.Now;
         }
@@ -56,14 +56,14 @@ namespace xeus2.xeus.Core
             {
                 if (string.IsNullOrEmpty(_name))
                 {
-                    return Jid;
+                    return Jid.ToString();
                 }
 
                 return _name;
             }
         }
 
-        public string Jid
+        public Jid Jid
         {
             get
             {
@@ -100,7 +100,7 @@ namespace xeus2.xeus.Core
             set
             {
                 DiscoItem discoItem = new DiscoItem();
-                discoItem.Jid = new Jid(_jid);
+                discoItem.Jid = _jid;
                 _service = new Service(discoItem, false);
 
                 Service.DiscoInfo = value;

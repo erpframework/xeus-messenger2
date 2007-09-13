@@ -300,6 +300,7 @@
     <Compile Include="xeus.Core\Events.cs" />
     <Compile Include="xeus.Core\EventStatusChanged.cs" />
     <Compile Include="xeus.Core\IContact.cs" />
+    <Compile Include="xeus.Core\IJid.cs" />
     <Compile Include="xeus.Core\InlineMethod.cs" />
     <Compile Include="xeus.Core\MetaContact.cs" />
     <Compile Include="xeus.Core\MucAffContact.cs" />

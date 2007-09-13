@@ -58,7 +58,7 @@ namespace xeus2.xeus.Core
 
                 lock (Services.Instance._syncObject)
                 {
-                    Service service = Services.Instance.FindService(new Jid(mark.Jid));
+                    Service service = Services.Instance.FindService(mark.Jid);
                     if (service != null)
                     {
                         service.IsMucMarked = false;
@@ -79,7 +79,7 @@ namespace xeus2.xeus.Core
                     {
                         foreach (MucMark mucMark in e.NewItems)
                         {
-                            _mucMarks.Add(mucMark.Jid, mucMark);
+                            _mucMarks.Add(mucMark.Jid.ToString(), mucMark);
                         }
 
                         break;
@@ -95,7 +95,7 @@ namespace xeus2.xeus.Core
                     {
                         foreach (MucMark mucMark in e.OldItems)
                         {
-                            _mucMarks.Remove(mucMark.Jid);
+                            _mucMarks.Remove(mucMark.Jid.ToString());
                         }
 
                         break;

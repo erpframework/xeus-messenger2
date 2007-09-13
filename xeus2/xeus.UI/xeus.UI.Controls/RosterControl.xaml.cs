@@ -20,11 +20,13 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
  
     public partial class RosterControl : UserControl
     {
-        private DataTemplate _dataTemplate = null;
+        private DataTemplate _dataTemplateSmall = null;
+        private DataTemplate _dataTemplateMedium = null;
+        private DataTemplate _dataTemplateBig = null;
 
         private RosterItemSize _rosteritemSize = RosterItemSize.Small;
 
-        private Dictionary<string, bool> _expanderStates = new Dictionary<string, bool>();
+        private readonly Dictionary<string, bool> _expanderStates = new Dictionary<string, bool>();
 
         public RosterControl()
         {
@@ -58,24 +60,35 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 {
                     case RosterItemSize.Big:
                         {
-                            _dataTemplate = StyleManager.GetDataTemplate("MetaContactBig");
+                            if (_dataTemplateBig == null)
+                            {
+                                _dataTemplateBig = StyleManager.GetDataTemplate("MetaContactBig");
+                            }
+
+                            _roster.ItemTemplate = _dataTemplateBig;
                             break;
                         }
                     case RosterItemSize.Medium:
                         {
-                            _dataTemplate = StyleManager.GetDataTemplate("MetaContactMedium");
+                            if (_dataTemplateMedium == null)
+                            {
+                                _dataTemplateMedium = StyleManager.GetDataTemplate("MetaContactMedium");
+                            }
+
+                            _roster.ItemTemplate = _dataTemplateMedium;
                             break;
                         }
                     default:
                         {
-                            _dataTemplate = StyleManager.GetDataTemplate("MetaContactSmall");
+                            if (_dataTemplateSmall == null)
+                            {
+                                _dataTemplateSmall = StyleManager.GetDataTemplate("MetaContactSmall");
+                            }
+
+                            _roster.ItemTemplate = _dataTemplateSmall;
                             break;
                         }
                 }
-
-                BeginInit();
-                _roster.ItemTemplate = _dataTemplate;
-                EndInit();
             }
         }
 

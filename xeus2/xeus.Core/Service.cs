@@ -21,7 +21,7 @@ namespace xeus2.xeus.Core
 		muc_nonanonymous
 	}
 
-	internal class Service : NotifyInfoDispatcher
+	internal class Service : NotifyInfoDispatcher, IJid
 	{
 		private DiscoInfo _discoInfo = null ;
 		private DiscoItem _discoItem = null ;
