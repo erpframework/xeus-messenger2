@@ -33,7 +33,7 @@ namespace xeus2.xeus.Middle
 
 		    catch ( WindowExistsException e )
 			{
-			    e.ExistingWindow.Activate();
+			    e.ActivateControl();
 			}
 		}
 
@@ -45,7 +45,7 @@ namespace xeus2.xeus.Middle
 
 		protected void SearchServiceResult( agsXMPP.protocol.iq.search.Search search, Service service )
 		{
-            BaseWindow window = BaseWindow.Find(BaseWindow.MakeKey(UI.Search._keyBase, service.Jid.Bare));
+            BaseWindow window = WindowManager.Find(WindowManager.MakeKey(UI.Search._keyBase, service.Jid.Bare)) as BaseWindow;
 
             if (window != null)
 			{

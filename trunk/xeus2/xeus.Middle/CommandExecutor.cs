@@ -34,7 +34,7 @@ namespace xeus2.xeus.Middle
 
             catch (WindowExistsException e)
             {
-                commandExecuteWindow = (CommandExecute)e.ExistingWindow;
+                commandExecuteWindow = (CommandExecute)e.Control;
                 commandExecuteWindow.Redisplay(serviceCommandExecution);
             }
 

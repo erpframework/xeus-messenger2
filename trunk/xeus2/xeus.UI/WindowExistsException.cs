@@ -1,21 +1,47 @@
 ﻿using System;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace xeus2.xeus.UI
 {
     public class WindowExistsException : ApplicationException
     {
-        private readonly BaseWindow _existingWindow;
+        private readonly ContentControl _ctrl;
 
-        public WindowExistsException(BaseWindow existingWindow)
+        public WindowExistsException(ContentControl ctrl)
         {
-            _existingWindow = existingWindow;
+            _ctrl = ctrl;
         }
 
-        public BaseWindow ExistingWindow
+        public ContentControl Control
         {
             get
             {
-                return _existingWindow;
+                return _ctrl;
+            }
+        }
+
+        public void ActivateControl()
+        {
+            BaseWindow window = _ctrl as BaseWindow;
+
+            if (window != null)
+            {
+                window.Activate();
+            }
+            else
+            {
+                UserControl ctrl = _ctrl as UserControl;
+
+                if (ctrl != null)
+                {
+                    Window win = Window.GetWindow(ctrl);
+
+                    if (win != null)
+                    {
+                        win.Activate();
+                    }
+                }
             }
         }
     }

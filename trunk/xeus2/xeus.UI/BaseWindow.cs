@@ -6,8 +6,6 @@ namespace xeus2.xeus.UI
 {
     public class BaseWindow : Window
     {
-        private static readonly object _lock = new object();
-        private static readonly Dictionary<string, BaseWindow> _windows = new Dictionary<string, BaseWindow>();
         private readonly string _key;
 
         public BaseWindow()
@@ -15,37 +13,11 @@ namespace xeus2.xeus.UI
             throw new NotImplementedException();
         }
 
-        public static void CloseAllWindows()
-        {
-            BaseWindow[] baseWindows;
-
-            lock (_lock)
-            {
-                baseWindows = new BaseWindow[_windows.Values.Count];
-                _windows.Values.CopyTo(baseWindows, 0);
-            }
-
-            for (int i = baseWindows.Length - 1; i >= 0; i-- )
-            {
-                baseWindows[i].Close();
-            }
-        }
-
-        public static string MakeKey(string keyBase, string key)
-        {
-            return string.Format("/{0}/{1}", keyBase, key);
-        }
-
         public BaseWindow(string keyBase, string key)
         {
-            _key = MakeKey(keyBase, key);
+            _key = WindowManager.MakeKey(keyBase, key);
 
-            BaseWindow exisitngWindow = Find(_key);
-
-            if (exisitngWindow != null)
-            {
-                throw new WindowExistsException(exisitngWindow);
-            }
+            WindowManager.Approve(_key);
 
             Initialized += BaseWindow_Initialized;
         }
@@ -60,10 +32,7 @@ namespace xeus2.xeus.UI
 
         private void BaseWindow_Initialized(object sender, EventArgs e)
         {
-            lock (_lock)
-            {
-                _windows.Add(_key, this);
-            }
+            WindowManager.Add(_key, this);
 
             Initialized -= BaseWindow_Initialized;
 
@@ -72,24 +41,9 @@ namespace xeus2.xeus.UI
 
         private void BaseWindow_Closed(object sender, EventArgs e)
         {
-            lock (_lock)
-            {
-                _windows.Remove(_key);
-            }
+            WindowManager.Remove(_key);
 
             Closed -= BaseWindow_Closed;
-        }
-
-        public static BaseWindow Find(string key)
-        {
-            BaseWindow baseWindow;
-
-            lock (_lock)
-            {
-                _windows.TryGetValue(key, out baseWindow);
-            }
-
-            return baseWindow;
         }
     }
 }

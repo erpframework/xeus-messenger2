@@ -56,6 +56,9 @@ namespace xeus2.xeus.UI
 
         protected void OnJoin(object sender, RoutedEventArgs eventArgs)
         {
+            // close must be first
+            Close();
+
             Middle.Muc.Instance.DisplayMuc(DataContext as Service, _nick.Text, _password.Password);
 
             if (_mucMark != null)
@@ -72,8 +75,6 @@ namespace xeus2.xeus.UI
 
                 Account.Instance.MucMarkManager.SaveBookmarks();
             }
-
-            Close();
         }
     }
 }
