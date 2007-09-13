@@ -21,6 +21,9 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             if (e.AddedItems.Count > 0)
             {
                 ServiceCommands.JoinMuc.Execute(e.AddedItems[0], null);
+
+                _list.SelectedItem = null;
+                
                 CloseParentPopup();
             }
         }

@@ -31,7 +31,8 @@
     
     <Grid MaxHeight="500">
         <Rectangle Opacity="0.9" Fill="{DynamicResource chat_back_design}" Stroke="{DynamicResource DefaultBorderBrush}" RadiusX="3" RadiusY="3"/>
-        <ListBox Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,5,5"
+        <ListBox x:Name="_list" 
+                Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,5,5"
                  ItemTemplate="{StaticResource MucBookmarkSimple}"
                  ItemsSource="{Binding Source={StaticResource MucMarks}}"
                  SelectionChanged="ListBox_SelectionChanged"/>
