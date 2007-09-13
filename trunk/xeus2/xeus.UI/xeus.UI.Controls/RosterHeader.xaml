@@ -58,10 +58,11 @@
                                     </Image>
                                 </Border>
                                 <StackPanel VerticalAlignment="Center" Margin="0,2,0,0">
-                                    <TextBlock Text="{Binding Path=DisplayName}" FontSize="14" Foreground="{DynamicResource DefaultTextBrush}"/>
+                                    <TextBlock Text="{Binding Path=DisplayName}" FontSize="14" Foreground="{DynamicResource DefaultTextBrush}" TextTrimming="CharacterEllipsis"/>
                                     <TextBox Margin="-3,0,0,0" Text="{Binding Path=Jid, Mode=OneWay}" Foreground="{DynamicResource DefaultTextBrush}"
 					                Style="{DynamicResource TransparentTextBoxStyle}" IsReadOnly="True" Focusable="False" IsEnabled="True" IsTabStop="False"/>
                                 </StackPanel>
+                                
                             </StackPanel>
                         </Grid>
                     </Border>
@@ -75,7 +76,7 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <Grid Margin="4,4,4,4" MinHeight="50" MinWidth="80" HorizontalAlignment="Left">
+    <Grid Margin="4,4,4,4" MinHeight="50" MinWidth="80">
         <ContentControl x:Name="_self"/>
     </Grid>
 </UserControl>
