@@ -73,6 +73,9 @@ namespace xeus2.xeus.Commands
         private static RoutedUICommand _destroyRoom =
            new RoutedUICommand("Destroy Room", "DestroyRoom", typeof(MucCommands));
 
+        private static RoutedUICommand _displayMucMarks =
+            new RoutedUICommand("Display MUC Bookmarks", "DisplayMUCBookmarks", typeof(MucCommands));
+
 
        public static RoutedUICommand ChangeStatus
         {
@@ -242,6 +245,14 @@ namespace xeus2.xeus.Commands
             }
         }
 
+        public static RoutedUICommand DisplayMucMarks
+        {
+            get
+            {
+                return _displayMucMarks;
+            }
+        }
+
         public static void RegisterCommands(Window window)
         {
             window.CommandBindings.Add(
@@ -306,6 +317,20 @@ namespace xeus2.xeus.Commands
 
             window.CommandBindings.Add(
                 new CommandBinding(_destroyRoom, ExecuteDestroyRoom, CanExecuteDestroyRoom));
+
+            window.CommandBindings.Add(
+                new CommandBinding(_displayMucMarks, ExecuteDisplayMucMarks, CanExecuteDisplayMucMarks));
+        }
+
+        private static void ExecuteDisplayMucMarks(object sender, ExecutedRoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void CanExecuteDisplayMucMarks(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.Handled = true;
+            e.CanExecute = true;
         }
 
         private static void CanExecuteDestroyRoom(object sender, CanExecuteRoutedEventArgs e)
