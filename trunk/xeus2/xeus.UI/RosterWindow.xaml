@@ -23,32 +23,11 @@
                 <ResourceDictionary Source="xeus.UI.Look\BasicStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <!--
-            <ObjectDataProvider x:Key="MucMarksDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:MucMarks}"/>
-
-            <CollectionViewSource x:Key="MucMarks" Source="{Binding Path=Instance, Mode=Default, Source={StaticResource MucMarksDS}}">
-                <CollectionViewSource.SortDescriptions>
-                    <scm:SortDescription PropertyName="Name" />
-                </CollectionViewSource.SortDescriptions>
-            </CollectionViewSource>
-            -->
-
             <CollectionViewSource x:Key="Contacts" Source="{Binding Path=Instance, Mode=Default, Source={StaticResource RosterDS}}">
                 <CollectionViewSource.GroupDescriptions>
                     <PropertyGroupDescription PropertyName="Group"/>
                 </CollectionViewSource.GroupDescriptions>
             </CollectionViewSource>
-
-            <!--
-            <ObjectDataProvider x:Key="ServicesDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Services}"/>
-
-            <CollectionViewSource x:Key="Services" Source="{Binding Path=Instance, Mode=Default, Source={StaticResource ServicesDS}}"/>
-
-            <CollectionViewSource x:Key="Services2" Source="{Binding Path=Categories, Mode=Default, Source={StaticResource ServicesDS}}"/>
-
-            <ObjectDataProvider x:Key="AccountDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Account}"/>
-            <ObjectDataProvider x:Key="EventsDS" d:IsDataSource="True" ObjectType="{x:Type xeus2_xeus_Core:Events}"/>
-            -->
 
             <DrawingBrush x:Key="xeus_back_design" PresentationOptions:Freeze="True">
                 <DrawingBrush.Drawing>
@@ -114,10 +93,8 @@
 
     <DockPanel Background="{StaticResource xeus_back_design}" >
         <WrapPanel DockPanel.Dock="Bottom" Margin="5,5,5,5">
-            <xeus2_xeus_Controls:StatusTextControl/> 
-            <Button Content="Services" Command="servicecmd:ServiceCommands.DisplayServices" DockPanel.Dock="Bottom"/>
-            <Button Command="servicecmd:AccountCommands.DisplayLogin" Content="Login" DockPanel.Dock="Bottom"/>
-            <Button  Click="DisplayPopupRosterSize" Content="sfgsdfg"/>
+            <xeus2_xeus_Controls:StatusTextControl/>
+            <Button Click="DisplayPopupRosterSize" Content="sfgsdfg" Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
             <Popup x:Name="_rosterSizePopup" AllowsTransparency="True"
                    Placement="MousePoint" StaysOpen="False">
                 <xeus2_xeus_Controls:RosterSizeSelection Panel.ZIndex="100"/>
@@ -128,7 +105,22 @@
                       StrokeThickness="1" X2="{Binding Path=ActualWidth, ElementName=border2, Mode=Default}"/>
         </Border>
         <DockPanel DockPanel.Dock="Top" >
-            <local:RosterHeader x:Name="_header" DockPanel.Dock="Top"/>
+            <DockPanel DockPanel.Dock="Top" >
+				<WrapPanel Margin="10,0,10,0" VerticalAlignment="Center" DockPanel.Dock="Right"> 
+					<Button Command="servicecmd:AccountCommands.DisplayLogin" Content="Login" DockPanel.Dock="Bottom" Background="{DynamicResource register_design}" Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
+                <Button Background="{DynamicResource service_design}"
+                        Content="Services" Command="servicecmd:ServiceCommands.DisplayServices" 
+                        Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
+                <Popup x:Name="_mucMarksPopup" AllowsTransparency="True"
+                   Placement="MousePoint" StaysOpen="False">
+                        <xeus2_xeus_Controls:MucMarksListSelection Panel.ZIndex="100"/>
+                    </Popup>
+                    <Button Background="{DynamicResource mucmark_design}" Content="MUC Bookmarks"
+                        Click="MucMarkPopup"
+                        Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
+				</WrapPanel>
+                <xeus2_xeus_Controls:RosterHeader x:Name="_header"/>
+            </DockPanel>
             <Border x:Name="border" Padding="5,1,5,1" Background="{x:Null}" DockPanel.Dock="Top">
                 <Line Stroke="#FF555555" StrokeDashArray="2 2" X1="1" SnapsToDevicePixels="True"
                       StrokeThickness="1" X2="{Binding Path=ActualWidth, ElementName=border, Mode=Default}"/>

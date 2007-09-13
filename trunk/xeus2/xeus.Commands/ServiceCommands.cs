@@ -10,40 +10,40 @@ namespace xeus2.xeus.Commands
 {
 	public static class ServiceCommands
 	{
-		private static RoutedUICommand _register =
+		private static readonly RoutedUICommand _register =
 			new RoutedUICommand( "Register service", "ServiceRegister", typeof ( ServiceCommands ) ) ;
 
-		private static RoutedUICommand _search =
+		private static readonly RoutedUICommand _search =
 			new RoutedUICommand( "Search service", "ServiceSearch", typeof ( ServiceCommands ) ) ;
 
-		private static RoutedUICommand _run =
+		private static readonly RoutedUICommand _run =
 			new RoutedUICommand( "Run command", "ServiceCommandRun", typeof ( ServiceCommands ) ) ;
 
-		private static RoutedUICommand _previous =
+		private static readonly RoutedUICommand _previous =
 			new RoutedUICommand( "Previous", "ServiceCommandPrevious", typeof ( ServiceCommands ) ) ;
 
-		private static RoutedUICommand _next =
+		private static readonly RoutedUICommand _next =
 			new RoutedUICommand( "Next", "ServiceCommandNext", typeof ( ServiceCommands ) ) ;
 
-		private static RoutedUICommand _complete =
+		private static readonly RoutedUICommand _complete =
 			new RoutedUICommand( "Complete", "ServiceCommandComplete", typeof ( ServiceCommands ) ) ;
 
-		private static RoutedUICommand _cancel =
+		private static readonly RoutedUICommand _cancel =
 			new RoutedUICommand( "Cancel", "ServiceCommandCancel", typeof ( ServiceCommands ) ) ;
 
-		private static RoutedUICommand _joinMuc =
+		private static readonly RoutedUICommand _joinMuc =
 			new RoutedUICommand( "JoinMuc", "ServiceCommandJoinMuc", typeof ( ServiceCommands ) ) ;
 
-		private static RoutedUICommand _mucInfo =
+		private static readonly RoutedUICommand _mucInfo =
 			new RoutedUICommand( "MucInfo", "ServiceCommandMucInfo", typeof ( ServiceCommands ) ) ;
 
-		private static RoutedUICommand _displayServices =
+		private static readonly RoutedUICommand _displayServices =
 			new RoutedUICommand( "DisplayServices", "ServicesDisplay", typeof ( ServiceCommands ) ) ;
 
-		private static RoutedUICommand _discoveryServices =
+		private static readonly RoutedUICommand _discoveryServices =
 			new RoutedUICommand( "DiscoveryServices", "ServicesDiscovery", typeof ( ServiceCommands ) ) ;
 
-		private static RoutedUICommand _stopDiscoveryServices =
+		private static readonly RoutedUICommand _stopDiscoveryServices =
 			new RoutedUICommand( "StopDiscoveryServices", "StopServicesDiscovery", typeof ( ServiceCommands ) ) ;
 
 		public static RoutedUICommand Register

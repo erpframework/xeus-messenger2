@@ -192,6 +192,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="xeus.UI\xeus.UI.Controls\MucMarksListSelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="xeus.UI\xeus.UI.Controls\MultiTabControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -423,6 +427,9 @@
     <Compile Include="xeus.UI\xeus.UI.Controls\MucConversation.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>MucConversation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xeus.UI\xeus.UI.Controls\MucMarksListSelection.xaml.cs">
+      <DependentUpon>MucMarksListSelection.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\xeus.UI.Controls\MultiTabControl.xaml.cs">
       <SubType>Code</SubType>

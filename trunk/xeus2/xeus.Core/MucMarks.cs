@@ -8,9 +8,9 @@ namespace xeus2.xeus.Core
 {
     internal class MucMarks : ObservableCollectionDisp<MucMark>
     {
-        private static MucMarks _instance = new MucMarks();
+        private static readonly MucMarks _instance = new MucMarks();
 
-        private Dictionary<string, MucMark> _mucMarks = new Dictionary<string, MucMark>();
+        private readonly Dictionary<string, MucMark> _mucMarks = new Dictionary<string, MucMark>();
 
         public static MucMarks Instance
         {

@@ -50,5 +50,10 @@ namespace xeus2
         {
             _rosterSizePopup.IsOpen = true;
         }
+
+        private void MucMarkPopup(object sender, RoutedEventArgs e)
+        {
+            _mucMarksPopup.IsOpen = true;
+        }
     }
 }
