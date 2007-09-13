@@ -39,7 +39,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _mucRoom = Account.Instance.JoinMuc(service, nick, password);
 
             _mucRoom.OnClickMucContact += _mucRoom_OnClickMucContact;
-            _mucRoom.MucMessages.CollectionChanged += MucMessages_CollectionChanged;
+            _mucRoom.Messages.CollectionChanged += MucMessages_CollectionChanged;
 
             DataContext = _mucRoom;
 
@@ -184,9 +184,9 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 {
                     _texts = new List<KeyValuePair<string, MucMessage>>();
 
-                    lock (_mucRoom.MucMessages._syncObject)
+                    lock (_mucRoom.Messages._syncObject)
                     {
-                        foreach (MucMessage mucMessage in _mucRoom.MucMessages)
+                        foreach (MucMessage mucMessage in _mucRoom.Messages)
                         {
                             if (!string.IsNullOrEmpty(mucMessage.Body))
                             {

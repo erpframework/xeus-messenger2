@@ -23,7 +23,7 @@ using Uri=System.Uri;
 
 namespace xeus2.xeus.Core
 {
-    internal class MucRoom : NotifyInfoDispatcher, IDisposable
+    internal class MucRoom : ChatBase<MucMessage>, IDisposable
     {
         #region Delegates
 
@@ -31,51 +31,15 @@ namespace xeus2.xeus.Core
 
         #endregion
 
-        private static Brush _alternativeBackground;
-        private static Brush _bulbBackground;
-        private static Brush _contactForeground;
-
-        private static Brush _eventBan;
-        private static Brush _eventChangedNick;
-        private static Brush _eventJoined;
-        private static Brush _eventKick;
-        private static Brush _eventLeft;
-        private static Brush _forMeForegorund;
-        private static Brush _meTextBrush;
-        private static Brush _ownAvatarBackground;
-
-        private static Brush _selectionFindBrush;
-        private static Brush _sysTextBrush;
-        private static Brush _textBrush;
-        private static Brush _textDimBrush;
-        private static Brush _timeOldBackground;
-        private static Brush _timeOlderBackground;
-        private static Brush _timeOldestBackground;
-        private static Brush _timeRecentBackground;
-
-        private readonly Regex _urlregex =
-            new Regex(
-                @"[""'=]?(http://|ftp://|https://|www\.|ftp\.[\w]+)([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])",
-                RegexOptions.IgnoreCase | RegexOptions.Compiled);
-
-        private FlowDocument _chatDocument = null;
-
-        private bool _displayTime;
-        private EventMucRoom _lastEvent = null;
-
-        private MucMessage _lastMessage = null;
-
         private MucContact _me = null;
         private readonly MucManager _mucManager = null;
         private readonly MucMessages _mucMessages = new MucMessages();
         private readonly MucRoster _mucRoster = new MucRoster();
         private string _nick;
-        private readonly List<Rectangle> _relativeTimes = new List<Rectangle>();
-        private readonly DateTime _roomStart = DateTime.Now;
+       
         private readonly Service _service;
+        
         private string _subject;
-        private Timer _timeTimer;
-        private readonly XmppClientConnection _xmppClientConnection = null;
 
         public MucRoom(Service service, XmppClientConnection xmppClientConnection, string nick)
         {
@@ -115,21 +79,6 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public bool DisplayTime
-        {
-            get
-            {
-                return _displayTime;
-            }
-
-            set
-            {
-                _displayTime = value;
-
-                OnRelativeTimer();
-            }
-        }
-
         public MucRoster MucRoster
         {
             get
@@ -138,27 +87,11 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public MucMessages MucMessages
-        {
-            get
-            {
-                return _mucMessages;
-            }
-        }
-
         public Service Service
         {
             get
             {
                 return _service;
-            }
-        }
-
-        public FlowDocument ChatDocument
-        {
-            get
-            {
-                return _chatDocument;
             }
         }
 
@@ -178,19 +111,11 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public EventMucRoom LastEvent
+        public override ObservableCollectionDisp<MucMessage> Messages
         {
             get
             {
-                return _lastEvent;
-            }
-        }
-
-        public MucMessage LastMessage
-        {
-            get
-            {
-                return _lastMessage;
+                return _mucMessages;
             }
         }
 
@@ -211,10 +136,6 @@ namespace xeus2.xeus.Core
 
             if (eventMucRoom != null && eventMucRoom.MucRoom == this)
             {
-                _lastEvent = eventMucRoom;
-
-                NotifyPropertyChanged("LastEvent");
-
                 TimeSpan timeSpan = DateTime.Now - _roomStart;
 
                 if (eventMucRoom.TypicalEventCode != TypicalEvent.Joined || timeSpan >= new TimeSpan(0, 0, 5))
@@ -259,41 +180,6 @@ namespace xeus2.xeus.Core
             }
         }
 
-        protected void GenerateChatDocument(IList messages)
-        {
-            if (_chatDocument == null)
-            {
-                _chatDocument = new FlowDocument();
-                _chatDocument.FontFamily = new FontFamily("Segoe UI");
-                _chatDocument.FontSize = 11.0;
-                _chatDocument.TextAlignment = TextAlignment.Left;
-            }
-
-            foreach (MucMessage message in messages)
-            {
-                int index = MucMessages.IndexOf(message);
-
-                MucMessage previousMessage = null;
-
-                if (index >= 1)
-                {
-                    previousMessage = MucMessages[index - 1];
-                }
-
-                _chatDocument.Blocks.Add(GenerateMessage(message, previousMessage));
-            }
-
-            if (_timeTimer == null)
-            {
-                _timeTimer = new Timer(5000.0);
-                _timeTimer.AutoReset = true;
-                _timeTimer.Elapsed += _timeTimer_Elapsed;
-                _timeTimer.Start();
-            }
-
-            NotifyPropertyChanged("ChatDocument");
-        }
-
         private static Rectangle CreateRectangle(Brush brush)
         {
             Rectangle rect = new Rectangle();
@@ -304,52 +190,7 @@ namespace xeus2.xeus.Core
             return rect;
         }
 
-        private static Brush GetMessageTimeBrush(MucMessage mucMessage)
-        {
-            Brush timeBrush;
-
-            switch (mucMessage.MessageOldness)
-            {
-                case MessageOldness.Recent:
-                    {
-                        timeBrush = _timeRecentBackground;
-                        break;
-                    }
-                case MessageOldness.Older:
-                    {
-                        timeBrush = _timeOlderBackground;
-                        break;
-                    }
-                case MessageOldness.Old:
-                    {
-                        timeBrush = _timeOldBackground;
-                        break;
-                    }
-                default:
-                    {
-                        timeBrush = _timeOldestBackground;
-                        break;
-                    }
-            }
-
-            return timeBrush;
-        }
-
-        private Rectangle CreateTimeRect(MucMessage message)
-        {
-            Rectangle timeRectangle = new Rectangle();
-            timeRectangle.Fill = GetMessageTimeBrush(message);
-            timeRectangle.Width = 16;
-            timeRectangle.Height = 16;
-
-            timeRectangle.Margin = new Thickness(-10.0, 2.0, 4.0, 0.0);
-            timeRectangle.Cursor = Cursors.Arrow;
-            _relativeTimes.Add(timeRectangle);
-
-            return timeRectangle;
-        }
-
-        public Block GenerateMessage(MucMessage message, MucMessage previousMessage)
+        protected override Block GenerateMessage(MucMessage message, MucMessage previousMessage)
         {
             if (message.Sender != null)
             {
@@ -357,34 +198,7 @@ namespace xeus2.xeus.Core
                 NotifyPropertyChanged("LastMessage");
             }
 
-            if (_forMeForegorund == null)
-            {
-                _forMeForegorund = StyleManager.GetBrush("forme_text_design");
-
-                _textBrush = StyleManager.GetBrush("text_design");
-                _sysTextBrush = StyleManager.GetBrush("sys_text_design");
-                _meTextBrush = StyleManager.GetBrush("me_text_design");
-                _textDimBrush = StyleManager.GetBrush("textdim_design");
-
-                _alternativeBackground = StyleManager.GetBrush("back_alt");
-
-                _contactForeground = StyleManager.GetBrush("muc_contact_fore");
-                _bulbBackground = StyleManager.GetBrush("jabber_design");
-                _ownAvatarBackground = StyleManager.GetBrush("aff_none_design");
-
-                _timeRecentBackground = StyleManager.GetBrush("time_now_design");
-                _timeOlderBackground = StyleManager.GetBrush("time_older_design");
-                _timeOldBackground = StyleManager.GetBrush("time_old_design");
-                _timeOldestBackground = StyleManager.GetBrush("time_oldest_design");
-
-                _selectionFindBrush = StyleManager.GetBrush("selection_design");
-
-                _eventBan = StyleManager.GetBrush("aff_outcast_design");
-                _eventKick = StyleManager.GetBrush("event_kicked_muc_design");
-                _eventLeft = StyleManager.GetBrush("event_left_muc_design");
-                _eventJoined = StyleManager.GetBrush("event_joined_muc_design");
-                _eventChangedNick = StyleManager.GetBrush("event_nickchange_muc_design");
-            }
+            LoadBrushes();
 
             Section groupSection = null;
 
@@ -597,43 +411,6 @@ namespace xeus2.xeus.Core
             MucCommands.Options.Execute(this, null);
         }
 
-        private void _timeTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            App.InvokeSafe(App._dispatcherPriority,
-                           new TimerCallback(OnRelativeTimer));
-        }
-
-        private void OnRelativeTimer()
-        {
-            foreach (Rectangle time in _relativeTimes)
-            {
-                string text;
-
-                MucMessage message = (MucMessage) time.DataContext;
-                DateTime dateTime = message.DateTime;
-                text = string.Format("{0}\n{1}", dateTime, TimeUtilities.FormatRelativeTime(dateTime));
-
-                Brush brush = GetMessageTimeBrush(message);
-
-                if (time.Fill != brush)
-                {
-                    time.Fill = brush;
-                }
-
-                time.ToolTip = text;
-            }
-
-            // refresh relative time
-            if (_lastEvent != null)
-            {
-                _lastEvent.RefreshRelativeTime();
-            }
-            if (_lastMessage != null)
-            {
-                _lastMessage.RefreshRelativeTime();
-            }
-        }
-
         private void contactName_MouseLeave(object sender, MouseEventArgs e)
         {
             Span contactSpan = sender as Span;
@@ -750,7 +527,7 @@ namespace xeus2.xeus.Core
                         contact = MucRoster.Find(msg.From);
                     }
 
-                    MucMessages.OnMessage(msg, contact);
+                    _mucMessages.OnMessage(msg, contact);
                 }
             }
             else
@@ -1072,11 +849,5 @@ namespace xeus2.xeus.Core
 
             return textRanges;
         }
-
-        #region Nested type: TimerCallback
-
-        private delegate void TimerCallback();
-
-        #endregion
     }
 }
