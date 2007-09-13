@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using xeus2.Properties;
+using xeus2.xeus.Core;
 
 namespace xeus2.xeus.UI.xeus.UI.Controls
 {
@@ -101,6 +102,12 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         private void RosterMouseDoubleClick(object sender, RoutedEventArgs args)
         {
+            IContact contact = _roster.SelectedItem as IContact;
+
+            if (contact != null)
+            {
+                Middle.Chat.Instance.DisplayChat(contact);
+            }
         }
 
         private void OnLoadedExpander(object sender, RoutedEventArgs e)
@@ -141,6 +148,11 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             }
 
             return true;
+        }
+
+        private void ListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+
         }
 
     }
