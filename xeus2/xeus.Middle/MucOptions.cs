@@ -25,7 +25,7 @@ namespace xeus2.xeus.Middle
 
             catch (WindowExistsException e)
             {
-                e.ExistingWindow.Activate();
+                e.ActivateControl();
             }
         }
 

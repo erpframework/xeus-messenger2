@@ -39,7 +39,7 @@ namespace xeus2
 
             base.OnClosed(e);
 
-            CloseAllWindows();
+            WindowManager.CloseAllWindows();
         }
 
         protected void ChangeRosterSize(object sebnder, RoutedEventArgs e)

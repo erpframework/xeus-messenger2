@@ -417,6 +417,7 @@
     <Compile Include="xeus.UI\TextFilterService.cs" />
     <Compile Include="xeus.UI\Vista.cs" />
     <Compile Include="xeus.UI\WindowExistsException.cs" />
+    <Compile Include="xeus.UI\WindowManager.cs" />
     <Compile Include="xeus.UI\xeus.UI.Controls\CreateMucRoom.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>CreateMucRoom.xaml</DependentUpon>

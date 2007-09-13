@@ -9,7 +9,7 @@ namespace xeus2.xeus.UI
     /// </summary>
     public partial class Muc : BaseWindow
     {
-        public const string _keyBase = "MUC";
+        public const string _keyBase = "MUCRoom";
 
         internal Muc() : base(_keyBase, string.Empty)
         {
@@ -26,7 +26,7 @@ namespace xeus2.xeus.UI
             MucConversation conversation = new MucConversation();
             conversation.MucConversationInit(service, nick, password);
 
-            MultiWin multiWin = new MultiWin(conversation);
+            MultiWin multiWin = new MultiWin(conversation, _keyBase, service.Jid.ToString());
 
             _multi.MultiWindows.Add(new MultiTabItem(service.Name, multiWin));
         }

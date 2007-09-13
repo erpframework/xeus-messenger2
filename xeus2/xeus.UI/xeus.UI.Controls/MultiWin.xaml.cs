@@ -11,6 +11,8 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         public delegate void NotifyMultiWin(MultiWin sender, MultiWinEvent multiWinEvent);
         public event NotifyMultiWin OnMultiWinEvent;
 
+        private readonly string _key = null;
+
         public enum MultiWinEvent
         {
             Close,
@@ -23,9 +25,32 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             InitializeComponent();
         }
 
-        public MultiWin(FrameworkElement element) : this()
+        public MultiWin(FrameworkElement element, string keyBase, string key) : this()
         {
+            _key = WindowManager.MakeKey(keyBase, key);
+
+            WindowManager.Approve(_key);
+
+            Loaded += MultiWin_Loaded;
+
             ContentElement = element;
+        }
+
+        void MultiWin_Loaded(object sender, RoutedEventArgs e)
+        {
+            WindowManager.Add(_key, this);
+
+            Loaded -= MultiWin_Loaded;
+
+            Unloaded += MultiWin_Unloaded;
+            
+        }
+
+        void MultiWin_Unloaded(object sender, RoutedEventArgs e)
+        {
+            WindowManager.Remove(_key);
+
+            Unloaded -= MultiWin_Unloaded;
         }
 
         public double ContentMinWidth

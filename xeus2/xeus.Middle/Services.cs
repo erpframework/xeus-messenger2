@@ -32,7 +32,7 @@ namespace xeus2.xeus.Middle
 
             catch (WindowExistsException e)
             {
-                e.ExistingWindow.Activate();
+                e.ActivateControl();
             }
 
             if (Core.Services.Instance.Count == 0)
