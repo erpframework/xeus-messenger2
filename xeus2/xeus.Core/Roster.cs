@@ -42,6 +42,18 @@ namespace xeus2.xeus.Core
                            new PresenceCallback(OnPresence), presence);
         }
 
+        public void OnMessage(object sender, agsXMPP.protocol.client.Message msg)
+        {
+            App.InvokeSafe(App._dispatcherPriority,
+                           new MessageCallback(OnMessage), msg);
+        }
+
+        void OnMessage(agsXMPP.protocol.client.Message msg)
+        {
+            Message message = new Message(msg);
+            Database.SaveMessage(message);
+        }
+
         void OnContactPresence(Presence presence)
         {
             lock (_items._syncObject)
@@ -489,6 +501,7 @@ namespace xeus2.xeus.Core
         #region Nested type: PresenceCallback
 
         private delegate void PresenceCallback(Presence presence);
+        private delegate void MessageCallback(agsXMPP.protocol.client.Message msg);
 
         #endregion
 
