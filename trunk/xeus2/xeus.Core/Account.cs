@@ -64,7 +64,6 @@ namespace xeus2.xeus.Core
         private DiscoManager _discoManager;
 
         private bool _isLogged = false;
-        private MucManager _mucManager = null;
         private MucMarkManager _mucMarkManager;
         private int _servicesCount;
         private int _servicesDoneCount;
@@ -209,6 +208,7 @@ namespace xeus2.xeus.Core
             XmppConnection.OnError += _xmppConnection_OnError;
             XmppConnection.OnAuthError += _xmppConnection_OnAuthError;
             XmppConnection.OnXmppConnectionStateChanged += XmppConnection_OnXmppConnectionStateChanged;
+            XmppConnection.OnMessage += XmppConnection_OnMessage;
 
             XmppConnection.OnIq += _xmppConnection_OnIq;
 
@@ -216,7 +216,7 @@ namespace xeus2.xeus.Core
 
             Settings.Default.Save();
 
-            _mucManager = new MucManager(XmppConnection);
+            new MucManager(XmppConnection);
 
             XmppConnection.Open();
 
@@ -227,6 +227,10 @@ namespace xeus2.xeus.Core
             _selfContact.LoadMyAvatar();
         }
 
+        void XmppConnection_OnMessage(object sender, agsXMPP.protocol.client.Message msg)
+        {
+            Roster.Instance.OnMessage(sender, msg);
+        }
 
         private XmppConnectionState _connectionState = XmppConnectionState.Disconnected;
 

@@ -1,4 +1,7 @@
-﻿using agsXMPP;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using agsXMPP;
 
 namespace xeus2.xeus.Core
 {
@@ -13,6 +16,26 @@ namespace xeus2.xeus.Core
             _from = message.From;
             _to = message.To;
             _body = message.Body;
+        }
+
+        internal Message(IDataRecord reader)
+        {
+            _from = new Jid((string)reader["From"]);
+            _to = new Jid((string)reader["To"]);
+            _body = (string)reader["Body"];
+            _dateTime = DateTime.FromBinary((Int64)reader["Time"]);
+        }
+
+        public Dictionary<string, object> GetData()
+        {
+            Dictionary<string, object> data = new Dictionary<string, object>();
+
+            data.Add("From", From.Bare);
+            data.Add("To", To.Bare);
+            data.Add("DateTime", DateTime.ToBinary());
+            data.Add("Body", Body);
+
+            return data;
         }
 
         public Jid From

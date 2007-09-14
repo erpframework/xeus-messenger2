@@ -45,7 +45,6 @@ namespace xeus2.xeus.Data
 				cmd.CommandText = "CREATE TABLE [Message] ([From] VARCHAR NOT NULL, "
 				                  + "[To] VARCHAR NOT NULL, "
 				                  + "[DateTime] INTEGER NOT NULL, "
-				                  + "[Id] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
 				                  + "[Body] VARCHAR NOT NULL);" ;
 				cmd.ExecuteNonQuery() ;
 
@@ -65,36 +64,7 @@ namespace xeus2.xeus.Data
 			_connection.Close() ;
 		}
 
-		/*
-		public List< RosterItem > ReadRosterItems()
-		{
-			List< RosterItem > rosterItems = new List< RosterItem >() ;
-
-			try
-			{
-				using ( SQLiteCommand command = _connection.CreateCommand() )
-				{
-					command.CommandText = "SELECT * FROM [RosterItem]" ;
-
-					SQLiteDataReader reader = command.ExecuteReader() ;
-
-					while ( reader.Read() )
-					{
-						RosterItem rosterItem = new RosterItem( reader ) ;
-						rosterItems.Add( rosterItem ) ;
-					}
-
-					reader.Close() ;
-				}
-			}
-
-			catch ( Exception e )
-			{
-				Client.Instance.Log( "Error reading Roster items: {0}", e.Message ) ;
-			}
-
-			return rosterItems ;
-		}
+/*
 
 		public List< ChatMessage > ReadMessages( RosterItem rosterItem )
 		{
@@ -181,23 +151,22 @@ namespace xeus2.xeus.Data
 		}
 		*/
 
-        /*
-        public static void InsertMetaContact(MetaContact metaContact)
+        public static void SaveMessage(Message message)
         {
             try
             {
-                Dictionary<string, object> values = metaContact.GetData();
+                Dictionary<string, object> values = message.GetData();
 
-                Insert(values, "MetaContact", false, _connection);
+                Insert(values, "Message", false, _connection);
             }
 
-			catch ( Exception e )
-			{
-				Events.Instance.OnEvent( e, new EventError( e.Message, null ) ) ;
-			}
-        }*/
-        
-        public static void SaveContact(Contact contact)
+            catch (Exception e)
+            {
+                Events.Instance.OnEvent(e, new EventError(e.Message, null));
+            }
+        }
+
+	    public static void SaveContact(Contact contact)
         {
             try
             {
