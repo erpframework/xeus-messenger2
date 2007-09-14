@@ -2,10 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
+using System.Data.SQLite;
 using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.protocol.client;
 using FastDynamicPropertyAccessor;
+using xeus2.xeus.Data;
 using xeus2.xeus.Utilities;
 
 namespace xeus2.xeus.Core
@@ -20,11 +23,12 @@ namespace xeus2.xeus.Core
         private readonly object _propertyAccessorLock = new object();
         private readonly ObservableCollectionDisp<Contact> _subContacts = new ObservableCollectionDisp<Contact>();
 
-        readonly string _id ;
+        readonly string _metaId ;
+        private string _customName;
 
         public MetaContact()
         {
-            _id = Guid.NewGuid().ToString();
+            _metaId = Guid.NewGuid().ToString();
         }
 
         public MetaContact(Contact contact) : this()
@@ -32,6 +36,26 @@ namespace xeus2.xeus.Core
             _activeContact = contact;
 
             AddContact(contact);
+        }
+
+        public MetaContact(IDataRecord reader)
+        {
+            _metaId = (string)reader["MetaId"];
+
+            if (!reader.IsDBNull(reader.GetOrdinal("CustomName")))
+            {
+                _customName = (string)reader["CustomName"];
+            }
+        }
+
+        public Dictionary<string, object> GetData()
+        {
+            Dictionary<string, object> data = new Dictionary<string, object>();
+
+            data.Add("MetaId", MetaId);
+            data.Add("CustomName", CustomName);
+
+            return data;
         }
 
         public ObservableCollectionDisp<Contact> SubContacts
@@ -160,7 +184,21 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return (string) GetValueSafe("CustomName");
+                if (string.IsNullOrEmpty(_customName))
+                {
+                    return (string) GetValueSafe("CustomName");
+                }
+                else
+                {
+                    return _customName;
+                }
+            }
+
+            set
+            {
+                _customName = value;
+
+                Database.SaveMetaContact(this);
             }
         }
 
@@ -196,11 +234,11 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public string Id
+        public string MetaId
         {
             get
             {
-                return _id;
+                return _metaId;
             }
         }
 
@@ -213,6 +251,11 @@ namespace xeus2.xeus.Core
             lock (SubContacts._syncObject)
             {
                 SubContacts.Add(contact);
+
+                if (_activeContact == null)
+                {
+                    _activeContact = contact;
+                }
             }
         }
 

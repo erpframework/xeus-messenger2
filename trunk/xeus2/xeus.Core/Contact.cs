@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SQLite;
 using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.protocol.Base;
@@ -26,6 +28,7 @@ namespace xeus2.xeus.Core
         private readonly object _presencesLock = new object();
 
         private readonly RosterItem _rosterItem = null;
+        private readonly string _metaId;
         private string _customName;
         private string _fullName;
 
@@ -37,9 +40,21 @@ namespace xeus2.xeus.Core
         private string _xStatusText;
         private string _avatarHash = String.Empty;
 
-        public Contact(RosterItem rosterItem)
+        public Contact(IDataRecord reader, RosterItem rosterItem)
         {
             _rosterItem = rosterItem;
+            _metaId = (string)reader["MetaId"];
+
+            if (!reader.IsDBNull(reader.GetOrdinal("CustomName")))
+            {
+                _customName = (string) reader["CustomName"];
+            }
+        }
+
+        public Contact(RosterItem rosterItem, string metaId)
+        {
+            _rosterItem = rosterItem;
+            _metaId = metaId;
         }
 
         public Contact(Presence presence)
@@ -57,6 +72,17 @@ namespace xeus2.xeus.Core
         }
 
         #region IContact Members
+
+        public Dictionary<string, object> GetData()
+        {
+            Dictionary<string, object> data = new Dictionary<string, object>();
+
+            data.Add("Jid", Jid.Bare);
+            data.Add("MetaId", MetaId);
+            data.Add("CustomName", CustomName);
+
+            return data;
+        }
 
         public string DisplayName
         {
@@ -460,6 +486,14 @@ namespace xeus2.xeus.Core
             get
             {
                 return _avatarHash;
+            }
+        }
+
+        public string MetaId
+        {
+            get
+            {
+                return _metaId;
             }
         }
 
