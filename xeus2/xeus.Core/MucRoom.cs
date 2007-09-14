@@ -41,7 +41,7 @@ namespace xeus2.xeus.Core
         
         private string _subject;
 
-        public MucRoom(Service service, XmppClientConnection xmppClientConnection, string nick)
+        public MucRoom(Service service, XmppClientConnection xmppClientConnection, string nick, string password)
         {
             _service = service;
             _xmppClientConnection = xmppClientConnection;
@@ -55,6 +55,15 @@ namespace xeus2.xeus.Core
             _mucMessages.CollectionChanged += _mucMessages_CollectionChanged;
 
             Events.Instance.OnEventRaised += Instance_OnEventRaised;
+
+            if (service.IsMucPasswordProtected)
+            {
+                _mucManager.JoinRoom(service.Jid, nick, password);
+            }
+            else
+            {
+                _mucManager.JoinRoom(service.Jid, nick);
+            }
         }
 
         public MucContact Me

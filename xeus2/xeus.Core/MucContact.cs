@@ -160,13 +160,20 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                if (Jid == null)
+                if (MucJid != null)
                 {
                     return MucJid.Resource;
                 }
                 else
                 {
-                    return Presence.MucUser.Item.Nickname;
+                    if (Presence.MucUser.Item.Nickname != null)
+                    {
+                        return Presence.MucUser.Item.Nickname;
+                    }
+                    else
+                    {
+                        return "(Unknown)";
+                    }
                 }
             }
         }

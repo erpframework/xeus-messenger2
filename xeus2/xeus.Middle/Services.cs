@@ -22,10 +22,11 @@ namespace xeus2.xeus.Middle
             {
                 ServiceWindow serviceWindow = new ServiceWindow();
 
+                /*
                 if (Core.Services.Instance.Count == 0)
                 {
                     ServiceCommands.DiscoveryServices.Execute(string.Empty, null);
-                }
+                }*/
 
                 serviceWindow.Show();
             }
@@ -35,10 +36,11 @@ namespace xeus2.xeus.Middle
                 e.ActivateControl();
             }
 
+            /*
             if (Core.Services.Instance.Count == 0)
             {
                 Account.Instance.Discovery(null);
-            }
+            }*/
         }
 
         public void Display()

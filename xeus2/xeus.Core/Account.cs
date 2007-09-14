@@ -738,21 +738,29 @@ namespace xeus2.xeus.Core
 
         public void JoinMuc(Jid jid)
         {
-            DiscoverSingleService(jid);
+            _discoManager.DisoverInformation(jid, new IqCB(OnRoomeDiscovered));
         }
 
-        public void DiscoverSingleService(Jid jid)
-        {
-            _discoManager.DisoverInformation(jid, new IqCB(OnSingleDiscoverResult));
-        }
-
-        private void OnSingleDiscoverResult(object sender, IQ iq, object data)
+        private void OnRoomeDiscovered(object sender, IQ iq, object data)
         {
             if (iq.Error != null)
             {
-                Services.Instance.OnServiceItemError(sender, iq);
+                if (iq.Error.Code == ErrorCode.NotFound)
+                {
+                    // new room
+                    Service service = new Service(new DiscoItem(), false);
+                    service.DiscoItem.Jid = iq.From;
+                    service.DiscoInfo = (DiscoInfo)iq.Query;
+
+                    JoinMuc(service, null);
+                }
+                else
+                {
+                    GeneralResultError(sender, iq);
+                }
             }
-            else if (iq.Type == IqType.result && iq.Query is DiscoInfo)
+
+            if (iq.Type == IqType.result && iq.Query is DiscoInfo)
             {
                 Service service = new Service(new DiscoItem(), false);
                 service.DiscoItem.Jid = iq.From;
@@ -765,6 +773,14 @@ namespace xeus2.xeus.Core
         public void JoinMuc(Service service)
         {
             DiscoverReservedRoomNickname(service);
+        }
+
+        public void GeneralResultError(object sender, IQ iq)
+        {
+            EventError eventError =
+                new EventError(string.Format("Error from '{0}'", sender), iq.Error);
+
+            Events.Instance.OnEvent(this, eventError);
         }
 
         protected void DiscoverReservedRoomNickname(Service service)
@@ -845,16 +861,7 @@ namespace xeus2.xeus.Core
 
         public MucRoom JoinMuc(Service service, string nick, string password)
         {
-            if (service.IsMucPasswordProtected)
-            {
-                _mucManager.JoinRoom(service.Jid, nick, password);
-            }
-            else
-            {
-                _mucManager.JoinRoom(service.Jid, nick);
-            }
-
-            return new MucRoom(service, XmppConnection, nick);
+            return new MucRoom(service, XmppConnection, nick, password);
         }
 
         public MucManager GetMucManager()
