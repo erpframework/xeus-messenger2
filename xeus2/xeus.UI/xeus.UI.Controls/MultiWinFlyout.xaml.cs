@@ -59,8 +59,10 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 case MultiWin.MultiWinEvent.Flyout:
                     {
                         _container.Child = null;
-                        _multiWinContainerProvider.MultiTabControl.MultiWindows.Add(new MultiTabItem(_name, _content));
+
                         Close();
+                        
+                        _multiWinContainerProvider.MultiTabControl.MultiWindows.Add(new MultiTabItem(_name, _content));
                         break;
                     }
             }

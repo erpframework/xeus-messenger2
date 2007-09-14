@@ -55,8 +55,14 @@ namespace xeus2.xeus.Middle
         {
             GetChatWindow();
 
-            _chat.AddChat(contact);
-            _chat.Show();
+            if (_chat.AddChat(contact))
+            {
+                _chat.Show();
+            }
+            else
+            {
+                _chat.Close();
+            }
         }
 
         private void GetChatWindow()
@@ -65,6 +71,11 @@ namespace xeus2.xeus.Middle
             {
                 if (_chat == null || !_chat.IsVisible)
                 {
+                    if (_chat != null)
+                    {
+                        _chat.Close();
+                    }
+
                     _chat = new UI.Chat();
                     _chat.Closed += _muc_Closed;
                 }

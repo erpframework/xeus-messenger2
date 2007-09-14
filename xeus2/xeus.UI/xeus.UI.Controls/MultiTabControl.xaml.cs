@@ -19,7 +19,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         {
             InitializeComponent();
 
-            _multiWindows.CollectionChanged += new NotifyCollectionChangedEventHandler(_multiWindows_CollectionChanged);
+            _multiWindows.CollectionChanged += _multiWindows_CollectionChanged;
 
             _tabs.DataContext = MultiWindows;
         }
