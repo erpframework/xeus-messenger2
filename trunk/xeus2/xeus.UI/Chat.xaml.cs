@@ -17,10 +17,10 @@ namespace xeus2.xeus.UI
 
             GeneralCommands.RegisterCommands(this);
 
-            _multi.MultiWinContainerProvider = Middle.Muc.Instance;
+            _multi.MultiWinContainerProvider = Middle.Chat.Instance;
         }
 
-        internal void AddChat(IContact contact)
+        internal bool AddChat(IContact contact)
         {
             ContactChat contactChat = new ContactChat(contact);
             Conversation conversation = new Conversation(contactChat);
@@ -35,7 +35,11 @@ namespace xeus2.xeus.UI
             catch (WindowExistsException e)
             {
                 e.ActivateControl();
+
+                return false;
             }
+
+            return true;
         }
     }
 }
