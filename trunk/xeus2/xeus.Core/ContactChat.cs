@@ -2,6 +2,7 @@
 using System.Windows.Documents;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.extensions.chatstates;
+using xeus2.xeus.Data;
 
 namespace xeus2.xeus.Core
 {
@@ -48,6 +49,8 @@ namespace xeus2.xeus.Core
 
             lock (Messages._syncObject)
             {
+                Database.SaveMessage(chatMessage);
+
                 Messages.Add(chatMessage);
             }
 
