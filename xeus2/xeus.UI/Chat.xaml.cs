@@ -20,6 +20,14 @@ namespace xeus2.xeus.UI
             _multi.MultiWinContainerProvider = Middle.Chat.Instance;
         }
 
+        public MultiTabControl TabControl
+        {
+            get
+            {
+                return _multi;
+            }
+        }
+
         internal bool AddChat(IContact contact)
         {
             ContactChat contactChat = new ContactChat(contact);

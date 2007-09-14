@@ -55,7 +55,9 @@ namespace xeus2.xeus.Middle
         {
             GetChatWindow();
 
-            if (_chat.AddChat(contact))
+            _chat.AddChat(contact);
+
+            if (_chat.TabControl.MultiWindows.Count > 0)
             {
                 _chat.Show();
             }
