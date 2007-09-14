@@ -4,6 +4,7 @@ using System.Data.Common ;
 using System.Data.SQLite ;
 using System.IO ;
 using System.Text ;
+using agsXMPP.protocol.Base;
 using xeus2.xeus.Core ;
 
 namespace xeus2.xeus.Data
@@ -49,7 +50,7 @@ namespace xeus2.xeus.Data
 				cmd.ExecuteNonQuery() ;
 
 				cmd.CommandText = "CREATE TABLE [Contact] (Jid VARCHAR NOT NULL PRIMARY KEY UNIQUE, "
-				                  + "[MetaId] VARCHAR, "
+                                  + "[MetaId] VARCHAR NOT NULL, "
                                   + "[CustomName] VARCHAR);";
 				cmd.ExecuteNonQuery() ;
             
@@ -180,7 +181,115 @@ namespace xeus2.xeus.Data
 		}
 		*/
 
-		public static void StoreGroups( Dictionary< string, bool > expanderStates )
+        /*
+        public static void InsertMetaContact(MetaContact metaContact)
+        {
+            try
+            {
+                Dictionary<string, object> values = metaContact.GetData();
+
+                Insert(values, "MetaContact", false, _connection);
+            }
+
+			catch ( Exception e )
+			{
+				Events.Instance.OnEvent( e, new EventError( e.Message, null ) ) ;
+			}
+        }*/
+        
+        public static void SaveContact(Contact contact)
+        {
+            try
+            {
+                Dictionary<string, object> values = contact.GetData();
+
+                SaveOrUpdate(values, "Jid", "Contact", false, _connection);
+            }
+
+            catch (Exception e)
+            {
+                Events.Instance.OnEvent(e, new EventError(e.Message, null));
+            }
+        }
+
+        public static Contact GetContact(RosterItem rosterItem)
+        {
+            Contact contact = null;
+
+            try
+            {
+                using (SQLiteCommand command = _connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT * FROM [Contact] WHERE [Jid]=@jid";
+
+                    command.Parameters.Add(new SQLiteParameter("jid", rosterItem.Jid.Bare));
+
+                    SQLiteDataReader reader = command.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        contact = new Contact(reader, rosterItem);
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            catch (Exception e)
+            {
+                Events.Instance.OnEvent(e, new EventError(e.Message, null));
+            }
+
+            return contact;
+        }
+
+        public static void SaveMetaContact(MetaContact metaContact)
+        {
+            try
+            {
+                Dictionary<string, object> values = metaContact.GetData();
+
+                SaveOrUpdate(values, "MetaId", "MetaContact", false, _connection);
+            }
+
+            catch (Exception e)
+            {
+                Events.Instance.OnEvent(e, new EventError(e.Message, null));
+            }
+        }
+
+        public static MetaContact GetMetaContact(string metaId)
+        {
+            MetaContact metaContact = null;
+
+			try
+			{
+				using ( SQLiteCommand command = _connection.CreateCommand() )
+				{
+					command.CommandText = "SELECT * FROM [MetaContact] WHERE [MetaId]=@metaId" ;
+
+					command.Parameters.Add( new SQLiteParameter( "metaId", metaId ) ) ;
+
+					SQLiteDataReader reader = command.ExecuteReader() ;
+
+					if ( reader.Read() )
+					{
+                        metaContact = new MetaContact(reader);
+					}
+
+					reader.Close() ;
+				}
+			}
+
+            catch (Exception e)
+            {
+                Events.Instance.OnEvent(e, new EventError(e.Message, null));
+            }
+
+            return metaContact;
+        }
+
+        public static void StoreGroups(Dictionary<string, bool> expanderStates)
 		{
 			try
 			{

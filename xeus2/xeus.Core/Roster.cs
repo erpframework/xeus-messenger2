@@ -409,12 +409,37 @@ namespace xeus2.xeus.Core
 
             lock (_items._syncObject)
             {
+                bool save = false;
+
                 // for now
-                contact = new Contact(item);
+                contact = Database.GetContact(item);
+
+                MetaContact metaContact = null;
+
+                if (contact != null)
+                {
+                    metaContact = Database.GetMetaContact(contact.MetaId);
+                }
+
+                if (metaContact == null)
+                {
+                    metaContact = new MetaContact();
+                    contact = new Contact(item, metaContact.MetaId);
+
+                    save = true;
+                }
+
+                metaContact.AddContact(contact);
 
                 _realContacts.Add(item.Jid.ToString(), contact);
 
-                _items.Add(new MetaContact(contact));
+                _items.Add(metaContact);
+
+                if (save)
+                {
+                    Database.SaveMetaContact(metaContact);
+                    Database.SaveContact(contact);
+                }
             }
 
             Vcard vcard = Storage.GetVcard(contact.Jid, 99999);
