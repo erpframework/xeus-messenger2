@@ -6,7 +6,7 @@ using System.IO ;
 using System.Text ;
 using xeus2.xeus.Core ;
 
-namespace xeus.Data
+namespace xeus2.xeus.Data
 {
 	internal class Database
 	{
@@ -63,72 +63,6 @@ namespace xeus.Data
 		{
 			_connection.Close() ;
 		}
-
-        /*
-        public static void LoadMucMarks()
-        {
- 			try
-			{
-                lock (MucMarks.Instance._syncObject)
-                {
-                    MucMarks.Instance.Clear();
-
-                    using (SQLiteCommand command = _connection.CreateCommand())
-                    {
-                        command.CommandText = "SELECT * FROM [MucMark] ORDER BY [Name]";
-
-                        SQLiteDataReader reader = command.ExecuteReader();
-
-                        while (reader.Read())
-                        {
-                            MucMarks.Instance.Add(new MucMark(reader));
-                        }
-
-                        reader.Close();
-                    }
-                }
-			}
-
-			catch ( Exception e )
-			{
-                EventException eventError = new EventException("Error reading MUC Bookmarks", e);
-			    Events.Instance.OnEvent( null, eventError ) ;
-			}
-        }*/
-
-        /*
-        public static void SaveMucMarks()
-        {
-            try
-            {
-                using (SQLiteTransaction transaction = _connection.BeginTransaction())
-                {
-                    lock (MucMarks.Instance._syncObject)
-                    {
-                        foreach (MucMark mucMark in MucMarks.Instance)
-                        {
-                            Dictionary<string, object> values = new Dictionary<string, object>();
-
-                            values.Add("Id", mucMark.Id);
-                            values.Add("Nick", mucMark.Nick);
-                            values.Add("Jid", mucMark.Jid);
-                            values.Add("Password", mucMark.Password);
-                            values.Add("Name", mucMark.Name);
-                            values.Add("Time", mucMark.Time.ToBinary());
-
-                            mucMark.Id = SaveOrUpdate(values, "Id", "MucMark", true, _connection);
-                        }
-
-                        transaction.Commit();
-                    }
-                }
-            }
-
-            catch (Exception e)
-            {
-                Events.Instance.OnEvent(null, new EventError(e.Message, null));
-            }
-        }*/
 
 		/*
 		public List< RosterItem > ReadRosterItems()
@@ -245,7 +179,8 @@ namespace xeus.Data
 			return id ;
 		}
 		*/
-		public void StoreGroups( Dictionary< string, bool > expanderStates )
+
+		public static void StoreGroups( Dictionary< string, bool > expanderStates )
 		{
 			try
 			{
@@ -256,7 +191,7 @@ namespace xeus.Data
 						Dictionary< string, object > values = new Dictionary< string, object >() ;
 
 						values.Add( "Name", state.Key ) ;
-						values.Add( "IsExpander", ( state.Value ) ? 1 : 0 ) ;
+						values.Add( "IsExpanded", ( state.Value ) ? 1 : 0 ) ;
 
 						SaveOrUpdate( values, "Name", "Group", false, _connection ) ;
 					}
@@ -267,11 +202,11 @@ namespace xeus.Data
 
 			catch ( Exception e )
 			{
-				Events.Instance.OnEvent( this, new EventError( e.Message, null ) ) ;
+				Events.Instance.OnEvent( e, new EventError( e.Message, null ) ) ;
 			}
 		}
 
-		public Dictionary< string, bool > ReadGroups()
+		public static Dictionary< string, bool > ReadGroups()
 		{
 			Dictionary< string, bool > expanderStates = new Dictionary< string, bool >() ;
 
@@ -285,7 +220,7 @@ namespace xeus.Data
 
 					while ( reader.Read() )
 					{
-						expanderStates.Add( ( string ) reader[ "Name" ], ( ( Int64 ) reader[ "IsExpander" ] ) == 1 ) ;
+						expanderStates.Add( ( string ) reader[ "Name" ], ( ( Int64 ) reader[ "IsExpanded" ] ) == 1 ) ;
 					}
 
 					reader.Close() ;
@@ -294,7 +229,7 @@ namespace xeus.Data
 
 			catch ( Exception e )
 			{
-				Events.Instance.OnEvent( this, new EventError( e.Message, null ) ) ;
+				Events.Instance.OnEvent( e, new EventError( e.Message, null ) ) ;
 			}
 
 			return expanderStates ;
@@ -364,7 +299,7 @@ namespace xeus.Data
 			}
 		}
 		*/
-		private static Int32 Insert( Dictionary< string, object > values, string table, bool readAutoId,
+		private static Int32 Insert( IEnumerable<KeyValuePair<string, object>> values, string table, bool readAutoId,
 		                      SQLiteConnection connection )
 		{
 			using ( SQLiteCommand commandUpdate = connection.CreateCommand() )
@@ -433,7 +368,7 @@ namespace xeus.Data
 			}
 		}
 
-		private static void Update( Dictionary< string, object > values, string keyField, string table, SQLiteConnection connection )
+		private static void Update( IDictionary<string, object> values, string keyField, string table, SQLiteConnection connection )
 		{
 			using ( SQLiteCommand commandUpdate = connection.CreateCommand() )
 			{
@@ -470,7 +405,7 @@ namespace xeus.Data
 			}
 		}
 
-		private static Int32 SaveOrUpdate( Dictionary< string, object > values, string keyField, string table, bool readAutoId,
+		private static int SaveOrUpdate( IDictionary<string, object> values, string keyField, string table, bool readAutoId,
 		                            SQLiteConnection connection )
 		{
 			bool exists = false ;
@@ -489,7 +424,10 @@ namespace xeus.Data
 
 					command.Parameters.Add( new SQLiteParameter( "keyparam", values[ keyField ] ) ) ;
 
-				    id = (int)values[keyField];
+                    if (readAutoId)
+                    {
+                        id = (int)values[keyField];
+                    }
 
 					SQLiteDataReader reader = command.ExecuteReader() ;
 
@@ -531,29 +469,5 @@ namespace xeus.Data
 
 			return id ;
 		}
-
-        /*
-	    public static void DeleteMucMark(MucMark mucMark)
-	    {
-            try
-            {
-                using (SQLiteTransaction transaction = _connection.BeginTransaction())
-                {
-                    using (SQLiteCommand command = _connection.CreateCommand())
-                    {
-                        command.CommandText = string.Format("DELETE FROM [MucMark] WHERE [Id]={0}", mucMark.Id);
-                        command.ExecuteNonQuery();
-                    }
-
-                    transaction.Commit();
-                }
-            }
-
-            catch (Exception e)
-            {
-                EventException eventError = new EventException("Error deleting MUC Bookmarks", e);
-                Events.Instance.OnEvent(null, eventError);
-            }
-        }*/
 	}
 }

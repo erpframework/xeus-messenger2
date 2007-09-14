@@ -2,8 +2,8 @@ using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Threading;
-using xeus.Data;
 using xeus2.Properties;
+using xeus2.xeus.Data;
 using xeus2.xeus.Middle;
 
 namespace xeus2

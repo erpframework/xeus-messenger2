@@ -1,10 +1,6 @@
-using System ;
 using System.Windows ;
 using System.Windows.Controls ;
 using System.Windows.Media;
-using agsXMPP.protocol.iq.register ;
-using agsXMPP.protocol.x.data ;
-using agsXMPP.Xml.Dom ;
 using xeus2.xeus.Core ;
 
 namespace xeus2.xeus.XData
@@ -28,7 +24,7 @@ namespace xeus2.xeus.XData
 		private XDataContainer _xDataContainer = null ;
 		private Service _service = null ;
 
-		protected Data _xData = null ;
+		protected agsXMPP.protocol.x.data.Data _xData = null ;
 
 		public virtual bool IsValid
 		{
@@ -43,7 +39,7 @@ namespace xeus2.xeus.XData
 			_container.Children.Remove( _xDataContainer );
 		}
 
-		protected void SetupXData( Data xData )
+        protected void SetupXData(agsXMPP.protocol.x.data.Data xData)
 		{
 			if ( string.IsNullOrEmpty( xData.Title ) )
 			{
@@ -74,7 +70,7 @@ namespace xeus2.xeus.XData
 			_xDataContainer.Data = xData ;
 		}
 
-		public Data GetResult()
+        public agsXMPP.protocol.x.data.Data GetResult()
 		{
 			if ( _xDataContainer != null )
 			{
@@ -86,7 +82,7 @@ namespace xeus2.xeus.XData
 			}
 		}
 
-		public Data XData
+        public agsXMPP.protocol.x.data.Data XData
 		{
 			get
 			{

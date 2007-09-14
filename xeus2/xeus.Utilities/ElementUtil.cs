@@ -8,17 +8,17 @@ namespace xeus2.xeus.Utilities
 {
 	internal static class ElementUtil
 	{
-		public static Data GetData( Element element )
+        public static agsXMPP.protocol.x.data.Data GetData(Element element)
 		{
-			Data data = null ;
+            agsXMPP.protocol.x.data.Data data = null;
 
 			if ( element.HasChildElements )
 			{
 				foreach ( Node node in element.ChildNodes )
 				{
-					if ( node is Data )
+                    if (node is agsXMPP.protocol.x.data.Data)
 					{
-						data = node as Data ;
+                        data = (agsXMPP.protocol.x.data.Data)node;
 						break ;
 					}
 				}

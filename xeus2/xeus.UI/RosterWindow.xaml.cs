@@ -35,6 +35,8 @@ namespace xeus2
 
         protected override void OnClosed(EventArgs e)
         {
+            _roster.SaveExpanderState();
+
             Account.Instance.Close();
 
             base.OnClosed(e);

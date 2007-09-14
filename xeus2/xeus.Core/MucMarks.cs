@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using agsXMPP;
 using agsXMPP.protocol.extensions.bookmarks;
-using xeus.Data;
 
 namespace xeus2.xeus.Core
 {

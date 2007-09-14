@@ -1,9 +1,7 @@
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using xeus.Data;
 using xeus2.xeus.Commands;
 using xeus2.xeus.Core;
 

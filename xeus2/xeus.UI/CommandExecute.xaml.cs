@@ -41,7 +41,7 @@ namespace xeus2.xeus.UI
             ServiceCommands.RegisterCommands(this);
         }
 
-        public Data GetResult()
+        public agsXMPP.protocol.x.data.Data GetResult()
         {
             return _execute.GetResult();
         }

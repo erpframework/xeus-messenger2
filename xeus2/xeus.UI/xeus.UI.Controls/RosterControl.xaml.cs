@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using xeus2.Properties;
 using xeus2.xeus.Core;
+using xeus2.xeus.Data;
 
 namespace xeus2.xeus.UI.xeus.UI.Controls
 {
@@ -31,11 +32,18 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         public RosterControl()
         {
+            _expanderStates = Database.ReadGroups();
+
             Settings.Default.PropertyChanged += Default_PropertyChanged;
 
             InitializeComponent();
 
             ItemSize = Settings.Default.UI_RosterItemSize;
+        }
+
+        public void SaveExpanderState()
+        {
+            Database.StoreGroups(_expanderStates);
         }
 
         void Default_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

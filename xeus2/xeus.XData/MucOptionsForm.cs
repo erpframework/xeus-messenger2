@@ -55,7 +55,7 @@ namespace xeus2.xeus.XData
 
         public void Save()
         {
-            Data data = GetResult();
+            agsXMPP.protocol.x.data.Data data = GetResult();
 
             Account.Instance.DoSaveMucConfig(_mucRoom, data);
         }

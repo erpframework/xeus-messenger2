@@ -5,8 +5,8 @@ using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.iq.vcard;
-using xeus.Data;
 using xeus2.Properties;
+using xeus2.xeus.Data;
 
 namespace xeus2.xeus.Core
 {

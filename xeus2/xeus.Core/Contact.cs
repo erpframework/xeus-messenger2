@@ -7,8 +7,8 @@ using agsXMPP.protocol.client;
 using agsXMPP.protocol.extensions.caps;
 using agsXMPP.protocol.iq.vcard;
 using agsXMPP.Xml.Dom;
-using xeus.Data;
 using xeus2.Properties;
+using xeus2.xeus.Data;
 using xeus2.xeus.Utilities;
 
 namespace xeus2.xeus.Core

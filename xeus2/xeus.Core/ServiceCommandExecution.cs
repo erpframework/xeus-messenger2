@@ -44,7 +44,7 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-		public Data GetResult()
+        public agsXMPP.protocol.x.data.Data GetResult()
 		{
 			return CommandExec.GetResult() ;
 		}

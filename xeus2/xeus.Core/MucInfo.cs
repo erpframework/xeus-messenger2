@@ -7,12 +7,12 @@ namespace xeus2.xeus.Core
 {
     internal class MucRoomInfo
     {
-        private string _description;
-        private int _occupants;
+        private readonly string _description;
+        private readonly int _occupants;
 
-        private List<Field> _data = new List<Field>();
+        private readonly List<Field> _data = new List<Field>();
 
-        public MucRoomInfo(Data xData)
+        public MucRoomInfo(agsXMPP.protocol.x.data.Data xData)
         {
             foreach (Node node in xData.ChildNodes)
             {

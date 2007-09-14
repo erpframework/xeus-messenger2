@@ -1,4 +1,3 @@
-using agsXMPP.protocol.x.data;
 using xeus2.xeus.Utilities;
 
 namespace xeus2.xeus.Core
@@ -7,7 +6,7 @@ namespace xeus2.xeus.Core
     {
         public void AddMuc(Service service)
         {
-            Data xData = ElementUtil.GetData(service.DiscoInfo);
+            agsXMPP.protocol.x.data.Data xData = ElementUtil.GetData(service.DiscoInfo);
 
             if (xData != null)
             {
