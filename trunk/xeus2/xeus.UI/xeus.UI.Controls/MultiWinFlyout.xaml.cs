@@ -6,13 +6,14 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
     /// <summary>
     /// Interaction logic for MultiWinFlyout.xaml
     /// </summary>
-    public partial class MultiWinFlyout : Window
+    public partial class MultiWinFlyout : BaseWindow
     {
         private readonly MultiWin _content;
         private readonly IMultiWinContainerProvider _multiWinContainerProvider;
         private readonly string _name;
 
-        internal MultiWinFlyout(IMultiWinContainerProvider multiWinContainerProvider, MultiWin content, string name)
+        internal MultiWinFlyout(IMultiWinContainerProvider multiWinContainerProvider, MultiWin content, string name, string key)
+            : base(key)
         {
             _multiWinContainerProvider = multiWinContainerProvider;
             _content = content;

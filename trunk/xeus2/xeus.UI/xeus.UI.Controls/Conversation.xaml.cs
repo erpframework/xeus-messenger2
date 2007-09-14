@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using xeus2.xeus.Core;
 
 namespace xeus2.xeus.UI.xeus.UI.Controls
@@ -8,13 +10,30 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
     /// </summary>
     public partial class Conversation : UserControl
     {
-        public Conversation()
+        private ContactChat _contactChat;
+        
+        internal Conversation(ContactChat contactChat)
         {
             InitializeComponent();
+
+            DataContext = contactChat;
+            _contactChat = contactChat;
         }
 
-        public void ConversationInit(IContact contact)
+        private void OnKeyPress(object sender, KeyEventArgs e)
         {
+            if (e.Key == Key.Return &&
+                (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
+            {
+                OnSendMessage(sender, e);
+            }
         }
+
+        protected void OnSendMessage(object sender, RoutedEventArgs eventArgs)
+        {
+            _text.Text = string.Empty;
+            _text.Focus();
+        }
+
     }
 }

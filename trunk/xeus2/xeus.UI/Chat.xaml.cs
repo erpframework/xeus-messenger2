@@ -22,8 +22,8 @@ namespace xeus2.xeus.UI
 
         internal void AddChat(IContact contact)
         {
-            Conversation conversation = new Conversation();
-            conversation.ConversationInit(contact);
+            ContactChat contactChat = new ContactChat(contact);
+            Conversation conversation = new Conversation(contactChat);
 
             try
             {
