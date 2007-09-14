@@ -1391,7 +1391,7 @@
   	<StackPanel Margin="2,4,4,2" Orientation="Horizontal">
   		<Rectangle x:Name="_affiliation" Width="20" Height="20"
   			Fill="{StaticResource aff_none_design}" />
-  		<TextBlock Text="{Binding Path=MucJid}" Foreground="{DynamicResource DefaultTextBrush2}"/>
+  		<TextBlock Text="{Binding Path=Jid}" Foreground="{DynamicResource DefaultTextBrush2}"/>
   		<Button Margin="5,0,0,0" Background="{DynamicResource delete_design}"
               Command="servicecmd:MucCommands.AffNone" CommandParameter="{Binding}"
               Style="{DynamicResource ImageButtonStyle}" Width="12" Height="12"/>

@@ -40,7 +40,7 @@ namespace xeus2.xeus.XData
         {
             if (iq.Error != null)
             {
-                Services.Instance.OnServiceItemError(sender, iq);
+                Account.Instance.GeneralResultError(sender, iq);
             }
             else if (iq.Type == IqType.result)
             {

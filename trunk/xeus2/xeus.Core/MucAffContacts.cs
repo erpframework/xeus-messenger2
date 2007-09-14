@@ -57,7 +57,7 @@ namespace xeus2.xeus.Core
         {
             if (iq.Error != null)
             {
-                Services.Instance.OnServiceItemError(sender, iq);
+                Account.Instance.GeneralResultError(sender, iq);
             }
             else if (iq.Type == IqType.result)
             {
@@ -132,7 +132,7 @@ namespace xeus2.xeus.Core
         {
             if (iq.Error != null)
             {
-                Services.Instance.OnServiceItemError(sender, iq);
+                Account.Instance.GeneralResultError(sender, iq);
             }
             else if (iq.Type == IqType.result)
             {
@@ -147,7 +147,7 @@ namespace xeus2.xeus.Core
         {
             if (iq.Error != null)
             {
-                Services.Instance.OnServiceItemError(sender, iq);
+                Account.Instance.GeneralResultError(sender, iq);
             }
             else if (iq.Type == IqType.result)
             {

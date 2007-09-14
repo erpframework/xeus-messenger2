@@ -140,7 +140,7 @@ namespace xeus2.xeus.Core
                            new OnServiceItemErrorCallback(OnServiceItemError), iq);
         }
 
-        public void OnServiceItemError(IQ iq)
+        void OnServiceItemError(IQ iq)
         {
             EventInfo eventInfo =
                 new EventInfo(string.Format(Resources.Error_ServiceDiscoFailed, iq.From, iq.Error.Code));
