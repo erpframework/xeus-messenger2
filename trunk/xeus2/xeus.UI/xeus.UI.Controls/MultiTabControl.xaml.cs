@@ -11,7 +11,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
     /// </summary>
     public partial class MultiTabControl : UserControl
     {
-        private ObservableCollectionDisp<MultiTabItem> _multiWindows = new ObservableCollectionDisp<MultiTabItem>();
+        private readonly ObservableCollectionDisp<MultiTabItem> _multiWindows = new ObservableCollectionDisp<MultiTabItem>();
 
         private IMultiWinContainerProvider _multiWinContainerProvider = null;
 
