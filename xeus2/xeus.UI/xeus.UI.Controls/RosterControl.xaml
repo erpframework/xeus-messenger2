@@ -30,7 +30,7 @@
             <MenuItem Command="xeus2_xeus_Commands:GeneralCommands.CopyJidToClip"
                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
         </ContextMenu>
-        
+
         <DrawingBrush x:Key="xeus_logo_back_design" PresentationOptions:Freeze="True" Stretch="Uniform">
             <DrawingBrush.Drawing>
                 <DrawingGroup>
