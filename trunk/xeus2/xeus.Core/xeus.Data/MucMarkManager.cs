@@ -2,8 +2,9 @@ using agsXMPP;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.extensions.bookmarks;
 using agsXMPP.protocol.iq.@private;
+using xeus2.xeus.Core;
 
-namespace xeus2.xeus.Core.xeus.Data
+namespace xeus2.xeus.Data
 {
     internal class MucMarkManager
     {

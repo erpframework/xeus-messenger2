@@ -11,12 +11,11 @@ using agsXMPP.protocol.iq.disco;
 using agsXMPP.protocol.iq.register;
 using agsXMPP.protocol.iq.roster;
 using agsXMPP.protocol.iq.search;
-using agsXMPP.protocol.x.data;
 using agsXMPP.protocol.x.muc;
 using agsXMPP.protocol.x.muc.iq.owner;
 using agsXMPP.Xml.Dom;
 using xeus2.Properties;
-using xeus2.xeus.Core.xeus.Data;
+using xeus2.xeus.Data;
 using xeus2.xeus.Middle;
 using Search=xeus2.xeus.Middle.Search;
 using Timer=System.Timers.Timer;
@@ -512,7 +511,7 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public void DoSearchService(Service service, Data data)
+        public void DoSearchService(Service service, agsXMPP.protocol.x.data.Data data)
         {
             SearchIq searchIq = new SearchIq(IqType.set, service.Jid);
             searchIq.To = service.Jid;
@@ -553,7 +552,7 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public void DoRegisterService(Service service, Data data)
+        public void DoRegisterService(Service service, agsXMPP.protocol.x.data.Data data)
         {
             RegisterIq registerIq = new RegisterIq(IqType.set, service.Jid);
             registerIq.To = service.Jid;
@@ -874,7 +873,7 @@ namespace xeus2.xeus.Core
             return new PresenceManager(XmppConnection);
         }
 
-        public void DoSaveMucConfig(MucRoom mucRoom, Data data)
+        public void DoSaveMucConfig(MucRoom mucRoom, agsXMPP.protocol.x.data.Data data)
         {
             OwnerIq saveIq = new OwnerIq(IqType.set, mucRoom.Service.Jid);
 

@@ -43,7 +43,7 @@ namespace xeus2.xeus.XData
 			_listView.SetBinding( ListView.ItemsSourceProperty, bind ) ;
 		}
 
-		protected void ReadFromXData( Data data )
+		protected void ReadFromXData(agsXMPP.protocol.x.data.Data data )
 		{
 			DataTable table = new SearchResult( data.Reported, data.GetItems() ) ;
 			_listView.DataContext = table ;

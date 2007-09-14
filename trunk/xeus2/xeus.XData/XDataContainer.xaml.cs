@@ -9,14 +9,14 @@ namespace xeus2.xeus.XData
 	/// </summary>
 	public partial class XDataContainer : UserControl
 	{
-		private Data _data = null ;
+        private agsXMPP.protocol.x.data.Data _data = null;
 
 		public XDataContainer()
 		{
 			InitializeComponent() ;
 		}
 
-		public Data Data
+        public agsXMPP.protocol.x.data.Data Data
 		{
 			get
 			{
@@ -47,9 +47,9 @@ namespace xeus2.xeus.XData
 			}
 		}
 
-		public Data GetResult()
+        public agsXMPP.protocol.x.data.Data GetResult()
 		{
-			Data data = new Data( XDataFormType.submit ) ;
+            agsXMPP.protocol.x.data.Data data = new agsXMPP.protocol.x.data.Data(XDataFormType.submit);
 
 			foreach ( XDataControl control in _container.Children )
 			{

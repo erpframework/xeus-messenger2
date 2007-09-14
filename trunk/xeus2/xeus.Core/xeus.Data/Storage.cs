@@ -13,7 +13,7 @@ using xeus2.xeus.Core;
 using xeus2.xeus.Utilities;
 using Uri=System.Uri;
 
-namespace xeus.Data
+namespace xeus2.xeus.Data
 {
     internal static class Storage
     {

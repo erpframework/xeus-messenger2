@@ -24,19 +24,19 @@ namespace xeus2.xeus.Core
 	internal class Service : NotifyInfoDispatcher, IJid
 	{
 		private DiscoInfo _discoInfo = null ;
-		private DiscoItem _discoItem = null ;
+		private readonly DiscoItem _discoItem = null ;
 		private bool _isDiscovered = false ;
 		private IQ _errorIq = null ;
 
-		private bool _isToplevel = false ;
+		private readonly bool _isToplevel = false ;
 
-	    private Data _xData = null;
+        private agsXMPP.protocol.x.data.Data _xData = null;
 	    private MucRoomInfo _mucInfo;
 
 		private bool _askedForDiscovery = false ;
 
-		private Services _services = new Services() ;
-		private ObservableCollectionDisp< Service > _commands = new ObservableCollectionDisp< Service >() ;
+		private readonly Services _services = new Services() ;
+		private readonly ObservableCollectionDisp< Service > _commands = new ObservableCollectionDisp< Service >() ;
 
 		public Service( DiscoItem discoItem, bool isToplevel )
 		{
@@ -396,7 +396,7 @@ namespace xeus2.xeus.Core
 			}
 		}
 
-	    public Data XData
+        public agsXMPP.protocol.x.data.Data XData
 	    {
 	        get
 	        {

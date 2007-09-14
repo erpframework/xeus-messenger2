@@ -1,13 +1,13 @@
 using System.Windows.Media.Imaging ;
-using xeus.Data ;
+using xeus2.xeus.Data;
 using xeus2.xeus.Utilities ;
 
 namespace xeus2.xeus.Core
 {
 	internal class ServiceCategory
 	{
-		private Services _services = new Services() ;
-		private string _name ;
+		private readonly Services _services = new Services() ;
+		private readonly string _name ;
 
 		public ServiceCategory( string name )
 		{
