@@ -1,17 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Documents;
 
 namespace xeus2.xeus.Core
 {
     internal class ContactChat : ChatBase<Message>
     {
+        private readonly IContact _contact;
+
+        public ContactChat(IContact contact)
+        {
+            _contact = contact;
+        }
+
         public override ObservableCollectionDisp<Message> Messages
         {
             get
             {
                 throw new NotImplementedException();
+            }
+        }
+
+        public IContact Contact
+        {
+            get
+            {
+                return _contact;
             }
         }
 

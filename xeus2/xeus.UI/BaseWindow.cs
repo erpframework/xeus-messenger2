@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
 
 namespace xeus2.xeus.UI
@@ -13,13 +12,17 @@ namespace xeus2.xeus.UI
             throw new NotImplementedException();
         }
 
-        public BaseWindow(string keyBase, string key)
+        public BaseWindow(string key)
         {
-            _key = WindowManager.MakeKey(keyBase, key);
+            _key = key;
 
             WindowManager.Approve(_key);
 
             Initialized += BaseWindow_Initialized;
+        }
+
+        public BaseWindow(string keyBase, string key) : this(WindowManager.MakeKey(keyBase, key))
+        {
         }
 
         public string Key

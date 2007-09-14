@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using xeus2.xeus.UI.xeus.UI.Controls;
 
 namespace xeus2.xeus.UI
 {
@@ -40,6 +41,13 @@ namespace xeus2.xeus.UI
                     if (win != null)
                     {
                         win.Activate();
+                    }
+
+                    MultiWin mwin = ctrl as MultiWin;
+
+                    if (mwin != null)
+                    {
+                        mwin.ShowContainer();
                     }
                 }
             }

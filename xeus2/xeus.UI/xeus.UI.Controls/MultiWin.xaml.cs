@@ -17,7 +17,8 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         {
             Close,
             Hide,
-            Flyout
+            Flyout,
+            Show
         }
 
         public MultiWin()
@@ -29,28 +30,9 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         {
             _key = WindowManager.MakeKey(keyBase, key);
 
-            WindowManager.Approve(_key);
-
-            Loaded += MultiWin_Loaded;
+            WindowManager.Approve(Key);
 
             ContentElement = element;
-        }
-
-        void MultiWin_Loaded(object sender, RoutedEventArgs e)
-        {
-            WindowManager.Add(_key, this);
-
-            Loaded -= MultiWin_Loaded;
-
-            Unloaded += MultiWin_Unloaded;
-            
-        }
-
-        void MultiWin_Unloaded(object sender, RoutedEventArgs e)
-        {
-            WindowManager.Remove(_key);
-
-            Unloaded -= MultiWin_Unloaded;
         }
 
         public double ContentMinWidth
@@ -93,6 +75,14 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             }
         }
 
+        public string Key
+        {
+            get
+            {
+                return _key;
+            }
+        }
+
         void OnClose(object sender, RoutedEventArgs args)
         {
             if (OnMultiWinEvent != null)
@@ -114,6 +104,14 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             if (OnMultiWinEvent != null)
             {
                 OnMultiWinEvent(this, MultiWinEvent.Flyout);
+            }
+        }
+
+        public void ShowContainer()
+        {
+            if (OnMultiWinEvent != null)
+            {
+                OnMultiWinEvent(this, MultiWinEvent.Show);
             }
         }
     }

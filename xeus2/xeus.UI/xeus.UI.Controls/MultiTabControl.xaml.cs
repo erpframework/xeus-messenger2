@@ -39,9 +39,10 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
                             _multiWinContainerProvider.ShrinkMainWindow(-multiWin.Container.ActualWidth);
 
-                            multiWin.PropertyChanged -= new System.ComponentModel.PropertyChangedEventHandler(multiWin_PropertyChanged);
-                            multiWin.Container.OnMultiWinEvent -= new MultiWin.NotifyMultiWin(Container_OnMultiWinEvent);
+                            multiWin.PropertyChanged -= multiWin_PropertyChanged;
+                            multiWin.Container.OnMultiWinEvent -= Container_OnMultiWinEvent;
 
+                            WindowManager.Remove(multiWin.Container.Key);
                         }
 
                         RedistributeColumns();
@@ -57,8 +58,8 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
                         foreach (MultiTabItem multiWin in e.NewItems)
                         {
-                            multiWin.Container.OnMultiWinEvent += new MultiWin.NotifyMultiWin(Container_OnMultiWinEvent);
-                            multiWin.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(multiWin_PropertyChanged);
+                            multiWin.Container.OnMultiWinEvent += Container_OnMultiWinEvent;
+                            multiWin.PropertyChanged += multiWin_PropertyChanged;
 
                             _container.Children.Add(multiWin.Container);
                             _container.Children.Add(multiWin.GridSplitter);
@@ -75,6 +76,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                                 }
                             }
 
+                            WindowManager.Add(multiWin.Container.Key, multiWin.Container);
                         }
                         
                         RedistributeColumns();
@@ -86,6 +88,16 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 case NotifyCollectionChangedAction.Reset:
                     {
                         BeginInit();
+
+                        foreach (UIElement child in _container.Children)
+                        {
+                            MultiWin win = child as MultiWin;
+
+                            if (win != null)
+                            {
+                                WindowManager.Remove(win.Key);
+                            }
+                        }
 
                         _container.Children.Clear();
 
@@ -131,11 +143,13 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                         }
                     case MultiWin.MultiWinEvent.Flyout:
                         {
-                            MultiWinFlyout flyout = new MultiWinFlyout(_multiWinContainerProvider, tabItem.Container, tabItem.Name);
+                            _multiWindows.Remove(tabItem);
+
+                            MultiWinFlyout flyout = new MultiWinFlyout(_multiWinContainerProvider,
+                                                        tabItem.Container, tabItem.Name, sender.Key);
+
                             flyout.Width = tabItem.Container.ActualWidth;
                             flyout.Height = tabItem.Container.ActualHeight;
-
-                            _multiWindows.Remove(tabItem);
 
                             flyout.Show();
                             break;

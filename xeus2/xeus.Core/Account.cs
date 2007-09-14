@@ -852,7 +852,7 @@ namespace xeus2.xeus.Core
             {
                 DiscoInfo di = iq.Query as DiscoInfo;
 
-                MucMark mucMark = data as MucMark;
+                MucMark mucMark = (MucMark)data;
                 mucMark.DiscoInfo = di;
 
                 MucInfo.Instance.MucLogin(mucMark);

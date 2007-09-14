@@ -89,6 +89,16 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _gridSplitter.Width = 4;
             _gridSplitter.ResizeDirection = GridResizeDirection.Auto;
             _gridSplitter.ResizeBehavior = GridResizeBehavior.BasedOnAlignment;
+
+            _container.OnMultiWinEvent += _container_OnMultiWinEvent;
+        }
+
+        void _container_OnMultiWinEvent(MultiWin sender, MultiWin.MultiWinEvent multiWinEvent)
+        {
+            if (multiWinEvent == MultiWin.MultiWinEvent.Show && !IsVisible)
+            {
+                IsVisible = true;
+            }
         }
     }
 }
