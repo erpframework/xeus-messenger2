@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,7 +20,14 @@ namespace xeus2.xeus.Core
         private readonly object _propertyAccessorLock = new object();
         private readonly ObservableCollectionDisp<Contact> _subContacts = new ObservableCollectionDisp<Contact>();
 
-        public MetaContact(Contact contact)
+        readonly string _id ;
+
+        public MetaContact()
+        {
+            _id = Guid.NewGuid().ToString();
+        }
+
+        public MetaContact(Contact contact) : this()
         {
             _activeContact = contact;
 
@@ -188,6 +196,14 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public string Id
+        {
+            get
+            {
+                return _id;
+            }
+        }
+
         #endregion
 
         public void AddContact(Contact contact)
@@ -227,15 +243,6 @@ namespace xeus2.xeus.Core
             {
                 if (_subContacts.Count > 1)
                 {
-                    /*
-                    ArrayList.Adapter(_subContacts).Sort(_presenceCompare);
-
-                    if (_subContacts[0] != _activeContact)
-                    {
-                        _activeContact = _subContacts[0];
-
-                        // reload all properties
-                    }*/
                 }
             }
 
@@ -259,10 +266,6 @@ namespace xeus2.xeus.Core
                         new PropertyAccessor(typeof (Contact), name);
 
                     _propertyAccessors.Add(name, propertyAccessor);
-                }
-                else
-                {
-                    
                 }
             }
 

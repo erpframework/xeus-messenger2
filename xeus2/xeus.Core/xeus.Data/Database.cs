@@ -37,33 +37,26 @@ namespace xeus.Data
 		{
 			using ( SQLiteCommand cmd = _connection.CreateCommand() )
 			{
-                /*cmd.CommandText = "CREATE TABLE [MucMark] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, "
-			                      + "[Nick] VARCHAR, [Jid] VARCHAR, "
-			                      + "[Password] VARCHAR, [Name] VARCHAR, "
-			                      + "[Time] INTEGER NOT NULL);";
-                cmd.ExecuteNonQuery();*/
-
-                /*
-				cmd.CommandText = "CREATE TABLE [Group] ([IsExpander] INTEGER NOT NULL DEFAULT '0',"
+				cmd.CommandText = "CREATE TABLE [Group] ([IsExpanded] INTEGER NOT NULL DEFAULT '0',"
 				                  + "[Name] VARCHAR NOT NULL PRIMARY KEY UNIQUE);" ;
 				cmd.ExecuteNonQuery() ;
 
-				cmd.CommandText = "CREATE TABLE [Message] (Key VARCHAR NOT NULL, "
-				                  + "[SentFrom] VARCHAR NOT NULL, "
-				                  + "[SentTo] VARCHAR NOT NULL, "
-				                  + "[Time] INTEGER NOT NULL, "
+				cmd.CommandText = "CREATE TABLE [Message] ([From] VARCHAR NOT NULL, "
+				                  + "[To] VARCHAR NOT NULL, "
+				                  + "[DateTime] INTEGER NOT NULL, "
 				                  + "[Id] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
 				                  + "[Body] VARCHAR NOT NULL);" ;
 				cmd.ExecuteNonQuery() ;
 
-				cmd.CommandText = "CREATE TABLE [RosterItem] (Key VARCHAR NOT NULL PRIMARY KEY UNIQUE, "
-				                  + "[SubscriptionType] CHAR NOT NULL, "
-				                  + "[FullName] VARCHAR, [NickName] VARCHAR, "
-				                  + "[CustomName] VARCHAR, [IdLastMessageFrom] INTEGER, "
-				                  + "[IdLastMessageTo] INTEGER);" ;
+				cmd.CommandText = "CREATE TABLE [Contact] (Jid VARCHAR NOT NULL PRIMARY KEY UNIQUE, "
+				                  + "[MetaId] VARCHAR, "
+                                  + "[CustomName] VARCHAR);";
 				cmd.ExecuteNonQuery() ;
-                 */
-			}
+            
+                cmd.CommandText = "CREATE TABLE [MetaContact] (MetaId VARCHAR NOT NULL PRIMARY KEY UNIQUE, "
+                                  + "[CustomName] VARCHAR);";
+                cmd.ExecuteNonQuery();
+            }
 		}
 
 		public static void CloseDatabase()
