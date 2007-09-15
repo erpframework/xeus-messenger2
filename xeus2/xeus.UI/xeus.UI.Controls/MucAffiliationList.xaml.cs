@@ -36,8 +36,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 {
                     if (App.Current != null)
                     {
-                        App.Current.Dispatcher.BeginInvoke(App._dispatcherPriority,
-                                                           new RefreshCallback(Refresh));
+                        App.InvokeSafe(App._dispatcherPriority, new RefreshCallback(Refresh));
                     }
                 }
             }

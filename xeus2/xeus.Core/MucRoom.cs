@@ -464,7 +464,7 @@ namespace xeus2.xeus.Core
             }
             else
             {
-                App.Current.Dispatcher.BeginInvoke(App._dispatcherPriority,
+                App.InvokeSafe(App._dispatcherPriority,
                                                    new MessageCB(MessageCallback), sender, msg, data);
             }
         }
@@ -576,8 +576,8 @@ namespace xeus2.xeus.Core
             }
             else
             {
-                App.Current.Dispatcher.BeginInvoke(App._dispatcherPriority,
-                                                   new PresenceCB(PresenceCallback), sender, presence, data);
+                App.InvokeSafe(App._dispatcherPriority,
+                                new PresenceCB(PresenceCallback), sender, presence, data);
             }
         }
 

@@ -21,12 +21,17 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         private void Chatstate_Loaded(object sender, RoutedEventArgs e)
         {
-            Loaded -= Chatstate_Loaded;
+            Unloaded += Chatstate_Unloaded;
 
             _contactChat = (ContactChat)DataContext;
             _contactChat.PropertyChanged += _contactChat_PropertyChanged;
 
             HandleChatState();
+        }
+
+        void Chatstate_Unloaded(object sender, RoutedEventArgs e)
+        {
+            _contactChat.PropertyChanged -= _contactChat_PropertyChanged;
         }
 
         void HandleChatState()

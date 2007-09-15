@@ -87,6 +87,18 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public void SendChatState(Chatstate chatState)
+        {
+            agsXMPP.protocol.client.Message message = new agsXMPP.protocol.client.Message();
+
+            message.Type = MessageType.chat;
+            message.To = _contact.Jid;
+            message.From = Account.Instance.Self.Jid;
+            message.Chatstate = chatState;
+
+            _xmppClientConnection.Send(message);
+        }
+
         public void SendMessage(string text)
         {
             agsXMPP.protocol.client.Message message = new agsXMPP.protocol.client.Message();

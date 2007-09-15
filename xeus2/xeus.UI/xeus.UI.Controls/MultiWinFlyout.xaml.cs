@@ -39,7 +39,6 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             base.OnClosed(e);
 
             _content.OnMultiWinEvent -= content_OnMultiWinEvent;
-            Loaded -= MultiWinFlyout_Loaded;
         }
 
         private void content_OnMultiWinEvent(MultiWin sender, MultiWin.MultiWinEvent multiWinEvent)
