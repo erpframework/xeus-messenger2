@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -57,28 +58,25 @@ namespace xeus2.xeus.Core
             {
                 _dontSendChange = true;
 
+                // required notification parameter
+                ArrayList list = new ArrayList();
+
                 lock (_syncObject)
                 {
                     foreach (T item in items)
                     {
                         base.InsertItem(Count, item);
+                        list.Add(item);
                     }
                 }
 
                 _dontSendChange = false;
 
+
                 NotifyCollectionChangedEventArgs e =
-                    new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, items);
+                    new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, list);
 
-                try
-                {
-                    OnCollectionChanged(e);
-                }
-
-                catch
-                {
-                    
-                }
+                OnCollectionChanged(e);
             }
             else
             {

@@ -45,12 +45,15 @@ namespace xeus2.xeus.Data
 				cmd.CommandText = "CREATE TABLE [Message] ([From] VARCHAR NOT NULL, "
 				                  + "[To] VARCHAR NOT NULL, "
 				                  + "[DateTime] INTEGER NOT NULL, "
-				                  + "[Body] VARCHAR NOT NULL);" ;
+				                  + "[Body] VARCHAR NOT NULL, "
+                                  + "FOREIGN KEY ([From]) REFERENCES [Contact]([Jid]) "
+                                  + "FOREIGN KEY ([To]) REFERENCES [Contact]([Jid]));";
 				cmd.ExecuteNonQuery() ;
 
 				cmd.CommandText = "CREATE TABLE [Contact] (Jid VARCHAR NOT NULL PRIMARY KEY UNIQUE, "
                                   + "[MetaId] VARCHAR NOT NULL, "
-                                  + "[CustomName] VARCHAR);";
+                                  + "[CustomName] VARCHAR, "
+                                  + "FOREIGN KEY ([MetaId]) REFERENCES [MetaContact]([MetaId]));";
 				cmd.ExecuteNonQuery() ;
             
                 cmd.CommandText = "CREATE TABLE [MetaContact] (MetaId VARCHAR NOT NULL PRIMARY KEY UNIQUE, "
@@ -150,6 +153,41 @@ namespace xeus2.xeus.Data
 			return id ;
 		}
 		*/
+
+        public static List<Message> GetMessages(IContact contact)
+        {
+           List<Message> messages = new List<Message>();
+
+           try
+            {
+                using (SQLiteCommand command = _connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT [Message].* FROM [Message] "
+                                            + "INNER JOIN [Contact] ON ([Contact].[Jid]=[Message].[From] "
+                                            + "OR [Contact].[Jid]=[Message].[To]) "
+                                            + "AND [Contact].[Jid]=@jid "
+                                            + "ORDER BY [Message].[DateTime]";
+
+                    command.Parameters.Add(new SQLiteParameter("jid", contact.Jid.Bare));
+
+                    SQLiteDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        messages.Add(new Message(reader));
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            catch (Exception e)
+            {
+                Events.Instance.OnEvent(e, new EventError(e.Message, null));
+            }
+
+            return messages;
+        }
 
         public static void SaveMessage(Message message)
         {
