@@ -39,7 +39,7 @@ namespace xeus2.xeus.Core
                 if (App.Current != null)
                 {
                     App.Current.Dispatcher.BeginInvoke(_dispatcherPriority,
-                                                       new SetItemCallback(SetItem), index, new object[] {item});
+                                    new SetItemCallback(SetItem), index, new object[] {item});
                 }
             }
         }
@@ -82,8 +82,7 @@ namespace xeus2.xeus.Core
             {
                 if (App.Current != null)
                 {
-                    App.Current.Dispatcher.BeginInvoke(_dispatcherPriority,
-                                                       new AddCallback(Add), items);
+                    App.Current.Dispatcher.BeginInvoke(_dispatcherPriority, new AddCallback(Add), items);
                 }
             }
         }
@@ -108,8 +107,7 @@ namespace xeus2.xeus.Core
             {
                 if (App.Current != null)
                 {
-                    App.Current.Dispatcher.BeginInvoke(_dispatcherPriority,
-                                                       new InsertItemCallback(InsertItem), index, new object[] {item});
+                    App.Current.Dispatcher.BeginInvoke(_dispatcherPriority, new InsertItemCallback(InsertItem), index, new object[] {item});
                 }
             }
         }
@@ -148,7 +146,7 @@ namespace xeus2.xeus.Core
                 if (App.Current != null)
                 {
                     App.Current.Dispatcher.BeginInvoke(_dispatcherPriority,
-                                                       new MoveItemCallback(MoveItem), oldIndex, new object[] {newIndex});
+                                    new MoveItemCallback(MoveItem), oldIndex, new object[] {newIndex});
                 }
             }
         }

@@ -165,8 +165,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             }
             else
             {
-                App.Current.Dispatcher.BeginInvoke(DispatcherPriority.Send,
-                                                   new SelectItemCallback(SelectItem), item);
+                App.InvokeSafe(DispatcherPriority.Send, new SelectItemCallback(SelectItem), item);
             }
         }
 

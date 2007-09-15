@@ -53,5 +53,8 @@
     <Setting Name="UI_MsgOldnest_Old_Min" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">15</Value>
     </Setting>
+    <Setting Name="UI_MaxHistoryMessages" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">80</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

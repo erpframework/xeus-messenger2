@@ -546,7 +546,7 @@ namespace xeus2.xeus.Core
         {
             ContactChat contactChat = new ContactChat(contact, Account.Instance.XmppConnection);
 
-            contactChat.Messages.Add(Database.GetMessages(contact));
+            contactChat.Messages.Add(Database.GetMessages(contact, Settings.Default.UI_MaxHistoryMessages));
             
             lock (_chatsLock)
             {
