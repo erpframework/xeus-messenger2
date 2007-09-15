@@ -12,7 +12,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
     public partial class SearchText : UserControl
     {
         private bool _notFound = false;
-        private Brush _originalBackground;
+        private readonly Brush _originalBackground;
 
         public delegate void ClosedHandler(bool isEnter);
 
@@ -25,7 +25,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         {
             InitializeComponent();
 
-            _text.PreviewKeyDown += new KeyEventHandler(_text_KeyDown);
+            _text.PreviewKeyDown += _text_KeyDown;
             _originalBackground = _text.Foreground;
         }
 

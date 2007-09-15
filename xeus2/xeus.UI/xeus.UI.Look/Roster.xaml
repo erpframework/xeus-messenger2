@@ -429,7 +429,7 @@
             <StackPanel HorizontalAlignment="Left">
                 <Border Margin="1,1,1,-3" x:Name="_imageBorder" Width="32" Height="32"
 	                                BorderBrush="{DynamicResource roster_image_border}"
-	                                CornerRadius="3,3,3,3" SnapsToDevicePixels="True" ClipToBounds="True">
+	                                CornerRadius="3,3,3,3" ClipToBounds="True">
                     <Image Source="{Binding Path=Image}" x:Name="_image"
                                   ClipToBounds="True" Stretch="UniformToFill" IsEnabled="False">
                         <Image.OpacityMask>

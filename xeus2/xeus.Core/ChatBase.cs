@@ -15,6 +15,7 @@ using xeus2.xeus.UI;
 using xeus2.xeus.Utilities;
 using Brush=System.Windows.Media.Brush;
 using Timer=System.Timers.Timer;
+using Uri=System.Uri;
 
 namespace xeus2.xeus.Core
 {
@@ -204,7 +205,7 @@ namespace xeus2.xeus.Core
             {
                 string text;
 
-                MucMessage message = (MucMessage)time.DataContext;
+                MessageBase message = (MessageBase)time.DataContext;
                 DateTime dateTime = message.DateTime;
                 text = string.Format("{0}\n{1}", dateTime, TimeUtilities.FormatRelativeTime(dateTime));
 
@@ -221,6 +222,88 @@ namespace xeus2.xeus.Core
             if (_lastMessage != null)
             {
                 _lastMessage.RefreshRelativeTime();
+            }
+        }
+
+        protected static Rectangle CreateRectangle(Brush brush)
+        {
+            Rectangle rect = new Rectangle();
+            rect.Fill = brush;
+            rect.Width = 20;
+            rect.Height = 20;
+
+            return rect;
+        }
+
+        protected void FormatParagraph(Paragraph paragraph, string body)
+        {
+            if (body.TrimStart().StartsWith("/me "))
+            {
+                // /me
+                body = body.Replace("/me ", String.Empty);
+                paragraph.Foreground = _meTextBrush;
+            }
+
+            MatchCollection matches = _urlregex.Matches(body);
+
+            if (matches.Count > 0)
+            {
+                string[] founds = new string[matches.Count];
+
+                for (int i = 0; i < founds.Length; i++)
+                {
+                    founds[i] = matches[i].ToString();
+                }
+
+                string[] bodies = body.Split(founds, StringSplitOptions.RemoveEmptyEntries);
+
+                for (int j = 0; j < bodies.Length || j < founds.Length; j++)
+                {
+                    bool wrongUri = false;
+
+                    if (bodies.Length > j)
+                    {
+                        paragraph.Inlines.Add(bodies[j]);
+                    }
+
+                    if (founds.Length > j)
+                    {
+                        Run hyperlinkRun = new Run(founds[j]);
+                        Hyperlink hyperlink = new XeusHyperlink(hyperlinkRun);
+                        hyperlink.Foreground = Brushes.DarkSalmon;
+
+                        try
+                        {
+                            string url = hyperlinkRun.Text;
+
+                            if (!url.Contains(":"))
+                            {
+                                url = string.Format("http://{0}", url);
+                            }
+
+                            hyperlink.NavigateUri = new Uri(url);
+                        }
+
+                        catch
+                        {
+                            // improper uri format
+                            wrongUri = true;
+                        }
+
+                        if (wrongUri)
+                        {
+                            paragraph.Inlines.Add(hyperlinkRun);
+                        }
+                        else
+                        {
+                            paragraph.Inlines.Add(hyperlink);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                paragraph.Inlines.Add(body);
             }
         }
 
