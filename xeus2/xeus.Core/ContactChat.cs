@@ -109,8 +109,6 @@ namespace xeus2.xeus.Core
             message.From = Account.Instance.Self.Jid;
             message.Chatstate = Chatstate.active;
 
-            _xmppClientConnection.Send(message);
-
             Message chatMessage = new Message(message);
 
             lock (Messages._syncObject)
@@ -126,7 +124,6 @@ namespace xeus2.xeus.Core
         protected override Block GenerateMessage(Message message, Message previousMessage)
         {
             IContact sender = null;
-            IContact recipient;
 
             if (JidUtil.BareEquals(message.From, Account.Instance.Self.Jid))
             {
@@ -134,13 +131,9 @@ namespace xeus2.xeus.Core
                 {
                     sender = Account.Instance.Self;
                 }
-
-                recipient = _contact;
             }
             else
             {
-                recipient = Account.Instance.Self;
-
                 if (message.From != null)
                 {
                     sender = _contact;
