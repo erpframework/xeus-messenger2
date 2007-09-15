@@ -30,7 +30,7 @@ namespace xeus2.xeus.UI
 
         internal bool AddChat(IContact contact)
         {
-            ContactChat contactChat = new ContactChat(contact);
+            ContactChat contactChat = Roster.Instance.CreateChat(contact);
             Conversation conversation = new Conversation(contactChat);
 
             try

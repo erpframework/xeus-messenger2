@@ -17,8 +17,10 @@ namespace xeus2.xeus.Core
     {
         private static readonly Roster _instance = new Roster();
         private readonly ObservableCollectionDisp<MetaContact> _items = new ObservableCollectionDisp<MetaContact>();
-
         private readonly Dictionary<string, Contact> _realContacts = new Dictionary<string, Contact>();
+
+        private List<ContactChat> _chats = new List<ContactChat>();
+        private object _chatsLock = new object();
 
         public static Roster Instance
         {
@@ -48,13 +50,16 @@ namespace xeus2.xeus.Core
                            new MessageCallback(OnMessage), msg);
         }
 
-        void OnMessage(agsXMPP.protocol.client.Message msg)
+        private void OnMessage(agsXMPP.protocol.client.Message msg)
         {
             Message message = new Message(msg);
+
             Database.SaveMessage(message);
+
+            DistributeMessage(message);
         }
 
-        void OnContactPresence(Presence presence)
+        private void OnContactPresence(Presence presence)
         {
             lock (_items._syncObject)
             {
@@ -101,15 +106,15 @@ namespace xeus2.xeus.Core
 
                     if (!contact.HasVCardRecieved)
                     {
-                        SetFreshVcard(contact, presence);
+                        SetFreshVcard(contact);
                     }
 
                     RefreshIqAvatar(contact);
                 }
-            }            
+            }
         }
 
-        void RefreshIqAvatar(Contact contact)
+        private void RefreshIqAvatar(Contact contact)
         {
             if (contact.Presence != null)
             {
@@ -131,7 +136,7 @@ namespace xeus2.xeus.Core
 
         private void IqAvatarResult(object sender, IQ iq, object data)
         {
-            Contact contact = (Contact)data;
+            Contact contact = (Contact) data;
 
             if (iq.Type == IqType.error || iq.Error != null)
             {
@@ -178,7 +183,8 @@ namespace xeus2.xeus.Core
             Account.Instance.GetPresenceManager().Subcribe(contact.Jid);
 
             EventInfo eventinfo =
-                new EventInfo(string.Format("You've asked '{0} ({1})' for authorization", contact.DisplayName, contact.Jid));
+                new EventInfo(
+                    string.Format("You've asked '{0} ({1})' for authorization", contact.DisplayName, contact.Jid));
             Events.Instance.OnEvent(this, eventinfo);
         }
 
@@ -187,7 +193,8 @@ namespace xeus2.xeus.Core
             Account.Instance.GetPresenceManager().RefuseSubscriptionRequest(contact.Jid);
 
             EventInfo eventinfo =
-                new EventInfo(string.Format("You've asked '{0} ({1})' for authorization", contact.DisplayName, contact.Jid));
+                new EventInfo(
+                    string.Format("You've asked '{0} ({1})' for authorization", contact.DisplayName, contact.Jid));
             Events.Instance.OnEvent(this, eventinfo);
         }
 
@@ -200,7 +207,7 @@ namespace xeus2.xeus.Core
             Events.Instance.OnEvent(this, eventinfo);
         }
 
-        void OnSubscribePresence(Presence presence)
+        private void OnSubscribePresence(Presence presence)
         {
             Contact contact;
 
@@ -215,7 +222,7 @@ namespace xeus2.xeus.Core
                     {
                         VcardIq viq = new VcardIq(IqType.get, presence.From);
                         Account.Instance.XmppConnection.IqGrabber.SendIq(viq, new IqCB(VcardResultAuth),
-                                                                            (contact ?? (object)presence));
+                                                                         (contact ?? (object) presence));
 
                         break;
                     }
@@ -230,7 +237,8 @@ namespace xeus2.xeus.Core
                         else
                         {
                             EventInfo eventinfo =
-                                new EventInfo(string.Format("'{0} ({1})' just authorized you", contact.DisplayName, contact.Jid));
+                                new EventInfo(
+                                    string.Format("'{0} ({1})' just authorized you", contact.DisplayName, contact.Jid));
                             Events.Instance.OnEvent(this, eventinfo);
 
                             // try to get v-card instantly
@@ -255,7 +263,9 @@ namespace xeus2.xeus.Core
                         else
                         {
                             EventInfo eventinfo =
-                                new EventInfo(string.Format("'{0} ({1})' removed your authorization", contact.DisplayName, contact.Jid));
+                                new EventInfo(
+                                    string.Format("'{0} ({1})' removed your authorization", contact.DisplayName,
+                                                  contact.Jid));
                             Events.Instance.OnEvent(this, eventinfo);
                         }
 
@@ -274,7 +284,7 @@ namespace xeus2.xeus.Core
             if (presence.Error != null)
             {
                 EventError eventError = new EventError(string.Format("Presence error from {0}", presence.From),
-                                                        presence.Error);
+                                                       presence.Error);
                 Events.Instance.OnEvent(this, eventError);
             }
             else
@@ -298,7 +308,7 @@ namespace xeus2.xeus.Core
             }
         }
 
-        private void SetFreshVcard(Contact contact, Presence presence)
+        private void SetFreshVcard(Contact contact)
         {
             Vcard vcard = Storage.GetVcard(contact.Jid, Settings.Default.VCardExpirationDays);
 
@@ -306,7 +316,7 @@ namespace xeus2.xeus.Core
             {
                 contact.SetVcard(vcard);
             }
-            else 
+            else
             {
                 VcardIq viq = new VcardIq(IqType.get, contact.Jid);
                 Account.Instance.XmppConnection.IqGrabber.SendIq(viq, new IqCB(VcardResult), contact);
@@ -348,7 +358,7 @@ namespace xeus2.xeus.Core
 
             if (data is Presence)
             {
-                contact = new Contact((Presence)data);
+                contact = new Contact((Presence) data);
             }
             else
             {
@@ -498,10 +508,88 @@ namespace xeus2.xeus.Core
             return null;
         }
 
+        private void DistributeMessage(Message message)
+        {
+            lock (_items._syncObject)
+            {
+                Contact contact = FindContact(message.From);
+
+                if (contact == null)
+                {
+                    throw new NotImplementedException("Message from contact not in roster");
+                }
+                else
+                {
+                    List<ContactChat> contactChats = GetContactChats(contact);
+
+                    foreach (ContactChat chat in contactChats)
+                    {
+                        chat.Messages.Add(message);
+                    }
+                }
+            }
+        }
+
+        public ContactChat CreateChat(IContact contact)
+        {
+            ContactChat contactChat = new ContactChat(contact);
+            
+            lock (_chatsLock)
+            {
+                _chats.Add(contactChat);
+            }
+
+            return contactChat;
+        }
+
+        private List<ContactChat> GetContactChats(IContact contact)
+        {
+            List<ContactChat> contactChats = new List<ContactChat>();
+
+            lock (_chatsLock)
+            {
+                foreach (ContactChat chat in _chats)
+                {
+                    if (contact == chat.Contact)
+                    {
+                        contactChats.Add(chat);
+                    }
+                    else
+                    {
+                        // find if the contact participates in metacontact chat
+                        if (contact is Contact
+                            && chat.Contact is MetaContact)
+                        {
+                            MetaContact metaContact = (MetaContact) chat.Contact;
+
+                            Contact subContact;
+
+                            lock (metaContact.SubContacts._syncObject)
+                            {
+                                subContact = metaContact.FindContact(contact.Jid);
+                            }
+
+                            if (subContact != null)
+                            {
+                                contactChats.Add(chat);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return contactChats;
+        }
+
+        #region Nested type: MessageCallback
+
+        private delegate void MessageCallback(agsXMPP.protocol.client.Message msg);
+
+        #endregion
+
         #region Nested type: PresenceCallback
 
         private delegate void PresenceCallback(Presence presence);
-        private delegate void MessageCallback(agsXMPP.protocol.client.Message msg);
 
         #endregion
 

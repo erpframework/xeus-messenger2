@@ -79,16 +79,16 @@ namespace xeus2.xeus.Middle
                     }
 
                     _chat = new UI.Chat();
-                    _chat.Closed += _muc_Closed;
+                    _chat.Closed += _chat_Closed;
                 }
             }
         }
 
-        private void _muc_Closed(object sender, EventArgs e)
+        private void _chat_Closed(object sender, EventArgs e)
         {
             lock (_lock)
             {
-                _chat.Closed -= _muc_Closed;
+                _chat.Closed -= _chat_Closed;
                 _chat = null;
             }
         }
