@@ -17,7 +17,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
     /// <summary>
     /// Interaction logic for MucConversation.xaml
     /// </summary>
-    public partial class MucConversation
+    public partial class MucConversation : UserControl, IDisposable
     {
         private readonly InlineMethod _inlineMethod = new InlineMethod();
         private MucMessage _lastFoundItem = null;
@@ -39,25 +39,29 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _mucRoom = Account.Instance.JoinMuc(service, nick, password);
 
             _mucRoom.OnClickMucContact += _mucRoom_OnClickMucContact;
-            _mucRoom.Messages.CollectionChanged += MucMessages_CollectionChanged;
 
             DataContext = _mucRoom;
 
             new MucNikcnames(_text, _mucRoom);
 
+            Loaded += MucConversation_Loaded;
             Unloaded += MucConversation_Unloaded;
-
-            _mucRoom.PropertyChanged += _mucRoom_PropertyChanged;
-
-            _inlineMethod.Finished += _inlineMethod_Finished;
-            _inlineSearch.TextChanged += _inlineSearch_TextChanged;
-            _inlineSearch.Closed += _inlineSearch_Closed;
 
             _text.Loaded += _text_Loaded;
 
             _flowViewer.PreviewKeyDown += MucConversation_PreviewKeyDown;
 
             PreviewKeyDown += MucConversation_PreviewKeyDownWindow;
+        }
+
+        void MucConversation_Loaded(object sender, RoutedEventArgs e)
+        {
+            _mucRoom.Messages.CollectionChanged += MucMessages_CollectionChanged;
+            _mucRoom.PropertyChanged += _mucRoom_PropertyChanged;
+
+            _inlineMethod.Finished += _inlineMethod_Finished;
+            _inlineSearch.TextChanged += _inlineSearch_TextChanged;
+            _inlineSearch.Closed += _inlineSearch_Closed;
         }
 
         private void _text_Loaded(object sender, RoutedEventArgs e)
@@ -312,7 +316,12 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         private void MucConversation_Unloaded(object sender, RoutedEventArgs e)
         {
-            _mucRoom.LeaveRoom(Settings.Default.MucLeaveMsg);
+            _mucRoom.Messages.CollectionChanged -= MucMessages_CollectionChanged;
+            _mucRoom.PropertyChanged -= _mucRoom_PropertyChanged;
+
+            _inlineMethod.Finished -= _inlineMethod_Finished;
+            _inlineSearch.TextChanged -= _inlineSearch_TextChanged;
+            _inlineSearch.Closed -= _inlineSearch_Closed;
         }
 
         private void OnKeyPress(object sender, KeyEventArgs e)
@@ -435,5 +444,10 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         private delegate void SelectItemCallback(MucMessage item);
 
         #endregion
+
+        public void Dispose()
+        {
+            _mucRoom.LeaveRoom(Settings.Default.MucLeaveMsg);
+        }
     }
 }

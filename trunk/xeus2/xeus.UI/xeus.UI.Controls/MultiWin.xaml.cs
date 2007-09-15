@@ -114,5 +114,10 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 OnMultiWinEvent(this, MultiWinEvent.Show);
             }
         }
+
+        public virtual void Closing()
+        {
+            
+        }
     }
 }
