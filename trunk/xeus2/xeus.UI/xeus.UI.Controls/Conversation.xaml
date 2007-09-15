@@ -4,8 +4,11 @@
     xmlns:Controls="clr-namespace:xeus2.xeus.UI.xeus.UI.Controls;assembly=">
     <DockPanel>
         <Border Background="{DynamicResource back_x_design}" BorderBrush="{DynamicResource DefaultTextBrush2}" DockPanel.Dock="Top">
-            <ContentControl ContentTemplate="{DynamicResource FullContactCard}" Content="{Binding Path=Contact}"
+            <StackPanel>
+                <ContentControl ContentTemplate="{DynamicResource FullContactCard}" Content="{Binding Path=Contact}"
                             Margin="10,0,10,0" HorizontalAlignment="Left"/>
+                <Controls:Chatstate/>
+            </StackPanel>
         </Border>
 
         <StackPanel Margin="5,5,5,5" DockPanel.Dock="Bottom">

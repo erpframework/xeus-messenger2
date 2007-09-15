@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using agsXMPP;
 using agsXMPP.protocol.client;
+using agsXMPP.protocol.extensions.chatstates;
 using agsXMPP.protocol.iq.avatar;
 using agsXMPP.protocol.iq.roster;
 using agsXMPP.protocol.iq.vcard;
@@ -52,11 +53,17 @@ namespace xeus2.xeus.Core
 
         private void OnMessage(agsXMPP.protocol.client.Message msg)
         {
-            Message message = new Message(msg);
+            if (msg.Type == MessageType.chat)
+            {
+                Message message = new Message(msg);
 
-            Database.SaveMessage(message);
+                if (msg.Body != null)
+                {
+                    Database.SaveMessage(message);
+                }
 
-            DistributeMessage(message);
+                DistributeMessage(message, msg.Chatstate);
+            }
         }
 
         private void OnContactPresence(Presence presence)
@@ -508,7 +515,7 @@ namespace xeus2.xeus.Core
             return null;
         }
 
-        private void DistributeMessage(Message message)
+        private void DistributeMessage(Message message, Chatstate chatstate)
         {
             lock (_items._syncObject)
             {
@@ -524,7 +531,12 @@ namespace xeus2.xeus.Core
 
                     foreach (ContactChat chat in contactChats)
                     {
-                        chat.Messages.Add(message);
+                        if (message.Body != null)
+                        {
+                            chat.Messages.Add(message);
+                        }
+                        
+                        chat.ChatState = chatstate;
                     }
                 }
             }
@@ -532,7 +544,7 @@ namespace xeus2.xeus.Core
 
         public ContactChat CreateChat(IContact contact)
         {
-            ContactChat contactChat = new ContactChat(contact);
+            ContactChat contactChat = new ContactChat(contact, Account.Instance.XmppConnection);
             
             lock (_chatsLock)
             {

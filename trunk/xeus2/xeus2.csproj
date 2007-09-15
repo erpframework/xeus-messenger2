@@ -184,6 +184,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="xeus.UI\xeus.UI.Controls\Chatstate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="xeus.UI\xeus.UI.Controls\Conversation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -434,6 +438,9 @@
     <Compile Include="xeus.UI\Vista.cs" />
     <Compile Include="xeus.UI\WindowExistsException.cs" />
     <Compile Include="xeus.UI\WindowManager.cs" />
+    <Compile Include="xeus.UI\xeus.UI.Controls\Chatstate.xaml.cs">
+      <DependentUpon>Chatstate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="xeus.UI\xeus.UI.Controls\Conversation.xaml.cs">
       <DependentUpon>Conversation.xaml</DependentUpon>
     </Compile>

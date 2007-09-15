@@ -10,7 +10,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
     /// </summary>
     public partial class Conversation : UserControl
     {
-        private ContactChat _contactChat;
+        private readonly ContactChat _contactChat;
         
         internal Conversation(ContactChat contactChat)
         {
@@ -31,9 +31,10 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         protected void OnSendMessage(object sender, RoutedEventArgs eventArgs)
         {
+            _contactChat.SendMessage(_text.Text);
+
             _text.Text = string.Empty;
             _text.Focus();
         }
-
     }
 }
