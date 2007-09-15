@@ -36,9 +36,9 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         protected override void OnClosed(EventArgs e)
         {
-            base.OnClosed(e);
-
             _content.OnMultiWinEvent -= content_OnMultiWinEvent;
+
+            base.OnClosed(e);
         }
 
         private void content_OnMultiWinEvent(MultiWin sender, MultiWin.MultiWinEvent multiWinEvent)
