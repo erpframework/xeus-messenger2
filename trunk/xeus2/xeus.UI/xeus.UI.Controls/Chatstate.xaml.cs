@@ -23,35 +23,42 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         {
             Loaded -= Chatstate_Loaded;
 
-            _contactChat = (ContactChat) DataContext;
+            _contactChat = (ContactChat)DataContext;
             _contactChat.PropertyChanged += _contactChat_PropertyChanged;
+
+            HandleChatState();
+        }
+
+        void HandleChatState()
+        {
+            switch (_contactChat.ChatState)
+            {
+                case agsXMPP.protocol.extensions.chatstates.Chatstate.active:
+                case agsXMPP.protocol.extensions.chatstates.Chatstate.paused:
+                    {
+                        Opacity = 0.15;
+                        Visibility = Visibility.Visible;
+                        break;
+                    }
+                case agsXMPP.protocol.extensions.chatstates.Chatstate.composing:
+                    {
+                        Opacity = 1.0;
+                        Visibility = Visibility.Visible;
+                        break;
+                    }
+                default:
+                    {
+                        Visibility = Visibility.Collapsed;
+                        break;
+                    }
+            }
         }
 
         private void _contactChat_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "ChatState")
             {
-                switch (_contactChat.ChatState)
-                {
-                    case agsXMPP.protocol.extensions.chatstates.Chatstate.active:
-                    case agsXMPP.protocol.extensions.chatstates.Chatstate.paused:
-                        {
-                            Opacity = 0.15;
-                            Visibility = Visibility.Visible;
-                            break;
-                        }
-                    case agsXMPP.protocol.extensions.chatstates.Chatstate.composing:
-                        {
-                            Opacity = 1.0;
-                            Visibility = Visibility.Visible;
-                            break;
-                        }
-                    default:
-                        {
-                            Visibility = Visibility.Collapsed;
-                            break;
-                        }
-                }
+                HandleChatState();
             }
         }
     }

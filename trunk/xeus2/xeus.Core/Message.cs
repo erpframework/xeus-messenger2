@@ -23,7 +23,7 @@ namespace xeus2.xeus.Core
             _from = new Jid((string)reader["From"]);
             _to = new Jid((string)reader["To"]);
             _body = (string)reader["Body"];
-            _dateTime = DateTime.FromBinary((Int64)reader["Time"]);
+            _dateTime = DateTime.FromBinary((Int64)reader["DateTime"]);
         }
 
         public Dictionary<string, object> GetData()
