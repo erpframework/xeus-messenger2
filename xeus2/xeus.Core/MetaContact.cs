@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.extensions.caps;
+using agsXMPP.protocol.iq.disco;
 using FastDynamicPropertyAccessor;
 using xeus2.xeus.Data;
 using xeus2.xeus.Utilities;
@@ -239,6 +240,18 @@ namespace xeus2.xeus.Core
             get
             {
                 return (Capabilities)GetValueSafe("Caps");
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public DiscoInfo Disco
+        {
+            get
+            {
+                return (DiscoInfo)GetValueSafe("Disco");
             }
             set
             {

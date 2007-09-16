@@ -1,6 +1,7 @@
 using System.Windows.Media.Imaging;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.extensions.caps;
+using agsXMPP.protocol.iq.disco;
 
 namespace xeus2.xeus.Core
 {
@@ -97,6 +98,12 @@ namespace xeus2.xeus.Core
         }
 
         Capabilities Caps
+        {
+            get;
+            set;
+        }
+
+        DiscoInfo Disco
         {
             get;
             set;

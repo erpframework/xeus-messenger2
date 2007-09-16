@@ -2,6 +2,7 @@
 using agsXMPP;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.extensions.caps;
+using agsXMPP.protocol.iq.disco;
 using xeus2.xeus.Data;
 
 namespace xeus2.xeus.Core
@@ -163,6 +164,18 @@ namespace xeus2.xeus.Core
         }
 
         public Capabilities Caps
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+                throw new System.NotImplementedException();
+            }
+        }
+
+        public DiscoInfo Disco
         {
             get
             {

@@ -241,6 +241,18 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public DiscoInfo Disco
+        {
+            get
+            {
+                return _discoInfo;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public void PresenceChange()
         {
             NotifyPropertyChanged("Show");
@@ -263,6 +275,9 @@ namespace xeus2.xeus.Core
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.COMMANDS));
 
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.CHATSTATES));
+            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.DISCO_INFO));
+            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.VCARD_UPDATE));
+            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.VCARD));
 
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC_ADMIN));
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC_OWNER));
@@ -346,14 +361,6 @@ namespace xeus2.xeus.Core
  
             Vcard vcard = Storage.GetVcard(Jid, 9999);
             SetMyVcard(vcard);
-        }
-
-        public DiscoInfo Info
-        {
-            get
-            {
-                return _discoInfo;
-            }
         }
     }
 }
