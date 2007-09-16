@@ -23,15 +23,14 @@ namespace xeus2.xeus.Core
         private readonly object _propertyAccessorLock = new object();
         private readonly ObservableCollectionDisp<Contact> _subContacts = new ObservableCollectionDisp<Contact>();
 
-        readonly string _metaId ;
+        int _id = 0 ;
         private string _customName;
 
         public MetaContact()
         {
-            _metaId = Guid.NewGuid().ToString();
         }
 
-        public MetaContact(Contact contact) : this()
+        public MetaContact(Contact contact)
         {
             _activeContact = contact;
 
@@ -40,7 +39,7 @@ namespace xeus2.xeus.Core
 
         public MetaContact(IDataRecord reader)
         {
-            _metaId = (string)reader["MetaId"];
+            _id = (int)(Int64)reader["Id"];
 
             if (!reader.IsDBNull(reader.GetOrdinal("CustomName")))
             {
@@ -52,7 +51,7 @@ namespace xeus2.xeus.Core
         {
             Dictionary<string, object> data = new Dictionary<string, object>();
 
-            data.Add("MetaId", MetaId);
+            data.Add("Id", Id);
             data.Add("CustomName", CustomName);
 
             return data;
@@ -234,11 +233,16 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public string MetaId
+        public int Id
         {
             get
             {
-                return _metaId;
+                return _id;
+            }
+
+            set
+            {
+                _id = value;
             }
         }
 
@@ -312,7 +316,14 @@ namespace xeus2.xeus.Core
                 }
             }
 
-            return propertyAccessor.Get(_activeContact);
+            if (_activeContact != null)
+            {
+                return propertyAccessor.Get(_activeContact);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

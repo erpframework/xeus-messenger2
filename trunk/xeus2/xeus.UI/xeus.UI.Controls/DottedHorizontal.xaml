@@ -1,0 +1,8 @@
+﻿<UserControl x:Class="xeus2.xeus.UI.xeus.UI.Controls.DottedHorizontal"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Border x:Name="border2" Padding="5,1,5,1" Background="{x:Null}" DockPanel.Dock="Bottom">
+        <Line Stroke="#FF555555" StrokeDashArray="2 2" X1="1" SnapsToDevicePixels="True"
+                      StrokeThickness="1" X2="{Binding Path=ActualWidth, ElementName=border2, Mode=Default}"/>
+    </Border>
+</UserControl>

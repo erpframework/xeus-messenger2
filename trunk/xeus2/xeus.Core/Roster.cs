@@ -20,8 +20,8 @@ namespace xeus2.xeus.Core
         private readonly ObservableCollectionDisp<MetaContact> _items = new ObservableCollectionDisp<MetaContact>();
         private readonly Dictionary<string, Contact> _realContacts = new Dictionary<string, Contact>();
 
-        private List<ContactChat> _chats = new List<ContactChat>();
-        private object _chatsLock = new object();
+        private readonly List<ContactChat> _chats = new List<ContactChat>();
+        private readonly object _chatsLock = new object();
 
         public static Roster Instance
         {
@@ -438,8 +438,6 @@ namespace xeus2.xeus.Core
 
             lock (_items._syncObject)
             {
-                bool save = false;
-
                 // for now
                 contact = Database.GetContact(item);
 
@@ -453,9 +451,10 @@ namespace xeus2.xeus.Core
                 if (metaContact == null)
                 {
                     metaContact = new MetaContact();
-                    contact = new Contact(item, metaContact.MetaId);
+                    Database.SaveMetaContact(metaContact);
 
-                    save = true;
+                    contact = new Contact(item, metaContact.Id);
+                    Database.SaveContact(contact);
                 }
 
                 metaContact.AddContact(contact);
@@ -463,12 +462,6 @@ namespace xeus2.xeus.Core
                 _realContacts.Add(item.Jid.ToString(), contact);
 
                 _items.Add(metaContact);
-
-                if (save)
-                {
-                    Database.SaveMetaContact(metaContact);
-                    Database.SaveContact(contact);
-                }
             }
 
             Vcard vcard = Storage.GetVcard(contact.Jid, 99999);

@@ -10,70 +10,70 @@ namespace xeus2.xeus.Commands
 {
     public static class MucCommands
     {
-        private static RoutedUICommand _changeAccessLevel =
+        private static readonly RoutedUICommand _changeAccessLevel =
             new RoutedUICommand("Change Access Level", "ChangeAccessLevel", typeof (MucCommands));
 
-        private static RoutedUICommand _changeNick =
+        private static readonly RoutedUICommand _changeNick =
             new RoutedUICommand("Change Nickname", "ChangeNickmane", typeof (MucCommands));
 
-        private static RoutedUICommand _options =
+        private static readonly RoutedUICommand _options =
             new RoutedUICommand("Display Options", "DisplayOptions", typeof(MucCommands));
 
-        private static RoutedUICommand _kick =
+        private static readonly RoutedUICommand _kick =
             new RoutedUICommand("Kick", "Kick", typeof (MucCommands));
 
-        private static RoutedUICommand _ban =
+        private static readonly RoutedUICommand _ban =
             new RoutedUICommand("Ban", "Ban", typeof (MucCommands));
 
-        private static RoutedUICommand _grantOwner =
+        private static readonly RoutedUICommand _grantOwner =
             new RoutedUICommand("Grant Ownership", "GrantOwnership", typeof(MucCommands));
 
-        private static RoutedUICommand _grantMember =
+        private static readonly RoutedUICommand _grantMember =
             new RoutedUICommand("Grant Membership", "GrantMembership", typeof(MucCommands));
 
-        private static RoutedUICommand _grantAdmin =
+        private static readonly RoutedUICommand _grantAdmin =
             new RoutedUICommand("Grant Admin Privileges", "GrantAdminPrivileges", typeof(MucCommands));
 
-        private static RoutedUICommand _grantModerator =
+        private static readonly RoutedUICommand _grantModerator =
             new RoutedUICommand("Grant Moderator Privileges", "GrantModeratorPrivileges", typeof(MucCommands));
 
-        private static RoutedUICommand _revokeModerator =
+        private static readonly RoutedUICommand _revokeModerator =
             new RoutedUICommand("Revoke Moderator Privileges", "RevokeModeratorPrivileges", typeof(MucCommands));
 
-        private static RoutedUICommand _revokeMember =
+        private static readonly RoutedUICommand _revokeMember =
             new RoutedUICommand("Revoke Membership", "RevokeMembership", typeof(MucCommands));
 
-        private static RoutedUICommand _affNone =
+        private static readonly RoutedUICommand _affNone =
             new RoutedUICommand("Remove from Group", "RemoveFromGroup", typeof(MucCommands));
 
-        private static RoutedUICommand _sendPrivateMessage =
+        private static readonly RoutedUICommand _sendPrivateMessage =
             new RoutedUICommand("Send Private Message", "SendPrivateMessage", typeof (MucCommands));
 
-        private static RoutedUICommand _invite =
+        private static readonly RoutedUICommand _invite =
             new RoutedUICommand("Invite", "Invite", typeof (MucCommands));
 
-        private static RoutedUICommand _sendMessageToAll =
+        private static readonly RoutedUICommand _sendMessageToAll =
             new RoutedUICommand("Send Message To All", "SendMessageToAll", typeof (MucCommands));
 
-        private static RoutedUICommand _modifySubject =
+        private static readonly RoutedUICommand _modifySubject =
             new RoutedUICommand("Modify Subject", "ModifySubject", typeof (MucCommands));
 
-        private static RoutedUICommand _grantVoice =
+        private static readonly RoutedUICommand _grantVoice =
             new RoutedUICommand("Grant Voice", "GrantVoice", typeof (MucCommands));
 
-        private static RoutedUICommand _revokeVoice =
+        private static readonly RoutedUICommand _revokeVoice =
             new RoutedUICommand("Revoke Voice", "RevokeVoice", typeof (MucCommands));
 
-        private static RoutedUICommand _addMucMark =
+        private static readonly RoutedUICommand _addMucMark =
             new RoutedUICommand("Add MUC Bookmark", "AddMucMark", typeof(MucCommands));
 
-         private static RoutedUICommand _deleteMucMark =
+         private static readonly RoutedUICommand _deleteMucMark =
             new RoutedUICommand("Delete MUC Bookmark", "DeleteMucMark", typeof(MucCommands));
 
-        private static RoutedUICommand _destroyRoom =
+        private static readonly RoutedUICommand _destroyRoom =
            new RoutedUICommand("Destroy Room", "DestroyRoom", typeof(MucCommands));
 
-        private static RoutedUICommand _displayMucMarks =
+        private static readonly RoutedUICommand _displayMucMarks =
             new RoutedUICommand("Display MUC Bookmarks", "DisplayMUCBookmarks", typeof(MucCommands));
 
 

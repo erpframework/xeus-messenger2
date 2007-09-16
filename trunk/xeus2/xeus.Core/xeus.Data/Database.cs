@@ -41,7 +41,8 @@ namespace xeus2.xeus.Data
                                   + "[Name] VARCHAR NOT NULL PRIMARY KEY UNIQUE);";
                 cmd.ExecuteNonQuery();
 
-                cmd.CommandText = "CREATE TABLE [Message] ([From] VARCHAR NOT NULL, "
+                cmd.CommandText = "CREATE TABLE [Message] ([Id] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
+                                  + "[From] VARCHAR NOT NULL, "
                                   + "[To] VARCHAR NOT NULL, "
                                   + "[DateTime] INTEGER NOT NULL, "
                                   + "[Body] VARCHAR NOT NULL, "
@@ -50,12 +51,12 @@ namespace xeus2.xeus.Data
                 cmd.ExecuteNonQuery();
 
                 cmd.CommandText = "CREATE TABLE [Contact] (Jid VARCHAR NOT NULL PRIMARY KEY UNIQUE, "
-                                  + "[MetaId] VARCHAR NOT NULL, "
+                                  + "[MetaId] INTEGER NOT NULL, "
                                   + "[CustomName] VARCHAR, "
-                                  + "FOREIGN KEY ([MetaId]) REFERENCES [MetaContact]([MetaId]));";
+                                  + "FOREIGN KEY ([MetaId]) REFERENCES [MetaContact]([Id]));";
                 cmd.ExecuteNonQuery();
 
-                cmd.CommandText = "CREATE TABLE [MetaContact] (MetaId VARCHAR NOT NULL PRIMARY KEY UNIQUE, "
+                cmd.CommandText = "CREATE TABLE [MetaContact] ([Id] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
                                   + "[CustomName] VARCHAR);";
                 cmd.ExecuteNonQuery();
             }
@@ -170,7 +171,7 @@ namespace xeus2.xeus.Data
             {
                 Dictionary<string, object> values = metaContact.GetData();
 
-                SaveOrUpdate(values, "MetaId", "MetaContact", false, _connection);
+                metaContact.Id = SaveOrUpdate(values, "Id", "MetaContact", true, _connection);
             }
 
             catch (Exception e)
@@ -179,7 +180,7 @@ namespace xeus2.xeus.Data
             }
         }
 
-        public static MetaContact GetMetaContact(string metaId)
+        public static MetaContact GetMetaContact(int id)
         {
             MetaContact metaContact = null;
 
@@ -187,9 +188,9 @@ namespace xeus2.xeus.Data
             {
                 using (SQLiteCommand command = _connection.CreateCommand())
                 {
-                    command.CommandText = "SELECT * FROM [MetaContact] WHERE [MetaId]=@metaId";
+                    command.CommandText = "SELECT * FROM [MetaContact] WHERE [Id]=@id";
 
-                    command.Parameters.Add(new SQLiteParameter("metaId", metaId));
+                    command.Parameters.Add(new SQLiteParameter("id", id));
 
                     SQLiteDataReader reader = command.ExecuteReader();
 

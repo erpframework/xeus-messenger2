@@ -112,22 +112,9 @@
                 </Expander.Header>
 
                 <StackPanel Margin="0,5,0,0">
-                    <Rectangle Fill="#FFFFFFFF" Margin="0,5,0,5" Height="1" DockPanel.Dock="Top">
-                        <Rectangle.OpacityMask>
-                            <RadialGradientBrush>
-                                <GradientStop Color="#FF000000" Offset="0"/>
-                                <GradientStop Color="#00FFFFFF" Offset="1"/>
-                            </RadialGradientBrush>
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
                     <Expander Header="Room Subject" Margin="1,0,1,0" Foreground="{DynamicResource DefaultTextBrush2}">
-                        <DockPanel >
-                            <Button Style="{DynamicResource ImageButtonStyle}"
-						 Command="xeus2_xeus_Commands:MucCommands.ModifySubject"
-						 CommandParameter="{Binding}"
-						 Width="16" Height="16" Content="Change" Background="{DynamicResource changesubject_design}" ToolTip="Change Topic" VerticalAlignment="Top"/>
-                            <TextBlock Text="{Binding Path=Subject}" Foreground="{DynamicResource forme_text_design}" TextWrapping="Wrap" DockPanel.Dock="Right" Margin="5,0,0,0"/>
-                        </DockPanel>
+                            <TextBlock Text="{Binding Path=Subject}" Foreground="{DynamicResource forme_text_design}" TextWrapping="Wrap" Margin="20,0,0,0"
+                                       MouseDown="TextBlock_MouseDown" ToolTip="Click To Change Topic" Cursor="Hand"/>
                     </Expander>
                     <ListBox ItemsSource="{Binding Source={StaticResource MucContacts}}"
 					ItemsPanel="{DynamicResource ItemsPanelTemplateMucRoster}"
