@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using agsXMPP;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.x.muc;
@@ -10,15 +9,18 @@ namespace xeus2.xeus.Core
 {
     internal class MucAffContacts : NotifyInfoDispatcher
     {
-        private Affiliation _affiliation = Affiliation.none;
-        private MucManager _manager;
-        private MucRoom _mucRoom;
-
-        private ObservableCollectionDisp<MucAffContact> _affContacts = new ObservableCollectionDisp<MucAffContact>();
+        #region Delegates
 
         public delegate void EventChangeCallback(object sender, MucAffContact mucAffContact);
 
-        public event EventChangeCallback OnChange;
+        #endregion
+
+        private readonly ObservableCollectionDisp<MucAffContact> _affContacts =
+            new ObservableCollectionDisp<MucAffContact>();
+
+        private Affiliation _affiliation = Affiliation.none;
+        private MucManager _manager;
+        private MucRoom _mucRoom;
 
         public Affiliation Affiliation
         {
@@ -36,6 +38,8 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public event EventChangeCallback OnChange;
+
         internal void SetupAffiliations(MucRoom mucRoom, Affiliation affiliation)
         {
             lock (_affContacts._syncObject)
@@ -50,7 +54,7 @@ namespace xeus2.xeus.Core
 
             _manager = Account.Instance.GetMucManager();
 
-            _manager.RequestList(_affiliation, mucRoom.Service.Jid, new IqCB(OnRequestResult), null);
+            _manager.RequestList(_affiliation, mucRoom.Service.Jid, OnRequestResult, null);
         }
 
         private void OnRequestResult(object sender, IQ iq, object data)
@@ -65,17 +69,11 @@ namespace xeus2.xeus.Core
 
                 if (admin != null)
                 {
-                    List<MucAffContact> contacts = new List<MucAffContact>();
-
                     Item[] items = admin.GetItems();
+
                     foreach (Item item in items)
                     {
-                        contacts.Add(new MucAffContact(item, this));
-                    }
-
-                    lock (_affContacts._syncObject)
-                    {
-                        _affContacts.Add(contacts);
+                        _affContacts.Add(new MucAffContact(item, this));
                     }
 
                     if (OnChange != null)
@@ -93,28 +91,28 @@ namespace xeus2.xeus.Core
                 case Affiliation.owner:
                     {
                         _manager.GrantOwnershipPrivileges(_mucRoom.Service.Jid, new Jid(text),
-                                                          new IqCB(OnAddResult),
+                                                          OnAddResult,
                                                           new MucAffContact(new Jid(text), Affiliation.owner, this));
                         break;
                     }
                 case Affiliation.admin:
                     {
                         _manager.GrantAdminPrivileges(_mucRoom.Service.Jid, new Jid(text),
-                                                      new IqCB(OnAddResult),
+                                                      OnAddResult,
                                                       new MucAffContact(new Jid(text), Affiliation.admin, this));
                         break;
                     }
                 case Affiliation.member:
                     {
                         _manager.GrantMembership(_mucRoom.Service.Jid, new Jid(text), String.Empty,
-                                                 new IqCB(OnAddResult),
+                                                 OnAddResult,
                                                  new MucAffContact(new Jid(text), Affiliation.member, this));
                         break;
                     }
                 case Affiliation.outcast:
                     {
                         _manager.BanUser(_mucRoom.Service.Jid, new Jid(text), String.Empty,
-                                         new IqCB(OnAddResult),
+                                         OnAddResult,
                                          new MucAffContact(new Jid(text), Affiliation.outcast, this));
                         break;
                     }
@@ -125,7 +123,7 @@ namespace xeus2.xeus.Core
         {
             Item item = new Item(Affiliation.none, new Jid(mucAffContact.Jid));
             _manager.ModifyList(_mucRoom.Service.Jid, new Item[] {item},
-                                new IqCB(OnRemoveResult), mucAffContact);
+                                OnRemoveResult, mucAffContact);
         }
 
         private void OnRemoveResult(object sender, IQ iq, object data)

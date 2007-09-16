@@ -11,7 +11,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
     /// </summary>
     public partial class MucAffiliationList : UserControl
     {
-        private MucAffContacts _affContacts = new MucAffContacts();
+        private readonly MucAffContacts _affContacts = new MucAffContacts();
 
         private delegate void RefreshCallback();
 
@@ -19,7 +19,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         {
             DataContext = _affContacts;
 
-            _affContacts.OnChange += new MucAffContacts.EventChangeCallback(_affContacts_OnChange);
+            _affContacts.OnChange += _affContacts_OnChange;
 
             InitializeComponent();
         }
