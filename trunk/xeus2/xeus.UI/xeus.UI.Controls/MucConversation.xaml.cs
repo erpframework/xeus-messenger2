@@ -18,18 +18,18 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
     /// <summary>
     /// Interaction logic for MucConversation.xaml
     /// </summary>
-    public partial class MucConversation : UserControl, IDisposable
+    public partial class MucConversation : UserControl, IFlyoutContainer
     {
         private readonly ChatStateNotificator _chatStateNotificator = new ChatStateNotificator();
 
         private readonly InlineMethod _inlineMethod = new InlineMethod();
+        private readonly object _textsLock = new object();
         private MucMessage _lastFoundItem = null;
         private string _lastSearch = String.Empty;
         private MucRoom _mucRoom;
         private List<TextRange> _previousTextRanges = new List<TextRange>();
         private ScrollViewer _scrollViewer = null;
         private List<KeyValuePair<string, MucMessage>> _texts = null;
-        private readonly object _textsLock = new object();
         private string _textToSearch = String.Empty;
 
         public MucConversation()
@@ -52,7 +52,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _text.Loaded += _text_Loaded;
         }
 
-        void MucConversation_Loaded(object sender, RoutedEventArgs e)
+        private void MucConversation_Loaded(object sender, RoutedEventArgs e)
         {
             Unloaded += MucConversation_Unloaded;
 
@@ -73,17 +73,17 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _chatStateNotificator.StateChanged += _chatStateNotificator_StateChanged;
         }
 
-        void _chatStateNotificator_StateChanged(agsXMPP.protocol.extensions.chatstates.Chatstate chatstate)
+        private void _chatStateNotificator_StateChanged(agsXMPP.protocol.extensions.chatstates.Chatstate chatstate)
         {
             _mucRoom.SendChatState(chatstate);
         }
 
-        void MucConversation_LostFocus(object sender, RoutedEventArgs e)
+        private void MucConversation_LostFocus(object sender, RoutedEventArgs e)
         {
             _chatStateNotificator.ChangeChatState(agsXMPP.protocol.extensions.chatstates.Chatstate.inactive);
         }
 
-        void MucConversation_GotFocus(object sender, RoutedEventArgs e)
+        private void MucConversation_GotFocus(object sender, RoutedEventArgs e)
         {
             _chatStateNotificator.ChangeChatState(agsXMPP.protocol.extensions.chatstates.Chatstate.active);
         }
@@ -151,7 +151,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         private void _inlineMethod_Finished(object result)
         {
-            MucMessage mucMessage = (MucMessage)result;
+            MucMessage mucMessage = (MucMessage) result;
             SelectItem(mucMessage);
         }
 
@@ -227,9 +227,9 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
             MucMessage found = null;
 
-            _textToSearch = (string)param;
+            _textToSearch = (string) param;
 
-            string toFound = ((string)param).ToUpper();
+            string toFound = ((string) param).ToUpper();
 
             bool searchNext = (_lastSearch == toFound);
 
@@ -267,7 +267,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                         return null;
                     }
 
-                    if (((string)param) == String.Empty)
+                    if (((string) param) == String.Empty)
                     {
                         return null;
                     }
@@ -363,7 +363,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         {
             if (_scrollViewer == null)
             {
-                _scrollViewer = (ScrollViewer)_flowViewer.Template.FindName("PART_ContentHost", _flowViewer);
+                _scrollViewer = (ScrollViewer) _flowViewer.Template.FindName("PART_ContentHost", _flowViewer);
             }
 
             if (_scrollViewer.VerticalOffset >= _scrollViewer.ScrollableHeight - 15.0)
@@ -394,7 +394,6 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
             return false;
         }
-
 
         private string ReplaceNick(string text, string sender)
         {
@@ -460,22 +459,11 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         protected void OnContactClick(object sender, RoutedEventArgs eventArgs)
         {
-            ContextMenu menu = (ContextMenu)FindResource("MucMainMenu");
+            ContextMenu menu = (ContextMenu) FindResource("MucMainMenu");
 
             menu.PlacementTarget = _contactButton;
 
             menu.IsOpen = true;
-        }
-
-        #region Nested type: SelectItemCallback
-
-        private delegate void SelectItemCallback(MucMessage item);
-
-        #endregion
-
-        public void Dispose()
-        {
-            _mucRoom.LeaveRoom(Settings.Default.MucLeaveMsg);
         }
 
         private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
@@ -489,6 +477,17 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         private void _text_TextChanged(object sender, TextChangedEventArgs e)
         {
             _chatStateNotificator.ChangeChatState(agsXMPP.protocol.extensions.chatstates.Chatstate.composing);
+        }
+
+        #region Nested type: SelectItemCallback
+
+        private delegate void SelectItemCallback(MucMessage item);
+
+        #endregion
+
+        public void Closing()
+        {
+            _mucRoom.LeaveRoom(Settings.Default.MucLeaveMsg);
         }
     }
 }

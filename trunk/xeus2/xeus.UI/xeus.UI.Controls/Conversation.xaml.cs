@@ -12,7 +12,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
     /// <summary>
     /// Interaction logic for Conversation.xaml
     /// </summary>
-    public partial class Conversation : UserControl
+    public partial class Conversation : UserControl, IFlyoutContainer
     {
         private delegate void SelectItemCallback(Message item);
 
@@ -332,5 +332,8 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _chatStateNotificator.ChangeChatState(agsXMPP.protocol.extensions.chatstates.Chatstate.composing);
         }
 
+        public void Closing()
+        {
+        }
     }
 }

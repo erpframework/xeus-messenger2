@@ -387,6 +387,7 @@
       <SubType>Code</SubType>
       <DependentUpon>CommandExecute.xaml</DependentUpon>
     </Compile>
+    <Compile Include="xeus.UI\IFlyoutContainer.cs" />
     <Compile Include="xeus.UI\InfoPopup.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>InfoPopup.xaml</DependentUpon>

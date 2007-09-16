@@ -673,6 +673,9 @@ namespace xeus2.xeus.Core
 
         public void LeaveRoom(string message)
         {
+            _xmppClientConnection.MesagageGrabber.Remove(_service.Jid);
+            _xmppClientConnection.PresenceGrabber.Remove(_service.Jid);
+
             Presence presence = new Presence();
             presence.To = _service.Jid;
             presence.Type = PresenceType.unavailable;
@@ -684,8 +687,6 @@ namespace xeus2.xeus.Core
 
             _xmppClientConnection.Send(presence);
 
-            _xmppClientConnection.MesagageGrabber.Remove(_service.Jid);
-            _xmppClientConnection.PresenceGrabber.Remove(_service.Jid);
         }
 
         private void OnPrivilegesResult(object sender, IQ iq, object data)
