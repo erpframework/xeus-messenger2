@@ -34,6 +34,21 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _content.OnMultiWinEvent += content_OnMultiWinEvent;
         }
 
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            if (_closingCompletely)
+            {
+                IFlyoutContainer flyoutContainer = ((MultiWin)(_container.Child)).ContentElement as IFlyoutContainer;
+
+                if (flyoutContainer != null)
+                {
+                    flyoutContainer.Closing();
+                }
+            }
+
+            base.OnClosing(e);
+        }
+
         protected override void OnClosed(EventArgs e)
         {
             _content.OnMultiWinEvent -= content_OnMultiWinEvent;
@@ -41,12 +56,15 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             base.OnClosed(e);
         }
 
+        private bool _closingCompletely = true;
+
         private void content_OnMultiWinEvent(MultiWin sender, MultiWin.MultiWinEvent multiWinEvent)
         {
             switch (multiWinEvent)
             {
                 case MultiWin.MultiWinEvent.Close:
                     {
+                        _closingCompletely = true;
                         Close();
                         break;
                     }
@@ -57,6 +75,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                     }
                 case MultiWin.MultiWinEvent.Flyout:
                     {
+                        _closingCompletely = false;
                         _container.Child = null;
 
                         Close();

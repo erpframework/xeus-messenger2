@@ -15,6 +15,8 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         private IMultiWinContainerProvider _multiWinContainerProvider = null;
 
+        private Window _parentWindow;
+
         public MultiTabControl()
         {
             InitializeComponent();
@@ -22,6 +24,27 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _multiWindows.CollectionChanged += _multiWindows_CollectionChanged;
 
             _tabs.DataContext = MultiWindows;
+
+            Loaded += MultiTabControl_Loaded;
+        }
+
+        void MultiTabControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            _parentWindow = Window.GetWindow(this);
+            _parentWindow.Closing += _parentWindow_Closing;
+        }
+
+        void _parentWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            foreach (MultiTabItem item in _multiWindows)
+            {
+                IFlyoutContainer flyoutContainer = item.Container.ContentElement as IFlyoutContainer;
+
+                if (flyoutContainer != null)
+                {
+                    flyoutContainer.Closing();
+                }
+            }
         }
 
         private void _multiWindows_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -78,7 +101,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
                             WindowManager.Add(multiWin.Container.Key, multiWin.Container);
                         }
-                        
+
                         RedistributeColumns();
 
                         EndInit();
@@ -123,7 +146,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                         tabItem = multiTabItem;
                         break;
                     }
-                }               
+                }
             }
 
             if (tabItem != null)
@@ -132,6 +155,13 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 {
                     case MultiWin.MultiWinEvent.Close:
                         {
+                            IFlyoutContainer flyoutContainer = sender.ContentElement as IFlyoutContainer;
+
+                            if (flyoutContainer != null)
+                            {
+                                flyoutContainer.Closing();
+                            }
+
                             _multiWindows.Remove(tabItem);
 
                             break;
@@ -168,7 +198,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         void RedistributeColumns()
         {
-            List <MultiTabItem> activeItems = new List<MultiTabItem>();
+            List<MultiTabItem> activeItems = new List<MultiTabItem>();
 
             lock (_multiWindows._syncObject)
             {
