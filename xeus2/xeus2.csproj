@@ -196,6 +196,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="xeus.UI\xeus.UI.Controls\DottedHorizontal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="xeus.UI\xeus.UI.Controls\MucAffiliationList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -448,6 +452,9 @@
     <Compile Include="xeus.UI\xeus.UI.Controls\CreateMucRoom.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>CreateMucRoom.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xeus.UI\xeus.UI.Controls\DottedHorizontal.xaml.cs">
+      <DependentUpon>DottedHorizontal.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\xeus.UI.Controls\IMultiWinContainerProvider.cs" />
     <Compile Include="xeus.UI\xeus.UI.Controls\MucAffiliationList.xaml.cs">

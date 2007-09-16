@@ -180,10 +180,6 @@
                 <xeus2_xeus_Controls:RosterSizeSelection Panel.ZIndex="100"/>
             </Popup>
         </WrapPanel>
-        <Border x:Name="border2" Padding="5,1,5,1" Background="{x:Null}" DockPanel.Dock="Bottom">
-            <Line Stroke="#FF555555" StrokeDashArray="2 2" X1="1" SnapsToDevicePixels="True"
-                      StrokeThickness="1" X2="{Binding Path=ActualWidth, ElementName=border2, Mode=Default}"/>
-        </Border>
         <DockPanel DockPanel.Dock="Top" >
             <Grid DockPanel.Dock="Top" >
                 <xeus2_xeus_Controls:RosterHeader x:Name="_header"/>
@@ -201,10 +197,7 @@
                         Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
 				</WrapPanel>
             </Grid>
-            <Border x:Name="border" Padding="5,1,5,1" Background="{x:Null}" DockPanel.Dock="Top">
-                <Line Stroke="#FF555555" StrokeDashArray="2 2" X1="1" SnapsToDevicePixels="True"
-                      StrokeThickness="1" X2="{Binding Path=ActualWidth, ElementName=border, Mode=Default}"/>
-            </Border>
+            <xeus2_xeus_Controls:DottedHorizontal Margin="0,3,0,3" DockPanel.Dock="Bottom"/>
             <local:RosterControl x:Name="_roster" DockPanel.Dock="Top"/>
         </DockPanel>
     </DockPanel>

@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using agsXMPP.protocol.x.muc;
 using xeus2.Properties;
+using xeus2.xeus.Commands;
 using xeus2.xeus.Core;
 
 namespace xeus2.xeus.UI.xeus.UI.Controls
@@ -127,7 +128,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         private void _inlineMethod_Finished(object result)
         {
-            MucMessage mucMessage = (MucMessage) result;
+            MucMessage mucMessage = (MucMessage)result;
             SelectItem(mucMessage);
         }
 
@@ -203,9 +204,9 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
             MucMessage found = null;
 
-            _textToSearch = (string) param;
+            _textToSearch = (string)param;
 
-            string toFound = ((string) param).ToUpper();
+            string toFound = ((string)param).ToUpper();
 
             bool searchNext = (_lastSearch == toFound);
 
@@ -243,7 +244,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                         return null;
                     }
 
-                    if (((string) param) == String.Empty)
+                    if (((string)param) == String.Empty)
                     {
                         return null;
                     }
@@ -337,7 +338,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         {
             if (_scrollViewer == null)
             {
-                _scrollViewer = (ScrollViewer) _flowViewer.Template.FindName("PART_ContentHost", _flowViewer);
+                _scrollViewer = (ScrollViewer)_flowViewer.Template.FindName("PART_ContentHost", _flowViewer);
             }
 
             if (_scrollViewer.VerticalOffset >= _scrollViewer.ScrollableHeight - 15.0)
@@ -432,7 +433,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         protected void OnContactClick(object sender, RoutedEventArgs eventArgs)
         {
-            ContextMenu menu = (ContextMenu) FindResource("MucMainMenu");
+            ContextMenu menu = (ContextMenu)FindResource("MucMainMenu");
 
             menu.PlacementTarget = _contactButton;
 
@@ -448,6 +449,14 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         public void Dispose()
         {
             _mucRoom.LeaveRoom(Settings.Default.MucLeaveMsg);
+        }
+
+        private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (MucCommands.ModifySubject.CanExecute(_mucRoom, null))
+            {
+                MucCommands.ModifySubject.Execute(_mucRoom, null);
+            }
         }
     }
 }

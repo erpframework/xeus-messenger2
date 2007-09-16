@@ -510,7 +510,7 @@
 						</Border.Background>
 						<DockPanel x:Name="PART_Track" LastChildFill="False" Margin="0,0,-2,0">
 							<Grid x:Name="PART_Indicator" >
-							<Rectangle Margin="0,0.001,0.001,-0.003" VerticalAlignment="Stretch" Height="Auto" Fill="#FF0D0D0D" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="6.499">
+							<Rectangle VerticalAlignment="Stretch" Height="Auto" Fill="#FF0D0D0D" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="6.5">
 								<Rectangle.OpacityMask>
 									<LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
 										<GradientStop Color="#FF000000" Offset="0"/>

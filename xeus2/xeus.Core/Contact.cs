@@ -28,7 +28,7 @@ namespace xeus2.xeus.Core
         private readonly object _presencesLock = new object();
 
         private readonly RosterItem _rosterItem = null;
-        private readonly string _metaId;
+        private readonly int _metaId;
         private string _customName;
         private string _fullName;
 
@@ -43,7 +43,7 @@ namespace xeus2.xeus.Core
         public Contact(IDataRecord reader, RosterItem rosterItem)
         {
             _rosterItem = rosterItem;
-            _metaId = (string)reader["MetaId"];
+            _metaId = (int)(Int64)reader["MetaId"];
 
             if (!reader.IsDBNull(reader.GetOrdinal("CustomName")))
             {
@@ -51,7 +51,7 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public Contact(RosterItem rosterItem, string metaId)
+        public Contact(RosterItem rosterItem, int metaId)
         {
             _rosterItem = rosterItem;
             _metaId = metaId;
@@ -419,6 +419,13 @@ namespace xeus2.xeus.Core
             {
                 return _customName;
             }
+
+            set
+            {
+                _customName = value;
+
+                Database.SaveContact(this);
+            }
         }
 
         public bool IsService
@@ -489,7 +496,7 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public string MetaId
+        public int MetaId
         {
             get
             {
