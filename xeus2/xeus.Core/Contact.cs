@@ -131,6 +131,7 @@ namespace xeus2.xeus.Core
         private bool _iqAvatarLoadedFromCache = false;
 
         private Capabilities _capabilities;
+        private Capabilities _caps = null;
 
         public Presence Presence
         {
@@ -478,6 +479,19 @@ namespace xeus2.xeus.Core
                 {
                     return _capabilities.Extensions;
                 }
+            }
+        }
+
+        public Capabilities Caps
+        {
+            get
+            {
+                return _caps;
+            }
+            set
+            {
+                _caps = value;
+                NotifyPropertyChanged("Caps");
             }
         }
 

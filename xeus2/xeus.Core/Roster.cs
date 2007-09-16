@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using agsXMPP;
 using agsXMPP.protocol.client;
+using agsXMPP.protocol.extensions.caps;
 using agsXMPP.protocol.extensions.chatstates;
 using agsXMPP.protocol.iq.avatar;
 using agsXMPP.protocol.iq.roster;
@@ -312,6 +313,28 @@ namespace xeus2.xeus.Core
                             break;
                         }
                 }
+
+                Capabilities capabilities = presence.SelectSingleElement(typeof (Capabilities)) as Capabilities;
+
+                if (capabilities != null)
+                {
+                    OnContactCaps(capabilities, presence.From);
+                }
+            }
+        }
+
+        private void OnContactCaps(Capabilities capabilities, Jid from)
+        {
+            Contact contact;
+            
+            lock (_realContacts)
+            {
+                contact = FindContact(from);
+            }
+
+            if (contact != null)
+            {
+                contact.Caps = capabilities;
             }
         }
 

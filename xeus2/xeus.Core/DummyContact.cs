@@ -1,6 +1,7 @@
 ﻿using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.protocol.client;
+using agsXMPP.protocol.extensions.caps;
 using xeus2.xeus.Data;
 
 namespace xeus2.xeus.Core
@@ -158,6 +159,18 @@ namespace xeus2.xeus.Core
             get
             {
                 return null;
+            }
+        }
+
+        public Capabilities Caps
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+                throw new System.NotImplementedException();
             }
         }
 

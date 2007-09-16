@@ -24,16 +24,21 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             {
                 int count = Roster.Instance.Items.Count;
 
-                IContact contact;
+                IContact contact = dummyContact;
 
                 if (count > 0)
                 {
                     Random random = new Random();
-                    contact = Roster.Instance.Items[random.Next(0, count - 1)];
-                }
-                else
-                {
-                    contact = dummyContact;
+
+                    for (int i = 0; i < 20; i++)
+                    {
+                        contact = Roster.Instance.Items[random.Next(0, count - 1)];
+
+                        if (contact.IsAvailable)
+                        {
+                            break;
+                        }
+                    }
                 }
 
                 _small.Content = _medium.Content = _big.Content = contact;
