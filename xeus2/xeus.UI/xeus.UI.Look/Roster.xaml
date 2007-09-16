@@ -4,13 +4,47 @@
   xmlns:a="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" 
   xmlns:prop="clr-namespace:xeus2.Properties"
   xmlns:xeus2_xeus_Control="clr-namespace:xeus2.xeus.UI.xeus.UI.Controls"
-  xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" 	
+  xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+  xmlns:Core="clr-namespace:xeus2.xeus.Core;assembly=" 	
   >
     <!-- Resource dictionary entries should be defined here. -->
     <SolidColorBrush x:Key="roster_name_text" Color="#FFEEEEEE" PresentationOptions:Freeze="True" />
     <SolidColorBrush x:Key="roster_status_text" Color="#FFBBBBBB" PresentationOptions:Freeze="True" />
     <SolidColorBrush x:Key="roster_image_border" Color="#FF444444" PresentationOptions:Freeze="True" />
 
+    <DataTemplate DataType="{x:Type Core:MessageBase}" x:Key="MessageOldness">
+        <Grid ToolTip="Last Message">
+            <Rectangle Width="16" Height="16" Fill="{DynamicResource time_oldest_design}"
+                   x:Name="_timeIcon" DockPanel.Dock="Right" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBlock Text="{Binding Path=RelativeTime}"
+					ToolTip="{Binding Path=DateTime}" Foreground="{DynamicResource DefaultTextBrush2}" HorizontalAlignment="Left"
+                   Margin="20,0,0,0" VerticalAlignment="Top" FontSize="11" TextWrapping="Wrap"/>
+        </Grid>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Path=MessageOldness}">
+                <DataTrigger.Value>
+                    <Core:MessageOldness>Recent</Core:MessageOldness>
+                </DataTrigger.Value>
+                <Setter  TargetName="_timeIcon" Property="Rectangle.Fill" Value="{DynamicResource time_now_design}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=MessageOldness}">
+                <DataTrigger.Value>
+                    <Core:MessageOldness>Older</Core:MessageOldness>
+                </DataTrigger.Value>
+                <Setter  TargetName="_timeIcon" Property="Rectangle.Fill" Value="{DynamicResource time_older_design}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=MessageOldness}">
+                <DataTrigger.Value>
+                    <Core:MessageOldness>Old</Core:MessageOldness>
+                </DataTrigger.Value>
+                <Setter  TargetName="_timeIcon" Property="Rectangle.Fill" Value="{DynamicResource time_old_design}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=RelativeTime}" Value="{x:Null}">
+                <Setter  TargetName="_timeIcon" Property="Visibility" Value="Hidden"/>
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+    
     <DrawingBrush x:Key="right_shadow" PresentationOptions:Freeze="True">
         <DrawingBrush.Drawing>
             <DrawingGroup>

@@ -46,17 +46,18 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             new MucNikcnames(_text, _mucRoom);
 
             Loaded += MucConversation_Loaded;
-            Unloaded += MucConversation_Unloaded;
 
             _text.Loaded += _text_Loaded;
-
-            _flowViewer.PreviewKeyDown += MucConversation_PreviewKeyDown;
-
-            PreviewKeyDown += MucConversation_PreviewKeyDownWindow;
         }
 
         void MucConversation_Loaded(object sender, RoutedEventArgs e)
         {
+            Unloaded += MucConversation_Unloaded;
+
+            _flowViewer.PreviewKeyDown += MucConversation_PreviewKeyDown;
+
+            PreviewKeyDown += MucConversation_PreviewKeyDownWindow;
+
             _mucRoom.Messages.CollectionChanged += MucMessages_CollectionChanged;
             _mucRoom.PropertyChanged += _mucRoom_PropertyChanged;
 
