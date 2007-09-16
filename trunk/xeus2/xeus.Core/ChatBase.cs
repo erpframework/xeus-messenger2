@@ -337,5 +337,64 @@ namespace xeus2.xeus.Core
                 OnRelativeTimer();
             }
         }
+
+
+        internal static List<TextRange> SelectText(Paragraph paragraph, string text)
+        {
+            List<TextRange> textRanges = new List<TextRange>();
+
+            for (Inline inline = paragraph.Inlines.FirstInline; inline != null; inline = inline.NextInline)
+            {
+                Run run;
+
+                Hyperlink hyperlink = inline as Hyperlink;
+
+                if (hyperlink != null)
+                {
+                    run = hyperlink.Inlines.FirstInline as Run;
+                }
+                else
+                {
+                    run = inline as Run;
+                }
+
+                if (run != null)
+                {
+                    int firstStart = 0;
+
+                    while (true)
+                    {
+                        if (firstStart > run.Text.Length - 1)
+                        {
+                            break;
+                        }
+
+                        int start = run.Text.IndexOf(text, firstStart, StringComparison.InvariantCultureIgnoreCase);
+                        int end = start + text.Length;
+
+                        firstStart = start + 1;
+
+                        if (start >= 0)
+                        {
+                            TextRange textRange;
+
+                            textRange = new TextRange(run.ContentStart.GetPositionAtOffset(start),
+                                                      run.ContentStart.GetPositionAtOffset(end));
+
+                            textRange.ApplyPropertyValue(Run.BackgroundProperty, _selectionFindBrush);
+
+                            textRanges.Add(textRange);
+                        }
+
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return textRanges;
+        }
     }
 }
