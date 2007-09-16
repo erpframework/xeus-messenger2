@@ -4,6 +4,8 @@ using System.Timers;
 using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.protocol.client;
+using agsXMPP.protocol.extensions.caps;
+using agsXMPP.protocol.iq.disco;
 using agsXMPP.protocol.iq.vcard;
 using xeus2.Properties;
 using xeus2.xeus.Data;
@@ -17,6 +19,8 @@ namespace xeus2.xeus.Core
         private BitmapImage _image;
         private string _fullName;
         private string _nickName;
+        private readonly DiscoIdentity _identity = new DiscoIdentity("pc", "xeus", "client");
+        private readonly DiscoInfo _discoInfo = new DiscoInfo();
 
         #region IContact Members
 
@@ -225,6 +229,18 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public Capabilities Caps
+        {
+            get
+            {
+                return Account.Instance.XmppConnection.Capabilities;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public void PresenceChange()
         {
             NotifyPropertyChanged("Show");
@@ -241,6 +257,18 @@ namespace xeus2.xeus.Core
         {
             _updateTimer.AutoReset = false;
             _updateTimer.Elapsed += _updateTimer_Elapsed;
+
+            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.BYTESTREAMS));
+            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.CAPS));
+            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.COMMANDS));
+
+            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.CHATSTATES));
+
+            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC_ADMIN));
+            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC_OWNER));
+            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC_USER));
+
+            _discoInfo.AddIdentity(_identity);
         }
 
         static void _updateTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -318,6 +346,14 @@ namespace xeus2.xeus.Core
  
             Vcard vcard = Storage.GetVcard(Jid, 9999);
             SetMyVcard(vcard);
+        }
+
+        public DiscoInfo Info
+        {
+            get
+            {
+                return _discoInfo;
+            }
         }
     }
 }

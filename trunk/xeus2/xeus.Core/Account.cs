@@ -6,6 +6,7 @@ using System.Timers;
 using agsXMPP;
 using agsXMPP.net;
 using agsXMPP.protocol.client;
+using agsXMPP.protocol.extensions.caps;
 using agsXMPP.protocol.extensions.commands;
 using agsXMPP.protocol.iq.disco;
 using agsXMPP.protocol.iq.register;
@@ -17,9 +18,11 @@ using agsXMPP.Xml.Dom;
 using xeus2.Properties;
 using xeus2.xeus.Data;
 using xeus2.xeus.Middle;
+using xeus2.xeus.Utilities;
 using Search=xeus2.xeus.Middle.Search;
 using Timer=System.Timers.Timer;
 using Uri=agsXMPP.Uri;
+using Version=agsXMPP.protocol.iq.version.Version;
 
 namespace xeus2.xeus.Core
 {
@@ -58,8 +61,10 @@ namespace xeus2.xeus.Core
         private readonly Timer _discoTime = new Timer(250);
         private readonly ArrayList _pendingCommand = ArrayList.Synchronized(new ArrayList());
         private readonly ArrayList _pendingDiscoInfo = ArrayList.Synchronized(new ArrayList());
+        private readonly SelfContact _selfContact = new SelfContact();
 
         private readonly XmppClientConnection _xmppConnection = new XmppClientConnection();
+        private XmppConnectionState _connectionState = XmppConnectionState.Disconnected;
 
         private DiscoManager _discoManager;
 
@@ -68,8 +73,6 @@ namespace xeus2.xeus.Core
         private int _servicesCount;
         private int _servicesDoneCount;
         private volatile bool _working = false;
-        
-        private readonly SelfContact _selfContact = new SelfContact();
 
         public static Account Instance
         {
@@ -200,6 +203,10 @@ namespace xeus2.xeus.Core
             XmppConnection.Password = Settings.Default.XmppPassword;
             XmppConnection.Server = Settings.Default.XmppServer;
 
+            XmppConnection.Capabilities = new Capabilities(TextUtil.GenerateVerAttribute(Self.Info),
+                                                            "http://xeus.net/#2.0");
+            XmppConnection.EnableCapabilities = true;
+
             XmppConnection.OnClose += _xmppConnection_OnClose;
             XmppConnection.OnLogin += _xmppConnection_OnLogin;
             XmppConnection.OnRosterItem += _xmppConnection_OnRosterItem;
@@ -227,14 +234,12 @@ namespace xeus2.xeus.Core
             _selfContact.LoadMyAvatar();
         }
 
-        void XmppConnection_OnMessage(object sender, agsXMPP.protocol.client.Message msg)
+        private void XmppConnection_OnMessage(object sender, agsXMPP.protocol.client.Message msg)
         {
             Roster.Instance.OnMessage(sender, msg);
         }
 
-        private XmppConnectionState _connectionState = XmppConnectionState.Disconnected;
-
-        void XmppConnection_OnXmppConnectionStateChanged(object sender, XmppConnectionState state)
+        private void XmppConnection_OnXmppConnectionStateChanged(object sender, XmppConnectionState state)
         {
             _connectionState = state;
 
@@ -324,6 +329,62 @@ namespace xeus2.xeus.Core
 
         private void _xmppConnection_OnIq(object sender, IQ iq)
         {
+            if (iq != null)
+            {
+                // No Iq with query
+                /*
+                if (iq.HasTag(typeof (SI)))
+                {
+                    if (iq.Type == IqType.set)
+                    {
+                        SI si =
+                            iq.SelectSingleElement(typeof (SI)) as SI;
+
+                        File file = si.File;
+
+                        if (file != null)
+                        {
+                            TransferWindow.Transfer(XmppConnection, iq);
+                        }
+                    }
+                    else if (iq.Type == IqType.result)
+                    {
+                    }
+                }*/
+            }
+
+            if (iq != null && iq.Type == IqType.get)
+            {
+                Element query = iq.Query;
+
+                if (query != null)
+                {
+                    if (query.GetType() == typeof (Version))
+                    {
+                        // its a version IQ VersionIQ
+                        Version version = (Version) query;
+
+                        // Somebody wants to know our client version, so send it back
+                        iq.SwitchDirection();
+                        iq.Type = IqType.result;
+
+                        version.Name = "xeus";
+                        version.Ver = "2.0 pre-alpha";
+                        version.Os = Environment.OSVersion.ToString();
+
+                        XmppConnection.Send(iq);
+                    }
+                    else if (query.GetType() == typeof (DiscoInfo))
+                    {
+                        iq.SwitchDirection();
+                        iq.Type = IqType.result;
+                        
+                        iq.AddChild(Self.Info);
+
+                        XmppConnection.Send(iq);
+                    }
+                }
+            }
         }
 
         private void _xmppConnection_OnAuthError(object sender, Element e)
@@ -753,7 +814,7 @@ namespace xeus2.xeus.Core
                     // new room
                     Service service = new Service(new DiscoItem(), false);
                     service.DiscoItem.Jid = iq.From;
-                    service.DiscoInfo = (DiscoInfo)iq.Query;
+                    service.DiscoInfo = (DiscoInfo) iq.Query;
 
                     JoinMuc(service, null);
                 }
@@ -855,7 +916,7 @@ namespace xeus2.xeus.Core
             {
                 DiscoInfo di = iq.Query as DiscoInfo;
 
-                MucMark mucMark = (MucMark)data;
+                MucMark mucMark = (MucMark) data;
                 mucMark.DiscoInfo = di;
 
                 MucInfo.Instance.MucLogin(mucMark);

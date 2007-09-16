@@ -7,6 +7,7 @@ using System.Data.SQLite;
 using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.protocol.client;
+using agsXMPP.protocol.extensions.caps;
 using FastDynamicPropertyAccessor;
 using xeus2.xeus.Data;
 using xeus2.xeus.Utilities;
@@ -230,6 +231,18 @@ namespace xeus2.xeus.Core
             get
             {
                 return (string[])GetValueSafe("ClientExtensions");
+            }
+        }
+
+        public Capabilities Caps
+        {
+            get
+            {
+                return (Capabilities)GetValueSafe("Caps");
+            }
+            set
+            {
+                throw new NotImplementedException();
             }
         }
 

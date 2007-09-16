@@ -1,5 +1,6 @@
 using System.Windows.Media.Imaging;
 using agsXMPP.protocol.client;
+using agsXMPP.protocol.extensions.caps;
 
 namespace xeus2.xeus.Core
 {
@@ -93,6 +94,12 @@ namespace xeus2.xeus.Core
         string[] ClientExtensions
         {
             get;
+        }
+
+        Capabilities Caps
+        {
+            get;
+            set;
         }
     }
 }
