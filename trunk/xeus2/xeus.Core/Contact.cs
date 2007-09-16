@@ -7,6 +7,7 @@ using agsXMPP;
 using agsXMPP.protocol.Base;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.extensions.caps;
+using agsXMPP.protocol.iq.disco;
 using agsXMPP.protocol.iq.vcard;
 using agsXMPP.Xml.Dom;
 using xeus2.Properties;
@@ -33,6 +34,8 @@ namespace xeus2.xeus.Core
         private string _fullName;
 
         private bool _hasVCardRecieved = false;
+        private bool _hasDiscoRecieved = false;
+
         private BitmapImage _image;
         private string _nickName;
         private Presence _presence = null;
@@ -132,6 +135,7 @@ namespace xeus2.xeus.Core
 
         private Capabilities _capabilities;
         private Capabilities _caps = null;
+        private DiscoInfo _disco = null;
 
         public Presence Presence
         {
@@ -495,6 +499,21 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public DiscoInfo Disco
+        {
+            get
+            {
+                return _disco;
+            }
+            set
+            {
+                _disco = value;
+                _hasDiscoRecieved = true;
+
+                NotifyPropertyChanged("Disco");
+            }
+        }
+
         #endregion
 
         public override string ToString()
@@ -515,6 +534,14 @@ namespace xeus2.xeus.Core
             get
             {
                 return _metaId;
+            }
+        }
+
+        public bool HasDiscoRecieved
+        {
+            get
+            {
+                return _hasDiscoRecieved;
             }
         }
 

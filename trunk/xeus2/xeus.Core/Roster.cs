@@ -5,6 +5,7 @@ using agsXMPP.protocol.client;
 using agsXMPP.protocol.extensions.caps;
 using agsXMPP.protocol.extensions.chatstates;
 using agsXMPP.protocol.iq.avatar;
+using agsXMPP.protocol.iq.disco;
 using agsXMPP.protocol.iq.roster;
 using agsXMPP.protocol.iq.vcard;
 using xeus2.Properties;
@@ -115,6 +116,11 @@ namespace xeus2.xeus.Core
                     if (!contact.HasVCardRecieved)
                     {
                         SetFreshVcard(contact);
+                    }
+
+                    if (!contact.HasDiscoRecieved)
+                    {
+                        AskForCaps(contact);
                     }
 
                     RefreshIqAvatar(contact);
@@ -279,6 +285,24 @@ namespace xeus2.xeus.Core
 
                         break;
                     }
+            }
+        }
+
+        static void AskForCaps(Contact contact)
+        {
+            Account.Instance.DiscoMan.DisoverInformation(contact.Jid, OnDiscoInfoResult, contact);
+        }
+
+        private static void OnDiscoInfoResult(object sender, IQ iq, object data)
+        {
+            if (iq.Error != null)
+            {
+                Services.Instance.OnServiceItemError(sender, iq);
+            }
+            else if (iq.Type == IqType.result && iq.Query is DiscoInfo)
+            {
+                Contact contact = (Contact) data;
+                contact.Disco = iq.Query as DiscoInfo;
             }
         }
 

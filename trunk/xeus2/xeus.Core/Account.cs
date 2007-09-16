@@ -108,6 +108,14 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public DiscoManager DiscoMan
+        {
+            get
+            {
+                return _discoManager;
+            }
+        }
+
         public int ServicesCount
         {
             get
@@ -203,7 +211,7 @@ namespace xeus2.xeus.Core
             XmppConnection.Password = Settings.Default.XmppPassword;
             XmppConnection.Server = Settings.Default.XmppServer;
 
-            XmppConnection.Capabilities = new Capabilities(TextUtil.GenerateVerAttribute(Self.Info),
+            XmppConnection.Capabilities = new Capabilities(TextUtil.GenerateVerAttribute(Self.Disco),
                                                             "http://xeus.net/#2.0");
             XmppConnection.EnableCapabilities = true;
 
@@ -379,7 +387,7 @@ namespace xeus2.xeus.Core
                         iq.SwitchDirection();
                         iq.Type = IqType.result;
                         
-                        iq.AddChild(Self.Info);
+                        iq.AddChild(Self.Disco);
 
                         XmppConnection.Send(iq);
                     }
