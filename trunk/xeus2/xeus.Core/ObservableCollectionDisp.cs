@@ -72,7 +72,6 @@ namespace xeus2.xeus.Core
 
                 _dontSendChange = false;
 
-
                 NotifyCollectionChangedEventArgs e =
                     new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, list);
 
