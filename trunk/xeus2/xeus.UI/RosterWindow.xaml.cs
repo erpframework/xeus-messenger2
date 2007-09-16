@@ -51,6 +51,7 @@ namespace xeus2
 
         private void DisplayPopupRosterSize(object sender, RoutedEventArgs e)
         {
+            _rosterSizePopup.Child = new RosterSizeSelection();
             _rosterSizePopup.IsOpen = true;
         }
 

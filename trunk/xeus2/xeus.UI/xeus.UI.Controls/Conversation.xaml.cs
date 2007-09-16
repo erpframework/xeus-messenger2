@@ -78,7 +78,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             LostFocus += Conversation_LostFocus;
             PreviewKeyDown += Conversation_PreviewKeyDown;
 
-            _flowViewer.PreviewKeyDown += new KeyEventHandler(_flowViewer_PreviewKeyDown);
+            _flowViewer.PreviewKeyDown += _flowViewer_PreviewKeyDown;
 
             _chatStateNotificator.StateChanged += _chatStateNotificator_StateChanged;
             _contactChat.Messages.CollectionChanged += Messages_CollectionChanged;

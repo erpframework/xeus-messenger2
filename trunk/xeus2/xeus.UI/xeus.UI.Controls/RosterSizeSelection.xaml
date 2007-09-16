@@ -8,8 +8,10 @@
     >
 
     <UserControl.Resources>
+        <!--
         <xeus2_xeus_Core:DummyContact x:Key="_dc1" />
         <xeus2_xeus_Core:DummyContact x:Key="_dc2" />
+        -->
 
         <Style x:Key="ButtonStyleContainer" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="#FF000000"/>
@@ -95,7 +97,7 @@
 
     <UserControl.RenderTransform>
         <TransformGroup>
-            <ScaleTransform ScaleX="0.75" ScaleY="0.75"/>
+            <ScaleTransform ScaleX="0.6" ScaleY="0.6"/>
             <SkewTransform AngleX="0" AngleY="0"/>
             <RotateTransform Angle="0"/>
             <TranslateTransform X="0" Y="0"/>
@@ -107,18 +109,15 @@
         <StackPanel Orientation="Horizontal">
             <Button Style="{DynamicResource ButtonStyleContainer}" Click="Button_Click"
                     Command="rostercmd:RosterCommands.ViewSmall">
-                <StackPanel>
-                    <ContentPresenter Content="{StaticResource _dc1}" ContentTemplate="{DynamicResource MetaContactSmall}"/>
-                    <ContentPresenter Content="{StaticResource _dc2}" ContentTemplate="{DynamicResource MetaContactSmall}"/>
-                </StackPanel>
+                <ContentPresenter x:Name="_small" ContentTemplate="{DynamicResource MetaContactSmall}"/>
             </Button>
             <Button Style="{DynamicResource ButtonStyleContainer}" Click="Button_Click"
                     Command="rostercmd:RosterCommands.ViewMedium">
-                <ContentPresenter Content="{StaticResource _dc1}" ContentTemplate="{DynamicResource MetaContactMedium}"/>
+                <ContentPresenter x:Name="_medium" ContentTemplate="{DynamicResource MetaContactMedium}"/>
             </Button>
             <Button Style="{DynamicResource ButtonStyleContainer}" Click="Button_Click"
                     Command="rostercmd:RosterCommands.ViewBig">
-                <ContentPresenter Content="{StaticResource _dc2}" ContentTemplate="{DynamicResource MetaContactBig}"/>
+                <ContentPresenter x:Name="_big" ContentTemplate="{DynamicResource MetaContactBig}"/>
             </Button>
         </StackPanel>
     </Grid>
