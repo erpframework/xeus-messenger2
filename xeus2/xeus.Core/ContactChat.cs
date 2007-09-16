@@ -12,12 +12,11 @@ using xeus2.xeus.Utilities;
 
 namespace xeus2.xeus.Core
 {
-    internal class ContactChat : ChatBase<Message>, IDisposable
+    internal class ContactChat : ChatBase<Message>, IDisposable, IChatState
     {
         private readonly IContact _contact;
 
         private readonly ObservableCollectionDisp<Message> _messages = new ObservableCollectionDisp<Message>();
-        private Chatstate _chatState = Chatstate.None;
 
         public ContactChat(IContact contact, XmppClientConnection clientConnection)
         {
@@ -40,19 +39,6 @@ namespace xeus2.xeus.Core
             get
             {
                 return _contact;
-            }
-        }
-
-        public Chatstate ChatState
-        {
-            get
-            {
-                return _chatState;
-            }
-            set
-            {
-                _chatState = value;
-                NotifyPropertyChanged("ChatState");
             }
         }
 

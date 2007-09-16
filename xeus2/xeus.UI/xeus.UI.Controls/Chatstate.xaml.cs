@@ -10,7 +10,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
     /// </summary>
     public partial class Chatstate : UserControl
     {
-        private ContactChat _contactChat;
+        private IChatState _chatBase;
 
         public Chatstate()
         {
@@ -23,20 +23,20 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         {
             Unloaded += Chatstate_Unloaded;
 
-            _contactChat = (ContactChat)DataContext;
-            _contactChat.PropertyChanged += _contactChat_PropertyChanged;
+            _chatBase = (IChatState)DataContext;
+            _chatBase.PropertyChanged += _contactChat_PropertyChanged;
 
             HandleChatState();
         }
 
         void Chatstate_Unloaded(object sender, RoutedEventArgs e)
         {
-            _contactChat.PropertyChanged -= _contactChat_PropertyChanged;
+            _chatBase.PropertyChanged -= _contactChat_PropertyChanged;
         }
 
         void HandleChatState()
         {
-            switch (_contactChat.ChatState)
+            switch (_chatBase.ChatState)
             {
                 case agsXMPP.protocol.extensions.chatstates.Chatstate.active:
                 case agsXMPP.protocol.extensions.chatstates.Chatstate.paused:

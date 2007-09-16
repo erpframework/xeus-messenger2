@@ -20,6 +20,8 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
     /// </summary>
     public partial class MucConversation : UserControl, IDisposable
     {
+        private readonly ChatStateNotificator _chatStateNotificator = new ChatStateNotificator();
+
         private readonly InlineMethod _inlineMethod = new InlineMethod();
         private MucMessage _lastFoundItem = null;
         private string _lastSearch = String.Empty;
@@ -64,6 +66,26 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _inlineMethod.Finished += _inlineMethod_Finished;
             _inlineSearch.TextChanged += _inlineSearch_TextChanged;
             _inlineSearch.Closed += _inlineSearch_Closed;
+
+            GotFocus += MucConversation_GotFocus;
+            LostFocus += MucConversation_LostFocus;
+
+            _chatStateNotificator.StateChanged += _chatStateNotificator_StateChanged;
+        }
+
+        void _chatStateNotificator_StateChanged(agsXMPP.protocol.extensions.chatstates.Chatstate chatstate)
+        {
+            _mucRoom.SendChatState(chatstate);
+        }
+
+        void MucConversation_LostFocus(object sender, RoutedEventArgs e)
+        {
+            _chatStateNotificator.ChangeChatState(agsXMPP.protocol.extensions.chatstates.Chatstate.inactive);
+        }
+
+        void MucConversation_GotFocus(object sender, RoutedEventArgs e)
+        {
+            _chatStateNotificator.ChangeChatState(agsXMPP.protocol.extensions.chatstates.Chatstate.active);
         }
 
         private void _text_Loaded(object sender, RoutedEventArgs e)
@@ -324,6 +346,8 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _inlineMethod.Finished -= _inlineMethod_Finished;
             _inlineSearch.TextChanged -= _inlineSearch_TextChanged;
             _inlineSearch.Closed -= _inlineSearch_Closed;
+
+            _chatStateNotificator.StateChanged -= _chatStateNotificator_StateChanged;
         }
 
         private void OnKeyPress(object sender, KeyEventArgs e)
@@ -429,6 +453,8 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 _text.Text = string.Empty;
             }
 
+            _chatStateNotificator.ChangeChatState(agsXMPP.protocol.extensions.chatstates.Chatstate.inactive);
+
             _text.Focus();
         }
 
@@ -458,6 +484,11 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             {
                 MucCommands.ModifySubject.Execute(_mucRoom, null);
             }
+        }
+
+        private void _text_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _chatStateNotificator.ChangeChatState(agsXMPP.protocol.extensions.chatstates.Chatstate.composing);
         }
     }
 }

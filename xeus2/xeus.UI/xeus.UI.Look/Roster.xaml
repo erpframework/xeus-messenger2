@@ -81,7 +81,7 @@
     </ItemsPanelTemplate>
 
     <DataTemplate x:Key="MetaContactSmall">
-        <Grid Margin="3,3,3,3" x:Name="_grid" ContextMenu="{DynamicResource ContactMenu}" MaxWidth="150">
+        <Grid Margin="3,3,3,3" x:Name="_grid" ContextMenu="{DynamicResource ContactMenu}" MaxWidth="150" VerticalAlignment="Center">
             <Grid VerticalAlignment="Bottom" x:Name="_resource" Margin="3,-1,5,0" Visibility="Visible" HorizontalAlignment="Left">
                 <Border BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" Margin="0,0,0,2"
                         Background="#FFe5e5e5" BorderBrush="{DynamicResource roster_image_border}">

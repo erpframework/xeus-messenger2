@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Timers;
 using System.Windows.Documents;
 using agsXMPP;
+using agsXMPP.protocol.extensions.chatstates;
 using xeus2.xeus.UI;
 using xeus2.xeus.Utilities;
 using Brush=System.Windows.Media.Brush;
@@ -19,7 +20,7 @@ using Uri=System.Uri;
 
 namespace xeus2.xeus.Core
 {
-    internal abstract class ChatBase<T> : NotifyInfoDispatcher where T: MessageBase
+    internal abstract class ChatBase<T> : NotifyInfoDispatcher where T : MessageBase
     {
         #region Nested type: TimerCallback
 
@@ -69,9 +70,24 @@ namespace xeus2.xeus.Core
 
         protected XmppClientConnection _xmppClientConnection = null;
 
+        private Chatstate _chatState = Chatstate.None;
+
         public abstract ObservableCollectionDisp<T> Messages
         {
             get;
+        }
+
+        public Chatstate ChatState
+        {
+            get
+            {
+                return _chatState;
+            }
+            set
+            {
+                _chatState = value;
+                NotifyPropertyChanged("ChatState");
+            }
         }
 
         protected static Brush GetMessageTimeBrush(MessageBase mucMessage)

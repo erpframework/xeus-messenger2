@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
+using xeus2.xeus.Core;
 
 namespace xeus2.xeus.UI.xeus.UI.Controls
 {
@@ -10,6 +12,32 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         public RosterSizeSelection()
         {
             InitializeComponent();
+
+            Loaded += RosterSizeSelection_Loaded;
+        }
+
+        void RosterSizeSelection_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            DummyContact dummyContact = new DummyContact();
+
+            lock (Roster.Instance.Items._syncObject)
+            {
+                int count = Roster.Instance.Items.Count;
+
+                IContact contact;
+
+                if (count > 0)
+                {
+                    Random random = new Random();
+                    contact = Roster.Instance.Items[random.Next(0, count - 1)];
+                }
+                else
+                {
+                    contact = dummyContact;
+                }
+
+                _small.Content = _medium.Content = _big.Content = contact;
+            }
         }
 
         private void CloseParentPopup()

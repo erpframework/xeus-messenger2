@@ -29,7 +29,7 @@
             <FlowDocumentScrollViewer x:Name="_flowViewer" Margin="2,2,2,2"
 	        Document="{Binding Path=ChatDocument}"
 	        DockPanel.Dock="Top" MaxZoom="300" MinZoom="50" ZoomIncrement="5" Style="{DynamicResource BasicFlowDocumentScrollViewerStyle}" />
-            <Controls:Chatstate Margin="10,5,10,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            <Controls:Chatstate Margin="10,5,10,0" VerticalAlignment="Top" HorizontalAlignment="Right"/>
 		</Grid>
         </Border>
     </DockPanel>

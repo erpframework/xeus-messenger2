@@ -319,6 +319,7 @@
     <Compile Include="xeus.Core\EventMucRoom.cs" />
     <Compile Include="xeus.Core\Events.cs" />
     <Compile Include="xeus.Core\EventStatusChanged.cs" />
+    <Compile Include="xeus.Core\IChatState.cs" />
     <Compile Include="xeus.Core\IContact.cs" />
     <Compile Include="xeus.Core\IJid.cs" />
     <Compile Include="xeus.Core\InlineMethod.cs" />

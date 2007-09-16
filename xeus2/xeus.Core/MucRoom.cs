@@ -14,6 +14,7 @@ using System.Windows.Threading;
 using agsXMPP;
 using agsXMPP.Collections;
 using agsXMPP.protocol.client;
+using agsXMPP.protocol.extensions.chatstates;
 using agsXMPP.protocol.x.muc;
 using xeus2.Properties;
 using xeus2.xeus.Commands;
@@ -23,7 +24,7 @@ using Uri=System.Uri;
 
 namespace xeus2.xeus.Core
 {
-    internal class MucRoom : ChatBase<MucMessage>, IDisposable
+    internal class MucRoom : ChatBase<MucMessage>, IDisposable, IChatState
     {
         #region Delegates
 
@@ -138,6 +139,19 @@ namespace xeus2.xeus.Core
         #endregion
 
         public event MucContactHandler OnClickMucContact;
+
+
+        public void SendChatState(Chatstate chatState)
+        {
+            agsXMPP.protocol.client.Message message = new agsXMPP.protocol.client.Message();
+
+            message.Type = MessageType.groupchat;
+            message.To = _service.Jid;
+            message.Chatstate = chatState;
+
+            _xmppClientConnection.Send(message);
+        }
+
 
         private void Instance_OnEventRaised(object sender, Event myEvent)
         {
@@ -459,7 +473,15 @@ namespace xeus2.xeus.Core
                         contact = MucRoster.Find(msg.From);
                     }
 
-                    _mucMessages.OnMessage(msg, contact);
+                    if (msg.Body != null)
+                    {
+                        _mucMessages.OnMessage(msg, contact);
+                    }
+
+                    if (msg.Chatstate != Chatstate.None && contact != Me)
+                    {
+                        ChatState = msg.Chatstate;
+                    }
                 }
             }
             else
@@ -588,6 +610,7 @@ namespace xeus2.xeus.Core
             message.Type = MessageType.groupchat;
             message.To = _service.Jid;
             message.Body = text;
+            message.Chatstate = Chatstate.active;
 
             _xmppClientConnection.Send(message);
         }

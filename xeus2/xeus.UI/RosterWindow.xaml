@@ -176,9 +176,7 @@
             <xeus2_xeus_Controls:StatusTextControl/>
             <Button Click="DisplayPopupRosterSize" Content="sfgsdfg" Style="{DynamicResource ImageButtonStyle}" Background="{DynamicResource roster_size_design}" Width="40" Height="20"/>
             <Popup x:Name="_rosterSizePopup" AllowsTransparency="True"
-                   Placement="MousePoint" StaysOpen="False">
-                <xeus2_xeus_Controls:RosterSizeSelection Panel.ZIndex="100"/>
-            </Popup>
+                   Placement="MousePoint" StaysOpen="False"/>
         </WrapPanel>
         <DockPanel DockPanel.Dock="Top" >
             <Grid DockPanel.Dock="Top" >

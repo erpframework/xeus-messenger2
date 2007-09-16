@@ -78,6 +78,5 @@ namespace xeus2.xeus.Core
                                                   new SendChatStateCallback(ChangeChatState), chatstate);
             }
         }
-
     }
 }
