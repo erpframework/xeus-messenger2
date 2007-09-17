@@ -470,7 +470,7 @@ namespace xeus2.xeus.Core
         }
 
         // unsafe - use lock in calling code
-        private Contact FindContact(Jid jid)
+        internal Contact FindContact(Jid jid)
         {
             Contact contact;
 
@@ -539,7 +539,7 @@ namespace xeus2.xeus.Core
             }
         }
 
-        private MetaContact FindMetaContact(Jid jid)
+        internal MetaContact FindMetaContact(Jid jid)
         {
             foreach (MetaContact metaContact in _items)
             {
@@ -578,6 +578,8 @@ namespace xeus2.xeus.Core
                         
                         chat.ChatState = chatstate;
                     }
+
+                    RecentItems.Instance.Add(contact);
                 }
             }
         }

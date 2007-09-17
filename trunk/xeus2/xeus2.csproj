@@ -340,6 +340,8 @@
     <Compile Include="xeus.Core\MucStatusCodeTexts.cs" />
     <Compile Include="xeus.Core\NotifyDispatcher.cs" />
     <Compile Include="xeus.Core\ObservableCollectionDisp.cs" />
+    <Compile Include="xeus.Core\Recent.cs" />
+    <Compile Include="xeus.Core\RecentItems.cs" />
     <Compile Include="xeus.Core\Roster.cs" />
     <Compile Include="xeus.Core\SearchResult.cs">
       <SubType>Component</SubType>

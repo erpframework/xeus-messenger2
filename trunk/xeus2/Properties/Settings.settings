@@ -56,5 +56,8 @@
     <Setting Name="UI_MaxHistoryMessages" Type="System.UInt32" Scope="User">
       <Value Profile="(Default)">80</Value>
     </Setting>
+    <Setting Name="UI_MaxRecentItems" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

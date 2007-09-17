@@ -414,6 +414,8 @@ namespace xeus2.xeus.Core
 
         private void _xmppConnection_OnRosterEnd(object sender)
         {
+            RecentItems.Instance.LoadItems();
+
             SendMyPresence();
             _selfContact.AskMyVcard();
         }
