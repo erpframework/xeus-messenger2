@@ -16,7 +16,6 @@ namespace xeus2.xeus.Core
         private readonly DateTime _dateTime;
         private readonly Jid _jid;
         private readonly RecentType _recentType;
-        private DateTime _DateTime;
 
         public Recent(Jid jid, RecentType type)
         {
@@ -56,10 +55,6 @@ namespace xeus2.xeus.Core
             get
             {
                 return _dateTime;
-            }
-            set
-            {
-                _DateTime = value;
             }
         }
 

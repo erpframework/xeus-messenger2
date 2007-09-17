@@ -37,40 +37,36 @@ namespace xeus2.xeus.Core
         {
             lock (_recentsLock)
             {
-                Recent recent = Exists(jid);
+                Remove(jid);
 
-                if (recent != null)
-                {
-                    _recents.Remove(recent);
-                }
-                else if (_recents.Count >= Settings.Default.UI_MaxRecentItems)
+                if (_recents.Count >= Settings.Default.UI_MaxRecentItems)
                 {
                     _recents.RemoveAt(_recents.Count - 1);
                 }
 
-                if (recent == null)
-                {
-                    recent = new Recent(jid, recentType);
-                }
-
-                recent.DateTime = DateTime.Now;
+                Recent recent = new Recent(jid, recentType);
                 _recents.Insert(0, recent);
             }
 
             Build();            
         }
 
-        Recent Exists(Jid jid)
+        void Remove(Jid jid)
         {
+            List<Recent> toBeRemoved = new List<Recent>();
+
             foreach (Recent recent in _recents)
             {
                 if (JidUtil.BareEquals(recent.Jid, jid))
                 {
-                    return recent;
+                    toBeRemoved.Add(recent);
                 }
             }
 
-            return null;
+            foreach (Recent recent in toBeRemoved)
+            {
+                _recents.Remove(recent);
+            }
         }
 
         void Build()
