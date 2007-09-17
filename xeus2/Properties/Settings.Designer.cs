@@ -238,5 +238,17 @@ namespace xeus2.Properties {
                 this["UI_MaxHistoryMessages"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public uint UI_MaxRecentItems {
+            get {
+                return ((uint)(this["UI_MaxRecentItems"]));
+            }
+            set {
+                this["UI_MaxRecentItems"] = value;
+            }
+        }
     }
 }

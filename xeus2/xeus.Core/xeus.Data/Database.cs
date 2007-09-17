@@ -50,7 +50,7 @@ namespace xeus2.xeus.Data
                                   + "FOREIGN KEY ([To]) REFERENCES [Contact]([Jid]));";
                 cmd.ExecuteNonQuery();
 
-                cmd.CommandText = "CREATE TABLE [Contact] (Jid VARCHAR NOT NULL PRIMARY KEY UNIQUE, "
+                cmd.CommandText = "CREATE TABLE [Contact] ([Jid] VARCHAR NOT NULL PRIMARY KEY UNIQUE, "
                                   + "[MetaId] INTEGER NOT NULL, "
                                   + "[CustomName] VARCHAR, "
                                   + "FOREIGN KEY ([MetaId]) REFERENCES [MetaContact]([Id]));";
@@ -59,12 +59,67 @@ namespace xeus2.xeus.Data
                 cmd.CommandText = "CREATE TABLE [MetaContact] ([Id] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
                                   + "[CustomName] VARCHAR);";
                 cmd.ExecuteNonQuery();
+
+                cmd.CommandText = "CREATE TABLE [Recent] ([Position] INTEGER NOT NULL PRIMARY KEY UNIQUE, "
+                                  + "[Jid] VARCHAR NOT NULL UNIQUE, "
+                                  + "[DateTime] INTEGER NOT NULL, "
+                                  + "[Type] VARCHAR NOT NULL);";
+                cmd.ExecuteNonQuery();
             }
         }
 
         public static void CloseDatabase()
         {
             _connection.Close();
+        }
+
+        public static void SaveRecent(Recent recent, int position)
+        {
+            try
+            {
+                Dictionary<string, object> values = recent.GetData();
+
+                values.Add("Position", position);
+
+                SaveOrUpdate(values, "Position", "Recent", false, _connection);
+            }
+
+            catch (Exception e)
+            {
+                Events.Instance.OnEvent(e, new EventError(e.Message, null));
+            }
+        }
+
+        public static List<Recent> GetRecentItems(uint max)
+        {
+            List<Recent> recents = new List<Recent>();
+
+            try
+            {
+                using (SQLiteCommand command = _connection.CreateCommand())
+                {
+                    command.CommandText = string.Format(
+                                            "SELECT * FROM [Recent] "
+                                          + "ORDER BY [Recent].[DateTime] DESC "
+                                          + "LIMIT {0};", max);
+
+                    SQLiteDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        recents.Add(new Recent(reader));
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            catch (Exception e)
+            {
+                Events.Instance.OnEvent(e, new EventError(e.Message, null));
+            }
+
+            return recents;           
         }
 
         public static List<Message> GetMessages(IContact contact, uint maxMessages)
