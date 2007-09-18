@@ -22,20 +22,13 @@
         </DataTemplate>
 
         <ObjectDataProvider x:Key="RecentDS" ObjectType="{x:Type Core:RecentItems}"/>
-
-        <CollectionViewSource x:Key="Recents" Source="{Binding Path=Instance, Mode=Default, Source={StaticResource RecentDS}}">
-            <CollectionViewSource.SortDescriptions>
-                <ComponentModel:SortDescription PropertyName="Name" />
-            </CollectionViewSource.SortDescriptions>
-        </CollectionViewSource>
-
+        <CollectionViewSource x:Key="Recents" Source="{Binding Path=Instance, Mode=Default, Source={StaticResource RecentDS}}"/>
     </UserControl.Resources>
 
     <Grid MaxHeight="500">
         <Rectangle Opacity="0.9" Fill="{DynamicResource chat_back_design}" Stroke="{DynamicResource DefaultBorderBrush}" RadiusX="3" RadiusY="3"/>
         <ListBox x:Name="_list" 
                 Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,5,5"
-                 ItemsSource="{Binding Source={StaticResource Recents}}"
-                 SelectionChanged="_list_SelectionChanged"/>
+                 ItemsSource="{Binding Source={StaticResource Recents}}"/>
     </Grid>
 </UserControl>
