@@ -351,5 +351,18 @@ namespace xeus2.xeus.Core
                 return null;
             }
         }
+
+        public static bool AffectsFilterOrGroup(string property)
+        {
+            switch (property)
+            {
+                case "IsAvailable":
+                    {
+                        return true;
+                    }
+            }
+
+            return false;
+        }
     }
 }

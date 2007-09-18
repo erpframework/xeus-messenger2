@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Timers;
+using System.Windows.Threading;
 using agsXMPP;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.extensions.caps;
@@ -19,11 +22,17 @@ namespace xeus2.xeus.Core
     internal class Roster
     {
         private static readonly Roster _instance = new Roster();
-        private readonly ObservableCollectionDisp<MetaContact> _items = new ObservableCollectionDisp<MetaContact>();
-        private readonly Dictionary<string, Contact> _realContacts = new Dictionary<string, Contact>();
 
         private readonly List<ContactChat> _chats = new List<ContactChat>();
         private readonly object _chatsLock = new object();
+        private readonly ObservableCollectionDisp<MetaContact> _items = new ObservableCollectionDisp<MetaContact>();
+        private readonly Dictionary<string, Contact> _realContacts = new Dictionary<string, Contact>();
+
+        public delegate void NeedRefreshHandler();
+
+        public event NeedRefreshHandler NeedRefresh;
+
+        readonly Timer _timerRefresh = new Timer();
 
         public static Roster Instance
         {
@@ -66,6 +75,31 @@ namespace xeus2.xeus.Core
 
                 DistributeMessage(message, msg.Chatstate);
             }
+        }
+
+        public Roster()
+        {
+            _items.CollectionChanged += _items_CollectionChanged;
+
+            _timerRefresh.AutoReset = false;
+            _timerRefresh.Interval = 1000.0;
+
+            _timerRefresh.Elapsed += _timerRefresh_Elapsed;
+        }
+
+        void _timerRefresh_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            App.InvokeSafe(App._dispatcherPriority,
+                           new RefreshCallback(TimerRefresh));
+
+        }
+
+        void TimerRefresh()
+        {
+            if (NeedRefresh != null)
+            {
+                NeedRefresh();
+            }            
         }
 
         private void OnContactPresence(Presence presence)
@@ -288,7 +322,7 @@ namespace xeus2.xeus.Core
             }
         }
 
-        static void AskForCaps(Contact contact)
+        private static void AskForCaps(Contact contact)
         {
             Account.Instance.DiscoMan.DisoverInformation(contact.Jid, OnDiscoInfoResult, contact);
         }
@@ -350,7 +384,7 @@ namespace xeus2.xeus.Core
         private void OnContactCaps(Capabilities capabilities, Jid from)
         {
             Contact contact;
-            
+
             lock (_realContacts)
             {
                 contact = FindContact(from);
@@ -509,13 +543,47 @@ namespace xeus2.xeus.Core
                 _realContacts.Add(item.Jid.ToString(), contact);
 
                 _items.Add(metaContact);
-            }
+           }
 
             Vcard vcard = Storage.GetVcard(contact.Jid, 99999);
 
             if (vcard != null)
             {
                 contact.SetVcard(vcard);
+            }
+        }
+
+        private void _items_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    {
+                        foreach (MetaContact metaContact in e.NewItems)
+                        {
+                            metaContact.PropertyChanged += metaContact_PropertyChanged;
+                        }
+                        break;
+                    }
+                case NotifyCollectionChangedAction.Remove:
+                case NotifyCollectionChangedAction.Reset:
+                    {
+                        foreach (MetaContact metaContact in e.OldItems)
+                        {
+                            metaContact.PropertyChanged -= metaContact_PropertyChanged;
+                        }
+                        break;
+                    }
+            }
+        }
+
+        void metaContact_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            //if the change affects filter, remove/add helps
+            if (MetaContact.AffectsFilterOrGroup(e.PropertyName))
+            {
+                _timerRefresh.Stop();
+                _timerRefresh.Start();
             }
         }
 
@@ -575,7 +643,7 @@ namespace xeus2.xeus.Core
                         {
                             chat.Messages.Add(message);
                         }
-                        
+
                         chat.ChatState = chatstate;
                     }
 
@@ -594,7 +662,7 @@ namespace xeus2.xeus.Core
             ContactChat contactChat = new ContactChat(contact, Account.Instance.XmppConnection);
 
             contactChat.Messages.Add(Database.GetMessages(contact, Settings.Default.UI_MaxHistoryMessages));
-            
+
             lock (_chatsLock)
             {
                 _chats.Add(contactChat);
@@ -641,6 +709,7 @@ namespace xeus2.xeus.Core
 
             return contactChats;
         }
+        private delegate void RefreshCallback();
 
         #region Nested type: MessageCallback
 
