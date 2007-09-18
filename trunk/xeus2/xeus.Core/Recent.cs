@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using agsXMPP;
+using agsXMPP.protocol.client;
 using agsXMPP.protocol.iq.disco;
 
 namespace xeus2.xeus.Core
@@ -67,12 +68,34 @@ namespace xeus2.xeus.Core
 
                         _item = service;
 
+                        DiscoverInfo(Jid, service);
+
                         break;
                     }
                 default:
                     {
                         throw new NotImplementedException();
                     }
+            }
+        }
+
+        protected void DiscoverInfo(Jid jid, Service service)
+        {
+            Account.Instance.DiscoMan.DisoverInformation(jid, new IqCB(OnDiscoInfoResultMucRoom), service);
+        }
+
+        private void OnDiscoInfoResultMucRoom(object sender, IQ iq, object data)
+        {
+            if (iq.Error != null)
+            {
+                Services.Instance.OnServiceItemError(sender, iq);
+            }
+            else if (iq.Type == IqType.result && iq.Query is DiscoInfo)
+            {
+                DiscoInfo di = iq.Query as DiscoInfo;
+
+                Service service = (Service)data;
+                service.DiscoInfo = di;
             }
         }
 

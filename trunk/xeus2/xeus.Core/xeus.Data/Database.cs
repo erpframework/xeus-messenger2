@@ -61,7 +61,7 @@ namespace xeus2.xeus.Data
                 cmd.ExecuteNonQuery();
 
                 cmd.CommandText = "CREATE TABLE [Recent] ([Position] INTEGER NOT NULL PRIMARY KEY UNIQUE, "
-                                  + "[Jid] VARCHAR NOT NULL UNIQUE, "
+                                  + "[Jid] VARCHAR NOT NULL, "
                                   + "[DateTime] INTEGER NOT NULL, "
                                   + "[Type] VARCHAR NOT NULL);";
                 cmd.ExecuteNonQuery();

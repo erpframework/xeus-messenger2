@@ -7,7 +7,7 @@ namespace xeus2.xeus.Core
 		public delegate void EventItemCallback( object sender, Event myEvent ) ;
 		public event EventItemCallback OnEventRaised ;
 
-		private static Events _instance = new Events() ;
+		private static readonly Events _instance = new Events() ;
 
 	    private const uint _maxEvents = 100;
 

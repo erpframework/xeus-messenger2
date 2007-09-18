@@ -66,6 +66,7 @@
       <HintPath>sqLite\System.Data.SQLite.DLL</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
@@ -298,6 +299,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -317,6 +319,7 @@
     <Compile Include="xeus.Core\ContactChat.cs" />
     <Compile Include="xeus.Core\DummyContact.cs" />
     <Compile Include="xeus.Core\Event.cs" />
+    <Compile Include="xeus.Core\EventChatMessage.cs" />
     <Compile Include="xeus.Core\EventError.cs" />
     <Compile Include="xeus.Core\EventException.cs" />
     <Compile Include="xeus.Core\EventInfo.cs" />
@@ -377,6 +380,7 @@
     <Compile Include="xeus.Middle\Registration.cs" />
     <Compile Include="xeus.Middle\Search.cs" />
     <Compile Include="xeus.Middle\Services.cs" />
+    <Compile Include="xeus.Middle\UnreadChatMessages.cs" />
     <Compile Include="xeus.UI\AskAuthorization.xaml.cs">
       <DependentUpon>AskAuthorization.xaml</DependentUpon>
     </Compile>
@@ -512,6 +516,7 @@
     <Compile Include="xeus.UI\xeus.UI.Controls\StatusTextControl.xaml.cs">
       <DependentUpon>StatusTextControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="xeus.UI\xeus.UI.Controls\TrayIcon.cs" />
     <Compile Include="xeus.UI\xeus.UI.Look\EnumToBoolConverter.cs" />
     <Compile Include="xeus.UI\xeus.UI.Look\HistoryTemplateSelector.cs" />
     <Compile Include="xeus.UI\xeus.UI.Look\ServiceTemplateSelector.cs" />
@@ -570,6 +575,7 @@
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGeneratorEx</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -602,6 +608,13 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="xeus.UI\xeus.Images\avatar_default.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="xeus.UI\xeus.Images\message.ico" />
+    <Resource Include="xeus.UI\xeus.Images\message_trans.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="xeus.UI\xeus.Images\xeus.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -579,7 +579,12 @@ namespace xeus2.xeus.Core
                         chat.ChatState = chatstate;
                     }
 
-                    RecentItems.Instance.Add(contact);
+                    if (message.Body != null)
+                    {
+                        RecentItems.Instance.Add(contact);
+                    }
+
+                    Events.Instance.OnEvent(this, new EventChatMessage(contact, message, (contactChats.Count > 0)));
                 }
             }
         }

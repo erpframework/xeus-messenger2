@@ -1290,9 +1290,9 @@
 	</DrawingBrush>
 
     <DataTemplate x:Key="MucRoomSmall">
-        <Grid>
+        <Grid MaxWidth="150">
             <Rectangle Width="18" Height="18" Fill="{DynamicResource muc_design}" HorizontalAlignment="Left"/>
-            <TextBlock Text="{Binding Path=Name}" Margin="22,0,0,0"/>
+            <TextBlock Text="{Binding Path=Name}" Margin="22,0,0,0" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
         </Grid>
     </DataTemplate>
     
