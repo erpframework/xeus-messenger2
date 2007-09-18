@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows.Controls;
+using xeus2.Properties;
 using xeus2.xeus.Core;
 
 namespace xeus2.xeus.UI
@@ -8,16 +9,17 @@ namespace xeus2.xeus.UI
     {
         private readonly ICollectionView _collectionView;
 
-        public FilterRoster()
+        public FilterRoster(ICollectionView collectionView)
         {
-        }
-
-        public FilterRoster(ICollectionView collectionView, CheckBox checkBox)
-            : this()
-        {
-            bool displayOffline = false;
-
             _collectionView = collectionView;
+
+            Settings.Default.PropertyChanged += delegate(object sender, PropertyChangedEventArgs e)
+            {
+                if (e.PropertyName == "UI_DisplayOfflineContacts")
+                {
+                    Refresh();
+                }
+            };
 
             collectionView.Filter = delegate(object obj)
                                         {
@@ -33,21 +35,9 @@ namespace xeus2.xeus.UI
                                             }
                                             else
                                             {
-                                                return displayOffline;
+                                                return Settings.Default.UI_DisplayOfflineContacts;
                                             }
                                         };
-
-            checkBox.Unchecked += delegate
-                                      {
-                                          displayOffline = (bool) checkBox.IsChecked;
-                                          Refresh();
-                                      };
-
-            checkBox.Checked += delegate
-                                    {
-                                        displayOffline = (bool) checkBox.IsChecked;
-                                        Refresh();
-                                    };
         }
 
         private void Refresh()

@@ -1,4 +1,5 @@
-﻿using System.Windows.Media.Imaging;
+﻿using System;
+using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.extensions.caps;
@@ -167,11 +168,11 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
             set
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
         }
 
@@ -179,11 +180,19 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
             set
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
+            }
+        }
+
+        public DateTime? LastOnlineTime
+        {
+            get
+            {
+                return DateTime.Now;
             }
         }
 

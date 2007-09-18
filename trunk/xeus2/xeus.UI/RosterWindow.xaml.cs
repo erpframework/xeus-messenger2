@@ -23,13 +23,13 @@ namespace xeus2
         {
             InitializeComponent();
 
+            new FilterRoster(_roster.CollectionView);
+
             UnreadChatMessages.Instance.Clear();
 
             TrayIcon.NotifyIcon.MouseClick += NotifyIcon_MouseClick;
 
             TrayIcon.State = TrayIcon.TrayState.Normal;
-
-            new FilterRoster(_roster.CollectionView, _displayOffline);
         }
 
         internal static TrayIcon TrayIcon

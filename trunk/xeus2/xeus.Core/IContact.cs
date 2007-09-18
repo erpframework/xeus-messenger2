@@ -1,3 +1,4 @@
+using System;
 using System.Windows.Media.Imaging;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.extensions.caps;
@@ -107,6 +108,11 @@ namespace xeus2.xeus.Core
         {
             get;
             set;
+        }
+
+        DateTime? LastOnlineTime
+        {
+            get;
         }
     }
 }
