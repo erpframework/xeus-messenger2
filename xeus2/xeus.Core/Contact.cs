@@ -103,6 +103,10 @@ namespace xeus2.xeus.Core
                 {
                     return NickName;
                 }
+                else if (!string.IsNullOrEmpty(Jid.User))
+                {
+                    return Jid.User;
+                }
 
                 return Jid.ToString();
             }

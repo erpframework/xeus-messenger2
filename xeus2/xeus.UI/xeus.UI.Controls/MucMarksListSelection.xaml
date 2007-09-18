@@ -6,7 +6,6 @@
 	xmlns:ComponentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     x:Class="xeus2.xeus.UI.xeus.UI.Controls.MucMarksListSelection"
     >
-
     <UserControl.Resources>
         <DataTemplate x:Key="MucBookmarkSimple" >
             <Grid Cursor="Hand">

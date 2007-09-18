@@ -23,45 +23,6 @@
                 <ResourceDictionary Source="xeus.UI.Look\BasicStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <DrawingBrush x:Key="history_design" PresentationOptions:Freeze="True" Stretch="Uniform">
-                <DrawingBrush.Drawing>
-                    <DrawingGroup>
-                        <DrawingGroup.Children>
-                            <GeometryDrawing Geometry="F1 M 14.3721,5.19965C 19.8667,5.19965 24.321,9.65391 24.321,15.1485C 24.321,20.6431 19.8667,25.0974 14.3721,25.0974C 8.8775,25.0974 4.42323,20.6431 4.42323,15.1485C 4.42323,9.65391 8.8775,5.19965 14.3721,5.19965 Z ">
-                                <GeometryDrawing.Pen>
-                                    <Pen LineJoin="Round" Brush="#FF3D3D3D"/>
-                                </GeometryDrawing.Pen>
-                                <GeometryDrawing.Brush>
-                                    <RadialGradientBrush RadiusX="0.493256" RadiusY="0.493256" Center="0.5,0.5" GradientOrigin="0.5,0.5">
-                                        <RadialGradientBrush.GradientStops>
-                                            <GradientStop Color="#FFFFFFFF" Offset="0"/>
-                                            <GradientStop Color="#FFDFDFDF" Offset="0.855932"/>
-                                            <GradientStop Color="#FF5F5F5F" Offset="1"/>
-                                        </RadialGradientBrush.GradientStops>
-                                        <RadialGradientBrush.RelativeTransform>
-                                            <TransformGroup/>
-                                        </RadialGradientBrush.RelativeTransform>
-                                    </RadialGradientBrush>
-                                </GeometryDrawing.Brush>
-                            </GeometryDrawing>
-                            <GeometryDrawing Geometry="F1 M 14.4046,14.9896L 21.6301,18.4928C 20.3628,21.2557 17.5723,23.1747 14.3337,23.1747C 9.90257,23.1747 6.31047,19.5826 6.31047,15.1515C 6.31047,10.7204 9.90258,7.12831 14.4083,7.12864L 14.4046,14.9896 Z ">
-                                <GeometryDrawing.Brush>
-                                    <RadialGradientBrush RadiusX="0.523719" RadiusY="0.500011" Center="0.5,0.499989" GradientOrigin="0.5,0.499989">
-                                        <RadialGradientBrush.GradientStops>
-                                            <GradientStop Color="#FF7DC1D7" Offset="0"/>
-                                            <GradientStop Color="#FF317AB2" Offset="0.991525"/>
-                                        </RadialGradientBrush.GradientStops>
-                                        <RadialGradientBrush.RelativeTransform>
-                                            <TransformGroup/>
-                                        </RadialGradientBrush.RelativeTransform>
-                                    </RadialGradientBrush>
-                                </GeometryDrawing.Brush>
-                            </GeometryDrawing>
-                        </DrawingGroup.Children>
-                    </DrawingGroup>
-                </DrawingBrush.Drawing>
-            </DrawingBrush>
-
             <DrawingBrush x:Key="roster_size_design" PresentationOptions:Freeze="True" Stretch="Uniform">
                 <DrawingBrush.Drawing>
                     <DrawingGroup>
@@ -230,12 +191,18 @@
 		                  PlacementTarget="{Binding ElementName=_mucMarksButton}" StaysOpen="False">
                         <xeus2_xeus_Controls:MucMarksListSelection Panel.ZIndex="100"/>
                     </Popup>
-                    <Button Background="{DynamicResource mucmark_design}" Content="MUC Bookmarks"
+                    <Button Background="{DynamicResource mucmark_design}"
                         Click="MucMarkPopup"
                         Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
-                    <Button Background="{StaticResource history_design}" Content="History"
-                        Click="MucMarkPopup"
+                    
+                    <Button Background="{DynamicResource history_design}"
+                        Click="HistoryPopup" x:Name="_historyButton"
                         Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
+                    
+                    <Popup x:Name="_historyPopup" AllowsTransparency="True"
+		                  PlacementTarget="{Binding ElementName=_historyButton}" StaysOpen="False">
+                        <xeus2_xeus_Controls:HistoryListSelection Panel.ZIndex="100"/>
+                    </Popup>
                 </WrapPanel>
             </Grid>
             <xeus2_xeus_Controls:DottedHorizontal Margin="0,3,0,3" DockPanel.Dock="Bottom"/>

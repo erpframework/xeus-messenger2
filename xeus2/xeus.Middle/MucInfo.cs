@@ -7,7 +7,7 @@ namespace xeus2.xeus.Middle
 {
     internal class MucInfo
     {
-        private static MucInfo _instance = new MucInfo();
+        private static readonly MucInfo _instance = new MucInfo();
 
         public static MucInfo Instance
         {
