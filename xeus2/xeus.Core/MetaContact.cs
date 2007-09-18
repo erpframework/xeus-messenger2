@@ -259,6 +259,14 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public DateTime? LastOnlineTime
+        {
+            get
+            {
+                return (DateTime?)GetValueSafe("LastOnlineTime");
+            }
+        }
+
         public int Id
         {
             get

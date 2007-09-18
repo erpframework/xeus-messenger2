@@ -9,12 +9,14 @@ using agsXMPP.protocol.client;
 using agsXMPP.protocol.extensions.caps;
 using agsXMPP.protocol.extensions.commands;
 using agsXMPP.protocol.iq.disco;
+using agsXMPP.protocol.iq.last;
 using agsXMPP.protocol.iq.register;
 using agsXMPP.protocol.iq.roster;
 using agsXMPP.protocol.iq.search;
 using agsXMPP.protocol.x.muc;
 using agsXMPP.protocol.x.muc.iq.owner;
 using agsXMPP.Xml.Dom;
+using Win32_API;
 using xeus2.Properties;
 using xeus2.xeus.Data;
 using xeus2.xeus.Middle;
@@ -388,6 +390,18 @@ namespace xeus2.xeus.Core
                         iq.Type = IqType.result;
                         
                         iq.AddChild(Self.Disco);
+
+                        XmppConnection.Send(iq);
+                    }
+                    else if (query.GetType() == typeof(Last))
+                    {
+                        iq.SwitchDirection();
+                        iq.Type = IqType.result;
+
+                        Last last = new Last();
+
+                        last.Seconds = (int)(Win32.GetIdleTime()/1000);
+                        iq.AddChild(last);
 
                         XmppConnection.Send(iq);
                     }

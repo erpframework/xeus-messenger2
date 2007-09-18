@@ -253,6 +253,14 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public DateTime? LastOnlineTime
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public void PresenceChange()
         {
             NotifyPropertyChanged("Show");
@@ -278,6 +286,8 @@ namespace xeus2.xeus.Core
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.DISCO_INFO));
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.VCARD_UPDATE));
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.VCARD));
+
+            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.IQ_LAST));
 
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC_ADMIN));
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC_OWNER));

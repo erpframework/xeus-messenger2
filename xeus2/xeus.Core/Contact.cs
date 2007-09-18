@@ -8,6 +8,7 @@ using agsXMPP.protocol.Base;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.extensions.caps;
 using agsXMPP.protocol.iq.disco;
+using agsXMPP.protocol.iq.last;
 using agsXMPP.protocol.iq.vcard;
 using agsXMPP.Xml.Dom;
 using xeus2.Properties;
@@ -52,12 +53,16 @@ namespace xeus2.xeus.Core
             {
                 _customName = (string) reader["CustomName"];
             }
+
+            AskForLastTime();
         }
 
         public Contact(RosterItem rosterItem, int metaId)
         {
             _rosterItem = rosterItem;
             _metaId = metaId;
+
+            AskForLastTime();
         }
 
         public Contact(Presence presence)
@@ -140,6 +145,7 @@ namespace xeus2.xeus.Core
         private Capabilities _capabilities;
         private Capabilities _caps = null;
         private DiscoInfo _disco = null;
+        private DateTime? _lastOnline = null ;
 
         public Presence Presence
         {
@@ -261,8 +267,35 @@ namespace xeus2.xeus.Core
 
                     _iqAvatarLoadedFromCache = true;
                 }
+
+                if (!IsAvailable)
+                {
+                    AskForLastTime();
+                }
             }
         }
+
+        private void AskForLastTime()
+        {
+            LastIq lastIq = new LastIq(IqType.get);
+            lastIq.From = Account.Instance.Self.Jid;
+            lastIq.To = Jid;
+            Account.Instance.XmppConnection.IqGrabber.SendIq(lastIq, OnLastIqResult, null);
+        }
+
+        void OnLastIqResult(object sender, IQ iq, object data)
+        {
+            if (iq.Type == IqType.result)
+            {
+                Last last = iq.Query as Last;
+
+                if (last != null)
+                {
+                    SetLastOnline(last);
+                }
+            }
+        }
+
 
         public string Resource
         {
@@ -518,6 +551,14 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public DateTime? LastOnlineTime
+        {
+            get
+            {
+                return _lastOnline;
+            }
+        }
+
         #endregion
 
         public override string ToString()
@@ -603,6 +644,13 @@ namespace xeus2.xeus.Core
             {
                 App.InvokeSafe(App._dispatcherPriority, new VcardHandler(SetVcard), vcard);
             }
+        }
+
+        public void SetLastOnline(Last last)
+        {
+            _lastOnline = DateTime.Now.Subtract(new TimeSpan(0, 0, last.Seconds));
+
+            NotifyPropertyChanged("LastOnlineTime");
         }
 
         public void SetIqAvatar(byte[] data)
