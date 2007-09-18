@@ -95,6 +95,11 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 				}
 
 				_state = value ;
+
+                if (_state == TrayState.Normal)
+                {
+                    _notifyIcon.Text = "xeus";
+                }
 			}
 		}
 

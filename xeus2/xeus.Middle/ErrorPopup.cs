@@ -5,12 +5,11 @@ namespace xeus2.xeus.Middle
 {
     internal class ErrorPopup
     {
-        private static ErrorPopup _instance = new ErrorPopup();
-
+        private static readonly ErrorPopup _instance = new ErrorPopup();
 
         private ErrorPopup()
         {
-            Events.Instance.OnEventRaised += new Events.EventItemCallback(Instance_OnEventRaised);
+            Events.Instance.OnEventRaised += Instance_OnEventRaised;
         }
 
         public static ErrorPopup Instance
