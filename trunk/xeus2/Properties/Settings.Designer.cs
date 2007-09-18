@@ -250,5 +250,17 @@ namespace xeus2.Properties {
                 this["UI_MaxRecentItems"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UI_DisplayOfflineContacts {
+            get {
+                return ((bool)(this["UI_DisplayOfflineContacts"]));
+            }
+            set {
+                this["UI_DisplayOfflineContacts"] = value;
+            }
+        }
     }
 }

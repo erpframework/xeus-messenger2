@@ -28,6 +28,8 @@ namespace xeus2
             TrayIcon.NotifyIcon.MouseClick += NotifyIcon_MouseClick;
 
             TrayIcon.State = TrayIcon.TrayState.Normal;
+
+            new FilterRoster(_roster.CollectionView, _displayOffline);
         }
 
         internal static TrayIcon TrayIcon

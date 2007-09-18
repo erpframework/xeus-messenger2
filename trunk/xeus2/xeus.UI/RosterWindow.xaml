@@ -178,7 +178,13 @@
                     Style="{DynamicResource ImageButtonStyle}" Background="{DynamicResource roster_size_design}" Width="40" Height="20" Margin="5,2,5,2"/>
             <Popup x:Name="_rosterSizePopup" AllowsTransparency="True"
                    PlacementTarget ="{Binding ElementName=_sizeButton}" StaysOpen="False"/>
-            <CheckBox Background="{DynamicResource aff_none_design}" Template="{DynamicResource CheckBoxImageControlTemplate}" Margin="5,0,5,0" VerticalAlignment="Center"/>
+            <CheckBox x:Name="_displayOffline"
+                Background="{DynamicResource aff_none_design}" Template="{DynamicResource CheckBoxImageControlTemplate}" Margin="5,0,5,0" VerticalAlignment="Center">
+                <CheckBox.IsChecked>
+                    <Binding Path="UI_DisplayOfflineContacts"
+                             Source="{x:Static Properties:Settings.Default}" Mode="TwoWay"/>
+                </CheckBox.IsChecked>
+            </CheckBox>
         </WrapPanel>
         <DockPanel DockPanel.Dock="Top" >
             <Grid DockPanel.Dock="Top" >

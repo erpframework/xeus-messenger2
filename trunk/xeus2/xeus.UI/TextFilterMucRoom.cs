@@ -10,8 +10,8 @@ namespace xeus2.xeus.UI
 {
     internal class TextFilterMucRoom
     {
-        Timer _keyTime = new Timer(500);
-        private ICollectionView _collectionView;
+        readonly Timer _keyTime = new Timer(500);
+        private readonly ICollectionView _collectionView;
 
         private delegate void RefreshCallback();
 
@@ -19,7 +19,7 @@ namespace xeus2.xeus.UI
         {
             _keyTime.AutoReset = false;
 
-            _keyTime.Elapsed += new ElapsedEventHandler(_keyTime_Elapsed);
+            _keyTime.Elapsed += _keyTime_Elapsed;
         }
 
         void Refresh()
