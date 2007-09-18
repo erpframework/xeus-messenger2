@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using xeus2.xeus.Core;
 using xeus2.xeus.Middle;
 
@@ -24,15 +14,18 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         public HistoryListSelection()
         {
             InitializeComponent();
+
+            _list.SelectedItem = null;
+            _list.SelectionChanged += _list_SelectionChanged;
         }
 
-        private void _list_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        void _list_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             e.Handled = true;
 
-            if (e.AddedItems.Count > 0)
+            if (_list.SelectedItem != null)
             {
-                Recent recent = (Recent) e.AddedItems[0];
+                Recent recent = (Recent)_list.SelectedItem;
 
                 if (recent.Item is IContact)
                 {
@@ -58,6 +51,5 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 popup.IsOpen = false;
             }
         }
-
     }
 }

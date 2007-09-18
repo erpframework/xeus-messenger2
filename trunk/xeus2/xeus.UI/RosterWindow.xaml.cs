@@ -1,5 +1,6 @@
 using System;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using xeus2.xeus.Commands;
 using xeus2.xeus.Core;
@@ -103,6 +104,7 @@ namespace xeus2
 
         private void HistoryPopup(object sender, RoutedEventArgs e)
         {
+            _historyPopup.Child = new HistoryListSelection();
             _historyPopup.IsOpen = true;
         }
     }
