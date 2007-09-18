@@ -312,4 +312,14 @@
   <data name="EventError_MucConfigFailed" xml:space="preserve">
     <value>MUC {0} configuration failed with '{1}'</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="message" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\xeus.UI\xeus.Images\message.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="message_trans" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\xeus.UI\xeus.Images\message_trans.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="xeus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\xeus.UI\xeus.Images\xeus.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

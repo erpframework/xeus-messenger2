@@ -1,15 +1,19 @@
 using System.Windows ;
 using System.Windows.Input ;
+using xeus2.xeus.Core;
 using xeus2.xeus.Middle ;
 
 namespace xeus2.xeus.Commands
 {
 	public static class AccountCommands
 	{
-		private static RoutedUICommand _displayLogin =
+		private static readonly RoutedUICommand _displayLogin =
 			new RoutedUICommand( "Display Login", "DisplayLogin", typeof ( AccountCommands ) ) ;
 
-		public static RoutedUICommand DisplayLogin
+        private static readonly RoutedUICommand _history =
+            new RoutedUICommand("Display History", "DisplayHistory", typeof(AccountCommands));
+        
+        public static RoutedUICommand DisplayLogin
 		{
 			get
 			{
@@ -17,13 +21,35 @@ namespace xeus2.xeus.Commands
 			}
 		}
 
-		public static void RegisterCommands( Window window )
+	    public static RoutedUICommand History
+	    {
+	        get
+	        {
+	            return _history;
+	        }
+	    }
+
+	    public static void RegisterCommands( Window window )
 		{
 			window.CommandBindings.Add(
 				new CommandBinding( _displayLogin, ExecuteDisplayLogin, CanExecuteDisplayLogin ) ) ;
-		}
+        
+            window.CommandBindings.Add(
+                new CommandBinding(_history, ExecuteDisplayHistory, CanExecuteDisplayHistory));
+        }
 
-		public static void CanExecuteDisplayLogin( object sender, CanExecuteRoutedEventArgs e )
+	    private static void CanExecuteDisplayHistory(object sender, CanExecuteRoutedEventArgs e)
+	    {
+	        e.CanExecute = (RecentItems.Instance.Count > 0);
+	        e.Handled = true;
+	    }
+
+	    private static void ExecuteDisplayHistory(object sender, ExecutedRoutedEventArgs e)
+	    {
+	        e.Handled = false;
+	    }
+
+	    public static void CanExecuteDisplayLogin( object sender, CanExecuteRoutedEventArgs e )
 		{
 			e.Handled = true ;
 			e.CanExecute = true ;

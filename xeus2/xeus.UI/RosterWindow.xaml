@@ -196,7 +196,7 @@
                         Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
                     
                     <Button Background="{DynamicResource history_design}"
-                        Click="HistoryPopup" x:Name="_historyButton"
+                        Click="HistoryPopup" x:Name="_historyButton" Command="servicecmd:AccountCommands.History"
                         Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
                     
                     <Popup x:Name="_historyPopup" AllowsTransparency="True"

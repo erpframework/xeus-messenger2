@@ -48,5 +48,28 @@ namespace xeus2.xeus.UI
 
             Closed -= BaseWindow_Closed;
         }
+
+        protected void ShowHide()
+        {
+            if (WindowState == WindowState.Minimized)
+            {
+                if (!ShowInTaskbar)
+                {
+                    Show();
+                }
+
+                WindowState = WindowState.Normal;
+            }
+            else
+            {
+                WindowState = WindowState.Minimized;
+
+                if (!ShowInTaskbar)
+                {
+                    Hide();
+                }
+            }
+        }
+
     }
 }
