@@ -8,12 +8,9 @@ using xeus2.xeus.Utilities;
 
 namespace xeus2.xeus.Core
 {
-    internal class RecentItems : ObservableCollectionDisp<IJid>
+    internal class RecentItems : ObservableCollectionDisp<Recent>
     {
-        private static readonly RecentItems _instance = new RecentItems();
-
-        private List<Recent> _recents;
-        readonly object _recentsLock = new object();
+        readonly static RecentItems _instance = new RecentItems();
 
         public static RecentItems Instance
         {
@@ -35,102 +32,61 @@ namespace xeus2.xeus.Core
 
         void Add(Jid jid, RecentType recentType)
         {
-            lock (_recentsLock)
+            lock (_syncObject)
             {
                 Remove(jid);
 
-                if (_recents.Count >= Settings.Default.UI_MaxRecentItems)
+                if (Count >= Settings.Default.UI_MaxRecentItems)
                 {
-                    _recents.RemoveAt(_recents.Count - 1);
+                    RemoveAt(Count - 1);
                 }
 
                 Recent recent = new Recent(jid, recentType);
-                _recents.Insert(0, recent);
+                Insert(0, recent);
             }
-
-            Build();            
         }
 
         void Remove(Jid jid)
         {
-            List<Recent> toBeRemoved = new List<Recent>();
-
-            foreach (Recent recent in _recents)
-            {
-                if (JidUtil.BareEquals(recent.Jid, jid))
-                {
-                    toBeRemoved.Add(recent);
-                }
-            }
-
-            foreach (Recent recent in toBeRemoved)
-            {
-                _recents.Remove(recent);
-            }
-        }
-
-        void Build()
-        {
-
             lock (_syncObject)
             {
-                Clear();
+                List<Recent> toBeRemoved = new List<Recent>();
 
-                foreach (Recent recent in _recents)
+                foreach (Recent recent in this)
                 {
-                    switch (recent.RecentType)
+                    if (JidUtil.BareEquals(recent.Jid, jid))
                     {
-                        case RecentType.Chat:
-                            {
-                                lock (Roster.Instance.Items._syncObject)
-                                {
-                                    Contact contact = Roster.Instance.FindContact(recent.Jid);
-
-                                    if (contact != null)
-                                    {
-                                        MetaContact metaContact = Roster.Instance.FindMetaContact(contact.Jid);
-
-                                        if (metaContact != null)
-                                        {
-                                            Add(metaContact);
-                                        }
-                                    }
-                                }
-                                break;
-                            }
-                        case RecentType.MUC:
-                            {
-                                Service service = new Service(new DiscoItem(), false);
-                                service.DiscoItem.Jid = recent.Jid;
-
-                                Add(service);
-
-                                break;
-                            }
-                        default:
-                            {
-                                throw new NotImplementedException();
-                            }
+                        toBeRemoved.Add(recent);
                     }
+                }
+
+                foreach (Recent recent in toBeRemoved)
+                {
+                    Remove(recent);
                 }
             }
         }
 
         public void LoadItems()
         {
-            lock (_recentsLock)
+            lock (_syncObject)
             {
-                _recents = Database.GetRecentItems(Settings.Default.UI_MaxRecentItems);
+                Clear();
+
+                List<Recent> recents = Database.GetRecentItems(Settings.Default.UI_MaxRecentItems);
+
+                foreach (Recent recent in recents)
+                {
+                    Add(recent);    
+                }
             }
-            
-            Build();
         }
 
         public void SaveItems()
         {
             int i = 0;
 
-            foreach (Recent recent in _recents)
+            foreach (Recent recent in this)
             {
                 Database.SaveRecent(recent, i++);
             }

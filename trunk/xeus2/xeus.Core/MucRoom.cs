@@ -65,6 +65,8 @@ namespace xeus2.xeus.Core
             {
                 _mucManager.JoinRoom(service.Jid, nick);
             }
+
+            RecentItems.Instance.Add(this);
         }
 
         public MucContact Me

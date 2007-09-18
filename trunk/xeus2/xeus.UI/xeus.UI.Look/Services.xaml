@@ -7,8 +7,58 @@
 	xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic"
 xmlns:d="http://schemas.microsoft.com/expression/blend/2006" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
 >
-  
-  <HierarchicalDataTemplate x:Key="ServicesCategoryTemplate" ItemsSource="{Binding Path=Services}">
+
+
+    <DrawingBrush x:Key="history_design" PresentationOptions:Freeze="True" Stretch="Uniform">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Geometry="F1 M 14.9832,5.18854C 20.4778,5.18854 24.9321,9.6428 24.9321,15.1374C 24.9321,20.632 20.4778,25.0863 14.9832,25.0863C 9.48861,25.0863 5.03434,20.632 5.03434,15.1374C 5.03434,9.6428 9.48861,5.18854 14.9832,5.18854 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen LineJoin="Round" Brush="#FF3D3D3D"/>
+                        </GeometryDrawing.Pen>
+                        <GeometryDrawing.Brush>
+                            <RadialGradientBrush RadiusX="0.493256" RadiusY="0.493256" Center="0.5,0.5" GradientOrigin="0.5,0.5">
+                                <RadialGradientBrush.GradientStops>
+                                    <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                                    <GradientStop Color="#FFDFDFDF" Offset="0.855932"/>
+                                    <GradientStop Color="#FF5F5F5F" Offset="1"/>
+                                </RadialGradientBrush.GradientStops>
+                                <RadialGradientBrush.RelativeTransform>
+                                    <TransformGroup/>
+                                </RadialGradientBrush.RelativeTransform>
+                            </RadialGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                    <GeometryDrawing Geometry="F1 M 15.0157,14.9785L 22.2412,18.4817C 20.9739,21.2446 18.1834,23.1636 14.9448,23.1636C 10.5137,23.1636 6.92158,19.5715 6.92158,15.1404C 6.92158,10.7093 10.5137,7.1172 15.0194,7.11754L 15.0157,14.9785 Z ">
+                        <GeometryDrawing.Brush>
+                            <RadialGradientBrush RadiusX="0.523719" RadiusY="0.500011" Center="0.5,0.499989" GradientOrigin="0.5,0.499989">
+                                <RadialGradientBrush.GradientStops>
+                                    <GradientStop Color="#FFF1F0BF" Offset="0"/>
+                                    <GradientStop Color="#FFF4C079" Offset="0.981735"/>
+                                </RadialGradientBrush.GradientStops>
+                                <RadialGradientBrush.RelativeTransform>
+                                    <TransformGroup/>
+                                </RadialGradientBrush.RelativeTransform>
+                            </RadialGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FF3C3C3C" Geometry="F1 M 15.0305,14.9722L 15.0305,14.9722C 14.6845,14.9722 14.4041,14.6918 14.4041,14.3458L 14.4041,7.47636C 14.4041,7.13038 14.6845,6.84991 15.0305,6.84991L 15.0305,6.84991C 15.3765,6.84991 15.6569,7.13038 15.6569,7.47636L 15.6569,14.3458C 15.6569,14.6918 15.3765,14.9722 15.0305,14.9722 Z "/>
+                    <GeometryDrawing Brush="#FF3C3C3C" Geometry="F1 M 15.1319,15.3912L 15.1319,15.3912C 15.4039,14.8326 16.0773,14.6002 16.6359,14.8722L 19.97,16.4956C 20.5287,16.7676 20.761,17.4409 20.489,17.9995L 20.489,17.9995C 20.217,18.5582 19.5437,18.7905 18.9851,18.5185L 15.6509,16.8952C 15.0923,16.6232 14.86,15.9498 15.1319,15.3912 Z "/>
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 15.0319,13.5068C 15.8965,13.5068 16.5973,14.2077 16.5973,15.0722C 16.5973,15.9368 15.8965,16.6376 15.0319,16.6376C 14.1674,16.6376 13.4666,15.9368 13.4666,15.0722C 13.4666,14.2077 14.1674,13.5068 15.0319,13.5068 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen LineJoin="Round" Brush="#FF3C3C3C"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FF000000" Geometry="F1 M 15.0208,22.2498C 15.4482,22.2498 15.7946,22.5962 15.7946,23.0235C 15.7946,23.4509 15.4482,23.7973 15.0208,23.7973C 14.5935,23.7973 14.247,23.4509 14.247,23.0235C 14.247,22.5962 14.5935,22.2498 15.0208,22.2498 Z "/>
+                    <GeometryDrawing Brush="#FF000000" Geometry="F1 M 6.96371,14.3609C 7.39107,14.3609 7.7375,14.7073 7.7375,15.1347C 7.7375,15.562 7.39106,15.9084 6.96371,15.9084C 6.53636,15.9084 6.18993,15.562 6.18993,15.1347C 6.18993,14.7073 6.53636,14.3609 6.96371,14.3609 Z "/>
+                    <GeometryDrawing Brush="#FF000000" Geometry="F1 M 22.8526,14.3053C 23.28,14.3053 23.6264,14.6517 23.6264,15.0791C 23.6264,15.5064 23.28,15.8529 22.8526,15.8529C 22.4253,15.8529 22.0788,15.5064 22.0788,15.0791C 22.0788,14.6517 22.4252,14.3053 22.8526,14.3053 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+    
+    <HierarchicalDataTemplate x:Key="ServicesCategoryTemplate" ItemsSource="{Binding Path=Services}">
   	<HierarchicalDataTemplate.Resources>
   		<Storyboard x:Key="PumpUp">
   			<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="image" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">

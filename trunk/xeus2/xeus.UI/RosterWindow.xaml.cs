@@ -59,5 +59,10 @@ namespace xeus2
         {
             _mucMarksPopup.IsOpen = true;
         }
+
+        private void HistoryPopup(object sender, RoutedEventArgs e)
+        {
+            _historyPopup.IsOpen = true;
+        }   
     }
 }

@@ -200,6 +200,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="xeus.UI\xeus.UI.Controls\HistoryListSelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="xeus.UI\xeus.UI.Controls\MucAffiliationList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -460,6 +464,9 @@
     <Compile Include="xeus.UI\xeus.UI.Controls\DottedHorizontal.xaml.cs">
       <DependentUpon>DottedHorizontal.xaml</DependentUpon>
     </Compile>
+    <Compile Include="xeus.UI\xeus.UI.Controls\HistoryListSelection.xaml.cs">
+      <DependentUpon>HistoryListSelection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="xeus.UI\xeus.UI.Controls\IMultiWinContainerProvider.cs" />
     <Compile Include="xeus.UI\xeus.UI.Controls\MucAffiliationList.xaml.cs">
       <SubType>Code</SubType>
@@ -506,6 +513,7 @@
       <DependentUpon>StatusTextControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\xeus.UI.Look\EnumToBoolConverter.cs" />
+    <Compile Include="xeus.UI\xeus.UI.Look\HistoryTemplateSelector.cs" />
     <Compile Include="xeus.UI\xeus.UI.Look\ServiceTemplateSelector.cs" />
     <Compile Include="xeus.Utilities\ElementUtil.cs" />
     <Compile Include="xeus.Utilities\IPropertyAccessor.cs" />
