@@ -110,6 +110,11 @@ namespace xeus2.xeus.Core
             set;
         }
 
+        VCard Card
+        {
+            get;
+        }
+
         DateTime? LastOnlineTime
         {
             get;

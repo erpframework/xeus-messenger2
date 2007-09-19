@@ -185,6 +185,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="xeus.UI\VCardDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="xeus.UI\xeus.UI.Controls\Chatstate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -253,6 +257,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="xeus.UI\xeus.UI.Controls\VCardControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="xeus.UI\xeus.UI.Look\ScrollBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -308,6 +316,7 @@
     </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="xeus.Commands\AccountCommands.cs" />
+    <Compile Include="xeus.Commands\ContactCommands.cs" />
     <Compile Include="xeus.Commands\GeneralCommands.cs" />
     <Compile Include="xeus.Commands\MucCommands.cs" />
     <Compile Include="xeus.Commands\RosterCommands.cs" />
@@ -359,6 +368,7 @@
     <Compile Include="xeus.Core\ServiceCategory.cs" />
     <Compile Include="xeus.Core\ServiceCommandExecution.cs" />
     <Compile Include="xeus.Core\Services.cs" />
+    <Compile Include="xeus.Core\VCard.cs" />
     <Compile Include="xeus.Core\xeus.Data\MucMarkManager.cs" />
     <Compile Include="xeus.Core\XeusException.cs" />
     <Compile Include="xeus.Core\XeusHyperlink.cs" />
@@ -381,6 +391,7 @@
     <Compile Include="xeus.Middle\Search.cs" />
     <Compile Include="xeus.Middle\Services.cs" />
     <Compile Include="xeus.Middle\UnreadChatMessages.cs" />
+    <Compile Include="xeus.Middle\VCard.cs" />
     <Compile Include="xeus.UI\AskAuthorization.xaml.cs">
       <DependentUpon>AskAuthorization.xaml</DependentUpon>
     </Compile>
@@ -453,6 +464,9 @@
     <Compile Include="xeus.UI\TextFilterMucMark.cs" />
     <Compile Include="xeus.UI\TextFilterMucRoom.cs" />
     <Compile Include="xeus.UI\TextFilterService.cs" />
+    <Compile Include="xeus.UI\VCardDisplay.xaml.cs">
+      <DependentUpon>VCardDisplay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="xeus.UI\Vista.cs" />
     <Compile Include="xeus.UI\WindowExistsException.cs" />
     <Compile Include="xeus.UI\WindowManager.cs" />
@@ -518,6 +532,9 @@
       <DependentUpon>StatusTextControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\xeus.UI.Controls\TrayIcon.cs" />
+    <Compile Include="xeus.UI\xeus.UI.Controls\VCardControl.xaml.cs">
+      <DependentUpon>VCardControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="xeus.UI\xeus.UI.Look\EnumToBoolConverter.cs" />
     <Compile Include="xeus.UI\xeus.UI.Look\HistoryTemplateSelector.cs" />
     <Compile Include="xeus.UI\xeus.UI.Look\ServiceTemplateSelector.cs" />

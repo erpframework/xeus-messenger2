@@ -259,6 +259,14 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public VCard Card
+        {
+            get
+            {
+                return (VCard)GetValueSafe("Card");
+            }
+        }
+
         public DateTime? LastOnlineTime
         {
             get

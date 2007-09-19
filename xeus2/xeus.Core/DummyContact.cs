@@ -188,6 +188,14 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public VCard Card
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public DateTime? LastOnlineTime
         {
             get

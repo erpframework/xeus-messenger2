@@ -21,6 +21,7 @@ namespace xeus2.xeus.Core
         private string _nickName;
         private readonly DiscoIdentity _identity = new DiscoIdentity("pc", "xeus", "client");
         private readonly DiscoInfo _discoInfo = new DiscoInfo();
+        private VCard _card = null;
 
         #region IContact Members
 
@@ -250,6 +251,20 @@ namespace xeus2.xeus.Core
             set
             {
                 throw new NotImplementedException();
+            }
+        }
+
+        public VCard Card
+        {
+            get
+            {
+                return _card;
+            }
+
+            set
+            {
+                _card = value;
+                NotifyPropertyChanged("Card");
             }
         }
 
