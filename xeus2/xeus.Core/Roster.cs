@@ -417,7 +417,9 @@ namespace xeus2.xeus.Core
 
             if (iq.Type == IqType.error || iq.Error != null)
             {
-                if (iq.Error.Code == ErrorCode.NotFound)
+                if (iq.Error.Code == ErrorCode.NotFound
+                    || iq.Error.Code == ErrorCode.NotImplemented
+                    || iq.Error.Code == ErrorCode.Unauthorized)
                 {
                     contact.SetVcard(null);
                 }
@@ -455,7 +457,9 @@ namespace xeus2.xeus.Core
 
             if (iq.Type == IqType.error || iq.Error != null)
             {
-                if (iq.Error.Code == ErrorCode.NotFound)
+                if (iq.Error.Code == ErrorCode.NotFound
+                    || iq.Error.Code == ErrorCode.NotImplemented
+                    || iq.Error.Code == ErrorCode.Unauthorized)
                 {
                     contact.SetVcard(null);
                 }
@@ -566,12 +570,15 @@ namespace xeus2.xeus.Core
                         break;
                     }
                 case NotifyCollectionChangedAction.Remove:
-                case NotifyCollectionChangedAction.Reset:
                     {
                         foreach (MetaContact metaContact in e.OldItems)
                         {
                             metaContact.PropertyChanged -= metaContact_PropertyChanged;
                         }
+                        break;
+                    }
+                case NotifyCollectionChangedAction.Reset:
+                    {
                         break;
                     }
             }
