@@ -27,13 +27,16 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             {
                 Recent recent = (Recent)_list.SelectedItem;
 
-                if (recent.Item is IContact)
+                if (recent.Item != null)
                 {
-                    Middle.Chat.Instance.DisplayChat((IContact)recent.Item);
-                }
-                else
-                {
-                    MucInfo.Instance.MucLogin((Service)recent.Item, null);
+                    if (recent.Item is IContact)
+                    {
+                        Middle.Chat.Instance.DisplayChat((IContact) recent.Item);
+                    }
+                    else
+                    {
+                        MucInfo.Instance.MucLogin((Service) recent.Item, null);
+                    }
                 }
 
                 _list.SelectedItem = null;

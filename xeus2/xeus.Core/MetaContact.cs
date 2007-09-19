@@ -330,6 +330,11 @@ namespace xeus2.xeus.Core
             if (sender == _activeContact)
             {
                 NotifyPropertyChanged(e.PropertyName);
+
+                if (AffectsFilterOrGroup(e.PropertyName))
+                {
+                    Roster.Instance.NotifyNeedRefresh();
+                }
             }
         }
 
