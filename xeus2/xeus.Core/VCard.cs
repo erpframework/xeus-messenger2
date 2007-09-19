@@ -1,6 +1,7 @@
 ﻿using System;
 using agsXMPP;
 using agsXMPP.protocol.iq.vcard;
+using xeus2.xeus.Utilities;
 
 namespace xeus2.xeus.Core
 {
@@ -11,6 +12,14 @@ namespace xeus2.xeus.Core
         public VCard(Vcard vcard)
         {
             _vcard = vcard;
+        }
+
+        public bool IsReadOnly
+        {
+            get
+            {
+                return !JidUtil.BareEquals(Jid, Account.Instance.Self.Jid);
+            }
         }
 
         public DateTime Birthday
