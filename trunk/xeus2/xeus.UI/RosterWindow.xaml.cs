@@ -69,6 +69,7 @@ namespace xeus2
             AccountCommands.RegisterCommands(this);
             RosterCommands.RegisterCommands(this);
             GeneralCommands.RegisterCommands(this);
+            ContactCommands.RegisterCommands(this);
 
             _header.SetSelfContact(Account.Instance.Self);
 

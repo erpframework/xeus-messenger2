@@ -146,6 +146,7 @@ namespace xeus2.xeus.Core
         private Capabilities _caps = null;
         private DiscoInfo _disco = null;
         private DateTime? _lastOnline = null ;
+        private VCard _card = null;
 
         public Presence Presence
         {
@@ -551,6 +552,14 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public VCard Card
+        {
+            get
+            {
+                return _card;
+            }
+        }
+
         public DateTime? LastOnlineTime
         {
             get
@@ -599,17 +608,6 @@ namespace xeus2.xeus.Core
 
                 if (vcard != null)
                 {
-                    /*
-                        Birthday = vcard.Birthday;
-                        Description = vcard.Description;
-
-                        Email email = vcard.GetPreferedEmailAddress();
-                        if (email != null)
-                        {
-                            EmailPreferred = email.UserId;
-                        }
-                         */
-
                     _fullName = vcard.Fullname;
                     _nickName = vcard.Nickname;
 
@@ -626,18 +624,9 @@ namespace xeus2.xeus.Core
                         NotifyPropertyChanged("AvatarHash");
                     }
 
-                    /*
-                        Organization organization = vcard.Organization;
-                        if (organization != null)
-                        {
-                            Organization = vcard.Organization.Name;
-                        }
+                    _card = new VCard(vcard);
 
-                    
-                        Role = vcard.Role;
-                        Title = vcard.Title;
-                        Url = vcard.Url;
-                        */
+                    NotifyPropertyChanged("Card");
                 }
             }
             else
