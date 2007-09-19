@@ -13,7 +13,7 @@ namespace xeus2.xeus.UI
         {
             InitializeComponent();
 
-            DataContext = contact.Card;
+            DataContext = contact;
         }
     }
 }
