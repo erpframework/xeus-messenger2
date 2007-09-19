@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using xeus2.xeus.Core;
+﻿using xeus2.xeus.Core;
 using xeus2.xeus.UI;
 
 namespace xeus2.xeus.Middle
@@ -9,8 +6,6 @@ namespace xeus2.xeus.Middle
     internal class VCard
     {
         private static readonly VCard _instance = new VCard();
-
-        private delegate void DisplayVCardCallback(IContact contact);
 
         public static VCard Instance
         {
@@ -39,5 +34,11 @@ namespace xeus2.xeus.Middle
                 e.ActivateControl();
             }
         }
+
+        #region Nested type: DisplayVCardCallback
+
+        private delegate void DisplayVCardCallback(IContact contact);
+
+        #endregion
     }
 }
