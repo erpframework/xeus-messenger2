@@ -37,6 +37,8 @@ namespace xeus2.xeus.Data
 
                     lock (MucMarks.Instance._syncObject)
                     {
+                        MucMarks.Instance.Clear();
+
                         foreach (Conference conference in conferences)
                         {
                             MucMarks.Instance.AddBookmark(conference);
