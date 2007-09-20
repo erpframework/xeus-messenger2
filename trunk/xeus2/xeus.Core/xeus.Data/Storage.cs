@@ -144,6 +144,11 @@ namespace xeus2.xeus.Data
             return vcard;
         }
 
+        public static bool IsDefaultAvatar(BitmapImage image)
+        {
+            return (image == _defaultAvatar);
+        }
+
         private static BitmapImage GetAvatar(string url, ref BitmapImage avatarStorage)
         {
             if (avatarStorage != null)
@@ -390,11 +395,11 @@ namespace xeus2.xeus.Data
             try
             {
                 DirectoryInfo directoryInfo = GetCacheFolder();
+                FileInfo fileInfo = new FileInfo(string.Format("{0}\\{1:d}.avatar", directoryInfo.FullName, bare.GetHashCode()));
 
                 using (
                     FileStream fileStream =
-                        new FileStream(string.Format("{0}\\{1:d}.avatar", directoryInfo.FullName, bare.GetHashCode()),
-                                       FileMode.Open, FileAccess.Read, FileShare.Read))
+                        new FileStream(fileInfo.ToString(), FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
                     byte[] data = new byte[fileStream.Length];
 
