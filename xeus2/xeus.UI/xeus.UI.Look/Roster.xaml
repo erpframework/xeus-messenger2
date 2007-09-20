@@ -110,13 +110,13 @@
                                 </LinearGradientBrush.GradientStops>
                             </LinearGradientBrush>
                         </Border.Background>
-                        <Grid SnapsToDevicePixels="True">
-                            <Image Margin="2,0,0,0" Source="{Binding Path=Image}" x:Name="_image" Width="18" Height="18"
-                                  ClipToBounds="True" Stretch="UniformToFill" IsEnabled="False"
-                                   HorizontalAlignment="Left"/>
-                            <Border Margin="2,0,0,0" Width="20" Height="20"
-	                                HorizontalAlignment="Left" BorderBrush="{DynamicResource roster_image_border}"
-	                                CornerRadius="2,2,2,2"/>
+                        <Grid>
+                            <Border Width="20" Height="20"
+	                                HorizontalAlignment="Left"
+	                                CornerRadius="3,3,3,3" ClipToBounds="True">
+                                <Image Source="{Binding Path=Image}" x:Name="_image"
+                                  ClipToBounds="True" Stretch="UniformToFill" IsEnabled="False"/>
+                            </Border>
                             <StackPanel x:Name="_container" Margin="20,0,0,0">
                                 <TextBlock Margin="5,0,3,0" Text="{Binding Path=DisplayName}" Foreground="{StaticResource roster_name_text}" FontSize="11"
                                        TextAlignment="Left" TextTrimming="CharacterEllipsis"/>
@@ -202,8 +202,10 @@
                         </Border.Background>
                         <Grid>
                             <StackPanel HorizontalAlignment="Left">
-                                <Grid Margin="1,1,1,-3" SnapsToDevicePixels="True">
-                                    <Image Source="{Binding Path=Image}" x:Name="_image"  Width="30" Height="30"
+                                <Border Margin="1,1,1,-3" x:Name="_imageBorder" Width="32" Height="32"
+	                                BorderBrush="{DynamicResource roster_image_border}"
+	                                CornerRadius="3,3,3,3" SnapsToDevicePixels="True" ClipToBounds="True">
+                                    <Image Source="{Binding Path=Image}" x:Name="_image"
                                   ClipToBounds="True" Stretch="UniformToFill" IsEnabled="False">
                                         <Image.OpacityMask>
                                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0.5">
@@ -212,24 +214,20 @@
                                             </LinearGradientBrush>
                                         </Image.OpacityMask>
                                     </Image>
-                                    <Border x:Name="_imageBorder" Width="32" Height="32"
-	                                BorderBrush="{DynamicResource roster_image_border}"
-	                                CornerRadius="3,3,3,3" ClipToBounds="True">
-                                    </Border>
-                                </Grid>
-                                <Border Width="30" Height="16" Opacity="0.75" Margin="0,4,0,-3">
+                                </Border>
+                                <Border Width="32" Height="16" Opacity="0.5" Margin="0,2,0,-3">
                                     <Border.OpacityMask>
                                         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                             <LinearGradientBrush.GradientStops>
                                                 <GradientStop Offset="0" Color="Black"/>
-                                                <GradientStop Offset="0.7" Color="Transparent"/>
+                                                <GradientStop Offset=".6" Color="Transparent"/>
                                             </LinearGradientBrush.GradientStops>
                                         </LinearGradientBrush>
                                     </Border.OpacityMask>
                                     <Border.Background>
-                                        <VisualBrush Visual="{Binding ElementName=_image}">
+                                        <VisualBrush Visual="{Binding ElementName=_imageBorder}">
                                             <VisualBrush.Transform>
-                                                <ScaleTransform ScaleX="1" ScaleY="-1" CenterX="15" CenterY="8" />
+                                                <ScaleTransform ScaleX="1" ScaleY="-1" CenterX="16" CenterY="8" />
                                             </VisualBrush.Transform>
                                         </VisualBrush>
                                     </Border.Background>
@@ -343,49 +341,51 @@
                             </LinearGradientBrush>
                         </Border.Background>
                         <StackPanel>
-                            <Grid Margin="5,5,5,0" SnapsToDevicePixels="True">
-                                    <Image Source="{Binding Path=Image}" x:Name="_image"
-                                  ClipToBounds="True" Stretch="UniformToFill" IsEnabled="False"
-                                           Width="46" Height="46" VerticalAlignment="Center"
-                                           HorizontalAlignment="Center">
-                                        <Image.OpacityMask>
-                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0.5">
-                                                <GradientStop Color="#DD000000" Offset="0"/>
-                                                <GradientStop Color="#88FFFFFF" Offset="1"/>
-                                            </LinearGradientBrush>
-                                        </Image.OpacityMask>
-                                    </Image>
-                                <Border Width="46" Height="24" Opacity="0.4">
-                                    <Border.OpacityMask>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                            <LinearGradientBrush.GradientStops>
-                                                <GradientStop Offset="0" Color="Black"/>
-                                                <GradientStop Offset=".7" Color="Transparent"/>
-                                            </LinearGradientBrush.GradientStops>
-                                        </LinearGradientBrush>
-                                    </Border.OpacityMask>
-                                    <Border.Background>
-                                        <VisualBrush Visual="{Binding ElementName=_imageBorder}">
-                                            <VisualBrush.Transform>
-                                                <ScaleTransform ScaleX="1" ScaleY="-1" CenterX="23" CenterY="12" />
-                                            </VisualBrush.Transform>
-                                        </VisualBrush>
-                                    </Border.Background>
-                                </Border>
-                                <Border x:Name="_imageBorder" Width="48" Height="48"
+                            <Border Margin="5,5,5,0" x:Name="_imageBorder" Width="48" Height="48"
 	                                BorderBrush="{DynamicResource roster_image_border}"
-	                                CornerRadius="2,2,2,2"/>
-                            </Grid>
-                            <TextBlock Margin="3,-8,3,0" Text="{Binding Path=DisplayName}" Foreground="{StaticResource roster_name_text}" FontSize="11"
+	                                CornerRadius="2,2,2,2" SnapsToDevicePixels="True">
+                                <Image Source="{Binding Path=Image}" x:Name="_image"
+                                  ClipToBounds="True" Stretch="UniformToFill" IsEnabled="False">
+                                    <Image.OpacityMask>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0.5">
+                                            <GradientStop Color="#DD000000" Offset="0"/>
+                                            <GradientStop Color="#88FFFFFF" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Image.OpacityMask>
+                                </Image>
+                            </Border>
+                            <Border Width="48" Height="24" Opacity="0.4">
+                                <Border.OpacityMask>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <LinearGradientBrush.GradientStops>
+                                            <GradientStop Offset="0" Color="Black"/>
+                                            <GradientStop Offset=".6" Color="Transparent"/>
+                                        </LinearGradientBrush.GradientStops>
+                                    </LinearGradientBrush>
+                                </Border.OpacityMask>
+                                <Border.Background>
+                                    <VisualBrush Visual="{Binding ElementName=_imageBorder}">
+                                        <VisualBrush.Transform>
+                                            <ScaleTransform ScaleX="1" ScaleY="-1" CenterX="24" CenterY="12" />
+                                        </VisualBrush.Transform>
+                                    </VisualBrush>
+                                </Border.Background>
+                            </Border>
+                            <Grid Margin="0,-12,0,0" VerticalAlignment="Bottom">
+                                <Rectangle Fill="Black" Opacity="0.3" RadiusX="3" RadiusY="3"/>
+                                <TextBlock Margin="3,0,3,0" Text="{Binding Path=DisplayName}" Foreground="{StaticResource roster_name_text}" FontSize="11"
                                        TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
-                            <TextBlock Text="{Binding Path=XStatusText}" Foreground="{StaticResource roster_status_text}" Margin="4,0,4,4" FontSize="10" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                                <TextBlock Text="{Binding Path=XStatusText}"
+                                               Foreground="{StaticResource roster_status_text}"
+                                               Margin="4,12,4,0" FontSize="10" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                            </Grid>
                         </StackPanel>
                     </Border>
                 </Grid>
                 <Border x:Name="_uptime" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2"
                         Background="#FFe5e5e5" BorderBrush="{DynamicResource roster_image_border}"
-                        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3,0,0,3"
-                        Padding="2,0,0,2">
+                        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-2,0,0,3"
+                        Padding="4,2,2,4">
                     <TextBlock Text="{Binding Path=LastOnlineTime}" Foreground="#FF000000"
                            FontSize="9"/>
                 </Border>
@@ -437,8 +437,10 @@
     <DataTemplate x:Key="FullContactCard">
         <Grid Margin="3,3,3,3" x:Name="_grid" ContextMenu="{DynamicResource ContactMenu}">
             <StackPanel HorizontalAlignment="Left">
-                <Grid Margin="1,1,1,-3" SnapsToDevicePixels="True">
-                    <Image Source="{Binding Path=Image}" x:Name="_image"  Width="30" Height="30"
+                <Border Margin="1,1,1,-3" x:Name="_imageBorder" Width="32" Height="32"
+	                                BorderBrush="{DynamicResource roster_image_border}"
+	                                CornerRadius="3,3,3,3" SnapsToDevicePixels="True" ClipToBounds="True">
+                    <Image Source="{Binding Path=Image}" x:Name="_image"
                                   ClipToBounds="True" Stretch="UniformToFill" IsEnabled="False">
                         <Image.OpacityMask>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0.5">
@@ -447,24 +449,20 @@
                             </LinearGradientBrush>
                         </Image.OpacityMask>
                     </Image>
-                    <Border x:Name="_imageBorder" Width="32" Height="32"
-	                                BorderBrush="{DynamicResource roster_image_border}"
-	                                CornerRadius="3,3,3,3" SnapsToDevicePixels="True">
-                    </Border>
-                </Grid>
-                <Border Width="30" Height="16" Opacity="0.75" Margin="0,4,0,-3">
+                </Border>
+                <Border Width="32" Height="16" Opacity="0.5" Margin="0,2,0,-3">
                     <Border.OpacityMask>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                             <LinearGradientBrush.GradientStops>
                                 <GradientStop Offset="0" Color="Black"/>
-                                <GradientStop Offset="0.7" Color="Transparent"/>
+                                <GradientStop Offset=".6" Color="Transparent"/>
                             </LinearGradientBrush.GradientStops>
                         </LinearGradientBrush>
                     </Border.OpacityMask>
                     <Border.Background>
-                        <VisualBrush Visual="{Binding ElementName=_image}">
+                        <VisualBrush Visual="{Binding ElementName=_imageBorder}">
                             <VisualBrush.Transform>
-                                <ScaleTransform ScaleX="1" ScaleY="-1" CenterX="15" CenterY="8" />
+                                <ScaleTransform ScaleX="1" ScaleY="-1" CenterX="16" CenterY="8" />
                             </VisualBrush.Transform>
                         </VisualBrush>
                     </Border.Background>
