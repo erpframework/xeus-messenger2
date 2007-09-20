@@ -44,6 +44,9 @@ namespace xeus2.xeus.Core
         private string _xStatusText;
         private string _avatarHash = String.Empty;
 
+        private DiscoInfo _discoInfo = null;
+        private DiscoInfo _extendedDiscoInfo = null;
+
         public Contact(IDataRecord reader, RosterItem rosterItem)
         {
             _rosterItem = rosterItem;
@@ -76,6 +79,11 @@ namespace xeus2.xeus.Core
             get
             {
                 return _hasVCardRecieved;
+            }
+
+            set
+            {
+                _hasVCardRecieved = value;
             }
         }
 
@@ -142,9 +150,7 @@ namespace xeus2.xeus.Core
 
         private bool _iqAvatarLoadedFromCache = false;
 
-        private Capabilities _capabilities;
         private Capabilities _caps = null;
-        private DiscoInfo _disco = null;
         private DateTime? _lastOnline = null ;
         private VCard _card = null;
 
@@ -238,7 +244,7 @@ namespace xeus2.xeus.Core
 
                 if (capabilities != null)
                 {
-                    _capabilities = capabilities;
+                    _caps = capabilities;
 
                     NotifyPropertyChanged("ClientVersion");
                     NotifyPropertyChanged("ClientNode");
@@ -483,43 +489,13 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                if (_capabilities == null)
+                if (_caps == null)
                 {
                     return null;
                 }
                 else
                 {
-                    return _capabilities.Version;
-                }
-            }
-        }
-
-        public string ClientNode
-        {
-            get
-            {
-                if (_capabilities == null)
-                {
-                    return null;
-                }
-                else
-                {
-                    return _capabilities.Node;
-                }
-            }
-        }
-
-        public string[] ClientExtensions
-        {
-            get
-            {
-                if (_capabilities == null)
-                {
-                    return null;
-                }
-                else
-                {
-                    return _capabilities.Extensions;
+                    return _caps.Version;
                 }
             }
         }
@@ -534,21 +510,6 @@ namespace xeus2.xeus.Core
             {
                 _caps = value;
                 NotifyPropertyChanged("Caps");
-            }
-        }
-
-        public DiscoInfo Disco
-        {
-            get
-            {
-                return _disco;
-            }
-            set
-            {
-                _disco = value;
-                _hasDiscoRecieved = true;
-
-                NotifyPropertyChanged("Disco");
             }
         }
 
@@ -597,6 +558,44 @@ namespace xeus2.xeus.Core
             {
                 return _hasDiscoRecieved;
             }
+        }
+
+        public DiscoInfo Disco
+        {
+            get
+            {
+                return _discoInfo;
+            }
+            set
+            {
+                _discoInfo = value;
+                NotifyPropertyChanged("Disco");
+            }
+        }
+
+        public DiscoInfo ExtendedDisco
+        {
+            get
+            {
+                return _extendedDiscoInfo;
+            }
+            set
+            {
+                _extendedDiscoInfo = value;
+                NotifyPropertyChanged("ExtendedDisco");
+            }
+        }
+
+        public bool HasFeature(string feature)
+        {
+            bool has = (_discoInfo != null && _discoInfo.HasFeature(feature));
+
+            if (!has)
+            {
+                has = (_extendedDiscoInfo != null && _extendedDiscoInfo.HasFeature(feature));
+            }
+
+            return has;
         }
 
         public void SetVcard(Vcard vcard)

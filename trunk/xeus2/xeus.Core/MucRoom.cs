@@ -142,16 +142,18 @@ namespace xeus2.xeus.Core
 
         public event MucContactHandler OnClickMucContact;
 
-
         public void SendChatState(Chatstate chatState)
         {
-            agsXMPP.protocol.client.Message message = new agsXMPP.protocol.client.Message();
+            if (_service.DiscoInfo != null && _service.DiscoInfo.HasFeature(agsXMPP.Uri.CHATSTATES))
+            {
+                agsXMPP.protocol.client.Message message = new agsXMPP.protocol.client.Message();
 
-            message.Type = MessageType.groupchat;
-            message.To = _service.Jid;
-            message.Chatstate = chatState;
+                message.Type = MessageType.groupchat;
+                message.To = _service.Jid;
+                message.Chatstate = chatState;
 
-            _xmppClientConnection.Send(message);
+                _xmppClientConnection.Send(message);
+            }
         }
 
 

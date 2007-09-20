@@ -13,6 +13,8 @@ namespace xeus2.xeus.UI
         {
             InitializeComponent();
 
+            Roster.Instance.SetFreshVcard(contact, 0);
+
             DataContext = contact;
         }
     }

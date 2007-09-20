@@ -1,14 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SQLite;
 using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.protocol.client;
-using agsXMPP.protocol.extensions.caps;
-using agsXMPP.protocol.iq.disco;
 using FastDynamicPropertyAccessor;
 using xeus2.xeus.Data;
 using xeus2.xeus.Utilities;
@@ -20,13 +16,12 @@ namespace xeus2.xeus.Core
         private static readonly Dictionary<string, PropertyAccessor> _propertyAccessors =
             new Dictionary<string, PropertyAccessor>();
 
-        private Contact _activeContact = null;
-
         private readonly object _propertyAccessorLock = new object();
         private readonly ObservableCollectionDisp<Contact> _subContacts = new ObservableCollectionDisp<Contact>();
+        private Contact _activeContact = null;
 
-        int _id = 0 ;
         private string _customName;
+        private int _id = 0;
 
         public MetaContact()
         {
@@ -41,22 +36,12 @@ namespace xeus2.xeus.Core
 
         public MetaContact(IDataRecord reader)
         {
-            _id = (int)(Int64)reader["Id"];
+            _id = (int) (Int64) reader["Id"];
 
             if (!reader.IsDBNull(reader.GetOrdinal("CustomName")))
             {
-                _customName = (string)reader["CustomName"];
+                _customName = (string) reader["CustomName"];
             }
-        }
-
-        public Dictionary<string, object> GetData()
-        {
-            Dictionary<string, object> data = new Dictionary<string, object>();
-
-            data.Add("Id", Id);
-            data.Add("CustomName", CustomName);
-
-            return data;
         }
 
         public ObservableCollectionDisp<Contact> SubContacts
@@ -64,6 +49,19 @@ namespace xeus2.xeus.Core
             get
             {
                 return _subContacts;
+            }
+        }
+
+        public int Id
+        {
+            get
+            {
+                return _id;
+            }
+
+            set
+            {
+                _id = value;
             }
         }
 
@@ -215,47 +213,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return (string)GetValueSafe("ClientVersion");
-            }
-        }
-
-        public string ClientNode
-        {
-            get
-            {
-                return (string)GetValueSafe("ClientNode");
-            }
-        }
-
-        public string[] ClientExtensions
-        {
-            get
-            {
-                return (string[])GetValueSafe("ClientExtensions");
-            }
-        }
-
-        public Capabilities Caps
-        {
-            get
-            {
-                return (Capabilities)GetValueSafe("Caps");
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public DiscoInfo Disco
-        {
-            get
-            {
-                return (DiscoInfo)GetValueSafe("Disco");
-            }
-            set
-            {
-                throw new NotImplementedException();
+                return (string) GetValueSafe("ClientVersion");
             }
         }
 
@@ -263,7 +221,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return (VCard)GetValueSafe("Card");
+                return (VCard) GetValueSafe("Card");
             }
         }
 
@@ -271,24 +229,31 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return (DateTime?)GetValueSafe("LastOnlineTime");
+                return (DateTime?) GetValueSafe("LastOnlineTime");
             }
         }
 
-        public int Id
+        public bool HasFeature(string feature)
         {
-            get
+            if (_activeContact != null)
             {
-                return _id;
+                return _activeContact.HasFeature(feature);
             }
 
-            set
-            {
-                _id = value;
-            }
+            return false;
         }
 
         #endregion
+
+        public Dictionary<string, object> GetData()
+        {
+            Dictionary<string, object> data = new Dictionary<string, object>();
+
+            data.Add("Id", Id);
+            data.Add("CustomName", CustomName);
+
+            return data;
+        }
 
         public void AddContact(Contact contact)
         {
