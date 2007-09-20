@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.protocol.iq.vcard;
 using xeus2.xeus.Utilities;
@@ -8,10 +9,12 @@ namespace xeus2.xeus.Core
     public class VCard
     {
         private readonly Vcard _vcard;
+        private readonly Jid _jid;
 
-        public VCard(Vcard vcard)
+        public VCard(Vcard vcard, Jid jid)
         {
             _vcard = vcard;
+            _jid = jid;
         }
 
         public bool IsReadOnly
@@ -26,12 +29,12 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return _vcard.Birthday;
+                return Vcard.Birthday;
             }
 
             set
             {
-                _vcard.Birthday = value;
+                Vcard.Birthday = value;
             }
         }
 
@@ -39,12 +42,12 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return _vcard.Description;
+                return Vcard.Description;
             }
 
             set
             {
-                _vcard.Description = value;
+                Vcard.Description = value;
             }
         }
 
@@ -52,7 +55,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                Email email = _vcard.GetPreferedEmailAddress();
+                Email email = Vcard.GetPreferedEmailAddress();
 
                 if (email != null)
                 {
@@ -64,11 +67,11 @@ namespace xeus2.xeus.Core
 
             set
             {
-                Email email = _vcard.GetPreferedEmailAddress();
+                Email email = Vcard.GetPreferedEmailAddress();
 
                 if (email == null)
                 {
-                    _vcard.AddEmailAddress(new Email(EmailType.INTERNET, value, true));
+                    Vcard.AddEmailAddress(new Email(EmailType.INTERNET, value, true));
                 }
                 else
                 {
@@ -81,12 +84,12 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return _vcard.Url;
+                return Vcard.Url;
             }
 
             set
             {
-                _vcard.Url = value;
+                Vcard.Url = value;
             }
         }
 
@@ -94,7 +97,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                Telephone[] phones = _vcard.GetTelephoneNumbers();
+                Telephone[] phones = Vcard.GetTelephoneNumbers();
 
                 if (phones != null && phones.Length > 0)
                 {
@@ -106,11 +109,11 @@ namespace xeus2.xeus.Core
 
             set
             {
-                Telephone[] phones = _vcard.GetTelephoneNumbers();
+                Telephone[] phones = Vcard.GetTelephoneNumbers();
 
                 if (phones == null || phones.Length == 0)
                 {
-                    _vcard.AddTelephoneNumber(new Telephone(TelephoneLocation.NONE, TelephoneType.NONE, value));
+                    Vcard.AddTelephoneNumber(new Telephone(TelephoneLocation.NONE, TelephoneType.NONE, value));
                 }
                 else
                 {
@@ -123,7 +126,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return _vcard.JabberId;
+                return _jid;
             }
         }
 
@@ -131,12 +134,12 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return _vcard.Nickname;
+                return Vcard.Nickname;
             }
 
             set
             {
-                _vcard.Nickname = value;
+                Vcard.Nickname = value;
             }
         }
 
@@ -144,7 +147,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                Organization organization = _vcard.Organization;
+                Organization organization = Vcard.Organization;
 
                 if (organization != null)
                 {
@@ -156,15 +159,15 @@ namespace xeus2.xeus.Core
 
             set
             {
-                Organization organization = _vcard.Organization;
+                Organization organization = Vcard.Organization;
 
                 if (organization == null)
                 {
-                    _vcard.Organization = new Organization(value, string.Empty);
+                    Vcard.Organization = new Organization(value, string.Empty);
                 }
                 else
                 {
-                    _vcard.Organization.Name = value;
+                    Vcard.Organization.Name = value;
                 }
             }
         }
@@ -173,12 +176,12 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return _vcard.Role;
+                return Vcard.Role;
             }
 
             set
             {
-                _vcard.Role = value;
+                Vcard.Role = value;
             }
         }
 
@@ -186,13 +189,28 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return _vcard.Title;
+                return Vcard.Title;
             }
 
             set
             {
-                _vcard.Title = value;
+                Vcard.Title = value;
             }
+        }
+
+        public Vcard Vcard
+        {
+            get
+            {
+                return _vcard;
+            }
+        }
+
+        public void SetImage(BitmapImage bitmapImage)
+        {
+            bitmapImage.UriSource.LocalPath
+            _vcard.Photo.AddChild(new Photo(
+                System.Drawing.Image.FromFile(bitmapImage.UriSource.LocalPath)));
         }
     }
 }

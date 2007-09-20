@@ -1,5 +1,4 @@
 ﻿using System;
-using System;
 using System.Reflection;
 using System.Timers;
 using System.Windows.Media.Imaging;
@@ -44,17 +43,17 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                Presence presence = new Presence(Settings.Default.XmppMyPresence,
+                _presence = new Presence(Settings.Default.XmppMyPresence,
                                                     Settings.Default.XmppStatusText,
                                                     Settings.Default.XmppPriority);
                 if (_avatarHash != null)
                 {
-                    presence.AddChild(new VcardUpdate());
+                    _presence.AddChild(new VcardUpdate(_avatarHash));
                 }
 
-                presence.AddChild(_caps);
+                _presence.AddChild(_caps);
 
-                return presence;
+                return _presence;
             }
         }
 
@@ -62,7 +61,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return Account.Instance.XmppConnection.Priority;
+                return _presence.Priority;
             }
 
             set
@@ -128,7 +127,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return Account.Instance.XmppConnection.Show.ToString();
+                return _presence.Show.ToString();
             }
         }
 
@@ -136,7 +135,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return Account.Instance.XmppConnection.Show;
+                return _presence.Show;
             }
 
             set
@@ -150,7 +149,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return Account.Instance.XmppConnection.Status;
+                return _presence.Status;
             }
 
             set
@@ -189,6 +188,14 @@ namespace xeus2.xeus.Core
             get
             {
                 return _image;
+            }
+
+            set
+            {
+                _image = value;
+                NotifyPropertyChanged("Image");
+
+                _card.SetImage(value);
             }
         }
 
@@ -372,6 +379,9 @@ namespace xeus2.xeus.Core
         }
 
         private string _avatarHash = null;
+        private Presence _presence= new Presence(Settings.Default.XmppMyPresence,
+                                                    Settings.Default.XmppStatusText,
+                                                    Settings.Default.XmppPriority);
 
         private void SetMyVcard(Vcard vcard)
         {
@@ -385,6 +395,8 @@ namespace xeus2.xeus.Core
                 NotifyPropertyChanged("FullName");
                 NotifyPropertyChanged("NickName");
                 NotifyPropertyChanged("DisplayName");
+
+                Storage.CacheVCard(vcard, Jid.Bare);
             }
 
             if (_image == null)
@@ -395,10 +407,7 @@ namespace xeus2.xeus.Core
             NotifyPropertyChanged("Image");
             NotifyPropertyChanged("IsImageTransparent");
 
-            if (vcard != null)
-            {
-                Storage.CacheVCard(vcard, Jid.Bare);
-            }
+            _card = new VCard(vcard, Jid);
 
             // avatar could be changed
             // Account.Instance.SendMyPresence();
@@ -412,6 +421,14 @@ namespace xeus2.xeus.Core
  
             Vcard vcard = Storage.GetVcard(Jid, 99999);
             SetMyVcard(vcard);
+        }
+
+        public void PublishVCard()
+        {
+            VcardIq vcardIq = new VcardIq(IqType.set, _card.Vcard);
+            Account.Instance.XmppConnection.Send(vcardIq);
+
+            Account.Instance.SendMyPresence();           
         }
     }
 }

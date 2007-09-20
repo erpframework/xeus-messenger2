@@ -77,6 +77,6 @@
     </UserControl.Resources>
 
     <Grid Margin="4,4,4,4" MinHeight="50" MinWidth="80">
-        <ContentControl x:Name="_self"/>
+        <ContentControl x:Name="_self" MouseDown="_self_MouseDown" Cursor="Hand"/>
     </Grid>
 </UserControl>

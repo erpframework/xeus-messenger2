@@ -623,7 +623,7 @@ namespace xeus2.xeus.Core
                         NotifyPropertyChanged("AvatarHash");
                     }
 
-                    _card = new VCard(vcard);
+                    _card = new VCard(vcard, Jid);
 
                     NotifyPropertyChanged("Card");
 
