@@ -52,11 +52,18 @@ namespace xeus2.xeus.Core
 
             string[] extensions = capabilities.Extensions;
 
-            Array.Sort(extensions);
+            if (extensions != null && extensions.Length > 0)
+            {
+                Array.Sort(extensions);
 
-            return string.Format("{0}#{1}<{2}", capabilities.Node,
-                                        capabilities.Version,
-                                        string.Join("<", extensions));
+                return string.Format("{0}#{1}<{2}", capabilities.Node,
+                                     capabilities.Version,
+                                     string.Join("<", extensions));
+            }
+            else
+            {
+                return String.Empty;
+            }
         }
 
         public void Load()

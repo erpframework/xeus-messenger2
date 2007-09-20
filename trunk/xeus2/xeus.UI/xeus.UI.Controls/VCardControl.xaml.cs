@@ -1,6 +1,10 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
+using xeus2.xeus.Core;
+using xeus2.xeus.Utilities;
 
 namespace xeus2.xeus.UI.xeus.UI.Controls
 {
@@ -29,5 +33,19 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             {
             }
         }
+
+        private void _publish_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = Window.GetWindow(this);
+
+            if (window != null)
+            {
+                window.Close();
+            }
+
+            e.Handled = false;
+        }
+
+
     }
 }

@@ -20,5 +20,13 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         {
             _self.Content = self;
         }
+
+        private void _self_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (Commands.ContactCommands.DisplayVCard.CanExecute(_self.Content, null))
+            {
+                Commands.ContactCommands.DisplayVCard.Execute(_self.Content, null);
+            }
+        }
     }
 }

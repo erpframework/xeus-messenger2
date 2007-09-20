@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -123,6 +124,24 @@ namespace xeus2.xeus.Utilities
             byte[] hash = sha1.ComputeHash(Encoding.Unicode.GetBytes(builder.ToString()));
 
             return Convert.ToBase64String(hash);
+        }
+
+        public static bool IsImageExtension(string fileName)
+        {
+            string extension = Path.GetExtension(fileName).ToLower();
+
+            switch (extension.ToUpper())
+            {
+                case ".JPG":
+                case ".JPEG":
+                case ".GIF":
+                case ".PNG":
+                    {
+                        return true;
+                    }
+            }
+
+            return false;
         }
     }
 }
