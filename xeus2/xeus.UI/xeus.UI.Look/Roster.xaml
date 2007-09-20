@@ -372,7 +372,7 @@
                                 </Border.Background>
                             </Border>
                             <Grid Margin="0,-12,0,0" VerticalAlignment="Bottom">
-                                <Rectangle Fill="Black" Opacity="0.3" RadiusX="3" RadiusY="3"/>
+                                <Rectangle Fill="Black" Opacity="0.15" RadiusX="3" RadiusY="3"/>
                                 <TextBlock Margin="3,0,3,0" Text="{Binding Path=DisplayName}" Foreground="{StaticResource roster_name_text}" FontSize="11"
                                        TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
                                 <TextBlock Text="{Binding Path=XStatusText}"

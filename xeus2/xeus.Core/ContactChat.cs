@@ -9,6 +9,7 @@ using agsXMPP.protocol.extensions.chatstates;
 using xeus2.Properties;
 using xeus2.xeus.Data;
 using xeus2.xeus.Utilities;
+using Uri=agsXMPP.Uri;
 
 namespace xeus2.xeus.Core
 {
@@ -75,14 +76,17 @@ namespace xeus2.xeus.Core
 
         public void SendChatState(Chatstate chatState)
         {
-            agsXMPP.protocol.client.Message message = new agsXMPP.protocol.client.Message();
+            if (_contact.HasFeature(Uri.CHATSTATES))
+            {
+                agsXMPP.protocol.client.Message message = new agsXMPP.protocol.client.Message();
 
-            message.Type = MessageType.chat;
-            message.To = _contact.Jid;
-            message.From = Account.Instance.Self.Jid;
-            message.Chatstate = chatState;
+                message.Type = MessageType.chat;
+                message.To = _contact.Jid;
+                message.From = Account.Instance.Self.Jid;
+                message.Chatstate = chatState;
 
-            _xmppClientConnection.Send(message);
+                _xmppClientConnection.Send(message);
+            }
         }
 
         public void SendMessage(string text)

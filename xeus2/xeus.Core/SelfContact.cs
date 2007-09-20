@@ -9,6 +9,7 @@ using agsXMPP.protocol.iq.disco;
 using agsXMPP.protocol.iq.vcard;
 using xeus2.Properties;
 using xeus2.xeus.Data;
+using xeus2.xeus.Utilities;
 
 namespace xeus2.xeus.Core
 {
@@ -21,6 +22,9 @@ namespace xeus2.xeus.Core
         private string _nickName;
         private readonly DiscoIdentity _identity = new DiscoIdentity("pc", "xeus", "client");
         private readonly DiscoInfo _discoInfo = new DiscoInfo();
+
+        private Capabilities _caps;
+
         private VCard _card = null;
 
         #region IContact Members
@@ -214,34 +218,6 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public string ClientNode
-        {
-            get
-            {
-                return "http://xeus.net/caps";
-            }
-        }
-
-        public string[] ClientExtensions
-        {
-            get
-            {
-                return null;
-            }
-        }
-
-        public Capabilities Caps
-        {
-            get
-            {
-                return Account.Instance.XmppConnection.Capabilities;
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         public DiscoInfo Disco
         {
             get
@@ -276,6 +252,19 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public Capabilities Caps
+        {
+            get
+            {
+                return _caps;
+            }
+        }
+
+        public bool HasFeature(string feature)
+        {
+            return _discoInfo.HasFeature(feature);
+        }
+
         public void PresenceChange()
         {
             NotifyPropertyChanged("Show");
@@ -293,20 +282,41 @@ namespace xeus2.xeus.Core
             _updateTimer.AutoReset = false;
             _updateTimer.Elapsed += _updateTimer_Elapsed;
 
+            _caps = new Capabilities(TextUtil.GenerateVerAttribute(_discoInfo),
+                                                                        "http://xeus.net/#2.0");
+
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.BYTESTREAMS));
+            _caps.AddExtension("bs");
+
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.CAPS));
+            _caps.AddExtension("caps");
+
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.COMMANDS));
+            _caps.AddExtension("cmd");
 
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.CHATSTATES));
+            _caps.AddExtension("cs");
+
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.DISCO_INFO));
+            _caps.AddExtension("di");
+
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.VCARD_UPDATE));
+            _caps.AddExtension("vcup");
+
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.VCARD));
+            _caps.AddExtension("vc");
 
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.IQ_LAST));
+            _caps.AddExtension("las");
 
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC_ADMIN));
+            _caps.AddExtension("adm");
+
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC_OWNER));
+            _caps.AddExtension("own");
+
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC_USER));
+            _caps.AddExtension("usr");
 
             _discoInfo.AddIdentity(_identity);
         }
@@ -384,7 +394,7 @@ namespace xeus2.xeus.Core
             NotifyPropertyChanged("Priority");
             NotifyPropertyChanged("Jid");
  
-            Vcard vcard = Storage.GetVcard(Jid, 9999);
+            Vcard vcard = Storage.GetVcard(Jid, 99999);
             SetMyVcard(vcard);
         }
     }

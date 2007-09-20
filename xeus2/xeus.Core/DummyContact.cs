@@ -2,8 +2,6 @@
 using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.protocol.client;
-using agsXMPP.protocol.extensions.caps;
-using agsXMPP.protocol.iq.disco;
 using xeus2.xeus.Data;
 
 namespace xeus2.xeus.Core
@@ -148,46 +146,6 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public string ClientNode
-        {
-            get
-            {
-                return "http://xeus.net/caps";
-            }
-        }
-
-        public string[] ClientExtensions
-        {
-            get
-            {
-                return null;
-            }
-        }
-
-        public Capabilities Caps
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public DiscoInfo Disco
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         public VCard Card
         {
             get
@@ -202,6 +160,11 @@ namespace xeus2.xeus.Core
             {
                 return DateTime.Now;
             }
+        }
+
+        public bool HasFeature(string feature)
+        {
+            return false;
         }
 
         #endregion

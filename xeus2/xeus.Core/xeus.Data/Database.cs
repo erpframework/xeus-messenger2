@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Text;
+using agsXMPP.Factory;
 using agsXMPP.protocol.Base;
+using agsXMPP.protocol.iq.disco;
+using agsXMPP.Xml.Dom;
 using xeus2.xeus.Core;
 
 namespace xeus2.xeus.Data
@@ -64,6 +67,10 @@ namespace xeus2.xeus.Data
                                   + "[Jid] VARCHAR NOT NULL, "
                                   + "[DateTime] INTEGER NOT NULL, "
                                   + "[Type] VARCHAR NOT NULL);";
+                cmd.ExecuteNonQuery();
+
+                cmd.CommandText = "CREATE TABLE [CapsCache] ([Caps] VARCHAR NOT NULL PRIMARY KEY UNIQUE, "
+                                  + "[Features] VARCHAR);";
                 cmd.ExecuteNonQuery();
             }
         }
@@ -166,6 +173,61 @@ namespace xeus2.xeus.Data
                 Dictionary<string, object> values = message.GetData();
 
                 Insert(values, "Message", false, _connection);
+            }
+
+            catch (Exception e)
+            {
+                Events.Instance.OnEvent(e, new EventError(e.Message, null));
+            }
+        }
+
+        public static Dictionary<string, DiscoInfo> GetCapsCache()
+        {
+            Dictionary<string, DiscoInfo>  capsCache = new Dictionary<string, DiscoInfo>(24);
+
+            try
+            {
+                using (SQLiteCommand command = _connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT * FROM [CapsCache]";
+
+                    SQLiteDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        
+                        Document document = new Document();
+                        document.LoadXml((string)reader["Features"]);
+
+                        DiscoInfo info = document.RootElement as DiscoInfo;
+
+                        if (info != null)
+                        {
+                            capsCache.Add((string) reader["Caps"], info);
+                        }
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            catch (Exception e)
+            {
+                Events.Instance.OnEvent(e, new EventError(e.Message, null));
+            }
+
+            return capsCache;
+        }
+
+        public static void SaveCapsCache(string caps, string features)
+        {
+            try
+            {
+                Dictionary<string, object> values = new Dictionary<string, object>(2);
+                values.Add("Caps", caps);
+                values.Add("Features", features);
+
+                SaveOrUpdate(values, "Caps", "CapsCache", false, _connection);
             }
 
             catch (Exception e)

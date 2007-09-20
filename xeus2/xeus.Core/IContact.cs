@@ -88,28 +88,6 @@ namespace xeus2.xeus.Core
             get;
         }
 
-        string ClientNode
-        {
-            get;
-        }
-
-        string[] ClientExtensions
-        {
-            get;
-        }
-
-        Capabilities Caps
-        {
-            get;
-            set;
-        }
-
-        DiscoInfo Disco
-        {
-            get;
-            set;
-        }
-
         VCard Card
         {
             get;
@@ -119,5 +97,7 @@ namespace xeus2.xeus.Core
         {
             get;
         }
+
+        bool HasFeature(string feature);
     }
 }

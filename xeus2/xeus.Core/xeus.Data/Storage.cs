@@ -109,7 +109,7 @@ namespace xeus2.xeus.Data
                 DirectoryInfo directoryInfo = GetCacheFolder();
                 FileInfo fileInfo = new FileInfo(string.Format("{0}\\{1:d}", directoryInfo.FullName, jid.Bare.GetHashCode()));
 
-                if (fileInfo.CreationTime.AddDays(daysToExpire) < DateTime.Now)
+                if (fileInfo.LastWriteTime.AddDays(daysToExpire) < DateTime.Now)
                 {
                     return null;
                 }

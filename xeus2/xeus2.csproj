@@ -322,6 +322,7 @@
     <Compile Include="xeus.Commands\RosterCommands.cs" />
     <Compile Include="xeus.Commands\ServiceCommands.cs" />
     <Compile Include="xeus.Core\Account.cs" />
+    <Compile Include="xeus.Core\CapsCache.cs" />
     <Compile Include="xeus.Core\ChatBase.cs" />
     <Compile Include="xeus.Core\ChatStateNotificator.cs" />
     <Compile Include="xeus.Core\Contact.cs" />

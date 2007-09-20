@@ -6,7 +6,6 @@ using System.Timers;
 using agsXMPP;
 using agsXMPP.net;
 using agsXMPP.protocol.client;
-using agsXMPP.protocol.extensions.caps;
 using agsXMPP.protocol.extensions.commands;
 using agsXMPP.protocol.iq.disco;
 using agsXMPP.protocol.iq.last;
@@ -20,8 +19,7 @@ using Win32_API;
 using xeus2.Properties;
 using xeus2.xeus.Data;
 using xeus2.xeus.Middle;
-using xeus2.xeus.Utilities;
-using Search=xeus2.xeus.Middle.Search;
+using Search=agsXMPP.protocol.iq.search.Search;
 using Timer=System.Timers.Timer;
 using Uri=agsXMPP.Uri;
 using Version=agsXMPP.protocol.iq.version.Version;
@@ -213,8 +211,7 @@ namespace xeus2.xeus.Core
             XmppConnection.Password = Settings.Default.XmppPassword;
             XmppConnection.Server = Settings.Default.XmppServer;
 
-            XmppConnection.Capabilities = new Capabilities(TextUtil.GenerateVerAttribute(Self.Disco),
-                                                            "http://xeus.net/#2.0");
+            XmppConnection.Capabilities = Self.Caps;
             XmppConnection.EnableCapabilities = true;
 
             XmppConnection.OnClose += _xmppConnection_OnClose;
@@ -388,19 +385,19 @@ namespace xeus2.xeus.Core
                     {
                         iq.SwitchDirection();
                         iq.Type = IqType.result;
-                        
+
                         iq.AddChild(Self.Disco);
 
                         XmppConnection.Send(iq);
                     }
-                    else if (query.GetType() == typeof(Last))
+                    else if (query.GetType() == typeof (Last))
                     {
                         iq.SwitchDirection();
                         iq.Type = IqType.result;
 
                         Last last = new Last();
 
-                        last.Seconds = (int)(Win32.GetIdleTime()/1000);
+                        last.Seconds = (int) (Win32.GetIdleTime() / 1000);
                         iq.AddChild(last);
 
                         XmppConnection.Send(iq);
@@ -429,6 +426,7 @@ namespace xeus2.xeus.Core
         private void _xmppConnection_OnRosterEnd(object sender)
         {
             RecentItems.Instance.LoadItems();
+            CapsCache.Instance.Load();
 
             SendMyPresence();
             _selfContact.AskMyVcard();
@@ -624,7 +622,7 @@ namespace xeus2.xeus.Core
         {
             Service service = data as Service;
 
-            agsXMPP.protocol.iq.search.Search search = iq.Query as agsXMPP.protocol.iq.search.Search;
+            Search search = iq.Query as Search;
 
             if (iq.Error != null)
             {
@@ -634,7 +632,7 @@ namespace xeus2.xeus.Core
             }
             else if (iq.Type == IqType.result && search != null)
             {
-                Search.Instance.DisplaySearchResult(search, (Service) data);
+                Middle.Search.Instance.DisplaySearchResult(search, (Service) data);
 
                 EventInfo eventinfo = new EventInfo(string.Format(Resources.Even_SearchSucceeded, service.Name));
                 Events.Instance.OnEvent(this, eventinfo);
@@ -695,7 +693,7 @@ namespace xeus2.xeus.Core
 
         private void OnRegisterServiceGetSearch(object sender, IQ iq, object data)
         {
-            agsXMPP.protocol.iq.search.Search search = iq.Query as agsXMPP.protocol.iq.search.Search;
+            Search search = iq.Query as Search;
 
             if (iq.Error != null)
             {
@@ -708,7 +706,7 @@ namespace xeus2.xeus.Core
             }
             else if (iq.Type == IqType.result && search != null)
             {
-                Search.Instance.DisplaySearch(search, (Service) data);
+                Middle.Search.Instance.DisplaySearch(search, (Service) data);
             }
         }
 

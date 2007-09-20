@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Timers;
+using System.Windows.Threading;
 using agsXMPP;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.extensions.caps;
@@ -14,6 +15,7 @@ using xeus2.xeus.Data;
 using xeus2.xeus.Middle;
 using xeus2.xeus.Utilities;
 using Avatar=agsXMPP.protocol.x.Avatar;
+using Uri=agsXMPP.Uri;
 
 namespace xeus2.xeus.Core
 {
@@ -101,7 +103,7 @@ namespace xeus2.xeus.Core
             }
         }
 
-        private void OnContactPresence(Presence presence)
+        private void OnContactPresence(Presence presence, Capabilities capabilities)
         {
             lock (_items._syncObject)
             {
@@ -146,17 +148,15 @@ namespace xeus2.xeus.Core
 
                     contact.Presence = presence;
 
-                    if (!contact.HasVCardRecieved)
+                    if (capabilities != null)
                     {
-                        SetFreshVcard(contact);
+                        contact.Caps = capabilities;
                     }
 
                     if (!contact.HasDiscoRecieved)
                     {
-                        AskForCaps(contact);
+                        AskForDisco(contact);
                     }
-
-                    RefreshIqAvatar(contact);
                 }
             }
         }
@@ -321,21 +321,63 @@ namespace xeus2.xeus.Core
             }
         }
 
-        private static void AskForCaps(Contact contact)
+        private void AskForDisco(Contact contact)
         {
-            Account.Instance.DiscoMan.DisoverInformation(contact.Jid, OnDiscoInfoResult, contact);
+            Account.Instance.DiscoMan.DisoverInformation(contact.FullJid,
+                new IqCB(OnDiscoInfoResult), contact);
         }
 
-        private static void OnDiscoInfoResult(object sender, IQ iq, object data)
+        private void OnDiscoInfoResult(object sender, IQ iq, object data)
         {
+            Contact contact = (Contact)data;
+
             if (iq.Error != null)
             {
                 Services.Instance.OnServiceItemError(sender, iq);
             }
             else if (iq.Type == IqType.result && iq.Query is DiscoInfo)
             {
-                Contact contact = (Contact) data;
                 contact.Disco = iq.Query as DiscoInfo;
+            }
+
+            if (!contact.HasVCardRecieved)
+            {
+                SetFreshVcard(contact, Settings.Default.VCardExpirationDays);
+            }
+
+            RefreshIqAvatar(contact);
+
+            if (contact.Caps != null)
+            {
+                DiscoInfo discoInfo = CapsCache.Instance.Get(contact.Caps);
+
+                if (discoInfo != null)
+                {
+                    contact.ExtendedDisco = discoInfo;
+                }
+                else
+                {
+                    Account.Instance.DiscoMan.DisoverInformation(contact.FullJid,
+                                                                 string.Format("{0}#{1}",
+                                                                 contact.Caps.Node, contact.Caps.Version),
+                                                                 OnDiscoInfoCapsResult, contact);
+                }
+            }
+        }
+
+        private static void OnDiscoInfoCapsResult(object sender, IQ iq, object data)
+        {
+            Contact contact = (Contact)data;
+
+            if (iq.Error != null)
+            {
+                Services.Instance.OnServiceItemError(sender, iq);
+            }
+            else if (iq.Type == IqType.result && iq.Query is DiscoInfo)
+            {
+                contact.ExtendedDisco = iq.Query as DiscoInfo;
+
+                CapsCache.Instance.AddToCache(contact.Caps, contact.ExtendedDisco);
             }
         }
 
@@ -354,6 +396,8 @@ namespace xeus2.xeus.Core
             }
             else
             {
+                Capabilities capabilities = presence.SelectSingleElement(typeof(Capabilities)) as Capabilities;
+
                 switch (presence.Type)
                 {
                     case PresenceType.subscribe:
@@ -366,47 +410,41 @@ namespace xeus2.xeus.Core
                         }
                     default:
                         {
-                            OnContactPresence(presence);
+                            OnContactPresence(presence, capabilities);
                             break;
                         }
                 }
+            }
+        }
 
-                Capabilities capabilities = presence.SelectSingleElement(typeof (Capabilities)) as Capabilities;
+        public void SetFreshVcard(IContact contact, int maxOldness)
+        {
+            Contact cont = contact as Contact;
+            MetaContact metaContact = contact as MetaContact;
 
-                if (capabilities != null)
+            if (metaContact != null)
+            {
+                lock (metaContact.SubContacts._syncObject)
                 {
-                    OnContactCaps(capabilities, presence.From);
+                    cont = metaContact.FindContact(contact.Jid);
                 }
             }
-        }
 
-        private void OnContactCaps(Capabilities capabilities, Jid from)
-        {
-            Contact contact;
-
-            lock (_realContacts)
+            if (cont == null)
             {
-                contact = FindContact(from);
+                return;
             }
 
-            if (contact != null)
-            {
-                contact.Caps = capabilities;
-            }
-        }
-
-        private void SetFreshVcard(Contact contact)
-        {
-            Vcard vcard = Storage.GetVcard(contact.Jid, Settings.Default.VCardExpirationDays);
+            Vcard vcard = Storage.GetVcard(contact.Jid, maxOldness);
 
             if (vcard != null)
             {
-                contact.SetVcard(vcard);
+                cont.SetVcard(vcard);
             }
-            else
+            else if (cont.Disco != null && cont.Disco.HasFeature(Uri.VCARD))
             {
                 VcardIq viq = new VcardIq(IqType.get, contact.Jid);
-                Account.Instance.XmppConnection.IqGrabber.SendIq(viq, new IqCB(VcardResult), contact);
+                Account.Instance.XmppConnection.IqGrabber.SendIq(viq, new IqCB(VcardResult), cont);
             }
         }
 
@@ -553,6 +591,7 @@ namespace xeus2.xeus.Core
             if (vcard != null)
             {
                 contact.SetVcard(vcard);
+                contact.HasVCardRecieved = false;
             }
         }
 
