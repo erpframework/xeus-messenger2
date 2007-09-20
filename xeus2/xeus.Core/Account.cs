@@ -20,6 +20,7 @@ using xeus2.Properties;
 using xeus2.xeus.Data;
 using xeus2.xeus.Middle;
 using Search=agsXMPP.protocol.iq.search.Search;
+using Status=agsXMPP.protocol.extensions.commands.Status;
 using Timer=System.Timers.Timer;
 using Uri=agsXMPP.Uri;
 using Version=agsXMPP.protocol.iq.version.Version;
@@ -464,12 +465,9 @@ namespace xeus2.xeus.Core
 
         public void SendMyPresence()
         {
-            XmppConnection.Show = Settings.Default.XmppMyPresence;
-            XmppConnection.Status = Settings.Default.XmppStatusText;
-            XmppConnection.Resource = Settings.Default.XmppResource;
-            XmppConnection.Priority = Settings.Default.XmppPriority;
+            //_xmppConnection.Show = Settings.Default.XmppMyPresence;
 
-            XmppConnection.SendMyPresence();
+            _xmppConnection.Send(Self.Presence);
 
             _selfContact.PresenceChange();
         }

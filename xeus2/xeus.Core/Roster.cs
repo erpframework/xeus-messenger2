@@ -187,7 +187,8 @@ namespace xeus2.xeus.Core
 
             if (iq.Type == IqType.error || iq.Error != null)
             {
-                if (iq.Error.Code != ErrorCode.NotFound)
+                if (iq.Error.Code != ErrorCode.NotFound
+                    && iq.Error.Code != ErrorCode.NotImplemented)
                 {
                     Events.Instance.OnEvent(this,
                                             new EventError(String.Format("Iq-Avatar receiving error from {0}", iq.From),
@@ -345,7 +346,12 @@ namespace xeus2.xeus.Core
                 SetFreshVcard(contact, Settings.Default.VCardExpirationDays);
             }
 
-            RefreshIqAvatar(contact);
+            // ask for iq avatar only if the client has not v-card support
+            if (contact.Caps == null || !contact.HasFeature(Uri.VCARD)
+                || contact.Image == null || Storage.IsDefaultAvatar(contact.Image))
+            {
+                RefreshIqAvatar(contact);
+            }
 
             if (contact.Caps != null)
             {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System;
 using System.Reflection;
 using System.Timers;
 using System.Windows.Media.Imaging;
@@ -7,6 +8,7 @@ using agsXMPP.protocol.client;
 using agsXMPP.protocol.extensions.caps;
 using agsXMPP.protocol.iq.disco;
 using agsXMPP.protocol.iq.vcard;
+using agsXMPP.protocol.x.vcard_update;
 using xeus2.Properties;
 using xeus2.xeus.Data;
 using xeus2.xeus.Utilities;
@@ -20,11 +22,12 @@ namespace xeus2.xeus.Core
         private BitmapImage _image;
         private string _fullName;
         private string _nickName;
+        
+        private readonly Capabilities _caps;
+
         private readonly DiscoIdentity _identity = new DiscoIdentity("pc", "xeus", "client");
         private readonly DiscoInfo _discoInfo = new DiscoInfo();
-
-        private Capabilities _caps;
-
+        
         private VCard _card = null;
 
         #region IContact Members
@@ -41,7 +44,17 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                throw new NotImplementedException();
+                Presence presence = new Presence(Settings.Default.XmppMyPresence,
+                                                    Settings.Default.XmppStatusText,
+                                                    Settings.Default.XmppPriority);
+                if (_avatarHash != null)
+                {
+                    presence.AddChild(new VcardUpdate());
+                }
+
+                presence.AddChild(_caps);
+
+                return presence;
             }
         }
 
@@ -364,12 +377,13 @@ namespace xeus2.xeus.Core
             _updateTimer.Start();
         }
 
+        private string _avatarHash = null;
+
         private void SetMyVcard(Vcard vcard)
         {
             if (vcard != null)
             {
-                string hash;
-                _image = Storage.ImageFromPhoto(vcard.Photo, out hash);
+                _image = Storage.ImageFromPhoto(vcard.Photo, out _avatarHash);
 
                 _fullName = vcard.Fullname;
                 _nickName = vcard.Nickname;
@@ -386,6 +400,9 @@ namespace xeus2.xeus.Core
 
             NotifyPropertyChanged("Image");
             NotifyPropertyChanged("IsImageTransparent");
+
+            // avatar could be changed
+            // Account.Instance.SendMyPresence();
         }
 
         public void LoadMyAvatar()
