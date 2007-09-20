@@ -341,17 +341,6 @@ namespace xeus2.xeus.Core
                 contact.Disco = iq.Query as DiscoInfo;
             }
 
-            if (!contact.HasVCardRecieved)
-            {
-                SetFreshVcard(contact, Settings.Default.VCardExpirationDays);
-            }
-
-            // ask for iq avatar only if the client has not v-card support
-            if (contact.Caps == null || !contact.HasFeature(Uri.VCARD)
-                || contact.Image == null || Storage.IsDefaultAvatar(contact.Image))
-            {
-                RefreshIqAvatar(contact);
-            }
 
             if (contact.Caps != null)
             {
@@ -368,6 +357,18 @@ namespace xeus2.xeus.Core
                                                                  contact.Caps.Node, contact.Caps.Version),
                                                                  OnDiscoInfoCapsResult, contact);
                 }
+            }
+
+            // ask for iq avatar only if the client has not v-card support
+            if (contact.Caps == null || !contact.HasFeature(Uri.VCARD)
+                || contact.Image == null || Storage.IsDefaultAvatar(contact.Image))
+            {
+                RefreshIqAvatar(contact);
+            }
+
+            if (!contact.HasVCardRecieved)
+            {
+                SetFreshVcard(contact, Settings.Default.VCardExpirationDays);
             }
         }
 
@@ -447,7 +448,7 @@ namespace xeus2.xeus.Core
             {
                 cont.SetVcard(vcard);
             }
-            else if (cont.Disco != null && cont.Disco.HasFeature(Uri.VCARD))
+            else // if (cont.HasFeature(Uri.VCARD))
             {
                 VcardIq viq = new VcardIq(IqType.get, contact.Jid);
                 Account.Instance.XmppConnection.IqGrabber.SendIq(viq, new IqCB(VcardResult), cont);
@@ -476,12 +477,6 @@ namespace xeus2.xeus.Core
             else if (iq.Type == IqType.result)
             {
                 contact.SetVcard(iq.Vcard);
-
-                //save it
-                if (iq.Vcard != null)
-                {
-                    Storage.CacheVCard(iq.Vcard, contact.Jid.Bare);
-                }
             }
         }
 
@@ -516,12 +511,6 @@ namespace xeus2.xeus.Core
             else if (iq.Type == IqType.result)
             {
                 contact.SetVcard(iq.Vcard);
-
-                //save it
-                if (iq.Vcard != null)
-                {
-                    Storage.CacheVCard(iq.Vcard, contact.Jid.Bare);
-                }
             }
 
             Authorization.Instance.Ask(contact);

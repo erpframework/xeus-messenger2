@@ -626,6 +626,8 @@ namespace xeus2.xeus.Core
                     _card = new VCard(vcard);
 
                     NotifyPropertyChanged("Card");
+
+                    Storage.CacheVCard(vcard, Jid.Bare);
                 }
             }
             else

@@ -362,12 +362,6 @@ namespace xeus2.xeus.Core
             else if (iq.Type == IqType.result)
             {
                 SetMyVcard(iq.Vcard);
-
-                //save it
-                if (iq.Vcard != null)
-                {
-                    Storage.CacheVCard(iq.Vcard, Jid.Bare);
-                }
             }
         }
 
@@ -400,6 +394,11 @@ namespace xeus2.xeus.Core
 
             NotifyPropertyChanged("Image");
             NotifyPropertyChanged("IsImageTransparent");
+
+            if (vcard != null)
+            {
+                Storage.CacheVCard(vcard, Jid.Bare);
+            }
 
             // avatar could be changed
             // Account.Instance.SendMyPresence();
