@@ -659,9 +659,8 @@ namespace xeus2.xeus.Core
                     if (message.Body != null)
                     {
                         RecentItems.Instance.Add(contact);
+                        Events.Instance.OnEvent(this, new EventChatMessage(contact, message, (contactChats.Count > 0)));
                     }
-
-                    Events.Instance.OnEvent(this, new EventChatMessage(contact, message, (contactChats.Count > 0)));
                 }
             }
         }

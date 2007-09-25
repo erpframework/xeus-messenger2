@@ -49,7 +49,7 @@ namespace xeus2.xeus.UI
             Closed -= BaseWindow_Closed;
         }
 
-        protected void ShowHide()
+        public void ShowHide()
         {
             if (WindowState == WindowState.Minimized)
             {
@@ -70,6 +70,5 @@ namespace xeus2.xeus.UI
                 }
             }
         }
-
     }
 }

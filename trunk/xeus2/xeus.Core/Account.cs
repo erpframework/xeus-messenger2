@@ -464,8 +464,6 @@ namespace xeus2.xeus.Core
 
         public void SendMyPresence()
         {
-            //_xmppConnection.Show = Settings.Default.XmppMyPresence;
-
             _xmppConnection.Send(Self.Presence);
 
             _selfContact.PresenceChange();

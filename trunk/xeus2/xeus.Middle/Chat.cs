@@ -65,6 +65,8 @@ namespace xeus2.xeus.Middle
             {
                 _chat.Close();
             }
+
+            Notification.DismissChatMessageNotification(contact);
         }
 
         private void GetChatWindow()

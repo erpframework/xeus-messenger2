@@ -6,6 +6,8 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Threading;
 using xeus2.xeus.Core;
+using xeus2.xeus.Middle;
+using xeus2.xeus.Utilities;
 
 namespace xeus2.xeus.UI.xeus.UI.Controls
 {
@@ -87,9 +89,24 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _inlineSearch.TextChanged += _inlineSearch_TextChanged;
             _inlineSearch.Closed += _inlineSearch_Closed;
 
+            Notification.NegotiateAddNotification += Notification_NegotiateAddNotification;
+
             Unloaded += Conversation_Unloaded;
 
             ScrollToBottom(true);
+        }
+
+        void Notification_NegotiateAddNotification(Event myEvent, NegotiateNotification negotiateNotification)
+        {
+            EventChatMessage messageEvent = myEvent as EventChatMessage;
+
+            if (messageEvent != null)
+            {
+                if (JidUtil.BareEquals(messageEvent.Contact.Jid, _contactChat.Contact.Jid))
+                {
+                    negotiateNotification.Raise = false;
+                }
+            }
         }
 
         void _flowViewer_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -286,6 +303,8 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         private void Conversation_Unloaded(object sender, RoutedEventArgs e)
         {
+            Notification.NegotiateAddNotification -= Notification_NegotiateAddNotification;
+
             _chatStateNotificator.ChangeChatState(agsXMPP.protocol.extensions.chatstates.Chatstate.gone);
 
             _chatStateNotificator.StateChanged -= _chatStateNotificator_StateChanged;

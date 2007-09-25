@@ -195,6 +195,7 @@ namespace xeus2.xeus.Core
                 if (_card.SetImage(value))
                 {
                     _image = value;
+                    _avatarHash = Storage.GetPhotoHashCode(_card.Vcard.Photo);
                     NotifyPropertyChanged("Image");
                 }
             }
@@ -410,9 +411,6 @@ namespace xeus2.xeus.Core
             NotifyPropertyChanged("IsImageTransparent");
 
             _card = new VCard(vcard, Jid);
-
-            // avatar could be changed
-            // Account.Instance.SendMyPresence();
         }
 
         public void LoadMyAvatar()
