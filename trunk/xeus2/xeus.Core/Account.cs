@@ -19,8 +19,7 @@ using Win32_API;
 using xeus2.Properties;
 using xeus2.xeus.Data;
 using xeus2.xeus.Middle;
-using Search=agsXMPP.protocol.iq.search.Search;
-using Status=agsXMPP.protocol.extensions.commands.Status;
+using Search=xeus2.xeus.Middle.Search;
 using Timer=System.Timers.Timer;
 using Uri=agsXMPP.Uri;
 using Version=agsXMPP.protocol.iq.version.Version;
@@ -212,8 +211,8 @@ namespace xeus2.xeus.Core
             XmppConnection.Password = Settings.Default.XmppPassword;
             XmppConnection.Server = Settings.Default.XmppServer;
 
-            XmppConnection.Capabilities = Self.Caps;
-            XmppConnection.EnableCapabilities = true;
+            /*XmppConnection.Capabilities = Self.Caps;
+            XmppConnection.EnableCapabilities = true;*/
 
             XmppConnection.OnClose += _xmppConnection_OnClose;
             XmppConnection.OnLogin += _xmppConnection_OnLogin;
@@ -620,7 +619,7 @@ namespace xeus2.xeus.Core
         {
             Service service = data as Service;
 
-            Search search = iq.Query as Search;
+            agsXMPP.protocol.iq.search.Search search = iq.Query as agsXMPP.protocol.iq.search.Search;
 
             if (iq.Error != null)
             {
@@ -630,7 +629,7 @@ namespace xeus2.xeus.Core
             }
             else if (iq.Type == IqType.result && search != null)
             {
-                Middle.Search.Instance.DisplaySearchResult(search, (Service) data);
+                Search.Instance.DisplaySearchResult(search, (Service) data);
 
                 EventInfo eventinfo = new EventInfo(string.Format(Resources.Even_SearchSucceeded, service.Name));
                 Events.Instance.OnEvent(this, eventinfo);
@@ -691,7 +690,7 @@ namespace xeus2.xeus.Core
 
         private void OnRegisterServiceGetSearch(object sender, IQ iq, object data)
         {
-            Search search = iq.Query as Search;
+            agsXMPP.protocol.iq.search.Search search = iq.Query as agsXMPP.protocol.iq.search.Search;
 
             if (iq.Error != null)
             {
@@ -704,7 +703,7 @@ namespace xeus2.xeus.Core
             }
             else if (iq.Type == IqType.result && search != null)
             {
-                Middle.Search.Instance.DisplaySearch(search, (Service) data);
+                Search.Instance.DisplaySearch(search, (Service) data);
             }
         }
 

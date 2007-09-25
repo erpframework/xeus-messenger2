@@ -63,7 +63,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="UI_MaxAvatarKb" Type="System.UInt32" Scope="User">
-      <Value Profile="(Default)">8</Value>
+      <Value Profile="(Default)">32</Value>
     </Setting>
   </Settings>
 </SettingsFile>

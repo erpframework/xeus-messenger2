@@ -265,7 +265,7 @@ namespace xeus2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("8")]
+        [global::System.Configuration.DefaultSettingValueAttribute("32")]
         public uint UI_MaxAvatarKb {
             get {
                 return ((uint)(this["UI_MaxAvatarKb"]));
