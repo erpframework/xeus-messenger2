@@ -262,5 +262,17 @@ namespace xeus2.Properties {
                 this["UI_DisplayOfflineContacts"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8")]
+        public uint UI_MaxAvatarKb {
+            get {
+                return ((uint)(this["UI_MaxAvatarKb"]));
+            }
+            set {
+                this["UI_MaxAvatarKb"] = value;
+            }
+        }
     }
 }

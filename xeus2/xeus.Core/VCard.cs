@@ -3,6 +3,7 @@ using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.protocol.iq.vcard;
 using agsXMPP.Xml.Dom;
+using xeus2.Properties;
 using xeus2.xeus.Data;
 using xeus2.xeus.Utilities;
 
@@ -208,20 +209,32 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public void SetImage(BitmapImage bitmapImage)
+        public bool SetImage(BitmapImage bitmapImage)
         {
             string base64 = Storage.Base64File(bitmapImage.UriSource.LocalPath);
 
             if (base64 != null)
             {
-                Photo photo = new Photo();
-                photo.Type = TextUtil.GetImageType(bitmapImage.UriSource.LocalPath);
-                photo.SetTag("BINVAL", base64);
+                if (base64.Length > Settings.Default.UI_MaxAvatarKb * 1024)
+                {
+                    EventError eventError = new EventError(string.Format("Avatar size must not exceed {0} kB", Settings.Default.UI_MaxAvatarKb), null);
+                    Events.Instance.OnEvent(this, eventError);
+                }
+                else
+                {
+                    Photo photo = new Photo();
+                    photo.Type = TextUtil.GetImageType(bitmapImage.UriSource.LocalPath);
+                    photo.SetTag("BINVAL", base64);
 
-                _vcard.Photo = photo;
+                    _vcard.Photo = photo;
 
-                Storage.CacheVCard(_vcard, Jid.Bare);
+                    Storage.CacheVCard(_vcard, Jid.Bare);
+
+                    return true;
+                }
             }
+
+            return false;
         }
     }
 }

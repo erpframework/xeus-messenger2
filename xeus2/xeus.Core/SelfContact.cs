@@ -192,10 +192,11 @@ namespace xeus2.xeus.Core
 
             set
             {
-                _image = value;
-                NotifyPropertyChanged("Image");
-
-                _card.SetImage(value);
+                if (_card.SetImage(value))
+                {
+                    _image = value;
+                    NotifyPropertyChanged("Image");
+                }
             }
         }
 
