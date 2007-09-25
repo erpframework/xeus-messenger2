@@ -273,13 +273,14 @@ namespace xeus2.xeus.Core
             }
         }
 
+        /*
         public Capabilities Caps
         {
             get
             {
                 return _caps;
             }
-        }
+        }*/
 
         public bool HasFeature(string feature)
         {
