@@ -7,6 +7,7 @@ namespace xeus2.xeus.Middle
 {
     internal class UnreadChatMessages : ObservableCollectionDisp<EventChatMessage>
     {
+        /*
         private static readonly UnreadChatMessages _instance = new UnreadChatMessages();
 
         public UnreadChatMessages()
@@ -47,11 +48,6 @@ namespace xeus2.xeus.Middle
                 {
                     Chat.Instance.DisplayChat(eventChatMessage.Contact);
                 }
-
-                if (Count == 0)
-                {
-                    RosterWindow.TrayIcon.State = TrayIcon.TrayState.Normal;
-                }
             }
         }
 
@@ -70,10 +66,9 @@ namespace xeus2.xeus.Middle
                 lock (_syncObject)
                 {
                     Add((EventChatMessage) myEvent);
-
-                    RosterWindow.TrayIcon.State = TrayIcon.TrayState.NewMessage;
                 }
             }
         }
+        */
     }
 }

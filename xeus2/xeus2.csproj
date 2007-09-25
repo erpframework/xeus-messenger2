@@ -382,12 +382,16 @@
     <Compile Include="xeus.Middle\Chat.cs" />
     <Compile Include="xeus.Middle\CommandExecutor.cs" />
     <Compile Include="xeus.Middle\ErrorPopup.cs" />
+    <Compile Include="xeus.Middle\INotification.cs" />
     <Compile Include="xeus.Middle\KickReason.cs" />
     <Compile Include="xeus.Middle\Login.cs" />
     <Compile Include="xeus.Middle\Muc.cs" />
     <Compile Include="xeus.Middle\MucInfo.cs" />
     <Compile Include="xeus.Middle\MucOptions.cs" />
     <Compile Include="xeus.Middle\Notification.cs" />
+    <Compile Include="xeus.Middle\NotificationPopup.cs" />
+    <Compile Include="xeus.Middle\NotificationSound.cs" />
+    <Compile Include="xeus.Middle\NotificationTray.cs" />
     <Compile Include="xeus.Middle\Registration.cs" />
     <Compile Include="xeus.Middle\Search.cs" />
     <Compile Include="xeus.Middle\Services.cs" />

@@ -24,40 +24,7 @@ namespace xeus2
 
             new FilterRoster(_roster.CollectionView);
 
-            UnreadChatMessages.Instance.Clear();
-
-            TrayIcon.NotifyIcon.MouseClick += NotifyIcon_MouseClick;
-
-            TrayIcon.State = TrayIcon.TrayState.Normal;
-        }
-
-        internal static TrayIcon TrayIcon
-        {
-            get
-            {
-                return _trayIcon;
-            }
-        }
-
-        private void NotifyIcon_MouseClick(object sender, MouseEventArgs e)
-        {
-            switch (TrayIcon.State)
-            {
-                case TrayIcon.TrayState.NewMessage:
-                    {
-                        UnreadChatMessages.Instance.ClickedNotifyIcon();
-                        break;
-                    }
-                case TrayIcon.TrayState.Normal:
-                    {
-                        if (e.Button == MouseButtons.Left)
-                        {
-                            ShowHide();
-                        }
-
-                        break;
-                    }
-            }
+            NotificationTray.Instance.Inititalize(_trayIcon, this);
         }
 
         public override void EndInit()
@@ -83,7 +50,7 @@ namespace xeus2
 
             base.OnClosed(e);
 
-            TrayIcon.Dispose();
+            _trayIcon.Dispose();
 
             WindowManager.CloseAllWindows();
         }

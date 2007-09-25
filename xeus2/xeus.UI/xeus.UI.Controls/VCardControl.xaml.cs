@@ -45,7 +45,5 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
             e.Handled = false;
         }
-
-
     }
 }
