@@ -2,6 +2,8 @@
 using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.protocol.iq.vcard;
+using agsXMPP.Xml.Dom;
+using xeus2.xeus.Data;
 using xeus2.xeus.Utilities;
 
 namespace xeus2.xeus.Core
@@ -208,9 +210,18 @@ namespace xeus2.xeus.Core
 
         public void SetImage(BitmapImage bitmapImage)
         {
-            bitmapImage.UriSource.LocalPath
-            _vcard.Photo.AddChild(new Photo(
-                System.Drawing.Image.FromFile(bitmapImage.UriSource.LocalPath)));
+            string base64 = Storage.Base64File(bitmapImage.UriSource.LocalPath);
+
+            if (base64 != null)
+            {
+                Photo photo = new Photo();
+                photo.Type = TextUtil.GetImageType(bitmapImage.UriSource.LocalPath);
+                photo.SetTag("BINVAL", base64);
+
+                _vcard.Photo = photo;
+
+                Storage.CacheVCard(_vcard, Jid.Bare);
+            }
         }
     }
 }
