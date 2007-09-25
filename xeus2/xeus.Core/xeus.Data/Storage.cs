@@ -221,49 +221,6 @@ namespace xeus2.xeus.Data
             return GetAvatar(string.Format("pack://application:,,,../xeus.UI/xeus.Images/{0}", name));
         }
 
-        /*
-        public static string FlushImage(string jid)
-        {
-            try
-            {
-                Vcard vcard = GetVcard(jid);
-
-                if (vcard == null || vcard.Photo == null)
-                {
-                    return null;
-                }
-
-                string filename = Path.GetTempFileName();
-                byte[] pic;
-
-                if (vcard.Photo.HasTag("BINVAL"))
-                {
-                    pic = Convert.FromBase64String(vcard.Photo.GetTag("BINVAL"));
-                }
-                else if (vcard.Photo.TextBase64.Length > 0)
-                {
-                    pic = Convert.FromBase64String(vcard.Photo.Value);
-                }
-                else
-                {
-                    return null;
-                }
-
-                using (BinaryWriter binWriter = new BinaryWriter(File.Open(filename, FileMode.Create)))
-                {
-                    binWriter.Write(pic);
-                }
-
-                return filename;
-            }
-
-            catch
-            {
-                return null;
-            }
-        }*/
-
-
         static string GetImageDataHash(byte[] pic)
         {
             return TextUtil.HexEncode(_sha1.ComputeHash(pic));            
@@ -316,7 +273,34 @@ namespace xeus2.xeus.Data
             hash = GetImageDataHash(bytes);
 
             return bitmap;
-            
+        }
+
+        public static string Base64File(string path)
+        {
+            string base64 = null;
+            try
+            {
+                using (
+                    FileStream fileStream =
+                        new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+                {
+                    byte[] data = new byte[fileStream.Length];
+
+                    using (BinaryReader reader = new BinaryReader(fileStream))
+                    {
+                        reader.Read(data, 0, data.Length);
+                    }
+                    
+                    base64 = Convert.ToBase64String(data);
+                }
+            }
+
+            catch (Exception e)
+            {
+                Events.Instance.OnEvent(null, new EventError(e.Message, null));
+            }
+
+            return base64;
         }
 
         public static BitmapImage ImageFromPhoto(Photo photo, out string hash)

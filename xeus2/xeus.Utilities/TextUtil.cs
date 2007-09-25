@@ -126,6 +126,28 @@ namespace xeus2.xeus.Utilities
             return Convert.ToBase64String(hash);
         }
 
+        public static string GetImageType(string path)
+        {
+            string suffix = Path.GetExtension(path).ToLower();
+
+            switch (suffix)
+            {
+                case "jpg":
+                case "jpeg":
+                    {
+                        return "image/jpeg";
+                    }
+                case "png":
+                    {
+                        return "image/png";
+                    }
+                default:
+                    {
+                        return "image/gif";
+                    }
+            }
+        }
+
         public static bool IsImageExtension(string fileName)
         {
             string extension = Path.GetExtension(fileName).ToLower();
