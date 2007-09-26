@@ -43,14 +43,14 @@ namespace xeus2.xeus.Core
                 }
             }
         }
-
+        /*
         protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
         {
             if (!_dontSendChange)
             {
                 base.OnCollectionChanged(e);
             }
-        }
+        }*/
 
         /*
         public void Add(IList<T> items)

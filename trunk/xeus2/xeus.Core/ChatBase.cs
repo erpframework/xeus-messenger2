@@ -174,39 +174,51 @@ namespace xeus2.xeus.Core
 
         protected abstract Block GenerateMessage(T message, T previousMessage);
 
+        private delegate void GenerateChatDocumentCallback(IList messages);
+
         protected void GenerateChatDocument(IList messages)
         {
-            if (_chatDocument == null)
+            App.InvokeSafe(App._dispatcherPriority, new GenerateChatDocumentCallback(GenerateChatDocumentInternal), messages);
+        }
+
+        object _generateLock = new object();
+
+        void GenerateChatDocumentInternal(IList messages)
+        {
+            lock (_generateLock)
             {
-                _chatDocument = new FlowDocument();
-                _chatDocument.FontFamily = new FontFamily("Segoe UI");
-                _chatDocument.FontSize = 11.0;
-                _chatDocument.TextAlignment = TextAlignment.Left;
-            }
-
-            foreach (T message in messages)
-            {
-                int index = Messages.IndexOf(message);
-
-                T previousMessage = null;
-
-                if (index >= 1)
+                if (_chatDocument == null)
                 {
-                    previousMessage = Messages[index - 1];
+                    _chatDocument = new FlowDocument();
+                    _chatDocument.FontFamily = new FontFamily("Segoe UI");
+                    _chatDocument.FontSize = 11.0;
+                    _chatDocument.TextAlignment = TextAlignment.Left;
                 }
 
-                _chatDocument.Blocks.Add(GenerateMessage(message, previousMessage));
-            }
+                foreach (T message in messages)
+                {
+                    int index = Messages.IndexOf(message);
 
-            if (_timeTimer == null)
-            {
-                _timeTimer = new Timer(5000.0);
-                _timeTimer.AutoReset = true;
-                _timeTimer.Elapsed += _timeTimer_Elapsed;
-                _timeTimer.Start();
-            }
+                    T previousMessage = null;
 
-            NotifyPropertyChanged("ChatDocument");
+                    if (index >= 1)
+                    {
+                        previousMessage = Messages[index - 1];
+                    }
+
+                    _chatDocument.Blocks.Add(GenerateMessage(message, previousMessage));
+                }
+
+                if (_timeTimer == null)
+                {
+                    _timeTimer = new Timer(5000.0);
+                    _timeTimer.AutoReset = true;
+                    _timeTimer.Elapsed += _timeTimer_Elapsed;
+                    _timeTimer.Start();
+                }
+
+                NotifyPropertyChanged("ChatDocument");
+            }
         }
 
         private void _timeTimer_Elapsed(object sender, ElapsedEventArgs e)
