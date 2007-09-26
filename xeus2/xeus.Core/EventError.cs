@@ -2,7 +2,7 @@ using agsXMPP.protocol.client ;
 
 namespace xeus2.xeus.Core
 {
-	internal class EventError : Event
+    public class EventError : Event
 	{
 		private readonly Error _error = null ;
 

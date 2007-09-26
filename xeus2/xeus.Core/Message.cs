@@ -5,7 +5,7 @@ using agsXMPP;
 
 namespace xeus2.xeus.Core
 {
-    internal class Message : MessageBase
+    public class Message : MessageBase
     {
         private readonly string _body = string.Empty;
         private readonly Jid _from;

@@ -4,7 +4,7 @@ using xeus2.Properties;
 
 namespace xeus2.xeus.Core
 {
-    internal class EventPresenceChanged : Event
+    public class EventPresenceChanged : Event
     {
         private readonly Contact _contact;
         private readonly Presence _newPresence;

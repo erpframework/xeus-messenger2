@@ -2,7 +2,7 @@
 
 namespace xeus2.xeus.Core
 {
-    internal class EventErrorConnection : Event
+    public class EventErrorConnection : Event
     {
         private readonly Exception _exception;
 

@@ -58,7 +58,10 @@ namespace xeus2.xeus.Middle
                 }
             }
 
-            RefreshStatus();
+            if (toBeRemoved.Count > 0)
+            {
+                RefreshStatus();
+            }
         }
 
         public static List<Event> Notifications
@@ -196,7 +199,10 @@ namespace xeus2.xeus.Middle
                 }
             }
 
-            RefreshStatus();
+            if (toBeRemoved.Count > 0)
+            {
+                RefreshStatus();
+            }
         }
 
         public static void Initialize()

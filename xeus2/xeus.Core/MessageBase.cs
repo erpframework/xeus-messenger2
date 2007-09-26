@@ -12,7 +12,7 @@ namespace xeus2.xeus.Core
         Oldest
     }
 
-    internal class MessageBase : NotifyInfoDispatcher
+    public class MessageBase : NotifyInfoDispatcher
     {
         protected DateTime _dateTime = DateTime.Now;
 

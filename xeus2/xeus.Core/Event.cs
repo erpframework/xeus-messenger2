@@ -2,7 +2,7 @@ using System ;
 
 namespace xeus2.xeus.Core
 {
-	internal abstract class Event : NotifyInfoDispatcher
+	public abstract class Event : NotifyInfoDispatcher
 	{
 		public enum EventSeverity
 		{
