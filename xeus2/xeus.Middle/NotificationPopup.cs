@@ -32,11 +32,6 @@ namespace xeus2.xeus.Middle
             }
         }
 
-        public void ItemAdded(Event @event)
-        {
-            _infoPopup.Add(@event);
-        }
-
         #endregion
 
         public void Initialize(InfoPopup infoPopup)

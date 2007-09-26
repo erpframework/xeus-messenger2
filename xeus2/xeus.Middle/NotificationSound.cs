@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using xeus2.xeus.Core;
+﻿using xeus2.xeus.Core;
 
 namespace xeus2.xeus.Middle
 {
-    internal class NotificationSound: INotification
+    internal class NotificationSound : INotification
     {
         private static readonly NotificationSound _instance = new NotificationSound();
 
@@ -17,12 +14,12 @@ namespace xeus2.xeus.Middle
             }
         }
 
+        #region INotification Members
+
         public void RefreshStatus()
         {
         }
 
-        public void ItemAdded(Event @event)
-        {
-        }
+        #endregion
     }
 }

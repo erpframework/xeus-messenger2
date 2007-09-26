@@ -28,7 +28,7 @@ namespace xeus2.xeus.Middle
     internal static class Notification
     {
         private static readonly object _notificationLock = new object();
-        private static readonly List<Event> _notifications = new List<Event>(256);
+        private static readonly ObservableCollectionDisp<Event> _notifications = new ObservableCollectionDisp<Event>();
 
         public delegate void NegotiateAddNotificationCallback(Event myEvent, NegotiateNotification negotiateNotification);
 
@@ -44,7 +44,7 @@ namespace xeus2.xeus.Middle
 
             lock (_notificationLock)
             {
-                foreach (Event notification in _notifications)
+                foreach (Event notification in Notifications)
                 {
                     if (notification.Expiration < DateTime.Now)
                     {
@@ -54,7 +54,7 @@ namespace xeus2.xeus.Middle
 
                 foreach (Event @event in toBeRemoved)
                 {
-                    _notifications.Remove(@event);
+                    Notifications.Remove(@event);
                 }
             }
 
@@ -64,7 +64,7 @@ namespace xeus2.xeus.Middle
             }
         }
 
-        public static List<Event> Notifications
+        public static ObservableCollectionDisp<Event> Notifications
         {
             get
             {
@@ -132,28 +132,18 @@ namespace xeus2.xeus.Middle
                     {
                         lock (_notificationLock)
                         {
-                            _notifications.Add(myEvent);
-                            Added(myEvent);
+                            Notifications.Add(myEvent);
                         }
                     }
                 }
             }
         }
 
-        private static void Added(Event @event)
-        {
-            NotificationTray.Instance.ItemAdded(@event);
-            NotificationPopup.Instance.ItemAdded(@event);
-            NotificationSound.Instance.ItemAdded(@event);
-
-            RefreshStatus();
-        }
-
         public static T GetFirstEvent<T>() where T:Event
         {
             lock (_notificationLock)
             {
-                foreach (Event notification in _notifications)
+                foreach (Event notification in Notifications)
                 {
                     if (notification is T)
                     {
@@ -183,7 +173,7 @@ namespace xeus2.xeus.Middle
 
             lock (_notificationLock)
             {
-                foreach (Event notification in _notifications)
+                foreach (Event notification in Notifications)
                 {
                     EventChatMessage messageEvent = notification as EventChatMessage;
 
@@ -195,7 +185,7 @@ namespace xeus2.xeus.Middle
 
                 foreach (EventChatMessage eventChatMessage in toBeRemoved)
                 {
-                    _notifications.Remove(eventChatMessage);
+                    Notifications.Remove(eventChatMessage);
                 }
             }
 
