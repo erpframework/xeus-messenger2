@@ -1,8 +1,7 @@
-using System.Timers;
 using System.Windows;
-using System.Windows.Input;
-using System.Windows.Threading;
-using xeus2.Properties;
+using System.Windows.Controls.Primitives;
+using System.Windows.Forms;
+using xeus2.xeus.Core;
 
 namespace xeus2.xeus.UI
 {
@@ -11,50 +10,34 @@ namespace xeus2.xeus.UI
     /// </summary>
     public partial class InfoPopup
     {
-        private Timer _timer = new Timer(Settings.Default.UI_ErrorDismiss);
-
-        private delegate void CloseCallback();
-
-
         public InfoPopup()
         {
             InitializeComponent();
+        }
 
-            Style = StyleManager.GetStyle("InfoTip");
+        internal void Add(Event lastEvent)
+        {
+            _list.Items.Add(lastEvent);
 
-            _timer.Elapsed += new ElapsedEventHandler(_timer_Elapsed);
+            Screen[] screens = Screen.AllScreens;
 
-            MouseLeave += new MouseEventHandler(InfoPopup_MouseLeave);
-            MouseEnter += new MouseEventHandler(InfoPopup_MouseEnter);
+            Screen primaryScreen = screens[0];
 
-            Rect rect = new Rect(0, 0, ActualWidth, ActualHeight);
-            Rect mouseRect = new Rect(new Point(0.0, 0.0), Mouse.GetPosition(this));
-
-            if (rect.IntersectsWith(mouseRect))
+            foreach (Screen screen in screens)
             {
-                _timer.Start();
+                if (screen.Primary)
+                {
+                    primaryScreen = screen;
+                    break;
+                }
             }
-        }
 
-        private void InfoPopup_MouseEnter(object sender, MouseEventArgs e)
-        {
-            _timer.Stop();
-        }
+            HorizontalOffset = primaryScreen.WorkingArea.Right;
+            VerticalOffset = primaryScreen.WorkingArea.Bottom;
 
-        private void InfoPopup_MouseLeave(object sender, MouseEventArgs e)
-        {
-            _timer.Start();
-        }
+            IsOpen = true;
 
-        private void _timer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            App.InvokeSafe(App._dispatcherPriority,
-                           new CloseCallback(Close));
-        }
-
-        protected void Close()
-        {
-            IsOpen = false;
+            VerticalOffset -= _list.ActualHeight;
         }
     }
 }

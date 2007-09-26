@@ -115,11 +115,8 @@
         </Border>
 
         <StackPanel Margin="5,5,5,5" DockPanel.Dock="Bottom">
-            <DockPanel Margin="0,2,0,5">
-                <ContentPresenter DockPanel.Dock="Right" ContentTemplate="{StaticResource MessageOldness}"
-                        Content="{Binding Path=LastMessage}"/>
-                <xeus2_xeus_Controls:SearchText x:Name="_inlineSearch" />
-            </DockPanel>
+            <ContentPresenter ContentTemplate="{StaticResource MessageOldness}"
+                        Content="{Binding Path=LastMessage}"  Margin="5,0,5,5"/>
             <Grid>
                 <Button Click="OnSendMessage" Content="Send" VerticalAlignment="Bottom" DockPanel.Dock="Right" HorizontalAlignment="Right" Width="50"/>
                 <TextBox x:Name="_text" MinWidth="100"
@@ -135,6 +132,8 @@
 	        Document="{Binding Path=ChatDocument}"
 	        DockPanel.Dock="Top" MaxZoom="300" MinZoom="50" ZoomIncrement="5" Style="{DynamicResource BasicFlowDocumentScrollViewerStyle}" />
                 <xeus2_xeus_Controls:Chatstate Margin="10,5,10,0" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                <xeus2_xeus_Controls:SearchText x:Name="_inlineSearch"
+                                                Margin="10,0,10,5" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
             </Grid>
         </Border>
     </DockPanel>

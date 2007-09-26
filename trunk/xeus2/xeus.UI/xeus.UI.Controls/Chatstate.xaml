@@ -98,7 +98,7 @@
         </DrawingBrush>
     </UserControl.Resources>
     
-	<Border Background="{DynamicResource back_alt}" BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" Padding="3,2,3,2">
+	<Border Background="{DynamicResource searchback_design}" CornerRadius="2,2,2,2" Padding="5,4,5,4" Opacity="0.7">
     <Grid>
         <Rectangle Fill="{DynamicResource chat_state_design}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="30" Height="18"/>
         <TextBlock Text="Contact is Typing" Margin="35,0,0,0" x:Name="textBlock"

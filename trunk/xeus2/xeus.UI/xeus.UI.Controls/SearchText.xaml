@@ -3,12 +3,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="xeus2.xeus.UI.xeus.UI.Controls.SearchText"
     xmlns:xeus2_xeus_Controls="clr-namespace:xeus2.xeus.UI.xeus.UI.Controls"
     >
-    <StackPanel Orientation="Horizontal">
-      <TextBox x:Name="_text" MaxLength="50" MinWidth="100"
-  TextChanged="OnTextChanged"/>
-      <Button Margin="4,0,3,0" x:Name="_next" Click="OnNext"
-        HorizontalAlignment="Left" VerticalAlignment="Center" Width="14" Height="14" ToolTip="Search Next (F3)" Background="{DynamicResource next_design}" Style="{DynamicResource ImageButtonStyle}"/>
-        <Button Margin="4,0,3,0" x:Name="_close" Background="{DynamicResource close_design}" Click="OnCancel"
-        HorizontalAlignment="Left" VerticalAlignment="Center" Width="14" Height="14" ToolTip="Close (Esc)" Style="{DynamicResource ImageButtonStyle}"/>
-    </StackPanel>
+	<Border Padding="5,4,5,4" CornerRadius="2,2,2,2" Opacity="0.5" Background="{DynamicResource searchback_design}">
+		<StackPanel Orientation="Horizontal">
+			<TextBox x:Name="_text" MaxLength="50" MinWidth="100"
+				TextChanged="OnTextChanged"/>
+			<Button Margin="4,0,3,0" x:Name="_next" Click="OnNext"
+				HorizontalAlignment="Left" VerticalAlignment="Center" Width="14" Height="14" ToolTip="Search Next (F3)" Background="{DynamicResource next_design}" Style="{DynamicResource ImageButtonStyle}"/>
+			<Button Margin="4,0,3,0" x:Name="_close" Background="{DynamicResource close_design}" Click="OnCancel"
+				HorizontalAlignment="Left" VerticalAlignment="Center" Width="14" Height="14" ToolTip="Close (Esc)" Style="{DynamicResource ImageButtonStyle}"/>
+		</StackPanel>
+	</Border>
 </UserControl>

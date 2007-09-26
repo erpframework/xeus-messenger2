@@ -14,6 +14,7 @@
     			<ResourceDictionary Source="xeus.UI\xeus.UI.Look\MucRoster.xaml"/>
     			<ResourceDictionary Source="xeus.UI\xeus.UI.Look\ScrollBar.xaml"/>
     			<ResourceDictionary Source="xeus.UI\xeus.UI.Look\Events.xaml"/>
+                <ResourceDictionary Source="xeus.UI\xeus.UI.Look\StatusbarResources.xaml"/>
     		</ResourceDictionary.MergedDictionaries>
     	</ResourceDictionary>
          

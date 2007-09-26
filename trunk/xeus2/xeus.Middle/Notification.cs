@@ -54,7 +54,13 @@ namespace xeus2.xeus.Middle
 
             if (notification.Raise)
             {
-                if (myEvent is EventChatMessage)
+                if (myEvent is EventChatMessage
+                    || myEvent is EventError
+                    || myEvent is EventErrorAuth
+                    || myEvent is EventErrorConnection
+                    || myEvent is EventErrorProtocol
+                    || myEvent is EventException
+                    || myEvent is EventPresenceChanged)
                 {
                     lock (_notificationLock)
                     {

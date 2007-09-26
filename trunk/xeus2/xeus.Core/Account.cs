@@ -223,6 +223,13 @@ namespace xeus2.xeus.Core
             XmppConnection.OnAuthError += _xmppConnection_OnAuthError;
             XmppConnection.OnXmppConnectionStateChanged += XmppConnection_OnXmppConnectionStateChanged;
             XmppConnection.OnMessage += XmppConnection_OnMessage;
+            XmppConnection.OnPasswordChanged += XmppConnection_OnPasswordChanged;
+            XmppConnection.OnBinded += XmppConnection_OnBinded;
+            XmppConnection.OnRegistered += XmppConnection_OnRegistered;
+            XmppConnection.OnRegisterError += XmppConnection_OnRegisterError;
+            XmppConnection.OnRegisterInformation += XmppConnection_OnRegisterInformation;
+            XmppConnection.OnSocketError += XmppConnection_OnSocketError;
+            XmppConnection.OnXmppError += XmppConnection_OnXmppError;
 
             XmppConnection.OnIq += _xmppConnection_OnIq;
 
@@ -239,6 +246,55 @@ namespace xeus2.xeus.Core
             _discoTime.AutoReset = false;
 
             _selfContact.LoadMyAvatar();
+        }
+
+        void XmppConnection_OnXmppError(object sender, Element e)
+        {
+            EventErrorProtocol eventError = new EventErrorProtocol("Protocol Error", e);
+            Events.Instance.OnEvent(this, eventError);
+        }
+
+        void XmppConnection_OnSocketError(object sender, Exception ex)
+        {
+            EventErrorConnection eventError = new EventErrorConnection("Connection error", ex);
+            Events.Instance.OnEvent(this, eventError);
+        }
+
+        void XmppConnection_OnRegisterInformation(object sender, RegisterEventArgs args)
+        {
+            throw new NotImplementedException();
+        }
+
+        void XmppConnection_OnRegisterError(object sender, Element e)
+        {
+            EventErrorProtocol eventError = new EventErrorProtocol("Registering Error", e);
+            Events.Instance.OnEvent(this, eventError);
+        }
+
+        private void _xmppConnection_OnAuthError(object sender, Element e)
+        {
+            EventErrorAuth eventError = new EventErrorAuth(Resources.Event_AuthFailed);
+            Events.Instance.OnEvent(this, eventError);
+        }
+
+        private void _xmppConnection_OnError(object sender, Exception ex)
+        {
+            EventError eventError = new EventError(ex.Message, null);
+            Events.Instance.OnEvent(this, eventError);
+        }
+
+        void XmppConnection_OnRegistered(object sender)
+        {
+            throw new NotImplementedException();
+        }
+
+        void XmppConnection_OnBinded(object sender)
+        {
+        }
+
+        void XmppConnection_OnPasswordChanged(object sender)
+        {
+            throw new NotImplementedException();
         }
 
         private void XmppConnection_OnMessage(object sender, agsXMPP.protocol.client.Message msg)
@@ -404,18 +460,6 @@ namespace xeus2.xeus.Core
                     }
                 }
             }
-        }
-
-        private void _xmppConnection_OnAuthError(object sender, Element e)
-        {
-            EventError eventError = new EventError(Resources.Event_AuthFailed, null);
-            Events.Instance.OnEvent(this, eventError);
-        }
-
-        private void _xmppConnection_OnError(object sender, Exception ex)
-        {
-            EventError eventError = new EventError(ex.Message, null);
-            Events.Instance.OnEvent(this, eventError);
         }
 
         private void _xmppConnection_OnPresence(object sender, Presence pres)
