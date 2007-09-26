@@ -576,7 +576,7 @@ namespace xeus2.xeus.Core
 
                 metaContact.AddContact(contact);
 
-                _realContacts.Add(item.Jid.ToString(), contact);
+                _realContacts.Add(item.Jid.Bare, contact);
 
                 _items.Add(metaContact);
             }
@@ -606,7 +606,7 @@ namespace xeus2.xeus.Core
                 {
                     metaContact.SubContacts.Remove(contact);
 
-                    _realContacts.Remove(contact.Jid.ToString());
+                    _realContacts.Remove(contact.Jid.Bare);
 
                     if (metaContact.SubContacts.Count == 0)
                     {
