@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Specialized;
 using System.Timers;
 using System.Windows.Controls;
 using xeus2.xeus.Core;
@@ -36,14 +37,14 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                     {
                         if (_content.Content != null)
                         {
-                            _eventToDisplay = e.NewItems[e.NewItems.Count - 1] as Event;
+                            _eventToDisplay = Notification.GetFirstEvent<Event>();
 
                             _display.Stop();
                             _display.Start();
                         }
                         else
                         {
-                            _content.Content = e.NewItems[e.NewItems.Count - 1];
+                            _content.Content = Notification.GetFirstEvent<Event>();
                         }
                         break;
                     }
@@ -95,11 +96,30 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         private void _next_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            lock (Notification.Notifications._syncObject)
+            {
+                int index = Notification.Notifications.IndexOf(_content.Content as Event);
+
+                if (index >= 0
+                    && (index + 1) < Notification.Notifications.Count)
+                {
+                    _content.Content = Notification.Notifications[index + 1];
+                }
+            }
         }
 
         private void _prev_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            lock (Notification.Notifications._syncObject)
+            {
+                int index = Notification.Notifications.IndexOf(_content.Content as Event);
 
+                if (index > 0
+                    && (index - 1) < Notification.Notifications.Count)
+                {
+                    _content.Content = Notification.Notifications[index - 1];
+                }
+            }
         }
 
         private void _content_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -110,6 +130,10 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             {
                 Notification.DismissChatMessageNotification(eventChatMessage.Contact);
                 Middle.Chat.Instance.DisplayChat(eventChatMessage.Contact);
+            }
+            else
+            {
+                Notification.DismissNotificationType(_content.Content);
             }
         }
     }

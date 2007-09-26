@@ -195,6 +195,32 @@ namespace xeus2.xeus.Middle
             }
         }
 
+        public static void DismissNotificationType<T>(T item)
+        {
+            List<Event> toBeRemoved = new List<Event>();
+
+            lock (_notificationLock)
+            {
+                foreach (Event notification in Notifications)
+                {
+                    if (notification is T)
+                    {
+                        toBeRemoved.Add(notification);
+                    }
+                }
+
+                foreach (Event @event in toBeRemoved)
+                {
+                    Notifications.Remove(@event);
+                }
+            }
+
+            if (toBeRemoved.Count > 0)
+            {
+                RefreshStatus();
+            }
+        }
+
         public static void Initialize()
         {
             Events.Instance.OnEventRaised += Instance_OnEventRaised;
