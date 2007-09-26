@@ -3,6 +3,5 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     x:Class="xeus2.xeus.UI.InfoPopup"
 	Placement="Absolute"
-    ToolTipService.HasDropShadow="True">
-<ListBox x:Name="_list"/>  
+    AllowsTransparency="True">
 </Popup>

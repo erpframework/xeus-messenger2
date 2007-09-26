@@ -34,6 +34,7 @@ namespace xeus2.xeus.Core
             data.Add("To", To.Bare);
             data.Add("DateTime", DateTime.ToBinary());
             data.Add("Body", Body);
+            data.Add("Type", "chat");
 
             return data;
         }

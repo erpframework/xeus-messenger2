@@ -65,5 +65,14 @@
     <Setting Name="UI_MaxAvatarKb" Type="System.UInt32" Scope="User">
       <Value Profile="(Default)">32</Value>
     </Setting>
+    <Setting Name="UI_Notify_PresenceAvailable" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="UI_Notify_PresenceUnavailable" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="UI_Notify_PresenceOther" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

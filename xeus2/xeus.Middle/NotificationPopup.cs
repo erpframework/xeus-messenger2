@@ -1,5 +1,4 @@
-﻿using System;
-using xeus2.xeus.Core;
+﻿using xeus2.xeus.Core;
 using xeus2.xeus.UI;
 
 namespace xeus2.xeus.Middle
@@ -25,8 +24,17 @@ namespace xeus2.xeus.Middle
 
             if (lastEvent != null)
             {
-                _infoPopup.Add(lastEvent);
+                _infoPopup.IsOpen = true;
             }
+            else
+            {
+                _infoPopup.IsOpen = false;
+            }
+        }
+
+        public void ItemAdded(Event @event)
+        {
+            _infoPopup.Add(@event);
         }
 
         #endregion
