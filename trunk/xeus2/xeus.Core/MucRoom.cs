@@ -1,15 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Text.RegularExpressions;
-using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using agsXMPP;
 using agsXMPP.Collections;
@@ -18,9 +13,9 @@ using agsXMPP.protocol.extensions.chatstates;
 using agsXMPP.protocol.x.muc;
 using xeus2.Properties;
 using xeus2.xeus.Commands;
-using xeus2.xeus.UI;
+using xeus2.xeus.Data;
 using xeus2.xeus.Utilities;
-using Uri=System.Uri;
+using Uri=agsXMPP.Uri;
 
 namespace xeus2.xeus.Core
 {
@@ -32,14 +27,14 @@ namespace xeus2.xeus.Core
 
         #endregion
 
-        private MucContact _me = null;
         private readonly MucManager _mucManager = null;
         private readonly MucMessages _mucMessages = new MucMessages();
         private readonly MucRoster _mucRoster = new MucRoster();
-        private string _nick;
-       
+
         private readonly Service _service;
-        
+        private MucContact _me = null;
+        private string _nick;
+
         private string _subject;
 
         public MucRoom(Service service, XmppClientConnection xmppClientConnection, string nick, string password)
@@ -144,7 +139,7 @@ namespace xeus2.xeus.Core
 
         public void SendChatState(Chatstate chatState)
         {
-            if (_service.DiscoInfo != null && _service.DiscoInfo.HasFeature(agsXMPP.Uri.CHATSTATES))
+            if (_service.DiscoInfo != null && _service.DiscoInfo.HasFeature(Uri.CHATSTATES))
             {
                 agsXMPP.protocol.client.Message message = new agsXMPP.protocol.client.Message();
 
@@ -167,10 +162,11 @@ namespace xeus2.xeus.Core
 
                 if (eventMucRoom.TypicalEventCode != TypicalEvent.Joined || timeSpan >= new TimeSpan(0, 0, 5))
                 {
-                    MucMessage mucMessage = new MucMessage(new agsXMPP.protocol.client.Message(Account.Instance.Self.Jid, Service.Jid,
-                                                                       string.Format("{{{0}}} {1}",
-                                                                                     eventMucRoom.TypicalEventCode,
-                                                                                     eventMucRoom.Message)), null);
+                    MucMessage mucMessage =
+                        new MucMessage(new agsXMPP.protocol.client.Message(Account.Instance.Self.Jid, Service.Jid,
+                                                                           string.Format("{{{0}}} {1}",
+                                                                                         eventMucRoom.TypicalEventCode,
+                                                                                         eventMucRoom.Message)), null);
 
                     _mucMessages.Add(mucMessage);
                 }
@@ -456,8 +452,6 @@ namespace xeus2.xeus.Core
             }
         }
 
-        //public MucContact
-
         private void MessageCallback(object sender, agsXMPP.protocol.client.Message msg, object data)
         {
             if (App.CheckAccessSafe())
@@ -491,7 +485,7 @@ namespace xeus2.xeus.Core
             else
             {
                 App.InvokeSafe(App._dispatcherPriority,
-                                                   new MessageCB(MessageCallback), sender, msg, data);
+                               new MessageCB(MessageCallback), sender, msg, data);
             }
         }
 
@@ -603,7 +597,7 @@ namespace xeus2.xeus.Core
             else
             {
                 App.InvokeSafe(App._dispatcherPriority,
-                                new PresenceCB(PresenceCallback), sender, presence, data);
+                               new PresenceCB(PresenceCallback), sender, presence, data);
             }
         }
 
@@ -635,7 +629,7 @@ namespace xeus2.xeus.Core
             {
                 if (iq.Error.Code == ErrorCode.NotAllowed)
                 {
-                    MucContact mucContact = (MucContact)data;
+                    MucContact mucContact = (MucContact) data;
 
                     EventMucRoom eventMucRoom =
                         new EventMucRoom(TypicalEvent.Error, this, mucContact, string.Format(
@@ -653,7 +647,7 @@ namespace xeus2.xeus.Core
             {
                 if (iq.Error.Code == ErrorCode.NotAllowed)
                 {
-                    MucContact mucContact = (MucContact)data;
+                    MucContact mucContact = (MucContact) data;
 
                     EventMucRoom eventMucRoom =
                         new EventMucRoom(TypicalEvent.Error, this, mucContact, string.Format(
@@ -690,7 +684,6 @@ namespace xeus2.xeus.Core
             }
 
             _xmppClientConnection.Send(presence);
-
         }
 
         private void OnPrivilegesResult(object sender, IQ iq, object data)

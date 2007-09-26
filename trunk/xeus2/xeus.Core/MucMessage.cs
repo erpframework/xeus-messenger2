@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using xeus2.xeus.Utilities;
 
 namespace xeus2.xeus.Core
@@ -17,6 +18,19 @@ namespace xeus2.xeus.Core
             {
                 _dateTime = _message.XDelay.Stamp;
             }
+        }
+
+        public Dictionary<string, object> GetData()
+        {
+            Dictionary<string, object> data = new Dictionary<string, object>();
+
+            data.Add("From", _message.From);
+            data.Add("To", _message.To);
+            data.Add("DateTime", DateTime.ToBinary());
+            data.Add("Body", Body);
+            data.Add("Type", "muc");
+
+            return data;
         }
 
         public string Body

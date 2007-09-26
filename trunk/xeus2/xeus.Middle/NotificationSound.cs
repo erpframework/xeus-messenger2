@@ -20,5 +20,9 @@ namespace xeus2.xeus.Middle
         public void RefreshStatus()
         {
         }
+
+        public void ItemAdded(Event @event)
+        {
+        }
     }
 }

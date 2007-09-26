@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using xeus2.xeus.Core;
+﻿using xeus2.xeus.Core;
 
 namespace xeus2.xeus.Middle
 {
-    interface INotification
+    internal interface INotification
     {
         void RefreshStatus();
+        void ItemAdded(Event @event);
     }
 }

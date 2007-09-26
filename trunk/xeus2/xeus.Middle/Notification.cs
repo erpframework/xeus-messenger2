@@ -1,4 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.Timers;
+using agsXMPP.protocol.client;
+using xeus2.Properties;
 using xeus2.xeus.Core;
 using xeus2.xeus.Utilities;
 
@@ -28,11 +32,33 @@ namespace xeus2.xeus.Middle
 
         public delegate void NegotiateAddNotificationCallback(Event myEvent, NegotiateNotification negotiateNotification);
 
+        public delegate void RefreshCallback();
+
         public static event NegotiateAddNotificationCallback NegotiateAddNotification;
 
-        static Notification()
+        static readonly Timer _expTimer = new Timer();
+
+        static void _expTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            Events.Instance.OnEventRaised += Instance_OnEventRaised;
+            List<Event> toBeRemoved = new List<Event>();
+
+            lock (_notificationLock)
+            {
+                foreach (Event notification in _notifications)
+                {
+                    if (notification.Expiration < DateTime.Now)
+                    {
+                        toBeRemoved.Add(notification);
+                    }
+                }
+
+                foreach (Event @event in toBeRemoved)
+                {
+                    _notifications.Remove(@event);
+                }
+            }
+
+            RefreshStatus();
         }
 
         public static List<Event> Notifications
@@ -62,14 +88,56 @@ namespace xeus2.xeus.Middle
                     || myEvent is EventException
                     || myEvent is EventPresenceChanged)
                 {
-                    lock (_notificationLock)
-                    {
-                        _notifications.Add(myEvent);
+                    bool notify = true;
 
-                        RefreshStatus();
+                    EventPresenceChanged presenceChanged = myEvent as EventPresenceChanged;
+
+                    if (presenceChanged != null)
+                    {
+                        if ( presenceChanged.NewPresence.Type == PresenceType.available
+                            && (presenceChanged.NewPresence.Show == ShowType.NONE
+                                || presenceChanged.NewPresence.Show == ShowType.chat)
+                            && !Settings.Default.UI_Notify_PresenceAvailable)
+                        {
+                            // online, free for chat
+                            notify = false;
+                        } 
+                        else if (presenceChanged.NewPresence.Type == PresenceType.unavailable
+                            && !Settings.Default.UI_Notify_PresenceUnavailable)
+                        {
+                            // offline
+                            notify = false;
+                        }
+                        else if (presenceChanged.NewPresence.Type == PresenceType.available
+                            && (presenceChanged.NewPresence.Show == ShowType.away
+                                || presenceChanged.NewPresence.Show == ShowType.dnd
+                                || presenceChanged.NewPresence.Show == ShowType.xa)
+                            && !Settings.Default.UI_Notify_PresenceOther)
+                        {
+                            // online, away
+                            notify = false;
+                        }
+                    }
+
+                    if (notify)
+                    {
+                        lock (_notificationLock)
+                        {
+                            _notifications.Add(myEvent);
+                            Added(myEvent);
+                        }
                     }
                 }
             }
+        }
+
+        private static void Added(Event @event)
+        {
+            NotificationTray.Instance.ItemAdded(@event);
+            NotificationPopup.Instance.ItemAdded(@event);
+            NotificationSound.Instance.ItemAdded(@event);
+
+            RefreshStatus();
         }
 
         public static T GetFirstEvent<T>() where T:Event
@@ -90,9 +158,14 @@ namespace xeus2.xeus.Middle
 
         static void RefreshStatus()
         {
+            App.InvokeSafe(App._dispatcherPriority, new RefreshCallback(RefreshStatusInternal));
+        }
+
+        static void RefreshStatusInternal()
+        {
             NotificationTray.Instance.RefreshStatus();
             NotificationPopup.Instance.RefreshStatus();
-            NotificationSound.Instance.RefreshStatus();           
+            NotificationSound.Instance.RefreshStatus();
         }
 
         public static void DismissChatMessageNotification(IContact contact)
@@ -118,6 +191,17 @@ namespace xeus2.xeus.Middle
             }
 
             RefreshStatus();
+        }
+
+        public static void Initialize()
+        {
+            Events.Instance.OnEventRaised += Instance_OnEventRaised;
+
+            _expTimer.AutoReset = true;
+            _expTimer.Interval = 250.0;
+            _expTimer.Elapsed += _expTimer_Elapsed;
+
+            _expTimer.Enabled = true;
         }
     }
 }

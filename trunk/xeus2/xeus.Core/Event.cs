@@ -13,9 +13,10 @@ namespace xeus2.xeus.Core
 			Fatal
 		}
 
-		private string _message = null ;
+		private readonly string _message = null ;
 		private readonly EventSeverity _eventSeverity ;
 		private readonly DateTime _time = DateTime.Now ;
+	    private DateTime _expiration = DateTime.MaxValue;
 
 		public Event( string message, EventSeverity eventSeverity )
 		{
@@ -55,7 +56,20 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public void RefreshRelativeTime()
+	    public DateTime Expiration
+	    {
+	        get
+	        {
+	            return _expiration;
+	        }
+	        
+            protected set
+	        {
+	            _expiration = value;
+	        }
+	    }
+
+	    public void RefreshRelativeTime()
         {
             NotifyPropertyChanged("RelativeTime");
         }

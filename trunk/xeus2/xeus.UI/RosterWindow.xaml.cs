@@ -25,6 +25,7 @@ namespace xeus2
             new FilterRoster(_roster.CollectionView);
 
             NotificationTray.Instance.Inititalize(_trayIcon, this);
+            Notification.Initialize();
         }
 
         public override void EndInit()

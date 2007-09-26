@@ -23,7 +23,6 @@ namespace xeus2
 
             //Console.WriteLine("RCL: {0}", (RenderCapability.Tier >> 16));
 
-            Notification.GetFirstEvent<Event>();
             NotificationPopup.Instance.Initialize(new InfoPopup());
 
             Database.OpenDatabase();

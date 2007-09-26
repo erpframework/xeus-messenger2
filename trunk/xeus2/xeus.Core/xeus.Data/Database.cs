@@ -49,6 +49,7 @@ namespace xeus2.xeus.Data
                                   + "[To] VARCHAR NOT NULL, "
                                   + "[DateTime] INTEGER NOT NULL, "
                                   + "[Body] VARCHAR NOT NULL, "
+                                  + "[Type] VARCHAR NOT NULL, "
                                   + "FOREIGN KEY ([From]) REFERENCES [Contact]([Jid]) "
                                   + "FOREIGN KEY ([To]) REFERENCES [Contact]([Jid]));";
                 cmd.ExecuteNonQuery();
@@ -141,7 +142,7 @@ namespace xeus2.xeus.Data
                                             "SELECT [Message].* FROM [Message] "
                                           + "INNER JOIN [Contact] ON ([Contact].[Jid]=[Message].[From] "
                                           + "OR [Contact].[Jid]=[Message].[To]) "
-                                          + "AND [Contact].[Jid]=@jid "
+                                          + "AND [Contact].[Jid]=@jid AND [Message.Type]='chat'"
                                           + "ORDER BY [Message].[DateTime] "
                                           + "LIMIT {0};", maxMessages);
 
@@ -167,6 +168,21 @@ namespace xeus2.xeus.Data
         }
 
         public static void SaveMessage(Message message)
+        {
+            try
+            {
+                Dictionary<string, object> values = message.GetData();
+
+                Insert(values, "Message", false, _connection);
+            }
+
+            catch (Exception e)
+            {
+                Events.Instance.OnEvent(e, new EventError(e.Message, null));
+            }
+        }
+
+        public static void SaveMessage(MucMessage message)
         {
             try
             {

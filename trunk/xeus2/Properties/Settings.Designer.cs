@@ -274,5 +274,41 @@ namespace xeus2.Properties {
                 this["UI_MaxAvatarKb"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UI_Notify_PresenceAvailable {
+            get {
+                return ((bool)(this["UI_Notify_PresenceAvailable"]));
+            }
+            set {
+                this["UI_Notify_PresenceAvailable"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UI_Notify_PresenceUnavailable {
+            get {
+                return ((bool)(this["UI_Notify_PresenceUnavailable"]));
+            }
+            set {
+                this["UI_Notify_PresenceUnavailable"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UI_Notify_PresenceOther {
+            get {
+                return ((bool)(this["UI_Notify_PresenceOther"]));
+            }
+            set {
+                this["UI_Notify_PresenceOther"] = value;
+            }
+        }
     }
 }
