@@ -310,5 +310,17 @@ namespace xeus2.Properties {
                 this["UI_Notify_PresenceOther"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public uint UI_Notify_Presence_Exp {
+            get {
+                return ((uint)(this["UI_Notify_Presence_Exp"]));
+            }
+            set {
+                this["UI_Notify_Presence_Exp"] = value;
+            }
+        }
     }
 }

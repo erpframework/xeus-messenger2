@@ -74,5 +74,8 @@
     <Setting Name="UI_Notify_PresenceOther" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="UI_Notify_Presence_Exp" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
