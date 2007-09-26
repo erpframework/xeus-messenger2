@@ -11,8 +11,6 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
     /// </summary>
     public partial class Info : UserControl
     {
-        private readonly ObservableCollectionDisp<Event> _events = new ObservableCollectionDisp<Event>();
-
         readonly Timer _display = new Timer();
 
         private Event _eventToDisplay = null;
@@ -27,31 +25,10 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _display.Interval = 500.0;
             _display.Elapsed += _display_Elapsed;
 
-            _events.CollectionChanged += _events_CollectionChanged;
+            Notification.Notifications.CollectionChanged += Notifications_CollectionChanged;
         }
 
-        void _display_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            App.InvokeSafe(App._dispatcherPriority, new RedisplayCallback(Redisplay));
-        }
-
-        private void Redisplay()
-        {
-            if (_eventToDisplay != null)
-            {
-                _content.Content = _eventToDisplay;
-            }
-        }
-
-        internal ObservableCollectionDisp<Event> Events
-        {
-            get
-            {
-                return _events;
-            }
-        }
-
-        private void _events_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        void Notifications_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
@@ -83,14 +60,14 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
                         if (_content.Content != null)
                         {
-                            _eventToDisplay = _events[_events.Count - 1];
+                            _eventToDisplay = Notification.GetFirstEvent<Event>();
 
                             _display.Stop();
                             _display.Start();
                         }
                         else
                         {
-                            _content.Content = _events[_events.Count - 1];
+                            _content.Content = Notification.GetFirstEvent<Event>();
                         }
 
                         break;
@@ -101,8 +78,19 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                         break;
                     }
             }
+        }
 
-            _buttons.Visibility = (_events.Count == 0) ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+        void _display_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            App.InvokeSafe(App._dispatcherPriority, new RedisplayCallback(Redisplay));
+        }
+
+        private void Redisplay()
+        {
+            if (_eventToDisplay != null)
+            {
+                _content.Content = _eventToDisplay;
+            }
         }
 
         private void _next_Click(object sender, System.Windows.RoutedEventArgs e)

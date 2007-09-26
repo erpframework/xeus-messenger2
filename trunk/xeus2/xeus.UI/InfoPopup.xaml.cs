@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Forms;
 using xeus2.xeus.Core;
+using xeus2.xeus.Middle;
 using ListBox=System.Windows.Controls.ListBox;
 
 namespace xeus2.xeus.UI
@@ -15,19 +16,18 @@ namespace xeus2.xeus.UI
             InitializeComponent();
 
             _info.SizeChanged += _info_SizeChanged;
+
+            Notification.Notifications.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(Notifications_CollectionChanged);
+        }
+
+        void Notifications_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            IsOpen = (Notification.Notifications.Count > 0);
         }
 
         void _info_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
         {
             Resize();
-        }
-
-        internal void Add(Event lastEvent)
-        {
-            lock (_info.Events._syncObject)
-            {
-                _info.Events.Add(lastEvent);
-            }
         }
 
         protected override void OnOpened(EventArgs e)

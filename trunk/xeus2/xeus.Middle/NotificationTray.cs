@@ -77,9 +77,5 @@ namespace xeus2.xeus.Middle
                 _trayIcon.NotifyIcon.Text = string.Format("Message from {0}", ((EventChatMessage) lastEvent).Contact.DisplayName);
             }
         }
-
-        public void ItemAdded(Event @event)
-        {
-        }
     }
 }

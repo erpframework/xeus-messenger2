@@ -119,7 +119,10 @@ namespace xeus2.xeus.Core
             {
                 lock (_syncObject)
                 {
-                    base.RemoveItem(index);
+                    if (index < Count)
+                    {
+                        base.RemoveItem(index);
+                    }
                 }
             }
             else
