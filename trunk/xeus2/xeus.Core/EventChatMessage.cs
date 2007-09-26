@@ -1,6 +1,6 @@
 ﻿namespace xeus2.xeus.Core
 {
-    internal class EventChatMessage : Event
+    public class EventChatMessage : Event
     {
         private readonly Contact _contact;
         private readonly Message _message;

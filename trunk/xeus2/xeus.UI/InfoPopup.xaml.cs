@@ -10,35 +10,30 @@ namespace xeus2.xeus.UI
     /// </summary>
     public partial class InfoPopup
     {
-        private readonly ObservableCollectionDisp<Event> _events = new ObservableCollectionDisp<Event>();
-        private readonly ListBox _listBox = new ListBox();
-
         public InfoPopup()
         {
             InitializeComponent();
 
-            _listBox.ItemsSource = _events;
-            Child = _listBox;
+            _info.SizeChanged += _info_SizeChanged;
+        }
+
+        void _info_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
+        {
+            Resize();
         }
 
         internal void Add(Event lastEvent)
         {
-            lock (_events._syncObject)
+            lock (_info.Events._syncObject)
             {
-                if (_events.Count > 3)
-                {
-                    _events.RemoveAt(0);
-                }
-                
-                _events.Add(lastEvent);
+                _info.Events.Add(lastEvent);
             }
-
-            Resize();
         }
 
         protected override void OnOpened(EventArgs e)
         {
             base.OnOpened(e);
+            
             Resize();
         }
 
@@ -56,12 +51,8 @@ namespace xeus2.xeus.UI
                     break;
                 }
             }
-
-            Height = 100;
-            Width = 200;
-
-            HorizontalOffset = primaryScreen.WorkingArea.Right - _listBox.ActualWidth;
-            VerticalOffset = primaryScreen.WorkingArea.Bottom - _listBox.ActualHeight;
+            HorizontalOffset = primaryScreen.WorkingArea.Right - _info.ActualWidth - 10.0;
+            VerticalOffset = primaryScreen.WorkingArea.Bottom - _info.ActualHeight - 10.0;
         }
     }
 }

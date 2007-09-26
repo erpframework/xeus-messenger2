@@ -4,42 +4,7 @@
 	xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" 	
 	xmlns:xeus2_xeus_Core="clr-namespace:xeus2.xeus.Core"
 	>
-
-	<DataTemplate  DataType="{x:Type xeus2_xeus_Core:EventError}">
-    <StackPanel>
-    	<TextBlock Text="{Binding Path=Message}" Foreground="{DynamicResource DefaultTextBrush2}" MinWidth="200" TextWrapping="Wrap" VerticalAlignment="Center"/>
-	</StackPanel>
-	</DataTemplate>
-	
-	<DrawingBrush x:Key="error2_design"  PresentationOptions:Freeze="True" Stretch="Uniform">
-		<DrawingBrush.Drawing>
-			<DrawingGroup>
-				<DrawingGroup.Children>
-					<GeometryDrawing Geometry="F1 M 148.8,27.299C 215.627,27.299 269.801,81.473 269.801,148.3C 269.801,215.127 215.627,269.301 148.8,269.301C 81.973,269.301 27.799,215.127 27.799,148.3C 27.799,81.473 81.973,27.299 148.8,27.299 Z ">
-						<GeometryDrawing.Pen>
-							<Pen Thickness="20" LineJoin="Round" Brush="#FF4D4D4D"/>
-						</GeometryDrawing.Pen>
-						<GeometryDrawing.Brush>
-							<RadialGradientBrush RadiusX="0.479445" RadiusY="0.479445" Center="0.5,0.5" GradientOrigin="0.5,0.5">
-								<RadialGradientBrush.GradientStops>
-									<GradientStop Color="#FFFAC99C" Offset="0"/>
-									<GradientStop Color="#FFE30E0E" Offset="1"/>
-								</RadialGradientBrush.GradientStops>
-								<RadialGradientBrush.RelativeTransform>
-									<TransformGroup/>
-								</RadialGradientBrush.RelativeTransform>
-							</RadialGradientBrush>
-						</GeometryDrawing.Brush>
-					</GeometryDrawing>
-					<GeometryDrawing Brush="#3EFFFFFF" Geometry="F1 M 148.319,38.4447C 100.067,38.4447 59.1564,68.2297 44.9421,109.457C 75.8264,120.822 111.822,127.34 150.254,127.34C 187.263,127.34 222.013,121.296 252.115,110.699C 238.3,68.8293 197.054,38.4447 148.319,38.4447 Z "/>
-					<GeometryDrawing Brush="#2C000000" Geometry="F1 M 149.189,257.588C 171.769,257.588 192.827,250.903 210.584,239.359C 191.723,234.294 170.361,231.437 147.729,231.437C 125.927,231.437 105.303,234.088 86.9589,238.81C 104.889,250.692 126.254,257.588 149.189,257.588 Z "/>
-					<GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 217.579,103.412L 172.727,148.264L 217.579,193.115L 193.972,216.721L 149.121,171.87L 104.269,216.721L 80.6634,193.115L 125.515,148.264L 80.6634,103.412L 104.269,79.8061L 149.121,124.658L 193.972,79.8061L 217.579,103.412 Z "/>
-				</DrawingGroup.Children>
-			</DrawingGroup>
-		</DrawingBrush.Drawing>
-	</DrawingBrush>
-		
- <Style x:Key="InfoTip" TargetType="{x:Type ToolTip}">
+    <Style x:Key="InfoTip" TargetType="{x:Type ToolTip}">
  	<Style.Resources>
  		<Storyboard x:Key="Popup">
  			<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="{x:Null}" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">

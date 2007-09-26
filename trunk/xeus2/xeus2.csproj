@@ -90,6 +90,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="xeus.UI\xeus.UI.Look\EventsTemplates.xaml" />
     <Page Include="xeus.UI\xeus.UI.Look\MucRoster.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -209,6 +210,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="xeus.UI\xeus.UI.Controls\Info.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="xeus.UI\xeus.UI.Controls\MucAffiliationList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -266,6 +271,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="xeus.UI\xeus.UI.Look\StatusbarResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\xeus.UI.Zap\generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xeus.UI\xeus.UI.Zap\Zap.Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -497,6 +510,9 @@
       <DependentUpon>HistoryListSelection.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\xeus.UI.Controls\IMultiWinContainerProvider.cs" />
+    <Compile Include="xeus.UI\xeus.UI.Controls\Info.xaml.cs">
+      <DependentUpon>Info.xaml</DependentUpon>
+    </Compile>
     <Compile Include="xeus.UI\xeus.UI.Controls\MucAffiliationList.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>MucAffiliationList.xaml</DependentUpon>
@@ -548,6 +564,10 @@
     <Compile Include="xeus.UI\xeus.UI.Look\EnumToBoolConverter.cs" />
     <Compile Include="xeus.UI\xeus.UI.Look\HistoryTemplateSelector.cs" />
     <Compile Include="xeus.UI\xeus.UI.Look\ServiceTemplateSelector.cs" />
+    <Compile Include="xeus.UI\xeus.UI.Zap\ZapDecorator.cs" />
+    <Compile Include="xeus.UI\xeus.UI.Zap\ZapItemsControl.cs" />
+    <Compile Include="xeus.UI\xeus.UI.Zap\ZapPanel.cs" />
+    <Compile Include="xeus.UI\xeus.UI.Zap\ZapScroller.cs" />
     <Compile Include="xeus.Utilities\ElementUtil.cs" />
     <Compile Include="xeus.Utilities\IPropertyAccessor.cs" />
     <Compile Include="xeus.Utilities\JidUtil.cs" />

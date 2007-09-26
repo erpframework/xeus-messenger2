@@ -533,7 +533,7 @@ namespace xeus2.xeus.Core
 
         public override string ToString()
         {
-            return string.Format("{0} / {1}", Jid, Presence.Status);
+            return DisplayName;
         }
 
         public string AvatarHash

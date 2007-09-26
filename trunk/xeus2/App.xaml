@@ -15,6 +15,8 @@
     			<ResourceDictionary Source="xeus.UI\xeus.UI.Look\ScrollBar.xaml"/>
     			<ResourceDictionary Source="xeus.UI\xeus.UI.Look\Events.xaml"/>
                 <ResourceDictionary Source="xeus.UI\xeus.UI.Look\StatusbarResources.xaml"/>
+                <ResourceDictionary Source="xeus.UI\xeus.UI.Look\EventsTemplates.xaml"/>
+                <ResourceDictionary Source="xeus.UI\xeus.UI.Zap\generic.xaml"/>
     		</ResourceDictionary.MergedDictionaries>
     	</ResourceDictionary>
          

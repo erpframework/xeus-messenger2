@@ -2,7 +2,8 @@
 {
     internal class EventErrorAuth : Event
     {
-        public EventErrorAuth(string message) : base(message, EventSeverity.Error)
+        public EventErrorAuth(string message)
+            : base(message, EventSeverity.Error)
         {
         }
     }

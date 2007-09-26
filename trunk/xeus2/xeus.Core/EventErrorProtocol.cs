@@ -2,7 +2,7 @@
 
 namespace xeus2.xeus.Core
 {
-    internal class EventErrorProtocol : Event
+    public class EventErrorProtocol : Event
     {
         private readonly Element _element;
 

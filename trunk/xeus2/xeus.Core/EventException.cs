@@ -4,7 +4,7 @@ using System.Text;
 
 namespace xeus2.xeus.Core
 {
-    internal class EventException : Event
+    public class EventException : Event
     {
 		private Exception _exception = null ;
 
