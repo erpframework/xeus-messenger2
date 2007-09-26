@@ -55,5 +55,15 @@ namespace xeus2.xeus.UI
             HorizontalOffset = primaryScreen.WorkingArea.Right - 10.0;
             VerticalOffset = primaryScreen.WorkingArea.Bottom - 10.0;
         }
+
+        private void Popup_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Notification.DontExpire = true;
+        }
+
+        private void Popup_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Notification.DontExpire = false;
+        }
     }
 }

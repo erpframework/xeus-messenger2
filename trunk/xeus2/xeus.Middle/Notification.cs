@@ -38,29 +38,34 @@ namespace xeus2.xeus.Middle
 
         static readonly Timer _expTimer = new Timer();
 
+        private static bool _dontExpire = false;
+
         static void _expTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            List<Event> toBeRemoved = new List<Event>();
-
-            lock (_notificationLock)
+            if (!_dontExpire)
             {
-                foreach (Event notification in Notifications)
+                List<Event> toBeRemoved = new List<Event>();
+
+                lock (_notificationLock)
                 {
-                    if (notification.Expiration < DateTime.Now)
+                    foreach (Event notification in Notifications)
                     {
-                        toBeRemoved.Add(notification);
+                        if (notification.Expiration < DateTime.Now)
+                        {
+                            toBeRemoved.Add(notification);
+                        }
+                    }
+
+                    foreach (Event @event in toBeRemoved)
+                    {
+                        Notifications.Remove(@event);
                     }
                 }
 
-                foreach (Event @event in toBeRemoved)
+                if (toBeRemoved.Count > 0)
                 {
-                    Notifications.Remove(@event);
+                    RefreshStatus();
                 }
-            }
-
-            if (toBeRemoved.Count > 0)
-            {
-                RefreshStatus();
             }
         }
 
@@ -69,6 +74,18 @@ namespace xeus2.xeus.Middle
             get
             {
                 return _notifications;
+            }
+        }
+
+        public static bool DontExpire
+        {
+            get
+            {
+                return _dontExpire;
+            }
+            set
+            {
+                _dontExpire = value;
             }
         }
 
