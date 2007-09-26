@@ -6,6 +6,7 @@ using xeus2.Properties;
 using xeus2.xeus.Core;
 using xeus2.xeus.Data;
 using xeus2.xeus.Middle;
+using xeus2.xeus.UI;
 
 namespace xeus2
 {
@@ -22,8 +23,8 @@ namespace xeus2
 
             //Console.WriteLine("RCL: {0}", (RenderCapability.Tier >> 16));
 
-            ErrorPopup.Instance.Init();
             Notification.GetFirstEvent<Event>();
+            NotificationPopup.Instance.Initialize(new InfoPopup());
 
             Database.OpenDatabase();
         }

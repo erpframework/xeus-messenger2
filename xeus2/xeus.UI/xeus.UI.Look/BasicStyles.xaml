@@ -5,52 +5,71 @@
     xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic"
     xmlns:Microsoft_Windows_Themes1="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
 
-  <SolidColorBrush x:Key="ListItemBorder" Color="#FF872D2D" PresentationOptions:Freeze="True" />
-  <SolidColorBrush x:Key="selection_design" Color="#FF5E8DBE" PresentationOptions:Freeze="True" />
+    <SolidColorBrush x:Key="ListItemBorder" Color="#FF872D2D" PresentationOptions:Freeze="True" />
+    <SolidColorBrush x:Key="selection_design" Color="#FF5E8DBE" PresentationOptions:Freeze="True" />
 
-  <DrawingBrush x:Key="flyout_design" PresentationOptions:Freeze="True">
-    <DrawingBrush.Drawing>
-      <DrawingGroup>
-        <DrawingGroup.Children>
-          <GeometryDrawing Brush="#80FFFFFF" Geometry="F1 M 9.52443,5.78834L 18.9411,5.78834C 20.4139,5.78834 21.6078,6.98225 21.6078,8.45501L 21.6078,17.8717C 21.6078,19.3444 20.4139,20.5383 18.9411,20.5383L 9.52443,20.5383C 8.05167,20.5383 6.85776,19.3444 6.85776,17.8717L 6.85776,8.45501C 6.85776,6.98225 8.05167,5.78834 9.52443,5.78834 Z M 18.5657,8.35738L 10.5047,8.70209L 10.4649,8.74187L 12.4448,10.7218L 8.67355,14.493L 12.4448,18.2642L 16.216,14.493L 18.1959,16.4729L 18.2357,16.4331L 18.5657,8.35738 Z "/>
-        </DrawingGroup.Children>
-      </DrawingGroup>
-    </DrawingBrush.Drawing>
-  </DrawingBrush>
-  
-  <DrawingBrush x:Key="hide_design"  PresentationOptions:Freeze="True">
-    <DrawingBrush.Drawing>
-      <DrawingGroup>
-        <DrawingGroup.Children>
-          <GeometryDrawing Brush="#80FFFFFF" Geometry="F1 M 11.5661,2.95501L 20.9828,2.95501C 22.4555,2.95501 23.6494,4.14891 23.6494,5.62167L 23.6494,15.0383C 23.6494,16.5111 22.4555,17.705 20.9828,17.705L 11.5661,17.705C 10.0933,17.705 8.89943,16.5111 8.89943,15.0383L 8.89943,5.62167C 8.89943,4.14891 10.0933,2.95501 11.5661,2.95501 Z M 16.2848,15.9967L 21.7411,10.0529L 21.7411,9.99667L 18.9411,9.99667L 18.9411,4.66335L 13.6078,4.66335L 13.6078,9.99667L 10.8078,9.99667L 10.8078,10.0529L 16.2848,15.9967 Z "/>
-        </DrawingGroup.Children>
-      </DrawingGroup>
-    </DrawingBrush.Drawing>
-  </DrawingBrush>
+    <DrawingBrush x:Key="searchback_design">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Geometry="F1 M 24.25,16L 81.9167,16L 81.9167,82.1667L 24.25,82.1667L 24.25,16 Z ">
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush StartPoint="0.5,0.935768" EndPoint="0.5,0.0642317">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#FF505050" Offset="0"/>
+                                    <GradientStop Color="#FF000000" Offset="1"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
 
-  <DrawingBrush x:Key="back_menu_design" PresentationOptions:Freeze="True" >
-    <DrawingBrush.Drawing>
-      <DrawingGroup>
-        <DrawingGroup.Children>
-          <GeometryDrawing Brush="#FF414C67" Geometry="F1 M 545.833,0.305064L 15.5833,0.305064L 15.5833,-145.168L 545.833,-145.168L 545.833,0.305064 Z "/>
-          <GeometryDrawing Geometry="F1 M 15.5833,0.305054L 545.833,0.305054L 545.833,-145.168L 15.5833,-145.168L 15.5833,0.305054 Z ">
-            <GeometryDrawing.Brush>
-              <RadialGradientBrush RadiusX="1" RadiusY="3.11351" Center="0.5,2.93038" GradientOrigin="0.5,2.93038">
-                <RadialGradientBrush.GradientStops>
-                  <GradientStop Color="#FF229FFF" Offset="0"/>
-                  <GradientStop Color="#5D000000" Offset="1"/>
-                </RadialGradientBrush.GradientStops>
-                <RadialGradientBrush.RelativeTransform>
-                  <TransformGroup/>
-                </RadialGradientBrush.RelativeTransform>
-              </RadialGradientBrush>
-            </GeometryDrawing.Brush>
-          </GeometryDrawing>
-        </DrawingGroup.Children>
-      </DrawingGroup>
-    </DrawingBrush.Drawing>
-  </DrawingBrush>
-  
+    <DrawingBrush x:Key="flyout_design" PresentationOptions:Freeze="True">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#80FFFFFF" Geometry="F1 M 9.52443,5.78834L 18.9411,5.78834C 20.4139,5.78834 21.6078,6.98225 21.6078,8.45501L 21.6078,17.8717C 21.6078,19.3444 20.4139,20.5383 18.9411,20.5383L 9.52443,20.5383C 8.05167,20.5383 6.85776,19.3444 6.85776,17.8717L 6.85776,8.45501C 6.85776,6.98225 8.05167,5.78834 9.52443,5.78834 Z M 18.5657,8.35738L 10.5047,8.70209L 10.4649,8.74187L 12.4448,10.7218L 8.67355,14.493L 12.4448,18.2642L 16.216,14.493L 18.1959,16.4729L 18.2357,16.4331L 18.5657,8.35738 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
+    <DrawingBrush x:Key="hide_design"  PresentationOptions:Freeze="True">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#80FFFFFF" Geometry="F1 M 11.5661,2.95501L 20.9828,2.95501C 22.4555,2.95501 23.6494,4.14891 23.6494,5.62167L 23.6494,15.0383C 23.6494,16.5111 22.4555,17.705 20.9828,17.705L 11.5661,17.705C 10.0933,17.705 8.89943,16.5111 8.89943,15.0383L 8.89943,5.62167C 8.89943,4.14891 10.0933,2.95501 11.5661,2.95501 Z M 16.2848,15.9967L 21.7411,10.0529L 21.7411,9.99667L 18.9411,9.99667L 18.9411,4.66335L 13.6078,4.66335L 13.6078,9.99667L 10.8078,9.99667L 10.8078,10.0529L 16.2848,15.9967 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
+    <DrawingBrush x:Key="back_menu_design" PresentationOptions:Freeze="True" >
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#FF414C67" Geometry="F1 M 545.833,0.305064L 15.5833,0.305064L 15.5833,-145.168L 545.833,-145.168L 545.833,0.305064 Z "/>
+                    <GeometryDrawing Geometry="F1 M 15.5833,0.305054L 545.833,0.305054L 545.833,-145.168L 15.5833,-145.168L 15.5833,0.305054 Z ">
+                        <GeometryDrawing.Brush>
+                            <RadialGradientBrush RadiusX="1" RadiusY="3.11351" Center="0.5,2.93038" GradientOrigin="0.5,2.93038">
+                                <RadialGradientBrush.GradientStops>
+                                    <GradientStop Color="#FF229FFF" Offset="0"/>
+                                    <GradientStop Color="#5D000000" Offset="1"/>
+                                </RadialGradientBrush.GradientStops>
+                                <RadialGradientBrush.RelativeTransform>
+                                    <TransformGroup/>
+                                </RadialGradientBrush.RelativeTransform>
+                            </RadialGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
     <SolidColorBrush x:Key="notfound_design" Color="#FFDC0000"/>
 
     <DrawingBrush x:Key="back_list_design" PresentationOptions:Freeze="True" >
@@ -89,680 +108,680 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <Style TargetType="{x:Type ListBoxItem}">
-  	<Setter Property="Template" Value="{DynamicResource ListBoxItemControlTemplate}"/>
-  </Style>
+        <Setter Property="Template" Value="{DynamicResource ListBoxItemControlTemplate}"/>
+    </Style>
 
-      <Style TargetType="{x:Type ToolTip}">
-	 	 <Setter Property="OverridesDefaultStyle" Value="True"/>
-	     <Setter Property="VerticalOffset" Value="3" />
-	     <Setter Property="HorizontalOffset" Value="3" />
-	     <Setter Property="Placement" Value="Bottom" />
-		 
-	     <Setter Property="Template">
-	         <Setter.Value>
-	             <ControlTemplate TargetType="{x:Type ToolTip}">
-				 	<Border Background="{DynamicResource back_x_design}" Opacity="0.75" Margin="2,2,12,12" BorderBrush="#FF676767" BorderThickness="1,1,1,1" CornerRadius="4,4,4,4">
-				 		<StackPanel Orientation="Horizontal" Background="Transparent">
-				 			<Path IsEnabled="False" RenderTransformOrigin="0,0" Fill="White" Stretch="Fill" Data="M8.3203125,6.2790108 L8.4765625,6.2790108 L17.363281,14.491901 L8.4765625,22.734089 L8.3203125,22.734089 L8.3203125,18.437214 L0.41992188,18.437214 L0.41992188,10.556355 L8.3203125,10.556355 z" Margin="5,3,0,4">
-				 				<Path.LayoutTransform>
-				 					<TransformGroup>
-				 						<ScaleTransform ScaleX="1" ScaleY="1"/>
-				 						<SkewTransform AngleX="0" AngleY="0"/>
-				 						<RotateTransform Angle="-45"/>
-				 						<TranslateTransform X="0" Y="0"/>
-				 					</TransformGroup>
-				 				</Path.LayoutTransform>
-				 			</Path>
-				 			<ContentPresenter TextBlock.Foreground="White" TextBlock.FontSize="12" Margin="5,0,7,0" VerticalAlignment="Center" />
-				 		</StackPanel>
-					 </Border>
-	             </ControlTemplate>
-	         </Setter.Value>
-	     </Setter>
-	 </Style>
+    <Style TargetType="{x:Type ToolTip}">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="VerticalOffset" Value="3" />
+        <Setter Property="HorizontalOffset" Value="3" />
+        <Setter Property="Placement" Value="Bottom" />
 
-  <DrawingBrush x:Key="required_design" PresentationOptions:Freeze="True" Stretch="Uniform">
-		<DrawingBrush.Drawing>
-			<DrawingGroup>
-				<DrawingGroup.Children>
-					<GeometryDrawing Geometry="F1 M 148.8,27.299C 215.627,27.299 269.801,81.473 269.801,148.3C 269.801,215.127 215.627,269.301 148.8,269.301C 81.973,269.301 27.799,215.127 27.799,148.3C 27.799,81.473 81.973,27.299 148.8,27.299 Z ">
-						<GeometryDrawing.Pen>
-							<Pen Thickness="20" LineJoin="Round" Brush="#FF4D4D4D"/>
-						</GeometryDrawing.Pen>
-						<GeometryDrawing.Brush>
-							<RadialGradientBrush RadiusX="0.479445" RadiusY="0.479445" Center="0.5,0.5" GradientOrigin="0.5,0.5">
-								<RadialGradientBrush.GradientStops>
-									<GradientStop Color="#FFFA9C9C" Offset="0"/>
-									<GradientStop Color="#FFE30E0E" Offset="1"/>
-								</RadialGradientBrush.GradientStops>
-								<RadialGradientBrush.RelativeTransform>
-									<TransformGroup/>
-								</RadialGradientBrush.RelativeTransform>
-							</RadialGradientBrush>
-						</GeometryDrawing.Brush>
-					</GeometryDrawing>
-					<GeometryDrawing Brush="#3EFFFFFF" Geometry="F1 M 148.319,38.4447C 100.067,38.4447 59.1564,68.2297 44.9421,109.457C 75.8264,120.822 111.822,127.34 150.254,127.34C 187.263,127.34 222.013,121.296 252.115,110.699C 238.3,68.8293 197.054,38.4447 148.319,38.4447 Z "/>
-					<GeometryDrawing Brush="#2C000000" Geometry="F1 M 149.189,257.588C 171.769,257.588 192.827,250.903 210.584,239.359C 191.723,234.294 170.361,231.437 147.729,231.437C 125.927,231.437 105.303,234.088 86.9589,238.81C 104.889,250.692 126.254,257.588 149.189,257.588 Z "/>
-					<GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 163.785,78.6216L 161.789,172.584L 135.843,172.584L 131.851,78.6216L 163.785,78.6216 Z M 148.91,217.607C 143.4,217.607 138.847,216.073 135.251,213.004C 131.654,209.935 129.856,206.219 129.856,201.855C 129.856,197.288 131.669,193.551 135.297,190.645C 138.925,187.74 143.463,186.287 148.91,186.287C 154.44,186.287 158.967,187.76 162.49,190.706C 166.014,193.653 167.776,197.369 167.776,201.855C 167.776,206.402 166.03,210.165 162.537,213.142C 159.045,216.119 154.502,217.607 148.91,217.607 Z "/>
-				</DrawingGroup.Children>
-			</DrawingGroup>
-		</DrawingBrush.Drawing>
-	</DrawingBrush>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToolTip}">
+                    <Border Background="{DynamicResource back_x_design}" Opacity="0.75" Margin="2,2,12,12" BorderBrush="#FF676767" BorderThickness="1,1,1,1" CornerRadius="4,4,4,4">
+                        <StackPanel Orientation="Horizontal" Background="Transparent">
+                            <Path IsEnabled="False" RenderTransformOrigin="0,0" Fill="White" Stretch="Fill" Data="M8.3203125,6.2790108 L8.4765625,6.2790108 L17.363281,14.491901 L8.4765625,22.734089 L8.3203125,22.734089 L8.3203125,18.437214 L0.41992188,18.437214 L0.41992188,10.556355 L8.3203125,10.556355 z" Margin="5,3,0,4">
+                                <Path.LayoutTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                        <SkewTransform AngleX="0" AngleY="0"/>
+                                        <RotateTransform Angle="-45"/>
+                                        <TranslateTransform X="0" Y="0"/>
+                                    </TransformGroup>
+                                </Path.LayoutTransform>
+                            </Path>
+                            <ContentPresenter TextBlock.Foreground="White" TextBlock.FontSize="12" Margin="5,0,7,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-  <DrawingBrush x:Key="next_design" PresentationOptions:Freeze="True" Stretch="Uniform" >
-      <DrawingBrush.Drawing>
-        <DrawingGroup>
-          <DrawingGroup.Children>
-            <GeometryDrawing Brush="#80FFFFFF" Geometry="F1 M 17.7982,13.7687L 20.0098,13.7687L 16.3946,18.4203L 12.7793,13.7687L 14.9909,13.7687L 14.9909,11.198L 17.7982,11.198L 17.7982,13.7687 Z "/>
-          </DrawingGroup.Children>
-        </DrawingGroup>
-      </DrawingBrush.Drawing>
-  </DrawingBrush>
+    <DrawingBrush x:Key="required_design" PresentationOptions:Freeze="True" Stretch="Uniform">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Geometry="F1 M 148.8,27.299C 215.627,27.299 269.801,81.473 269.801,148.3C 269.801,215.127 215.627,269.301 148.8,269.301C 81.973,269.301 27.799,215.127 27.799,148.3C 27.799,81.473 81.973,27.299 148.8,27.299 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="20" LineJoin="Round" Brush="#FF4D4D4D"/>
+                        </GeometryDrawing.Pen>
+                        <GeometryDrawing.Brush>
+                            <RadialGradientBrush RadiusX="0.479445" RadiusY="0.479445" Center="0.5,0.5" GradientOrigin="0.5,0.5">
+                                <RadialGradientBrush.GradientStops>
+                                    <GradientStop Color="#FFFA9C9C" Offset="0"/>
+                                    <GradientStop Color="#FFE30E0E" Offset="1"/>
+                                </RadialGradientBrush.GradientStops>
+                                <RadialGradientBrush.RelativeTransform>
+                                    <TransformGroup/>
+                                </RadialGradientBrush.RelativeTransform>
+                            </RadialGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#3EFFFFFF" Geometry="F1 M 148.319,38.4447C 100.067,38.4447 59.1564,68.2297 44.9421,109.457C 75.8264,120.822 111.822,127.34 150.254,127.34C 187.263,127.34 222.013,121.296 252.115,110.699C 238.3,68.8293 197.054,38.4447 148.319,38.4447 Z "/>
+                    <GeometryDrawing Brush="#2C000000" Geometry="F1 M 149.189,257.588C 171.769,257.588 192.827,250.903 210.584,239.359C 191.723,234.294 170.361,231.437 147.729,231.437C 125.927,231.437 105.303,234.088 86.9589,238.81C 104.889,250.692 126.254,257.588 149.189,257.588 Z "/>
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 163.785,78.6216L 161.789,172.584L 135.843,172.584L 131.851,78.6216L 163.785,78.6216 Z M 148.91,217.607C 143.4,217.607 138.847,216.073 135.251,213.004C 131.654,209.935 129.856,206.219 129.856,201.855C 129.856,197.288 131.669,193.551 135.297,190.645C 138.925,187.74 143.463,186.287 148.91,186.287C 154.44,186.287 158.967,187.76 162.49,190.706C 166.014,193.653 167.776,197.369 167.776,201.855C 167.776,206.402 166.03,210.165 162.537,213.142C 159.045,216.119 154.502,217.607 148.91,217.607 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
 
-  <DrawingBrush x:Key="close_design" PresentationOptions:Freeze="True" Stretch="Uniform" >
-    <DrawingBrush.Drawing>
-      <DrawingGroup>
-        <DrawingGroup.Children>
-          <GeometryDrawing Brush="#80FFFFFF" Geometry="F1 M 20.2578,9.6175L 16.3786,13.4967L 20.2578,17.3758L 18.2161,19.4175L 14.3369,15.5383L 10.4578,19.4175L 8.4161,17.3758L 12.2953,13.4967L 8.4161,9.6175L 10.4578,7.57583L 14.3369,11.455L 18.2161,7.57583L 20.2578,9.6175 Z "/>
-        </DrawingGroup.Children>
-      </DrawingGroup>
-    </DrawingBrush.Drawing>
-  </DrawingBrush>
+    <DrawingBrush x:Key="next_design" PresentationOptions:Freeze="True" Stretch="Uniform" >
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#80FFFFFF" Geometry="F1 M 17.7982,13.7687L 20.0098,13.7687L 16.3946,18.4203L 12.7793,13.7687L 14.9909,13.7687L 14.9909,11.198L 17.7982,11.198L 17.7982,13.7687 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
 
-  <DrawingBrush x:Key="clear_design" PresentationOptions:Freeze="True" Stretch="Uniform" >
-    <DrawingBrush.Drawing>
-      <DrawingGroup>
-				<DrawingGroup.Children>
-					<GeometryDrawing Brush="#80000000" Geometry="F1 M 20.2578,9.6175L 16.3786,13.4967L 20.2578,17.3758L 18.2161,19.4175L 14.3369,15.5383L 10.4578,19.4175L 8.4161,17.3758L 12.2953,13.4967L 8.4161,9.6175L 10.4578,7.57583L 14.3369,11.455L 18.2161,7.57583L 20.2578,9.6175 Z "/>
-				</DrawingGroup.Children>
-			</DrawingGroup>
-		</DrawingBrush.Drawing>
-	</DrawingBrush>
-	
-	<DrawingBrush x:Key="background_design_2" PresentationOptions:Freeze="True">
-		<DrawingBrush.Drawing>
-			<DrawingGroup>
-				<DrawingGroup.Children>
-					<GeometryDrawing Geometry="F1 M 11.3333,485.333L 477.889,485.333L 477.889,580.222L 11.3333,580.222L 11.3333,485.333 Z ">
-						<GeometryDrawing.Pen>
-							<Pen LineJoin="Round" Brush="#FF444444"/>
-						</GeometryDrawing.Pen>
-						<GeometryDrawing.Brush>
-							<LinearGradientBrush StartPoint="0.5,0.902014" EndPoint="0.5,0.0979868">
-								<LinearGradientBrush.GradientStops>
-									<GradientStop Color="#FF000000" Offset="0"/>
-									<GradientStop Color="#FF5E5E5E" Offset="0.780822"/>
-									<GradientStop Color="#FF717171" Offset="0.90411"/>
-									<GradientStop Color="#FF858585" Offset="1"/>
-								</LinearGradientBrush.GradientStops>
-							</LinearGradientBrush>
-						</GeometryDrawing.Brush>
-					</GeometryDrawing>
-				</DrawingGroup.Children>
-			</DrawingGroup>
-		</DrawingBrush.Drawing>
-	</DrawingBrush>
-	
-	<DrawingBrush x:Key="back_x_design" PresentationOptions:Freeze="True" Stretch="Fill" >
-		<DrawingBrush.Drawing>
-			<DrawingGroup>
-				<DrawingGroup.Children>
-					<GeometryDrawing Brush="#FF000000" Geometry="F1 M 545.833,0.305064L 15.5833,0.305064L 15.5833,-145.168L 545.833,-145.168L 545.833,0.305064 Z "/>
-					<GeometryDrawing Geometry="F1 M 15.5833,0.305054L 545.833,0.305054L 545.833,-145.168L 15.5833,-145.168L 15.5833,0.305054 Z ">
-						<GeometryDrawing.Brush>
-							<RadialGradientBrush RadiusX="1" RadiusY="3.11351" Center="0.5,2.93038" GradientOrigin="0.5,2.93038">
-								<RadialGradientBrush.GradientStops>
-									<GradientStop Color="#FF229FFF" Offset="0"/>
-									<GradientStop Color="#5D000000" Offset="1"/>
-								</RadialGradientBrush.GradientStops>
-								<RadialGradientBrush.RelativeTransform>
-									<TransformGroup/>
-								</RadialGradientBrush.RelativeTransform>
-							</RadialGradientBrush>
-						</GeometryDrawing.Brush>
-					</GeometryDrawing>
-					<GeometryDrawing Geometry="F1 M 280.472,-88.5838C 381.032,-88.5838 471.079,-110.543 531.567,-145.168L 29.3773,-145.168C 89.8654,-110.543 179.913,-88.5838 280.472,-88.5838 Z ">
-						<GeometryDrawing.Brush>
-							<RadialGradientBrush RadiusX="0.875" RadiusY="5.03665" Center="0.5,-3.52942" GradientOrigin="0.5,-3.52942">
-								<RadialGradientBrush.GradientStops>
-									<GradientStop Color="#FF0092FF" Offset="0"/>
-									<GradientStop Color="#00000000" Offset="0.995434"/>
-								</RadialGradientBrush.GradientStops>
-								<RadialGradientBrush.RelativeTransform>
-									<TransformGroup>
-										<RotateTransform CenterX="0.5" CenterY="-3.52942" Angle="180"/>
-									</TransformGroup>
-								</RadialGradientBrush.RelativeTransform>
-							</RadialGradientBrush>
-						</GeometryDrawing.Brush>
-					</GeometryDrawing>
-				</DrawingGroup.Children>
-			</DrawingGroup>
-		</DrawingBrush.Drawing>
-	</DrawingBrush>
+    <DrawingBrush x:Key="close_design" PresentationOptions:Freeze="True" Stretch="Uniform" >
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#80FFFFFF" Geometry="F1 M 20.2578,9.6175L 16.3786,13.4967L 20.2578,17.3758L 18.2161,19.4175L 14.3369,15.5383L 10.4578,19.4175L 8.4161,17.3758L 12.2953,13.4967L 8.4161,9.6175L 10.4578,7.57583L 14.3369,11.455L 18.2161,7.57583L 20.2578,9.6175 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
+    <DrawingBrush x:Key="clear_design" PresentationOptions:Freeze="True" Stretch="Uniform" >
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#80000000" Geometry="F1 M 20.2578,9.6175L 16.3786,13.4967L 20.2578,17.3758L 18.2161,19.4175L 14.3369,15.5383L 10.4578,19.4175L 8.4161,17.3758L 12.2953,13.4967L 8.4161,9.6175L 10.4578,7.57583L 14.3369,11.455L 18.2161,7.57583L 20.2578,9.6175 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
+    <DrawingBrush x:Key="background_design_2" PresentationOptions:Freeze="True">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Geometry="F1 M 11.3333,485.333L 477.889,485.333L 477.889,580.222L 11.3333,580.222L 11.3333,485.333 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen LineJoin="Round" Brush="#FF444444"/>
+                        </GeometryDrawing.Pen>
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush StartPoint="0.5,0.902014" EndPoint="0.5,0.0979868">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#FF000000" Offset="0"/>
+                                    <GradientStop Color="#FF5E5E5E" Offset="0.780822"/>
+                                    <GradientStop Color="#FF717171" Offset="0.90411"/>
+                                    <GradientStop Color="#FF858585" Offset="1"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
+    <DrawingBrush x:Key="back_x_design" PresentationOptions:Freeze="True" Stretch="Fill" >
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#FF000000" Geometry="F1 M 545.833,0.305064L 15.5833,0.305064L 15.5833,-145.168L 545.833,-145.168L 545.833,0.305064 Z "/>
+                    <GeometryDrawing Geometry="F1 M 15.5833,0.305054L 545.833,0.305054L 545.833,-145.168L 15.5833,-145.168L 15.5833,0.305054 Z ">
+                        <GeometryDrawing.Brush>
+                            <RadialGradientBrush RadiusX="1" RadiusY="3.11351" Center="0.5,2.93038" GradientOrigin="0.5,2.93038">
+                                <RadialGradientBrush.GradientStops>
+                                    <GradientStop Color="#FF229FFF" Offset="0"/>
+                                    <GradientStop Color="#5D000000" Offset="1"/>
+                                </RadialGradientBrush.GradientStops>
+                                <RadialGradientBrush.RelativeTransform>
+                                    <TransformGroup/>
+                                </RadialGradientBrush.RelativeTransform>
+                            </RadialGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                    <GeometryDrawing Geometry="F1 M 280.472,-88.5838C 381.032,-88.5838 471.079,-110.543 531.567,-145.168L 29.3773,-145.168C 89.8654,-110.543 179.913,-88.5838 280.472,-88.5838 Z ">
+                        <GeometryDrawing.Brush>
+                            <RadialGradientBrush RadiusX="0.875" RadiusY="5.03665" Center="0.5,-3.52942" GradientOrigin="0.5,-3.52942">
+                                <RadialGradientBrush.GradientStops>
+                                    <GradientStop Color="#FF0092FF" Offset="0"/>
+                                    <GradientStop Color="#00000000" Offset="0.995434"/>
+                                </RadialGradientBrush.GradientStops>
+                                <RadialGradientBrush.RelativeTransform>
+                                    <TransformGroup>
+                                        <RotateTransform CenterX="0.5" CenterY="-3.52942" Angle="180"/>
+                                    </TransformGroup>
+                                </RadialGradientBrush.RelativeTransform>
+                            </RadialGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
 
 
-	<DrawingBrush x:Key="shadow_design" PresentationOptions:Freeze="True" >
-		<DrawingBrush.Drawing>
-			<DrawingGroup>
-				<DrawingGroup.Children>
-					<GeometryDrawing Geometry="F1 M 426.459,46.8715L 426.459,55.7951L -103.793,55.7951L -103.793,46.8715L 426.459,46.8715 Z ">
-						<GeometryDrawing.Brush>
-							<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-								<LinearGradientBrush.GradientStops>
-									<GradientStop Color="#27000000" Offset="0"/>
-									<GradientStop Color="#00FFFFFF" Offset="1"/>
-								</LinearGradientBrush.GradientStops>
-							</LinearGradientBrush>
-						</GeometryDrawing.Brush>
-					</GeometryDrawing>
-				</DrawingGroup.Children>
-			</DrawingGroup>
-		</DrawingBrush.Drawing>
-	</DrawingBrush>
+    <DrawingBrush x:Key="shadow_design" PresentationOptions:Freeze="True" >
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Geometry="F1 M 426.459,46.8715L 426.459,55.7951L -103.793,55.7951L -103.793,46.8715L 426.459,46.8715 Z ">
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#27000000" Offset="0"/>
+                                    <GradientStop Color="#00FFFFFF" Offset="1"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
 
-  <DrawingBrush x:Key="back_tab_design" PresentationOptions:Freeze="True" >
-      <DrawingBrush.Drawing>
-        <DrawingGroup>
-          <DrawingGroup.Children>
-            <GeometryDrawing Geometry="F1 M -5.96591e-007,0L 300,0L 300,300L -5.96591e-007,300L -5.96591e-007,0 Z ">
-              <GeometryDrawing.Brush>
-                <LinearGradientBrush StartPoint="0.5,0.00508474" EndPoint="0.5,0.994915">
-                  <LinearGradientBrush.GradientStops>
-                    <GradientStop Color="#D9B0D3FA" Offset="0"/>
-                    <GradientStop Color="#D95D89BA" Offset="1"/>
-                  </LinearGradientBrush.GradientStops>
-                </LinearGradientBrush>
-              </GeometryDrawing.Brush>
-            </GeometryDrawing>
-          </DrawingGroup.Children>
-        </DrawingGroup>
-      </DrawingBrush.Drawing>
-  </DrawingBrush>
+    <DrawingBrush x:Key="back_tab_design" PresentationOptions:Freeze="True" >
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Geometry="F1 M -5.96591e-007,0L 300,0L 300,300L -5.96591e-007,300L -5.96591e-007,0 Z ">
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush StartPoint="0.5,0.00508474" EndPoint="0.5,0.994915">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#D9B0D3FA" Offset="0"/>
+                                    <GradientStop Color="#D95D89BA" Offset="1"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
 
-  <DrawingBrush x:Key="back_tab_over_design"  PresentationOptions:Freeze="True">
-      <DrawingBrush.Drawing>
-        <DrawingGroup>
-          <DrawingGroup.Children>
-            <GeometryDrawing Geometry="F1 M -1.07691e-005,0L 300,0L 300,300L -1.07691e-005,300L -1.07691e-005,0 Z ">
-              <GeometryDrawing.Brush>
-                <LinearGradientBrush StartPoint="0.5,0.00508474" EndPoint="0.5,0.994915">
-                  <LinearGradientBrush.GradientStops>
-                    <GradientStop Color="#67B0D3FA" Offset="0"/>
-                    <GradientStop Color="#675D89BA" Offset="1"/>
-                  </LinearGradientBrush.GradientStops>
-                </LinearGradientBrush>
-              </GeometryDrawing.Brush>
-            </GeometryDrawing>
-          </DrawingGroup.Children>
-        </DrawingGroup>
-      </DrawingBrush.Drawing>
-  </DrawingBrush>
+    <DrawingBrush x:Key="back_tab_over_design"  PresentationOptions:Freeze="True">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Geometry="F1 M -1.07691e-005,0L 300,0L 300,300L -1.07691e-005,300L -1.07691e-005,0 Z ">
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush StartPoint="0.5,0.00508474" EndPoint="0.5,0.994915">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#67B0D3FA" Offset="0"/>
+                                    <GradientStop Color="#675D89BA" Offset="1"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
 
-  <DrawingBrush x:Key="back_list_over_design" PresentationOptions:Freeze="True" >
-    <DrawingBrush.Drawing>
-      <DrawingGroup>
-        <DrawingGroup.Children>
-          <GeometryDrawing Brush="#80CFDAE7" Geometry="F1 M -897.671,-922.548L -4.46803e-005,-922.548L -4.46803e-005,-810.548L -897.671,-810.548L -897.671,-922.548 Z "/>
-        </DrawingGroup.Children>
-      </DrawingGroup>
-    </DrawingBrush.Drawing>
-  </DrawingBrush>
+    <DrawingBrush x:Key="back_list_over_design" PresentationOptions:Freeze="True" >
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#80CFDAE7" Geometry="F1 M -897.671,-922.548L -4.46803e-005,-922.548L -4.46803e-005,-810.548L -897.671,-810.548L -897.671,-922.548 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
 
-  <DrawingBrush x:Key="back_list_inactive_design" PresentationOptions:Freeze="True" >
-    <DrawingBrush.Drawing>
-      <DrawingGroup>
-        <DrawingGroup.Children>
-          <GeometryDrawing Brush="#80CFDAE7" Geometry="F1 M -897.671,-922.548L -4.46803e-005,-922.548L -4.46803e-005,-810.548L -897.671,-810.548L -897.671,-922.548 Z "/>
-        </DrawingGroup.Children>
-      </DrawingGroup>
-    </DrawingBrush.Drawing>
-  </DrawingBrush>
+    <DrawingBrush x:Key="back_list_inactive_design" PresentationOptions:Freeze="True" >
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#80CFDAE7" Geometry="F1 M -897.671,-922.548L -4.46803e-005,-922.548L -4.46803e-005,-810.548L -897.671,-810.548L -897.671,-922.548 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
 
-  <DrawingBrush x:Key="background_design" PresentationOptions:Freeze="True" >
-    <DrawingBrush.Drawing>
-      <DrawingGroup>
-        <DrawingGroup.Children>
-          <GeometryDrawing Geometry="F1 M 11.3333,11.3334L 477.889,11.3334L 477.889,580.222L 11.3333,580.222L 11.3333,11.3334 Z ">
-            <GeometryDrawing.Brush>
-              <LinearGradientBrush StartPoint="0.5,0.90625" EndPoint="0.5,0.09375">
-                <LinearGradientBrush.GradientStops>
-                  <GradientStop Color="#FF97D5E9" Offset="0"/>
-                  <GradientStop Color="#FFFFFFFF" Offset="1"/>
-                </LinearGradientBrush.GradientStops>
-              </LinearGradientBrush>
-            </GeometryDrawing.Brush>
-          </GeometryDrawing>
-          <GeometryDrawing Geometry="F1 M 11.3333,11.3334L 32.611,11.3334L 32.611,580.222L 11.3333,580.222L 11.3333,11.3334 Z ">
-            <GeometryDrawing.Brush>
-              <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
-                <LinearGradientBrush.GradientStops>
-                  <GradientStop Color="#27000000" Offset="0"/>
-                  <GradientStop Color="#00FFFFFF" Offset="1"/>
-                </LinearGradientBrush.GradientStops>
-              </LinearGradientBrush>
-            </GeometryDrawing.Brush>
-          </GeometryDrawing>
-          <GeometryDrawing Geometry="F1 M 477.889,580.222L 456.611,580.222L 456.611,11.3334L 477.889,11.3334L 477.889,580.222 Z ">
-            <GeometryDrawing.Brush>
-              <LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5">
-                <LinearGradientBrush.GradientStops>
-                  <GradientStop Color="#27000000" Offset="0"/>
-                  <GradientStop Color="#00FFFFFF" Offset="1"/>
-                </LinearGradientBrush.GradientStops>
-              </LinearGradientBrush>
-            </GeometryDrawing.Brush>
-          </GeometryDrawing>
-          <GeometryDrawing Geometry="F1 M 477.889,11.3334L 477.889,32.611L 11.3333,32.611L 11.3333,11.3334L 477.889,11.3334 Z ">
-            <GeometryDrawing.Brush>
-							<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-								<LinearGradientBrush.GradientStops>
-									<GradientStop Color="#27000000" Offset="0"/>
-									<GradientStop Color="#00FFFFFF" Offset="1"/>
-								</LinearGradientBrush.GradientStops>
-							</LinearGradientBrush>
-						</GeometryDrawing.Brush>
-					</GeometryDrawing>
-					<GeometryDrawing Geometry="F1 M 11.3333,580.222L 11.3333,558.945L 477.889,558.945L 477.889,580.222L 11.3333,580.222 Z ">
-						<GeometryDrawing.Brush>
-							<LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
-								<LinearGradientBrush.GradientStops>
-									<GradientStop Color="#27000000" Offset="0"/>
-									<GradientStop Color="#00FFFFFF" Offset="1"/>
-								</LinearGradientBrush.GradientStops>
-							</LinearGradientBrush>
-						</GeometryDrawing.Brush>
-					</GeometryDrawing>
-				</DrawingGroup.Children>
-			</DrawingGroup>
-		</DrawingBrush.Drawing>
-	</DrawingBrush>
+    <DrawingBrush x:Key="background_design" PresentationOptions:Freeze="True" >
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Geometry="F1 M 11.3333,11.3334L 477.889,11.3334L 477.889,580.222L 11.3333,580.222L 11.3333,11.3334 Z ">
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush StartPoint="0.5,0.90625" EndPoint="0.5,0.09375">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#FF97D5E9" Offset="0"/>
+                                    <GradientStop Color="#FFFFFFFF" Offset="1"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                    <GeometryDrawing Geometry="F1 M 11.3333,11.3334L 32.611,11.3334L 32.611,580.222L 11.3333,580.222L 11.3333,11.3334 Z ">
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#27000000" Offset="0"/>
+                                    <GradientStop Color="#00FFFFFF" Offset="1"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                    <GeometryDrawing Geometry="F1 M 477.889,580.222L 456.611,580.222L 456.611,11.3334L 477.889,11.3334L 477.889,580.222 Z ">
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#27000000" Offset="0"/>
+                                    <GradientStop Color="#00FFFFFF" Offset="1"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                    <GeometryDrawing Geometry="F1 M 477.889,11.3334L 477.889,32.611L 11.3333,32.611L 11.3333,11.3334L 477.889,11.3334 Z ">
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#27000000" Offset="0"/>
+                                    <GradientStop Color="#00FFFFFF" Offset="1"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                    <GeometryDrawing Geometry="F1 M 11.3333,580.222L 11.3333,558.945L 477.889,558.945L 477.889,580.222L 11.3333,580.222 Z ">
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#27000000" Offset="0"/>
+                                    <GradientStop Color="#00FFFFFF" Offset="1"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
 
-  <ContextMenu x:Key="TextBoxStyleMenu">
-    <MenuItem Header="Cut" Command="Cut" />
-    <MenuItem Header="Copy" Command="Copy" />
-    <MenuItem Header="Paste" Command="Paste" />
-    <MenuItem Header="Select All" Command="SelectAll" />
-  </ContextMenu>
+    <ContextMenu x:Key="TextBoxStyleMenu">
+        <MenuItem Header="Cut" Command="Cut" />
+        <MenuItem Header="Copy" Command="Copy" />
+        <MenuItem Header="Paste" Command="Paste" />
+        <MenuItem Header="Select All" Command="SelectAll" />
+    </ContextMenu>
 
-  <Style x:Key="TransparentTextBoxStyle" TargetType="{x:Type TextBox}">
-		<Setter Property="Background" Value="{x:Null}"/>
-		<Setter Property="BorderBrush" Value="{x:Null}"/>
-		<Setter Property="BorderThickness" Value="0,0,0,0"/>
-    <Setter Property="MinHeight" Value="22"/>
-    <Setter Property="ContextMenu" Value="{DynamicResource TextBoxStyleMenu}"/>
-  </Style>
+    <Style x:Key="TransparentTextBoxStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="Background" Value="{x:Null}"/>
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,0"/>
+        <Setter Property="MinHeight" Value="22"/>
+        <Setter Property="ContextMenu" Value="{DynamicResource TextBoxStyleMenu}"/>
+    </Style>
 
-  <Style x:Key="TextBoxBasic" TargetType="{x:Type TextBox}">
-    <Setter Property="Template" Value="{DynamicResource TextBoxBaseControlTemplate}"/>
-    <Setter Property="MinHeight" Value="22"/>
-    <Setter Property="ContextMenu" Value="{DynamicResource TextBoxStyleMenu}"/>
-  </Style>
+    <Style x:Key="TextBoxBasic" TargetType="{x:Type TextBox}">
+        <Setter Property="Template" Value="{DynamicResource TextBoxBaseControlTemplate}"/>
+        <Setter Property="MinHeight" Value="22"/>
+        <Setter Property="ContextMenu" Value="{DynamicResource TextBoxStyleMenu}"/>
+    </Style>
 
-	<Style x:Key="LabelBasic" TargetType="{x:Type TextBlock}">
-		<Setter Property="Foreground" Value="{DynamicResource DefaultTextBrush2}"/>
-	</Style>
+    <Style x:Key="LabelBasic" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="{DynamicResource DefaultTextBrush2}"/>
+    </Style>
 
-	<Style x:Key="XDataLabel" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource LabelBasic}">
-		<Setter Property="Foreground" Value="{DynamicResource DefaultSelectedBorderBrush}"/>
-		<Setter Property="TextWrapping" Value="Wrap"/>
-	</Style>
+    <Style x:Key="XDataLabel" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource LabelBasic}">
+        <Setter Property="Foreground" Value="{DynamicResource DefaultSelectedBorderBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
 
-	<Style x:Key="XDataFixed" TargetType="{x:Type TextBlock}">
-		<Setter Property="HorizontalAlignment" Value="Stretch"/>
-	</Style>
-	
-	<Style x:Key="XDataTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource TextBoxBasic}">
-		<Setter Property="MinWidth" Value="150"/>
-		<Setter Property="MaxWidth" Value="150"/>
-	</Style>
+    <Style x:Key="XDataFixed" TargetType="{x:Type TextBlock}">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    </Style>
 
-	<Style x:Key="XDataCheckBox" TargetType="{x:Type CheckBox}">
-		<Setter Property="MinWidth" Value="150"/>
-		<Setter Property="VerticalAlignment" Value="Center"/>
-		<Setter Property="Template" Value="{DynamicResource CheckBoxControlTemplate}"/>
-	</Style>
+    <Style x:Key="XDataTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource TextBoxBasic}">
+        <Setter Property="MinWidth" Value="150"/>
+        <Setter Property="MaxWidth" Value="150"/>
+    </Style>
 
-  <Style TargetType="{x:Type CheckBox}">
-    <Setter Property="Template" Value="{DynamicResource CheckBoxControlTemplate}"/>
-  </Style>
+    <Style x:Key="XDataCheckBox" TargetType="{x:Type CheckBox}">
+        <Setter Property="MinWidth" Value="150"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template" Value="{DynamicResource CheckBoxControlTemplate}"/>
+    </Style>
 
-  <Style x:Key="XDataListMulti" TargetType="{x:Type StackPanel}"/>
+    <Style TargetType="{x:Type CheckBox}">
+        <Setter Property="Template" Value="{DynamicResource CheckBoxControlTemplate}"/>
+    </Style>
 
-	<Style x:Key="XDataListSingle" TargetType="{x:Type ComboBox}">
-		<Setter Property="MinWidth" Value="150"/>
-		<Setter Property="MaxWidth" Value="250"/>
-		<Setter Property="Template" Value="{DynamicResource ComboBoxControlTemplate}"/>
-	</Style>
+    <Style x:Key="XDataListMulti" TargetType="{x:Type StackPanel}"/>
 
-	<Style x:Key="PasswordBasic" TargetType="{x:Type PasswordBox}">
-		<Setter Property="Background" Value="{DynamicResource DefaultTextBoxBackBrush}"/>
-	</Style>
+    <Style x:Key="XDataListSingle" TargetType="{x:Type ComboBox}">
+        <Setter Property="MinWidth" Value="150"/>
+        <Setter Property="MaxWidth" Value="250"/>
+        <Setter Property="Template" Value="{DynamicResource ComboBoxControlTemplate}"/>
+    </Style>
 
-	<Style TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource PasswordBasic}"/>
+    <Style x:Key="PasswordBasic" TargetType="{x:Type PasswordBox}">
+        <Setter Property="Background" Value="{DynamicResource DefaultTextBoxBackBrush}"/>
+    </Style>
 
-	<Style x:Key="XDataSecret" TargetType="{x:Type PasswordBox}"  BasedOn="{StaticResource PasswordBasic}">
-		<Setter Property="MinWidth" Value="150"/>
-		<Setter Property="MaxWidth" Value="250"/>
-	</Style>
+    <Style TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource PasswordBasic}"/>
 
-	<ControlTemplate x:Key="TreeViewControlTemplate" TargetType="{x:Type TreeView}"  PresentationOptions:Freeze="True">
-		<Border>
-			<ScrollViewer Focusable="False" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" CanContentScroll="False" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
-				<ItemsPresenter/>
-			</ScrollViewer>
-		</Border>
-	</ControlTemplate>
+    <Style x:Key="XDataSecret" TargetType="{x:Type PasswordBox}"  BasedOn="{StaticResource PasswordBasic}">
+        <Setter Property="MinWidth" Value="150"/>
+        <Setter Property="MaxWidth" Value="250"/>
+    </Style>
 
-	<SolidColorBrush x:Key="DefaultBorderBrush" Color="#FF2c2c2c"  PresentationOptions:Freeze="True"/>
-	<SolidColorBrush x:Key="DefaultSelectedBorderBrush" Color="#FF919191"  PresentationOptions:Freeze="True"/>
+    <ControlTemplate x:Key="TreeViewControlTemplate" TargetType="{x:Type TreeView}"  PresentationOptions:Freeze="True">
+        <Border>
+            <ScrollViewer Focusable="False" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" CanContentScroll="False" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                <ItemsPresenter/>
+            </ScrollViewer>
+        </Border>
+    </ControlTemplate>
 
-	<SolidColorBrush x:Key="TextBoxBorderBrush" Color="#FF999999"  PresentationOptions:Freeze="True"/>
+    <SolidColorBrush x:Key="DefaultBorderBrush" Color="#FF2c2c2c"  PresentationOptions:Freeze="True"/>
+    <SolidColorBrush x:Key="DefaultSelectedBorderBrush" Color="#FF919191"  PresentationOptions:Freeze="True"/>
 
-	<Style TargetType="{x:Type TreeView}"  PresentationOptions:Freeze="True">
-		<Setter Property="OverridesDefaultStyle" Value="False"/>
-		<Setter Property="Background" Value="{x:Null}"/>
-	</Style>
+    <SolidColorBrush x:Key="TextBoxBorderBrush" Color="#FF999999"  PresentationOptions:Freeze="True"/>
 
-	<LinearGradientBrush x:Key="DefaultTextBoxBackBrush" EndPoint="0.5,1" StartPoint="0.5,0">
-		<GradientStop Color="#FFB8B5B5" Offset="0.005"/>
-		<GradientStop Color="#FFCAC8C8" Offset="0.99"/>
-		<GradientStop Color="#FFCFCFCF" Offset="0.14"/>
-		<GradientStop Color="#FFE0E0E0" Offset="0.87"/>
-		<GradientStop Color="#FFE5E2E2" Offset="0.52"/>
-	</LinearGradientBrush>
-	
-	<LinearGradientBrush x:Key="DefaultTextBoxBackBrushSelected" EndPoint="0.5,1" StartPoint="0.5,0">
-		<GradientStop Color="#FFA7BFC8" Offset="0.005"/>
-		<GradientStop Color="#FF76B5C8" Offset="0.99"/>
-		<GradientStop Color="#FFBECFD6" Offset="0.14"/>
-		<GradientStop Color="#FFBCD9E4" Offset="0.87"/>
-		<GradientStop Color="#FFC6DDE5" Offset="0.52"/>
-	</LinearGradientBrush>
+    <Style TargetType="{x:Type TreeView}"  PresentationOptions:Freeze="True">
+        <Setter Property="OverridesDefaultStyle" Value="False"/>
+        <Setter Property="Background" Value="{x:Null}"/>
+    </Style>
 
-	<SolidColorBrush x:Key="DefaultTextBrush" Color="#FF454545" PresentationOptions:Freeze="True"/>
-	<SolidColorBrush x:Key="DefaultTextBrush2" Color="#FF919191" PresentationOptions:Freeze="True"/>
+    <LinearGradientBrush x:Key="DefaultTextBoxBackBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#FFB8B5B5" Offset="0.005"/>
+        <GradientStop Color="#FFCAC8C8" Offset="0.99"/>
+        <GradientStop Color="#FFCFCFCF" Offset="0.14"/>
+        <GradientStop Color="#FFE0E0E0" Offset="0.87"/>
+        <GradientStop Color="#FFE5E2E2" Offset="0.52"/>
+    </LinearGradientBrush>
 
-  <SolidColorBrush x:Key="DefaultTextMenuBrush" Color="#FFC7D4E3" PresentationOptions:Freeze="True"/>
-  <SolidColorBrush x:Key="DefaultTextMenuBrushDisabled" Color="#FF516C88" PresentationOptions:Freeze="True"/>
-  <SolidColorBrush x:Key="DefaultTextMenuBrushSelected" Color="#88516C88" PresentationOptions:Freeze="True"/>
+    <LinearGradientBrush x:Key="DefaultTextBoxBackBrushSelected" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#FFA7BFC8" Offset="0.005"/>
+        <GradientStop Color="#FF76B5C8" Offset="0.99"/>
+        <GradientStop Color="#FFBECFD6" Offset="0.14"/>
+        <GradientStop Color="#FFBCD9E4" Offset="0.87"/>
+        <GradientStop Color="#FFC6DDE5" Offset="0.52"/>
+    </LinearGradientBrush>
 
-  <Style x:Key="ProgressBarStyle" TargetType="{x:Type ProgressBar}" >
-		<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-		<Setter Property="BorderBrush">
-			<Setter.Value>
-				<SolidColorBrush/>
-			</Setter.Value>
-		</Setter>
-		<Setter Property="BorderThickness" Value="1,1,1,1"/>
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type ProgressBar}">
-					<Border BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3">
-						<Border.Background>
-							<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-								<GradientStop Color="#FF2C2C2C" Offset="0"/>
-								<GradientStop Color="#FF3E3D3D" Offset="1"/>
-							</LinearGradientBrush>
-						</Border.Background>
-						<DockPanel x:Name="PART_Track" LastChildFill="False" Margin="0,0,-2,0">
-							<Grid x:Name="PART_Indicator" >
-							<Rectangle VerticalAlignment="Stretch" Height="Auto" Fill="#FF0D0D0D" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="6.5">
-								<Rectangle.OpacityMask>
-									<LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-										<GradientStop Color="#FF000000" Offset="0"/>
-										<GradientStop Color="#00FFFFFF" Offset="1"/>
-									</LinearGradientBrush>
-								</Rectangle.OpacityMask>
-								<Rectangle.RenderTransform>
-									<TransformGroup>
-										<ScaleTransform ScaleX="1" ScaleY="1"/>
-										<SkewTransform AngleX="0" AngleY="0"/>
-										<RotateTransform Angle="0"/>
-										<TranslateTransform X="0" Y="0"/>
-									</TransformGroup>
-								</Rectangle.RenderTransform>
-							</Rectangle>
-							<Rectangle RadiusX="3" RadiusY="3" Margin="0,0,2,0">
-								<Rectangle.Fill>
-	
-									<DrawingBrush PresentationOptions:Freeze="True" >
-										<DrawingBrush.Drawing>
-											<DrawingGroup>
-												<GeometryDrawing Geometry="F1 M 3.91667,3.33334L 97.9167,3.33334L 97.9167,97.6667L 3.91667,97.6667L 3.91667,3.33334 Z ">
-													<GeometryDrawing.Brush>
-														<LinearGradientBrush StartPoint="0.5,0.998233" EndPoint="0.5,0.00176676">
-															<GradientStop Color="#FF53667c" Offset="0"/>
-															<GradientStop Color="#FF3c4e65" Offset="1"/>
-														</LinearGradientBrush>
-													</GeometryDrawing.Brush>
-												</GeometryDrawing>
-											</DrawingGroup>
-										</DrawingBrush.Drawing>
-									</DrawingBrush>
-	
-								</Rectangle.Fill>
-							</Rectangle>
-							<Rectangle Fill="#19FFFFFF" RadiusX="3" RadiusY="3" Margin="2,2,4,0" VerticalAlignment="Top" Height="5" />
-							</Grid>
-						</DockPanel>
-					</Border>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-		<Setter Property="MinHeight" Value="22"/>
-		<Style.Triggers>
-			<Trigger Property="Orientation" Value="Vertical">
-				<Setter Property="Template">
-					<Setter.Value>
-						<ControlTemplate TargetType="{x:Type ProgressBar}">
-							<Microsoft_Windows_Themes:ClassicBorderDecorator Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderStyle="ThinPressed" BorderThickness="{TemplateBinding BorderThickness}">
-								<DockPanel Margin="0,0,2,2" x:Name="PART_Track" LastChildFill="False">
-									<Decorator x:Name="PART_Indicator" DockPanel.Dock="Bottom">
-										<Rectangle>
-											<Rectangle.Fill>
-												<MultiBinding UpdateSourceTrigger="Default">
-													<MultiBinding.Converter>
-														<Microsoft_Windows_Themes:ProgressBarBrushConverter/>
-													</MultiBinding.Converter>
-													<Binding Path="Foreground" RelativeSource="{RelativeSource TemplatedParent}"/>
-													<Binding Path="IsIndeterminate" RelativeSource="{RelativeSource TemplatedParent}"/>
-													<Binding Path="ActualHeight" ElementName="PART_Indicator"/>
-													<Binding Path="ActualWidth" ElementName="PART_Indicator"/>
-													<Binding Path="ActualHeight" ElementName="PART_Track"/>
-												</MultiBinding>
-											</Rectangle.Fill>
-											<Rectangle.LayoutTransform>
-												<RotateTransform Angle="-90"/>
-											</Rectangle.LayoutTransform>
-										</Rectangle>
-									</Decorator>
-								</DockPanel>
-							</Microsoft_Windows_Themes:ClassicBorderDecorator>
-						</ControlTemplate>
-					</Setter.Value>
-				</Setter>
-			</Trigger>
-		</Style.Triggers>
-	</Style>
+    <SolidColorBrush x:Key="DefaultTextBrush" Color="#FF454545" PresentationOptions:Freeze="True"/>
+    <SolidColorBrush x:Key="DefaultTextBrush2" Color="#FF919191" PresentationOptions:Freeze="True"/>
 
-	<Style x:Key="ImageButtonStyle" TargetType="{x:Type Button}" PresentationOptions:Freeze="True">
-		<Setter Property="Template" Value="{DynamicResource ImageButtonControlTemplate}"/>
-		<Setter Property="SnapsToDevicePixels" Value="False"/>
-		<Setter Property="Margin" Value="2,2,2,2"/>
-		<Setter Property="AllowDrop" Value="False"/>
-		<Setter Property="Focusable" Value="False"/>
-		<Setter Property="IsTabStop" Value="False"/>
-		<Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
-		<Setter Property="RenderTransform">
-			<Setter.Value>
-				<TransformGroup>
-					<ScaleTransform ScaleX="1" ScaleY="1"/>
-					<SkewTransform AngleX="0" AngleY="0"/>
-					<RotateTransform Angle="0"/>
-					<TranslateTransform X="0" Y="0"/>
-				</TransformGroup>
-			</Setter.Value>
-		</Setter>
-		<Style.Triggers>
-			<Trigger Property="IsMouseOver" Value="True">
-				<Setter Property="RenderTransform">
-					<Setter.Value>
-						<TransformGroup>
-							<ScaleTransform ScaleX="1.1" ScaleY="1.1"/>
-							<SkewTransform AngleX="0" AngleY="0"/>
-							<RotateTransform Angle="0"/>
-							<TranslateTransform/>
-						</TransformGroup>
-					</Setter.Value>
-				</Setter>
-			</Trigger>
-			<Trigger Property="IsEnabled" Value="False">
-				<Setter Property="Opacity" Value="0.5"/>
-			</Trigger>
-		</Style.Triggers>
-	</Style>
+    <SolidColorBrush x:Key="DefaultTextMenuBrush" Color="#FFC7D4E3" PresentationOptions:Freeze="True"/>
+    <SolidColorBrush x:Key="DefaultTextMenuBrushDisabled" Color="#FF516C88" PresentationOptions:Freeze="True"/>
+    <SolidColorBrush x:Key="DefaultTextMenuBrushSelected" Color="#88516C88" PresentationOptions:Freeze="True"/>
 
-	<ControlTemplate x:Key="ImageButtonControlTemplate" TargetType="{x:Type Button}" PresentationOptions:Freeze="True">
-		<Border x:Name="border" Background="{TemplateBinding Background}" />
-		<ControlTemplate.Triggers>
-			<Trigger Property="IsEnabled" Value="False">
-				<Setter Property="Opacity" TargetName="border" Value="0.5"/>
-			</Trigger>
-			<Trigger Property="IsPressed" Value="True">
-				<Setter Property="Margin" TargetName="border" Value="1,1,0,0"/>
-			</Trigger>
-		</ControlTemplate.Triggers>
-	</ControlTemplate>
+    <Style x:Key="ProgressBarStyle" TargetType="{x:Type ProgressBar}" >
+        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+        <Setter Property="BorderBrush">
+            <Setter.Value>
+                <SolidColorBrush/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderThickness" Value="1,1,1,1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ProgressBar}">
+                    <Border BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF2C2C2C" Offset="0"/>
+                                <GradientStop Color="#FF3E3D3D" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <DockPanel x:Name="PART_Track" LastChildFill="False" Margin="0,0,-2,0">
+                            <Grid x:Name="PART_Indicator" >
+                                <Rectangle VerticalAlignment="Stretch" Height="Auto" Fill="#FF0D0D0D" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="6.5">
+                                    <Rectangle.OpacityMask>
+                                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                            <GradientStop Color="#FF000000" Offset="0"/>
+                                            <GradientStop Color="#00FFFFFF" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.OpacityMask>
+                                    <Rectangle.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                            <SkewTransform AngleX="0" AngleY="0"/>
+                                            <RotateTransform Angle="0"/>
+                                            <TranslateTransform X="0" Y="0"/>
+                                        </TransformGroup>
+                                    </Rectangle.RenderTransform>
+                                </Rectangle>
+                                <Rectangle RadiusX="3" RadiusY="3" Margin="0,0,2,0">
+                                    <Rectangle.Fill>
 
-	<Style x:Key="FrameBorderStyle" TargetType="{x:Type Border}"  PresentationOptions:Freeze="True">
-		<Setter Property="Background" Value="#FF000000"/>
-	</Style>
-	
-	<Style x:Key="ToolbarBorderStyle" TargetType="{x:Type Border}"  PresentationOptions:Freeze="True">
-		<Setter Property="BorderBrush" Value="{DynamicResource DefaultBorderBrush}"/>
-		<Setter Property="BorderThickness" Value="1,1,1,1"/>
-		<Setter Property="CornerRadius" Value="3,3,3,3"/>
-		<Setter Property="Padding" Value="10,5,10,5"/>
-	</Style>
+                                        <DrawingBrush PresentationOptions:Freeze="True" >
+                                            <DrawingBrush.Drawing>
+                                                <DrawingGroup>
+                                                    <GeometryDrawing Geometry="F1 M 3.91667,3.33334L 97.9167,3.33334L 97.9167,97.6667L 3.91667,97.6667L 3.91667,3.33334 Z ">
+                                                        <GeometryDrawing.Brush>
+                                                            <LinearGradientBrush StartPoint="0.5,0.998233" EndPoint="0.5,0.00176676">
+                                                                <GradientStop Color="#FF53667c" Offset="0"/>
+                                                                <GradientStop Color="#FF3c4e65" Offset="1"/>
+                                                            </LinearGradientBrush>
+                                                        </GeometryDrawing.Brush>
+                                                    </GeometryDrawing>
+                                                </DrawingGroup>
+                                            </DrawingBrush.Drawing>
+                                        </DrawingBrush>
 
-	<Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource TextBoxBasic}"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Rectangle Fill="#19FFFFFF" RadiusX="3" RadiusY="3" Margin="2,2,4,0" VerticalAlignment="Top" Height="5" />
+                            </Grid>
+                        </DockPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="MinHeight" Value="22"/>
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Vertical">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ProgressBar}">
+                            <Microsoft_Windows_Themes:ClassicBorderDecorator Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderStyle="ThinPressed" BorderThickness="{TemplateBinding BorderThickness}">
+                                <DockPanel Margin="0,0,2,2" x:Name="PART_Track" LastChildFill="False">
+                                    <Decorator x:Name="PART_Indicator" DockPanel.Dock="Bottom">
+                                        <Rectangle>
+                                            <Rectangle.Fill>
+                                                <MultiBinding UpdateSourceTrigger="Default">
+                                                    <MultiBinding.Converter>
+                                                        <Microsoft_Windows_Themes:ProgressBarBrushConverter/>
+                                                    </MultiBinding.Converter>
+                                                    <Binding Path="Foreground" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                                    <Binding Path="IsIndeterminate" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                                    <Binding Path="ActualHeight" ElementName="PART_Indicator"/>
+                                                    <Binding Path="ActualWidth" ElementName="PART_Indicator"/>
+                                                    <Binding Path="ActualHeight" ElementName="PART_Track"/>
+                                                </MultiBinding>
+                                            </Rectangle.Fill>
+                                            <Rectangle.LayoutTransform>
+                                                <RotateTransform Angle="-90"/>
+                                            </Rectangle.LayoutTransform>
+                                        </Rectangle>
+                                    </Decorator>
+                                </DockPanel>
+                            </Microsoft_Windows_Themes:ClassicBorderDecorator>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
-	<ControlTemplate x:Key="TextBoxBaseControlTemplate" TargetType="{x:Type TextBox}">
-		<Border x:Name="Bd" BorderBrush="{DynamicResource TextBoxBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="1,1,1,1" Background="{DynamicResource DefaultTextBoxBackBrush}">
-      <ScrollViewer x:Name="PART_ContentHost" />
-		</Border>
-		<ControlTemplate.Triggers>
-			<Trigger Property="IsEnabled" Value="False">
-				<Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-				<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-			</Trigger>
-		</ControlTemplate.Triggers>
-	</ControlTemplate>
+    <Style x:Key="ImageButtonStyle" TargetType="{x:Type Button}" PresentationOptions:Freeze="True">
+        <Setter Property="Template" Value="{DynamicResource ImageButtonControlTemplate}"/>
+        <Setter Property="SnapsToDevicePixels" Value="False"/>
+        <Setter Property="Margin" Value="2,2,2,2"/>
+        <Setter Property="AllowDrop" Value="False"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                    <SkewTransform AngleX="0" AngleY="0"/>
+                    <RotateTransform Angle="0"/>
+                    <TranslateTransform X="0" Y="0"/>
+                </TransformGroup>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="RenderTransform">
+                    <Setter.Value>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="1.1" ScaleY="1.1"/>
+                            <SkewTransform AngleX="0" AngleY="0"/>
+                            <RotateTransform Angle="0"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.5"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
-	<Style TargetType="{x:Type Button}">
-		<Setter Property="Background" Value="#FF000000"/>
-		<Setter Property="MinHeight" Value="22"/>
-		<Setter Property="Foreground" Value="#FFFFFFFF"/>
-		<Setter Property="BorderBrush" Value="#FFDEDEDE"/>
-		<Setter Property="BorderThickness" Value="1,1,1,1"/>
-		<Style.BasedOn>
-			<Style TargetType="{x:Type Button}">
-				<Setter Property="FocusVisualStyle">
-					<Setter.Value>
-						<Style>
-							<Setter Property="Control.Template">
-								<Setter.Value>
-									<ControlTemplate>
-										<Border>
-											<Rectangle SnapsToDevicePixels="True" Stroke="#FF000000" StrokeDashArray="1 2" StrokeThickness="1" Margin="4,4,4,4"/>
-										</Border>
-									</ControlTemplate>
-								</Setter.Value>
-							</Setter>
-						</Style>
-					</Setter.Value>
-				</Setter>
-				<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-				<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-				<Setter Property="BorderBrush">
-					<Setter.Value>
-						<SolidColorBrush/>
-					</Setter.Value>
-				</Setter>
-				<Setter Property="BorderThickness" Value="3,3,3,3"/>
-				<Setter Property="HorizontalContentAlignment" Value="Center"/>
-				<Setter Property="VerticalContentAlignment" Value="Center"/>
-				<Setter Property="Padding" Value="0,0,1,1"/>
-				<Setter Property="Template">
-					<Setter.Value>
-<ControlTemplate TargetType="{x:Type Button}">
-<Border 
+    <ControlTemplate x:Key="ImageButtonControlTemplate" TargetType="{x:Type Button}" PresentationOptions:Freeze="True">
+        <Border x:Name="border" Background="{TemplateBinding Background}" />
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" TargetName="border" Value="0.5"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Margin" TargetName="border" Value="1,1,0,0"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="FrameBorderStyle" TargetType="{x:Type Border}"  PresentationOptions:Freeze="True">
+        <Setter Property="Background" Value="#FF000000"/>
+    </Style>
+
+    <Style x:Key="ToolbarBorderStyle" TargetType="{x:Type Border}"  PresentationOptions:Freeze="True">
+        <Setter Property="BorderBrush" Value="{DynamicResource DefaultBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1,1,1,1"/>
+        <Setter Property="CornerRadius" Value="3,3,3,3"/>
+        <Setter Property="Padding" Value="10,5,10,5"/>
+    </Style>
+
+    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource TextBoxBasic}"/>
+
+    <ControlTemplate x:Key="TextBoxBaseControlTemplate" TargetType="{x:Type TextBox}">
+        <Border x:Name="Bd" BorderBrush="{DynamicResource TextBoxBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="1,1,1,1" Background="{DynamicResource DefaultTextBoxBackBrush}">
+            <ScrollViewer x:Name="PART_ContentHost" />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="#FF000000"/>
+        <Setter Property="MinHeight" Value="22"/>
+        <Setter Property="Foreground" Value="#FFFFFFFF"/>
+        <Setter Property="BorderBrush" Value="#FFDEDEDE"/>
+        <Setter Property="BorderThickness" Value="1,1,1,1"/>
+        <Style.BasedOn>
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="FocusVisualStyle">
+                    <Setter.Value>
+                        <Style>
+                            <Setter Property="Control.Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Border>
+                                            <Rectangle SnapsToDevicePixels="True" Stroke="#FF000000" StrokeDashArray="1 2" StrokeThickness="1" Margin="4,4,4,4"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                <Setter Property="BorderBrush">
+                    <Setter.Value>
+                        <SolidColorBrush/>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BorderThickness" Value="3,3,3,3"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="0,0,1,1"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border 
 	x:Name="_border"
 	BorderThickness="1,1,1,1" 
 	CornerRadius="3,3,3,3" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF8A8A8A" >
-	<Border.RenderTransform>
-		<TransformGroup>
-			<ScaleTransform ScaleX="1" ScaleY="1"/>
-			<SkewTransform AngleX="0" AngleY="0"/>
-			<RotateTransform Angle="0"/>
-			<TranslateTransform X="0" Y="0"/>
-		</TransformGroup>
-	</Border.RenderTransform>
-	<Grid>
-	<Rectangle VerticalAlignment="Stretch" RadiusX="3" RadiusY="3"
+                                <Border.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                        <SkewTransform AngleX="0" AngleY="0"/>
+                                        <RotateTransform Angle="0"/>
+                                        <TranslateTransform X="0" Y="0"/>
+                                    </TransformGroup>
+                                </Border.RenderTransform>
+                                <Grid>
+                                    <Rectangle VerticalAlignment="Stretch" RadiusX="3" RadiusY="3"
 		Opacity="0.6" StrokeThickness="0">
-		<Rectangle.Fill>
-			<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-				<GradientStop Color="#FF000000" Offset="1"/>
-				<GradientStop Color="#FFFFFFFF" Offset="0"/>
-			</LinearGradientBrush>
-		</Rectangle.Fill>
-	</Rectangle>
-	<Rectangle VerticalAlignment="Stretch" RadiusX="3" RadiusY="3"
+                                        <Rectangle.Fill>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="#FF000000" Offset="1"/>
+                                                <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                                            </LinearGradientBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <Rectangle VerticalAlignment="Stretch" RadiusX="3" RadiusY="3"
 		Fill="{TemplateBinding Property=Background}" Opacity="0.65" StrokeThickness="0" x:Name="rectangle"/>
-	<Rectangle Fill="#4CE1E1E1" VerticalAlignment="Top" Height="6" RadiusX="3" RadiusY="3" Margin="1,1,1,0" x:Name="rectangle1"/>
-	<ContentPresenter Margin="5,2,5,4" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="contentPresenter"/>
-	</Grid>
-</Border>
+                                    <Rectangle Fill="#4CE1E1E1" VerticalAlignment="Top" Height="6" RadiusX="3" RadiusY="3" Margin="1,1,1,0" x:Name="rectangle1"/>
+                                    <ContentPresenter Margin="5,2,5,4" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="contentPresenter"/>
+                                </Grid>
+                            </Border>
 
-	<ControlTemplate.Triggers>
-		<Trigger Property="IsEnabled" Value="False">
-			<Setter Property="Opacity" TargetName="_border" Value="0.5"/>
-			<Setter Property="Opacity" TargetName="contentPresenter" Value="0.5"/>
-		</Trigger>
-	  <Trigger Property="Ellipse.IsMouseOver" Value="True">
-	  	<Setter Property="Fill" TargetName="rectangle1" Value="#7FE1E1E1"/>
-	  	<Setter Property="Opacity" TargetName="rectangle" Value="0.85"/>
-	  </Trigger>
-		<Trigger Property="IsPressed" Value="True">
-			<Setter Property="RenderTransform" TargetName="_border">
-				<Setter.Value>
-					<TransformGroup>
-						<ScaleTransform ScaleX="0.95" ScaleY="0.95"/>
-						<SkewTransform AngleX="0" AngleY="0"/>
-						<RotateTransform Angle="0"/>
-						<TranslateTransform X="0" Y="0"/>
-					</TransformGroup>
-				</Setter.Value>
-			</Setter>
-		</Trigger>
-	</ControlTemplate.Triggers>
-</ControlTemplate>
-					</Setter.Value>
-				</Setter>
-			</Style>
-		</Style.BasedOn>
-	</Style>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Opacity" TargetName="_border" Value="0.5"/>
+                                    <Setter Property="Opacity" TargetName="contentPresenter" Value="0.5"/>
+                                </Trigger>
+                                <Trigger Property="Ellipse.IsMouseOver" Value="True">
+                                    <Setter Property="Fill" TargetName="rectangle1" Value="#7FE1E1E1"/>
+                                    <Setter Property="Opacity" TargetName="rectangle" Value="0.85"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="RenderTransform" TargetName="_border">
+                                        <Setter.Value>
+                                            <TransformGroup>
+                                                <ScaleTransform ScaleX="0.95" ScaleY="0.95"/>
+                                                <SkewTransform AngleX="0" AngleY="0"/>
+                                                <RotateTransform Angle="0"/>
+                                                <TranslateTransform X="0" Y="0"/>
+                                            </TransformGroup>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Style.BasedOn>
+    </Style>
 
-	<Style x:Key="MegaTextBlockStyle" TargetType="{x:Type TextBlock}">
-		<Setter Property="TextWrapping" Value="Wrap"/>
-		<Setter Property="FontSize" Value="13"/>
-		<Setter Property="Foreground" Value="{DynamicResource DefaultTextBoxBackBrush}"/>
-	</Style>
+    <Style x:Key="MegaTextBlockStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="{DynamicResource DefaultTextBoxBackBrush}"/>
+    </Style>
 
     <ControlTemplate x:Key="CheckBoxImageControlTemplate" TargetType="{x:Type CheckBox}">
         <BulletDecorator SnapsToDevicePixels="True" Background="#00FFFFFF">
@@ -825,503 +844,503 @@
     </ControlTemplate>
 
     <ControlTemplate x:Key="CheckBoxControlTemplate" TargetType="{x:Type CheckBox}">
-    <BulletDecorator SnapsToDevicePixels="True" Background="#00FFFFFF">
-      <BulletDecorator.Bullet>
-        <Border Width="16" Height="16" Background="{DynamicResource DefaultTextBoxBackBrush}" BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" RenderTransformOrigin="0.5,0.5" x:Name="border">
-          <Path RenderTransformOrigin="0.5,0.5" Fill="#FF000000" Stretch="Fill" Margin="1,1,1,1" x:Name="path" Data="M3.6621094,6.6519527 L4.8457031,6.6519527 L4.8457031,8.9195309 L7.1015625,8.9195309 L7.1015625,10.108984 L4.8457031,10.108984 L4.8457031,12.364843 L3.6621094,12.364843 L3.6621094,10.108984 L1.3945313,10.108984 L1.3945313,8.9195309 L3.6621094,8.9195309 z">
-            <Path.RenderTransform>
-              <TransformGroup>
-                <ScaleTransform ScaleX="1" ScaleY="1"/>
-                <SkewTransform AngleX="0" AngleY="0"/>
-                <RotateTransform Angle="45"/>
-                <TranslateTransform X="0" Y="0"/>
-              </TransformGroup>
-            </Path.RenderTransform>
-          </Path>
-        </Border>
-      </BulletDecorator.Bullet>
-      <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" RecognizesAccessKey="True"/>
-    </BulletDecorator>
-    <ControlTemplate.Triggers>
-      <Trigger Property="IsMouseOver" Value="True">
-        <Setter Property="Background" TargetName="border" Value="{DynamicResource DefaultTextBoxBackBrushSelected}"/>
-      </Trigger>
-      <Trigger Property="IsPressed" Value="True">
-        <Setter Property="RenderTransform" TargetName="border">
-          <Setter.Value>
-            <TransformGroup>
-              <ScaleTransform ScaleX="0.9" ScaleY="0.9"/>
-              <SkewTransform AngleX="0" AngleY="0"/>
-              <RotateTransform Angle="0"/>
-              <TranslateTransform X="0" Y="0"/>
-            </TransformGroup>
-          </Setter.Value>
+        <BulletDecorator SnapsToDevicePixels="True" Background="#00FFFFFF">
+            <BulletDecorator.Bullet>
+                <Border Width="16" Height="16" Background="{DynamicResource DefaultTextBoxBackBrush}" BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" RenderTransformOrigin="0.5,0.5" x:Name="border">
+                    <Path RenderTransformOrigin="0.5,0.5" Fill="#FF000000" Stretch="Fill" Margin="1,1,1,1" x:Name="path" Data="M3.6621094,6.6519527 L4.8457031,6.6519527 L4.8457031,8.9195309 L7.1015625,8.9195309 L7.1015625,10.108984 L4.8457031,10.108984 L4.8457031,12.364843 L3.6621094,12.364843 L3.6621094,10.108984 L1.3945313,10.108984 L1.3945313,8.9195309 L3.6621094,8.9195309 z">
+                        <Path.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                <SkewTransform AngleX="0" AngleY="0"/>
+                                <RotateTransform Angle="45"/>
+                                <TranslateTransform X="0" Y="0"/>
+                            </TransformGroup>
+                        </Path.RenderTransform>
+                    </Path>
+                </Border>
+            </BulletDecorator.Bullet>
+            <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" RecognizesAccessKey="True"/>
+        </BulletDecorator>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" TargetName="border" Value="{DynamicResource DefaultTextBoxBackBrushSelected}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="RenderTransform" TargetName="border">
+                    <Setter.Value>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="0.9" ScaleY="0.9"/>
+                            <SkewTransform AngleX="0" AngleY="0"/>
+                            <RotateTransform Angle="0"/>
+                            <TranslateTransform X="0" Y="0"/>
+                        </TransformGroup>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="False">
+                <Setter Property="Visibility" TargetName="path" Value="Hidden"/>
+            </Trigger>
+            <Trigger Property="HasContent" Value="True">
+                <Setter Property="FocusVisualStyle">
+                    <Setter.Value>
+                        <Style>
+                            <Setter Property="Control.Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Rectangle SnapsToDevicePixels="True" Stroke="#FF000000" StrokeDashArray="1 2" StrokeThickness="1" Margin="14,0,0,0"/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Padding" Value="4,0,0,0"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                <Setter Property="Opacity" TargetName="border" Value="0.5"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ComboBoxControlTemplate" TargetType="{x:Type ComboBox}">
+        <Grid SnapsToDevicePixels="True" x:Name="MainGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition MinWidth="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" Width="0"/>
+            </Grid.ColumnDefinitions>
+            <Popup AllowsTransparency="True" IsOpen="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}" Placement="Bottom" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" Margin="1,1,1,1" x:Name="PART_Popup" Grid.ColumnSpan="2">
+                <Microsoft_Windows_Themes1:SystemDropShadowChrome MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{Binding Path=ActualWidth, ElementName=MainGrid}" x:Name="Shdw" Color="#00FFFFFF">
+                    <Border x:Name="DropDownBorder" Background="{DynamicResource background_design}" BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2">
+                        <ScrollViewer CanContentScroll="True">
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                        </ScrollViewer>
+                    </Border>
+                </Microsoft_Windows_Themes1:SystemDropShadowChrome>
+            </Popup>
+            <ToggleButton Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" Grid.ColumnSpan="2" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                <ToggleButton.Style>
+                    <Style TargetType="{x:Type ToggleButton}">
+                        <Setter Property="OverridesDefaultStyle" Value="True"/>
+                        <Setter Property="IsTabStop" Value="False"/>
+                        <Setter Property="Focusable" Value="False"/>
+                        <Setter Property="ClickMode" Value="Press"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                    <Border x:Name="border" Background="{DynamicResource DefaultTextBoxBackBrush}" BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2">
+                                        <Grid HorizontalAlignment="Right" Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}">
+                                            <Path Fill="#FF000000" HorizontalAlignment="Center" Margin="3,1,0,0" x:Name="Arrow" VerticalAlignment="Center" Data="M0,0L3.5,4 7,0z"/>
+                                        </Grid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Fill" TargetName="Arrow" Value="#FF616161"/>
+                                            <Setter Property="Background" TargetName="border" Value="{DynamicResource DefaultTextBoxBackBrushSelected}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsChecked" Value="True">
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Fill" TargetName="Arrow" Value="#FFAFAFAF"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ToggleButton.Style>
+            </ToggleButton>
+            <ContentPresenter IsHitTestVisible="False" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"/>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="True">
+                <Setter Property="Margin" TargetName="Shdw" Value="0,0,5,5"/>
+                <Setter Property="Color" TargetName="Shdw" Value="#71000000"/>
+            </Trigger>
+            <Trigger Property="HasItems" Value="False">
+                <Setter Property="Height" TargetName="DropDownBorder" Value="95"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                <Setter Property="Background" Value="#FFF4F4F4"/>
+            </Trigger>
+            <Trigger Property="IsGrouping" Value="True">
+                <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="ExpanderHeaderFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border>
+                        <Rectangle SnapsToDevicePixels="true" Stroke="Black" StrokeDashArray="1 2" StrokeThickness="1" Margin="0"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
         </Setter>
-      </Trigger>
-      <Trigger Property="IsChecked" Value="False">
-        <Setter Property="Visibility" TargetName="path" Value="Hidden"/>
-      </Trigger>
-      <Trigger Property="HasContent" Value="True">
-        <Setter Property="FocusVisualStyle">
-          <Setter.Value>
-            <Style>
-              <Setter Property="Control.Template">
-                <Setter.Value>
-                  <ControlTemplate>
-                    <Rectangle SnapsToDevicePixels="True" Stroke="#FF000000" StrokeDashArray="1 2" StrokeThickness="1" Margin="14,0,0,0"/>
-                  </ControlTemplate>
-                </Setter.Value>
-              </Setter>
-            </Style>
-          </Setter.Value>
+    </Style>
+    <LinearGradientBrush x:Key="ExpanderArrowFill" EndPoint="0,1" StartPoint="0,0">
+        <GradientStop Color="White" Offset="0"/>
+        <GradientStop Color="#FFBFBFBF" Offset="0.5"/>
+        <GradientStop Color="#FF878787" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="ExpanderArrowHoverFill" EndPoint="0,1" StartPoint="0,0">
+        <GradientStop Color="#FFF0F8FE" Offset="0"/>
+        <GradientStop Color="#FFE0F3FE" Offset="0.3"/>
+        <GradientStop Color="#FF6FA7C5" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="ExpanderArrowPressedFill" EndPoint="0,1" StartPoint="0,0">
+        <GradientStop Color="#FFDCF0FA" Offset="0"/>
+        <GradientStop Color="#FFC5E6F7" Offset="0.2"/>
+        <GradientStop Color="#FF5690D0" Offset="1"/>
+    </LinearGradientBrush>
+    <Style x:Key="ExpanderDownHeaderStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border Padding="{TemplateBinding Padding}">
+                        <Grid SnapsToDevicePixels="False" Background="Transparent">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="19"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Path SnapsToDevicePixels="false" Stroke="#666" StrokeThickness="2" HorizontalAlignment="Center" x:Name="arrow" VerticalAlignment="Center" Data="M 1,1.5 L 4.5,5 L 8,1.5"/>
+                            <ContentPresenter SnapsToDevicePixels="True" HorizontalAlignment="Left" Margin="4,0,0,0" VerticalAlignment="Center" RecognizesAccessKey="True" Grid.Column="1"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Stroke" TargetName="arrow" Value="#FFB5B5B5"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Stroke" TargetName="arrow" Value="#FF4C6B8A"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
         </Setter>
-        <Setter Property="Padding" Value="4,0,0,0"/>
-      </Trigger>
-      <Trigger Property="IsEnabled" Value="False">
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-        <Setter Property="Opacity" TargetName="border" Value="0.5"/>
-      </Trigger>
-    </ControlTemplate.Triggers>
-  </ControlTemplate>
+    </Style>
+    <Style x:Key="ExpanderRightHeaderStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border Padding="{TemplateBinding Padding}">
+                        <Grid SnapsToDevicePixels="False" Background="Transparent">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="19"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.LayoutTransform>
+                                    <TransformGroup>
+                                        <TransformGroup.Children>
+                                            <TransformCollection>
+                                                <RotateTransform Angle="-90"/>
+                                            </TransformCollection>
+                                        </TransformGroup.Children>
+                                    </TransformGroup>
+                                </Grid.LayoutTransform>
+                                <Ellipse Fill="{DynamicResource ExpanderArrowFill}" Stroke="DarkGray" HorizontalAlignment="Center" x:Name="circle" VerticalAlignment="Center" Width="19" Height="19"/>
+                                <Path SnapsToDevicePixels="false" Stroke="#666" StrokeThickness="2" HorizontalAlignment="Center" x:Name="arrow" VerticalAlignment="Center" Data="M 1,1.5 L 4.5,5 L 8,1.5"/>
+                            </Grid>
+                            <ContentPresenter SnapsToDevicePixels="True" HorizontalAlignment="Center" Margin="0,4,0,0" VerticalAlignment="Top" RecognizesAccessKey="True" Grid.Row="1"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Stroke" TargetName="circle" Value="#FF3C7FB1"/>
+                            <Setter Property="Fill" TargetName="circle" Value="{DynamicResource ExpanderArrowHoverFill}"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="#222"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Stroke" TargetName="circle" Value="#FF526C7B"/>
+                            <Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
+                            <Setter Property="Fill" TargetName="circle" Value="{DynamicResource ExpanderArrowPressedFill}"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="#FF003366"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="ExpanderUpHeaderStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border Padding="{TemplateBinding Padding}">
+                        <Grid SnapsToDevicePixels="False" Background="Transparent">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="19"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid>
+                                <Grid.LayoutTransform>
+                                    <TransformGroup>
+                                        <TransformGroup.Children>
+                                            <TransformCollection>
+                                                <RotateTransform Angle="180"/>
+                                            </TransformCollection>
+                                        </TransformGroup.Children>
+                                    </TransformGroup>
+                                </Grid.LayoutTransform>
+                                <Ellipse Fill="{DynamicResource ExpanderArrowFill}" Stroke="DarkGray" HorizontalAlignment="Center" x:Name="circle" VerticalAlignment="Center" Width="19" Height="19"/>
+                                <Path Stroke="#666" StrokeThickness="2" HorizontalAlignment="Center" x:Name="arrow" VerticalAlignment="Center" Data="M 1,1.5 L 4.5,5 L 8,1.5"/>
+                            </Grid>
+                            <ContentPresenter HorizontalAlignment="Left" Margin="4,0,0,0" VerticalAlignment="Center" RecognizesAccessKey="True" Grid.Column="1"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Stroke" TargetName="circle" Value="#FF3C7FB1"/>
+                            <Setter Property="Fill" TargetName="circle" Value="{DynamicResource ExpanderArrowHoverFill}"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="#222"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Stroke" TargetName="circle" Value="#FF526C7B"/>
+                            <Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
+                            <Setter Property="Fill" TargetName="circle" Value="{DynamicResource ExpanderArrowPressedFill}"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="#FF003366"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="ExpanderLeftHeaderStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border Padding="{TemplateBinding Padding}">
+                        <Grid SnapsToDevicePixels="False" Background="Transparent">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="19"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.LayoutTransform>
+                                    <TransformGroup>
+                                        <TransformGroup.Children>
+                                            <TransformCollection>
+                                                <RotateTransform Angle="90"/>
+                                            </TransformCollection>
+                                        </TransformGroup.Children>
+                                    </TransformGroup>
+                                </Grid.LayoutTransform>
+                                <Ellipse Fill="{DynamicResource ExpanderArrowFill}" Stroke="DarkGray" HorizontalAlignment="Center" x:Name="circle" VerticalAlignment="Center" Width="19" Height="19"/>
+                                <Path SnapsToDevicePixels="false" Stroke="#666" StrokeThickness="2" HorizontalAlignment="Center" x:Name="arrow" VerticalAlignment="Center" Data="M 1,1.5 L 4.5,5 L 8,1.5"/>
+                            </Grid>
+                            <ContentPresenter SnapsToDevicePixels="True" HorizontalAlignment="Center" Margin="0,4,0,0" VerticalAlignment="Top" RecognizesAccessKey="True" Grid.Row="1"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Stroke" TargetName="circle" Value="#FF3C7FB1"/>
+                            <Setter Property="Fill" TargetName="circle" Value="{DynamicResource ExpanderArrowHoverFill}"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="#222"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Stroke" TargetName="circle" Value="#FF526C7B"/>
+                            <Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
+                            <Setter Property="Fill" TargetName="circle" Value="{DynamicResource ExpanderArrowPressedFill}"/>
+                            <Setter Property="Stroke" TargetName="arrow" Value="#FF003366"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-  <ControlTemplate x:Key="ComboBoxControlTemplate" TargetType="{x:Type ComboBox}">
-		<Grid SnapsToDevicePixels="True" x:Name="MainGrid">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="*"/>
-				<ColumnDefinition MinWidth="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" Width="0"/>
-			</Grid.ColumnDefinitions>
-			<Popup AllowsTransparency="True" IsOpen="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}" Placement="Bottom" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" Margin="1,1,1,1" x:Name="PART_Popup" Grid.ColumnSpan="2">
-				<Microsoft_Windows_Themes1:SystemDropShadowChrome MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{Binding Path=ActualWidth, ElementName=MainGrid}" x:Name="Shdw" Color="#00FFFFFF">
-					<Border x:Name="DropDownBorder" Background="{DynamicResource background_design}" BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2">
-						<ScrollViewer CanContentScroll="True">
-							<ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" KeyboardNavigation.DirectionalNavigation="Contained"/>
-						</ScrollViewer>
-					</Border>
-				</Microsoft_Windows_Themes1:SystemDropShadowChrome>
-			</Popup>
-			<ToggleButton Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" Grid.ColumnSpan="2" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
-				<ToggleButton.Style>
-					<Style TargetType="{x:Type ToggleButton}">
-						<Setter Property="OverridesDefaultStyle" Value="True"/>
-						<Setter Property="IsTabStop" Value="False"/>
-						<Setter Property="Focusable" Value="False"/>
-						<Setter Property="ClickMode" Value="Press"/>
-						<Setter Property="Template">
-							<Setter.Value>
-								<ControlTemplate TargetType="{x:Type ToggleButton}">
-									<Border x:Name="border" Background="{DynamicResource DefaultTextBoxBackBrush}" BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2">
-										<Grid HorizontalAlignment="Right" Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}">
-											<Path Fill="#FF000000" HorizontalAlignment="Center" Margin="3,1,0,0" x:Name="Arrow" VerticalAlignment="Center" Data="M0,0L3.5,4 7,0z"/>
-										</Grid>
-									</Border>
-									<ControlTemplate.Triggers>
-										<Trigger Property="IsMouseOver" Value="True">
-											<Setter Property="Fill" TargetName="Arrow" Value="#FF616161"/>
-											<Setter Property="Background" TargetName="border" Value="{DynamicResource DefaultTextBoxBackBrushSelected}"/>
-										</Trigger>
-										<Trigger Property="IsChecked" Value="True">
-										</Trigger>
-										<Trigger Property="IsEnabled" Value="False">
-											<Setter Property="Fill" TargetName="Arrow" Value="#FFAFAFAF"/>
-										</Trigger>
-									</ControlTemplate.Triggers>
-								</ControlTemplate>
-							</Setter.Value>
-						</Setter>
-					</Style>
-				</ToggleButton.Style>
-			</ToggleButton>
-			<ContentPresenter IsHitTestVisible="False" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"/>
-		</Grid>
-		<ControlTemplate.Triggers>
-			<Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="True">
-				<Setter Property="Margin" TargetName="Shdw" Value="0,0,5,5"/>
-				<Setter Property="Color" TargetName="Shdw" Value="#71000000"/>
-			</Trigger>
-			<Trigger Property="HasItems" Value="False">
-				<Setter Property="Height" TargetName="DropDownBorder" Value="95"/>
-			</Trigger>
-			<Trigger Property="IsEnabled" Value="False">
-				<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-				<Setter Property="Background" Value="#FFF4F4F4"/>
-			</Trigger>
-			<Trigger Property="IsGrouping" Value="True">
-				<Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
-			</Trigger>
-		</ControlTemplate.Triggers>
-	</ControlTemplate>
+    <Style TargetType="{x:Type Expander}">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Expander}">
+                    <Border SnapsToDevicePixels="true" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+                        <DockPanel>
+                            <ToggleButton FocusVisualStyle="{StaticResource ExpanderHeaderFocusVisual}" Margin="1" MinHeight="0" MinWidth="0" x:Name="HeaderSite" Style="{StaticResource ExpanderDownHeaderStyle}" Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}" ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontStretch="{TemplateBinding FontStretch}" FontStyle="{TemplateBinding FontStyle}" FontWeight="{TemplateBinding FontWeight}" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" IsChecked="{Binding Path=IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" DockPanel.Dock="Top"/>
+                            <ContentPresenter Focusable="false" Visibility="Collapsed" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" x:Name="ExpandSite" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" DockPanel.Dock="Bottom"/>
+                        </DockPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsExpanded" Value="true">
+                            <Setter Property="Visibility" TargetName="ExpandSite" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ExpandDirection" Value="Right">
+                            <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Right"/>
+                            <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Left"/>
+                            <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderRightHeaderStyle}"/>
+                        </Trigger>
+                        <Trigger Property="ExpandDirection" Value="Up">
+                            <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Top"/>
+                            <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Bottom"/>
+                            <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderUpHeaderStyle}"/>
+                        </Trigger>
+                        <Trigger Property="ExpandDirection" Value="Left">
+                            <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Left"/>
+                            <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Right"/>
+                            <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderLeftHeaderStyle}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-	<Style x:Key="ExpanderHeaderFocusVisual">
-		<Setter Property="Control.Template">
-			<Setter.Value>
-				<ControlTemplate>
-					<Border>
-						<Rectangle SnapsToDevicePixels="true" Stroke="Black" StrokeDashArray="1 2" StrokeThickness="1" Margin="0"/>
-					</Border>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-	<LinearGradientBrush x:Key="ExpanderArrowFill" EndPoint="0,1" StartPoint="0,0">
-		<GradientStop Color="White" Offset="0"/>
-		<GradientStop Color="#FFBFBFBF" Offset="0.5"/>
-		<GradientStop Color="#FF878787" Offset="1"/>
-	</LinearGradientBrush>
-	<LinearGradientBrush x:Key="ExpanderArrowHoverFill" EndPoint="0,1" StartPoint="0,0">
-		<GradientStop Color="#FFF0F8FE" Offset="0"/>
-		<GradientStop Color="#FFE0F3FE" Offset="0.3"/>
-		<GradientStop Color="#FF6FA7C5" Offset="1"/>
-	</LinearGradientBrush>
-	<LinearGradientBrush x:Key="ExpanderArrowPressedFill" EndPoint="0,1" StartPoint="0,0">
-		<GradientStop Color="#FFDCF0FA" Offset="0"/>
-		<GradientStop Color="#FFC5E6F7" Offset="0.2"/>
-		<GradientStop Color="#FF5690D0" Offset="1"/>
-	</LinearGradientBrush>
-	<Style x:Key="ExpanderDownHeaderStyle" TargetType="{x:Type ToggleButton}">
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type ToggleButton}">
-					<Border Padding="{TemplateBinding Padding}">
-						<Grid SnapsToDevicePixels="False" Background="Transparent">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="19"/>
-								<ColumnDefinition Width="*"/>
-							</Grid.ColumnDefinitions>
-							<Path SnapsToDevicePixels="false" Stroke="#666" StrokeThickness="2" HorizontalAlignment="Center" x:Name="arrow" VerticalAlignment="Center" Data="M 1,1.5 L 4.5,5 L 8,1.5"/>
-							<ContentPresenter SnapsToDevicePixels="True" HorizontalAlignment="Left" Margin="4,0,0,0" VerticalAlignment="Center" RecognizesAccessKey="True" Grid.Column="1"/>
-						</Grid>
-					</Border>
-					<ControlTemplate.Triggers>
-						<Trigger Property="IsChecked" Value="true">
-							<Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
-						</Trigger>
-						<Trigger Property="IsMouseOver" Value="true">
-							<Setter Property="Stroke" TargetName="arrow" Value="#FFB5B5B5"/>
-						</Trigger>
-						<Trigger Property="IsPressed" Value="true">
-							<Setter Property="Stroke" TargetName="arrow" Value="#FF4C6B8A"/>
-						</Trigger>
-					</ControlTemplate.Triggers>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-	<Style x:Key="ExpanderRightHeaderStyle" TargetType="{x:Type ToggleButton}">
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type ToggleButton}">
-					<Border Padding="{TemplateBinding Padding}">
-						<Grid SnapsToDevicePixels="False" Background="Transparent">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="19"/>
-								<RowDefinition Height="*"/>
-							</Grid.RowDefinitions>
-							<Grid>
-								<Grid.LayoutTransform>
-									<TransformGroup>
-										<TransformGroup.Children>
-											<TransformCollection>
-												<RotateTransform Angle="-90"/>
-											</TransformCollection>
-										</TransformGroup.Children>
-									</TransformGroup>
-								</Grid.LayoutTransform>
-								<Ellipse Fill="{DynamicResource ExpanderArrowFill}" Stroke="DarkGray" HorizontalAlignment="Center" x:Name="circle" VerticalAlignment="Center" Width="19" Height="19"/>
-								<Path SnapsToDevicePixels="false" Stroke="#666" StrokeThickness="2" HorizontalAlignment="Center" x:Name="arrow" VerticalAlignment="Center" Data="M 1,1.5 L 4.5,5 L 8,1.5"/>
-							</Grid>
-							<ContentPresenter SnapsToDevicePixels="True" HorizontalAlignment="Center" Margin="0,4,0,0" VerticalAlignment="Top" RecognizesAccessKey="True" Grid.Row="1"/>
-						</Grid>
-					</Border>
-					<ControlTemplate.Triggers>
-						<Trigger Property="IsChecked" Value="true">
-							<Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
-						</Trigger>
-						<Trigger Property="IsMouseOver" Value="true">
-							<Setter Property="Stroke" TargetName="circle" Value="#FF3C7FB1"/>
-							<Setter Property="Fill" TargetName="circle" Value="{DynamicResource ExpanderArrowHoverFill}"/>
-							<Setter Property="Stroke" TargetName="arrow" Value="#222"/>
-						</Trigger>
-						<Trigger Property="IsPressed" Value="true">
-							<Setter Property="Stroke" TargetName="circle" Value="#FF526C7B"/>
-							<Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
-							<Setter Property="Fill" TargetName="circle" Value="{DynamicResource ExpanderArrowPressedFill}"/>
-							<Setter Property="Stroke" TargetName="arrow" Value="#FF003366"/>
-						</Trigger>
-					</ControlTemplate.Triggers>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-	<Style x:Key="ExpanderUpHeaderStyle" TargetType="{x:Type ToggleButton}">
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type ToggleButton}">
-					<Border Padding="{TemplateBinding Padding}">
-						<Grid SnapsToDevicePixels="False" Background="Transparent">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="19"/>
-								<ColumnDefinition Width="*"/>
-							</Grid.ColumnDefinitions>
-							<Grid>
-								<Grid.LayoutTransform>
-									<TransformGroup>
-										<TransformGroup.Children>
-											<TransformCollection>
-												<RotateTransform Angle="180"/>
-											</TransformCollection>
-										</TransformGroup.Children>
-									</TransformGroup>
-								</Grid.LayoutTransform>
-								<Ellipse Fill="{DynamicResource ExpanderArrowFill}" Stroke="DarkGray" HorizontalAlignment="Center" x:Name="circle" VerticalAlignment="Center" Width="19" Height="19"/>
-								<Path Stroke="#666" StrokeThickness="2" HorizontalAlignment="Center" x:Name="arrow" VerticalAlignment="Center" Data="M 1,1.5 L 4.5,5 L 8,1.5"/>
-							</Grid>
-							<ContentPresenter HorizontalAlignment="Left" Margin="4,0,0,0" VerticalAlignment="Center" RecognizesAccessKey="True" Grid.Column="1"/>
-						</Grid>
-					</Border>
-					<ControlTemplate.Triggers>
-						<Trigger Property="IsChecked" Value="true">
-							<Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
-						</Trigger>
-						<Trigger Property="IsMouseOver" Value="true">
-							<Setter Property="Stroke" TargetName="circle" Value="#FF3C7FB1"/>
-							<Setter Property="Fill" TargetName="circle" Value="{DynamicResource ExpanderArrowHoverFill}"/>
-							<Setter Property="Stroke" TargetName="arrow" Value="#222"/>
-						</Trigger>
-						<Trigger Property="IsPressed" Value="true">
-							<Setter Property="Stroke" TargetName="circle" Value="#FF526C7B"/>
-							<Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
-							<Setter Property="Fill" TargetName="circle" Value="{DynamicResource ExpanderArrowPressedFill}"/>
-							<Setter Property="Stroke" TargetName="arrow" Value="#FF003366"/>
-						</Trigger>
-					</ControlTemplate.Triggers>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-	<Style x:Key="ExpanderLeftHeaderStyle" TargetType="{x:Type ToggleButton}">
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type ToggleButton}">
-					<Border Padding="{TemplateBinding Padding}">
-						<Grid SnapsToDevicePixels="False" Background="Transparent">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="19"/>
-								<RowDefinition Height="*"/>
-							</Grid.RowDefinitions>
-							<Grid>
-								<Grid.LayoutTransform>
-									<TransformGroup>
-										<TransformGroup.Children>
-											<TransformCollection>
-												<RotateTransform Angle="90"/>
-											</TransformCollection>
-										</TransformGroup.Children>
-									</TransformGroup>
-								</Grid.LayoutTransform>
-								<Ellipse Fill="{DynamicResource ExpanderArrowFill}" Stroke="DarkGray" HorizontalAlignment="Center" x:Name="circle" VerticalAlignment="Center" Width="19" Height="19"/>
-								<Path SnapsToDevicePixels="false" Stroke="#666" StrokeThickness="2" HorizontalAlignment="Center" x:Name="arrow" VerticalAlignment="Center" Data="M 1,1.5 L 4.5,5 L 8,1.5"/>
-							</Grid>
-							<ContentPresenter SnapsToDevicePixels="True" HorizontalAlignment="Center" Margin="0,4,0,0" VerticalAlignment="Top" RecognizesAccessKey="True" Grid.Row="1"/>
-						</Grid>
-					</Border>
-					<ControlTemplate.Triggers>
-						<Trigger Property="IsChecked" Value="true">
-							<Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
-						</Trigger>
-						<Trigger Property="IsMouseOver" Value="true">
-							<Setter Property="Stroke" TargetName="circle" Value="#FF3C7FB1"/>
-							<Setter Property="Fill" TargetName="circle" Value="{DynamicResource ExpanderArrowHoverFill}"/>
-							<Setter Property="Stroke" TargetName="arrow" Value="#222"/>
-						</Trigger>
-						<Trigger Property="IsPressed" Value="true">
-							<Setter Property="Stroke" TargetName="circle" Value="#FF526C7B"/>
-							<Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
-							<Setter Property="Fill" TargetName="circle" Value="{DynamicResource ExpanderArrowPressedFill}"/>
-							<Setter Property="Stroke" TargetName="arrow" Value="#FF003366"/>
-						</Trigger>
-					</ControlTemplate.Triggers>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-  
-	<Style TargetType="{x:Type Expander}">
-		<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-		<Setter Property="VerticalContentAlignment" Value="Stretch"/>
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type Expander}">
-					<Border SnapsToDevicePixels="true" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
-						<DockPanel>
-							<ToggleButton FocusVisualStyle="{StaticResource ExpanderHeaderFocusVisual}" Margin="1" MinHeight="0" MinWidth="0" x:Name="HeaderSite" Style="{StaticResource ExpanderDownHeaderStyle}" Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}" ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontStretch="{TemplateBinding FontStretch}" FontStyle="{TemplateBinding FontStyle}" FontWeight="{TemplateBinding FontWeight}" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" IsChecked="{Binding Path=IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" DockPanel.Dock="Top"/>
-							<ContentPresenter Focusable="false" Visibility="Collapsed" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" x:Name="ExpandSite" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" DockPanel.Dock="Bottom"/>
-						</DockPanel>
-					</Border>
-					<ControlTemplate.Triggers>
-						<Trigger Property="IsExpanded" Value="true">
-							<Setter Property="Visibility" TargetName="ExpandSite" Value="Visible"/>
-						</Trigger>
-						<Trigger Property="ExpandDirection" Value="Right">
-							<Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Right"/>
-							<Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Left"/>
-							<Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderRightHeaderStyle}"/>
-						</Trigger>
-						<Trigger Property="ExpandDirection" Value="Up">
-							<Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Top"/>
-							<Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Bottom"/>
-							<Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderUpHeaderStyle}"/>
-						</Trigger>
-						<Trigger Property="ExpandDirection" Value="Left">
-							<Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Left"/>
-							<Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Right"/>
-							<Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderLeftHeaderStyle}"/>
-						</Trigger>
-						<Trigger Property="IsEnabled" Value="false">
-							<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-						</Trigger>
-					</ControlTemplate.Triggers>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-
-  <Style TargetType="{x:Type TabItem}">
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type TabItem}">
-          <Grid>
-            <Border
+    <Style TargetType="{x:Type TabItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabItem}">
+                    <Grid>
+                        <Border
               x:Name="Border"
               BorderThickness="0,0,0,0"
               CornerRadius="0,0,0,0" >
-              <Grid>
-                <ContentPresenter Grid.Column="0" x:Name="ContentSite"
+                            <Grid>
+                                <ContentPresenter Grid.Column="0" x:Name="ContentSite"
                      VerticalAlignment="Center"
                      HorizontalAlignment="Stretch"
                      ContentSource="Header"
                      RecognizesAccessKey="True" />
-              </Grid>
-            </Border>
-          </Grid>
-          <ControlTemplate.Triggers>
-            <Trigger Property="IsSelected" Value="True">
-              <Setter Property="Panel.ZIndex" Value="100" />
-              <Setter Property="Background" TargetName="Border" Value="{StaticResource back_tab_design}"/>
-              <Setter Property="CornerRadius" TargetName="Border" Value="2,2,2,2"/>
-            </Trigger>
-            <MultiTrigger>
-              <MultiTrigger.Conditions>
-                <Condition Property="IsMouseOver" Value="True" />
-                <Condition Property="IsSelected" Value="False" />
-              </MultiTrigger.Conditions>
-              <Setter Property="Background" TargetName="Border" Value="{StaticResource back_tab_over_design}"/>
-              <Setter Property="CornerRadius" TargetName="Border" Value="2,2,2,2"/>
-            </MultiTrigger>
-            <Trigger Property="IsEnabled" Value="False">
-              <Setter Property="Opacity" Value="0.3"/>
-            </Trigger>
-          </ControlTemplate.Triggers>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Panel.ZIndex" Value="100" />
+                            <Setter Property="Background" TargetName="Border" Value="{StaticResource back_tab_design}"/>
+                            <Setter Property="CornerRadius" TargetName="Border" Value="2,2,2,2"/>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True" />
+                                <Condition Property="IsSelected" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" TargetName="Border" Value="{StaticResource back_tab_over_design}"/>
+                            <Setter Property="CornerRadius" TargetName="Border" Value="2,2,2,2"/>
+                        </MultiTrigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 
-  <Style TargetType="{x:Type TabControl}">
-    <Setter Property="Padding" Value="0,0,0,0"/>
-    <Setter Property="MinWidth" Value="10"/>
-    <Setter Property="MinHeight" Value="10"/>
-    <Setter Property="BorderThickness" Value="0,0,0,0"/>
-    <Setter Property="VerticalContentAlignment" Value="Center"/>
-    <Setter Property="HorizontalContentAlignment" Value="Left"/>
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type TabControl}">
-          <Grid ClipToBounds="True" KeyboardNavigation.TabNavigation="Local" Margin="0,0,0,0">
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition x:Name="ColumnDefinition0"/>
-              <ColumnDefinition Width="0" x:Name="ColumnDefinition1"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-              <RowDefinition x:Name="RowDefinition0" Height="Auto"/>
-              <RowDefinition x:Name="RowDefinition1" Height="*"/>
-            </Grid.RowDefinitions>
-          	<Border
+    <Style TargetType="{x:Type TabControl}">
+        <Setter Property="Padding" Value="0,0,0,0"/>
+        <Setter Property="MinWidth" Value="10"/>
+        <Setter Property="MinHeight" Value="10"/>
+        <Setter Property="BorderThickness" Value="0,0,0,0"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabControl}">
+                    <Grid ClipToBounds="True" KeyboardNavigation.TabNavigation="Local" Margin="0,0,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition x:Name="ColumnDefinition0"/>
+                            <ColumnDefinition Width="0" x:Name="ColumnDefinition1"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition x:Name="RowDefinition0" Height="Auto"/>
+                            <RowDefinition x:Name="RowDefinition1" Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border
           		x:Name="Border"
           		BorderThickness="0,1,0,1" Margin="-1,0,-1,0" 
           		BorderBrush="{DynamicResource DefaultTextBrush}" Background="{DynamicResource background_design_2}" ClipToBounds="True" Width="Auto" Height="Auto" >
-          		<Grid>
-          			<Border Opacity="0.1" Panel.ZIndex="1" VerticalAlignment="Top" Height="20" Background="#FFFFFFFF" IsEnabled="False" IsHitTestVisible="False"/>
-          			<TabPanel x:Name="HeaderPanel" IsItemsHost="True"
+                            <Grid>
+                                <Border Opacity="0.1" Panel.ZIndex="1" VerticalAlignment="Top" Height="20" Background="#FFFFFFFF" IsEnabled="False" IsHitTestVisible="False"/>
+                                <TabPanel x:Name="HeaderPanel" IsItemsHost="True"
           				Panel.ZIndex="1" KeyboardNavigation.TabIndex="1" Margin="5,5,5,5"/>
-          		</Grid>
-          	</Border>
-            <Grid x:Name="ContentPanel" Grid.Column="0" Grid.Row="1" KeyboardNavigation.DirectionalNavigation="Contained" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local">
-              <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Margin="0,2,0,0" x:Name="PART_SelectedContentHost" Content="{TemplateBinding SelectedContent}" ContentSource="SelectedContent" ContentTemplate="{TemplateBinding SelectedContentTemplate}"/>
-            </Grid>
-          </Grid>
-          <ControlTemplate.Triggers>
-            <Trigger Property="TabStripPlacement" Value="Bottom">
-              <Setter Property="Grid.Row" TargetName="HeaderPanel" Value="1"/>
-              <Setter Property="Row" TargetName="ContentPanel" Value="0"/>
-              <Setter Property="Height" TargetName="RowDefinition0" Value="*"/>
-              <Setter Property="Height" TargetName="RowDefinition1" Value="Auto"/>
-              <Setter Property="Margin" TargetName="HeaderPanel" Value="2,0,2,2"/>
-            </Trigger>
-            <Trigger Property="TabStripPlacement" Value="Left">
-              <Setter Property="Grid.Row" TargetName="HeaderPanel" Value="0"/>
-              <Setter Property="Row" TargetName="ContentPanel" Value="0"/>
-              <Setter Property="Grid.Column" TargetName="HeaderPanel" Value="0"/>
-              <Setter Property="Column" TargetName="ContentPanel" Value="1"/>
-              <Setter Property="Width" TargetName="ColumnDefinition0" Value="Auto"/>
-              <Setter Property="Width" TargetName="ColumnDefinition1" Value="*"/>
-              <Setter Property="Height" TargetName="RowDefinition0" Value="*"/>
-              <Setter Property="Height" TargetName="RowDefinition1" Value="0"/>
-              <Setter Property="Margin" TargetName="HeaderPanel" Value="2,2,0,2"/>
-            </Trigger>
-            <Trigger Property="TabStripPlacement" Value="Right">
-              <Setter Property="Grid.Row" TargetName="HeaderPanel" Value="0"/>
-              <Setter Property="Row" TargetName="ContentPanel" Value="0"/>
-              <Setter Property="Grid.Column" TargetName="HeaderPanel" Value="1"/>
-              <Setter Property="Column" TargetName="ContentPanel" Value="0"/>
-              <Setter Property="Width" TargetName="ColumnDefinition0" Value="*"/>
-              <Setter Property="Width" TargetName="ColumnDefinition1" Value="Auto"/>
-              <Setter Property="Height" TargetName="RowDefinition0" Value="*"/>
-              <Setter Property="Height" TargetName="RowDefinition1" Value="0"/>
-              <Setter Property="Margin" TargetName="HeaderPanel" Value="0,2,2,2"/>
-            </Trigger>
-            <Trigger Property="IsEnabled" Value="False">
-              <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-            </Trigger>
-          </ControlTemplate.Triggers>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  	<Setter Property="SnapsToDevicePixels" Value="True"/>
-  	<Setter Property="ClipToBounds" Value="False"/>
-  </Style>
-	
-	<Style TargetType="{x:Type ListBox}">
-		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
-		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
-		<Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
-		<Setter Property="VerticalContentAlignment" Value="Center"/>
-	</Style>
+                            </Grid>
+                        </Border>
+                        <Grid x:Name="ContentPanel" Grid.Column="0" Grid.Row="1" KeyboardNavigation.DirectionalNavigation="Contained" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local">
+                            <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Margin="0,2,0,0" x:Name="PART_SelectedContentHost" Content="{TemplateBinding SelectedContent}" ContentSource="SelectedContent" ContentTemplate="{TemplateBinding SelectedContentTemplate}"/>
+                        </Grid>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="TabStripPlacement" Value="Bottom">
+                            <Setter Property="Grid.Row" TargetName="HeaderPanel" Value="1"/>
+                            <Setter Property="Row" TargetName="ContentPanel" Value="0"/>
+                            <Setter Property="Height" TargetName="RowDefinition0" Value="*"/>
+                            <Setter Property="Height" TargetName="RowDefinition1" Value="Auto"/>
+                            <Setter Property="Margin" TargetName="HeaderPanel" Value="2,0,2,2"/>
+                        </Trigger>
+                        <Trigger Property="TabStripPlacement" Value="Left">
+                            <Setter Property="Grid.Row" TargetName="HeaderPanel" Value="0"/>
+                            <Setter Property="Row" TargetName="ContentPanel" Value="0"/>
+                            <Setter Property="Grid.Column" TargetName="HeaderPanel" Value="0"/>
+                            <Setter Property="Column" TargetName="ContentPanel" Value="1"/>
+                            <Setter Property="Width" TargetName="ColumnDefinition0" Value="Auto"/>
+                            <Setter Property="Width" TargetName="ColumnDefinition1" Value="*"/>
+                            <Setter Property="Height" TargetName="RowDefinition0" Value="*"/>
+                            <Setter Property="Height" TargetName="RowDefinition1" Value="0"/>
+                            <Setter Property="Margin" TargetName="HeaderPanel" Value="2,2,0,2"/>
+                        </Trigger>
+                        <Trigger Property="TabStripPlacement" Value="Right">
+                            <Setter Property="Grid.Row" TargetName="HeaderPanel" Value="0"/>
+                            <Setter Property="Row" TargetName="ContentPanel" Value="0"/>
+                            <Setter Property="Grid.Column" TargetName="HeaderPanel" Value="1"/>
+                            <Setter Property="Column" TargetName="ContentPanel" Value="0"/>
+                            <Setter Property="Width" TargetName="ColumnDefinition0" Value="*"/>
+                            <Setter Property="Width" TargetName="ColumnDefinition1" Value="Auto"/>
+                            <Setter Property="Height" TargetName="RowDefinition0" Value="*"/>
+                            <Setter Property="Height" TargetName="RowDefinition1" Value="0"/>
+                            <Setter Property="Margin" TargetName="HeaderPanel" Value="0,2,2,2"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="ClipToBounds" Value="False"/>
+    </Style>
 
-  <Style TargetType="{x:Type ContextMenu}">
-      <Setter Property="OverridesDefaultStyle" Value="True"/>
-      <Setter Property="Template" Value="{DynamicResource ContextMenuControlTemplate}"/>
-      <Setter Property="HasDropShadow" Value="True"/>
-  </Style>
+    <Style TargetType="{x:Type ListBox}">
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
 
-  <ControlTemplate x:Key="ContextMenuControlTemplate" TargetType="{x:Type ContextMenu}">
-    <Border Background="{DynamicResource back_menu_design}"
+    <Style TargetType="{x:Type ContextMenu}">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Template" Value="{DynamicResource ContextMenuControlTemplate}"/>
+        <Setter Property="HasDropShadow" Value="True"/>
+    </Style>
+
+    <ControlTemplate x:Key="ContextMenuControlTemplate" TargetType="{x:Type ContextMenu}">
+        <Border Background="{DynamicResource back_menu_design}"
             BorderBrush="Black" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" Padding="2,2,2,2">
-      <ItemsPresenter />
-    </Border>
-  </ControlTemplate>
+            <ItemsPresenter />
+        </Border>
+    </ControlTemplate>
 
-  <!--
+    <!--
   <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#888" />
 
   <SolidColorBrush x:Key="DisabledBackgroundBrush" Color="#EEE" />
@@ -1600,60 +1619,60 @@
     </ControlTemplate.Triggers>
   </ControlTemplate>
 -->
-  <ControlTemplate x:Key="{x:Static MenuItem.TopLevelHeaderTemplateKey}"
+    <ControlTemplate x:Key="{x:Static MenuItem.TopLevelHeaderTemplateKey}"
                    TargetType="MenuItem">
-    <Border Name="Border" >
-      <Grid>
-        <ContentPresenter
+        <Border Name="Border" >
+            <Grid>
+                <ContentPresenter
           Margin="6,3,6,3"
           ContentSource="Header"
           RecognizesAccessKey="True" />
-        <Popup
+                <Popup
           Name="Popup"
           Placement="Bottom"
           IsOpen="{TemplateBinding IsSubmenuOpen}"
           AllowsTransparency="True"
           Focusable="False">
-          <Border Name="SubmenuBorder" BorderThickness="0,0,0,0" CornerRadius="3,3,3,3" Padding="2,2,2,2" >
-            <StackPanel
+                    <Border Name="SubmenuBorder" BorderThickness="0,0,0,0" CornerRadius="3,3,3,3" Padding="2,2,2,2" >
+                        <StackPanel
               IsItemsHost="True"
               KeyboardNavigation.DirectionalNavigation="Cycle" />
-          </Border>
-        </Popup>
-      </Grid>
-    </Border>
-    <ControlTemplate.Triggers>
-      <Trigger Property="IsHighlighted" Value="true">
-        <Setter Property="Background" TargetName="Border" Value="{StaticResource DefaultTextMenuBrushSelected}"/>
-      </Trigger>
-      <Trigger Property="IsEnabled" Value="False">
-        <Setter Property="Foreground" Value="{StaticResource DefaultTextMenuBrushDisabled}"/>
-      </Trigger>
-    </ControlTemplate.Triggers>
-  </ControlTemplate>
+                    </Border>
+                </Popup>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsHighlighted" Value="true">
+                <Setter Property="Background" TargetName="Border" Value="{StaticResource DefaultTextMenuBrushSelected}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{StaticResource DefaultTextMenuBrushDisabled}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
 
-  <Style TargetType="{x:Type Separator}">
-    <Setter Property="OverridesDefaultStyle" Value="True"/>
-    <Setter Property="Height" Value="1"/>
-    <Setter Property="Margin" Value="0,4,0,4"/>
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type Separator}">
-          <Border BorderBrush="White"
+    <Style TargetType="{x:Type Separator}">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Height" Value="1"/>
+        <Setter Property="Margin" Value="0,4,0,4"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Separator}">
+                    <Border BorderBrush="White"
                   BorderThickness="1,1,1,1" Margin="5,0,5,0"/>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>  
-  
-  <Style TargetType="{x:Type MenuItem}">
-    <Setter Property="OverridesDefaultStyle" Value="True"/>
-  	<Setter Property="Foreground" Value="{StaticResource DefaultTextMenuBrush}"/>
-    <Setter Property="FontSize" Value="12"/>
-    <Setter Property="Template"
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type MenuItem}">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Foreground" Value="{StaticResource DefaultTextMenuBrush}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Template"
             Value="{StaticResource {x:Static MenuItem.TopLevelHeaderTemplateKey}}"/>
-    <Style.Triggers>
-      <!--
+        <Style.Triggers>
+            <!--
       <Trigger Property="IsMouseOver" Value="True">
         <Setter Property="Foreground" Value="White"/>
       </Trigger>
@@ -1675,55 +1694,55 @@
                 Value="{StaticResource {x:Static MenuItem.SubmenuItemTemplateKey}}"/>
       </Trigger>
       -->
-    </Style.Triggers>
-  </Style>
+        </Style.Triggers>
+    </Style>
 
-	<Style x:Key="GridSplitterPreviewStyle">
-		<Setter Property="Control.Template">
-			<Setter.Value>
-				<ControlTemplate>
-					<Rectangle Fill="#80000000"/>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-	
-	<Style TargetType="{x:Type GridSplitter}">
-		<Setter Property="PreviewStyle" Value="{StaticResource GridSplitterPreviewStyle}"/>
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type GridSplitter}">
-					<Border Width="5" Opacity="0.4" x:Name="border" Padding="1,5,1,5" Background="#00FFFFFF">
-			      		<Line Stroke="#FFFFFFFF" StrokeDashArray="2 2" X1="1" X2="1"  StrokeThickness="1" Y2="{Binding Path=ActualHeight, ElementName=border, Mode=Default}"/>
-				  	</Border>
-					<ControlTemplate.Triggers>
-						<Trigger Property="IsMouseDirectlyOver" Value="True">
-							<Setter Property="Opacity" TargetName="border" Value="0.8"/>
-						</Trigger>
-						<Trigger Property="IsMouseOver" SourceName="border" Value="True">
-							<Setter Property="Opacity" TargetName="border" Value="0.8"/>
-						</Trigger>
-					</ControlTemplate.Triggers>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
+    <Style x:Key="GridSplitterPreviewStyle">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Fill="#80000000"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-	<SolidColorBrush x:Key="CheckBoxStroke" Color="#8E8F8F"/>
-	<Style x:Key="CheckRadioFocusVisual">
-		<Setter Property="Control.Template">
-			<Setter.Value>
-				<ControlTemplate>
-					<Rectangle SnapsToDevicePixels="true" Margin="14,0,0,0" Stroke="Black" StrokeDashArray="1 2" StrokeThickness="1"/>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-	
-	<Style x:Key="RadioButtonImageStyle" TargetType="{x:Type RadioButton}">
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type RadioButton}">
+    <Style TargetType="{x:Type GridSplitter}">
+        <Setter Property="PreviewStyle" Value="{StaticResource GridSplitterPreviewStyle}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type GridSplitter}">
+                    <Border Width="5" Opacity="0.4" x:Name="border" Padding="1,5,1,5" Background="#00FFFFFF">
+                        <Line Stroke="#FFFFFFFF" StrokeDashArray="2 2" X1="1" X2="1"  StrokeThickness="1" Y2="{Binding Path=ActualHeight, ElementName=border, Mode=Default}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseDirectlyOver" Value="True">
+                            <Setter Property="Opacity" TargetName="border" Value="0.8"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" SourceName="border" Value="True">
+                            <Setter Property="Opacity" TargetName="border" Value="0.8"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <SolidColorBrush x:Key="CheckBoxStroke" Color="#8E8F8F"/>
+    <Style x:Key="CheckRadioFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle SnapsToDevicePixels="true" Margin="14,0,0,0" Stroke="Black" StrokeDashArray="1 2" StrokeThickness="1"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="RadioButtonImageStyle" TargetType="{x:Type RadioButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
                     <Border x:Name="exborder" BorderBrush="{TemplateBinding Foreground}" Margin="2,2,2,2"
                             CornerRadius="4,4,4,4">
                         <Border x:Name="border" Background="{TemplateBinding Background}" Margin="2,2,2,2"
@@ -1740,9 +1759,9 @@
                             <Setter Property="BorderThickness" TargetName="exborder" Value="1,1,1,1"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="RenderTransform">

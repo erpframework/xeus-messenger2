@@ -265,6 +265,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="xeus.UI\xeus.UI.Look\StatusbarResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="xeus.XData\XDataContainer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -331,6 +335,9 @@
     <Compile Include="xeus.Core\Event.cs" />
     <Compile Include="xeus.Core\EventChatMessage.cs" />
     <Compile Include="xeus.Core\EventError.cs" />
+    <Compile Include="xeus.Core\EventErrorAuth.cs" />
+    <Compile Include="xeus.Core\EventErrorConnection.cs" />
+    <Compile Include="xeus.Core\EventErrorProtocol.cs" />
     <Compile Include="xeus.Core\EventException.cs" />
     <Compile Include="xeus.Core\EventInfo.cs" />
     <Compile Include="xeus.Core\EventMucRoom.cs" />
@@ -381,7 +388,6 @@
     <Compile Include="xeus.Middle\ChangeMucTopic.cs" />
     <Compile Include="xeus.Middle\Chat.cs" />
     <Compile Include="xeus.Middle\CommandExecutor.cs" />
-    <Compile Include="xeus.Middle\ErrorPopup.cs" />
     <Compile Include="xeus.Middle\INotification.cs" />
     <Compile Include="xeus.Middle\KickReason.cs" />
     <Compile Include="xeus.Middle\Login.cs" />
@@ -395,7 +401,6 @@
     <Compile Include="xeus.Middle\Registration.cs" />
     <Compile Include="xeus.Middle\Search.cs" />
     <Compile Include="xeus.Middle\Services.cs" />
-    <Compile Include="xeus.Middle\UnreadChatMessages.cs" />
     <Compile Include="xeus.Middle\VCard.cs" />
     <Compile Include="xeus.UI\AskAuthorization.xaml.cs">
       <DependentUpon>AskAuthorization.xaml</DependentUpon>

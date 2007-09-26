@@ -12,7 +12,10 @@ namespace xeus2.xeus.Commands
 
         private static readonly RoutedUICommand _history =
             new RoutedUICommand("Display History", "DisplayHistory", typeof(AccountCommands));
-        
+
+        private static readonly RoutedUICommand _displayMucMarks =
+            new RoutedUICommand("Display MUC Bookmarks", "DisplayMUCBookmarks", typeof(AccountCommands));
+
         public static RoutedUICommand DisplayLogin
 		{
 			get
@@ -29,6 +32,14 @@ namespace xeus2.xeus.Commands
 	        }
 	    }
 
+	    public static RoutedUICommand DisplayMucMarks
+	    {
+	        get
+	        {
+	            return _displayMucMarks;
+	        }
+	    }
+
 	    public static void RegisterCommands( Window window )
 		{
 			window.CommandBindings.Add(
@@ -36,7 +47,21 @@ namespace xeus2.xeus.Commands
         
             window.CommandBindings.Add(
                 new CommandBinding(_history, ExecuteDisplayHistory, CanExecuteDisplayHistory));
+
+            window.CommandBindings.Add(
+                new CommandBinding(_displayMucMarks, ExecuteDisplayMucMarks, CanExecuteDisplayMucMarks));
         }
+
+	    private static void CanExecuteDisplayMucMarks(object sender, CanExecuteRoutedEventArgs e)
+	    {
+            e.CanExecute = (MucMarks.Instance.Count > 0);
+            e.Handled = true;
+        }
+
+	    private static void ExecuteDisplayMucMarks(object sender, ExecutedRoutedEventArgs e)
+	    {
+            e.Handled = false;
+	    }
 
 	    private static void CanExecuteDisplayHistory(object sender, CanExecuteRoutedEventArgs e)
 	    {

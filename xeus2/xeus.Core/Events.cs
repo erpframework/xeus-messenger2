@@ -9,7 +9,7 @@ namespace xeus2.xeus.Core
 
 		private static readonly Events _instance = new Events() ;
 
-	    private const uint _maxEvents = 100;
+	    private const uint _maxEvents = 500;
 
 		public static Events Instance
 		{

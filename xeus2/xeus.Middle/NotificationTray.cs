@@ -76,11 +76,6 @@ namespace xeus2.xeus.Middle
                 _trayIcon.State = TrayIcon.TrayState.NewMessage;
                 _trayIcon.NotifyIcon.Text = string.Format("Message from {0}", ((EventChatMessage) lastEvent).Contact.DisplayName);
             }
-            else
-            {
-                throw new NotImplementedException();
-            }
-
         }
     }
 }

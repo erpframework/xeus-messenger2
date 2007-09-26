@@ -168,41 +168,57 @@
                     </DrawingGroup>
                 </DrawingBrush.Drawing>
             </DrawingBrush>
+
+            <ItemsPanelTemplate x:Key="ItemsPanelStausbar">
+                <!--<VirtualizingStackPanel IsItemsHost="True"/>-->
+                <WrapPanel IsItemsHost="True" />
+            </ItemsPanelTemplate>
+
         </ResourceDictionary>
     </UI:BaseWindow.Resources>
 
+    
     <DockPanel Background="{StaticResource xeus_back_design}" >
-        <WrapPanel DockPanel.Dock="Bottom" Margin="5,5,5,5">
-            <xeus2_xeus_Controls:StatusTextControl/>
-            <Button Click="DisplayPopupRosterSize" x:Name="_sizeButton"
-                    Style="{DynamicResource ImageButtonStyle}" Background="{DynamicResource roster_size_design}" Width="40" Height="20" Margin="5,2,5,2"/>
-            <Popup x:Name="_rosterSizePopup" AllowsTransparency="True"
+        <Popup x:Name="_rosterSizePopup" AllowsTransparency="True"
                    PlacementTarget ="{Binding ElementName=_sizeButton}" StaysOpen="False"/>
-            <CheckBox x:Name="_displayOffline"
+        <StatusBar DockPanel.Dock="Bottom" Background="{x:Null}" ItemsPanel="{StaticResource ItemsPanelStausbar}">
+            <StatusBarItem>
+                <xeus2_xeus_Controls:StatusTextControl/>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <Button Click="DisplayPopupRosterSize" x:Name="_sizeButton" ToolTip="Item Size"
+                    Style="{DynamicResource ImageButtonStyle}" Background="{DynamicResource roster_size_design}" Width="40" Height="20" Margin="5,2,5,2"/>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <CheckBox x:Name="_displayOffline" ToolTip="Display Offline Contacts"
                 Background="{DynamicResource aff_none_design}" Template="{DynamicResource CheckBoxImageControlTemplate}" Margin="5,0,5,0" VerticalAlignment="Center">
-                <CheckBox.IsChecked>
-                    <Binding Path="UI_DisplayOfflineContacts"
+                    <CheckBox.IsChecked>
+                        <Binding Path="UI_DisplayOfflineContacts"
                              Source="{x:Static Properties:Settings.Default}" Mode="TwoWay"/>
-                </CheckBox.IsChecked>
-            </CheckBox>
-        </WrapPanel>
+                    </CheckBox.IsChecked>
+                </CheckBox>
+            </StatusBarItem>
+        </StatusBar>
         <DockPanel DockPanel.Dock="Top" >
             <Grid DockPanel.Dock="Top" >
                 <xeus2_xeus_Controls:RosterHeader x:Name="_header"/>
                 <WrapPanel Margin="10,13,10,0" DockPanel.Dock="Right" HorizontalAlignment="Right">
-                    <Button Command="servicecmd:AccountCommands.DisplayLogin" Content="Login" DockPanel.Dock="Bottom" Background="{DynamicResource register_design}" Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
+                    <Button Command="servicecmd:AccountCommands.DisplayLogin" ToolTip="Login"
+                            Content="Login" DockPanel.Dock="Bottom" Background="{DynamicResource register_design}" Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
                     <Button Background="{DynamicResource service_design}" x:Name="_mucMarksButton"
+                            ToolTip="Services and MUC"
                         Content="Services" Command="servicecmd:ServiceCommands.DisplayServices" 
                         Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
                     <Popup x:Name="_mucMarksPopup" AllowsTransparency="True"
 		                  PlacementTarget="{Binding ElementName=_mucMarksButton}" StaysOpen="False">
                         <xeus2_xeus_Controls:MucMarksListSelection Panel.ZIndex="100"/>
                     </Popup>
-                    <Button Background="{DynamicResource mucmark_design}"
-                        Click="MucMarkPopup"
+                    <Button Background="{DynamicResource mucmark_design}" ToolTip="MUC Bookmarks"
+                        Click="MucMarkPopup"  Command="servicecmd:AccountCommands.DisplayMucMarks"
                         Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
-                    
-                    <Button Background="{DynamicResource history_design}"
+                    <Button Background="{DynamicResource history_design}" ToolTip="History"
                         Click="HistoryPopup" x:Name="_historyButton" Command="servicecmd:AccountCommands.History"
                         Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
                     <Popup x:Name="_historyPopup" AllowsTransparency="True"
