@@ -51,8 +51,9 @@ namespace xeus2.xeus.UI
                     break;
                 }
             }
-            HorizontalOffset = primaryScreen.WorkingArea.Right - _info.ActualWidth - 10.0;
-            VerticalOffset = primaryScreen.WorkingArea.Bottom - _info.ActualHeight - 10.0;
+
+            HorizontalOffset = primaryScreen.WorkingArea.Right - 10.0;
+            VerticalOffset = primaryScreen.WorkingArea.Bottom - 10.0;
         }
     }
 }
