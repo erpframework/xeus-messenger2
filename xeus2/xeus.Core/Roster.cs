@@ -669,7 +669,10 @@ namespace xeus2.xeus.Core
         {
             ContactChat contactChat = new ContactChat(contact, Account.Instance.XmppConnection);
 
-            contactChat.Messages.Add(Database.GetMessages(contact, Settings.Default.UI_MaxHistoryMessages));
+            foreach (Message message in Database.GetMessages(contact, Settings.Default.UI_MaxHistoryMessages))
+            {
+                contactChat.Messages.Add(message);
+            }
 
             lock (_chatsLock)
             {

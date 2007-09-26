@@ -2,6 +2,7 @@
 using System.Timers;
 using System.Windows.Controls;
 using xeus2.xeus.Core;
+using xeus2.xeus.Middle;
 
 namespace xeus2.xeus.UI.xeus.UI.Controls
 {
@@ -111,6 +112,17 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         private void _prev_Click(object sender, System.Windows.RoutedEventArgs e)
         {
 
+        }
+
+        private void _content_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            EventChatMessage eventChatMessage = _content.Content as EventChatMessage;
+
+            if (eventChatMessage != null)
+            {
+                Notification.DismissChatMessageNotification(eventChatMessage.Contact);
+                Middle.Chat.Instance.DisplayChat(eventChatMessage.Contact);
+            }
         }
     }
 }
