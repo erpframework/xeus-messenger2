@@ -94,7 +94,9 @@ namespace xeus2.xeus.Middle
 
                     if (presenceChanged != null)
                     {
-                        if ( presenceChanged.NewPresence.Type == PresenceType.available
+                        if ((presenceChanged.OldPresence == null
+                            || presenceChanged.OldPresence.Type == PresenceType.unavailable)
+                            && presenceChanged.NewPresence.Type == PresenceType.available
                             && (presenceChanged.NewPresence.Show == ShowType.NONE
                                 || presenceChanged.NewPresence.Show == ShowType.chat)
                             && !Settings.Default.UI_Notify_PresenceAvailable)
@@ -102,13 +104,17 @@ namespace xeus2.xeus.Middle
                             // online, free for chat
                             notify = false;
                         } 
-                        else if (presenceChanged.NewPresence.Type == PresenceType.unavailable
+                        else if (presenceChanged.OldPresence != null
+                            && presenceChanged.OldPresence.Type == PresenceType.available
+                            && presenceChanged.NewPresence.Type == PresenceType.unavailable
                             && !Settings.Default.UI_Notify_PresenceUnavailable)
                         {
                             // offline
                             notify = false;
                         }
-                        else if (presenceChanged.NewPresence.Type == PresenceType.available
+                        else if (presenceChanged.OldPresence != null
+                            && presenceChanged.NewPresence.Type != presenceChanged.OldPresence.Type
+                            && presenceChanged.NewPresence.Type == PresenceType.available
                             && (presenceChanged.NewPresence.Show == ShowType.away
                                 || presenceChanged.NewPresence.Show == ShowType.dnd
                                 || presenceChanged.NewPresence.Show == ShowType.xa)
