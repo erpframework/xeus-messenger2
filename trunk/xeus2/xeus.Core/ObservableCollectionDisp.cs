@@ -52,6 +52,7 @@ namespace xeus2.xeus.Core
             }
         }
 
+        /*
         public void Add(IList<T> items)
         {
             if (App.CheckAccessSafe())
@@ -84,7 +85,7 @@ namespace xeus2.xeus.Core
                     App.Current.Dispatcher.BeginInvoke(_dispatcherPriority, new AddCallback(Add), items);
                 }
             }
-        }
+        }*/
 
         protected override void InsertItem(int index, T item)
         {

@@ -31,18 +31,25 @@
             </DrawingGroup>
         </DrawingBrush.Drawing>
     </DrawingBrush>
-    
+
     <DataTemplate DataType="{x:Type xeus2_xeus_Core:EventError}">
-		<Border>
-        <Grid>
-			<Rectangle Fill="{DynamicResource error2_design}" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <TextBlock Text="{Binding Path=Message}" Foreground="{DynamicResource DefaultTextBrush2}" TextWrapping="Wrap" Margin="22,0,0,0" />
-        </Grid>
-		</Border>
+        <Border>
+            <Grid>
+                <Rectangle Fill="{DynamicResource error2_design}" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="{Binding Path=Message}" Foreground="{DynamicResource DefaultTextBrush2}" TextWrapping="Wrap" Margin="22,0,0,0" />
+            </Grid>
+        </Border>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type xeus2_xeus_Core:EventPresenceChanged}">
         <ContentPresenter Content="{Binding Path=Contact}" ContentTemplate="{DynamicResource MetaContactSmall}"/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type xeus2_xeus_Core:EventChatMessage}">
+        <Grid>
+            <ContentPresenter Content="{Binding Path=Contact}" ContentTemplate="{DynamicResource MetaContactSmall}" Margin="5,5,0,0"/>
+            <Rectangle Width="24" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Fill="{DynamicResource chaticon_design}"/>
+        </Grid>
     </DataTemplate>
 
 </ResourceDictionary>

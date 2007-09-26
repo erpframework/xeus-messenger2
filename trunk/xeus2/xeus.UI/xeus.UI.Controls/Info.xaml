@@ -8,6 +8,7 @@
 			<Button Content="Next" x:Name="_next" Click="_next_Click"/>
 			<Button Content="Previous" x:Name="_prev" Click="_prev_Click"/>
 		</StackPanel>
-        <ContentPresenter x:Name="_content" Margin="0,30,50,0"/>
+        <ContentPresenter x:Name="_content" Margin="0,30,50,0" MouseDown="_content_MouseDown"
+                          Cursor="Hand"/>
     </Grid>
 </UserControl>

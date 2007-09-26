@@ -234,7 +234,13 @@ namespace xeus2.xeus.Core
 
                 if (parent == null)
                 {
-                    Add(services);
+                    lock (_syncObject)
+                    {
+                        foreach (Service service in services)
+                        {
+                            Add(service);
+                        }
+                    }
                 }
                 else
                 {
@@ -242,7 +248,10 @@ namespace xeus2.xeus.Core
                     {
                         lock (parentService.Services._syncObject)
                         {
-                            parentService.Services.Add(services);
+                            foreach (Service service in services)
+                            {
+                                parentService.Services.Add(service);
+                            }
                         }
                     }
                 }

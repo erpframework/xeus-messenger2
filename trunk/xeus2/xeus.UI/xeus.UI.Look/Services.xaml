@@ -281,7 +281,7 @@ xmlns:d="http://schemas.microsoft.com/expression/blend/2006" xmlns:mc="http://sc
 		</DrawingBrush.Drawing>
 	</DrawingBrush>
   
-	<DrawingBrush x:Key="chat_design" Stretch="Uniform" PresentationOptions:Freeze="True" >
+	<DrawingBrush x:Key="chaticon_design" Stretch="Uniform" PresentationOptions:Freeze="True" >
 		<DrawingBrush.Drawing>
 			<DrawingGroup>
 				<DrawingGroup.Children>
@@ -1093,7 +1093,7 @@ xmlns:d="http://schemas.microsoft.com/expression/blend/2006" xmlns:mc="http://sc
   			<Setter Property="Fill" TargetName="type" Value="{StaticResource yahoo_design}"/>
 		</DataTrigger>
 		<DataTrigger Binding="{Binding Path=Type}" Value="text">
-  			<Setter Property="Fill" TargetName="type" Value="{StaticResource chat_design}"/>
+  			<Setter Property="Fill" TargetName="type" Value="{StaticResource chaticon_design}"/>
 		</DataTrigger>
 		<DataTrigger Binding="{Binding Path=Type}" Value="jabber">
   			<Setter Property="Fill" TargetName="type" Value="{StaticResource jabber_design}"/>
