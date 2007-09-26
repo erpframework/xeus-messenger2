@@ -142,7 +142,7 @@ namespace xeus2.xeus.Data
                                             "SELECT [Message].* FROM [Message] "
                                           + "INNER JOIN [Contact] ON ([Contact].[Jid]=[Message].[From] "
                                           + "OR [Contact].[Jid]=[Message].[To]) "
-                                          + "AND [Contact].[Jid]=@jid AND [Message.Type]='chat'"
+                                          + "AND [Contact].[Jid]=@jid AND [Type]='chat'"
                                           + "ORDER BY [Message].[DateTime] "
                                           + "LIMIT {0};", maxMessages);
 
