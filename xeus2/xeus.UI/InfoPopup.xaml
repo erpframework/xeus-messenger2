@@ -6,6 +6,7 @@
     x:Class="xeus2.xeus.UI.InfoPopup"
 	Placement="AbsolutePoint"
     AllowsTransparency="True"
-    Width="300" Height="200">
+    Width="300" Height="200"
+    MouseEnter="Popup_MouseEnter" MouseLeave="Popup_MouseLeave">
     <Controls:Info x:Name="_info" HorizontalAlignment="Right" VerticalAlignment="Bottom" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom"/>
 </Popup>

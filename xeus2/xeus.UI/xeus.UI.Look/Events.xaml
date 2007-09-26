@@ -4,6 +4,27 @@
 	xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" 	
 	xmlns:xeus2_xeus_Core="clr-namespace:xeus2.xeus.Core"
 	>
+
+    <DrawingBrush x:Key="nextpage_design">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#E6FFFFFF" Geometry="F1 M 21.6804,15.4583L 11.4805,9.5694L 11.4805,21.3472L 21.6804,15.4583 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
+    <DrawingBrush x:Key="prevpage_design">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#E6FFFFFF" Geometry="F1 M 11.4805,15.4583L 21.6804,21.3472L 21.6804,9.5694L 11.4805,15.4583 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
     <Style x:Key="InfoTip" TargetType="{x:Type ToolTip}">
  	<Style.Resources>
  		<Storyboard x:Key="Popup">

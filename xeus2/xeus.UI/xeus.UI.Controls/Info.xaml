@@ -3,12 +3,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     >
-    <Grid>
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" x:Name="_buttons">
-			<Button Content="Next" x:Name="_next" Click="_next_Click"/>
-			<Button Content="Previous" x:Name="_prev" Click="_prev_Click"/>
-		</StackPanel>
-        <ContentPresenter x:Name="_content" Margin="0,30,50,0" MouseDown="_content_MouseDown"
-                          Cursor="Hand"/>
+    <Grid Background="#11000000">
+			<StackPanel VerticalAlignment="Bottom" x:Name="_buttons" HorizontalAlignment="Right">
+			<Button x:Name="_prev" Click="_prev_Click" Width="20" Height="20" Background="{DynamicResource prevpage_design}" Style="{DynamicResource ImageButtonStyle}"  />
+            <Button x:Name="_next" Click="_next_Click" Width="20" Height="20" Background="{DynamicResource nextpage_design}" Style="{DynamicResource ImageButtonStyle}"  />
+			</StackPanel>
+        <ContentPresenter x:Name="_content" MouseDown="_content_MouseDown"
+			Cursor="Hand" Margin="0,0,35,0"/>
     </Grid>
 </UserControl>
