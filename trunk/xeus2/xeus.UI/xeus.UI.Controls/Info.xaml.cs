@@ -79,6 +79,29 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                         break;
                     }
             }
+
+            RefreshNavigation();
+        }
+
+        void RefreshNavigation()
+        {
+            lock (Notification.Notifications._syncObject)
+            {
+                _buttons.Visibility = (Notification.Notifications.Count > 0)
+                                       ? System.Windows.Visibility.Visible
+                                       : System.Windows.Visibility.Collapsed;
+
+                int index = Notification.Notifications.IndexOf(_content.Content as Event);
+
+                _next.Visibility = (index + 1 < Notification.Notifications.Count)
+                                       ? System.Windows.Visibility.Visible
+                                       : System.Windows.Visibility.Collapsed;
+
+                _prev.Visibility = (index - 1 >= 0)
+                                       ? System.Windows.Visibility.Visible
+                                       : System.Windows.Visibility.Collapsed;
+            }
+
         }
 
         void _display_Elapsed(object sender, ElapsedEventArgs e)
@@ -91,6 +114,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             if (_eventToDisplay != null)
             {
                 _content.Content = _eventToDisplay;
+                RefreshNavigation();
             }
         }
 
@@ -104,6 +128,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                     && (index + 1) < Notification.Notifications.Count)
                 {
                     _content.Content = Notification.Notifications[index + 1];
+                    RefreshNavigation();
                 }
             }
         }
@@ -118,6 +143,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                     && (index - 1) < Notification.Notifications.Count)
                 {
                     _content.Content = Notification.Notifications[index - 1];
+                    RefreshNavigation();
                 }
             }
         }
