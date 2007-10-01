@@ -12,7 +12,7 @@ namespace xeus2.xeus.Utilities
 
 		public static bool BareEquals( Jid jid, Jid jid2 )
 		{
-			return ( string.Compare( jid.Bare, jid2.Bare, true ) == 0 ) ;
+			return ( string.Compare( jid.Bare.ToLowerInvariant(), jid2.Bare.ToLowerInvariant(), true ) == 0 ) ;
 		}
 
 		public static bool CompareDiscoItem( DiscoItem discoItem, DiscoItem discoItem2 )

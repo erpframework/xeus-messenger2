@@ -188,13 +188,48 @@ namespace xeus2.xeus.Data
             {
                 Dictionary<string, object> values = message.GetData();
 
-                Insert(values, "Message", false, _connection);
+                if (!MucMessageExists(message.Sender, message.DateTime))
+                {
+                    Insert(values, "Message", false, _connection);
+                }
             }
 
             catch (Exception e)
             {
                 Events.Instance.OnEvent(e, new EventError(e.Message, null));
             }
+        }
+
+        static bool MucMessageExists(string sender, DateTime dateTime)
+        {
+            bool exists = false;
+
+            try
+            {
+                using (SQLiteCommand command = _connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT * FROM [Message] WHERE [Type]='muc' AND [From]=@sender AND [DateTime]=@dateTime";
+
+                    command.Parameters.Add(new SQLiteParameter("sender", sender));
+                    command.Parameters.Add(new SQLiteParameter("dateTime", dateTime));
+
+                    SQLiteDataReader reader = command.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        exists = true;
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            catch (Exception e)
+            {
+                Events.Instance.OnEvent(e, new EventError(e.Message, null));
+            }
+
+            return exists;
         }
 
         public static Dictionary<string, DiscoInfo> GetCapsCache()

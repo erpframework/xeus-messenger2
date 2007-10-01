@@ -954,45 +954,40 @@ xmlns:d="http://schemas.microsoft.com/expression/blend/2006" xmlns:mc="http://sc
   </DrawingBrush>
 
   <DrawingBrush x:Key="mucmark_design" Stretch="Uniform" PresentationOptions:Freeze="True" >
-    <DrawingBrush.Drawing>
-      <DrawingGroup>
-        <DrawingGroup.Children>
-          <GeometryDrawing Geometry="F1 M 162.164,55.292L 166.748,53.0761L 172.947,59.3217L 169.408,59.2631L 169.7,63.5326L 162.164,55.292 Z ">
-            <GeometryDrawing.Pen>
-              <Pen LineJoin="Round" Brush="#FF2C2C2C"/>
-            </GeometryDrawing.Pen>
-            <GeometryDrawing.Brush>
-              <LinearGradientBrush StartPoint="1.20446,0.979048" EndPoint="2.22317,0.979048">
-                <LinearGradientBrush.RelativeTransform>
-                  <TransformGroup>
-                    <SkewTransform CenterX="1.20446" CenterY="0.979048" AngleX="1.61104" AngleY="0"/>
-                    <RotateTransform CenterX="1.20446" CenterY="0.979048" Angle="226.64"/>
-                  </TransformGroup>
-                </LinearGradientBrush.RelativeTransform>
-                <LinearGradientBrush.GradientStops>
-                  <GradientStop Color="#FFCCF0FF" Offset="0"/>
-                  <GradientStop Color="#FF1A65B8" Offset="1"/>
-                </LinearGradientBrush.GradientStops>
-              </LinearGradientBrush>
-            </GeometryDrawing.Brush>
-          </GeometryDrawing>
-          <GeometryDrawing Geometry="F1 M 162.281,53.0591L 168.047,52.9854L 165.88,67.8187L 163.713,62.9854L 159.547,67.6521L 162.281,53.0591 Z M 164.736,54.252C 164.122,54.252 163.624,54.7495 163.624,55.3631C 163.624,55.9768 164.122,56.4742 164.736,56.4742C 165.349,56.4742 165.847,55.9768 165.847,55.3631C 165.847,54.7495 165.349,54.252 164.736,54.252 Z ">
-            <GeometryDrawing.Pen>
-              <Pen LineJoin="Round" Brush="#FF2C2C2C"/>
-            </GeometryDrawing.Pen>
-            <GeometryDrawing.Brush>
-              <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
-                <LinearGradientBrush.GradientStops>
-                  <GradientStop Color="#FFCCF0FF" Offset="0"/>
-                  <GradientStop Color="#FF8BB2DD" Offset="1"/>
-                </LinearGradientBrush.GradientStops>
-              </LinearGradientBrush>
-            </GeometryDrawing.Brush>
-          </GeometryDrawing>
-        </DrawingGroup.Children>
-      </DrawingGroup>
-    </DrawingBrush.Drawing>
-  </DrawingBrush>
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Geometry="F1 M 138.233,29.5896L 151.677,29.5896C 153.15,29.5896 154.344,30.7835 154.344,32.2562L 154.344,48.1451C 154.344,49.6179 153.15,50.8118 151.677,50.8118L 138.233,50.8118C 136.76,50.8118 135.566,49.6179 135.566,48.1451L 135.566,32.2562C 135.566,30.7835 136.76,29.5896 138.233,29.5896 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen LineJoin="Round" Brush="#FF676767"/>
+                        </GeometryDrawing.Pen>
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush StartPoint="0.5,0.944999" EndPoint="0.5,0.0550003">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#FFC0C0C0" Offset="0"/>
+                                    <GradientStop Color="#FFEBF7FF" Offset="1"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#9A909090" Geometry="F1 M 142.104,29.3243L 149.562,29.3243L 149.562,46.366L 145.833,39.5191L 142.104,46.366L 142.104,29.3243 Z "/>
+                    <GeometryDrawing Geometry="F1 M 141.226,27.8006L 148.684,27.8006L 148.684,44.8423L 144.955,37.9955L 141.226,44.8423L 141.226,27.8006 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen LineJoin="Round" Brush="#FF2B2B2B"/>
+                        </GeometryDrawing.Pen>
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush StartPoint="0.500001,0.748483" EndPoint="0.500001,0.251517">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#FF2F5B79" Offset="0"/>
+                                    <GradientStop Color="#FF99C7E7" Offset="1"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
 
   <DataTemplate x:Key="ServicesTemplateMuc" >
       <StackPanel Orientation="Horizontal" MinHeight="24">
