@@ -544,7 +544,7 @@ namespace xeus2.xeus.Core
         {
             Contact contact;
 
-            _realContacts.TryGetValue(jid.Bare, out contact);
+            _realContacts.TryGetValue(jid.Bare.ToLowerInvariant(), out contact);
 
             return contact;
         }
@@ -576,7 +576,7 @@ namespace xeus2.xeus.Core
 
                 metaContact.AddContact(contact);
 
-                _realContacts.Add(item.Jid.Bare, contact);
+                _realContacts.Add(item.Jid.Bare.ToLowerInvariant(), contact);
 
                 _items.Add(metaContact);
             }
@@ -606,7 +606,7 @@ namespace xeus2.xeus.Core
                 {
                     metaContact.SubContacts.Remove(contact);
 
-                    _realContacts.Remove(contact.Jid.Bare);
+                    _realContacts.Remove(contact.Jid.Bare.ToLowerInvariant());
 
                     if (metaContact.SubContacts.Count == 0)
                     {
