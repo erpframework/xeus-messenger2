@@ -25,14 +25,17 @@
         </DrawingBrush>
     </UserControl.Resources>
     
-    <Grid Background="#11000000">
-			<StackPanel VerticalAlignment="Bottom" x:Name="_buttons" HorizontalAlignment="Right">
-			<Rectangle x:Name="_prev" MouseDown="_prev_Click" Width="20" Height="20"
-                    Fill="{StaticResource prevpage_design}"/>
-            <Rectangle x:Name="_next" MouseDown="_next_Click" Width="20" Height="20"
-                    Fill="{StaticResource nextpage_design}"/>
+    <Grid>
+    	<ContentPresenter x:Name="_content" MouseDown="_content_MouseDown"
+			Cursor="Hand" Margin="0,0,0,20"/>
+			<Border x:Name="_buttons" Background="#B2000000" HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="4,4,4,4" CornerRadius="3,3,3,3">
+			<StackPanel Orientation="Horizontal">
+				<TextBlock x:Name="_count" Foreground="#FFE0E0E0" FontWeight="Bold" FontSize="10" VerticalAlignment="Center"/>
+				<Rectangle x:Name="_prev" MouseDown="_prev_Click" Width="10" Height="10"
+					Fill="{StaticResource prevpage_design}" Margin="5,0,0,0" Cursor="Hand"/>
+				<Rectangle x:Name="_next" MouseDown="_next_Click" Width="10" Height="10"
+					Fill="{StaticResource nextpage_design}" Margin="5,0,0,0" Cursor="Hand"/>
 			</StackPanel>
-        <ContentPresenter x:Name="_content" MouseDown="_content_MouseDown"
-			Cursor="Hand" Margin="0,0,35,0"/>
+		</Border>
     </Grid>
 </UserControl>

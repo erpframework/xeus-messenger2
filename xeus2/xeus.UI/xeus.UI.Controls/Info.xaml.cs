@@ -29,6 +29,12 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             Notification.Notifications.CollectionChanged += Notifications_CollectionChanged;
         }
 
+        public void Clear()
+        {
+            _content.Content = null;
+            _eventToDisplay = null;
+        }
+
         void Notifications_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
@@ -87,21 +93,22 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         {
             lock (Notification.Notifications._syncObject)
             {
-                _buttons.Visibility = (Notification.Notifications.Count > 0)
+                _buttons.Visibility = (Notification.Notifications.Count > 1)
                                        ? System.Windows.Visibility.Visible
                                        : System.Windows.Visibility.Collapsed;
 
                 int index = Notification.Notifications.IndexOf(_content.Content as Event);
 
+                _count.Text = string.Format("{0} of {1}", index + 1, Notification.Notifications.Count);
+
                 _next.Visibility = (index + 1 < Notification.Notifications.Count)
                                        ? System.Windows.Visibility.Visible
-                                       : System.Windows.Visibility.Collapsed;
+                                       : System.Windows.Visibility.Hidden;
 
                 _prev.Visibility = (index - 1 >= 0)
                                        ? System.Windows.Visibility.Visible
-                                       : System.Windows.Visibility.Collapsed;
+                                       : System.Windows.Visibility.Hidden;
             }
-
         }
 
         void _display_Elapsed(object sender, ElapsedEventArgs e)
@@ -114,6 +121,8 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             if (_eventToDisplay != null)
             {
                 _content.Content = _eventToDisplay;
+                _eventToDisplay = null;
+
                 RefreshNavigation();
             }
         }

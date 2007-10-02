@@ -31,6 +31,13 @@ namespace xeus2.xeus.UI
             Resize();
         }
 
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            _info.Clear();
+        }
+
         protected override void OnOpened(EventArgs e)
         {
             base.OnOpened(e);
