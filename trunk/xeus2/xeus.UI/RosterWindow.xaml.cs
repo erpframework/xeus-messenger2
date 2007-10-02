@@ -25,6 +25,8 @@ namespace xeus2
 
             NotificationTray.Instance.Inititalize(_trayIcon, this);
             Notification.Initialize();
+
+            _filterDisplay.DataContext = _textFilter;
         }
 
         public override void EndInit()

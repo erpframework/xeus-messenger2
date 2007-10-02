@@ -9,7 +9,6 @@ namespace xeus2.xeus.Core
     public class ObservableCollectionDisp<T> : ObservableCollection<T>
     {
         public readonly object _syncObject = new object();
-        private bool _dontSendChange = false;
 
         private delegate void SetItemCallback(int index, T item);
 
@@ -20,8 +19,6 @@ namespace xeus2.xeus.Core
         private delegate void InsertItemCallback(int index, T item);
 
         private delegate void MoveItemCallback(int oldIndex, int newIndex);
-
-        private delegate void AddCallback(IList<T> items);
 
         public const DispatcherPriority _dispatcherPriority = DispatcherPriority.Render ;
 

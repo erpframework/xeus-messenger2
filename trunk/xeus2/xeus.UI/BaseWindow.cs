@@ -7,6 +7,8 @@ namespace xeus2.xeus.UI
     {
         private readonly string _key;
 
+        private bool _hideOnMimnimize = false;
+
         public BaseWindow()
         {
             throw new NotImplementedException();
@@ -25,11 +27,40 @@ namespace xeus2.xeus.UI
         {
         }
 
+        protected override void OnStateChanged(EventArgs e)
+        {
+            base.OnStateChanged(e);
+
+            if (HideOnMimnimize)
+            {
+                if (WindowState == WindowState.Minimized)
+                {
+                    Hide();
+                }
+                else if (WindowState != WindowState.Minimized)
+                {
+                    Show();
+                }
+            }
+        }
+
         public string Key
         {
             get
             {
                 return _key;
+            }
+        }
+
+        public bool HideOnMimnimize
+        {
+            get
+            {
+                return _hideOnMimnimize;
+            }
+            set
+            {
+                _hideOnMimnimize = value;
             }
         }
 
@@ -53,7 +84,7 @@ namespace xeus2.xeus.UI
         {
             if (WindowState == WindowState.Minimized)
             {
-                if (!ShowInTaskbar)
+                if (HideOnMimnimize)
                 {
                     Show();
                 }
@@ -64,7 +95,7 @@ namespace xeus2.xeus.UI
             {
                 WindowState = WindowState.Minimized;
 
-                if (!ShowInTaskbar)
+                if (HideOnMimnimize)
                 {
                     Hide();
                 }
