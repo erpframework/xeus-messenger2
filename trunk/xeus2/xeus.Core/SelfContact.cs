@@ -8,6 +8,7 @@ using agsXMPP.protocol.extensions.caps;
 using agsXMPP.protocol.iq.disco;
 using agsXMPP.protocol.iq.vcard;
 using agsXMPP.protocol.x.vcard_update;
+using Win32_API;
 using xeus2.Properties;
 using xeus2.xeus.Data;
 using xeus2.xeus.Utilities;
@@ -16,18 +17,99 @@ namespace xeus2.xeus.Core
 {
     public class SelfContact : NotifyInfoDispatcher, IContact
     {
-        private readonly Timer _updateTimer = new Timer(500);
-
-        private BitmapImage _image;
-        private string _fullName;
-        private string _nickName;
-        
         private readonly Capabilities _caps;
-
-        private readonly DiscoIdentity _identity = new DiscoIdentity("pc", "xeus", "client");
         private readonly DiscoInfo _discoInfo = new DiscoInfo();
-        
+        private readonly DiscoIdentity _identity = new DiscoIdentity("pc", "xeus", "client");
+        private readonly Timer _idleTimer = new Timer(5000);
+
+        private readonly Timer _updateTimer = new Timer(500);
+        private string _avatarHash = null;
         private VCard _card = null;
+
+        private string _fullName;
+        private BitmapImage _image;
+        private bool _isIdle = false;
+        private string _nickName;
+        private ShowType _nonIdlePresence = ShowType.NONE;
+
+        private Presence _presence = new Presence(Settings.Default.XmppMyPresence,
+                                                  Settings.Default.XmppStatusText,
+                                                  Settings.Default.XmppPriority);
+
+        public SelfContact()
+        {
+            _updateTimer.AutoReset = false;
+            _updateTimer.Elapsed += _updateTimer_Elapsed;
+
+            _idleTimer.AutoReset = true;
+            _idleTimer.Elapsed += _idleTimer_Elapsed;
+            _idleTimer.Start();
+
+            _caps = new Capabilities(TextUtil.GenerateVerAttribute(_discoInfo),
+                                     "http://xeus.net/#2.0");
+
+            /*
+            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.BYTESTREAMS));
+            _caps.AddExtension("bs");
+
+            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.CAPS));
+            _caps.AddExtension("caps");
+
+            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.COMMANDS));
+            _caps.AddExtension("cmd");
+
+            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.CHATSTATES));
+            _caps.AddExtension("cs");
+
+            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.DISCO_INFO));
+            _caps.AddExtension("di");
+
+            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.VCARD_UPDATE));
+            _caps.AddExtension("vcup");
+
+            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.VCARD));
+            _caps.AddExtension("vc");
+
+            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.IQ_LAST));
+            _caps.AddExtension("las");
+
+            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC_ADMIN));
+            _caps.AddExtension("adm");
+
+            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC_OWNER));
+            _caps.AddExtension("own");
+
+            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC_USER));
+            _caps.AddExtension("usr");*/
+
+            _discoInfo.AddIdentity(_identity);
+        }
+
+        public ShowType MyShow
+        {
+            get
+            {
+                return _presence.Show;
+            }
+
+            set
+            {
+                Settings.Default.XmppMyPresence = value;
+                RestartTimer();
+            }
+        }
+
+        public DiscoInfo Disco
+        {
+            get
+            {
+                return _discoInfo;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         #region IContact Members
 
@@ -44,8 +126,8 @@ namespace xeus2.xeus.Core
             get
             {
                 _presence = new Presence(Settings.Default.XmppMyPresence,
-                                                    Settings.Default.XmppStatusText,
-                                                    Settings.Default.XmppPriority);
+                                         Settings.Default.XmppStatusText,
+                                         Settings.Default.XmppPriority);
                 if (_avatarHash != null)
                 {
                     _presence.AddChild(new VcardUpdate(_avatarHash));
@@ -67,7 +149,6 @@ namespace xeus2.xeus.Core
             set
             {
                 Settings.Default.XmppPriority = value;
-                
             }
         }
 
@@ -128,20 +209,6 @@ namespace xeus2.xeus.Core
             get
             {
                 return _presence.Show.ToString();
-            }
-        }
-
-        public ShowType MyShow
-        {
-            get
-            {
-                return _presence.Show;
-            }
-
-            set
-            {
-                Settings.Default.XmppMyPresence = value;
-                RestartTimer();
             }
         }
 
@@ -240,18 +307,6 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public DiscoInfo Disco
-        {
-            get
-            {
-                return _discoInfo;
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         public VCard Card
         {
             get
@@ -274,19 +329,12 @@ namespace xeus2.xeus.Core
             }
         }
 
-        /*
-        public Capabilities Caps
-        {
-            get
-            {
-                return _caps;
-            }
-        }*/
-
         public bool HasFeature(string feature)
         {
             return _discoInfo.HasFeature(feature);
         }
+
+        #endregion
 
         public void PresenceChange()
         {
@@ -297,54 +345,50 @@ namespace xeus2.xeus.Core
             NotifyPropertyChanged("Resource");
         }
 
-        #endregion
-
-
-        public SelfContact()
+        private void _idleTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            _updateTimer.AutoReset = false;
-            _updateTimer.Elapsed += _updateTimer_Elapsed;
+            TimeSpan timeSpan = new TimeSpan(0, 0, 0, 0, (int)Win32.GetIdleTime());
 
-            _caps = new Capabilities(TextUtil.GenerateVerAttribute(_discoInfo),
-                                                                        "http://xeus.net/#2.0");
-
-            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.BYTESTREAMS));
-            _caps.AddExtension("bs");
-
-            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.CAPS));
-            _caps.AddExtension("caps");
-
-            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.COMMANDS));
-            _caps.AddExtension("cmd");
-
-            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.CHATSTATES));
-            _caps.AddExtension("cs");
-
-            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.DISCO_INFO));
-            _caps.AddExtension("di");
-
-            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.VCARD_UPDATE));
-            _caps.AddExtension("vcup");
-
-            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.VCARD));
-            _caps.AddExtension("vc");
-
-            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.IQ_LAST));
-            _caps.AddExtension("las");
-
-            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC_ADMIN));
-            _caps.AddExtension("adm");
-
-            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC_OWNER));
-            _caps.AddExtension("own");
-
-            _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC_USER));
-            _caps.AddExtension("usr");
-
-            _discoInfo.AddIdentity(_identity);
+            if (timeSpan.TotalSeconds > Settings.Default.UI_IdleXAMinutes)
+            {
+                SetMyPresence(ShowType.xa, true);
+            }
+            else if (timeSpan.TotalSeconds > Settings.Default.UI_IdleAwayMinutes)
+            {
+                SetMyPresence(ShowType.away, true);
+            }
+            else
+            {
+                if (_isIdle)
+                {
+                    SetMyPresence(_nonIdlePresence, false);
+                }
+            }
         }
 
-        static void _updateTimer_Elapsed(object sender, ElapsedEventArgs e)
+        private void SetMyPresence(ShowType show, bool idle)
+        {
+            if (show == MyShow)
+            {
+                return;
+            }
+
+            if (idle && !_isIdle)
+            {
+                // coming to idle state
+                _nonIdlePresence = _presence.Show;
+                _isIdle = true;
+            }
+            else if (!idle && _isIdle)
+            {
+                // coming from idle state
+                _isIdle = false;
+            }
+
+            MyShow = show;
+        }
+
+        private static void _updateTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             Account.Instance.SendMyPresence();
         }
@@ -375,16 +419,11 @@ namespace xeus2.xeus.Core
             }
         }
 
-        void RestartTimer()
+        private void RestartTimer()
         {
             _updateTimer.Stop();
             _updateTimer.Start();
         }
-
-        private string _avatarHash = null;
-        private Presence _presence= new Presence(Settings.Default.XmppMyPresence,
-                                                    Settings.Default.XmppStatusText,
-                                                    Settings.Default.XmppPriority);
 
         private void SetMyVcard(Vcard vcard)
         {
@@ -394,7 +433,7 @@ namespace xeus2.xeus.Core
 
                 _fullName = vcard.Fullname;
                 _nickName = vcard.Nickname;
-            
+
                 NotifyPropertyChanged("FullName");
                 NotifyPropertyChanged("NickName");
                 NotifyPropertyChanged("DisplayName");
@@ -418,7 +457,7 @@ namespace xeus2.xeus.Core
             NotifyPropertyChanged("Resource");
             NotifyPropertyChanged("Priority");
             NotifyPropertyChanged("Jid");
- 
+
             Vcard vcard = Storage.GetVcard(Jid, 99999);
             SetMyVcard(vcard);
         }
@@ -428,7 +467,7 @@ namespace xeus2.xeus.Core
             VcardIq vcardIq = new VcardIq(IqType.set, _card.Vcard);
             Account.Instance.XmppConnection.Send(vcardIq);
 
-            Account.Instance.SendMyPresence();           
+            Account.Instance.SendMyPresence();
         }
     }
 }
