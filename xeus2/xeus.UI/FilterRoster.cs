@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Timers;
+using System.Windows;
 using System.Windows.Controls;
 using xeus2.Properties;
 using xeus2.xeus.Core;
@@ -9,17 +11,25 @@ namespace xeus2.xeus.UI
     {
         private readonly ICollectionView _collectionView;
 
-        public FilterRoster(ICollectionView collectionView)
+        readonly Timer _refreshTimer = new Timer(500);
+
+        public FilterRoster(ICollectionView collectionView, TextBox searchBox)
         {
             _collectionView = collectionView;
 
             Settings.Default.PropertyChanged += delegate(object sender, PropertyChangedEventArgs e)
-            {
-                if (e.PropertyName == "UI_DisplayOfflineContacts")
-                {
-                    Refresh();
-                }
-            };
+                                                    {
+                                                        if (e.PropertyName == "UI_DisplayOfflineContacts")
+                                                        {
+                                                            Refresh();
+                                                        }
+                                                    };
+
+            searchBox.TextChanged += delegate
+                                                 {
+                                                     _refreshTimer.Stop();
+                                                     _refreshTimer.Start();
+                                                 };
 
             collectionView.Filter = delegate(object obj)
                                         {
@@ -29,15 +39,28 @@ namespace xeus2.xeus.UI
                                             {
                                                 return false;
                                             }
-                                            else if (contact.IsAvailable)
+
+                                            bool contains =
+                                                contact.SearchLowerText.Contains(searchBox.Text.ToLower());
+
+                                            if (contact.IsAvailable)
                                             {
-                                                return true;
+                                                return contains && true;
                                             }
                                             else
                                             {
-                                                return Settings.Default.UI_DisplayOfflineContacts;
+                                                return contains && Settings.Default.UI_DisplayOfflineContacts;
                                             }
                                         };
+
+            _refreshTimer.Elapsed += _refreshTimer_Elapsed;
+        }
+
+        private delegate void RefreshCallback();
+
+        void _refreshTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            App.InvokeSafe(App._dispatcherPriority, new RefreshCallback(Refresh));
         }
 
         private void Refresh()

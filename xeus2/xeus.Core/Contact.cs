@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.Text;
 using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.protocol.Base;
@@ -28,6 +29,8 @@ namespace xeus2.xeus.Core
         private static readonly PresenceCompare _presenceCompare = new PresenceCompare();
         private readonly Dictionary<string, Presence> _presences = new Dictionary<string, Presence>(3);
         private readonly object _presencesLock = new object();
+
+        private string _searchLowerText = string.Empty;
 
         private readonly RosterItem _rosterItem = null;
         private readonly int _metaId;
@@ -58,6 +61,8 @@ namespace xeus2.xeus.Core
             }
 
             AskForLastTime();
+
+            BuildSearchText();
         }
 
         public Contact(RosterItem rosterItem, int metaId)
@@ -66,12 +71,16 @@ namespace xeus2.xeus.Core
             _metaId = metaId;
 
             AskForLastTime();
+
+            BuildSearchText();
         }
 
         public Contact(Presence presence)
         {
             _rosterItem = new RosterItem();
             _rosterItem.Jid = presence.From;
+
+            BuildSearchText();
         }
 
         public bool HasVCardRecieved
@@ -255,6 +264,8 @@ namespace xeus2.xeus.Core
                 NotifyPropertyChanged("IsAvailable");
                 NotifyPropertyChanged("StatusText");
                 NotifyPropertyChanged("XStatusText");
+                BuildSearchText();
+
                 NotifyPropertyChanged("Show");
                 NotifyPropertyChanged("Priority");
                 NotifyPropertyChanged("Resource");
@@ -598,6 +609,40 @@ namespace xeus2.xeus.Core
             return has;
         }
 
+        public string SearchLowerText
+        {
+            get
+            {
+                return _searchLowerText;
+            }
+        }
+
+        void BuildSearchText()
+        {
+            StringBuilder builder = new StringBuilder();
+
+            if (!string.IsNullOrEmpty(FullName))
+            {
+                builder.Append(FullName.ToLower());
+            }
+
+            if (!string.IsNullOrEmpty(NickName))
+            {
+                builder.Append(NickName.ToLower());
+            }
+
+            if (!string.IsNullOrEmpty(XStatusText))
+            {
+                builder.Append(XStatusText.ToLower());
+            }
+
+            builder.Append(DisplayName.ToLower());
+
+            _searchLowerText = builder.ToString();
+
+            NotifyPropertyChanged("SearchLowerText");
+        }
+
         public void SetVcard(Vcard vcard)
         {
             if (App.Current.Dispatcher.CheckAccess())
@@ -613,6 +658,8 @@ namespace xeus2.xeus.Core
                     NotifyPropertyChanged("FullName");
                     NotifyPropertyChanged("NickName");
                     NotifyPropertyChanged("DisplayName");
+
+                    BuildSearchText();
 
                     string hash;
                     Image = Storage.ImageFromPhoto(vcard.Photo, out hash);
