@@ -3,10 +3,34 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     >
+    <UserControl.Resources>
+        <DrawingBrush x:Key="nextpage_design">
+            <DrawingBrush.Drawing>
+                <DrawingGroup>
+                    <DrawingGroup.Children>
+                        <GeometryDrawing Brush="#E6FFFFFF" Geometry="F1 M 21.6804,15.4583L 11.4805,9.5694L 11.4805,21.3472L 21.6804,15.4583 Z "/>
+                    </DrawingGroup.Children>
+                </DrawingGroup>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+
+        <DrawingBrush x:Key="prevpage_design">
+            <DrawingBrush.Drawing>
+                <DrawingGroup>
+                    <DrawingGroup.Children>
+                        <GeometryDrawing Brush="#E6FFFFFF" Geometry="F1 M 11.4805,15.4583L 21.6804,21.3472L 21.6804,9.5694L 11.4805,15.4583 Z "/>
+                    </DrawingGroup.Children>
+                </DrawingGroup>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+    </UserControl.Resources>
+    
     <Grid Background="#11000000">
 			<StackPanel VerticalAlignment="Bottom" x:Name="_buttons" HorizontalAlignment="Right">
-			<Button x:Name="_prev" Click="_prev_Click" Width="20" Height="20" Background="{DynamicResource prevpage_design}" Style="{DynamicResource ImageButtonStyle}"  />
-            <Button x:Name="_next" Click="_next_Click" Width="20" Height="20" Background="{DynamicResource nextpage_design}" Style="{DynamicResource ImageButtonStyle}"  />
+			<Rectangle x:Name="_prev" MouseDown="_prev_Click" Width="20" Height="20"
+                    Fill="{StaticResource prevpage_design}"/>
+            <Rectangle x:Name="_next" MouseDown="_next_Click" Width="20" Height="20"
+                    Fill="{StaticResource nextpage_design}"/>
 			</StackPanel>
         <ContentPresenter x:Name="_content" MouseDown="_content_MouseDown"
 			Cursor="Hand" Margin="0,0,35,0"/>
