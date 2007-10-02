@@ -16,6 +16,10 @@
     x:Class="xeus2.RosterWindow"
     Title="xeus2" Height="500" Width="300"
     SnapsToDevicePixels="True"
+    HideOnMimnimize="True"
+    ShowInTaskbar="False"
+    UI:WindowSettings.Save="True"
+    x:Name="Roster"
     >
     <UI:BaseWindow.Resources>
         <ResourceDictionary>
@@ -235,7 +239,11 @@
                 </WrapPanel>
             </Grid>
             <xeus2_xeus_Controls:DottedHorizontal Margin="0,3,0,3" DockPanel.Dock="Bottom"/>
-            <local:RosterControl x:Name="_roster" DockPanel.Dock="Top"/>
+            <Grid DockPanel.Dock="Top">
+                <local:RosterControl x:Name="_roster"/>
+                <xeus2_xeus_Controls:FilterDisplay Margin="10,-10,10,10"
+                    x:Name="_filterDisplay" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+            </Grid>
         </DockPanel>
     </DockPanel>
 </UI:BaseWindow>

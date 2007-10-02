@@ -207,6 +207,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="xeus.UI\xeus.UI.Controls\FilterDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="xeus.UI\xeus.UI.Controls\HistoryListSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -494,6 +498,7 @@
     <Compile Include="xeus.UI\Vista.cs" />
     <Compile Include="xeus.UI\WindowExistsException.cs" />
     <Compile Include="xeus.UI\WindowManager.cs" />
+    <Compile Include="xeus.UI\WindowSettings.cs" />
     <Compile Include="xeus.UI\xeus.UI.Controls\Chatstate.xaml.cs">
       <DependentUpon>Chatstate.xaml</DependentUpon>
     </Compile>
@@ -506,6 +511,9 @@
     </Compile>
     <Compile Include="xeus.UI\xeus.UI.Controls\DottedHorizontal.xaml.cs">
       <DependentUpon>DottedHorizontal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xeus.UI\xeus.UI.Controls\FilterDisplay.xaml.cs">
+      <DependentUpon>FilterDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\xeus.UI.Controls\HistoryListSelection.xaml.cs">
       <DependentUpon>HistoryListSelection.xaml</DependentUpon>
