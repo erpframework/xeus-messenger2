@@ -334,6 +334,14 @@ namespace xeus2.xeus.Core
             return _discoInfo.HasFeature(feature);
         }
 
+        public string SearchLowerText
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         #endregion
 
         public void PresenceChange()
@@ -349,11 +357,11 @@ namespace xeus2.xeus.Core
         {
             TimeSpan timeSpan = new TimeSpan(0, 0, 0, 0, (int)Win32.GetIdleTime());
 
-            if (timeSpan.TotalSeconds > Settings.Default.UI_IdleXAMinutes)
+            if (timeSpan.TotalMinutes > Settings.Default.UI_IdleXAMinutes)
             {
                 SetMyPresence(ShowType.xa, true);
             }
-            else if (timeSpan.TotalSeconds > Settings.Default.UI_IdleAwayMinutes)
+            else if (timeSpan.TotalMinutes > Settings.Default.UI_IdleAwayMinutes)
             {
                 SetMyPresence(ShowType.away, true);
             }

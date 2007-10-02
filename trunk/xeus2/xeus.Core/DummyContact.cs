@@ -167,6 +167,14 @@ namespace xeus2.xeus.Core
             return false;
         }
 
+        public string SearchLowerText
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         #endregion
     }
 }

@@ -99,5 +99,10 @@ namespace xeus2.xeus.Core
         }
 
         bool HasFeature(string feature);
+
+        string SearchLowerText
+        {
+            get;
+        }
     }
 }

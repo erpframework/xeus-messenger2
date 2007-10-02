@@ -243,6 +243,14 @@ namespace xeus2.xeus.Core
             return false;
         }
 
+        public string SearchLowerText
+        {
+            get
+            {
+                return (string)GetValueSafe("SearchLowerText");
+            }
+        }
+
         #endregion
 
         public Dictionary<string, object> GetData()

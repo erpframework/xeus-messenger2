@@ -200,6 +200,15 @@
                     </CheckBox.IsChecked>
                 </CheckBox>
             </StatusBarItem>
+            <StatusBarItem>
+                <Border Background="#99B0B0B0" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3">
+                    <Grid>
+                        <TextBox x:Name="_textFilter" MinWidth="120" Style="{DynamicResource TransparentTextBoxStyle}"/>
+                        <Button Width="12" HorizontalAlignment="Right" Style="{DynamicResource ImageButtonStyle}" Background="{DynamicResource clear_design}"
+			                Click="Button_Click" Margin="2,2,4,2" ToolTip="Clear Text" Height="12"/>
+                    </Grid>
+                </Border>
+            </StatusBarItem>
         </StatusBar>
         <DockPanel DockPanel.Dock="Top" >
             <Grid DockPanel.Dock="Top" >

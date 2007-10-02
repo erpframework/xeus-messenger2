@@ -1,6 +1,5 @@
 using System;
 using System.Windows;
-using System.Windows.Forms;
 using xeus2.xeus.Commands;
 using xeus2.xeus.Core;
 using xeus2.xeus.Middle;
@@ -22,7 +21,7 @@ namespace xeus2
         {
             InitializeComponent();
 
-            new FilterRoster(_roster.CollectionView);
+            new FilterRoster(_roster.CollectionView, _textFilter);
 
             NotificationTray.Instance.Inititalize(_trayIcon, this);
             Notification.Initialize();
@@ -76,6 +75,11 @@ namespace xeus2
         {
             _historyPopup.Child = new HistoryListSelection();
             _historyPopup.IsOpen = true;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            _textFilter.Clear();
         }
     }
 }

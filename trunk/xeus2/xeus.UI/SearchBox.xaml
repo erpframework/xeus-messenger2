@@ -10,7 +10,6 @@
       		<Button Width="12" HorizontalAlignment="Right" Style="{DynamicResource ImageButtonStyle}" Background="{DynamicResource clear_design}"
 			Click="ClearClicked" Margin="2,2,4,2" ToolTip="Clear Text" Height="12"/>
       	</Grid>
-					
       </Border>
     </DockPanel>
 </UserControl>
