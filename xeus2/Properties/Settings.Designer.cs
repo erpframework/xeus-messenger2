@@ -322,5 +322,29 @@ namespace xeus2.Properties {
                 this["UI_Notify_Presence_Exp"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public uint UI_IdleAwayMinutes {
+            get {
+                return ((uint)(this["UI_IdleAwayMinutes"]));
+            }
+            set {
+                this["UI_IdleAwayMinutes"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8")]
+        public uint UI_IdleXAMinutes {
+            get {
+                return ((uint)(this["UI_IdleXAMinutes"]));
+            }
+            set {
+                this["UI_IdleXAMinutes"] = value;
+            }
+        }
     }
 }
