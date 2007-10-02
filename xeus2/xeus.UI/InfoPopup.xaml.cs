@@ -1,8 +1,9 @@
 using System;
+using System.Collections.Specialized;
+using System.Windows;
 using System.Windows.Forms;
-using xeus2.xeus.Core;
 using xeus2.xeus.Middle;
-using ListBox=System.Windows.Controls.ListBox;
+using MouseEventArgs=System.Windows.Input.MouseEventArgs;
 
 namespace xeus2.xeus.UI
 {
@@ -17,15 +18,15 @@ namespace xeus2.xeus.UI
 
             _info.SizeChanged += _info_SizeChanged;
 
-            Notification.Notifications.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(Notifications_CollectionChanged);
+            Notification.Notifications.CollectionChanged += Notifications_CollectionChanged;
         }
 
-        void Notifications_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void Notifications_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             IsOpen = (Notification.Notifications.Count > 0);
         }
 
-        void _info_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
+        private void _info_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             Resize();
         }
@@ -33,7 +34,7 @@ namespace xeus2.xeus.UI
         protected override void OnOpened(EventArgs e)
         {
             base.OnOpened(e);
-            
+
             Resize();
         }
 
@@ -56,12 +57,12 @@ namespace xeus2.xeus.UI
             VerticalOffset = primaryScreen.WorkingArea.Bottom - 10.0;
         }
 
-        private void Popup_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        private void Popup_MouseEnter(object sender, MouseEventArgs e)
         {
             Notification.DontExpire = true;
         }
 
-        private void Popup_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        private void Popup_MouseLeave(object sender, MouseEventArgs e)
         {
             Notification.DontExpire = false;
         }
