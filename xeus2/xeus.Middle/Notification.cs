@@ -46,15 +46,24 @@ namespace xeus2.xeus.Middle
             {
                 List<Event> toBeRemoved = new List<Event>();
 
+                DateTime now = DateTime.Now;
+
                 lock (_notificationLock)
                 {
-                    foreach (Event notification in Notifications)
-                    {
-                        if (notification.Expiration < DateTime.Now)
+                        foreach (Event notification in Notifications)
                         {
-                            toBeRemoved.Add(notification);
+                            if (notification.Expiration < now)
+                            {
+                                toBeRemoved.Add(notification);
+                            }
+
+                            if (notification.Expiration != DateTime.MaxValue
+                                && notification.Expiration > now)
+                            {
+                                // too new items
+                                break;
+                            }
                         }
-                    }
 
                     foreach (Event @event in toBeRemoved)
                     {
@@ -67,6 +76,8 @@ namespace xeus2.xeus.Middle
                     RefreshStatus();
                 }
             }
+
+            _expTimer.Start();
         }
 
         public static ObservableCollectionDisp<Event> Notifications
@@ -114,31 +125,20 @@ namespace xeus2.xeus.Middle
 
                     if (presenceChanged != null)
                     {
-                        if ((presenceChanged.OldPresence == null
-                            || presenceChanged.OldPresence.Type == PresenceType.unavailable)
-                            && presenceChanged.NewPresence.Type == PresenceType.available
-                            && (presenceChanged.NewPresence.Show == ShowType.NONE
-                                || presenceChanged.NewPresence.Show == ShowType.chat)
+                        if (presenceChanged.IsGoingOnline()
                             && !Settings.Default.UI_Notify_PresenceAvailable)
                         {
                             // online, free for chat
                             notify = false;
                         } 
-                        else if (presenceChanged.OldPresence != null
-                            && presenceChanged.OldPresence.Type == PresenceType.available
-                            && presenceChanged.NewPresence.Type == PresenceType.unavailable
-                            && !Settings.Default.UI_Notify_PresenceUnavailable)
+                        else if (presenceChanged.IsGoingOffline()
+                                && !Settings.Default.UI_Notify_PresenceUnavailable)
                         {
                             // offline
                             notify = false;
                         }
-                        else if (presenceChanged.OldPresence != null
-                            && presenceChanged.NewPresence.Type != presenceChanged.OldPresence.Type
-                            && presenceChanged.NewPresence.Type == PresenceType.available
-                            && (presenceChanged.NewPresence.Show == ShowType.away
-                                || presenceChanged.NewPresence.Show == ShowType.dnd
-                                || presenceChanged.NewPresence.Show == ShowType.xa)
-                            && !Settings.Default.UI_Notify_PresenceOther)
+                        else if (presenceChanged.IsChangingShowType()
+                                && !Settings.Default.UI_Notify_PresenceOther)
                         {
                             // online, away
                             notify = false;
@@ -242,11 +242,11 @@ namespace xeus2.xeus.Middle
         {
             Events.Instance.OnEventRaised += Instance_OnEventRaised;
 
-            _expTimer.AutoReset = true;
-            _expTimer.Interval = 250.0;
+            _expTimer.AutoReset = false;
+            _expTimer.Interval = 1000.0;
             _expTimer.Elapsed += _expTimer_Elapsed;
 
-            _expTimer.Enabled = true;
+            _expTimer.Start();
         }
     }
 }

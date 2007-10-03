@@ -40,15 +40,15 @@ namespace xeus2.xeus.Commands
 	        }
 	    }
 
-	    public static void RegisterCommands( Window window )
+        public static void RegisterCommands(CommandBindingCollection commandBindings)
 		{
-			window.CommandBindings.Add(
+			commandBindings.Add(
 				new CommandBinding( _displayLogin, ExecuteDisplayLogin, CanExecuteDisplayLogin ) ) ;
         
-            window.CommandBindings.Add(
+            commandBindings.Add(
                 new CommandBinding(_history, ExecuteDisplayHistory, CanExecuteDisplayHistory));
 
-            window.CommandBindings.Add(
+            commandBindings.Add(
                 new CommandBinding(_displayMucMarks, ExecuteDisplayMucMarks, CanExecuteDisplayMucMarks));
         }
 

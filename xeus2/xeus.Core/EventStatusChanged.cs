@@ -65,5 +65,27 @@ namespace xeus2.xeus.Core
                 return _newPresence;
             }
         }
+
+        public bool IsGoingOnline()
+        {
+            return ((OldPresence == null
+                     || OldPresence.Type == PresenceType.unavailable)
+                    && NewPresence.Type == PresenceType.available);
+        }
+
+        public bool IsGoingOffline()
+        {
+            return (OldPresence != null
+                    && OldPresence.Type == PresenceType.available
+                    && NewPresence.Type == PresenceType.unavailable);
+        }
+
+        public bool IsChangingShowType()
+        {
+            return (OldPresence != null
+                    && OldPresence.Type == PresenceType.available
+                    && NewPresence.Type == PresenceType.available
+                    && NewPresence.Show != OldPresence.Show);
+        }
     }
 }

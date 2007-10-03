@@ -1,4 +1,5 @@
 using System.Windows.Threading ;
+using xeus2.xeus.Data;
 
 namespace xeus2.xeus.Core
 {
@@ -9,7 +10,7 @@ namespace xeus2.xeus.Core
 
 		private static readonly Events _instance = new Events() ;
 
-	    private const uint _maxEvents = 500;
+	    private const uint _maxEvents = 250;
 
 		public static Events Instance
 		{
@@ -46,6 +47,11 @@ namespace xeus2.xeus.Core
 			{
 				OnEventRaised( sender, myEvent ) ;
 			}
+
+            if (myEvent is EventError)
+            {
+                Database.SaveError((EventError)myEvent);
+            }
 #if DEBUG
 			if ( myEvent.Severity >= Event.EventSeverity.Fatal )
 			{

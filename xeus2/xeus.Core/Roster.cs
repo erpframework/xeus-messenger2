@@ -141,10 +141,15 @@ namespace xeus2.xeus.Core
                 }
                 else
                 {
-                    EventPresenceChanged eventPresenceChanged =
-                        new EventPresenceChanged(contact, contact.Presence, presence);
+                    if (contact.Presence == null
+                        || contact.Presence.Show != presence.Show)
+                    {
+                        // only if showtype changes
+                        EventPresenceChanged eventPresenceChanged =
+                            new EventPresenceChanged(contact, contact.Presence, presence);
 
-                    Events.Instance.OnEvent(this, eventPresenceChanged);
+                        Events.Instance.OnEvent(this, eventPresenceChanged);
+                    }
 
                     contact.Presence = presence;
 
