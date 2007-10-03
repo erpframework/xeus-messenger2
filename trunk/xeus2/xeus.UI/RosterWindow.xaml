@@ -173,6 +173,71 @@
                 </DrawingBrush.Drawing>
             </DrawingBrush>
 
+            <DrawingBrush x:Key="offline_contact_design" PresentationOptions:Freeze="True" Stretch="Uniform">
+                <DrawingBrush.Drawing>
+                    <DrawingGroup>
+                        <DrawingGroup.Children>
+                            <GeometryDrawing Geometry="F1 M 16.4534,6.05306C 18.8961,6.05306 20.8763,8.03325 20.8763,10.4759C 20.8763,12.9186 18.8961,14.8988 16.4534,14.8988C 14.0107,14.8988 12.0306,12.9186 12.0306,10.4759C 12.0306,8.03325 14.0107,6.05306 16.4534,6.05306 Z ">
+                                <GeometryDrawing.Pen>
+                                    <Pen LineJoin="Round" Brush="#803D3D3D"/>
+                                </GeometryDrawing.Pen>
+                                <GeometryDrawing.Brush>
+                                    <RadialGradientBrush RadiusX="0.465429" RadiusY="0.465429" Center="0.5,0.5" GradientOrigin="0.5,0.5">
+                                        <RadialGradientBrush.GradientStops>
+                                            <GradientStop Color="#80EFD4BC" Offset="0"/>
+                                            <GradientStop Color="#80E7B572" Offset="0.716102"/>
+                                            <GradientStop Color="#80C39B6F" Offset="1"/>
+                                        </RadialGradientBrush.GradientStops>
+                                        <RadialGradientBrush.RelativeTransform>
+                                            <TransformGroup/>
+                                        </RadialGradientBrush.RelativeTransform>
+                                    </RadialGradientBrush>
+                                </GeometryDrawing.Brush>
+                            </GeometryDrawing>
+                            <GeometryDrawing Geometry="F1 M 16.4562,6.08644C 14.7791,6.08644 13.32,7.01994 12.5701,8.39569C 12.8039,9.11825 13.321,9.75863 14.0222,10.0828C 15.0051,10.5371 16.3496,10.3702 17.3,9.95297C 18.2504,9.53572 18.8067,8.86812 19.465,8.34887C 19.6578,8.19683 19.8593,8.05752 20.0391,7.91555C 19.2353,6.80725 17.93,6.08644 16.4562,6.08644 Z ">
+                                <GeometryDrawing.Pen>
+                                    <Pen LineJoin="Round" Brush="#803D3D3D"/>
+                                </GeometryDrawing.Pen>
+                                <GeometryDrawing.Brush>
+                                    <RadialGradientBrush RadiusX="0.480375" RadiusY="0.772332" Center="0.5,0.517385" GradientOrigin="0.5,0.517385">
+                                        <RadialGradientBrush.GradientStops>
+                                            <GradientStop Color="#80E59249" Offset="0"/>
+                                            <GradientStop Color="#80A06B22" Offset="0.716102"/>
+                                            <GradientStop Color="#802A1A07" Offset="0.995763"/>
+                                        </RadialGradientBrush.GradientStops>
+                                        <RadialGradientBrush.RelativeTransform>
+                                            <TransformGroup/>
+                                        </RadialGradientBrush.RelativeTransform>
+                                    </RadialGradientBrush>
+                                </GeometryDrawing.Brush>
+                            </GeometryDrawing>
+                            <GeometryDrawing Brush="#80FFFFFF" Geometry="F1 M 16.4947,20.1342L 14.9238,14.636C 15.3993,14.8108 15.9133,14.9062 16.4495,14.9062C 17.0876,14.9062 17.6942,14.7711 18.2421,14.5279L 16.4947,20.1342 Z ">
+                                <GeometryDrawing.Pen>
+                                    <Pen LineJoin="Round" Brush="#803D3D3D"/>
+                                </GeometryDrawing.Pen>
+                            </GeometryDrawing>
+                            <GeometryDrawing Geometry="F1 M 22.8264,20.8867C 20.9616,22.0933 18.8157,22.7803 16.5323,22.7803C 14.1578,22.7803 11.9321,22.0374 10.0164,20.7399C 10.5248,17.695 11.8644,15.1913 13.6236,13.8858C 14.3899,14.523 15.375,14.9062 16.4495,14.9062C 17.5063,14.9062 18.4765,14.5355 19.2373,13.9172C 21.004,15.2524 22.3409,17.7999 22.8264,20.8867 Z ">
+                                <GeometryDrawing.Pen>
+                                    <Pen LineJoin="Round" Brush="#803D3D3D"/>
+                                </GeometryDrawing.Pen>
+                                <GeometryDrawing.Brush>
+                                    <RadialGradientBrush RadiusX="0.5" RadiusY="0.697868" Center="0.5,0.5" GradientOrigin="0.5,0.5">
+                                        <RadialGradientBrush.GradientStops>
+                                            <GradientStop Color="#80EBEBEB" Offset="0.00423729"/>
+                                            <GradientStop Color="#80D7D7D7" Offset="0.703392"/>
+                                            <GradientStop Color="#80909090" Offset="0.995763"/>
+                                        </RadialGradientBrush.GradientStops>
+                                        <RadialGradientBrush.RelativeTransform>
+                                            <TransformGroup/>
+                                        </RadialGradientBrush.RelativeTransform>
+                                    </RadialGradientBrush>
+                                </GeometryDrawing.Brush>
+                            </GeometryDrawing>
+                        </DrawingGroup.Children>
+                    </DrawingGroup>
+                </DrawingBrush.Drawing>
+            </DrawingBrush>
+            
             <ItemsPanelTemplate x:Key="ItemsPanelStausbar">
                 <!--<VirtualizingStackPanel IsItemsHost="True"/>-->
                 <WrapPanel IsItemsHost="True" />
@@ -187,12 +252,12 @@
                    PlacementTarget ="{Binding ElementName=_sizeButton}" StaysOpen="False"/>
         <StatusBar DockPanel.Dock="Bottom" Background="{x:Null}" ItemsPanel="{StaticResource ItemsPanelStausbar}">
             <StatusBarItem>
-                <xeus2_xeus_Controls:StatusTextControl/>
+                <xeus2_xeus_Controls:StatusTextControl MinWidth="150"/>
             </StatusBarItem>
             <Separator/>
             <StatusBarItem>
                 <CheckBox x:Name="_displayOffline" ToolTip="Display Offline Contacts"
-                Background="{DynamicResource aff_none_design}" Template="{DynamicResource CheckBoxImageControlTemplate}" Margin="5,0,5,0" VerticalAlignment="Center">
+                Background="{StaticResource offline_contact_design}" Template="{DynamicResource CheckBoxImageControlTemplate}" Margin="5,0,5,0" VerticalAlignment="Center">
                     <CheckBox.IsChecked>
                         <Binding Path="UI_DisplayOfflineContacts"
                              Source="{x:Static Properties:Settings.Default}" Mode="TwoWay"/>
@@ -200,7 +265,7 @@
                 </CheckBox>
             </StatusBarItem>
             <StatusBarItem>
-                <xeus2_xeus_Controls:UserSearchText x:Name="_textFilter"/>
+                <xeus2_xeus_Controls:UserSearchText x:Name="_textFilter" MinWidth="150"/>
             </StatusBarItem>
             <Separator/>
             <StatusBarItem>

@@ -438,9 +438,9 @@ namespace xeus2.xeus.Core
                         iq.SwitchDirection();
                         iq.Type = IqType.result;
 
-                        version.Name = "xeus";
-                        version.Ver = "2.0 pre-alpha";
-                        version.Os = Environment.OSVersion.ToString();
+                        version.Name = Self.ClientName;
+                        version.Ver = Self.ClientVersion;
+                        version.Os = Self.ClientOS;
 
                         XmppConnection.Send(iq);
                     }

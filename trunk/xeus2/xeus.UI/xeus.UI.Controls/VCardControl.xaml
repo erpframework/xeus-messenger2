@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Core="clr-namespace:xeus2.xeus.Core;assembly=" x:Class="xeus2.xeus.UI.xeus.UI.Controls.VCardControl"
     xmlns:servicecmd="clr-namespace:xeus2.xeus.Commands"
+    xmlns:Controls="clr-namespace:xeus2.xeus.UI.xeus.UI.Controls;assembly="
     Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <DataTemplate  DataType="{x:Type Core:VCard}" >
@@ -64,7 +65,28 @@
                 </DataTrigger>
             </DataTemplate.Triggers>
         </DataTemplate>
+
+        <DataTemplate x:Key="Client" >
+            <StackPanel>
+                <Grid Margin="0,5,0,0">
+                    <TextBlock Text="Client" Foreground="{DynamicResource DefaultTextBrush2}"/>
+                    <TextBlock Text="{Binding Path=ClientName}" Margin="150,0,0,0" Foreground="{DynamicResource DefaultTextBrush2}"/>
+                </Grid>
+                <Grid Margin="0,5,0,0">
+                    <TextBlock Text="Version" Foreground="{DynamicResource DefaultTextBrush2}"/>
+                    <TextBlock Text="{Binding Path=ClientVersion}" Margin="150,0,0,0" Foreground="{DynamicResource DefaultTextBrush2}"/>
+                </Grid>
+                <Grid Margin="0,5,0,0">
+                    <TextBlock Text="Operating System" Foreground="{DynamicResource DefaultTextBrush2}"/>
+                    <TextBlock Text="{Binding Path=ClientOS}" Margin="150,0,0,0" Foreground="{DynamicResource DefaultTextBrush2}"/>
+                </Grid>
+            </StackPanel>
+        </DataTemplate>
     </UserControl.Resources>
-    
-    <ContentPresenter Content="{Binding}"/>
+
+    <StackPanel>
+        <ContentPresenter Content="{Binding Path=Card}"/>
+        <Controls:DottedHorizontal Margin="0,5,0,5"/>
+        <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource Client}"/>
+    </StackPanel>
 </UserControl>
