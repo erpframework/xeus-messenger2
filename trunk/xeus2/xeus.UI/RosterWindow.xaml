@@ -254,7 +254,9 @@
             <StatusBarItem>
                 <xeus2_xeus_Controls:StatusTextControl MinWidth="150"/>
             </StatusBarItem>
-            <Separator/>
+            <StatusBarItem>
+                <xeus2_xeus_Controls:UserSearchText x:Name="_textFilter" MinWidth="150"/>
+            </StatusBarItem>
             <StatusBarItem>
                 <CheckBox x:Name="_displayOffline" ToolTip="Display Offline Contacts"
                 Background="{StaticResource offline_contact_design}" Template="{DynamicResource CheckBoxImageControlTemplate}" Margin="5,0,5,0" VerticalAlignment="Center">
@@ -264,10 +266,6 @@
                     </CheckBox.IsChecked>
                 </CheckBox>
             </StatusBarItem>
-            <StatusBarItem>
-                <xeus2_xeus_Controls:UserSearchText x:Name="_textFilter" MinWidth="150"/>
-            </StatusBarItem>
-            <Separator/>
             <StatusBarItem>
                 <Button Click="DisplayPopupRosterSize" x:Name="_sizeButton" ToolTip="Item Size"
                     Style="{DynamicResource ImageButtonStyle}" Background="{DynamicResource roster_size_design}" Width="40" Height="20" Margin="5,2,5,2"/>
