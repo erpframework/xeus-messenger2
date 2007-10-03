@@ -23,11 +23,11 @@ namespace xeus2
 
             InitializeComponent();
 
-            new FilterRoster(_roster.CollectionView, _textFilter);
+            new FilterRoster(_roster.CollectionView, _textFilter._textFilter);
 
             NotificationTray.Instance.Inititalize(_trayIcon, this);
 
-            _filterDisplay.DataContext = _textFilter;
+            _filterDisplay.DataContext = _textFilter._textFilter;
         }
 
         public override void EndInit()
@@ -78,11 +78,6 @@ namespace xeus2
         {
             _historyPopup.Child = new HistoryListSelection();
             _historyPopup.IsOpen = true;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            _textFilter.Clear();
         }
     }
 }

@@ -191,11 +191,6 @@
             </StatusBarItem>
             <Separator/>
             <StatusBarItem>
-                <Button Click="DisplayPopupRosterSize" x:Name="_sizeButton" ToolTip="Item Size"
-                    Style="{DynamicResource ImageButtonStyle}" Background="{DynamicResource roster_size_design}" Width="40" Height="20" Margin="5,2,5,2"/>
-            </StatusBarItem>
-            <Separator/>
-            <StatusBarItem>
                 <CheckBox x:Name="_displayOffline" ToolTip="Display Offline Contacts"
                 Background="{DynamicResource aff_none_design}" Template="{DynamicResource CheckBoxImageControlTemplate}" Margin="5,0,5,0" VerticalAlignment="Center">
                     <CheckBox.IsChecked>
@@ -205,13 +200,12 @@
                 </CheckBox>
             </StatusBarItem>
             <StatusBarItem>
-                <Border Background="#99B0B0B0" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3">
-                    <Grid>
-                        <TextBox x:Name="_textFilter" MinWidth="120" Style="{DynamicResource TransparentTextBoxStyle}"/>
-                        <Button Width="12" HorizontalAlignment="Right" Style="{DynamicResource ImageButtonStyle}" Background="{DynamicResource clear_design}"
-			                Click="Button_Click" Margin="2,2,4,2" ToolTip="Clear Text" Height="12"/>
-                    </Grid>
-                </Border>
+                <xeus2_xeus_Controls:UserSearchText x:Name="_textFilter"/>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <Button Click="DisplayPopupRosterSize" x:Name="_sizeButton" ToolTip="Item Size"
+                    Style="{DynamicResource ImageButtonStyle}" Background="{DynamicResource roster_size_design}" Width="40" Height="20" Margin="5,2,5,2"/>
             </StatusBarItem>
         </StatusBar>
         <DockPanel DockPanel.Dock="Top" >

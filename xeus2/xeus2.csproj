@@ -267,6 +267,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="xeus.UI\xeus.UI.Controls\UserSearchText.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="xeus.UI\xeus.UI.Controls\VCardControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -567,6 +571,9 @@
       <DependentUpon>StatusTextControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\xeus.UI.Controls\TrayIcon.cs" />
+    <Compile Include="xeus.UI\xeus.UI.Controls\UserSearchText.xaml.cs">
+      <DependentUpon>UserSearchText.xaml</DependentUpon>
+    </Compile>
     <Compile Include="xeus.UI\xeus.UI.Controls\VCardControl.xaml.cs">
       <DependentUpon>VCardControl.xaml</DependentUpon>
     </Compile>
