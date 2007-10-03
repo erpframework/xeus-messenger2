@@ -257,7 +257,7 @@ namespace xeus2.xeus.Core
 
         void XmppConnection_OnXmppError(object sender, Element e)
         {
-            EventErrorProtocol eventError = new EventErrorProtocol("Protocol Error", e);
+            EventError eventError = new EventError(string.Format("XMPP Error: {0}", e), null);
             Events.Instance.OnEvent(this, eventError);
         }
 
