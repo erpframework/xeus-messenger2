@@ -129,7 +129,7 @@
         <DrawingBrush.Drawing>
             <DrawingGroup>
                 <DrawingGroup.Children>
-                    <GeometryDrawing Brush="#1AFFFFFF" Geometry="F1 M 139.278,12L 210.5,12L 210.5,29.3683C 199.181,27.6085 187.639,32.6841 174.889,33.6666C 162.528,34.3508 148.861,33.6841 139.278,29.3683L 139.278,12 Z "/>
+                    <GeometryDrawing Brush="#23FFFFFF" Geometry="F1 M 139.278,12L 210.5,12L 210.5,29.3683C 199.181,27.6085 187.639,32.6841 174.889,33.6666C 162.528,34.3508 148.861,33.6841 139.278,29.3683L 139.278,12 Z "/>
                 </DrawingGroup.Children>
             </DrawingGroup>
         </DrawingBrush.Drawing>
@@ -374,10 +374,10 @@
                 </Grid>
                 <Grid Margin="15,0,0,0" x:Name="_item" MaxWidth="100" >
                     <Rectangle Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top"
-                    x:Name="_show" Panel.ZIndex="1" Margin="3,3,0,0"/>
+                        x:Name="_show" Panel.ZIndex="1" Margin="3,3,0,0"/>
                     <Rectangle Margin="1,1,1,0"
-                 Fill="{DynamicResource contact_back_big_glow_design}"
-                 VerticalAlignment="Top" Height="20" Panel.ZIndex="1" SnapsToDevicePixels="True"/>
+                          Fill="{DynamicResource contact_back_big_glow_design}"
+                            VerticalAlignment="Top" Height="20" Panel.ZIndex="1" SnapsToDevicePixels="True"/>
                     <a:SystemDropShadowChrome Color="#9999" Margin="-4,-4,1,1">
                     </a:SystemDropShadowChrome>
                     <Border ClipToBounds="True" Padding="3,3,3,3"
