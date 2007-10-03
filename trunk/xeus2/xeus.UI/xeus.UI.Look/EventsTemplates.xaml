@@ -3,6 +3,8 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" 	
 	xmlns:xeus2_xeus_Core="clr-namespace:xeus2.xeus.Core"
+    xmlns:servicecmd="clr-namespace:xeus2.xeus.Commands"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2006" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
 	>
     <DrawingBrush x:Key="error2_design" PresentationOptions:Freeze="True" Stretch="Uniform">
         <DrawingBrush.Drawing>
@@ -15,8 +17,8 @@
                         <GeometryDrawing.Brush>
                             <RadialGradientBrush RadiusX="0.479445" RadiusY="0.479445" Center="0.5,0.5" GradientOrigin="0.5,0.5">
                                 <RadialGradientBrush.GradientStops>
-                                    <GradientStop Color="#FFFAC99C" Offset="0"/>
-                                    <GradientStop Color="#FFE30E0E" Offset="1"/>
+                                    <GradientStop Color="#FFFEFBDD" Offset="0"/>
+                                    <GradientStop Color="#FFCBA42C" Offset="1"/>
                                 </RadialGradientBrush.GradientStops>
                                 <RadialGradientBrush.RelativeTransform>
                                     <TransformGroup/>
@@ -26,17 +28,86 @@
                     </GeometryDrawing>
                     <GeometryDrawing Brush="#3EFFFFFF" Geometry="F1 M 148.319,38.4447C 100.067,38.4447 59.1564,68.2297 44.9421,109.457C 75.8264,120.822 111.822,127.34 150.254,127.34C 187.263,127.34 222.013,121.296 252.115,110.699C 238.3,68.8293 197.054,38.4447 148.319,38.4447 Z "/>
                     <GeometryDrawing Brush="#2C000000" Geometry="F1 M 149.189,257.588C 171.769,257.588 192.827,250.903 210.584,239.359C 191.723,234.294 170.361,231.437 147.729,231.437C 125.927,231.437 105.303,234.088 86.9589,238.81C 104.889,250.692 126.254,257.588 149.189,257.588 Z "/>
-                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 217.579,103.412L 172.727,148.264L 217.579,193.115L 193.972,216.721L 149.121,171.87L 104.269,216.721L 80.6634,193.115L 125.515,148.264L 80.6634,103.412L 104.269,79.8061L 149.121,124.658L 193.972,79.8061L 217.579,103.412 Z "/>
+                    <GeometryDrawing Brush="#FF4E4E4E" Geometry="F1 M 170.819,65.2998L 165.481,178.878L 134.119,178.878L 129.294,65.2998L 170.819,65.2998 Z M 149.913,233.3C 143.254,233.3 137.75,231.445 133.403,227.736C 129.055,224.026 126.881,219.534 126.881,214.26C 126.881,208.739 129.074,204.222 133.459,200.709C 137.844,197.197 143.329,195.441 149.913,195.441C 156.598,195.441 162.07,197.222 166.329,200.783C 170.589,204.345 172.719,208.837 172.719,214.26C 172.719,219.756 170.608,224.304 166.386,227.902C 162.164,231.501 156.673,233.3 149.913,233.3 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
+    <DrawingBrush x:Key="cable_design" PresentationOptions:Freeze="True" Stretch="Uniform">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#FFB6B6B6" Geometry="F1 M -94.0834,-48.9667L -87.7501,-49L -87.7501,-26.6667C -87.7501,-26.6667 -88.3346,-21.8333 -83.2501,-21.8333C -77.7501,-21.8333 -49.0834,-21.8333 -49.0834,-21.8333C -49.0834,-21.8333 -42.7501,-22.5 -42.7501,-16.3333C -42.7501,-10.1667 -42.7501,11.1667 -42.7501,11.1667L -49.0834,11.1667L -49.0834,-12.3333C -49.0834,-12.3333 -49.4167,-16.3333 -53.7501,-16.3333C -58.0834,-16.3333 -87.7501,-16.3333 -87.7501,-16.3333C -87.7501,-16.3333 -94.0834,-16.3333 -94.0834,-21.8333C -94.0834,-27.3333 -94.0778,-48.9667 -94.0834,-48.9667 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen LineJoin="Round" Brush="#FF000000"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Geometry="F1 M -96.6666,-59.7778L -95.5278,-59.7778L -95.5278,-58.5C -95.5278,-57.0272 -94.3339,-55.8333 -92.8612,-55.8333L -89.5278,-55.8333C -88.0551,-55.8333 -86.8612,-57.0272 -86.8612,-58.5L -86.8612,-59.7778L -84.9445,-59.7778C -83.4717,-59.7778 -82.2778,-58.5839 -82.2778,-57.1111L -82.2778,-41.7778C -82.2778,-40.305 -83.4717,-39.1111 -84.9445,-39.1111L -96.6666,-39.1111C -98.1394,-39.1111 -99.3333,-40.305 -99.3333,-41.7778L -99.3333,-57.1111C -99.3333,-58.5839 -98.1394,-59.7778 -96.6666,-59.7778 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen LineJoin="Round" Brush="#FF000000"/>
+                        </GeometryDrawing.Pen>
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#FFC7C7C7" Offset="0"/>
+                                    <GradientStop Color="#FFFFFFFF" Offset="1"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FFFF5000" Geometry="F1 M -92.4445,-61L -90.1112,-61C -89.0526,-61 -88.1945,-60.1419 -88.1945,-59.0833L -88.1945,-59.0833C -88.1945,-58.0248 -89.0526,-57.1667 -90.1112,-57.1667L -92.4445,-57.1667C -93.503,-57.1667 -94.3612,-58.0248 -94.3612,-59.0833L -94.3612,-59.0833C -94.3612,-60.1419 -93.503,-61 -92.4445,-61 Z "/>
+                    <GeometryDrawing Brush="#FFFF5000" Geometry="F1 M -93.2195,-55.8333L -93.2195,-48.8667">
+                        <GeometryDrawing.Pen>
+                            <Pen LineJoin="Round" Brush="#FF000000"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FFFF5000" Geometry="F1 M -89.4445,-55.5333L -89.4445,-48.8667">
+                        <GeometryDrawing.Pen>
+                            <Pen LineJoin="Round" Brush="#FF000000"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M -97.6667,-57.8889L -97.6667,-57.8889C -97.4213,-57.8889 -97.2223,-57.6899 -97.2223,-57.4444L -97.2223,-41.3333C -97.2223,-41.0878 -97.4213,-40.8889 -97.6667,-40.8889L -97.6667,-40.8889C -97.9122,-40.8889 -98.1112,-41.0878 -98.1112,-41.3333L -98.1112,-57.4444C -98.1112,-57.6899 -97.9122,-57.8889 -97.6667,-57.8889 Z "/>
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M -92.6112,-37.8889L -92.6112,-37.8889C -92.335,-37.8889 -92.1112,-37.665 -92.1112,-37.3889L -92.1112,-21.5C -92.1112,-21.2238 -92.335,-21 -92.6112,-21L -92.6112,-21C -92.8873,-21 -93.1112,-21.2238 -93.1112,-21.5L -93.1112,-37.3889C -93.1112,-37.665 -92.8873,-37.8889 -92.6112,-37.8889 Z "/>
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M -47.4334,10.1111L -47.4334,10.1111C -47.7402,10.1111 -47.989,9.86242 -47.989,9.5556L -47.989,-13.4444C -47.989,-13.7512 -47.7402,-14 -47.4334,-14L -47.4334,-14C -47.1266,-14 -46.8778,-13.7512 -46.8778,-13.4444L -46.8778,9.5556C -46.8778,9.86242 -47.1266,10.1111 -47.4334,10.1111 Z "/>
                 </DrawingGroup.Children>
             </DrawingGroup>
         </DrawingBrush.Drawing>
     </DrawingBrush>
 
     <DataTemplate DataType="{x:Type xeus2_xeus_Core:EventError}">
-        <Border>
+        <Border Background="#FF1E1E1E" BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" Padding="5,5,5,5" MaxWidth="300">
+				<Grid>
+					<Rectangle Fill="{DynamicResource error2_design}" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+					<TextBlock Text="{Binding Path=Message}" Foreground="{DynamicResource DefaultTextBrush2}" TextWrapping="Wrap" Margin="26,0,0,0" />
+				</Grid>
+			</Border>
+    </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type xeus2_xeus_Core:EventErrorAuth}">
+        <Border Background="#FF1E1E1E" BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" Padding="5,5,5,5" MaxWidth="300">
+        	<Grid>
+        		<Rectangle Fill="{DynamicResource register_design}" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,0,0"/>
+        		<Rectangle Fill="{DynamicResource error2_design}" Height="14" VerticalAlignment="Top" Margin="8,0,6,0" HorizontalAlignment="Left" Width="14"/>
+        		<TextBlock Text="You were not authorized. Check your user name and password." Foreground="{DynamicResource DefaultTextBrush2}"
+				 TextWrapping="Wrap" Margin="26,0,0,0" />
+				 <Button Command="servicecmd:AccountCommands.DisplayLogin"
+                        HorizontalAlignment="Right" VerticalAlignment="Bottom"
+						Content="Retry" Margin="0,20,0,0" />
+        	</Grid>
+			</Border>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type xeus2_xeus_Core:EventErrorConnection}">
+        <Border Background="#FF1E1E1E" BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" Padding="5,5,5,5" MaxWidth="300">
             <Grid>
-                <Rectangle Fill="{DynamicResource error2_design}" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <TextBlock Text="{Binding Path=Message}" Foreground="{DynamicResource DefaultTextBrush2}" TextWrapping="Wrap" Margin="22,0,0,0" />
+                <Rectangle Fill="{DynamicResource cable_design}" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,0,0"/>
+                <Rectangle Fill="{DynamicResource error2_design}" Height="14" VerticalAlignment="Top" Margin="8,0,6,0" HorizontalAlignment="Left" Width="14"/>
+                <TextBlock Text="Can't connect server. Check your server name and your network connection." Foreground="{DynamicResource DefaultTextBrush2}"
+				 TextWrapping="Wrap" Margin="26,0,0,0" />
+                <Button Command="servicecmd:AccountCommands.DisplayLogin"
+                        HorizontalAlignment="Right" VerticalAlignment="Bottom"
+						Content="Retry" Margin="0,20,0,0" />
             </Grid>
         </Border>
     </DataTemplate>

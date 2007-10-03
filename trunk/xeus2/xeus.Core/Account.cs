@@ -82,6 +82,11 @@ namespace xeus2.xeus.Core
             }
         }
 
+        Account()
+        {
+            Prepare();
+        }
+
         public int MyPriority
         {
             get
@@ -189,7 +194,7 @@ namespace xeus2.xeus.Core
             Open();
         }
 
-        public void Open()
+        public void Prepare()
         {
             _discoManager = new DiscoManager(XmppConnection);
 
@@ -206,13 +211,6 @@ namespace xeus2.xeus.Core
 
             XmppConnection.AutoRoster = true;
             XmppConnection.AutoAgents = true;
-
-            XmppConnection.Username = Settings.Default.XmppUserName;
-            XmppConnection.Password = Settings.Default.XmppPassword;
-            XmppConnection.Server = Settings.Default.XmppServer;
-
-            /*XmppConnection.Capabilities = Self.Caps;
-            XmppConnection.EnableCapabilities = true;*/
 
             XmppConnection.OnClose += _xmppConnection_OnClose;
             XmppConnection.OnLogin += _xmppConnection_OnLogin;
@@ -235,15 +233,24 @@ namespace xeus2.xeus.Core
 
             _mucMarkManager = new MucMarkManager(XmppConnection);
 
-            Settings.Default.Save();
-
             new MucManager(XmppConnection);
 
-            XmppConnection.Open();
-
             _discoTime.Elapsed += _discoTime_Elapsed;
-
             _discoTime.AutoReset = false;
+        }
+
+        public void Open()
+        {
+            XmppConnection.Username = Settings.Default.XmppUserName;
+            XmppConnection.Password = Settings.Default.XmppPassword;
+            XmppConnection.Server = Settings.Default.XmppServer;
+
+            /*XmppConnection.Capabilities = Self.Caps;
+            XmppConnection.EnableCapabilities = true;*/
+
+            Settings.Default.Save();
+
+            XmppConnection.Open();
 
             _selfContact.LoadMyAvatar();
         }

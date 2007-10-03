@@ -19,12 +19,13 @@ namespace xeus2
 
         public RosterWindow() : base(_keyBase, string.Empty)
         {
+            Notification.Initialize();
+
             InitializeComponent();
 
             new FilterRoster(_roster.CollectionView, _textFilter);
 
             NotificationTray.Instance.Inititalize(_trayIcon, this);
-            Notification.Initialize();
 
             _filterDisplay.DataContext = _textFilter;
         }
@@ -34,7 +35,7 @@ namespace xeus2
             base.EndInit();
 
             ServiceCommands.RegisterCommands(this);
-            AccountCommands.RegisterCommands(this);
+            AccountCommands.RegisterCommands(CommandBindings);
             RosterCommands.RegisterCommands(this);
             GeneralCommands.RegisterCommands(this);
             ContactCommands.RegisterCommands(this);

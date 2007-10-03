@@ -2,6 +2,7 @@ using System;
 using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Forms;
+using xeus2.xeus.Commands;
 using xeus2.xeus.Middle;
 using MouseEventArgs=System.Windows.Input.MouseEventArgs;
 
@@ -15,6 +16,8 @@ namespace xeus2.xeus.UI
         public InfoPopup()
         {
             InitializeComponent();
+
+            AccountCommands.RegisterCommands(CommandBindings);
 
             _info.SizeChanged += _info_SizeChanged;
 

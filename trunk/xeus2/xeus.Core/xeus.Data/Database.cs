@@ -73,12 +73,34 @@ namespace xeus2.xeus.Data
                 cmd.CommandText = "CREATE TABLE [CapsCache] ([Caps] VARCHAR NOT NULL PRIMARY KEY UNIQUE, "
                                   + "[Features] VARCHAR);";
                 cmd.ExecuteNonQuery();
+
+                cmd.CommandText = "CREATE TABLE [Error] ([Id] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
+                                  + "[Iq] VARCHAR, "
+                                  + "[DateTime] INTEGER NOT NULL, "
+                                  + "[Message] VARCHAR NOT NULL);";
+                cmd.ExecuteNonQuery();
             }
         }
 
         public static void CloseDatabase()
         {
             _connection.Close();
+        }
+
+        public static void SaveError(EventError error)
+        {
+            try
+            {
+                Dictionary<string, object> values = error.GetData();
+
+                Insert(values, "Error", false, _connection);
+            }
+
+            catch
+            {
+                // NOT here
+                // Events.Instance.OnEvent(e, new EventError(e.Message, null));
+            }
         }
 
         public static void SaveRecent(Recent recent, int position)
