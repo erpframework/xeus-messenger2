@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using System.Timers;
 using System.Windows.Media.Imaging;
 using agsXMPP;
@@ -12,6 +11,7 @@ using Win32_API;
 using xeus2.Properties;
 using xeus2.xeus.Data;
 using xeus2.xeus.Utilities;
+using Version=agsXMPP.protocol.iq.version.Version;
 
 namespace xeus2.xeus.Core
 {
@@ -23,6 +23,7 @@ namespace xeus2.xeus.Core
         private readonly Timer _idleTimer = new Timer(5000);
 
         private readonly Timer _updateTimer = new Timer(500);
+        private readonly Version _version = new Version();
         private string _avatarHash = null;
         private VCard _card = null;
 
@@ -38,6 +39,10 @@ namespace xeus2.xeus.Core
 
         public SelfContact()
         {
+            Version.Name = "xeus";
+            Version.Ver = "2.0 pre-alpha";
+            Version.Os = Environment.OSVersion.ToString();
+
             _updateTimer.AutoReset = false;
             _updateTimer.Elapsed += _updateTimer_Elapsed;
 
@@ -111,9 +116,25 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public Version Version
+        {
+            get
+            {
+                return _version;
+            }
+        }
+
         #region IContact Members
 
         public Jid Jid
+        {
+            get
+            {
+                return Account.Instance.XmppConnection.MyJID;
+            }
+        }
+
+        public Jid FullJid
         {
             get
             {
@@ -303,7 +324,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                return _version.Ver;
             }
         }
 
@@ -342,6 +363,27 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public string ClientOS
+        {
+            get
+            {
+                return _version.Os;
+            }
+        }
+
+        public string ClientName
+        {
+            get
+            {
+                return _version.Name;
+            }
+        }
+
+        public void SetVersion(Version version)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         public void PresenceChange()
@@ -355,7 +397,7 @@ namespace xeus2.xeus.Core
 
         private void _idleTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            TimeSpan timeSpan = new TimeSpan(0, 0, 0, 0, (int)Win32.GetIdleTime());
+            TimeSpan timeSpan = new TimeSpan(0, 0, 0, 0, (int) Win32.GetIdleTime());
 
             if (timeSpan.TotalMinutes > Settings.Default.UI_IdleXAMinutes)
             {

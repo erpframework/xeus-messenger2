@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using xeus2.xeus.Commands;
 using xeus2.xeus.Core;
 using xeus2.xeus.Utilities;
 
@@ -15,13 +16,18 @@ namespace xeus2.xeus.UI
 
         public VCardDisplay(IContact contact) : base(_keyBase, contact.Jid.Bare)
         {
+            DataContext = contact;
+
             InitializeComponent();
 
-            Commands.ContactCommands.RegisterCommands(this);
+            ContactCommands.RegisterCommands(this);
 
             Roster.Instance.SetFreshVcard(contact, 0);
 
-            DataContext = contact;
+            if (string.IsNullOrEmpty(contact.ClientName))
+            {
+                Roster.Instance.AskVersion(contact);
+            }
         }
 
         protected void OnDropFile(object sender, DragEventArgs e)
@@ -57,7 +63,7 @@ namespace xeus2.xeus.UI
 
         protected void OnDragOver(object sender, DragEventArgs e)
         {
-            IContact contact = (IContact)DataContext;
+            IContact contact = (IContact) DataContext;
 
             e.Effects = DragDropEffects.None;
 

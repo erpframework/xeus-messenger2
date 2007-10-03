@@ -162,6 +162,7 @@ namespace xeus2.xeus.Core
         private Capabilities _caps = null;
         private DateTime? _lastOnline = null ;
         private VCard _card = null;
+        private agsXMPP.protocol.iq.version.Version _version = null;
 
         public Presence Presence
         {
@@ -255,7 +256,6 @@ namespace xeus2.xeus.Core
                 {
                     _caps = capabilities;
 
-                    NotifyPropertyChanged("ClientVersion");
                     NotifyPropertyChanged("ClientNode");
                     NotifyPropertyChanged("ClientExtensions");
                 }
@@ -496,17 +496,25 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public void SetVersion(agsXMPP.protocol.iq.version.Version version)
+        {
+            _version = version;
+            NotifyPropertyChanged("ClientVersion");
+            NotifyPropertyChanged("ClientName");
+            NotifyPropertyChanged("ClientOS");
+        }
+
         public string ClientVersion
         {
             get
             {
-                if (_caps == null)
+                if (_version == null)
                 {
                     return null;
                 }
                 else
                 {
-                    return _caps.Version;
+                    return _version.Ver;
                 }
             }
         }
@@ -614,6 +622,36 @@ namespace xeus2.xeus.Core
             get
             {
                 return _searchLowerText;
+            }
+        }
+
+        public string ClientOS
+        {
+            get
+            {
+                if (_version != null)
+                {
+                    return _version.Os;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public string ClientName
+        {
+            get
+            {
+                if (_version != null)
+                {
+                    return _version.Name;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 

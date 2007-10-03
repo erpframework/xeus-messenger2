@@ -17,7 +17,7 @@
                    Placement="MousePoint" StaysOpen="False" Initialized="_statusPopup_Initialized">
                     <xeus2_xeus_Controls:StatusesControl Panel.ZIndex="100"/>
                 </Popup>
-                <TextBox MaxLength="50" MinWidth="100"
+                <TextBox MaxLength="50"
                          Text="{Binding Path=StatusText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          Style="{DynamicResource TransparentTextBoxStyle}"
                          Margin="0,2,0,0" VerticalAlignment="Center" PreviewKeyDown="_text_PreviewKeyDown"/>

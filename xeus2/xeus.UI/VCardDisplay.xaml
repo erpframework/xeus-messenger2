@@ -9,6 +9,6 @@
      >
 	<StackPanel>
 		<ContentPresenter AllowDrop="True" Drop="OnDropFile" DragOver="OnDragOver" ContentTemplate="{DynamicResource FullContactCard}" Content="{Binding}" Margin="10,10,10,10"/>
-    	<Controls:VCardControl Margin="10,10,10,10" DataContext="{Binding Path=Card}"/>
+    	<Controls:VCardControl Margin="10,10,10,10" DataContext="{Binding}" MaxWidth="350"/>
 	</StackPanel>
 </UI:BaseWindow>

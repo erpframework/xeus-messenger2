@@ -3,6 +3,7 @@ using System.Windows.Media.Imaging;
 using agsXMPP;
 using agsXMPP.protocol.client;
 using xeus2.xeus.Data;
+using Version=agsXMPP.protocol.iq.version.Version;
 
 namespace xeus2.xeus.Core
 {
@@ -15,6 +16,14 @@ namespace xeus2.xeus.Core
             get
             {
                 return new Jid("john.smith@jabber.org");
+            }
+        }
+
+        public Jid FullJid
+        {
+            get
+            {
+                return new Jid("john.smith", "jabber.org", "home");
             }
         }
 
@@ -142,7 +151,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                return "1.0";
+                return Account.Instance.Self.ClientVersion;
             }
         }
 
@@ -173,6 +182,27 @@ namespace xeus2.xeus.Core
             {
                 throw new NotImplementedException();
             }
+        }
+
+        public string ClientOS
+        {
+            get
+            {
+                return Account.Instance.Self.ClientOS;
+            }
+        }
+
+        public string ClientName
+        {
+            get
+            {
+                return Account.Instance.Self.ClientName;
+            }
+        }
+
+        public void SetVersion(Version version)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

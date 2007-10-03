@@ -8,6 +8,7 @@ using agsXMPP.protocol.client;
 using FastDynamicPropertyAccessor;
 using xeus2.xeus.Data;
 using xeus2.xeus.Utilities;
+using Version=agsXMPP.protocol.iq.version.Version;
 
 namespace xeus2.xeus.Core
 {
@@ -72,6 +73,14 @@ namespace xeus2.xeus.Core
             get
             {
                 return (Jid) GetValueSafe("Jid");
+            }
+        }
+
+        public Jid FullJid
+        {
+            get
+            {
+                return (Jid)GetValueSafe("FullJid");
             }
         }
 
@@ -249,6 +258,27 @@ namespace xeus2.xeus.Core
             {
                 return (string)GetValueSafe("SearchLowerText");
             }
+        }
+
+        public string ClientOS
+        {
+            get
+            {
+                return (string)GetValueSafe("ClientOS");
+            }
+        }
+
+        public string ClientName
+        {
+            get
+            {
+                return (string)GetValueSafe("ClientName");
+            }
+        }
+
+        public void SetVersion(Version version)
+        {
+            _activeContact.SetVersion(version);
         }
 
         #endregion

@@ -10,12 +10,14 @@ using agsXMPP.protocol.iq.avatar;
 using agsXMPP.protocol.iq.disco;
 using agsXMPP.protocol.iq.roster;
 using agsXMPP.protocol.iq.vcard;
+using agsXMPP.protocol.iq.version;
 using xeus2.Properties;
 using xeus2.xeus.Data;
 using xeus2.xeus.Middle;
 using xeus2.xeus.Utilities;
 using Avatar=agsXMPP.protocol.x.Avatar;
 using Uri=agsXMPP.Uri;
+using Version=agsXMPP.protocol.iq.version.Version;
 
 namespace xeus2.xeus.Core
 {
@@ -426,6 +428,27 @@ namespace xeus2.xeus.Core
                             break;
                         }
                 }
+            }
+        }
+
+        public void AskVersion(IContact contact)
+        {
+            VersionIq viq = new VersionIq(IqType.get, contact.FullJid);
+            Account.Instance.XmppConnection.IqGrabber.SendIq(viq, new IqCB(VersionIqResult), contact);
+        }
+
+        private void VersionIqResult(object sender, IQ iq, object data)
+        {
+            IContact contact = (IContact)data;
+
+            if (iq.Type == IqType.error || iq.Error != null)
+            {
+                // no version info
+            }
+            else if (iq.Type == IqType.result
+                && iq.Query is Version)
+            {
+                contact.SetVersion((Version)iq.Query);
             }
         }
 

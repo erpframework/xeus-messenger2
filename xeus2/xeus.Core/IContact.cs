@@ -1,13 +1,18 @@
 using System;
 using System.Windows.Media.Imaging;
+using agsXMPP;
 using agsXMPP.protocol.client;
-using agsXMPP.protocol.extensions.caps;
-using agsXMPP.protocol.iq.disco;
+using Version=agsXMPP.protocol.iq.version.Version;
 
 namespace xeus2.xeus.Core
 {
     public interface IContact : IJid
     {
+        Jid FullJid
+        {
+            get;
+        }
+
         Presence Presence
         {
             get;
@@ -98,11 +103,23 @@ namespace xeus2.xeus.Core
             get;
         }
 
-        bool HasFeature(string feature);
-
         string SearchLowerText
         {
             get;
         }
+
+        string ClientOS
+        {
+            get;
+        }
+
+        string ClientName
+        {
+            get;
+        }
+
+        bool HasFeature(string feature);
+
+        void SetVersion(Version version);
     }
 }
