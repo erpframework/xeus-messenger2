@@ -10,11 +10,9 @@ namespace xeus2.xeus.Core
 {
     internal class Services : ObservableCollectionDisp<Service>
     {
-        private static Services _instance = new Services();
+        private static readonly Services _instance = new Services();
 
-        private Dictionary<string, Service> _allServices = new Dictionary<string, Service>();
-
-        private delegate void ServiceItemCallback(IList<DiscoItem> discoItems, DiscoItem parent);
+        private readonly Dictionary<string, Service> _allServices = new Dictionary<string, Service>();
 
         private delegate void ServiceItemInfoCallback(DiscoItem discoItem, DiscoInfo info);
 
@@ -23,8 +21,6 @@ namespace xeus2.xeus.Core
         private delegate void OnCommandsItemInfoCallback(DiscoItem discoItem, IQ iq);
 
         private string _sessionKey = string.Empty;
-
-        private ObservableCollectionDisp<Service> _filteredServices = new ObservableCollectionDisp<Service>();
 
         public static Services Instance
         {
@@ -42,9 +38,9 @@ namespace xeus2.xeus.Core
             }
         }
 
-        private ObservableCollectionDisp<Service> _allServicesCollection = new ObservableCollectionDisp<Service>();
+        private readonly ObservableCollectionDisp<Service> _allServicesCollection = new ObservableCollectionDisp<Service>();
 
-        private MucRooms _mucRooms = new MucRooms();
+        private readonly MucRooms _mucRooms = new MucRooms();
 
         public ObservableCollectionDisp<Service> AllServices
         {
@@ -59,18 +55,6 @@ namespace xeus2.xeus.Core
             get
             {
                 return _sessionKey;
-            }
-        }
-
-        public ObservableCollectionDisp<Service> FilteredServices
-        {
-            get
-            {
-                foreach (Service service in _allServices.Values)
-                {
-                    _filteredServices.Add(service);
-                }
-                return _filteredServices;
             }
         }
 
@@ -99,7 +83,7 @@ namespace xeus2.xeus.Core
         }
 
 
-        private static ServiceCategories _categories = new ServiceCategories();
+        private static readonly ServiceCategories _categories = new ServiceCategories();
 
         public void OnCommandsItemInfo(object sender, DiscoItem discoItem, IQ iq)
         {
@@ -112,6 +96,7 @@ namespace xeus2.xeus.Core
                            new OnCommandsItemInfoCallback(OnCommandsItemInfo), discoItem, iq);
         }
 
+        /*
         public void OnServiceItemInfo(object sender, DiscoItem discoItem, DiscoInfo info)
         {
             if (_sessionKey == string.Empty)
@@ -121,18 +106,6 @@ namespace xeus2.xeus.Core
 
             App.InvokeSafe(App._dispatcherPriority,
                            new ServiceItemInfoCallback(OnServiceItemInfo), discoItem, info);
-        }
-
-        /*
-        public void OnServiceItem(object sender, IList<DiscoItem> discoItems, DiscoItem parent)
-        {
-            if (_sessionKey == string.Empty)
-            {
-                return;
-            }
-
-            App.InvokeSafe(App._dispatcherPriority,
-                           new ServiceItemCallback(OnServiceItems), discoItems, parent);
         }*/
 
         public void OnServiceItemError(object sender, IQ iq)
@@ -185,7 +158,7 @@ namespace xeus2.xeus.Core
             }
         }
 
-        private void OnServiceItemInfo(DiscoItem discoItem, DiscoInfo info)
+        public void OnServiceItemInfo(DiscoItem discoItem, DiscoInfo info)
         {
             lock (_syncObject)
             {
