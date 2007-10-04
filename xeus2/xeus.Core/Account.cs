@@ -613,7 +613,7 @@ namespace xeus2.xeus.Core
 
                 DiscoItem discoItem = sessionData.Data as DiscoItem;
 
-                Services.Instance.OnServiceItemInfo(sender, discoItem, di);
+                Services.Instance.OnServiceItemInfo(discoItem, di);
 
                 ServicesDoneCount++;
 
