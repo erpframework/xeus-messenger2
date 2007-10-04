@@ -204,6 +204,21 @@ namespace xeus2.xeus.Data
             }
         }
 
+        public static void SaveMessage(HeadlineMessage message)
+        {
+            try
+            {
+                Dictionary<string, object> values = message.GetData();
+
+                Insert(values, "Message", false, _connection);
+            }
+
+            catch (Exception e)
+            {
+                Events.Instance.OnEvent(e, new EventError(e.Message, null));
+            }
+        }
+
         public static void SaveMessage(MucMessage message)
         {
             try

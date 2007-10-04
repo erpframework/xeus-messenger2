@@ -78,16 +78,34 @@ namespace xeus2.xeus.Core
 
         private void OnMessage(agsXMPP.protocol.client.Message msg)
         {
-            if (msg.Type == MessageType.chat)
+            switch (msg.Type)
             {
-                Message message = new Message(msg);
+                case MessageType.chat:
+                    {
+                        Message message = new Message(msg);
 
-                if (msg.Body != null)
-                {
-                    Database.SaveMessage(message);
-                }
+                        if (msg.Body != null)
+                        {
+                            Database.SaveMessage(message);
+                        }
 
-                DistributeMessage(message, msg.Chatstate);
+                        DistributeMessage(message, msg.Chatstate);
+                        
+                        break;
+                    }
+                case MessageType.headline:
+                case MessageType.normal:
+                case MessageType.error:
+                    {
+                        HeadlineMessage message = new HeadlineMessage(msg);
+
+                        if (msg.Body != null)
+                        {
+                            Database.SaveMessage(message);
+                        }
+
+                        break;
+                    }
             }
         }
 
