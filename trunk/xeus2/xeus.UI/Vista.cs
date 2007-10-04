@@ -1,41 +1,51 @@
 using System;
-using System.Collections.Generic;
+using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
+using Brushes=System.Windows.Media.Brushes;
 
 namespace xeus2.xeus.UI
 {
     internal class Vista
     {
-        [StructLayout(LayoutKind.Sequential)]
-        public struct MARGINS
+        [DllImport("DwmApi.dll", PreserveSig = false)]
+        private static extern int DwmExtendFrameIntoClientArea(IntPtr hwnd, ref MARGINS pMarInset);
+
+        [DllImport("dwmapi.dll", PreserveSig = false)]
+        private static extern bool DwmIsCompositionEnabled();
+
+        public static bool IsComposition
         {
-            public int cxLeftWidth;      // width of left border that retains its size
-            public int cxRightWidth;     // width of right border that retains its size
-            public int cyTopHeight;      // height of top border that retains its size
-            public int cyBottomHeight;   // height of bottom border that retains its size
-        };
+            get
+            {
+                return (Environment.OSVersion.Version.Major >= 6 && DwmIsCompositionEnabled());
+            }
+        }
 
-        [DllImport("DwmApi.dll")]
-        static extern int DwmExtendFrameIntoClientArea(IntPtr hwnd, ref MARGINS pMarInset);
-
-        public static void MakeVistaFrame( Window window, int actualHeight )
+        public static void MakeVistaFrame(Window window, int actualHeight)
         {
             try
             {
+                if (!IsComposition)
+                {
+                    // No glass 
+                    return;
+                }
+
                 // Obtain the window handle for WPF application
                 IntPtr mainWindowPtr = new WindowInteropHelper(window).Handle;
                 HwndSource mainWindowSrc = HwndSource.FromHwnd(mainWindowPtr);
-                mainWindowSrc.CompositionTarget.BackgroundColor = Color.FromArgb(0, 0, 0, 0);
+
+                window.Background = Brushes.Transparent;
+
+                mainWindowSrc.CompositionTarget.BackgroundColor = Colors.Transparent;
 
                 // Get System Dpi
-                System.Drawing.Graphics desktop = System.Drawing.Graphics.FromHwnd(mainWindowPtr);
+                Graphics desktop = Graphics.FromHwnd(mainWindowPtr);
                 float DesktopDpiX = desktop.DpiX;
-                float DesktopDpiY = desktop.DpiY;
+                //float DesktopDpiY = desktop.DpiY;
 
                 // Set Margins
                 MARGINS margins = new MARGINS();
@@ -55,11 +65,24 @@ namespace xeus2.xeus.UI
                     //DwmExtendFrameIntoClientArea Failed
                 }
             }
-            // If not Vista, paint background white.
+                // If not Vista, paint background white.
             catch (DllNotFoundException)
             {
-                Application.Current.MainWindow.Background = Brushes.White;
-            }            
+                // Application.Current.MainWindow.Background = Brushes.White;
+            }
         }
+
+        #region Nested type: MARGINS
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct MARGINS
+        {
+            public int cxLeftWidth; // width of left border that retains its size
+            public int cxRightWidth; // width of right border that retains its size
+            public int cyTopHeight; // height of top border that retains its size
+            public int cyBottomHeight; // height of bottom border that retains its size
+        } ;
+
+        #endregion
     }
 }

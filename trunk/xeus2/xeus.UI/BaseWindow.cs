@@ -27,23 +27,6 @@ namespace xeus2.xeus.UI
         {
         }
 
-        protected override void OnStateChanged(EventArgs e)
-        {
-            base.OnStateChanged(e);
-
-            if (HideOnMimnimize)
-            {
-                if (WindowState == WindowState.Minimized)
-                {
-                    Hide();
-                }
-                else if (WindowState != WindowState.Minimized)
-                {
-                    Show();
-                }
-            }
-        }
-
         public string Key
         {
             get
@@ -61,6 +44,23 @@ namespace xeus2.xeus.UI
             set
             {
                 _hideOnMimnimize = value;
+            }
+        }
+
+        protected override void OnStateChanged(EventArgs e)
+        {
+            base.OnStateChanged(e);
+
+            if (HideOnMimnimize)
+            {
+                if (WindowState == WindowState.Minimized)
+                {
+                    Hide();
+                }
+                else if (WindowState != WindowState.Minimized)
+                {
+                    Show();
+                }
             }
         }
 

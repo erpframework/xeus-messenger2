@@ -7,7 +7,7 @@
     MinHeight="150" MinWidth="300" SizeToContent="Height" Background="{DynamicResource back_x_design}"
     Foreground="{DynamicResource DefaultTextBrush2}"
     x:Name="Window"
-    ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
+    ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
     >
     <StackPanel Margin="10,10,10,0">
     	<Grid>

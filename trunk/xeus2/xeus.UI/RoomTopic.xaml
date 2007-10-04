@@ -6,6 +6,7 @@
     Title="xeus2.xeus.UI" MinWidth="300" SizeToContent="Height" Background="{DynamicResource back_x_design}"
     Foreground="{DynamicResource DefaultTextBrush2}"
     Width="400"
+    WindowStartupLocation="CenterScreen"
     >
   <StackPanel Margin="10,10,10,0">
     <TextBox x:Name="_topic" TextWrapping="Wrap" Text="{Binding Path=Subject, Mode=OneWay}"/>
