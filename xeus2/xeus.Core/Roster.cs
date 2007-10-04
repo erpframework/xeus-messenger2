@@ -279,6 +279,7 @@ namespace xeus2.xeus.Core
                         Account.Instance.XmppConnection.IqGrabber.SendIq(viq, new IqCB(VcardResultAuth),
                                                                          (contact ?? (object) presence));
 
+                        Authorization.Instance.Ask(contact);
                         break;
                     }
                 case PresenceType.subscribed:
@@ -540,8 +541,6 @@ namespace xeus2.xeus.Core
             {
                 contact.SetVcard(iq.Vcard);
             }
-
-            Authorization.Instance.Ask(contact);
         }
 
         public void OnRosterItem(object sender, RosterItem item)
