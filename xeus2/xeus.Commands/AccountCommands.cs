@@ -10,6 +10,9 @@ namespace xeus2.xeus.Commands
 		private static readonly RoutedUICommand _displayLogin =
 			new RoutedUICommand( "Display Login", "DisplayLogin", typeof ( AccountCommands ) ) ;
 
+        private static readonly RoutedUICommand _displayHeadlines =
+            new RoutedUICommand("Display Headlines", "DisplayHeadlines", typeof(AccountCommands));
+
         private static readonly RoutedUICommand _history =
             new RoutedUICommand("Display History", "DisplayHistory", typeof(AccountCommands));
 
@@ -40,17 +43,39 @@ namespace xeus2.xeus.Commands
 	        }
 	    }
 
-        public static void RegisterCommands(CommandBindingCollection commandBindings)
+	    public static RoutedUICommand DisplayHeadlines
+	    {
+	        get
+	        {
+	            return _displayHeadlines;
+	        }
+	    }
+
+	    public static void RegisterCommands(CommandBindingCollection commandBindings)
 		{
 			commandBindings.Add(
 				new CommandBinding( _displayLogin, ExecuteDisplayLogin, CanExecuteDisplayLogin ) ) ;
-        
+
+            commandBindings.Add(
+                new CommandBinding(_displayHeadlines, ExecuteDisplayHeadlines, CanExecuteDisplayHeadlines));
+
             commandBindings.Add(
                 new CommandBinding(_history, ExecuteDisplayHistory, CanExecuteDisplayHistory));
 
             commandBindings.Add(
                 new CommandBinding(_displayMucMarks, ExecuteDisplayMucMarks, CanExecuteDisplayMucMarks));
         }
+
+	    private static void CanExecuteDisplayHeadlines(object sender, CanExecuteRoutedEventArgs e)
+	    {
+            e.CanExecute = true;
+            e.Handled = true;
+        }
+
+	    private static void ExecuteDisplayHeadlines(object sender, ExecutedRoutedEventArgs e)
+	    {
+	        Middle.Headlines.Instance.DisplayMucOptions();
+	    }
 
 	    private static void CanExecuteDisplayMucMarks(object sender, CanExecuteRoutedEventArgs e)
 	    {
