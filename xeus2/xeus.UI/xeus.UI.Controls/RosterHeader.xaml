@@ -27,20 +27,20 @@
                             </LinearGradientBrush>
                         </Rectangle.Fill>
                     </Rectangle>
-                    <Border Margin="1,1,1,0" VerticalAlignment="Top" Height="25" Panel.ZIndex="1" Opacity="0.2" Background="#FFFFFDFD" CornerRadius="4,4,0,0" />
+                    <Border Margin="1,1,1,0" VerticalAlignment="Top" Height="25" Panel.ZIndex="1" Opacity="0.2" Background="#7FFFFDFD" CornerRadius="4,4,0,0" />
                     <Rectangle Margin="1.5,2,1.5,1" VerticalAlignment="Bottom" Height="5" RadiusX="4" RadiusY="100" Panel.ZIndex="1" Opacity="0.58" StrokeThickness="0">
                         <Rectangle.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="#0043A1C0" Offset="0"/>
-                                <GradientStop Color="#FFFFFFFF" Offset="1"/>
+                                <GradientStop Color="#7FFFFFFF" Offset="1"/>
                             </LinearGradientBrush>
                         </Rectangle.Fill>
                     </Rectangle>
                     <Border BorderBrush="#FF8E989C" BorderThickness="1,1,1,1" CornerRadius="4,4,4,4" x:Name="_border" Cursor="Hand">
                         <Border.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FFD6EFF8" Offset="0"/>
-                                <GradientStop Color="#FF228FB4" Offset="1"/>
+                                <GradientStop Color="#7FD6EFF8" Offset="0"/>
+                                <GradientStop Color="#7F228FB4" Offset="1"/>
                             </LinearGradientBrush>
                         </Border.Background>
                         <Grid Margin="5,0,5,0">
@@ -76,7 +76,7 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <Grid Margin="4,4,4,4" MinHeight="50" MinWidth="80">
+    <Grid MinHeight="50" MinWidth="80">
         <ContentControl x:Name="_self" MouseDown="_self_MouseDown" Cursor="Hand"/>
     </Grid>
 </UserControl>

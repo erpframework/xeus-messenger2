@@ -28,6 +28,19 @@ namespace xeus2
             NotificationTray.Instance.Inititalize(_trayIcon, this);
 
             _filterDisplay.DataContext = _textFilter._textFilter;
+
+            Loaded += RosterWindow_Loaded;
+        }
+
+        void RosterWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!Vista.IsComposition)
+            {
+                _rosterBorder.BorderBrush = null;
+                _rosterBorder.Background = null;
+            }
+
+            Vista.MakeVistaFrame(this, (int)_headerContainer.ActualHeight);
         }
 
         public override void EndInit()

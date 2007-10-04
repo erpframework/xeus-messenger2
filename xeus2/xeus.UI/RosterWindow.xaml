@@ -20,6 +20,8 @@
     ShowInTaskbar="False"
     UI:WindowSettings.Save="True"
     x:Name="Roster"
+    Icon="xeus.Images/xeus.ico"
+    Background="{DynamicResource xeus_back_design}"
     >
     <UI:BaseWindow.Resources>
         <ResourceDictionary>
@@ -246,61 +248,62 @@
         </ResourceDictionary>
     </UI:BaseWindow.Resources>
 
-    
-    <DockPanel Background="{StaticResource xeus_back_design}" >
-        <Popup x:Name="_rosterSizePopup" AllowsTransparency="True"
-                   PlacementTarget ="{Binding ElementName=_sizeButton}" StaysOpen="False"/>
-        <StatusBar DockPanel.Dock="Bottom" Background="{x:Null}" ItemsPanel="{StaticResource ItemsPanelStausbar}">
-            <StatusBarItem>
-                <xeus2_xeus_Controls:StatusTextControl MinWidth="150"/>
-            </StatusBarItem>
-            <StatusBarItem>
-                <xeus2_xeus_Controls:UserSearchText x:Name="_textFilter" MinWidth="150"/>
-            </StatusBarItem>
-            <StatusBarItem>
-                <CheckBox x:Name="_displayOffline" ToolTip="Display Offline Contacts"
-                Background="{StaticResource offline_contact_design}" Template="{DynamicResource CheckBoxImageControlTemplate}" Margin="5,0,5,0" VerticalAlignment="Center">
-                    <CheckBox.IsChecked>
-                        <Binding Path="UI_DisplayOfflineContacts"
-                             Source="{x:Static Properties:Settings.Default}" Mode="TwoWay"/>
-                    </CheckBox.IsChecked>
-                </CheckBox>
-            </StatusBarItem>
-            <StatusBarItem>
-                <Button Click="DisplayPopupRosterSize" x:Name="_sizeButton" ToolTip="Item Size"
-                    Style="{DynamicResource ImageButtonStyle}" Background="{DynamicResource roster_size_design}" Width="40" Height="20" Margin="5,2,5,2"/>
-            </StatusBarItem>
-        </StatusBar>
-        <DockPanel DockPanel.Dock="Top" >
-            <Grid DockPanel.Dock="Top" >
-                <xeus2_xeus_Controls:RosterHeader x:Name="_header"/>
-                <WrapPanel Margin="10,13,10,0" DockPanel.Dock="Right" HorizontalAlignment="Right">
-                    <Button Command="servicecmd:AccountCommands.DisplayLogin" ToolTip="Login"
-                            Content="Login" DockPanel.Dock="Bottom" Background="{DynamicResource register_design}" Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
-                    <Button Background="{DynamicResource service_design}" x:Name="_mucMarksButton"
-                            ToolTip="Services and MUC"
-                        Content="Services" Command="servicecmd:ServiceCommands.DisplayServices" 
-                        Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
-                    <Popup x:Name="_mucMarksPopup" AllowsTransparency="True"
-		                  PlacementTarget="{Binding ElementName=_mucMarksButton}" StaysOpen="False">
-                        <xeus2_xeus_Controls:MucMarksListSelection Panel.ZIndex="100"/>
-                    </Popup>
-                    <Button Background="{DynamicResource mucmark_design}" ToolTip="MUC Bookmarks"
-                        Click="MucMarkPopup"  Command="servicecmd:AccountCommands.DisplayMucMarks"
-                        Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
-                    <Button Background="{DynamicResource history_design}" ToolTip="History"
-                        Click="HistoryPopup" x:Name="_historyButton" Command="servicecmd:AccountCommands.History"
-                        Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
-                    <Popup x:Name="_historyPopup" AllowsTransparency="True"
-                          PlacementTarget="{Binding ElementName=_historyButton}" StaysOpen="False"/>
-                </WrapPanel>
-            </Grid>
-            <xeus2_xeus_Controls:DottedHorizontal Margin="0,3,0,3" DockPanel.Dock="Bottom"/>
-            <Grid DockPanel.Dock="Top">
-                <local:RosterControl x:Name="_roster"/>
-                <xeus2_xeus_Controls:FilterDisplay Margin="10,-10,10,10"
-                    x:Name="_filterDisplay" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-            </Grid>
-        </DockPanel>
+    <DockPanel>
+        <Grid DockPanel.Dock="Top" x:Name="_headerContainer">
+            <xeus2_xeus_Controls:RosterHeader x:Name="_header"/>
+            <WrapPanel Margin="10,8,10,0" DockPanel.Dock="Right" HorizontalAlignment="Right">
+                <Button Command="servicecmd:AccountCommands.DisplayLogin" ToolTip="Login"
+						Content="Login" DockPanel.Dock="Bottom" Background="{DynamicResource register_design}" Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
+                <Button Background="{DynamicResource service_design}" x:Name="_mucMarksButton"
+						ToolTip="Services and MUC"
+						Content="Services" Command="servicecmd:ServiceCommands.DisplayServices" 
+						Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
+                <Popup x:Name="_mucMarksPopup" AllowsTransparency="True"
+						PlacementTarget="{Binding ElementName=_mucMarksButton}" StaysOpen="False">
+                    <xeus2_xeus_Controls:MucMarksListSelection Panel.ZIndex="100"/>
+                </Popup>
+                <Button Background="{DynamicResource mucmark_design}" ToolTip="MUC Bookmarks"
+						Click="MucMarkPopup"  Command="servicecmd:AccountCommands.DisplayMucMarks"
+						Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
+                <Button Background="{DynamicResource history_design}" ToolTip="History"
+						Click="HistoryPopup" x:Name="_historyButton" Command="servicecmd:AccountCommands.History"
+						Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
+                <Popup x:Name="_historyPopup" AllowsTransparency="True"
+						PlacementTarget="{Binding ElementName=_historyButton}" StaysOpen="False"/>
+            </WrapPanel>
+        </Grid>
+
+        <Border x:Name="_rosterBorder"
+			Background="{StaticResource xeus_back_design}" DockPanel.Dock="Bottom" BorderBrush="#FF959595" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3">
+			<DockPanel >
+				<Popup x:Name="_rosterSizePopup" AllowsTransparency="True"
+					PlacementTarget ="{Binding ElementName=_sizeButton}" StaysOpen="False"/>
+
+				<StatusBar DockPanel.Dock="Bottom" Background="{x:Null}" ItemsPanel="{StaticResource ItemsPanelStausbar}">
+					<StatusBarItem>
+						<xeus2_xeus_Controls:StatusTextControl MinWidth="150"/>
+					</StatusBarItem>
+					<StatusBarItem>
+						<xeus2_xeus_Controls:UserSearchText x:Name="_textFilter" MinWidth="150"/>
+					</StatusBarItem>
+					<StatusBarItem>
+						<CheckBox x:Name="_displayOffline" ToolTip="Display Offline Contacts"
+							Background="{StaticResource offline_contact_design}" Template="{DynamicResource CheckBoxImageControlTemplate}" Margin="5,0,5,0" VerticalAlignment="Center" IsChecked="{Binding Path=UI_DisplayOfflineContacts, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"/>
+					</StatusBarItem>
+					<StatusBarItem>
+						<Button Click="DisplayPopupRosterSize" x:Name="_sizeButton" ToolTip="Item Size"
+							Style="{DynamicResource ImageButtonStyle}" Background="{DynamicResource roster_size_design}" Width="40" Height="20" Margin="5,2,5,2"/>
+					</StatusBarItem>
+				</StatusBar>
+                
+				<xeus2_xeus_Controls:DottedHorizontal Margin="0,3,0,3" DockPanel.Dock="Bottom"/>
+                
+				<Grid DockPanel.Dock="Top">
+					<xeus2_xeus_Controls:RosterControl x:Name="_roster"/>
+					<xeus2_xeus_Controls:FilterDisplay Margin="10,-10,10,10"
+						x:Name="_filterDisplay" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+				</Grid>
+			</DockPanel>
+		</Border>
     </DockPanel>
 </UI:BaseWindow>
