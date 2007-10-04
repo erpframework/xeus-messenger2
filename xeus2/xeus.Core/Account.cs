@@ -587,7 +587,7 @@ namespace xeus2.xeus.Core
                     DiscoItem[] itms = items.GetDiscoItems();
 
                     DiscoverySessionData sessionData = data as DiscoverySessionData;
-                    Services.Instance.OnServiceItem(sender, itms, sessionData.Data as DiscoItem);
+                    Services.Instance.OnServiceItem(itms, sessionData.Data as DiscoItem);
                 }
             }
         }

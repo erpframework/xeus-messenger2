@@ -123,6 +123,7 @@ namespace xeus2.xeus.Core
                            new ServiceItemInfoCallback(OnServiceItemInfo), discoItem, info);
         }
 
+        /*
         public void OnServiceItem(object sender, IList<DiscoItem> discoItems, DiscoItem parent)
         {
             if (_sessionKey == string.Empty)
@@ -132,7 +133,7 @@ namespace xeus2.xeus.Core
 
             App.InvokeSafe(App._dispatcherPriority,
                            new ServiceItemCallback(OnServiceItems), discoItems, parent);
-        }
+        }*/
 
         public void OnServiceItemError(object sender, IQ iq)
         {
@@ -207,7 +208,7 @@ namespace xeus2.xeus.Core
             }
         }
 
-        private void OnServiceItems(IList<DiscoItem> discoItems, DiscoItem parent)
+        public void OnServiceItem(IList<DiscoItem> discoItems, DiscoItem parent)
         {
             lock (_syncObject)
             {
