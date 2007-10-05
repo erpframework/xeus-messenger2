@@ -1,8 +1,13 @@
 ﻿<UserControl x:Class="xeus2.xeus.UI.xeus.UI.Controls.Headlines"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:xeus2.xeus.UI.xeus.UI.Controls;assembly="
     Height="300" Width="300">
     <Grid>
-            
+        <FlowDocumentScrollViewer x:Name="_flowViewer" Margin="2,2,2,2"
+	        Document="{Binding Path=ChatDocument}"
+	        DockPanel.Dock="Top" MaxZoom="300" MinZoom="50" ZoomIncrement="5" Style="{DynamicResource BasicFlowDocumentScrollViewerStyle}" />
+        <Controls:SearchText x:Name="_inlineSearch" VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                                 Margin="10,0,10,5"/>
     </Grid>
 </UserControl>

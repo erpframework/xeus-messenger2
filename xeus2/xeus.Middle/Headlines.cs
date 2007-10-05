@@ -1,4 +1,5 @@
-﻿using xeus2.xeus.UI;
+﻿using xeus2.xeus.Core;
+using xeus2.xeus.UI;
 
 namespace xeus2.xeus.Middle
 {
@@ -19,6 +20,7 @@ namespace xeus2.xeus.Middle
             try
             {
                 HeadlinesWindow headlinesWindow = new HeadlinesWindow();
+                headlinesWindow.DataContext = new HeadlinesChat();
                 headlinesWindow.Show();
             }
 

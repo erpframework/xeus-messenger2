@@ -368,11 +368,13 @@
     <Compile Include="xeus.Core\EventErrorConnection.cs" />
     <Compile Include="xeus.Core\EventErrorProtocol.cs" />
     <Compile Include="xeus.Core\EventException.cs" />
+    <Compile Include="xeus.Core\EventHeadlineMessage.cs" />
     <Compile Include="xeus.Core\EventInfo.cs" />
     <Compile Include="xeus.Core\EventMucRoom.cs" />
     <Compile Include="xeus.Core\Events.cs" />
     <Compile Include="xeus.Core\EventStatusChanged.cs" />
     <Compile Include="xeus.Core\HeadlineMessage.cs" />
+    <Compile Include="xeus.Core\HeadlinesChat.cs" />
     <Compile Include="xeus.Core\IChatState.cs" />
     <Compile Include="xeus.Core\IContact.cs" />
     <Compile Include="xeus.Core\IJid.cs" />
