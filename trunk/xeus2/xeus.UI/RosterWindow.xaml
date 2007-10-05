@@ -436,29 +436,32 @@
 
     <DockPanel>
         <Grid DockPanel.Dock="Top" x:Name="_headerContainer">
-            <xeus2_xeus_Controls:RosterHeader x:Name="_header"/>
-            <WrapPanel Margin="10,8,10,0" DockPanel.Dock="Right" HorizontalAlignment="Right">
-                <Button Command="servicecmd:AccountCommands.DisplayLogin" ToolTip="Login"
-						Content="Login" Background="{DynamicResource register_design}" Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
-                <Button Command="servicecmd:AccountCommands.DisplayHeadlines" ToolTip="News and Headlines"
-						Content="Login" Background="{DynamicResource news_design}" Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
-                <Button Background="{DynamicResource service_design}" x:Name="_mucMarksButton"
+			<StackPanel Orientation="Horizontal">
+				<WrapPanel Margin="10,8,10,0" Grid.IsSharedSizeScope="True">
+					<Button Command="servicecmd:AccountCommands.DisplayLogin" ToolTip="Login"
+						Content="Login" Background="{DynamicResource register_design}" Style="{DynamicResource ImageButtonStyle}" Width="16" Height="16"/>
+					<Button Command="servicecmd:AccountCommands.DisplayHeadlines" ToolTip="News and Headlines"
+						Content="Login" Background="{DynamicResource news_design}" Style="{DynamicResource ImageButtonStyle}" Width="16" Height="16"/>
+					<Button Background="{DynamicResource service_design}" x:Name="_mucMarksButton"
 						ToolTip="Services and MUC"
 						Content="Services" Command="servicecmd:ServiceCommands.DisplayServices" 
-						Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
-                <Popup x:Name="_mucMarksPopup" AllowsTransparency="True"
+						Style="{DynamicResource ImageButtonStyle}" Width="16" Height="16"/>
+					<Popup x:Name="_mucMarksPopup" AllowsTransparency="True"
 						PlacementTarget="{Binding ElementName=_mucMarksButton}" StaysOpen="False">
-                    <xeus2_xeus_Controls:MucMarksListSelection Panel.ZIndex="100"/>
-                </Popup>
-                <Button Background="{DynamicResource mucmark_design}" ToolTip="MUC Bookmarks"
+						<xeus2_xeus_Controls:MucMarksListSelection Panel.ZIndex="100"/>
+					</Popup>
+					<Button Background="{DynamicResource mucmark_design}" ToolTip="MUC Bookmarks"
 						Click="MucMarkPopup"  Command="servicecmd:AccountCommands.DisplayMucMarks"
-						Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
-                <Button Background="{DynamicResource history_design}" ToolTip="History"
+						Style="{DynamicResource ImageButtonStyle}" Width="16" Height="16"/>
+					<Button Background="{DynamicResource history_design}" ToolTip="History"
 						Click="HistoryPopup" x:Name="_historyButton" Command="servicecmd:AccountCommands.History"
-						Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
-                <Popup x:Name="_historyPopup" AllowsTransparency="True"
+						Style="{DynamicResource ImageButtonStyle}" Width="16" Height="16"/>
+					<Popup x:Name="_historyPopup" AllowsTransparency="True"
 						PlacementTarget="{Binding ElementName=_historyButton}" StaysOpen="False"/>
-            </WrapPanel>
+					<xeus2_xeus_Controls:StatusTextControl MinWidth="150"/>
+				</WrapPanel>
+				<xeus2_xeus_Controls:RosterHeader x:Name="_header" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+			</StackPanel>
         </Grid>
 
         <Border x:Name="_rosterBorder"
@@ -468,9 +471,6 @@
 					PlacementTarget ="{Binding ElementName=_sizeButton}" StaysOpen="False"/>
 
 				<StatusBar DockPanel.Dock="Bottom" Background="{x:Null}" ItemsPanel="{StaticResource ItemsPanelStausbar}">
-					<StatusBarItem>
-						<xeus2_xeus_Controls:StatusTextControl MinWidth="150"/>
-					</StatusBarItem>
 					<StatusBarItem>
 						<xeus2_xeus_Controls:UserSearchText x:Name="_textFilter" MinWidth="150"/>
 					</StatusBarItem>
@@ -483,8 +483,6 @@
 							Style="{DynamicResource ImageButtonStyle}" Background="{DynamicResource roster_size_design}" Width="40" Height="20" Margin="5,2,5,2"/>
 					</StatusBarItem>
 				</StatusBar>
-                
-				<xeus2_xeus_Controls:DottedHorizontal Margin="0,3,0,3" DockPanel.Dock="Bottom"/>
                 
 				<Grid DockPanel.Dock="Top">
 					<xeus2_xeus_Controls:RosterControl x:Name="_roster"/>
