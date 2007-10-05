@@ -189,6 +189,39 @@ namespace xeus2.xeus.Data
             return messages;
         }
 
+        public static List<HeadlineMessage> GetHeadlines(uint maxMessages)
+        {
+            List<HeadlineMessage> messages = new List<HeadlineMessage>();
+
+            try
+            {
+                using (SQLiteCommand command = _connection.CreateCommand())
+                {
+                    command.CommandText = string.Format(
+                                            "SELECT * FROM [Message] "
+                                          + "WHERE [Type]='headline'"
+                                          + "ORDER BY [Message].[DateTime] "
+                                          + "LIMIT {0};", maxMessages);
+
+                    SQLiteDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        messages.Add(new HeadlineMessage(reader));
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            catch (Exception e)
+            {
+                Events.Instance.OnEvent(e, new EventError(e.Message, null));
+            }
+
+            return messages;
+        }
+
         public static void SaveMessage(Message message)
         {
             try

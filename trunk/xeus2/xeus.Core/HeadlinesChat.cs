@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
 using xeus2.Properties;
+using xeus2.xeus.Data;
 using xeus2.xeus.Utilities;
 
 namespace xeus2.xeus.Core

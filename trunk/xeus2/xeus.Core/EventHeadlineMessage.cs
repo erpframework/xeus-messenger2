@@ -13,5 +13,29 @@ namespace xeus2.xeus.Core
             _sender = jid;
             _headline = headline;
         }
+
+        public string Sender
+        {
+            get
+            {
+                return (string.IsNullOrEmpty(_sender.User) ? _sender.ToString() : _sender.User);
+            }
+        }
+
+        public HeadlineMessage Headline
+        {
+            get
+            {
+                return _headline;
+            }
+        }
+
+        public override string Message
+        {
+            get
+            {
+                return _headline.Body;
+            }
+        }
     }
 }

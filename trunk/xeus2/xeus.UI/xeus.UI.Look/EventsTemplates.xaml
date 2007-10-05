@@ -6,6 +6,98 @@
     xmlns:servicecmd="clr-namespace:xeus2.xeus.Commands"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2006" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
 	>
+	<DrawingBrush x:Key="news_design" PresentationOptions:Freeze="True" Stretch="Uniform">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<DrawingGroup.Children>
+					<GeometryDrawing Geometry="F1 M 3.02813,6.94666L 21.4042,2.20572C 21.6181,2.15054 21.8362,2.27921 21.8914,2.49311L 26.6254,20.8423C 26.6806,21.0562 26.552,21.2743 26.338,21.3295L 7.96199,26.0705C 7.74808,26.1256 7.52993,25.997 7.47475,25.7831L 2.74074,7.43391C 2.68555,7.22 2.81422,7.00185 3.02813,6.94666 Z ">
+						<GeometryDrawing.Pen>
+							<Pen LineJoin="Round" Brush="#FF5F5F5F"/>
+						</GeometryDrawing.Pen>
+						<GeometryDrawing.Brush>
+							<LinearGradientBrush StartPoint="0.126874,0.313545" EndPoint="0.961113,0.313545">
+								<LinearGradientBrush.RelativeTransform>
+									<TransformGroup>
+										<SkewTransform CenterX="0.126874" CenterY="0.313545" AngleX="0.0367234" AngleY="0"/>
+										<RotateTransform CenterX="0.126874" CenterY="0.313545" Angle="26.5518"/>
+									</TransformGroup>
+								</LinearGradientBrush.RelativeTransform>
+								<LinearGradientBrush.GradientStops>
+									<GradientStop Color="#FFFFFFFF" Offset="0"/>
+									<GradientStop Color="#FFCDCDCD" Offset="1"/>
+								</LinearGradientBrush.GradientStops>
+							</LinearGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Geometry="F1 M 4.47198,4.30753L 23.4498,4.30753C 23.6707,4.30753 23.8498,4.48662 23.8498,4.70753L 23.8498,23.6575C 23.8498,23.8784 23.6707,24.0575 23.4498,24.0575L 4.47198,24.0575C 4.25106,24.0575 4.07198,23.8784 4.07198,23.6575L 4.07198,4.70753C 4.07198,4.48662 4.25106,4.30753 4.47198,4.30753 Z ">
+						<GeometryDrawing.Brush>
+							<LinearGradientBrush StartPoint="-0.743145,1.17007" EndPoint="1.25812,1.17007">
+								<LinearGradientBrush.RelativeTransform>
+									<TransformGroup>
+										<SkewTransform CenterX="-0.743145" CenterY="1.17007" AngleX="-0.0800951" AngleY="0"/>
+										<RotateTransform CenterX="-0.743145" CenterY="1.17007" Angle="-42.04"/>
+									</TransformGroup>
+								</LinearGradientBrush.RelativeTransform>
+								<LinearGradientBrush.GradientStops>
+									<GradientStop Color="#00FFFFFF" Offset="0"/>
+									<GradientStop Color="#406F6F6F" Offset="1"/>
+								</LinearGradientBrush.GradientStops>
+							</LinearGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Geometry="F1 M 5.28503,5.08251L 24.2628,5.08251C 24.4837,5.08251 24.6628,5.2616 24.6628,5.48251L 24.6628,24.4325C 24.6628,24.6534 24.4837,24.8325 24.2628,24.8325L 5.28503,24.8325C 5.06412,24.8325 4.88503,24.6534 4.88503,24.4325L 4.88503,5.48251C 4.88503,5.2616 5.06412,5.08251 5.28503,5.08251 Z ">
+						<GeometryDrawing.Pen>
+							<Pen LineJoin="Round" Brush="#FF3D3D3D"/>
+						</GeometryDrawing.Pen>
+						<GeometryDrawing.Brush>
+							<LinearGradientBrush StartPoint="0.122645,0.171531" EndPoint="1.12322,0.171531">
+								<LinearGradientBrush.RelativeTransform>
+									<TransformGroup>
+										<SkewTransform CenterX="0.122645" CenterY="0.171531" AngleX="0.0759014" AngleY="0"/>
+										<RotateTransform CenterX="0.122645" CenterY="0.171531" Angle="41.038"/>
+									</TransformGroup>
+								</LinearGradientBrush.RelativeTransform>
+								<LinearGradientBrush.GradientStops>
+									<GradientStop Color="#FFFFFFFF" Offset="0"/>
+									<GradientStop Color="#FFCDCDCD" Offset="1"/>
+								</LinearGradientBrush.GradientStops>
+							</LinearGradientBrush>
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Brush="#FF000000" Geometry="F1 M 7.01506,6.75056L 8.17075,6.75056L 11.0281,10.2633L 11.0281,7.56635C 11.0281,7.28025 10.9984,7.1018 10.9389,7.03098C 10.8603,6.93468 10.736,6.88652 10.5661,6.88652L 10.4163,6.88652L 10.4163,6.75056L 11.9119,6.75056L 11.9119,6.88652L 11.7589,6.88652C 11.5762,6.88652 11.4466,6.94601 11.3702,7.06498C 11.3234,7.13862 11.3001,7.30575 11.3001,7.56635L 11.3001,11.3787L 11.1885,11.3787L 8.17288,7.69488L 8.17288,10.4896C 8.17288,10.7757 8.20156,10.9541 8.25892,11.0249C 8.33965,11.1212 8.46393,11.1694 8.63176,11.1694L 8.78472,11.1694L 8.78472,11.3054L 7.28911,11.3054L 7.28911,11.1694L 7.43888,11.1694C 7.62371,11.1694 7.75436,11.1099 7.83084,10.9909C 7.87758,10.9173 7.90095,10.7502 7.90095,10.4896L 7.90095,7.3624C 7.77065,7.20731 7.67169,7.10499 7.60406,7.05542C 7.53643,7.00585 7.43747,6.95982 7.30717,6.91733C 7.24272,6.89679 7.14535,6.88652 7.01506,6.88652L 7.01506,6.75056 Z "/>
+					<GeometryDrawing Brush="#FF000000" Geometry="F1 M 12.7277,9.40187C 12.7256,9.84729 12.8374,10.1964 13.0633,10.4492C 13.2892,10.7027 13.5544,10.8295 13.859,10.8295C 14.0622,10.8295 14.2389,10.784 14.389,10.693C 14.5391,10.602 14.6652,10.4209 14.7672,10.1497L 14.8351,10.2113C 14.7884,10.5271 14.6528,10.7997 14.4283,11.0292C 14.2038,11.2586 13.9227,11.3734 13.5849,11.3734C 13.2181,11.3734 12.9042,11.2326 12.6432,10.9511C 12.3823,10.6696 12.2518,10.2909 12.2518,9.81507C 12.2518,9.30025 12.3857,8.89873 12.6533,8.61051C 12.921,8.3223 13.257,8.17819 13.6614,8.17819C 14.0041,8.17819 14.2854,8.28919 14.5053,8.51119C 14.7252,8.7332 14.8351,9.03009 14.8351,9.40187L 12.7277,9.40187 Z M 12.7277,9.19792L 14.1553,9.19792C 14.144,9.00176 14.1203,8.86367 14.0841,8.78365C 14.0282,8.65831 13.9446,8.56005 13.8335,8.48889C 13.7223,8.41772 13.6061,8.38213 13.485,8.38213C 13.2988,8.38213 13.1322,8.45401 12.9853,8.59776C 12.8383,8.74152 12.7525,8.94157 12.7277,9.19792 Z "/>
+					<GeometryDrawing Brush="#FF000000" Geometry="F1 M 15.1018,8.24617L 16.3881,8.24617L 16.3881,8.38213C 16.2705,8.39063 16.1935,8.41046 16.1571,8.44161C 16.1206,8.47277 16.1024,8.51739 16.1024,8.57545C 16.1024,8.6406 16.1211,8.71886 16.1587,8.81021L 16.8523,10.5576L 17.5799,9.09595L 17.4185,8.69974C 17.3653,8.57298 17.2956,8.48517 17.2092,8.4363C 17.1603,8.40656 17.0697,8.3885 16.9373,8.38213L 16.9373,8.24617L 18.2257,8.24617L 18.2257,8.38213C 18.1273,8.3885 18.0576,8.41718 18.0165,8.46817C 17.9889,8.50358 17.9751,8.56023 18.0037,8.75922L 18.7388,10.5172L 19.322,8.82295C 19.4126,8.70682 19.4579,8.6144 19.4579,8.54572L 19.3793,8.43684C 19.3269,8.40462 19.2239,8.38638 19.0702,8.38213L 19.0702,8.24617L 19.9784,8.24617L 19.9784,8.38213C 19.7858,8.41046 19.6442,8.53934 19.5535,8.76878L 18.6581,11.3734L 18.5062,11.3734L 17.6798,9.34238L 16.6653,11.3734L 16.5963,11.3734L 15.5829,8.82295C 15.5185,8.66645 15.4553,8.56076 15.3933,8.50588C 15.3314,8.451 15.2342,8.40975 15.1018,8.38213L 15.1018,8.24617 Z "/>
+					<GeometryDrawing Brush="#FF000000" Geometry="F1 M 22.1772,8.17819L 22.1772,9.19792L 22.0412,9.19792C 21.9563,8.88208 21.8472,8.66716 21.7141,8.55315C 21.5809,8.43914 21.4113,8.38213 21.2053,8.38213C 21.0488,8.38213 20.9224,8.42249 20.8261,8.50323C 20.7298,8.58395 20.6816,8.67318 20.6816,8.77091C 20.6816,8.89342 20.7159,8.99822 20.7846,9.08532C 20.8512,9.17455 20.9914,9.26909 21.2053,9.36894L 21.6971,9.6005C 22.1531,9.8179 22.3812,10.104 22.3812,10.4588C 22.3812,10.7328 22.2755,10.9538 22.0641,11.1216C 21.8527,11.2894 21.6164,11.3734 21.3551,11.3734C 21.1674,11.3734 20.9528,11.3394 20.7113,11.2714C 20.6377,11.2487 20.5775,11.2374 20.5308,11.2374C 20.4791,11.2374 20.4387,11.2827 20.4097,11.3734L 20.2737,11.3734L 20.2737,10.3536L 20.4097,10.3536C 20.4734,10.6234 20.5947,10.8268 20.7735,10.9639C 20.9523,11.1009 21.1529,11.1694 21.3752,11.1694C 21.5317,11.1694 21.6592,11.123 21.7576,11.0303C 21.8561,10.9375 21.9053,10.826 21.9053,10.6957C 21.9053,10.5384 21.8508,10.406 21.7417,10.2984C 21.6326,10.1907 21.4144,10.0601 21.0868,9.90642C 20.7593,9.75275 20.5421,9.61395 20.4352,9.49003C 20.3275,9.36823 20.2737,9.2142 20.2737,9.02796C 20.2737,8.78649 20.361,8.58449 20.5355,8.42197C 20.7101,8.25945 20.9358,8.17819 21.2127,8.17819C 21.3345,8.17819 21.4822,8.20545 21.6557,8.25998C 21.7711,8.29609 21.8479,8.31415 21.9706,8.28919L 22.0412,8.17819L 22.1772,8.17819 Z "/>
+					<GeometryDrawing Brush="#FFA6C6DD" Geometry="F1 M 6.76637,12.8603L 14.5025,12.8603L 14.5025,18.9436L 6.76637,18.9436L 6.76637,12.8603 Z ">
+						<GeometryDrawing.Pen>
+							<Pen Thickness="0.0999959" LineJoin="Round" Brush="#FF3C3C3C"/>
+						</GeometryDrawing.Pen>
+					</GeometryDrawing>
+					<GeometryDrawing Brush="#FFBEBEBE" Geometry="F1 M 15.6205,13.7631L 22.8462,13.7631">
+						<GeometryDrawing.Pen>
+							<Pen LineJoin="Round" Brush="#FF000000"/>
+						</GeometryDrawing.Pen>
+					</GeometryDrawing>
+					<GeometryDrawing Brush="#FFBEBEBE" Geometry="F1 M 15.6535,16.1381L 22.8792,16.1381">
+						<GeometryDrawing.Pen>
+							<Pen LineJoin="Round" Brush="#FF000000"/>
+						</GeometryDrawing.Pen>
+					</GeometryDrawing>
+					<GeometryDrawing Brush="#FFBEBEBE" Geometry="F1 M 15.5702,18.5548L 22.7959,18.5548">
+						<GeometryDrawing.Pen>
+							<Pen LineJoin="Round" Brush="#FF000000"/>
+						</GeometryDrawing.Pen>
+					</GeometryDrawing>
+					<GeometryDrawing Brush="#FFBEBEBE" Geometry="F1 M 7.3497,20.7631L 22.7455,20.7631">
+						<GeometryDrawing.Pen>
+							<Pen LineJoin="Round" Brush="#FF000000"/>
+						</GeometryDrawing.Pen>
+					</GeometryDrawing>
+				</DrawingGroup.Children>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+		
     <DrawingBrush x:Key="error2_design" PresentationOptions:Freeze="True" Stretch="Uniform">
         <DrawingBrush.Drawing>
             <DrawingGroup>
@@ -83,7 +175,19 @@
 				</Grid>
 			</Border>
     </DataTemplate>
-    
+
+    <DataTemplate DataType="{x:Type xeus2_xeus_Core:EventHeadlineMessage}">
+        <Border Background="#FF1E1E1E" BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" Padding="5,5,5,5" MaxWidth="300">
+				<Grid>
+					<Rectangle Fill="{DynamicResource news_design}" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+					<StackPanel Margin="26,0,0,0" >
+						<TextBlock Text="{Binding Path=Sender}" Foreground="{DynamicResource DefaultTextBrush2}" TextWrapping="Wrap" />
+						<TextBlock Text="{Binding Path=Message}" Foreground="{DynamicResource DefaultTextBrush2}" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxWidth="100" MaxHeight="30" />
+					</StackPanel>
+				</Grid>
+			</Border>
+    </DataTemplate>
+	    
     <DataTemplate DataType="{x:Type xeus2_xeus_Core:EventErrorAuth}">
         <Border Background="#FF1E1E1E" BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" Padding="5,5,5,5" MaxWidth="300">
         	<Grid>

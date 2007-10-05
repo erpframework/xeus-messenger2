@@ -34,6 +34,12 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             InitializeComponent();
 
             Loaded += Headlines_Loaded;
+            _inlineSearch.Loaded += _inlineSearch_Loaded;
+        }
+
+        void _inlineSearch_Loaded(object sender, RoutedEventArgs e)
+        {
+            _inlineSearch.Visibility = Visibility.Collapsed;
         }
 
         private void Headlines_Loaded(object sender, RoutedEventArgs e)

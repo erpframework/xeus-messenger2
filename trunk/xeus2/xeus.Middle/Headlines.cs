@@ -1,4 +1,6 @@
-﻿using xeus2.xeus.Core;
+﻿using xeus2.Properties;
+using xeus2.xeus.Core;
+using xeus2.xeus.Data;
 using xeus2.xeus.UI;
 
 namespace xeus2.xeus.Middle
@@ -20,7 +22,14 @@ namespace xeus2.xeus.Middle
             try
             {
                 HeadlinesWindow headlinesWindow = new HeadlinesWindow();
-                headlinesWindow.DataContext = new HeadlinesChat();
+                HeadlinesChat headlinesChat = new HeadlinesChat();
+
+                foreach (HeadlineMessage message in Database.GetHeadlines(Settings.Default.UI_MaxHistoryMessages))
+                {
+                    headlinesChat.Messages.Add(message);
+                }
+
+                headlinesWindow.DataContext = headlinesChat;
                 headlinesWindow.Show();
             }
 
@@ -28,9 +37,11 @@ namespace xeus2.xeus.Middle
             {
                 e.ActivateControl();
             }
+
+            Notification.DismissNotificationType(typeof(EventHeadlineMessage));
         }
 
-        public void DisplayMucOptions()
+        public void DisplayHeadlines()
         {
             App.InvokeSafe(App._dispatcherPriority,
                            new DisplayCallback(HeadlinesOpen));

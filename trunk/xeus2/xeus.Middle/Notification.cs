@@ -117,7 +117,8 @@ namespace xeus2.xeus.Middle
                     || myEvent is EventErrorConnection
                     || myEvent is EventErrorProtocol
                     || myEvent is EventException
-                    || myEvent is EventPresenceChanged)
+                    || myEvent is EventPresenceChanged
+                    || myEvent is EventHeadlineMessage)
                 {
                     bool notify = true;
 
@@ -212,7 +213,7 @@ namespace xeus2.xeus.Middle
             }
         }
 
-        public static void DismissNotificationType<T>(T item)
+        public static void DismissNotificationType(Type type)
         {
             List<Event> toBeRemoved = new List<Event>();
 
@@ -220,7 +221,7 @@ namespace xeus2.xeus.Middle
             {
                 foreach (Event notification in Notifications)
                 {
-                    if (notification is T)
+                    if (notification.GetType() == type)
                     {
                         toBeRemoved.Add(notification);
                     }
