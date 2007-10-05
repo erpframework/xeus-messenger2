@@ -104,6 +104,8 @@ namespace xeus2.xeus.Core
                             Database.SaveMessage(message);
                         }
 
+                        Events.Instance.OnEvent(this, new EventHeadlineMessage(msg.From, message));
+
                         break;
                     }
             }
