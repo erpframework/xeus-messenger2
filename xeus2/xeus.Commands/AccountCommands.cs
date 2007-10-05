@@ -74,7 +74,7 @@ namespace xeus2.xeus.Commands
 
 	    private static void ExecuteDisplayHeadlines(object sender, ExecutedRoutedEventArgs e)
 	    {
-	        Middle.Headlines.Instance.DisplayMucOptions();
+	        Middle.Headlines.Instance.DisplayHeadlines();
 	    }
 
 	    private static void CanExecuteDisplayMucMarks(object sender, CanExecuteRoutedEventArgs e)
