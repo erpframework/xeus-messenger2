@@ -707,12 +707,12 @@ namespace xeus2.xeus.Core
 
         public void GrantModerator(MucContact contact)
         {
-            _mucManager.GrantModeratorPrivilegesPrivileges(Service.Jid, contact.Nick);
+            _mucManager.GrantModeratorPrivileges(Service.Jid, contact.Nick);
         }
 
         public void GrantMember(MucContact contact)
         {
-            _mucManager.GrantMembershipship(Service.Jid, contact.Nick, String.Empty);
+            _mucManager.GrantMembership(Service.Jid, contact.Nick, String.Empty);
         }
 
         public void GrantAdmin(MucContact contact)

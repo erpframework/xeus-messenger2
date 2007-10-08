@@ -24,7 +24,7 @@ namespace xeus2.xeus.UI
             }
         }
 
-        public static void MakeVistaFrame(Window window, int actualHeight)
+        public static void MakeVistaFrame(Window window, int top, int bottom)
         {
             try
             {
@@ -55,8 +55,8 @@ namespace xeus2.xeus.UI
                 // adjusted for the system Dpi.
                 margins.cxLeftWidth = Convert.ToInt32(5 * (DesktopDpiX / 96));
                 margins.cxRightWidth = Convert.ToInt32(5 * (DesktopDpiX / 96));
-                margins.cyTopHeight = Convert.ToInt32((actualHeight + 5) * (DesktopDpiX / 96));
-                margins.cyBottomHeight = Convert.ToInt32(5 * (DesktopDpiX / 96));
+                margins.cyTopHeight = Convert.ToInt32((top + 5) * (DesktopDpiX / 96));
+                margins.cyBottomHeight = Convert.ToInt32((bottom + 5) * (DesktopDpiX / 96));
 
                 int hr = DwmExtendFrameIntoClientArea(mainWindowSrc.Handle, ref margins);
                 //
