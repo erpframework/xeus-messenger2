@@ -92,5 +92,10 @@ namespace xeus2
             _historyPopup.Child = new HistoryListSelection();
             _historyPopup.IsOpen = true;
         }
+
+        private void _headerContainer_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            _toolbar.Width = _headerContainer.ActualWidth - _header.ActualWidth;
+        }
     }
 }

@@ -158,8 +158,7 @@
                     <Rectangle Margin="1,1,1,0"
                  Fill="{DynamicResource contact_back_big_glow_design}"
                  VerticalAlignment="Top" Height="20" Panel.ZIndex="1" SnapsToDevicePixels="True"/>
-                    <a:SystemDropShadowChrome Color="#9999" Margin="-4,-4,1,1">
-                    </a:SystemDropShadowChrome>
+                    <a:SystemDropShadowChrome Color="#3000" Margin="-4,-4,1,1"/>
                     <Border ClipToBounds="True" Padding="3,3,3,3"
                     BorderBrush="#FFAAAAAA" BorderThickness="1,1,1,1"
                     CornerRadius="3,3,3,3" SnapsToDevicePixels="True">
@@ -245,8 +244,7 @@
                     <Rectangle Margin="1,1,1,0"
                  Fill="{DynamicResource contact_back_big_glow_design}"
                  VerticalAlignment="Top" Height="20" Panel.ZIndex="1" SnapsToDevicePixels="True"/>
-                    <a:SystemDropShadowChrome Color="#9999" Margin="-4,-4,1,1">
-                    </a:SystemDropShadowChrome>
+                    <a:SystemDropShadowChrome Color="#3000" Margin="-4,-4,1,1"/>
                     <Border ClipToBounds="True" Padding="3,3,3,3"
                     BorderBrush="#FFAAAAAA" BorderThickness="1,1,1,1"
                     CornerRadius="3,3,3,3" SnapsToDevicePixels="True">
@@ -378,8 +376,7 @@
                     <Rectangle Margin="1,1,1,0"
                           Fill="{DynamicResource contact_back_big_glow_design}"
                             VerticalAlignment="Top" Height="20" Panel.ZIndex="1" SnapsToDevicePixels="True"/>
-                    <a:SystemDropShadowChrome Color="#9999" Margin="-4,-4,1,1">
-                    </a:SystemDropShadowChrome>
+                    <a:SystemDropShadowChrome Color="#3000" Margin="-4,-4,1,1"/>
                     <Border ClipToBounds="True" Padding="3,3,3,3"
                     BorderBrush="#FFAAAAAA" BorderThickness="1,1,1,1"
                     CornerRadius="3,3,3,3" SnapsToDevicePixels="True">
