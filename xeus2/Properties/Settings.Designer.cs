@@ -346,5 +346,17 @@ namespace xeus2.Properties {
                 this["UI_IdleXAMinutes"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.5")]
+        public double UI_WindowZoom {
+            get {
+                return ((double)(this["UI_WindowZoom"]));
+            }
+            set {
+                this["UI_WindowZoom"] = value;
+            }
+        }
     }
 }
