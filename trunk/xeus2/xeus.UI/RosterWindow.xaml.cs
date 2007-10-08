@@ -40,7 +40,7 @@ namespace xeus2
                 _rosterBorder.Background = null;
             }
 
-            Vista.MakeVistaFrame(this, (int)_headerContainer.ActualHeight);
+            Vista.MakeVistaFrame(this, (int)_headerContainer.ActualHeight, (int)_footerContainer.ActualHeight);
         }
 
         public override void EndInit()
@@ -91,11 +91,6 @@ namespace xeus2
         {
             _historyPopup.Child = new HistoryListSelection();
             _historyPopup.IsOpen = true;
-        }
-
-        private void _headerContainer_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            _toolbar.Width = _headerContainer.ActualWidth - _header.ActualWidth;
         }
     }
 }

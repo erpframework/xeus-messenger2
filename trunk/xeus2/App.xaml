@@ -13,7 +13,8 @@
     			<ResourceDictionary Source="xeus.UI\xeus.UI.Look\BasicStyles.xaml"/>
     			<ResourceDictionary Source="xeus.UI\xeus.UI.Look\MucRoster.xaml"/>
     			<ResourceDictionary Source="xeus.UI\xeus.UI.Look\ScrollBar.xaml"/>
-    			<ResourceDictionary Source="xeus.UI\xeus.UI.Look\Events.xaml"/>
+                <ResourceDictionary Source="xeus.UI\xeus.UI.Look\ToolBar.xaml"/>
+                <ResourceDictionary Source="xeus.UI\xeus.UI.Look\Events.xaml"/>
                 <ResourceDictionary Source="xeus.UI\xeus.UI.Look\StatusbarResources.xaml"/>
                 <ResourceDictionary Source="xeus.UI\xeus.UI.Look\EventsTemplates.xaml"/>
                 <ResourceDictionary Source="xeus.UI\xeus.UI.Look\ListViewResource.xaml"/>

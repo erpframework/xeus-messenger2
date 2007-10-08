@@ -8,61 +8,35 @@
     >
 
     <UserControl.Resources>
-        <DrawingBrush x:Key="header_back">
-            <DrawingBrush.Drawing>
-                <DrawingGroup>
-                    <DrawingGroup.Children>
-                        <GeometryDrawing Geometry="F1 M 45.5555,31L 274.889,31C 282.253,31 288.222,36.9696 288.222,44.3334L 288.222,241.444C 288.222,248.808 282.253,254.778 274.889,254.778L 45.5555,254.778C 38.1917,254.778 32.2222,248.808 32.2222,241.444L 32.2222,44.3334C 32.2222,36.9696 38.1917,31 45.5555,31 Z ">
-                            <GeometryDrawing.Pen>
-                                <Pen Thickness="2" LineJoin="Round" Brush="#B343454A"/>
-                            </GeometryDrawing.Pen>
-                            <GeometryDrawing.Brush>
-                                <LinearGradientBrush StartPoint="0.5,1.07357" EndPoint="0.5,-0.0735729">
-                                    <LinearGradientBrush.GradientStops>
-                                        <GradientStop Color="#B3A3D0F3" Offset="0"/>
-                                        <GradientStop Color="#B34B6C85" Offset="0.101695"/>
-                                        <GradientStop Color="#B365A9C0" Offset="0.478814"/>
-                                        <GradientStop Color="#B3BEDEF6" Offset="0.826271"/>
-                                        <GradientStop Color="#B3FFFFFF" Offset="1"/>
-                                    </LinearGradientBrush.GradientStops>
-                                </LinearGradientBrush>
-                            </GeometryDrawing.Brush>
-                        </GeometryDrawing>
-                    </DrawingGroup.Children>
-                </DrawingGroup>
-            </DrawingBrush.Drawing>
-        </DrawingBrush>
-        <DrawingBrush x:Key="header_glow">
-            <DrawingBrush.Drawing>
-                <DrawingGroup>
-                    <DrawingGroup.Children>
-                        <GeometryDrawing Geometry="F1 M 45.6736,33.3611L 274.771,33.3611C 280.522,33.3611 285.184,37.4111 285.184,42.407L 285.184,135.896C 285.184,140.892 280.522,144.942 274.771,144.942C 236.389,145.137 198.007,145.333 159.824,145.333C 121.642,145.333 83.6576,145.137 45.6736,144.942C 39.9224,144.942 35.2601,140.892 35.2601,135.896L 35.2601,42.407C 35.2601,37.4111 39.9224,33.3611 45.6736,33.3611 Z ">
-                            <GeometryDrawing.Brush>
-                                <LinearGradientBrush StartPoint="0.5,0.982974" EndPoint="0.5,0.0135265">
-                                    <LinearGradientBrush.GradientStops>
-                                        <GradientStop Color="#31FFFFFF" Offset="0"/>
-                                        <GradientStop Color="#00E8F5FF" Offset="1"/>
-                                    </LinearGradientBrush.GradientStops>
-                                </LinearGradientBrush>
-                            </GeometryDrawing.Brush>
-                        </GeometryDrawing>
-                    </DrawingGroup.Children>
-                </DrawingGroup>
-            </DrawingBrush.Drawing>
-        </DrawingBrush>
-
         <DataTemplate DataType="{x:Type xeus2_xeus_Core:SelfContact}">
             <Border>
-					<Grid Background="{DynamicResource header_back}">
-						<Rectangle Fill="{DynamicResource header_glow}" VerticalAlignment="Top" Height="30" Panel.ZIndex="5"/>
-						<Border x:Name="_imageBorder" HorizontalAlignment="Center" VerticalAlignment="Center"
-							BorderBrush="{DynamicResource roster_image_border}" Width="48" Height="48" Margin="2">
-							<Image Source="{Binding Path=Image}" x:Name="_image"
-								Stretch="UniformToFill" IsEnabled="False"/>
-						</Border>
-						<!--<TextBlock Margin="0,35,5,5" Text="{Binding Path=DisplayName}" FontSize="11" Foreground="#FF3F3F3F" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center"/>-->
-					</Grid>
-				</Border>
+                <Grid Background="{DynamicResource header_back}">
+                    <Rectangle Fill="{DynamicResource contact_back_big_glow_design}" VerticalAlignment="Top" Height="30" Panel.ZIndex="5"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Border x:Name="_imageBorder" HorizontalAlignment="Center" VerticalAlignment="Center"
+								BorderBrush="{DynamicResource roster_image_border}" Width="32" Height="32" Margin="2">
+                            <Image Source="{Binding Path=Image}" x:Name="_image"
+									Stretch="UniformToFill" IsEnabled="False"/>
+                        </Border>
+                        <Border ClipToBounds="True" Padding="1,1,1,1"
+                    BorderBrush="#AAAAAAAA" BorderThickness="1,1,1,1"
+                    CornerRadius="3,3,3,3" SnapsToDevicePixels="True">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0.5,1.0" EndPoint="0.5,0.0">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#AA515151" Offset="0"/>
+                                        <GradientStop Color="#AA141414" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Path=DisplayName}"
+                                       FontSize="14" Foreground="{DynamicResource roster_status_text}" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" Margin="3,3,5,0" FontWeight="Bold"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Border>
             <DataTemplate.Triggers>
                 <DataTrigger Binding="{Binding Path=IsImageTransparent}" Value="False">
                     <Setter Property="Border.BorderThickness" TargetName="_imageBorder" Value="1,1,1,1"/>
