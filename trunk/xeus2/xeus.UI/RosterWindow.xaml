@@ -439,8 +439,8 @@
                  ToolBarTray.IsLocked="True">
             <xeus2_xeus_Controls:RosterHeader x:Name="_header" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Separator Margin="5,0,10,0" Style="{DynamicResource {x:Static StatusBar.SeparatorStyleKey}}"/>
-            <Button Command="servicecmd:AccountCommands.DisplayLogin" ToolTip="Login"
-						Content="Login" Background="{DynamicResource register_design}" Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
+            <Button Command="servicecmd:AccountCommands.DisplayWizard" ToolTip="Setup Wizard"
+						Content="Login" Background="{DynamicResource wizard_design}" Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
             <Button Command="servicecmd:AccountCommands.DisplayHeadlines" ToolTip="News and Headlines"
 						Content="Login" Background="{DynamicResource news_design}" Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
             <Button Background="{DynamicResource service_design}" x:Name="_mucMarksButton"
