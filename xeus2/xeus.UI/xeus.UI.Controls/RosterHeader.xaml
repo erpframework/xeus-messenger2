@@ -3,7 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:a="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" 
     xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" 	
-    xmlns:xeus2_xeus_Core="clr-namespace:xeus2.xeus.Core" 
+    xmlns:xeus2_xeus_Core="clr-namespace:xeus2.xeus.Core" 	
+    xmlns:Controls="clr-namespace:xeus2.xeus.UI.xeus.UI.Controls;assembly=" 
     x:Class="xeus2.xeus.UI.xeus.UI.Controls.RosterHeader"
     >
 
@@ -13,7 +14,7 @@
                 <Grid Background="{DynamicResource header_back}">
 						<StackPanel Orientation="Horizontal">
 							<Border x:Name="_imageBorder" HorizontalAlignment="Center" VerticalAlignment="Center"
-								BorderBrush="{DynamicResource roster_image_border}" Width="32" Height="32" Margin="2">
+								BorderBrush="{DynamicResource roster_image_border}" Width="40" Height="40" Margin="2">
 								<Image Source="{Binding Path=Image}" x:Name="_image"
 									Stretch="UniformToFill" IsEnabled="False"/>
 							</Border>
@@ -22,8 +23,15 @@
 								CornerRadius="3,3,3,3" SnapsToDevicePixels="True">
 								<StackPanel>
 									<TextBlock Text="{Binding Path=DisplayName}"
-										FontSize="14" Foreground="{DynamicResource roster_status_text}" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" Margin="3,3,5,0" FontWeight="Bold"/>
-								</StackPanel>
+										FontSize="14" HorizontalAlignment="Left"
+                                        Foreground="{DynamicResource DefaultTextBrush}" TextTrimming="CharacterEllipsis" 
+                                        Margin="3,3,5,0" FontWeight="Bold" SnapsToDevicePixels="False">
+										<TextBlock.BitmapEffect>
+											<OuterGlowBitmapEffect GlowColor="#FFFFFFFF" GlowSize="2"/>
+										</TextBlock.BitmapEffect>
+									</TextBlock>
+                                    <Controls:StatusTextControl MinWidth="70"/>
+                            </StackPanel>
 							</Border>
 						</StackPanel>
 					</Grid>
