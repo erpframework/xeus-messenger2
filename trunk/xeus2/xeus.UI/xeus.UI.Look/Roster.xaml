@@ -213,19 +213,19 @@
 
             <DataTrigger Binding="{Binding Path=Show}" Value="dnd">
                 <Setter Property="Fill" TargetName="_show" Value="{DynamicResource dnd_design}"/>
-                <Setter Property="Opacity" TargetName="_image" Value="0.4"/>
+                <Setter Property="Visibility" TargetName="_image" Value="Hidden"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Show}" Value="away">
                 <Setter Property="Fill" TargetName="_show" Value="{DynamicResource away_design}"/>
-                <Setter Property="Opacity" TargetName="_image" Value="0.4"/>
+                <Setter Property="Visibility" TargetName="_image" Value="Hidden"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Show}" Value="xa">
                 <Setter Property="Fill" TargetName="_show" Value="{DynamicResource xaway_design}"/>
-                <Setter Property="Opacity" TargetName="_image" Value="0.4"/>
+                <Setter Property="Visibility" TargetName="_image" Value="Hidden"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Show}" Value="chat">
                 <Setter Property="Fill" TargetName="_show" Value="{DynamicResource chat_design}"/>
-                <Setter Property="Opacity" TargetName="_image" Value="0.4"/>
+                <Setter Property="Visibility" TargetName="_image" Value="Hidden"/>
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>

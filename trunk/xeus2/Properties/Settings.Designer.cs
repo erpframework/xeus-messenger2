@@ -358,5 +358,41 @@ namespace xeus2.Properties {
                 this["UI_WindowZoom"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5222")]
+        public uint XmppServerPort {
+            get {
+                return ((uint)(this["XmppServerPort"]));
+            }
+            set {
+                this["XmppServerPort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string XmppConnectServer {
+            get {
+                return ((string)(this["XmppConnectServer"]));
+            }
+            set {
+                this["XmppConnectServer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool XmppAutoResolve {
+            get {
+                return ((bool)(this["XmppAutoResolve"]));
+            }
+            set {
+                this["XmppAutoResolve"] = value;
+            }
+        }
     }
 }

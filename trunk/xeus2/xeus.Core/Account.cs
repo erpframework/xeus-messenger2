@@ -187,6 +187,18 @@ namespace xeus2.xeus.Core
             Roster.Instance.Items.Clear();
         }
 
+        public void Create()
+        {
+            Close();
+            Cleanup();
+            CreateAccount();                        
+        }
+
+        private void CreateAccount()
+        {
+            OpenInternal(true);
+        }
+
         public void Login()
         {
             Close();
@@ -239,8 +251,9 @@ namespace xeus2.xeus.Core
             _discoTime.AutoReset = false;
         }
 
-        public void Open()
+        void OpenInternal(bool newAccount)
         {
+            XmppConnection.RegisterAccount = newAccount;
             XmppConnection.Username = Settings.Default.XmppUserName;
             XmppConnection.Password = Settings.Default.XmppPassword;
             XmppConnection.Server = Settings.Default.XmppServer;
@@ -252,7 +265,12 @@ namespace xeus2.xeus.Core
 
             XmppConnection.Open();
 
-            _selfContact.LoadMyAvatar();
+            _selfContact.LoadMyAvatar();            
+        }
+
+        public void Open()
+        {
+            OpenInternal(false);
         }
 
         void XmppConnection_OnXmppError(object sender, Element e)
@@ -269,13 +287,12 @@ namespace xeus2.xeus.Core
 
         void XmppConnection_OnRegisterInformation(object sender, RegisterEventArgs args)
         {
-            throw new NotImplementedException();
+            // Events.Instance.OnEvent(this, new EventErrorRegistration(args.Register.Instructions));
         }
 
         void XmppConnection_OnRegisterError(object sender, Element e)
         {
-            EventErrorProtocol eventError = new EventErrorProtocol("Registering Error", e);
-            Events.Instance.OnEvent(this, eventError);
+            Events.Instance.OnEvent(this, new EventErrorRegistration(e));
         }
 
         private void _xmppConnection_OnAuthError(object sender, Element e)
@@ -292,7 +309,7 @@ namespace xeus2.xeus.Core
 
         void XmppConnection_OnRegistered(object sender)
         {
-            throw new NotImplementedException();
+            
         }
 
         void XmppConnection_OnBinded(object sender)
