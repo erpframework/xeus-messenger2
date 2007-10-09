@@ -86,5 +86,14 @@
     <Setting Name="UI_WindowZoom" Type="System.Double" Scope="User">
       <Value Profile="(Default)">1.5</Value>
     </Setting>
+    <Setting Name="XmppServerPort" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">5222</Value>
+    </Setting>
+    <Setting Name="XmppConnectServer" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="XmppAutoResolve" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

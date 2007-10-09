@@ -21,6 +21,9 @@ namespace xeus2.xeus.Commands
         private static readonly RoutedUICommand _history =
             new RoutedUICommand("Display History", "DisplayHistory", typeof (AccountCommands));
 
+        private static readonly RoutedUICommand _login =
+            new RoutedUICommand("Login", "login", typeof(AccountCommands));
+
         public static RoutedUICommand DisplayLogin
         {
             get
@@ -61,6 +64,14 @@ namespace xeus2.xeus.Commands
             }
         }
 
+        public static RoutedUICommand Login
+        {
+            get
+            {
+                return _login;
+            }
+        }
+
         public static void RegisterCommands(CommandBindingCollection commandBindings)
         {
             commandBindings.Add(
@@ -77,6 +88,22 @@ namespace xeus2.xeus.Commands
 
             commandBindings.Add(
                 new CommandBinding(_displayMucMarks, ExecuteDisplayMucMarks, CanExecuteDisplayMucMarks));
+
+            commandBindings.Add(
+                new CommandBinding(_login, ExecuteLogin, CanExecuteLogin));
+        }
+
+        private static void CanExecuteLogin(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+            e.Handled = true;
+        }
+
+        private static void ExecuteLogin(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            Account.Instance.Login();
         }
 
         private static void CanExecuteDisplayWizard(object sender, CanExecuteRoutedEventArgs e)
@@ -133,7 +160,7 @@ namespace xeus2.xeus.Commands
 
         public static void ExecuteDisplayLogin(object sender, ExecutedRoutedEventArgs e)
         {
-            Login.Instance.DisplayLogin();
+            Middle.Login.Instance.DisplayLogin();
 
             e.Handled = true;
         }

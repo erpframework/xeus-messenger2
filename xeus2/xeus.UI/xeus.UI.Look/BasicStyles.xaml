@@ -503,8 +503,16 @@
         <Setter Property="ContextMenu" Value="{DynamicResource TextBoxStyleMenu}"/>
     </Style>
 
+    <Style x:Key="TextBoxWizard" TargetType="{x:Type TextBox}" BasedOn="{StaticResource TextBoxBasic}">
+        <Setter Property="Margin" Value="5,5,5,0"/>
+    </Style>
+
     <Style x:Key="LabelBasic" TargetType="{x:Type TextBlock}">
         <Setter Property="Foreground" Value="{DynamicResource DefaultTextBrush2}"/>
+    </Style>
+
+    <Style x:Key="LabelWizard" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource LabelBasic}">
+        <Setter Property="Margin" Value="5,5,5,0"/>
     </Style>
 
     <Style x:Key="XDataLabel" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource LabelBasic}">
@@ -527,10 +535,17 @@
         <Setter Property="Template" Value="{DynamicResource CheckBoxControlTemplate}"/>
     </Style>
 
-    <Style TargetType="{x:Type CheckBox}">
+    <Style x:Key="CheckBoxBasic" TargetType="{x:Type CheckBox}">
         <Setter Property="Template" Value="{DynamicResource CheckBoxControlTemplate}"/>
     </Style>
 
+    <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource CheckBoxBasic}"/>
+
+    <Style x:Key="CheckBoxWizard" TargetType="{x:Type CheckBox}" BasedOn="{StaticResource CheckBoxBasic}">
+        <Setter Property="Margin" Value="5,15,5,0"/>
+        <Setter Property="Foreground" Value="{DynamicResource DefaultTextBrush2}"/>
+    </Style>
+    
     <Style x:Key="XDataListMulti" TargetType="{x:Type StackPanel}"/>
 
     <Style x:Key="XDataListSingle" TargetType="{x:Type ComboBox}">
@@ -541,6 +556,10 @@
 
     <Style x:Key="PasswordBasic" TargetType="{x:Type PasswordBox}">
         <Setter Property="Background" Value="{DynamicResource DefaultTextBoxBackBrush}"/>
+    </Style>
+
+    <Style x:Key="PasswordWizard" TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource PasswordBasic}">
+        <Setter Property="Margin" Value="5,5,5,0"/>
     </Style>
 
     <Style TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource PasswordBasic}"/>

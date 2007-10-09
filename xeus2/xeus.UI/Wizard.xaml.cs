@@ -1,4 +1,6 @@
-﻿namespace xeus2.xeus.UI
+﻿using xeus2.xeus.Commands;
+
+namespace xeus2.xeus.UI
 {
     /// <summary>
     /// Interaction logic for Wizard.xaml
@@ -10,6 +12,8 @@
         public Wizard() : base(_keyBase, string.Empty)
         {
             InitializeComponent();
+
+            AccountCommands.RegisterCommands(CommandBindings);
         }
     }
 }

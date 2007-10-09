@@ -115,6 +115,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="xeus.UI\Alert.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="xeus.UI\AskAuthorization.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -391,6 +395,7 @@
     <Compile Include="xeus.Core\EventErrorAuth.cs" />
     <Compile Include="xeus.Core\EventErrorConnection.cs" />
     <Compile Include="xeus.Core\EventErrorProtocol.cs" />
+    <Compile Include="xeus.Core\EventErrorRegistration.cs" />
     <Compile Include="xeus.Core\EventException.cs" />
     <Compile Include="xeus.Core\EventHeadlineMessage.cs" />
     <Compile Include="xeus.Core\EventInfo.cs" />
@@ -438,6 +443,7 @@
     <Compile Include="xeus.Core\XeusHyperlink.cs" />
     <Compile Include="xeus.Core\xeus.Data\Database.cs" />
     <Compile Include="xeus.Core\xeus.Data\Storage.cs" />
+    <Compile Include="xeus.Middle\Alert.cs" />
     <Compile Include="xeus.Middle\Authorization.cs" />
     <Compile Include="xeus.Middle\BanReason.cs" />
     <Compile Include="xeus.Middle\ChangeMucContactNick.cs" />
@@ -460,6 +466,9 @@
     <Compile Include="xeus.Middle\Services.cs" />
     <Compile Include="xeus.Middle\VCard.cs" />
     <Compile Include="xeus.Middle\Wizard.cs" />
+    <Compile Include="xeus.UI\Alert.xaml.cs">
+      <DependentUpon>Alert.xaml</DependentUpon>
+    </Compile>
     <Compile Include="xeus.UI\AskAuthorization.xaml.cs">
       <DependentUpon>AskAuthorization.xaml</DependentUpon>
     </Compile>
