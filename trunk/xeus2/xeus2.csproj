@@ -295,6 +295,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="xeus.UI\xeus.UI.Wizards\AddContactWizard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="xeus.UI\xeus.UI.Wizards\ConnectWizard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="xeus.UI\xeus.UI.Wizards\OthersWizard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="xeus.UI\xeus.UI.Wizards\TransportsWizard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="xeus.UI\xeus.UI.Zap\generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -603,6 +619,18 @@
     <Compile Include="xeus.UI\xeus.UI.Look\ServiceTemplateSelector.cs" />
     <Compile Include="xeus.UI\xeus.UI.Look\ToolBar.xaml.cs">
       <DependentUpon>ToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xeus.UI\xeus.UI.Wizards\AddContactWizard.xaml.cs">
+      <DependentUpon>AddContactWizard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xeus.UI\xeus.UI.Wizards\ConnectWizard.xaml.cs">
+      <DependentUpon>ConnectWizard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xeus.UI\xeus.UI.Wizards\OthersWizard.xaml.cs">
+      <DependentUpon>OthersWizard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xeus.UI\xeus.UI.Wizards\TransportsWizard.xaml.cs">
+      <DependentUpon>TransportsWizard.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\xeus.UI.Zap\ZapDecorator.cs" />
     <Compile Include="xeus.UI\xeus.UI.Zap\ZapItemsControl.cs" />

@@ -1,7 +1,8 @@
 ﻿<UserControl x:Class="xeus2.xeus.UI.xeus.UI.Controls.UserSearchText"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Border Background="#99B0B0B0" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3">
+    <Border Background="#99DDDDDD"
+			BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" BorderBrush="#FFAAAAAA">
         <Grid>
             <Rectangle Width="16" Height="16"
 			Fill="{DynamicResource filter_design}" VerticalAlignment="Center"

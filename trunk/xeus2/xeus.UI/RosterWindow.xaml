@@ -464,10 +464,9 @@
         <xeus2_xeus_Controls:DottedHorizontal x:Name="_splitter1" DockPanel.Dock="Top"/>
         <Grid x:Name="_footerContainer" DockPanel.Dock="Bottom">
             <WrapPanel x:Name="_footerWrapPanel" Margin="5,5,5,5">
-                <xeus2_xeus_Controls:StatusTextControl MinWidth="150"/>
                 <Popup x:Name="_rosterSizePopup" AllowsTransparency="True"
 					PlacementTarget ="{Binding ElementName=_sizeButton}" StaysOpen="False"/>
-                <xeus2_xeus_Controls:UserSearchText x:Name="_textFilter" MinWidth="150"/>
+                <xeus2_xeus_Controls:UserSearchText x:Name="_textFilter" MinWidth="70"/>
                 <CheckBox x:Name="_displayOffline" ToolTip="Display Offline Contacts"
 							Background="{StaticResource offline_contact_design}" Template="{DynamicResource CheckBoxImageControlTemplate}" Margin="5,0,5,0" VerticalAlignment="Center" IsChecked="{Binding Path=UI_DisplayOfflineContacts, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"/>
                 <Button Click="DisplayPopupRosterSize" x:Name="_sizeButton" ToolTip="Item Size"

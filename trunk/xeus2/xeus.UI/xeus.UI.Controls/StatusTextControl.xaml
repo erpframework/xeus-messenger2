@@ -8,19 +8,21 @@
     >
 	<UserControl.Resources>
         <DataTemplate x:Key="SelfStatus">
-			<Border Background="#99B0B0B0"
-			BorderThickness="1,1,1,1" CornerRadius="3,3,3,3">
+			<Border Background="#99DDDDDD"
+			BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" BorderBrush="#FFAAAAAA">
             <StackPanel Orientation="Horizontal" >
                 <Button Margin="4,0,3,0" x:Name="_show" Click="_status_Click"
-                    HorizontalAlignment="Left" VerticalAlignment="Center" Width="16" Height="16" Background="{DynamicResource online_design}" Style="{DynamicResource ImageButtonStyle}"/>
+                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                    Width="12" Height="12" Background="{DynamicResource online_design}" Style="{DynamicResource ImageButtonStyle}"/>
                 <Popup AllowsTransparency="True"
                    Placement="MousePoint" StaysOpen="False" Initialized="_statusPopup_Initialized">
                     <xeus2_xeus_Controls:StatusesControl Panel.ZIndex="100"/>
                 </Popup>
-                <TextBox MaxLength="50"
+                <TextBox MaxLength="50" VerticalAlignment="Center"
                          Text="{Binding Path=StatusText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          Style="{DynamicResource TransparentTextBoxStyle}"
-                         Margin="0,2,0,0" VerticalAlignment="Center" PreviewKeyDown="_text_PreviewKeyDown"/>
+                         FontSize="10" MinHeight="20"
+                         Margin="0,2,0,0" PreviewKeyDown="_text_PreviewKeyDown"/>
             </StackPanel>
 			</Border>
 
