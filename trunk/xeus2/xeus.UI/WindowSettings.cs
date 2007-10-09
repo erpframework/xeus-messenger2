@@ -20,7 +20,7 @@ namespace xeus2.xeus.UI
             private WindowSettings windowSettings;
 
             public WindowApplicationSettings(WindowSettings windowSettings)
-                : base(windowSettings.window.PersistId.ToString())
+                : base(windowSettings.window.Name)
             {
                 this.windowSettings = windowSettings;
             }
