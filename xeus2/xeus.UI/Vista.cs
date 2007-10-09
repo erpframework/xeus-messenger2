@@ -8,7 +8,7 @@ using Brushes=System.Windows.Media.Brushes;
 
 namespace xeus2.xeus.UI
 {
-    internal class Vista
+    internal static class Vista
     {
         [DllImport("DwmApi.dll", PreserveSig = false)]
         private static extern int DwmExtendFrameIntoClientArea(IntPtr hwnd, ref MARGINS pMarInset);
@@ -16,11 +16,18 @@ namespace xeus2.xeus.UI
         [DllImport("dwmapi.dll", PreserveSig = false)]
         private static extern bool DwmIsCompositionEnabled();
 
+        private static bool _isVista = false;
+
+        static Vista()
+        {
+            _isVista = (Environment.OSVersion.Version.Major >= 6);
+        }
+
         public static bool IsComposition
         {
             get
             {
-                return (Environment.OSVersion.Version.Major >= 6 && DwmIsCompositionEnabled());
+                return (_isVista && DwmIsCompositionEnabled());
             }
         }
 

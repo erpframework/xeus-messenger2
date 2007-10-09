@@ -601,6 +601,9 @@
     <Compile Include="xeus.UI\xeus.UI.Look\EnumToBoolConverter.cs" />
     <Compile Include="xeus.UI\xeus.UI.Look\HistoryTemplateSelector.cs" />
     <Compile Include="xeus.UI\xeus.UI.Look\ServiceTemplateSelector.cs" />
+    <Compile Include="xeus.UI\xeus.UI.Look\ToolBar.xaml.cs">
+      <DependentUpon>ToolBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="xeus.UI\xeus.UI.Zap\ZapDecorator.cs" />
     <Compile Include="xeus.UI\xeus.UI.Zap\ZapItemsControl.cs" />
     <Compile Include="xeus.UI\xeus.UI.Zap\ZapPanel.cs" />

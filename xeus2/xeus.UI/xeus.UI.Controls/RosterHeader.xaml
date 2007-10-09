@@ -11,31 +11,22 @@
         <DataTemplate DataType="{x:Type xeus2_xeus_Core:SelfContact}">
             <Border>
                 <Grid Background="{DynamicResource header_back}">
-                    <Rectangle Fill="{DynamicResource contact_back_big_glow_design}" VerticalAlignment="Top" Height="30" Panel.ZIndex="5"/>
-                    <StackPanel Orientation="Horizontal">
-                        <Border x:Name="_imageBorder" HorizontalAlignment="Center" VerticalAlignment="Center"
+						<StackPanel Orientation="Horizontal">
+							<Border x:Name="_imageBorder" HorizontalAlignment="Center" VerticalAlignment="Center"
 								BorderBrush="{DynamicResource roster_image_border}" Width="32" Height="32" Margin="2">
-                            <Image Source="{Binding Path=Image}" x:Name="_image"
+								<Image Source="{Binding Path=Image}" x:Name="_image"
 									Stretch="UniformToFill" IsEnabled="False"/>
-                        </Border>
-                        <Border ClipToBounds="True" Padding="1,1,1,1"
-                    BorderBrush="#AAAAAAAA" BorderThickness="1,1,1,1"
-                    CornerRadius="3,3,3,3" SnapsToDevicePixels="True">
-                            <Border.Background>
-                                <LinearGradientBrush StartPoint="0.5,1.0" EndPoint="0.5,0.0">
-                                    <LinearGradientBrush.GradientStops>
-                                        <GradientStop Color="#AA515151" Offset="0"/>
-                                        <GradientStop Color="#AA141414" Offset="1"/>
-                                    </LinearGradientBrush.GradientStops>
-                                </LinearGradientBrush>
-                            </Border.Background>
-                            <StackPanel>
-                                <TextBlock Text="{Binding Path=DisplayName}"
-                                       FontSize="14" Foreground="{DynamicResource roster_status_text}" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" Margin="3,3,5,0" FontWeight="Bold"/>
-                            </StackPanel>
-                        </Border>
-                    </StackPanel>
-                </Grid>
+							</Border>
+							<Border ClipToBounds="True" Padding="1,1,1,1"
+								BorderThickness="1,1,1,1"
+								CornerRadius="3,3,3,3" SnapsToDevicePixels="True">
+								<StackPanel>
+									<TextBlock Text="{Binding Path=DisplayName}"
+										FontSize="14" Foreground="{DynamicResource roster_status_text}" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" Margin="3,3,5,0" FontWeight="Bold"/>
+								</StackPanel>
+							</Border>
+						</StackPanel>
+					</Grid>
             </Border>
             <DataTemplate.Triggers>
                 <DataTrigger Binding="{Binding Path=IsImageTransparent}" Value="False">
