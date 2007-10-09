@@ -5,7 +5,7 @@
     xmlns:Controls="clr-namespace:xeus2.xeus.UI.xeus.UI.Controls;assembly="
     x:Class="xeus2.xeus.UI.VCardDisplay"
     Title="VCardDisplay" ResizeMode="NoResize" SizeToContent="WidthAndHeight"
-	 Background="{DynamicResource back_x_design}" MaxHeight="800" MaxWidth="500"
+	Background="{DynamicResource back_x_design}" MaxHeight="800" MaxWidth="500"
      >
 	<StackPanel>
 		<ContentPresenter AllowDrop="True" Drop="OnDropFile" DragOver="OnDragOver" ContentTemplate="{DynamicResource FullContactCard}" Content="{Binding}" Margin="10,10,10,10"/>

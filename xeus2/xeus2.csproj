@@ -195,6 +195,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="xeus.UI\Wizard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="xeus.UI\xeus.UI.Controls\Chatstate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -455,6 +459,7 @@
     <Compile Include="xeus.Middle\Search.cs" />
     <Compile Include="xeus.Middle\Services.cs" />
     <Compile Include="xeus.Middle\VCard.cs" />
+    <Compile Include="xeus.Middle\Wizard.cs" />
     <Compile Include="xeus.UI\AskAuthorization.xaml.cs">
       <DependentUpon>AskAuthorization.xaml</DependentUpon>
     </Compile>
@@ -537,6 +542,9 @@
     <Compile Include="xeus.UI\WindowExistsException.cs" />
     <Compile Include="xeus.UI\WindowManager.cs" />
     <Compile Include="xeus.UI\WindowSettings.cs" />
+    <Compile Include="xeus.UI\Wizard.xaml.cs">
+      <DependentUpon>Wizard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="xeus.UI\xeus.UI.Controls\Chatstate.xaml.cs">
       <DependentUpon>Chatstate.xaml</DependentUpon>
     </Compile>

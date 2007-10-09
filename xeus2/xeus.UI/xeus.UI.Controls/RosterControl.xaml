@@ -19,7 +19,7 @@
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
 
-        <ContextMenu x:Key="ContactMenu">
+        <ContextMenu x:Key="ContactMenu" StaysOpen="True">
             <MenuItem Command="xeus2_xeus_Commands:RosterCommands.AuthRequestFrom"
                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
             <MenuItem Command="xeus2_xeus_Commands:RosterCommands.AuthSendTo"
