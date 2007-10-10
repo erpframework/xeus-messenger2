@@ -1,4 +1,5 @@
-﻿using xeus2.xeus.UI;
+﻿using xeus2.xeus.Core;
+using xeus2.xeus.UI;
 
 namespace xeus2.xeus.Middle
 {
@@ -28,10 +29,32 @@ namespace xeus2.xeus.Middle
             }
         }
 
+        protected void AddContactOpen()
+        {
+            try
+            {
+                AddContact wizard = new AddContact();
+                wizard.Show();
+
+                Account.Instance.DiscoverRegistereServices();
+            }
+
+            catch (WindowExistsException e)
+            {
+                e.ActivateControl();
+            }
+        }
+
         public void DisplayWizard()
         {
             App.InvokeSafe(App._dispatcherPriority,
                            new DisplayCallback(WizardOpen));
+        }
+
+        public void DisplayAddContact()
+        {
+            App.InvokeSafe(App._dispatcherPriority,
+                           new DisplayCallback(AddContactOpen));
         }
 
         #region Nested type: DisplayCallback
