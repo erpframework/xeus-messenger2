@@ -12,6 +12,13 @@ namespace xeus2.xeus.UI.xeus.UI.Wizards
         public ConnectWizard()
         {
             InitializeComponent();
+
+            Events.Instance.OnEventRaised += Instance_OnEventRaised;
+        }
+
+        void Instance_OnEventRaised(object sender, Event myEvent)
+        {
+            throw new System.NotImplementedException();
         }
 
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -57,6 +64,11 @@ namespace xeus2.xeus.UI.xeus.UI.Wizards
             {
                 _ok.Content = "Connect";
             }
+        }
+
+        private void CheckBox_Checked(object sender, System.Windows.RoutedEventArgs e)
+        {
+
         }
     }
 }

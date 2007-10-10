@@ -5,8 +5,8 @@
     xmlns:Zap="clr-namespace:xeus2.xeus.UI.xeus.UI.Zap;assembly="
     xmlns:Wizards="clr-namespace:xeus2.xeus.UI.xeus.UI.Wizards"
     x:Class="xeus2.xeus.UI.Wizard"
-    Title="Wizard" Height="300" Width="300"
-    Background="{DynamicResource back_x_design}">
+    Title="Wizard" Width="300"
+    Background="{DynamicResource back_x_design}" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 	<Zap:ZapItemsControl Margin="10,10,10,10">
 		<Wizards:ConnectWizard/>
 		<Wizards:TransportsWizard/>

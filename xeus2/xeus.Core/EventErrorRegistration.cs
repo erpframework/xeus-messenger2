@@ -5,10 +5,8 @@ namespace xeus2.xeus.Core
 {
     internal class EventErrorRegistration : Event
     {
-        private readonly string _error = "Unknown registration error";
-
         public EventErrorRegistration(Element e)
-            : base(string.Empty, EventSeverity.Error)
+            : base("Unknown registration error", EventSeverity.Error)
         {
             if (e != null && e is IQ)
             {
@@ -20,24 +18,16 @@ namespace xeus2.xeus.Core
                     {
                         case ErrorCode.Conflict:
                             {
-                                _error = "The user name already exists on the server.\nChoose a different one.";
+                                _message = "The user name already exists on the server.\nChoose a different one.";
                                 break;
                             }
                         case ErrorCode.NotAcceptable:
                             {
-                                _error = "Some required information is not provided.";
+                                _message = "Some required information is not provided.";
                                 break;
                             }
                     }
                 }
-            }
-        }
-
-        public string Error
-        {
-            get
-            {
-                return _error;
             }
         }
     }
