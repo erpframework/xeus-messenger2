@@ -69,8 +69,8 @@ namespace xeus2.xeus.UI.xeus.UI.Zap
 
                 if (!double.IsNaN(deltaPercent) && !double.IsInfinity(deltaPercent))
                 {
-                    _velocity *= .9;
-                    _velocity += deltaPercent * .01;
+                    _velocity *= .7;
+                    _velocity += deltaPercent * .05;
 
                     if (Math.Abs(_velocity) > DIFF || Math.Abs(deltaPercent) > DIFF)
                     {

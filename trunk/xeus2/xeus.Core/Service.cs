@@ -284,12 +284,32 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public bool IsTransport
+        {
+            get
+            {
+                if (Categories == null)
+                {
+                    return false;
+                }
+
+                foreach (string category in Categories)
+                {
+                    if (category == "gateway")
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+        }
 
         public bool IsRegistrable
         {
             get
             {
-                if (_discoInfo == null /*|| IsCommand*/)
+                if (_discoInfo == null)
                 {
                     return false;
                 }

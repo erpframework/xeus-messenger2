@@ -14,8 +14,6 @@ namespace xeus2.xeus.Core
 
         private readonly Dictionary<string, Service> _allServices = new Dictionary<string, Service>();
 
-        private delegate void ServiceItemInfoCallback(DiscoItem discoItem, DiscoInfo info);
-
         private delegate void OnServiceItemErrorCallback(IQ iq);
 
         private delegate void OnCommandsItemInfoCallback(DiscoItem discoItem, IQ iq);
@@ -41,6 +39,7 @@ namespace xeus2.xeus.Core
         private readonly ObservableCollectionDisp<Service> _allServicesCollection = new ObservableCollectionDisp<Service>();
 
         private readonly MucRooms _mucRooms = new MucRooms();
+        private readonly Transports _transports = new Transports();
 
         public ObservableCollectionDisp<Service> AllServices
         {
@@ -66,6 +65,14 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public Transports Transports
+        {
+            get
+            {
+                return _transports;
+            }
+        }
+
         public new void Clear()
         {
             lock (_syncObject)
@@ -73,6 +80,7 @@ namespace xeus2.xeus.Core
                 _sessionKey = Guid.NewGuid().ToString();
 
                 _mucRooms.Clear();
+                _transports.Clear();
                 _allServices.Clear();
                 _allServicesCollection.Clear();
 
@@ -176,6 +184,10 @@ namespace xeus2.xeus.Core
                     if (service.IsChatRoom)
                     {
                         _mucRooms.AddMuc(service);
+                    }
+                    else if (service.IsTransport)
+                    {
+                        _transports.Add(service);
                     }
                 }
             }
