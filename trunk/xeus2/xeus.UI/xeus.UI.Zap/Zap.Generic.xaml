@@ -3,19 +3,27 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Zap="clr-namespace:xeus2.xeus.UI.xeus.UI.Zap"
     >
+    <DrawingBrush x:Key="ZapButtonPrev_design" Stretch="Uniform">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#FFDDDDDD" Geometry="F1 M 8.95652,13.8051L 18.9145,19.5543L 18.9145,8.05585L 8.95652,13.8051 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+    
+    <DrawingBrush x:Key="ZapButtonNext_design" Stretch="Uniform">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#FFDDDDDD" Geometry="F1 M 18.9145,13.8051L 8.95652,8.05585L 8.95652,19.5543L 18.9145,13.8051 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
 
-  <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}" x:Key="pageButtonStyle">
-    <Setter Property="Width" Value="30" />
-    <Setter Property="Height" Value="30" />
-  </Style>
-
-  <Style TargetType="{x:Type RepeatButton}" BasedOn="{StaticResource {x:Type RepeatButton}}" x:Key="pageRepeatButtonStyle">
-    <Setter Property="Width" Value="30" />
-    <Setter Property="Height" Value="30" />
-    <Setter Property="Interval" Value="500" />
-  </Style>
-
-  <Style TargetType="{x:Type ItemsControl}" x:Key="ZapScrollItemNavItemsControlStyle">
+        <Style TargetType="{x:Type ItemsControl}" x:Key="ZapScrollItemNavItemsControlStyle">
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ItemsControl}">
@@ -26,7 +34,7 @@
     <Setter Property="ItemTemplate">
       <Setter.Value>
         <DataTemplate>
-          <Button Command="{Binding }" Style="{StaticResource pageButtonStyle}" Content="{Binding Path=Number}"/>
+          <Button Command="{Binding }" Style="{DynamicResource ImageButtonStyle}" Content="{Binding Path=Number}"/>
         </DataTemplate>
       </Setter.Value>
     </Setter>
@@ -37,23 +45,23 @@
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Zap:ZapScroller}">
           <DockPanel>
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center" >
-              <Button Content="&lt;&lt;" Command="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=FirstCommand}"
-                      Style="{StaticResource pageButtonStyle}"
-                      />
-              <RepeatButton Content="&lt;" Command="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PreviousCommand}"
-                            Style="{StaticResource pageRepeatButtonStyle}"
+            <Grid DockPanel.Dock="Top">
+              <Button Command="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PreviousCommand}"
+                            Style="{DynamicResource ImageButtonStyle}"
+                            Width="8" Height="8" Background="{StaticResource ZapButtonPrev_design}"
+                            HorizontalAlignment="Left"  ToolTip="Previous"
                       />
 
+                <!--
               <ItemsControl ItemsSource="{TemplateBinding Commands}" Style="{StaticResource ZapScrollItemNavItemsControlStyle}"
-                          />
+                          />-->
 
-              <RepeatButton Content="&gt;" Command="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=NextCommand}"
-                            Style="{StaticResource pageRepeatButtonStyle}"
+              <Button Command="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=NextCommand}"
+                            Style="{DynamicResource ImageButtonStyle}"
+                            Width="8" Height="8" Background="{StaticResource ZapButtonNext_design}"
+                            HorizontalAlignment="Right" ToolTip="Next"
                       />
-              <Button Content="&gt;&gt;" Command="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LastCommand}"
-                      Style="{StaticResource pageButtonStyle}"/>
-            </StackPanel>
+            </Grid>
 
             <Zap:ZapDecorator Name="PART_ZapDecorator"/>
           </DockPanel>
