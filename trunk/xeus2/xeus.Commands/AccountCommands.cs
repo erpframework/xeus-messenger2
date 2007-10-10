@@ -12,6 +12,9 @@ namespace xeus2.xeus.Commands
         private static readonly RoutedUICommand _displayLogin =
             new RoutedUICommand("Display Login", "DisplayLogin", typeof (AccountCommands));
 
+        private static readonly RoutedUICommand _displayAddContact =
+            new RoutedUICommand("Display Add Contact", "DisplayAddContact", typeof(AccountCommands));
+
         private static readonly RoutedUICommand _displayMucMarks =
             new RoutedUICommand("Display MUC Bookmarks", "DisplayMUCBookmarks", typeof (AccountCommands));
 
@@ -72,10 +75,21 @@ namespace xeus2.xeus.Commands
             }
         }
 
+        public static RoutedUICommand DisplayAddContact
+        {
+            get
+            {
+                return _displayAddContact;
+            }
+        }
+
         public static void RegisterCommands(CommandBindingCollection commandBindings)
         {
             commandBindings.Add(
                 new CommandBinding(_displayLogin, ExecuteDisplayLogin, CanExecuteDisplayLogin));
+
+            commandBindings.Add(
+                new CommandBinding(_displayAddContact, ExecuteDisplayAddContact, CanExecuteDisplayAddContact));
 
             commandBindings.Add(
                 new CommandBinding(_displayWizard, ExecuteDisplayWizard, CanExecuteDisplayWizard));
@@ -91,6 +105,18 @@ namespace xeus2.xeus.Commands
 
             commandBindings.Add(
                 new CommandBinding(_login, ExecuteLogin, CanExecuteLogin));
+        }
+
+        private static void CanExecuteDisplayAddContact(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+            e.Handled = true;
+        }
+
+        private static void ExecuteDisplayAddContact(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            Wizard.Instance.DisplayAddContact();
         }
 
         private static void CanExecuteLogin(object sender, CanExecuteRoutedEventArgs e)

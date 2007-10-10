@@ -558,6 +558,11 @@ namespace xeus2.xeus.Core
             _discoManager.DisoverItems(jid, new IqCB(OnDiscoServerResult), new DiscoverySessionData(null));
         }
 
+        private void DiscoverySingleInfo(Jid jid)
+        {
+            _discoManager.DisoverInformation(jid, OnDiscoServerSingleResult, null);
+        }
+
         public void AddDiscoInfo(DiscoItem discoItem)
         {
             _pendingDiscoInfo.Add(discoItem);
@@ -1042,5 +1047,36 @@ namespace xeus2.xeus.Core
                 Events.Instance.OnEvent(this, eventError);
             }
         }
+
+        public void DiscoverRegistereServices()
+        {
+            foreach (MetaContact item in Roster.Instance.Items)
+            {
+                foreach (Contact contact in item.SubContacts)
+                {
+                    if (string.IsNullOrEmpty(contact.Jid.User))
+                    {
+                        DiscoverySingleInfo(contact.Jid);
+                    }
+                }
+            }
+        }
+
+        private void OnDiscoServerSingleResult(object sender, IQ iq, object data)
+        {
+            if (iq.Error != null)
+            {
+                Services.Instance.OnServiceItemError(sender, iq);
+            }
+            else if (iq.Type == IqType.result && iq.Query is DiscoInfo)
+            {
+                DiscoInfo di = iq.Query as DiscoInfo;
+
+                /*
+                Services.Instance.OnServiceItemInfo(discoItem, di);
+                */
+            }
+        }
+
     }
 }
