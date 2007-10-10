@@ -19,6 +19,7 @@ namespace xeus2.xeus.Middle
         {
             RoomTopic topic = new RoomTopic(mucRoom);
 
+            topic.Activate();
             if ((bool) topic.ShowDialog())
             {
                 mucRoom.ChangeMucTopic(topic.Topic);

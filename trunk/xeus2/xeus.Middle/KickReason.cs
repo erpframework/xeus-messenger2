@@ -19,6 +19,7 @@ namespace xeus2.xeus.Middle
             UI.SingleValueBox kickReason = new UI.SingleValueBox("Kick reason", "Kick user");
             kickReason.DataContext = mucContact;
 
+            kickReason.Activate();
             if ((bool) kickReason.ShowDialog())
             {
                 mucContact.MucRoom.Kick(mucContact, kickReason.Text);

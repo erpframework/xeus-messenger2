@@ -237,7 +237,6 @@ namespace xeus2.xeus.Core
             XmppConnection.OnBinded += XmppConnection_OnBinded;
             XmppConnection.OnRegistered += XmppConnection_OnRegistered;
             XmppConnection.OnRegisterError += XmppConnection_OnRegisterError;
-            XmppConnection.OnRegisterInformation += XmppConnection_OnRegisterInformation;
             XmppConnection.OnSocketError += XmppConnection_OnSocketError;
             XmppConnection.OnXmppError += XmppConnection_OnXmppError;
 
@@ -285,11 +284,6 @@ namespace xeus2.xeus.Core
             Events.Instance.OnEvent(this, eventError);
         }
 
-        void XmppConnection_OnRegisterInformation(object sender, RegisterEventArgs args)
-        {
-            // Events.Instance.OnEvent(this, new EventErrorRegistration(args.Register.Instructions));
-        }
-
         void XmppConnection_OnRegisterError(object sender, Element e)
         {
             Events.Instance.OnEvent(this, new EventErrorRegistration(e));
@@ -309,7 +303,7 @@ namespace xeus2.xeus.Core
 
         void XmppConnection_OnRegistered(object sender)
         {
-            
+            Events.Instance.OnEvent(this, new EventInfoRegistrationSuccess("Account successfully created"));
         }
 
         void XmppConnection_OnBinded(object sender)

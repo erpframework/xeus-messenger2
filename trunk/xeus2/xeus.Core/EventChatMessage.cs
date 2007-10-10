@@ -3,14 +3,14 @@
     public class EventChatMessage : Event
     {
         private readonly Contact _contact;
-        private readonly Message _message;
+        private readonly Message _chatMessage;
         private readonly bool _isChatWindowAvailable;
 
         public EventChatMessage(Contact contact, Message message, bool isChatWindowAvailable)
             : base(string.Format("New Message from {0}", contact.DisplayName), EventSeverity.Info)
         {
             _contact = contact;
-            _message = message;
+            _chatMessage = message;
             _isChatWindowAvailable = isChatWindowAvailable;
         }
 
@@ -26,7 +26,7 @@
         {
             get
             {
-                return _message;
+                return _chatMessage;
             }
         }
 

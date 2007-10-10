@@ -19,6 +19,7 @@ namespace xeus2.xeus.Middle
 		{
 			UI.Login login = new UI.Login() ;
 
+		    login.Activate();
 			if ( ( bool ) login.ShowDialog() )
 			{
 				Settings.Default.XmppUserName = login.User ;

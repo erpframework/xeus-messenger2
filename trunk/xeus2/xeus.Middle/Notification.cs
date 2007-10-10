@@ -119,7 +119,8 @@ namespace xeus2.xeus.Middle
                     || myEvent is EventException
                     || myEvent is EventPresenceChanged
                     || myEvent is EventHeadlineMessage
-                    || myEvent is EventErrorRegistration)
+                    || myEvent is EventErrorRegistration
+                    || myEvent is EventInfoRegistrationSuccess)
                 {
                     bool notify = true;
 
@@ -249,6 +250,16 @@ namespace xeus2.xeus.Middle
             _expTimer.Elapsed += _expTimer_Elapsed;
 
             _expTimer.Start();
+        }
+
+        public static void DismissNotification(Event @event)
+        {
+            lock (_notificationLock)
+            {
+                Notifications.Remove(@event);
+            }
+
+            RefreshStatus();
         }
     }
 }
