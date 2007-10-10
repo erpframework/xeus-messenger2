@@ -394,5 +394,41 @@ namespace xeus2.Properties {
                 this["XmppAutoResolve"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool XmppTLS {
+            get {
+                return ((bool)(this["XmppTLS"]));
+            }
+            set {
+                this["XmppTLS"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool XmppSSL {
+            get {
+                return ((bool)(this["XmppSSL"]));
+            }
+            set {
+                this["XmppSSL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool XmppCompression {
+            get {
+                return ((bool)(this["XmppCompression"]));
+            }
+            set {
+                this["XmppCompression"] = value;
+            }
+        }
     }
 }

@@ -183,7 +183,10 @@
 					<StackPanel Margin="26,0,0,0" >
 						<TextBlock Text="{Binding Path=Sender}" Foreground="{DynamicResource DefaultTextBrush2}" TextWrapping="Wrap" />
 						<TextBlock Text="{Binding Path=Message}" Foreground="{DynamicResource DefaultTextBrush2}" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxWidth="100" MaxHeight="30" />
-					</StackPanel>
+                    <Button Command="servicecmd:AccountCommands.DisplayHeadlines"
+                        HorizontalAlignment="Right" VerticalAlignment="Bottom"
+						Content="Display" Margin="0,5,0,0" />
+                </StackPanel>
 				</Grid>
 			</Border>
     </DataTemplate>
@@ -207,7 +210,7 @@
             <Grid>
                 <Rectangle Fill="{DynamicResource register_design}" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,0,0"/>
                 <Rectangle Fill="{DynamicResource error2_design}" Height="14" VerticalAlignment="Top" Margin="8,0,6,0" HorizontalAlignment="Left" Width="14"/>
-                <TextBlock Text="{Binding Path=Error}" Foreground="{DynamicResource DefaultTextBrush2}"
+                <TextBlock Text="{Binding Path=Message}" Foreground="{DynamicResource DefaultTextBrush2}"
 				 TextWrapping="Wrap" Margin="26,0,0,0" />
             </Grid>
         </Border>

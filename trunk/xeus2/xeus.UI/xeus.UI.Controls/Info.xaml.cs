@@ -166,10 +166,6 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 Notification.DismissChatMessageNotification(eventChatMessage.Contact);
                 Middle.Chat.Instance.DisplayChat(eventChatMessage.Contact);
             }
-            else if (_content.Content is EventHeadlineMessage)
-            {
-                Middle.Headlines.Instance.DisplayHeadlines();
-            }
             else
             {
                 Notification.DismissNotificationType(_content.Content.GetType());

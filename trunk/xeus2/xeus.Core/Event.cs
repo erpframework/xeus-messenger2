@@ -13,7 +13,7 @@ namespace xeus2.xeus.Core
 			Fatal
 		}
 
-		private readonly string _message = null ;
+		protected string _message = null ;
 		private readonly EventSeverity _eventSeverity ;
 		private readonly DateTime _time = DateTime.Now ;
 	    private DateTime _expiration = DateTime.MaxValue;
