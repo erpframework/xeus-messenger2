@@ -87,7 +87,7 @@
       <Value Profile="(Default)">1.5</Value>
     </Setting>
     <Setting Name="XmppServerPort" Type="System.UInt32" Scope="User">
-      <Value Profile="(Default)">5222</Value>
+      <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="XmppConnectServer" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -103,6 +103,12 @@
     </Setting>
     <Setting Name="XmppCompression" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="XmppBytestreamProxy" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="XmppBytestreamProxyPort" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

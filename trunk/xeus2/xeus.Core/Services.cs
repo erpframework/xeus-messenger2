@@ -191,6 +191,11 @@ namespace xeus2.xeus.Core
                         
                         DetermineRegistered(service);
                     }
+                    
+                    if (service.IsBytestremProxy)
+                    {
+                        Settings.Default.XmppBytestreamProxy = service.Jid.ToString();
+                    }
                 }
             }
         }

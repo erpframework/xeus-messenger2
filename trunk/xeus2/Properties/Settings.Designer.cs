@@ -361,7 +361,7 @@ namespace xeus2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5222")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public uint XmppServerPort {
             get {
                 return ((uint)(this["XmppServerPort"]));
@@ -428,6 +428,30 @@ namespace xeus2.Properties {
             }
             set {
                 this["XmppCompression"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string XmppBytestreamProxy {
+            get {
+                return ((string)(this["XmppBytestreamProxy"]));
+            }
+            set {
+                this["XmppBytestreamProxy"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint XmppBytestreamProxyPort {
+            get {
+                return ((uint)(this["XmppBytestreamProxyPort"]));
+            }
+            set {
+                this["XmppBytestreamProxyPort"] = value;
             }
         }
     }

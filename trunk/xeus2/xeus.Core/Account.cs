@@ -257,6 +257,11 @@ namespace xeus2.xeus.Core
             XmppConnection.Password = Settings.Default.XmppPassword;
             XmppConnection.Server = Settings.Default.XmppServer;
 
+            if (Settings.Default.XmppServerPort > 0)
+            {
+                XmppConnection.Port = (int)Settings.Default.XmppServerPort;
+            }
+
             /*XmppConnection.Capabilities = Self.Caps;
             XmppConnection.EnableCapabilities = true;*/
 
