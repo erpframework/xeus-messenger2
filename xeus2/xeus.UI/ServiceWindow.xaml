@@ -48,117 +48,117 @@
 
   </Window.Resources>
   <TabControl Foreground="{DynamicResource DefaultTextBrush2}">
-    <TabItem Foreground="{DynamicResource tabitem_foreground}">
-	<TabItem.Header>
-		<Border Margin="5,0,0,0" Padding="5,5,5,5">
-			<Grid>
-			<Rectangle Width="18" Height="18" Fill="{DynamicResource muc_design}" HorizontalAlignment="Left"/>
-			<TextBlock Text="MUC Rooms" Margin="24,0,0,0"/>
-			</Grid>
-		</Border>
-	</TabItem.Header>
-        <DockPanel>
-        <Border DockPanel.Dock="Top" Background="{DynamicResource back_x_design}" Padding="0,10,0,10">
-          <StackPanel>
-            <xeus2_xeus_UI:SearchBox x:Name="_filterMuc" DockPanel.Dock="Top" Margin="0,0,10,0" />
-            <CheckBox Content="Display Empty Rooms" x:Name="_checkDispEmpty"  Margin="35,5,0,0" Foreground="{DynamicResource DefaultTextBrush2}"/>
-          </StackPanel>
-        </Border>
-          <Border DockPanel.Dock="Bottom" Background="{DynamicResource back_x_design}" Padding="10,10,10,10">
-            <xeus2_xeus_Ctrl:CreateMucRoom/>
-          </Border>
-          <Border Background="{DynamicResource chat_back_design}" BorderBrush="{x:Null}" DockPanel.Dock="Top">
-          <ListView DockPanel.Dock="Top" Background="{x:Null}" MouseDoubleClick="MucDblClick"
-           BorderBrush="{x:Null}" xeus2_xeus_Utils:WPFUtils.IsGridSortable="True"
-           ItemsSource="{Binding Source={StaticResource MucRooms}}"
-             x:Name="_mucResult" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="5,5,5,5">
-            <ListView.View>
-              <GridView x:Name="_mucGridView">
-                <GridViewColumn Header="Room" CellTemplate="{DynamicResource ServicesTemplateMuc}"/>
-                <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Path=MucInfoDescription}"/>
-                <GridViewColumn Header="Occupants" DisplayMemberBinding="{Binding Path=MucInfoOccupants}" />
-                <GridViewColumn Header="Jid" DisplayMemberBinding="{Binding Path=Jid}" />
-              </GridView>
-            </ListView.View>
-          </ListView>
-        </Border>
-        </DockPanel>
-    </TabItem>
+		<TabItem Foreground="{DynamicResource tabitem_foreground}">
+			<TabItem.Header>
+				<Border Margin="5,0,0,0" Padding="5,5,5,5">
+					<Grid>
+						<Rectangle Width="18" Height="18" Fill="{DynamicResource muc_design}" HorizontalAlignment="Left"/>
+						<TextBlock Text="MUC Rooms" Margin="24,0,0,0"/>
+					</Grid>
+				</Border>
+			</TabItem.Header>
+			<DockPanel>
+				<Border DockPanel.Dock="Top" Background="{DynamicResource back_x_design}" Padding="0,10,0,10">
+					<StackPanel>
+						<xeus2_xeus_UI:SearchBox x:Name="_filterMuc" DockPanel.Dock="Top" Margin="0,0,10,0" />
+						<CheckBox Content="Display Empty Rooms" x:Name="_checkDispEmpty"  Margin="35,5,0,0" Foreground="{DynamicResource DefaultTextBrush2}"/>
+					</StackPanel>
+				</Border>
+				<Border DockPanel.Dock="Bottom" Background="{DynamicResource back_x_design}" Padding="10,10,10,10">
+					<xeus2_xeus_Ctrl:CreateMucRoom/>
+				</Border>
+				<Border Background="{DynamicResource chat_back_design}" BorderBrush="{x:Null}" DockPanel.Dock="Top">
+					<ListView DockPanel.Dock="Top" Background="{x:Null}" MouseDoubleClick="MucDblClick"
+						BorderBrush="{x:Null}" xeus2_xeus_Utils:WPFUtils.IsGridSortable="True"
+						ItemsSource="{Binding Source={StaticResource MucRooms}}"
+						x:Name="_mucResult" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="5,5,5,5" Foreground="{DynamicResource DefaultTextBrush}">
+						<ListView.View>
+							<GridView x:Name="_mucGridView">
+								<GridViewColumn Header="Room" CellTemplate="{DynamicResource ServicesTemplateMuc}"/>
+								<GridViewColumn Header="Description" DisplayMemberBinding="{Binding Path=MucInfoDescription}"/>
+								<GridViewColumn Header="Occupants" DisplayMemberBinding="{Binding Path=MucInfoOccupants}" />
+								<GridViewColumn Header="Jid" DisplayMemberBinding="{Binding Path=Jid}" />
+							</GridView>
+						</ListView.View>
+					</ListView>
+				</Border>
+			</DockPanel>
+		</TabItem>
  
-    <TabItem Foreground="{DynamicResource tabitem_foreground}">
-      <TabItem.Header>
-        <Border Padding="5,5,5,5">
-          <Grid>
-            <Rectangle Width="18" Height="18" Fill="{DynamicResource mucmark_design}" HorizontalAlignment="Left"/>
-            <TextBlock Text="MUC Bookmarks" Margin="24,0,0,0"/>
-          </Grid>
-        </Border>
-      </TabItem.Header>
-      <Border Background="{DynamicResource back_x_design}">
-          <DockPanel Margin="0,10,0,0">
-            <xeus2_xeus_UI:SearchBox x:Name="_filterMucMarks" DockPanel.Dock="Top" Margin="0,0,10,0"/>
-            <Border Background="{DynamicResource chat_back_design}" BorderBrush="{x:Null}" Margin="0,10,0,0">
-              <ListBox DockPanel.Dock="Bottom" Background="{x:Null}" MouseDoubleClick="MucMarkDblClick"
-               BorderBrush="{x:Null}"
-               ItemsSource="{Binding Source={StaticResource MucMarks}}"
-                 x:Name="_mucMarksResult"
-                       ItemTemplate="{DynamicResource ServicesTemplateMucBookmark}"
-                       ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="5,5,5,5" />
-            </Border>
-          </DockPanel>
-      </Border>
-    </TabItem>
+		<TabItem Foreground="{DynamicResource tabitem_foreground}">
+			<TabItem.Header>
+				<Border Padding="5,5,5,5">
+					<Grid>
+						<Rectangle Width="18" Height="18" Fill="{DynamicResource mucmark_design}" HorizontalAlignment="Left"/>
+						<TextBlock Text="MUC Bookmarks" Margin="24,0,0,0"/>
+					</Grid>
+				</Border>
+			</TabItem.Header>
+			<Border Background="{DynamicResource back_x_design}">
+				<DockPanel Margin="0,10,0,0">
+					<xeus2_xeus_UI:SearchBox x:Name="_filterMucMarks" DockPanel.Dock="Top" Margin="0,0,10,0"/>
+					<Border Background="{DynamicResource chat_back_design}" BorderBrush="{x:Null}" Margin="0,10,0,0">
+						<ListBox DockPanel.Dock="Bottom" Background="{x:Null}" MouseDoubleClick="MucMarkDblClick"
+							BorderBrush="{x:Null}"
+							ItemsSource="{Binding Source={StaticResource MucMarks}}"
+							x:Name="_mucMarksResult"
+							ItemTemplate="{DynamicResource ServicesTemplateMucBookmark}"
+							ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="5,5,5,5" />
+					</Border>
+				</DockPanel>
+			</Border>
+		</TabItem>
 
-    <TabItem Foreground="{DynamicResource tabitem_foreground}">
-      <TabItem.Header>
-        <Border Padding="5,5,5,5">
-          <Grid>
-            <Rectangle Width="18" Height="18" Fill="{DynamicResource service_design}" HorizontalAlignment="Left"/>
-            <TextBlock Text="Services" Margin="24,0,0,0"/>
-          </Grid>
-        </Border>
-      </TabItem.Header>
-      <DockPanel x:Name="topBar">
-        <Border DockPanel.Dock="Top" Background="{DynamicResource back_x_design}" BorderBrush="{DynamicResource DefaultTextBrush2}" Padding="10,10,10,15">
-          <DockPanel DockPanel.Dock="Top">
-            <StackPanel Margin="0,0,0,5" Orientation="Horizontal" DockPanel.Dock="Top">
-              <TextBlock Text="Discovered " Foreground="{DynamicResource DefaultTextBrush2}"/>
-              <TextBlock Text="{Binding Path=ServicesDoneCount}" Foreground="{DynamicResource DefaultTextBrush2}"/>
-              <TextBlock Text=" services of " Foreground="{DynamicResource DefaultTextBrush2}"/>
-              <TextBlock Text="{Binding Path=ServicesCount}" Foreground="{DynamicResource DefaultTextBrush2}"/>
-            </StackPanel>
-            <Rectangle Fill="{DynamicResource jabber_design}" Width="18"/>
-            <Button Content="Stop" Command="servicecmd:ServiceCommands.StopDiscoveryServices"
-                        Margin="5,0,0,0" DockPanel.Dock="Right"/>
-            <Button Content="Discover" Command="servicecmd:ServiceCommands.DiscoveryServices"
-              CommandParameter="{Binding Path=Text, ElementName=serverJid}" Margin="5,0,0,0" DockPanel.Dock="Right" IsDefault="True"/>
-            <TextBox x:Name="serverJid" Margin="5,0,0,0" />
-          </DockPanel>
-        </Border>
-        <Border Background="{DynamicResource back_x_design}" DockPanel.Dock="Bottom" Padding="0,0,0,5">
-          <Expander Foreground="{DynamicResource DefaultTextBrush2}" Header="Search" Margin="0,5,0,0">
-            <DockPanel Margin="0,10,0,0">
-              <xeus2_xeus_UI:SearchBox x:Name="_filter" DockPanel.Dock="Top" Margin="0,0,10,0" />
-              <Border Background="{DynamicResource chat_back_design}" BorderBrush="{x:Null}" Margin="-1,10,-1,-10">
-                <ListBox DockPanel.Dock="Bottom" Background="{x:Null}"
-                 BorderBrush="{x:Null}"
-                 ItemsSource="{Binding Source={StaticResource ServicesFlat}}"
-                   x:Name="_servicesResult" MaxHeight="250" ItemTemplate="{DynamicResource ServicesTemplate}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="5,5,5,5" MinHeight="25" />
-              </Border>
-            </DockPanel>
-          </Expander>
-        </Border>
-        <Border DockPanel.Dock="Bottom" Background="{DynamicResource chat_back_design}">
-          <TreeView ItemsSource="{Binding Source={StaticResource Services}}"
-            ItemTemplateSelector="{DynamicResource ServiceTemplateSelector}"
-            x:Name="_services" Style="{DynamicResource TreeViewStyleServices}"
-            ItemContainerStyle="{DynamicResource TreeViewItemStyleService}"
-            Template="{DynamicResource TreeViewControlTemplate}"
+		<TabItem Foreground="{DynamicResource tabitem_foreground}">
+			<TabItem.Header>
+				<Border Padding="5,5,5,5">
+					<Grid>
+						<Rectangle Width="18" Height="18" Fill="{DynamicResource service_design}" HorizontalAlignment="Left"/>
+						<TextBlock Text="Services" Margin="24,0,0,0"/>
+					</Grid>
+				</Border>
+			</TabItem.Header>
+			<DockPanel x:Name="topBar">
+				<Border DockPanel.Dock="Top" Background="{DynamicResource back_x_design}" BorderBrush="{DynamicResource DefaultTextBrush2}" Padding="10,10,10,15">
+					<DockPanel DockPanel.Dock="Top">
+						<StackPanel Margin="0,0,0,5" Orientation="Horizontal" DockPanel.Dock="Top">
+							<TextBlock Text="Discovered " Foreground="{DynamicResource DefaultTextBrush2}"/>
+							<TextBlock Text="{Binding Path=ServicesDoneCount}" Foreground="{DynamicResource DefaultTextBrush2}"/>
+							<TextBlock Text=" services of " Foreground="{DynamicResource DefaultTextBrush2}"/>
+							<TextBlock Text="{Binding Path=ServicesCount}" Foreground="{DynamicResource DefaultTextBrush2}"/>
+						</StackPanel>
+						<Rectangle Fill="{DynamicResource jabber_design}" Width="18"/>
+						<Button Content="Stop" Command="servicecmd:ServiceCommands.StopDiscoveryServices"
+							Margin="5,0,0,0" DockPanel.Dock="Right"/>
+						<Button Content="Discover" Command="servicecmd:ServiceCommands.DiscoveryServices"
+							CommandParameter="{Binding Path=Text, ElementName=serverJid}" Margin="5,0,0,0" DockPanel.Dock="Right" IsDefault="True"/>
+						<TextBox x:Name="serverJid" Margin="5,0,0,0" />
+					</DockPanel>
+				</Border>
+				<Border Background="{DynamicResource back_x_design}" DockPanel.Dock="Bottom" Padding="0,0,0,5">
+					<Expander Foreground="{DynamicResource DefaultTextBrush2}" Header="Search" Margin="0,5,0,0">
+						<DockPanel Margin="0,10,0,0">
+							<xeus2_xeus_UI:SearchBox x:Name="_filter" DockPanel.Dock="Top" Margin="0,0,10,0" />
+							<Border Background="{DynamicResource chat_back_design}" BorderBrush="{x:Null}" Margin="-1,10,-1,-10">
+								<ListBox DockPanel.Dock="Bottom" Background="{x:Null}"
+									BorderBrush="{x:Null}"
+									ItemsSource="{Binding Source={StaticResource ServicesFlat}}"
+									x:Name="_servicesResult" MaxHeight="250" ItemTemplate="{DynamicResource ServicesTemplate}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="5,5,5,5" MinHeight="25" />
+							</Border>
+						</DockPanel>
+					</Expander>
+				</Border>
+				<Border DockPanel.Dock="Bottom" Background="{DynamicResource chat_back_design}">
+					<TreeView ItemsSource="{Binding Source={StaticResource Services}}"
+						ItemTemplateSelector="{DynamicResource ServiceTemplateSelector}"
+						x:Name="_services" Style="{DynamicResource TreeViewStyleServices}"
+						ItemContainerStyle="{DynamicResource TreeViewItemStyleService}"
+						Template="{DynamicResource TreeViewControlTemplate}"
             
-            ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5" />
-        </Border>
-      </DockPanel>
-    </TabItem>
+						ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5" />
+				</Border>
+			</DockPanel>
+		</TabItem>
 
-  </TabControl>
+	</TabControl>
 </UI:BaseWindow>

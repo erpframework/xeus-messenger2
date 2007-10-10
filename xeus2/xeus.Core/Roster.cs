@@ -299,7 +299,14 @@ namespace xeus2.xeus.Core
                         Account.Instance.XmppConnection.IqGrabber.SendIq(viq, new IqCB(VcardResultAuth),
                                                                          (contact ?? (object) presence));
 
-                        Authorization.Instance.Ask(contact);
+                        if (contact == null)
+                        {
+                            Authorization.Instance.Ask(presence);
+                        }
+                        else
+                        {
+                            Authorization.Instance.Ask(contact);
+                        }
                         break;
                     }
                 case PresenceType.subscribed:

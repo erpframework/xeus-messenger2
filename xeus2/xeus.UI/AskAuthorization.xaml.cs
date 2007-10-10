@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using agsXMPP;
+using agsXMPP.protocol.client;
 using xeus2.xeus.Core;
 
 namespace xeus2.xeus.UI
@@ -13,6 +15,17 @@ namespace xeus2.xeus.UI
         public AskAuthorization(Contact contact) : base(_keyBase, contact.Jid.Bare)
         {
             InitializeComponent();
+
+            DataContext = contact;
+            _contact.Content = contact;
+        }
+
+        public AskAuthorization(Presence presence)
+            : base(_keyBase, presence.From.Bare)
+        {
+            InitializeComponent();
+
+            Contact contact = new Contact(presence);
 
             DataContext = contact;
             _contact.Content = contact;

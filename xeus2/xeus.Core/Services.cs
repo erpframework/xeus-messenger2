@@ -188,6 +188,8 @@ namespace xeus2.xeus.Core
                     else if (service.IsTransport)
                     {
                         _transports.Add(service);
+                        
+                        DetermineRegistered(service);
                     }
                 }
             }
@@ -267,6 +269,11 @@ namespace xeus2.xeus.Core
         public void StopSession()
         {
             _sessionKey = string.Empty;
+        }
+
+        void DetermineRegistered(Service service)
+        {
+            service.IsRegistered = (Roster.Instance.FindContact(service.Jid) != null);
         }
     }
 }
