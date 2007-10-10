@@ -30,6 +30,9 @@
 				</StackPanel>
 
             <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Path=IsRegistered}" Value="True">
+                    <Setter Property="Visibility" TargetName="_register" Value="Collapsed"/>
+                </DataTrigger>
                 <DataTrigger Binding="{Binding Path=IsRegistrable}" Value="False">
                     <Setter Property="Visibility" TargetName="_register" Value="Collapsed"/>
                 </DataTrigger>
@@ -63,12 +66,17 @@
 
     </UserControl.Resources>
     
-    <Grid>
-        <Button Content="Explore" Command="servicecmd:ServiceCommands.DiscoveryServices"
-                VerticalAlignment="Top" HorizontalAlignment="Center"/>
-        <ListBox Background="{x:Null}" BorderBrush="{x:Null}" 
-            ItemsSource="{Binding Source={StaticResource Transports}}"
-            ItemTemplate="{StaticResource TransportTemplate}" 
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="5,5,5,5"/>
-    </Grid>
+    <StackPanel>
+		<Grid Margin="0,0,0,5">
+			<Rectangle Width="32" Height="32" Fill="{DynamicResource service_design}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+			<TextBlock Text="Transports" Margin="40,0,0,0" Foreground="#FFE2E2E2" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+		</Grid>
+		<Button Content="Explore" Command="servicecmd:ServiceCommands.DiscoveryServices"
+			HorizontalAlignment="Center"
+				/>
+		<ListBox Background="{x:Null}" BorderBrush="{x:Null}" 
+			ItemsSource="{Binding Source={StaticResource Transports}}"
+			ItemTemplate="{StaticResource TransportTemplate}" 
+			ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,5,0,0"/>
+	</StackPanel>
 </UserControl>

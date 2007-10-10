@@ -26,6 +26,7 @@ namespace xeus2.xeus.Core
         private readonly DiscoItem _discoItem = null;
 
         private readonly bool _isToplevel = false;
+        private bool _isRegistered = false;
 
         private readonly Services _services = new Services();
         private bool _askedForDiscovery = false;
@@ -476,6 +477,19 @@ namespace xeus2.xeus.Core
             get
             {
                 return DiscoItem.Jid;
+            }
+        }
+
+        public bool IsRegistered
+        {
+            get
+            {
+                return _isRegistered;
+            }
+            set
+            {
+                _isRegistered = value;
+                NotifyPropertyChanged("IsRegistered");
             }
         }
 

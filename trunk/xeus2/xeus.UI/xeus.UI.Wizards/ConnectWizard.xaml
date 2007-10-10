@@ -11,7 +11,7 @@
 		<BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
 	</UserControl.Resources>
 	<StackPanel>
-		<Grid Margin="5,5,5,5">
+		<Grid Margin="0,0,0,5">
 			<Rectangle Width="32" Height="32" Fill="{DynamicResource jabber_design}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 			<TextBlock Text="Connection" Margin="40,0,0,0" Foreground="#FFE2E2E2" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
 		</Grid>
