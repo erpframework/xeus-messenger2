@@ -12,11 +12,24 @@
             }
         }
 
-        public bool? AlertOpen(string text, string resourceBrush)
+        public bool? AlertOpenUI(string text, string resourceBrush)
         {
             UI.Alert wizard = new UI.Alert(text, resourceBrush ?? "error2_design");
 
+            wizard.Activate();
             return wizard.ShowDialog();
         }
+
+        public void AlertOpen(string text, string resourceBrush)
+        {
+            App.InvokeSafe(App._dispatcherPriority,
+                           new DisplayCallback(AlertOpenUI), text, resourceBrush);
+        }
+
+        #region Nested type: DisplayCallback
+
+        private delegate bool? DisplayCallback(string text, string resourceBrush);
+
+        #endregion
     }
 }

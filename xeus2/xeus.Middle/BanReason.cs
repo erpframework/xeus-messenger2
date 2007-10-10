@@ -19,6 +19,7 @@ namespace xeus2.xeus.Middle
             UI.SingleValueBox banReason = new UI.SingleValueBox("Ban reason", "Ban user");
             banReason.DataContext = mucContact;
 
+            banReason.Activate();
             if ((bool) banReason.ShowDialog())
             {
                 mucContact.MucRoom.Ban(mucContact, banReason.Text);

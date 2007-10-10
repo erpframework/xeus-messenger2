@@ -19,6 +19,7 @@ namespace xeus2.xeus.Middle
         {
             ChangeNickInRoom room = new ChangeNickInRoom(mucRoom);
 
+            room.Activate();
             if ((bool) room.ShowDialog())
             {
                 mucRoom.ChangeNickname(room.Nick);

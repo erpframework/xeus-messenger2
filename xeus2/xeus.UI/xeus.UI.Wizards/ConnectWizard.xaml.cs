@@ -1,6 +1,7 @@
 ﻿using System.Windows.Controls;
 using xeus2.Properties;
 using xeus2.xeus.Core;
+using xeus2.xeus.Middle;
 
 namespace xeus2.xeus.UI.xeus.UI.Wizards
 {
@@ -18,7 +19,23 @@ namespace xeus2.xeus.UI.xeus.UI.Wizards
 
         void Instance_OnEventRaised(object sender, Event myEvent)
         {
-            throw new System.NotImplementedException();
+            EventInfoRegistrationSuccess success = myEvent as EventInfoRegistrationSuccess;
+
+            if (success != null)
+            {
+                Middle.Alert.Instance.AlertOpen(success.Message, "register_design");
+                Notification.DismissNotification(myEvent);
+                return;
+            }
+
+            if (myEvent is EventErrorAuth
+                || myEvent is EventErrorConnection
+                || myEvent is EventErrorProtocol
+                || myEvent is EventErrorRegistration)
+            {
+                Middle.Alert.Instance.AlertOpen(myEvent.Message, "error2_design");
+                Notification.DismissNotification(myEvent);
+            }
         }
 
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
