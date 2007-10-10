@@ -4,7 +4,7 @@
     xmlns:Core="clr-namespace:xeus2.xeus.Core"
     xmlns:servicecmd="clr-namespace:xeus2.xeus.Commands"
     xmlns:ComponentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-    Width="250">
+    Width="250" Margin="10">
     
     <UserControl.Resources>
         <ObjectDataProvider x:Key="TransportsDS" ObjectType="{x:Type Core:Services}"/>
@@ -67,7 +67,7 @@
     </UserControl.Resources>
     
     <StackPanel>
-		<Grid Margin="0,0,0,5">
+		<Grid>
 			<Rectangle Width="32" Height="32" Fill="{DynamicResource service_design}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 			<TextBlock Text="Transports" Margin="40,0,0,0" Foreground="#FFE2E2E2" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
 		</Grid>

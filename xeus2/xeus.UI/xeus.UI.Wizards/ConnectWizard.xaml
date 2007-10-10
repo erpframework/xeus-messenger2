@@ -5,7 +5,7 @@
     xmlns:servicecmd="clr-namespace:xeus2.xeus.Commands"
     xmlns:Controls="clr-namespace:xeus2.xeus.UI.xeus.UI.Controls;assembly="
     x:Class="xeus2.xeus.UI.xeus.UI.Wizards.ConnectWizard"
-    Width="250"
+    Width="250" Margin="10"
     >
 	<UserControl.Resources>
 		<BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>

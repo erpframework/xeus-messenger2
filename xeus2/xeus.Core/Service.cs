@@ -84,6 +84,31 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public bool IsBytestremProxy
+        {
+            get
+            {
+                if (_discoInfo == null
+                    || _discoInfo.GetIdentities() == null)
+                {
+                    return false;
+                }
+
+                return _discoInfo.HasFeature(Uri.BYTESTREAMS);
+
+                /*
+                foreach (DiscoIdentity identity in _discoInfo.GetIdentities())
+                {
+                    if (identity.Category == "proxy"
+                        && identity.Type == "bytestreams")
+                    {
+                        return true;
+                    }
+                }
+                return false;*/
+            }
+        }
+
         public List<string> Categories
         {
             get
