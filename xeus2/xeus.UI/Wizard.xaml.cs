@@ -1,4 +1,5 @@
 ﻿using xeus2.xeus.Commands;
+using xeus2.xeus.Core;
 
 namespace xeus2.xeus.UI
 {
@@ -11,9 +12,10 @@ namespace xeus2.xeus.UI
 
         public Wizard() : base(_keyBase, string.Empty)
         {
-            InitializeComponent();
-
             AccountCommands.RegisterCommands(CommandBindings);
+            ServiceCommands.RegisterCommands(this);
+
+            InitializeComponent();
         }
     }
 }

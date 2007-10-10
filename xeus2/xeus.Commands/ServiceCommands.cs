@@ -383,7 +383,7 @@ namespace xeus2.xeus.Commands
 		public static void CanExecuteDiscoveryServices( object sender, CanExecuteRoutedEventArgs e )
 		{
 			e.Handled = true ;
-			e.CanExecute = ( e.Parameter is string ) ;
+            e.CanExecute = (e.Parameter == null || e.Parameter is string);
 		}
 
 		public static void ExecuteDiscoveryServices( object sender, ExecutedRoutedEventArgs e )
