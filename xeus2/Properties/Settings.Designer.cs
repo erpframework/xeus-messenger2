@@ -454,5 +454,17 @@ namespace xeus2.Properties {
                 this["XmppBytestreamProxyPort"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public uint UI_Notify_Error_Exp {
+            get {
+                return ((uint)(this["UI_Notify_Error_Exp"]));
+            }
+            set {
+                this["UI_Notify_Error_Exp"] = value;
+            }
+        }
     }
 }

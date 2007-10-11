@@ -19,21 +19,12 @@ namespace xeus2.xeus.UI.xeus.UI.Wizards
 
         void Instance_OnEventRaised(object sender, Event myEvent)
         {
-            EventInfoRegistrationSuccess success = myEvent as EventInfoRegistrationSuccess;
-
-            if (success != null)
-            {
-                Middle.Alert.Instance.AlertOpen(success.Message, "register_design");
-                Notification.DismissNotification(myEvent);
-                return;
-            }
-
             if (myEvent is EventErrorAuth
                 || myEvent is EventErrorConnection
                 || myEvent is EventErrorProtocol
                 || myEvent is EventErrorRegistration)
             {
-                Middle.Alert.Instance.AlertOpen(myEvent.Message, "error2_design");
+                Middle.Alert.Instance.AlertOpen(myEvent.Message, "error2_design", Alert.Buttons.Ok);
                 Notification.DismissNotification(myEvent);
             }
         }
@@ -46,7 +37,7 @@ namespace xeus2.xeus.UI.xeus.UI.Wizards
             {
                 if (_password.Password != _confirmedPassword.Password)
                 {
-                    Middle.Alert.Instance.AlertOpen("Your passwords don't match.", null);
+                    Middle.Alert.Instance.AlertOpen("Your passwords don't match.", null, Alert.Buttons.Ok);
                     
                     return;
                 }

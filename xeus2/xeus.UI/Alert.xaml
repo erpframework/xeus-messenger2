@@ -8,9 +8,14 @@
 			<Grid>
 				<Rectangle x:Name="_image" Width="32" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 				<TextBlock Margin="40,0,0,0" Foreground="{DynamicResource DefaultTextBrush2}"
-					x:Name="_text"/>
+					x:Name="_text" TextWrapping="Wrap"/>
 			</Grid>
-			<Button Content="OK" HorizontalAlignment="Center" IsDefault="True" Click="Button_Click"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+			    <Button Margin="5" x:Name="_ok" Content="OK" HorizontalAlignment="Center" IsDefault="True" Click="Button_Click"/>
+                <Button Margin="5" x:Name="_yes" Content="Yes" HorizontalAlignment="Center" IsDefault="True" Click="Button_Click"/>
+                <Button Margin="5" x:Name="_no" Content="No" HorizontalAlignment="Center" IsDefault="True" Click="Button_Click"/>
+                <Button Margin="5" x:Name="_cancel" Content="Cancel" HorizontalAlignment="Center" IsDefault="True" Click="Button_Click"/>
+            </StackPanel>
 		</StackPanel>
 	</Grid>
 </Window>

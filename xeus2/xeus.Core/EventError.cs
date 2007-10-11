@@ -1,26 +1,28 @@
 using System;
-using agsXMPP;
-using agsXMPP.protocol.client ;
 using System.Collections.Generic;
+using agsXMPP.protocol.client;
+using xeus2.Properties;
 
 namespace xeus2.xeus.Core
 {
     public class EventError : Event
-	{
-		private readonly Error _error = null ;
+    {
+        private readonly Error _error = null;
 
-		public EventError( string message, Error error ) : base( message, EventSeverity.Error )
-		{
-			_error = error ;
-		}
+        public EventError(string message, Error error) : base(message, EventSeverity.Error)
+        {
+            _error = error;
 
-		public Error IqError
-		{
-			get
-			{
-				return _error ;
-			}
-		}
+            Expiration = DateTime.Now.AddSeconds(Settings.Default.UI_Notify_Error_Exp);
+        }
+
+        public Error IqError
+        {
+            get
+            {
+                return _error;
+            }
+        }
 
         public override string Message
         {
@@ -51,5 +53,5 @@ namespace xeus2.xeus.Core
 
             return data;
         }
-	}
+    }
 }
