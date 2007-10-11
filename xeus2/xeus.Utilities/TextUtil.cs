@@ -18,6 +18,16 @@ namespace xeus2.xeus.Utilities
             return _cultureInfo.TextInfo.ToTitleCase(text);
         }
 
+        public static bool IsNullOrEmptyTrimmed(string text)
+        {
+            if (text == null)
+            {
+                return true;
+            }
+
+            return string.IsNullOrEmpty(text.Trim());
+        }
+
         public static bool ContainsNick(string nick, string text)
         {
             for (int index = -1;;)

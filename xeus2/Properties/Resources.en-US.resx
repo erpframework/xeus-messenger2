@@ -322,4 +322,7 @@
   <data name="xeus" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\xeus.UI\xeus.Images\xeus.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="xeus_full" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\xeus.UI\xeus.Images\xeus-full.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

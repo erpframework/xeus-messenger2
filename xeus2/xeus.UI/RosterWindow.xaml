@@ -17,10 +17,9 @@
     Title="xeus2" Height="500" Width="300"
     SnapsToDevicePixels="True"
     HideOnMimnimize="True"
-    ShowInTaskbar="False"
     UI:WindowSettings.Save="True"
     x:Name="Roster"
-    Icon="xeus.Images/xeus.ico"
+    Icon="xeus.Images/xeus-full.ico"
     Background="{DynamicResource xeus_back_design}"
     >
     <UI:BaseWindow.Resources>
