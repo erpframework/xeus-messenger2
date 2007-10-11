@@ -36,7 +36,7 @@ namespace xeus2.xeus.Middle
                 AddContact wizard = new AddContact();
                 wizard.Show();
 
-                Account.Instance.DiscoverRegistereServices();
+                Core.Services.Instance.FindRegisteredServices();
             }
 
             catch (WindowExistsException e)

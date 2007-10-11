@@ -439,7 +439,7 @@
                  ToolBarTray.IsLocked="True">
             <xeus2_xeus_Controls:RosterHeader x:Name="_header" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Button Command="servicecmd:AccountCommands.DisplayAddContact" ToolTip="Add Contact"
-						Content="Login" Background="{DynamicResource wizard_design}" Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
+				Background="{DynamicResource adduser_design}" Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
             <Separator Margin="5,0,10,0" Style="{DynamicResource {x:Static StatusBar.SeparatorStyleKey}}"/>
             <Button Command="servicecmd:AccountCommands.DisplayWizard" ToolTip="Setup Wizard"
 						Content="Login" Background="{DynamicResource wizard_design}" Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
@@ -460,8 +460,7 @@
 						Click="HistoryPopup" x:Name="_historyButton" Command="servicecmd:AccountCommands.History"
 						Style="{DynamicResource ImageButtonStyle}" Width="24" Height="24"/>
             <Popup x:Name="_historyPopup" AllowsTransparency="True"
-						PlacementTarget="{Binding ElementName=_historyButton}" StaysOpen="False">
-            </Popup>
+						PlacementTarget="{Binding ElementName=_historyButton}" StaysOpen="False"/>
         </ToolBar>
         <xeus2_xeus_Controls:DottedHorizontal x:Name="_splitter1" DockPanel.Dock="Top"/>
         <Grid x:Name="_footerContainer" DockPanel.Dock="Bottom">

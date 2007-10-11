@@ -4,50 +4,63 @@
     xmlns:Core="clr-namespace:xeus2.xeus.Core"
     xmlns:ComponentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     xmlns:servicecmd="clr-namespace:xeus2.xeus.Commands"
+    xmlns:Validation="clr-namespace:WPF.JoshSmith.Controls.Validation;assembly="
     Width="250">
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="TransportsDS" ObjectType="{x:Type Core:Services}"/>
+        <ObjectDataProvider x:Key="RegisteredTransportsDS" ObjectType="{x:Type Core:Services}"/>
 
-        <CollectionViewSource x:Key="Transports" Source="{Binding Path=Instance.Transports, Mode=Default, Source={StaticResource TransportsDS}}">
+        <CollectionViewSource x:Key="RegisteredTransports" Source="{Binding Path=Instance.RegisteredTransports, Mode=Default, Source={StaticResource RegisteredTransportsDS}}">
             <CollectionViewSource.SortDescriptions>
                 <ComponentModel:SortDescription PropertyName="Name" />
             </CollectionViewSource.SortDescriptions>
         </CollectionViewSource>
 
-
         <DataTemplate x:Key="TransportAddUserTemplate" >
-			<StackPanel>
-            <StackPanel Orientation="Horizontal" MinHeight="24" Margin="0,4,0,4">
-                <Rectangle ToolTip="Service Type" x:Name="type" Width="16" Height="16" Margin="0,0,3,0" Visibility="Visible" Fill="{DynamicResource service_design}"/>
-                <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" Foreground="{DynamicResource DefaultTextBrush2}" Margin="10,0,0,0"/>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" MinHeight="24" Margin="0,4,0,4">
+                    <Rectangle ToolTip="Service Type" x:Name="type" Width="16" Height="16" Margin="0,0,3,0" Visibility="Visible" Fill="{DynamicResource service_design}"/>
+                    <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" Foreground="{DynamicResource DefaultTextBrush2}" Margin="10,0,0,0"/>
+                </StackPanel>
+                <TextBlock Text="User identifier" x:Name="_text" TextWrapping="Wrap"
+					 		Foreground="{DynamicResource DefaultTextBrush2}"/>
+                <DockPanel>
+                    <Button Content="Add" DockPanel.Dock="Right"/>
+                    <TextBox x:Name="_id"
+                      Text="{Binding Path=Dummy, UpdateSourceTrigger=PropertyChanged}" 
+                      Validation:RegexValidator.RegexText="\w{3,16}"/>
+                </DockPanel>
             </StackPanel>
-			<TextBox/>
-			</StackPanel>
 
             <DataTemplate.Triggers>
-                <DataTrigger Binding="{Binding Path=DiscoInfo}" Value="{x:Null}">
-                    <Setter Property="Opacity" Value="0.5"/>
-                </DataTrigger>
                 <DataTrigger Binding="{Binding Path=Type}" Value="aim">
                     <Setter Property="Fill" TargetName="type" Value="{StaticResource aim_design}"/>
+                    <Setter Property="Text" TargetName="_text" Value="AIM screen name (3-16 letters or numbers. It must start with a letter)"/>
+                    <Setter Property="Validation:RegexValidator.RegexText" TargetName="_id" Value="\w{3,16}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=Type}" Value="msn">
                     <Setter Property="Fill" TargetName="type" Value="{StaticResource msn_design}"/>
+                    <Setter Property="Text" TargetName="_text" Value="MSN Passport Id (mostly e-mail address)"/>
+                    <Setter Property="Validation:RegexValidator.RegexText" TargetName="_id" Value="^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=Type}" Value="icq">
                     <Setter Property="Fill" TargetName="type" Value="{StaticResource icq_design}"/>
+                    <Setter Property="Text" TargetName="_text" Value="ICQ number (numbers, at least 5)"/>
+                    <Setter Property="Validation:RegexValidator.RegexText" TargetName="_id" Value="\d{5}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=Type}" Value="sms">
                     <Setter Property="Fill" TargetName="type" Value="{StaticResource sms_design}"/>
+                    <Setter Property="Text" TargetName="_text" Value="Phone number (numbers, can start with '+')"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=Type}" Value="yahoo">
                     <Setter Property="Fill" TargetName="type" Value="{StaticResource yahoo_design}"/>
+                    <Setter Property="Text" TargetName="_text" Value="Yahoo! Id (numbers and letters)"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=Type}" Value="text">
                     <Setter Property="Fill" TargetName="type" Value="{StaticResource chaticon_design}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=Type}" Value="jabber">
                     <Setter Property="Fill" TargetName="type" Value="{StaticResource jabber_design}"/>
+                    <Setter Property="Text" TargetName="_text" Value="Jabber Id (like john@jabber.org)"/>
                 </DataTrigger>
             </DataTemplate.Triggers>
 
@@ -56,11 +69,11 @@
     </UserControl.Resources>
     <StackPanel>
         <Grid Margin="0,0,0,5">
-            <Rectangle Width="32" Height="32" Fill="{DynamicResource event_joined_muc_design}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Rectangle Width="32" Height="32" Fill="{DynamicResource adduser_design}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <TextBlock Text="Add contact" Margin="40,0,0,0" Foreground="#FFE2E2E2" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
         </Grid>
-        <ListBox Background="{x:Null}" BorderBrush="{x:Null}"  x:Name="_list"
-			ItemsSource="{Binding Source={StaticResource Transports}}"
+        <ListBox Background="{x:Null}" BorderBrush="{x:Null}"
+			ItemsSource="{Binding Source={StaticResource RegisteredTransports}}"
 			ItemTemplate="{StaticResource TransportAddUserTemplate}" 
 			ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,5,0,0"/>
     </StackPanel>

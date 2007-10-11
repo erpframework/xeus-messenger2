@@ -1,8 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Windows.Controls;
-using System.Windows.Data;
-using xeus2.xeus.Core;
+﻿using System.Windows.Controls;
 
 namespace xeus2.xeus.UI.xeus.UI.Wizards
 {
@@ -14,17 +10,6 @@ namespace xeus2.xeus.UI.xeus.UI.Wizards
         public AddContactWizard()
         {
             InitializeComponent();
-
-            ICollectionView collectionView = CollectionViewSource.GetDefaultView(_list.ItemsSource);
-
-            collectionView.Filter = FilterRegistered;
-        }
-
-        public bool FilterRegistered(object item)
-        {
-            Service service = item as Service;
-
-            return ((service != null) && service.IsRegistered);
         }
     }
 }

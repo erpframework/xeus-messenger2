@@ -20,6 +20,8 @@ namespace xeus2.xeus.Core
 
         private string _sessionKey = string.Empty;
 
+        private readonly ObservableCollectionDisp<Service> _registeredTransports = new ObservableCollectionDisp<Service>();
+
         public static Services Instance
         {
             get
@@ -70,6 +72,14 @@ namespace xeus2.xeus.Core
             get
             {
                 return _transports;
+            }
+        }
+
+        public ObservableCollectionDisp<Service> RegisteredTransports
+        {
+            get
+            {
+                return _registeredTransports;
             }
         }
 
@@ -280,5 +290,54 @@ namespace xeus2.xeus.Core
         {
             service.IsRegistered = (Roster.Instance.FindContact(service.Jid) != null);
         }
+
+        public void FindRegisteredServices()
+        {
+            _registeredTransports.Clear();
+
+            foreach (MetaContact item in Roster.Instance.Items)
+            {
+                foreach (Contact contact in item.SubContacts)
+                {
+                    if (string.IsNullOrEmpty(contact.Jid.User))
+                    {
+                        DiscoverySingleInfo(contact.Jid);
+                    }
+                }
+            }
+        }
+
+        private void DiscoverySingleInfo(Jid jid)
+        {
+           Account.Instance.DiscoMan.DisoverInformation(jid, OnDiscoServerSingleResult, null);
+        }
+
+        private void OnDiscoServerSingleResult(object sender, IQ iq, object data)
+        {
+            if (iq.Error != null)
+            {
+                OnServiceItemError(sender, iq);
+            }
+            else if (iq.Type == IqType.result && iq.Query is DiscoInfo)
+            {
+                DiscoInfo discoInfo = iq.Query as DiscoInfo;
+
+                if (discoInfo != null)
+                {
+                    DiscoItem discoItem = new DiscoItem();
+                    discoItem.Jid = iq.From;
+                    discoItem.Node = discoInfo.Node;
+
+                    Service service = new Service(discoItem, false);
+                    service.DiscoInfo = discoInfo;
+
+                    if (service.IsTransport)
+                    {
+                        _registeredTransports.Add(service);
+                    }
+                }
+            }
+        }
+
     }
 }

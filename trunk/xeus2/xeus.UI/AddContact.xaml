@@ -4,6 +4,9 @@
     xmlns:UI="clr-namespace:xeus2.xeus.UI;assembly="
     xmlns:Wizards="clr-namespace:xeus2.xeus.UI.xeus.UI.Wizards;assembly="
     Title="Add New Contact"
-    x:Name="AddContactWindow" Height="300" Width="300">
+    x:Name="AddContactWindow" Height="300" Width="300"
+    Background="{DynamicResource back_x_design}"
+    SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen"
+    ResizeMode="NoResize" MaxHeight="900">
     <Wizards:AddContactWizard/>
 </UI:BaseWindow>
