@@ -225,6 +225,17 @@
             </Grid>
         </Border>
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type xeus2_xeus_Core:EventInfoUnregistered}">
+        <Border Background="#FF1E1E1E" BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" Padding="5,5,5,5" MaxWidth="300">
+            <Grid>
+                <Rectangle Fill="{DynamicResource register_design}" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,0,0"/>
+                <TextBlock Text="{Binding Path=Message}" Foreground="{DynamicResource DefaultTextBrush2}"
+				 TextWrapping="Wrap" Margin="26,0,0,0" />
+            </Grid>
+        </Border>
+    </DataTemplate>
+    
     <DataTemplate DataType="{x:Type xeus2_xeus_Core:EventErrorConnection}">
         <Border Background="#FF1E1E1E" BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" Padding="5,5,5,5" MaxWidth="300">
             <Grid>

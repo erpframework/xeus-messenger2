@@ -355,6 +355,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             if (e.Key == Key.Return &&
                 (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
             {
+                e.Handled = true;
                 OnSendMessage(sender, e);
             }
         }

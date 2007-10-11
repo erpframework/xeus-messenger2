@@ -408,6 +408,7 @@
     <Compile Include="xeus.Core\EventHeadlineMessage.cs" />
     <Compile Include="xeus.Core\EventInfo.cs" />
     <Compile Include="xeus.Core\EventInfoRegistrationSuccess.cs" />
+    <Compile Include="xeus.Core\EventInfoUnregistered.cs" />
     <Compile Include="xeus.Core\EventMucRoom.cs" />
     <Compile Include="xeus.Core\Events.cs" />
     <Compile Include="xeus.Core\EventStatusChanged.cs" />
@@ -436,6 +437,7 @@
     <Compile Include="xeus.Core\ObservableCollectionDisp.cs" />
     <Compile Include="xeus.Core\Recent.cs" />
     <Compile Include="xeus.Core\RecentItems.cs" />
+    <Compile Include="xeus.Core\RegisteredService.cs" />
     <Compile Include="xeus.Core\Roster.cs" />
     <Compile Include="xeus.Core\SearchResult.cs">
       <SubType>Component</SubType>
