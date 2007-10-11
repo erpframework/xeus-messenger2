@@ -51,6 +51,12 @@ namespace xeus2.xeus.UI
         {
             base.OnStateChanged(e);
 
+            if (_suppressStateChange)
+            {
+                _suppressStateChange = false;
+                return;
+            }
+
             if (HideOnMimnimize)
             {
                 if (WindowState == WindowState.Minimized)
@@ -60,6 +66,7 @@ namespace xeus2.xeus.UI
                 else if (WindowState != WindowState.Minimized)
                 {
                     Show();
+                    Activate();
                 }
             }
         }
@@ -80,13 +87,18 @@ namespace xeus2.xeus.UI
             Closed -= BaseWindow_Closed;
         }
 
+        private bool _suppressStateChange = false;
+
         public void ShowHide()
         {
+            _suppressStateChange = true;
+
             if (WindowState == WindowState.Minimized)
             {
                 if (HideOnMimnimize)
                 {
                     Show();
+                    Activate();
                 }
 
                 WindowState = WindowState.Normal;

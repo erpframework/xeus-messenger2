@@ -16,6 +16,7 @@ namespace xeus2.xeus.UI
         public FilterRoster(ICollectionView collectionView, TextBox searchBox)
         {
             _collectionView = collectionView;
+            _refreshTimer.AutoReset = false;
 
             Settings.Default.PropertyChanged += delegate(object sender, PropertyChangedEventArgs e)
                                                     {

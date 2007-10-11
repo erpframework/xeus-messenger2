@@ -113,19 +113,19 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                if (!string.IsNullOrEmpty(CustomName))
+                if (!TextUtil.IsNullOrEmptyTrimmed(CustomName))
                 {
                     return CustomName;
                 }
-                else if (!string.IsNullOrEmpty(FullName))
+                else if (!TextUtil.IsNullOrEmptyTrimmed(FullName))
                 {
                     return FullName;
                 }
-                else if (!string.IsNullOrEmpty(NickName))
+                else if (!TextUtil.IsNullOrEmptyTrimmed(NickName))
                 {
                     return NickName;
                 }
-                else if (!string.IsNullOrEmpty(Jid.User))
+                else if (!TextUtil.IsNullOrEmptyTrimmed(Jid.User))
                 {
                     return Jid.User;
                 }

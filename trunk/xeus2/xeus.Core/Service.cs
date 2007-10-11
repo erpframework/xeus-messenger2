@@ -29,7 +29,7 @@ namespace xeus2.xeus.Core
         private bool _isRegistered = false;
 
         private readonly Services _services = new Services();
-        private bool _askedForDiscovery = false;
+        protected bool _askedForDiscovery = false;
         private DiscoInfo _discoInfo = null;
         private IQ _errorIq = null;
         private bool _isDiscovered = false;

@@ -328,7 +328,7 @@ namespace xeus2.xeus.Core
                     discoItem.Jid = iq.From;
                     discoItem.Node = discoInfo.Node;
 
-                    RegisteredService service = new RegisteredService(discoItem, false);
+                    RegisteredService service = new RegisteredService(discoItem);
                     service.DiscoInfo = discoInfo;
 
                     if (service.IsTransport)
