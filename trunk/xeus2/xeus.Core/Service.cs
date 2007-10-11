@@ -37,8 +37,6 @@ namespace xeus2.xeus.Core
         private MucRoomInfo _mucInfo;
         private agsXMPP.protocol.x.data.Data _xData = null;
 
-        private string _dummy = String.Empty;
-
         public Service(DiscoItem discoItem, bool isToplevel)
         {
             _discoItem = discoItem;
@@ -517,19 +515,6 @@ namespace xeus2.xeus.Core
             {
                 _isRegistered = value;
                 NotifyPropertyChanged("IsRegistered");
-            }
-        }
-
-        public string Dummy
-        {
-            get
-            {
-                return _dummy;
-            }
-            set
-            {
-                _dummy = value;
-                NotifyPropertyChanged("Dummy");
             }
         }
 

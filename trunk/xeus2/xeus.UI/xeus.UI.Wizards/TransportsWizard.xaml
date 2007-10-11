@@ -26,13 +26,25 @@
 							<TextBlock Text="Register" Margin="20,0,0,0"/>
 						</Grid>
 					</Button>
-					<TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" Foreground="{DynamicResource DefaultTextBrush2}" Margin="10,0,0,0"/>
+                <Button x:Name="_unregister" Command="servicecmd:ServiceCommands.Unregister"
+						CommandParameter="{Binding}" Margin="5,0,0,0">
+                    <Grid>
+                        <Rectangle Fill="{DynamicResource delete_design}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="16" Height="16"/>
+                        <TextBlock Text="Unregister" Margin="20,0,0,0"/>
+                    </Grid>
+                </Button>
+                <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" Foreground="{DynamicResource DefaultTextBrush2}" Margin="10,0,0,0"/>
 				</StackPanel>
 
             <DataTemplate.Triggers>
                 <DataTrigger Binding="{Binding Path=IsRegistered}" Value="True">
                     <Setter Property="Visibility" TargetName="_register" Value="Collapsed"/>
                 </DataTrigger>
+                
+                <DataTrigger Binding="{Binding Path=IsRegistered}" Value="False">
+                    <Setter Property="Visibility" TargetName="_unregister" Value="Collapsed"/>
+                </DataTrigger>
+
                 <DataTrigger Binding="{Binding Path=IsRegistrable}" Value="False">
                     <Setter Property="Visibility" TargetName="_register" Value="Collapsed"/>
                 </DataTrigger>

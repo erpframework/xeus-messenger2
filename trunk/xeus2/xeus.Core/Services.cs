@@ -20,7 +20,7 @@ namespace xeus2.xeus.Core
 
         private string _sessionKey = string.Empty;
 
-        private readonly ObservableCollectionDisp<Service> _registeredTransports = new ObservableCollectionDisp<Service>();
+        private readonly ObservableCollectionDisp<RegisteredService> _registeredTransports = new ObservableCollectionDisp<RegisteredService>();
 
         public static Services Instance
         {
@@ -75,7 +75,7 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public ObservableCollectionDisp<Service> RegisteredTransports
+        public ObservableCollectionDisp<RegisteredService> RegisteredTransports
         {
             get
             {
@@ -328,7 +328,7 @@ namespace xeus2.xeus.Core
                     discoItem.Jid = iq.From;
                     discoItem.Node = discoInfo.Node;
 
-                    Service service = new Service(discoItem, false);
+                    RegisteredService service = new RegisteredService(discoItem, false);
                     service.DiscoInfo = discoInfo;
 
                     if (service.IsTransport)

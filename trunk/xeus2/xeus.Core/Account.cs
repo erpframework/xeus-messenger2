@@ -746,6 +746,14 @@ namespace xeus2.xeus.Core
             XmppConnection.IqGrabber.SendIq(registerIq, OnRegisterServiceGet, service);
         }
 
+        public void UnregisterService(Service service)
+        {
+            RegisterIq registerIq = new RegisterIq(IqType.get, service.Jid);
+            registerIq.Query.RemoveAccount = true;
+
+            XmppConnection.IqGrabber.SendIq(registerIq, OnUnregisterService, service);
+        }
+
         public void GetServiceSearch(Service service)
         {
             SearchIq searchIq = new SearchIq(IqType.get, service.Jid);
@@ -788,6 +796,28 @@ namespace xeus2.xeus.Core
             else if (iq.Type == IqType.result && register != null)
             {
                 Registration.Instance.DisplayInBandRegistration(register, (Service) data);
+            }
+        }
+
+        private void OnUnregisterService(object sender, IQ iq, object data)
+        {
+            if (iq.Error != null)
+            {
+                Service service = (Service)data;
+
+                EventError eventError = new EventError(string.Format("Service '{0}' unregistraition failed",
+                                                                     service.Name), iq.Error);
+
+                Events.Instance.OnEvent(this, eventError);
+            }
+            else if (iq.Type == IqType.result)
+            {
+                Service service = (Service)data;
+
+                EventInfoUnregistered eventInfo = new EventInfoUnregistered(string.Format("Service '{0}' unregistraition completed",
+                                                                            service.Name));
+
+                Events.Instance.OnEvent(this, eventInfo);
             }
         }
 

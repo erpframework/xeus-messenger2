@@ -120,7 +120,8 @@ namespace xeus2.xeus.Middle
                     || myEvent is EventPresenceChanged
                     || myEvent is EventHeadlineMessage
                     || myEvent is EventErrorRegistration
-                    || myEvent is EventInfoRegistrationSuccess)
+                    || myEvent is EventInfoRegistrationSuccess
+                    || myEvent is EventInfoUnregistered)
                 {
                     bool notify = true;
 

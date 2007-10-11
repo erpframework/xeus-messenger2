@@ -14,7 +14,10 @@ namespace xeus2.xeus.Commands
 		private static readonly RoutedUICommand _register =
 			new RoutedUICommand( "Register service", "ServiceRegister", typeof ( ServiceCommands ) ) ;
 
-		private static readonly RoutedUICommand _search =
+        private static readonly RoutedUICommand _unregister =
+            new RoutedUICommand("Unregister service", "Serviceunregister", typeof(ServiceCommands));
+        
+        private static readonly RoutedUICommand _search =
 			new RoutedUICommand( "Search service", "ServiceSearch", typeof ( ServiceCommands ) ) ;
 
 		private static readonly RoutedUICommand _run =
@@ -143,12 +146,23 @@ namespace xeus2.xeus.Commands
 			}
 		}
 
-		public static void RegisterCommands( Window window )
+	    public static RoutedUICommand Unregister
+	    {
+	        get
+	        {
+	            return _unregister;
+	        }
+	    }
+
+	    public static void RegisterCommands( Window window )
 		{
 			window.CommandBindings.Add(
 				new CommandBinding( _register, ExecuteRegister, CanExecuteRegister ) ) ;
 
-			window.CommandBindings.Add(
+            window.CommandBindings.Add(
+                new CommandBinding(_unregister, ExecuteUnregister, CanExecuteUnregister));
+            
+            window.CommandBindings.Add(
 				new CommandBinding( _search, ExecuteSearch, CanExecuteSearch ) ) ;
 
 			window.CommandBindings.Add(
@@ -182,7 +196,24 @@ namespace xeus2.xeus.Commands
 				new CommandBinding( _stopDiscoveryServices, ExecuteStopDiscoveryServices, CanExecuteStopDiscoveryServices ) ) ;
 		}
 
-		public static void CanExecuteRegister( object sender, CanExecuteRoutedEventArgs e )
+	    private static void ExecuteUnregister(object sender, ExecutedRoutedEventArgs e)
+	    {
+            Service service = e.Parameter as Service;
+
+            Account.Instance.UnregisterService(service);
+
+            e.Handled = true;
+        }
+
+	    private static void CanExecuteUnregister(object sender, CanExecuteRoutedEventArgs e)
+	    {
+            Service service = e.Parameter as Service;
+
+            e.Handled = true;
+            e.CanExecute = (service != null && service.IsRegistrable);
+        }
+
+	    public static void CanExecuteRegister( object sender, CanExecuteRoutedEventArgs e )
 		{
 			Service service = e.Parameter as Service ;
 

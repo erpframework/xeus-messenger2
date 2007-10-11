@@ -26,7 +26,7 @@
                 <DockPanel>
                     <Button Content="Add" DockPanel.Dock="Right"/>
                     <TextBox x:Name="_id"
-                      Text="{Binding Path=Dummy, UpdateSourceTrigger=PropertyChanged}" 
+                      Text="{Binding Path=UserId, UpdateSourceTrigger=PropertyChanged}" 
                       Validation:RegexValidator.RegexText="\w{3,16}"/>
                 </DockPanel>
             </StackPanel>
