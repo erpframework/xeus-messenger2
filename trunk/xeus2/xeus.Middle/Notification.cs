@@ -154,6 +154,7 @@ namespace xeus2.xeus.Middle
                         lock (_notificationLock)
                         {
                             Notifications.Add(myEvent);
+                            RefreshStatus();
                         }
                     }
                 }

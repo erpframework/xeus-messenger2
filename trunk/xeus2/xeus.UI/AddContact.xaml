@@ -8,5 +8,5 @@
     Background="{DynamicResource back_x_design}"
     SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen"
     ResizeMode="NoResize" MaxHeight="900">
-    <Wizards:AddContactWizard/>
+    <Wizards:AddContactWizard Margin="10"/>
 </UI:BaseWindow>

@@ -113,14 +113,20 @@ namespace WPF.JoshSmith.Controls.Validation
 		/// </summary>
 		/// <param name="depObj">A TextBox.</param>
 		/// <param name="e"></param>
+		/// 
+		static readonly object _lock = new object();
+
 		static void OnAttachedPropertyChanged( DependencyObject depObj, DependencyPropertyChangedEventArgs e )
 		{
-			TextBox textBox = depObj as TextBox;
-			if( textBox == null )
-				throw new InvalidOperationException(
-					"The RegexValidator can only be used with a TextBox." );
+            lock (_lock)
+            {
+                TextBox textBox = depObj as TextBox;
+                if (textBox == null)
+                    throw new InvalidOperationException(
+                        "The RegexValidator can only be used with a TextBox.");
 
-			VerifyRegexValidationRule( textBox );
+                VerifyRegexValidationRule(textBox);
+            }
 		}
 
 			#endregion // OnAttachedPropertyChanged

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Timers;
-using System.Windows.Threading;
 using agsXMPP;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.extensions.caps;
@@ -90,7 +89,7 @@ namespace xeus2.xeus.Core
                         }
 
                         DistributeMessage(message, msg.Chatstate);
-                        
+
                         break;
                     }
                 case MessageType.headline:
@@ -360,12 +359,12 @@ namespace xeus2.xeus.Core
         private void AskForDisco(Contact contact)
         {
             Account.Instance.DiscoMan.DisoverInformation(contact.FullJid,
-                new IqCB(OnDiscoInfoResult), contact);
+                                                         new IqCB(OnDiscoInfoResult), contact);
         }
 
         private void OnDiscoInfoResult(object sender, IQ iq, object data)
         {
-            Contact contact = (Contact)data;
+            Contact contact = (Contact) data;
 
             if (iq.Error != null)
             {
@@ -389,7 +388,7 @@ namespace xeus2.xeus.Core
                 {
                     Account.Instance.DiscoMan.DisoverInformation(contact.FullJid,
                                                                  string.Format("{0}#{1}",
-                                                                 contact.Caps.Node, contact.Caps.Version),
+                                                                               contact.Caps.Node, contact.Caps.Version),
                                                                  OnDiscoInfoCapsResult, contact);
                 }
             }
@@ -409,7 +408,7 @@ namespace xeus2.xeus.Core
 
         private static void OnDiscoInfoCapsResult(object sender, IQ iq, object data)
         {
-            Contact contact = (Contact)data;
+            Contact contact = (Contact) data;
 
             if (iq.Error != null)
             {
@@ -438,7 +437,7 @@ namespace xeus2.xeus.Core
             }
             else
             {
-                Capabilities capabilities = presence.SelectSingleElement(typeof(Capabilities)) as Capabilities;
+                Capabilities capabilities = presence.SelectSingleElement(typeof (Capabilities)) as Capabilities;
 
                 switch (presence.Type)
                 {
@@ -467,16 +466,16 @@ namespace xeus2.xeus.Core
 
         private void VersionIqResult(object sender, IQ iq, object data)
         {
-            IContact contact = (IContact)data;
+            IContact contact = (IContact) data;
 
             if (iq.Type == IqType.error || iq.Error != null)
             {
                 // no version info
             }
             else if (iq.Type == IqType.result
-                && iq.Query is Version)
+                     && iq.Query is Version)
             {
-                contact.SetVersion((Version)iq.Query);
+                contact.SetVersion((Version) iq.Query);
             }
         }
 
@@ -686,6 +685,20 @@ namespace xeus2.xeus.Core
             return null;
         }
 
+        public void RemoveContact(IContact contactInterface)
+        {
+            if (contactInterface.IsService)
+            {
+                Account.Instance.UnregisterService(contactInterface);
+            }
+            else
+            {
+                RosterManager rosterManager = new RosterManager(Account.Instance.XmppConnection);
+
+                rosterManager.RemoveRosterItem(contactInterface.Jid);
+            }
+        }
+
         private void DistributeMessage(Message message, Chatstate chatstate)
         {
             lock (_items._syncObject)
@@ -773,6 +786,25 @@ namespace xeus2.xeus.Core
             }
 
             return contactChats;
+        }
+
+        public void AddContact(RegisteredService registeredService)
+        {
+            if (!string.IsNullOrEmpty(registeredService.UserId.Trim()))
+            {
+                Account.Instance.XmppConnection.RosterManager.AddRosterItem(registeredService.UserNewJid);
+
+                // Ask for subscription now
+                Account.Instance.GetPresenceManager().Subcribe(registeredService.UserNewJid);
+           }
+        }
+
+        public void AddContact(Jid jid)
+        {
+            Account.Instance.XmppConnection.RosterManager.AddRosterItem(jid);
+
+                // Ask for subscription now
+            Account.Instance.GetPresenceManager().Subcribe(jid);
         }
 
         #region Nested type: MessageCallback

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using agsXMPP;
 using xeus2.xeus.Core;
+using xeus2.xeus.UI;
 
 namespace xeus2.xeus.Commands
 {
@@ -12,6 +14,12 @@ namespace xeus2.xeus.Commands
 
         private static readonly RoutedUICommand _publishVCard =
             new RoutedUICommand("Publish V-Card", "PublishVCard", typeof(RoutedUICommand));
+
+        private static readonly RoutedUICommand _addContact =
+            new RoutedUICommand("Add Contact", "AddContact", typeof(RoutedUICommand));
+
+        private static readonly RoutedUICommand _removeContact =
+            new RoutedUICommand("Remove Contact", "RemoveContact", typeof(RoutedUICommand));
 
         public static RoutedUICommand DisplayVCard
         {
@@ -29,6 +37,22 @@ namespace xeus2.xeus.Commands
             }
         }
 
+        public static RoutedUICommand RemoveContact
+        {
+            get
+            {
+                return _removeContact;
+            }
+        }
+
+        public static RoutedUICommand AddContact
+        {
+            get
+            {
+                return _addContact;
+            }
+        }
+
         public static void RegisterCommands(Window window)
         {
             window.CommandBindings.Add(
@@ -36,6 +60,60 @@ namespace xeus2.xeus.Commands
 
             window.CommandBindings.Add(
                 new CommandBinding(_publishVCard, ExecutePublishVCard, CanExecutePublishVCard));
+        
+            window.CommandBindings.Add(
+                new CommandBinding(_removeContact, ExecuteRemoveContact, CanExecuteRemoveContact));
+
+            window.CommandBindings.Add(
+                new CommandBinding(_addContact, ExecuteAddContact, CanExecuteAddContact));
+        }
+
+        private static void CanExecuteAddContact(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.Handled = true;
+            e.CanExecute = (e.Parameter is RegisteredService
+                                || e.Parameter is Jid);
+        }
+
+        private static void ExecuteAddContact(object sender, ExecutedRoutedEventArgs e)
+        {
+            RegisteredService service = e.Parameter as RegisteredService;
+            e.Handled = true;
+
+            if (service != null)
+            {
+                Roster.Instance.AddContact(service);
+            }
+            else
+            {
+                Jid jid = e.Parameter as Jid;
+
+                if (jid != null)
+                {
+                    Roster.Instance.AddContact(jid);
+                }
+            }
+        }
+
+        private static void CanExecuteRemoveContact(object sender, CanExecuteRoutedEventArgs e)
+        {
+            IContact contact = e.Parameter as IContact;
+
+            e.Handled = true;
+            e.CanExecute = (contact != null);
+        }
+
+        private static void ExecuteRemoveContact(object sender, ExecutedRoutedEventArgs e)
+        {
+            IContact contact = (IContact)e.Parameter;
+
+            e.Handled = true;
+
+            if (Middle.Alert.Instance.AlertOpenUI(string.Format("Do you really want to remove '{0}'?", contact.DisplayName),
+                                              "delete_design", Alert.Buttons.Yes | Alert.Buttons.No) == Alert.Buttons.Yes)
+            {
+                Roster.Instance.RemoveContact(contact);
+            }
         }
 
         private static void CanExecutePublishVCard(object sender, CanExecuteRoutedEventArgs e)

@@ -724,7 +724,7 @@ namespace xeus2.xeus.Core
 
         private void OnServiceRegistered(object sender, IQ iq, object data)
         {
-            Service service = data as Service;
+            Service service = (Service)data;
 
             if (iq.Error != null)
             {
@@ -734,7 +734,9 @@ namespace xeus2.xeus.Core
             }
             else if (iq.Type == IqType.result)
             {
-                EventInfo eventinfo = new EventInfo(string.Format(Resources.Event_RegistrationSucceeded, service.Name));
+                service.IsRegistered = true;
+
+                EventInfoRegistrationSuccess eventinfo = new EventInfoRegistrationSuccess(string.Format(Resources.Event_RegistrationSucceeded, service.Name));
                 Events.Instance.OnEvent(this, eventinfo);
             }
         }
@@ -744,6 +746,19 @@ namespace xeus2.xeus.Core
             RegisterIq registerIq = new RegisterIq(IqType.get, service.Jid);
 
             XmppConnection.IqGrabber.SendIq(registerIq, OnRegisterServiceGet, service);
+        }
+
+        public void UnregisterService(IContact contact)
+        {
+            lock (Services.Instance._syncObject)
+            {
+                Service service = Services.Instance.FindService(contact.Jid);
+
+                if (service != null)
+                {
+                    UnregisterService(service);
+                }
+            }
         }
 
         public void UnregisterService(Service service)
@@ -814,10 +829,17 @@ namespace xeus2.xeus.Core
             {
                 Service service = (Service)data;
 
+                service.IsRegistered = false;
+
                 EventInfoUnregistered eventInfo = new EventInfoUnregistered(string.Format("Service '{0}' unregistraition completed",
                                                                             service.Name));
 
                 Events.Instance.OnEvent(this, eventInfo);
+
+                // remove from roster
+                RosterManager rosterManager = new RosterManager(XmppConnection);
+
+                rosterManager.RemoveRosterItem(service.Jid);
             }
         }
 

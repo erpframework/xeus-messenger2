@@ -32,6 +32,9 @@
             <Separator/>
             <MenuItem Command="xeus2_xeus_Commands:ContactCommands.DisplayVCard"
                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
+            <Separator/>
+            <MenuItem Command="xeus2_xeus_Commands:ContactCommands.RemoveContact"
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
         </ContextMenu>
 
         <DrawingBrush x:Key="xeus_logo_back_design" PresentationOptions:Freeze="True" Stretch="Uniform">
