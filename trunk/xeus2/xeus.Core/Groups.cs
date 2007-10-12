@@ -2,31 +2,21 @@
 
 namespace xeus2.xeus.Core
 {
-    internal class Groups
+    internal class Groups : ObservableCollectionDisp<Group>
     {
-        private readonly ObservableCollectionDisp<Group> _items = new ObservableCollectionDisp<Group>();
-
-        public ObservableCollectionDisp<Group> Items
-        {
-            get
-            {
-                return _items;
-            }
-        }
-
         public void LoadState()
         {
-            Database.ReadGroups(_items);
+            Database.ReadGroups(this);
         }
 
         public void SaveState()
         {
-            Database.StoreGroups(_items);
+            Database.StoreGroups(this);
         }
 
         public Group FindGroup(string name)
         {
-            foreach (Group group in _items)
+            foreach (Group group in this)
             {
                 if (group.Name == name)
                 {

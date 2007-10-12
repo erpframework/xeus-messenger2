@@ -7,6 +7,19 @@
   xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
   xmlns:Core="clr-namespace:xeus2.xeus.Core;assembly=" 	
   >
+
+    <DataTemplate x:Key="GroupTemplate">
+        <Border Background="{DynamicResource back_list_design}" BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" Padding="3,3,3,3" Margin="2,2,2,2">
+            <Grid>
+                <Rectangle Width="24" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center" Fill="{DynamicResource group_design}"/>
+                <StackPanel Margin="32,0,0,0">
+                    <TextBlock Text="{Binding Path=Name}"/>
+                    <TextBlock Text="{Binding Path=Description}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </DataTemplate>
+
     <DrawingBrush x:Key="filter_design">
         <DrawingBrush.Drawing>
             <DrawingGroup>

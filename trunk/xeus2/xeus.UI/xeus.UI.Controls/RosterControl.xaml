@@ -85,15 +85,6 @@
             </DrawingBrush.Drawing>
         </DrawingBrush>
 
-        <DataTemplate x:Key="GroupTemplate">
-            <StackPanel>
-                <TextBlock Text="{Binding Path=Name}"/>
-                <!--
-                <TextBlock Text="{Binding Path=IsExpanded}"/>
-                -->
-            </StackPanel>
-        </DataTemplate>
-
     </UserControl.Resources>
     <Grid>
         <ListBox ItemsSource="{Binding Source={StaticResource Contacts}}"
@@ -111,7 +102,7 @@
                                     <ControlTemplate TargetType="{x:Type GroupItem}">
                                         <Expander Expanded="OnExpanded" Collapsed="OnCollapsed" Loaded="OnLoadedExpander">
                                             <Expander.Header>
-                                                <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource GroupTemplate}"/>
+                                                <ContentPresenter Content="{Binding}" ContentTemplate="{DynamicResource GroupTemplate}"/>
                                             </Expander.Header>
                                             <ItemsPresenter/>
                                         </Expander>

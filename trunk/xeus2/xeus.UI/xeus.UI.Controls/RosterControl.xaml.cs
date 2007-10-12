@@ -137,7 +137,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             Expander expander = (Expander)sender;
             string expanderName = ((CollectionViewGroup) expander.DataContext).Name.ToString();
 
-            lock (Roster.Instance.Groups.Items._syncObject)
+            lock (Roster.Instance.Groups._syncObject)
             {
                 Group group = Roster.Instance.Groups.FindGroup(expanderName);
 
@@ -170,7 +170,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         private bool IsExpanded(string expanderName)
         {
-            lock (Roster.Instance.Groups.Items._syncObject)
+            lock (Roster.Instance.Groups._syncObject)
             {
                 Group group = Roster.Instance.Groups.FindGroup(expanderName);
 
@@ -180,7 +180,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 }
                 else
                 {
-                    Roster.Instance.Groups.Items.Add(new Group(expanderName, true));
+                    Roster.Instance.Groups.Add(new Group(expanderName, true));
                 }
             }
 

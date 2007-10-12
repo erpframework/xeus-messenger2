@@ -12,6 +12,7 @@ namespace xeus2.xeus.UI
         public GroupsWindow() : base(_keyBase, string.Empty)
         {
             DataContext = Roster.Instance;
+
             InitializeComponent();
         }
     }
