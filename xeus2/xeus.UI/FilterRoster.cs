@@ -13,6 +13,9 @@ namespace xeus2.xeus.UI
 
         readonly Timer _refreshTimer = new Timer(500);
 
+        private bool _displayOffline = false;
+        private bool _displayServices = false;
+
         public FilterRoster(ICollectionView collectionView, TextBox searchBox)
         {
             _collectionView = collectionView;
@@ -20,9 +23,20 @@ namespace xeus2.xeus.UI
 
             Settings.Default.PropertyChanged += delegate(object sender, PropertyChangedEventArgs e)
                                                     {
-                                                        if (e.PropertyName == "UI_DisplayOfflineContacts")
+                                                        switch (e.PropertyName)
                                                         {
-                                                            Refresh();
+                                                            case "UI_DisplayOfflineContacts":
+                                                            case "UI_DisplayServices":
+                                                                {
+                                                                    _displayOffline =
+                                                                        Settings.Default.UI_DisplayOfflineContacts;
+                                                                    
+                                                                    _displayServices =
+                                                                        Settings.Default.UI_DisplayServices;
+
+                                                                    Refresh();
+                                                                    break;
+                                                                }
                                                         }
                                                     };
 
@@ -41,16 +55,21 @@ namespace xeus2.xeus.UI
                                                 return false;
                                             }
 
+                                            if (!_displayServices && contact.IsService)
+                                            {
+                                                return false;
+                                            }
+
                                             bool contains =
                                                 contact.SearchLowerText.Contains(searchBox.Text.ToLower());
 
                                             if (contact.IsAvailable)
                                             {
-                                                return contains && true;
+                                                return contains;
                                             }
                                             else
                                             {
-                                                return contains && Settings.Default.UI_DisplayOfflineContacts;
+                                                return _displayOffline && contains;
                                             }
                                         };
 

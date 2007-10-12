@@ -37,6 +37,8 @@ namespace xeus2.xeus.Core
 
         private readonly Timer _timerRefresh = new Timer();
 
+        private readonly Groups _groups = new Groups();
+
         public Roster()
         {
             _timerRefresh.AutoReset = false;
@@ -58,6 +60,14 @@ namespace xeus2.xeus.Core
             get
             {
                 return _items;
+            }
+        }
+
+        public Groups Groups
+        {
+            get
+            {
+                return _groups;
             }
         }
 

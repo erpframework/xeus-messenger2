@@ -1,3 +1,4 @@
+using System.Windows;
 using System.Windows.Threading ;
 using xeus2.xeus.Data;
 
@@ -35,6 +36,13 @@ namespace xeus2.xeus.Core
 		{
             lock (_syncObject)
             {
+                if (myEvent.Severity == Event.EventSeverity.Fatal)
+                {
+                    MessageBox.Show(myEvent.Message);
+                    Application.Current.Shutdown(-1);
+                    return;
+                }
+
                 Add(myEvent);
 
                 if (Count > _maxEvents)
@@ -52,12 +60,6 @@ namespace xeus2.xeus.Core
             {
                 Database.SaveError((EventError)myEvent);
             }
-#if DEBUG
-			if ( myEvent.Severity >= Event.EventSeverity.Fatal )
-			{
-				throw new XeusException( myEvent.Message ) ;
-			}
-#endif
 		}
 	}
 }

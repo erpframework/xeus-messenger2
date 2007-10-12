@@ -8,12 +8,14 @@ using agsXMPP.protocol.Base;
 using agsXMPP.protocol.iq.disco;
 using agsXMPP.Xml.Dom;
 using xeus2.xeus.Core;
+using Group=xeus2.xeus.Core.Group;
 
 namespace xeus2.xeus.Data
 {
     internal class Database
     {
         private static SQLiteConnection _connection = null;
+        private const int _dbVersion = 1;
 
         private static string Path
         {
@@ -34,6 +36,30 @@ namespace xeus2.xeus.Data
             {
                 CreateDatabase();
             }
+            else
+            {
+                int dbVersion = GetVersion();
+
+                if (dbVersion == 0)
+                {
+                    EventFatal eventError =
+                        new EventFatal("Your 'xeus.db' is deprecated and can't be updated. Delete it and restart xeus");
+
+                    Events.Instance.OnEvent(null, eventError);
+                }
+
+                if (dbVersion > _dbVersion)
+                {
+                    EventFatal eventError =
+                        new EventFatal("Your 'xeus.db' is newer than your xeus-messenger. Install newest xeus version");
+                    
+                    Events.Instance.OnEvent(null, eventError);
+                }
+                else if (dbVersion  < _dbVersion)
+                {
+                    // possible updates
+                }
+            }
         }
 
         private static void CreateDatabase()
@@ -41,7 +67,12 @@ namespace xeus2.xeus.Data
             using (SQLiteCommand cmd = _connection.CreateCommand())
             {
                 cmd.CommandText = "CREATE TABLE [Group] ([IsExpanded] INTEGER NOT NULL DEFAULT '0',"
+                                  + "[Image] VARCHAR, "
+                                  + "[Description] VARCHAR, "
                                   + "[Name] VARCHAR NOT NULL PRIMARY KEY UNIQUE);";
+                cmd.ExecuteNonQuery();
+
+                cmd.CommandText = "CREATE TABLE [System] ([Version] INTEGER NOT NULL DEFAULT '0');";
                 cmd.ExecuteNonQuery();
 
                 cmd.CommandText = "CREATE TABLE [Message] ([Id] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, "
@@ -80,11 +111,69 @@ namespace xeus2.xeus.Data
                                   + "[Message] VARCHAR NOT NULL);";
                 cmd.ExecuteNonQuery();
             }
+
+            WriteVersion(_dbVersion, true);
         }
 
         public static void CloseDatabase()
         {
             _connection.Close();
+        }
+
+        static void WriteVersion(int version, bool isNew)
+        {
+            try
+            {
+                using (SQLiteCommand command = _connection.CreateCommand())
+                {
+                    if (isNew)
+                    {
+                        command.CommandText = "INSERT INTO [System] ([Version]) VALUES (@version)";
+                    }
+                    else
+                    {
+                        command.CommandText = "UPDATE [System] SET [Version]=@version";
+                    }
+
+                    command.Parameters.Add(new SQLiteParameter("version", version));
+                    command.ExecuteNonQuery();
+                }
+            }
+
+            catch (Exception e)
+            {
+                Events.Instance.OnEvent(e, new EventError(e.Message, null));
+            }
+            
+        }
+
+        static int GetVersion()
+        {
+            int version = 0;
+
+            try
+            {
+                using (SQLiteCommand command = _connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT [Version] FROM [System]";
+
+                    SQLiteDataReader reader = command.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        version = (Int32) (Int64) reader["Version"];
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            catch (Exception)
+            {
+                // don't rise an event error
+            }
+
+            return version;
         }
 
         public static void SaveError(EventError error)
@@ -449,18 +538,15 @@ namespace xeus2.xeus.Data
             return metaContact;
         }
 
-        public static void StoreGroups(Dictionary<string, bool> expanderStates)
+        public static void StoreGroups(ObservableCollectionDisp<Core.Group> groups)
         {
             try
             {
                 using (SQLiteTransaction transaction = _connection.BeginTransaction())
                 {
-                    foreach (KeyValuePair<string, bool> state in expanderStates)
+                    foreach (Group group in groups)
                     {
-                        Dictionary<string, object> values = new Dictionary<string, object>();
-
-                        values.Add("Name", state.Key);
-                        values.Add("IsExpanded", (state.Value) ? 1 : 0);
+                        Dictionary<string, object> values = group.GetData();
 
                         SaveOrUpdate(values, "Name", "Group", false, _connection);
                     }
@@ -475,9 +561,9 @@ namespace xeus2.xeus.Data
             }
         }
 
-        public static Dictionary<string, bool> ReadGroups()
+        public static void ReadGroups(ObservableCollectionDisp<Group> groups)
         {
-            Dictionary<string, bool> expanderStates = new Dictionary<string, bool>();
+            groups.Clear();
 
             try
             {
@@ -489,7 +575,7 @@ namespace xeus2.xeus.Data
 
                     while (reader.Read())
                     {
-                        expanderStates.Add((string) reader["Name"], ((Int64) reader["IsExpanded"]) == 1);
+                        groups.Add(new Group(reader));
                     }
 
                     reader.Close();
@@ -500,8 +586,6 @@ namespace xeus2.xeus.Data
             {
                 Events.Instance.OnEvent(e, new EventError(e.Message, null));
             }
-
-            return expanderStates;
         }
 
         /*

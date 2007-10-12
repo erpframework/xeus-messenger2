@@ -469,6 +469,8 @@
                 <xeus2_xeus_Controls:UserSearchText x:Name="_textFilter" MinWidth="70"/>
                 <CheckBox x:Name="_displayOffline" ToolTip="Display Offline Contacts"
 							Background="{StaticResource offline_contact_design}" Template="{DynamicResource CheckBoxImageControlTemplate}" Margin="5,0,5,0" VerticalAlignment="Center" IsChecked="{Binding Path=UI_DisplayOfflineContacts, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"/>
+                <CheckBox x:Name="_displayService" ToolTip="Display Services"
+							Background="{StaticResource service_design}" Template="{DynamicResource CheckBoxImageControlTemplate}" Margin="5,0,5,0" VerticalAlignment="Center" IsChecked="{Binding Path=UI_DisplayServices, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"/>
                 <Button Click="DisplayPopupRosterSize" x:Name="_sizeButton" ToolTip="Item Size"
 							Style="{DynamicResource ImageButtonStyle}" Background="{DynamicResource roster_size_design}" Width="40" Height="20" Margin="5,2,5,2"/>
             </WrapPanel>
