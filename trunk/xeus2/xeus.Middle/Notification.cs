@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Timers;
+using System.Windows;
 using agsXMPP.protocol.client;
 using xeus2.Properties;
 using xeus2.xeus.Core;

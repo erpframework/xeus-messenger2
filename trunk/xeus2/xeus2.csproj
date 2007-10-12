@@ -144,6 +144,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="xeus.UI\GroupsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="xeus.UI\HeadlinesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -225,6 +229,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="xeus.UI\xeus.UI.Controls\FilterDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="xeus.UI\xeus.UI.Controls\Groups.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -406,6 +414,7 @@
     <Compile Include="xeus.Core\EventErrorProtocol.cs" />
     <Compile Include="xeus.Core\EventErrorRegistration.cs" />
     <Compile Include="xeus.Core\EventException.cs" />
+    <Compile Include="xeus.Core\EventFatal.cs" />
     <Compile Include="xeus.Core\EventHeadlineMessage.cs" />
     <Compile Include="xeus.Core\EventInfo.cs" />
     <Compile Include="xeus.Core\EventInfoRegistrationSuccess.cs" />
@@ -413,6 +422,8 @@
     <Compile Include="xeus.Core\EventMucRoom.cs" />
     <Compile Include="xeus.Core\Events.cs" />
     <Compile Include="xeus.Core\EventStatusChanged.cs" />
+    <Compile Include="xeus.Core\Group.cs" />
+    <Compile Include="xeus.Core\Groups.cs" />
     <Compile Include="xeus.Core\HeadlineMessage.cs" />
     <Compile Include="xeus.Core\HeadlinesChat.cs" />
     <Compile Include="xeus.Core\IChatState.cs" />
@@ -463,6 +474,7 @@
     <Compile Include="xeus.Middle\ChangeMucTopic.cs" />
     <Compile Include="xeus.Middle\Chat.cs" />
     <Compile Include="xeus.Middle\CommandExecutor.cs" />
+    <Compile Include="xeus.Middle\Groups.cs" />
     <Compile Include="xeus.Middle\Headlines.cs" />
     <Compile Include="xeus.Middle\INotification.cs" />
     <Compile Include="xeus.Middle\KickReason.cs" />
@@ -502,6 +514,9 @@
       <DependentUpon>CommandExecute.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\FilterRoster.cs" />
+    <Compile Include="xeus.UI\GroupsWindow.xaml.cs">
+      <DependentUpon>GroupsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="xeus.UI\HeadlinesWindow.xaml.cs">
       <DependentUpon>HeadlinesWindow.xaml</DependentUpon>
     </Compile>
@@ -585,6 +600,9 @@
     </Compile>
     <Compile Include="xeus.UI\xeus.UI.Controls\FilterDisplay.xaml.cs">
       <DependentUpon>FilterDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xeus.UI\xeus.UI.Controls\Groups.xaml.cs">
+      <DependentUpon>Groups.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\xeus.UI.Controls\Headlines.xaml.cs">
       <DependentUpon>Headlines.xaml</DependentUpon>

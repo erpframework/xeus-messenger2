@@ -21,6 +21,9 @@ namespace xeus2.xeus.Commands
         private static readonly RoutedUICommand _removeContact =
             new RoutedUICommand("Remove Contact", "RemoveContact", typeof(RoutedUICommand));
 
+        private static readonly RoutedUICommand _displayGroups =
+            new RoutedUICommand("Move to Group ...", "DisplayGroups", typeof(RoutedUICommand));
+
         public static RoutedUICommand DisplayVCard
         {
             get
@@ -53,6 +56,14 @@ namespace xeus2.xeus.Commands
             }
         }
 
+        public static RoutedUICommand DisplayGroups
+        {
+            get
+            {
+                return _displayGroups;
+            }
+        }
+
         public static void RegisterCommands(Window window)
         {
             window.CommandBindings.Add(
@@ -66,6 +77,21 @@ namespace xeus2.xeus.Commands
 
             window.CommandBindings.Add(
                 new CommandBinding(_addContact, ExecuteAddContact, CanExecuteAddContact));
+
+            window.CommandBindings.Add(
+                new CommandBinding(_displayGroups, ExecuteDisplayGroups, CanExecuteDisplayGroups));
+        }
+
+        private static void CanExecuteDisplayGroups(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+            e.Handled = true;
+        }
+
+        private static void ExecuteDisplayGroups(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            Middle.Groups.Instance.GroupsOpen();
         }
 
         private static void CanExecuteAddContact(object sender, CanExecuteRoutedEventArgs e)

@@ -23,7 +23,6 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
     public partial class RosterControl : UserControl
     {
-        private readonly Dictionary<string, bool> _expanderStates = new Dictionary<string, bool>();
         private DataTemplate _dataTemplateBig = null;
         private DataTemplate _dataTemplateMedium = null;
         private DataTemplate _dataTemplateSmall = null;
@@ -32,7 +31,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         public RosterControl()
         {
-            _expanderStates = Database.ReadGroups();
+            Roster.Instance.Groups.LoadState();
 
             Settings.Default.PropertyChanged += Default_PropertyChanged;
 
@@ -105,7 +104,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         public void SaveExpanderState()
         {
-            Database.StoreGroups(_expanderStates);
+            Roster.Instance.Groups.SaveState();
         }
 
         private void Default_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -135,46 +134,57 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         private void OnLoadedExpander(object sender, RoutedEventArgs e)
         {
-            Expander expander = sender as Expander;
+            Expander expander = (Expander)sender;
             string expanderName = ((CollectionViewGroup) expander.DataContext).Name.ToString();
+
+            lock (Roster.Instance.Groups.Items._syncObject)
+            {
+                Group group = Roster.Instance.Groups.FindGroup(expanderName);
+
+                if (group == null)
+                {
+                    group = new Group(expanderName, true);
+                }
+
+                expander.DataContext = group;
+            }
 
             expander.IsExpanded = IsExpanded(expanderName);
         }
 
         private void OnExpanded(object sender, RoutedEventArgs e)
         {
-            Expander expander = sender as Expander;
-            string expanderName = ((CollectionViewGroup) expander.DataContext).Name.ToString();
+            Expander expander = (Expander)sender;
+            Group group = (Group)expander.DataContext;
 
-            _expanderStates[expanderName] = true;
+            group.IsExpanded = true;
         }
 
         private void OnCollapsed(object sender, RoutedEventArgs e)
         {
-            Expander expander = sender as Expander;
-            string expanderName = ((CollectionViewGroup) expander.DataContext).Name.ToString();
+            Expander expander = (Expander)sender;
+            Group group = (Group)expander.DataContext;
 
-            _expanderStates[expanderName] = false;
+            group.IsExpanded = false;
         }
 
         private bool IsExpanded(string expanderName)
         {
-            bool expanded;
+            lock (Roster.Instance.Groups.Items._syncObject)
+            {
+                Group group = Roster.Instance.Groups.FindGroup(expanderName);
 
-            if (_expanderStates.TryGetValue(expanderName, out expanded))
-            {
-                return expanded;
-            }
-            else
-            {
-                _expanderStates[expanderName] = true;
+                if (group != null)
+                {
+                    return group.IsExpanded;
+                }
+                else
+                {
+                    Roster.Instance.Groups.Items.Add(new Group(expanderName, true));
+                }
             }
 
             return true;
-        }
-
-        private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
         }
     }
 }

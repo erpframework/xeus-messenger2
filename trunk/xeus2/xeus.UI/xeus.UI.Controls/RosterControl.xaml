@@ -32,6 +32,8 @@
             <Separator/>
             <MenuItem Command="xeus2_xeus_Commands:ContactCommands.DisplayVCard"
                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
+            <MenuItem Command="xeus2_xeus_Commands:ContactCommands.DisplayGroups"
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
             <Separator/>
             <MenuItem Command="xeus2_xeus_Commands:ContactCommands.RemoveContact"
                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu},Path=DataContext}"/>
@@ -83,36 +85,45 @@
             </DrawingBrush.Drawing>
         </DrawingBrush>
 
+        <DataTemplate x:Key="GroupTemplate">
+            <StackPanel>
+                <TextBlock Text="{Binding Path=Name}"/>
+                <!--
+                <TextBlock Text="{Binding Path=IsExpanded}"/>
+                -->
+            </StackPanel>
+        </DataTemplate>
+
     </UserControl.Resources>
     <Grid>
-    <ListBox ItemsSource="{Binding Source={StaticResource Contacts}}"
+        <ListBox ItemsSource="{Binding Source={StaticResource Contacts}}"
 		ItemsPanel="{DynamicResource ItemsPanelTemplateRoster}"
         ItemTemplate="{DynamicResource MetaContactSmall}" 
         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
         MouseDoubleClick="RosterMouseDoubleClick" Background="{x:Null}"
 		x:Name="_roster" BorderBrush="{x:Null}" BorderThickness="0,0,0,0">
-        <ListBox.GroupStyle>
-            <GroupStyle>
-                <GroupStyle.ContainerStyle>
-                    <Style TargetType="{x:Type GroupItem}">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type GroupItem}">
-                                    <Expander Expanded="OnExpanded" Collapsed="OnCollapsed" Loaded="OnLoadedExpander">
-                                        <Expander.Header>
-                                            <TextBlock Text="{Binding Path=Name}"/>
-                                        </Expander.Header>
-                                        <ItemsPresenter/>
-                                    </Expander>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </GroupStyle.ContainerStyle>
-            </GroupStyle>
-        </ListBox.GroupStyle>
-    </ListBox>
+            <ListBox.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type GroupItem}">
+                                        <Expander Expanded="OnExpanded" Collapsed="OnCollapsed" Loaded="OnLoadedExpander">
+                                            <Expander.Header>
+                                                <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource GroupTemplate}"/>
+                                            </Expander.Header>
+                                            <ItemsPresenter/>
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </ListBox.GroupStyle>
+        </ListBox>
         <Rectangle HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="32" Height="32"                   Fill="{StaticResource xeus_logo_back_design}" Margin="0,0,5,5" Opacity="0.5"
                    IsHitTestVisible="False"/>
-   </Grid>
+    </Grid>
 </UserControl>

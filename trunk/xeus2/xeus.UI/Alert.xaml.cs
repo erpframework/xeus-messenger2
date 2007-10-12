@@ -6,7 +6,7 @@ namespace xeus2.xeus.UI
     /// <summary>
     /// Interaction logic for Alert.xaml
     /// </summary>
-    public partial class Alert : Window
+    public partial class Alert : BaseWindow
     {
         [Flags]
         public enum Buttons
@@ -19,7 +19,10 @@ namespace xeus2.xeus.UI
 
         private Buttons _return = Buttons.Cancel;
 
-        public Alert(string text, string resourceImage, Buttons buttonsToDisplay )
+        public const string _keyBase = "AlertWindow";
+
+        public Alert(string text, string resourceImage, Buttons buttonsToDisplay)
+            : base(_keyBase, string.Empty)
         {
             InitializeComponent();
 

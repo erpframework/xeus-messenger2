@@ -466,5 +466,17 @@ namespace xeus2.Properties {
                 this["UI_Notify_Error_Exp"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UI_DisplayServices {
+            get {
+                return ((bool)(this["UI_DisplayServices"]));
+            }
+            set {
+                this["UI_DisplayServices"] = value;
+            }
+        }
     }
 }
