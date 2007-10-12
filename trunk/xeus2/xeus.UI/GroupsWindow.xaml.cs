@@ -1,4 +1,6 @@
-﻿namespace xeus2.xeus.UI
+﻿using xeus2.xeus.Core;
+
+namespace xeus2.xeus.UI
 {
     /// <summary>
     /// Interaction logic for GroupsWindow.xaml
@@ -9,6 +11,7 @@
 
         public GroupsWindow() : base(_keyBase, string.Empty)
         {
+            DataContext = Roster.Instance;
             InitializeComponent();
         }
     }
