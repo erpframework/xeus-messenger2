@@ -32,7 +32,7 @@ namespace xeus2.xeus.Core
 
         private string _searchLowerText = string.Empty;
 
-        private readonly RosterItem _rosterItem = null;
+        private RosterItem _rosterItem = null;
         private readonly int _metaId;
         private string _customName;
         private string _fullName;
@@ -652,6 +652,23 @@ namespace xeus2.xeus.Core
                 {
                     return null;
                 }
+            }
+        }
+
+        public RosterItem RosterItem
+        {
+            get
+            {
+                return _rosterItem;
+            }
+
+            set
+            {
+                _rosterItem = value;
+
+                NotifyPropertyChanged("RosterItem");
+                NotifyPropertyChanged("Group");
+                NotifyPropertyChanged("IsService");
             }
         }
 

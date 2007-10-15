@@ -84,14 +84,14 @@ namespace xeus2.xeus.Commands
 
         private static void CanExecuteDisplayGroups(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = true;
+            e.CanExecute = (e.Parameter is IContact);
             e.Handled = true;
         }
 
         private static void ExecuteDisplayGroups(object sender, ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
-            Middle.Groups.Instance.GroupsOpen();
+            Middle.Groups.Instance.GroupsOpen((IContact)e.Parameter);
         }
 
         private static void CanExecuteAddContact(object sender, CanExecuteRoutedEventArgs e)

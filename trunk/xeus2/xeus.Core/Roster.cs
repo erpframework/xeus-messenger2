@@ -599,6 +599,10 @@ namespace xeus2.xeus.Core
                 {
                     RemoveRosterItem(contact);
                 }
+                else if (item.Ask == AskType.NONE)
+                {
+                    contact.RosterItem = item;
+                }
             }
         }
 
@@ -703,9 +707,9 @@ namespace xeus2.xeus.Core
             }
             else
             {
-                RosterManager rosterManager = new RosterManager(Account.Instance.XmppConnection);
+                //RosterManager rosterManager = new RosterManager(Account.Instance.XmppConnection);
 
-                rosterManager.RemoveRosterItem(contactInterface.Jid);
+                Account.Instance.XmppConnection.RosterManager.RemoveRosterItem(contactInterface.Jid);
             }
         }
 
@@ -815,6 +819,11 @@ namespace xeus2.xeus.Core
 
                 // Ask for subscription now
             Account.Instance.GetPresenceManager().Subcribe(jid);
+        }
+
+        public void SetContactGropup(IContact contact, string group)
+        {
+            Account.Instance.XmppConnection.RosterManager.UpdateRosterItem(contact.Jid, contact.NickName, group);
         }
 
         #region Nested type: MessageCallback
