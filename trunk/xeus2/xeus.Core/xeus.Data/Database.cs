@@ -69,6 +69,7 @@ namespace xeus2.xeus.Data
                 cmd.CommandText = "CREATE TABLE [Group] ([IsExpanded] INTEGER NOT NULL DEFAULT '0',"
                                   + "[Image] VARCHAR, "
                                   + "[Description] VARCHAR, "
+                                  + "[Color] VARCHAR, "
                                   + "[Name] VARCHAR NOT NULL PRIMARY KEY UNIQUE);";
                 cmd.ExecuteNonQuery();
 

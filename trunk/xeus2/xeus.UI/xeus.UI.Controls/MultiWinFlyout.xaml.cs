@@ -11,6 +11,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         private readonly MultiWin _content;
         private readonly IMultiWinContainerProvider _multiWinContainerProvider;
         private readonly string _name;
+        private IFlyoutContainer _flyoutContainer = null;
 
         internal MultiWinFlyout(IMultiWinContainerProvider multiWinContainerProvider, MultiWin content, string name, string key)
             : base(key)
@@ -30,19 +31,31 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         {
             _container.Child = _content;
 
+            _flyoutContainer = ((MultiWin)(_container.Child)).ContentElement as IFlyoutContainer;
+
+            if (_flyoutContainer != null)
+            {
+                _flyoutContainer.CloseMe += _flyoutContainer_CloseMe;
+            }
+
             _content.DisplayControls = true;
             _content.OnMultiWinEvent += content_OnMultiWinEvent;
+        }
+
+        void _flyoutContainer_CloseMe()
+        {
+            Close();
         }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             if (_closingCompletely)
             {
-                IFlyoutContainer flyoutContainer = ((MultiWin)(_container.Child)).ContentElement as IFlyoutContainer;
-
-                if (flyoutContainer != null)
+                if (_flyoutContainer != null)
                 {
-                    flyoutContainer.Closing();
+                    _flyoutContainer.Closing();
+                    _flyoutContainer.CloseMe -= _flyoutContainer_CloseMe;
+                    _flyoutContainer = null;
                 }
             }
 

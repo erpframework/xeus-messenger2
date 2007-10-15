@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace xeus2.xeus.UI
+﻿namespace xeus2.xeus.UI
 {
+    public delegate void CloseContainer();
+
     public interface IFlyoutContainer
     {
+        event CloseContainer CloseMe;
         void Closing();
     }
 }
