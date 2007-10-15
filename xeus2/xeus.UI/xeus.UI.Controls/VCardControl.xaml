@@ -11,7 +11,7 @@
                 <Grid Margin="0,5,0,0">
                     <TextBlock Text="Nickname" Foreground="{DynamicResource DefaultTextBrush2}"/>
                     <TextBox Text="{Binding Path=NickName}" Margin="80,0,0,0" MaxLength="64" MaxLines="1"
-				IsReadOnly="{Binding Path=IsReadOnly}"/>
+        				IsReadOnly="{Binding Path=IsReadOnly}"/>
                 </Grid>
                 <Grid Margin="0,5,0,0">
                     <TextBlock Text="Web" Foreground="{DynamicResource DefaultTextBrush2}"/>
@@ -66,27 +66,11 @@
             </DataTemplate.Triggers>
         </DataTemplate>
 
-        <DataTemplate x:Key="Client" >
-            <StackPanel>
-                <Grid Margin="0,5,0,0">
-                    <TextBlock Text="Client" Foreground="{DynamicResource DefaultTextBrush2}"/>
-                    <TextBlock Text="{Binding Path=ClientName}" Margin="150,0,0,0" Foreground="{DynamicResource DefaultTextBrush2}"/>
-                </Grid>
-                <Grid Margin="0,5,0,0">
-                    <TextBlock Text="Version" Foreground="{DynamicResource DefaultTextBrush2}"/>
-                    <TextBlock Text="{Binding Path=ClientVersion}" Margin="150,0,0,0" Foreground="{DynamicResource DefaultTextBrush2}"/>
-                </Grid>
-                <Grid Margin="0,5,0,0">
-                    <TextBlock Text="Operating System" Foreground="{DynamicResource DefaultTextBrush2}"/>
-                    <TextBlock Text="{Binding Path=ClientOS}" Margin="150,0,0,0" Foreground="{DynamicResource DefaultTextBrush2}"/>
-                </Grid>
-            </StackPanel>
-        </DataTemplate>
     </UserControl.Resources>
 
     <StackPanel>
         <ContentPresenter Content="{Binding Path=Card}"/>
         <Controls:DottedHorizontal Margin="0,5,0,5"/>
-        <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource Client}"/>
+        <ContentPresenter Content="{Binding}" ContentTemplate="{DynamicResource Client}"/>
     </StackPanel>
 </UserControl>

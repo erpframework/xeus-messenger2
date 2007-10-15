@@ -251,7 +251,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                throw new NotImplementedException();
+                return StatusText;
             }
         }
 

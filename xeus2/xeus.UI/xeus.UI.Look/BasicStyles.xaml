@@ -249,6 +249,13 @@
         </DrawingBrush.Drawing>
     </DrawingBrush>
 
+    <ControlTemplate x:Key="ListBoxItemControlTemplateSimple" TargetType="{x:Type ListBoxItem}">
+        <Border SnapsToDevicePixels="True" x:Name="Bd" CornerRadius="2,2,2,2" Padding="{TemplateBinding Padding}"
+            BorderThickness="1,1,1,1">
+            <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
+        </Border>
+    </ControlTemplate>
+
     <ControlTemplate x:Key="ListBoxItemControlTemplate" TargetType="{x:Type ListBoxItem}">
         <Border SnapsToDevicePixels="True" x:Name="Bd" CornerRadius="2,2,2,2" Padding="{TemplateBinding Padding}"
             BorderThickness="1,1,1,1">
@@ -279,36 +286,12 @@
     <Style TargetType="{x:Type ListBoxItem}">
         <Setter Property="Template" Value="{DynamicResource ListBoxItemControlTemplate}"/>
     </Style>
-
-    <Style TargetType="{x:Type ToolTip}">
+    
+    <Style x:Key="ListBoxItemSimple" TargetType="{x:Type ListBoxItem}">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Setter Property="VerticalOffset" Value="3" />
-        <Setter Property="HorizontalOffset" Value="3" />
-        <Setter Property="Placement" Value="Bottom" />
-
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ToolTip}">
-                    <Border Background="{DynamicResource back_x_design}" Opacity="0.75" Margin="2,2,12,12" BorderBrush="#FF676767" BorderThickness="1,1,1,1" CornerRadius="4,4,4,4">
-                        <StackPanel Orientation="Horizontal" Background="Transparent">
-                            <Path IsEnabled="False" RenderTransformOrigin="0,0" Fill="White" Stretch="Fill" Data="M8.3203125,6.2790108 L8.4765625,6.2790108 L17.363281,14.491901 L8.4765625,22.734089 L8.3203125,22.734089 L8.3203125,18.437214 L0.41992188,18.437214 L0.41992188,10.556355 L8.3203125,10.556355 z" Margin="5,3,0,4">
-                                <Path.LayoutTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform ScaleX="1" ScaleY="1"/>
-                                        <SkewTransform AngleX="0" AngleY="0"/>
-                                        <RotateTransform Angle="-45"/>
-                                        <TranslateTransform X="0" Y="0"/>
-                                    </TransformGroup>
-                                </Path.LayoutTransform>
-                            </Path>
-                            <ContentPresenter TextBlock.Foreground="White" TextBlock.FontSize="12" Margin="5,0,7,0" VerticalAlignment="Center" />
-                        </StackPanel>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="Template" Value="{DynamicResource ListBoxItemControlTemplateSimple}"/>
     </Style>
-
+    
     <DrawingBrush x:Key="required_design" PresentationOptions:Freeze="True" Stretch="Uniform">
         <DrawingBrush.Drawing>
             <DrawingGroup>
