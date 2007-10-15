@@ -168,7 +168,8 @@
         <ContentControl ContentTemplate="{DynamicResource FullContactCard}" Content="{Binding}" Margin="10,0,10,5" HorizontalAlignment="Left"/>
         <ListBox Background="{x:Null}" BorderBrush="{x:Null}" x:Name="_list"
 			ItemsSource="{Binding Source={StaticResource Groups}}"
-			ItemTemplate="{DynamicResource GroupTemplate2}" 
+			ItemTemplate="{StaticResource GroupTemplate2}"
+            ItemContainerStyle="{DynamicResource ListBoxItemSimple}"
 			ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,5,0,0"/>
         <Controls:DottedHorizontal Margin="0,10,0,0"/>
         <StackPanel Margin="10">

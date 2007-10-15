@@ -499,6 +499,7 @@ namespace xeus2.xeus.Core
         public void SetVersion(agsXMPP.protocol.iq.version.Version version)
         {
             _version = version;
+
             NotifyPropertyChanged("ClientVersion");
             NotifyPropertyChanged("ClientName");
             NotifyPropertyChanged("ClientOS");
