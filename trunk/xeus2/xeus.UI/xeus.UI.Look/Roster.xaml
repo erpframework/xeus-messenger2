@@ -196,20 +196,21 @@
                 <Grid Margin="0,0,0,15" x:Name="_item" >
                     <Rectangle Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center"
                                 x:Name="_show" Panel.ZIndex="1" Margin="7,0,0,0"/>
+                    <!--
                     <Rectangle Margin="1,1,1,0"
                              Fill="{DynamicResource contact_back_big_glow_design}"
                              VerticalAlignment="Top" Height="20" Panel.ZIndex="1" SnapsToDevicePixels="True"/>
+                     -->
                     <a:SystemDropShadowChrome Color="#3000" Margin="-4,-4,1,1"/>
-                    <Border Padding="2,0,2,0"
-                            BorderBrush="#FFAAAAAA" BorderThickness="1,1,1,1"
-                            CornerRadius="3,3,3,3" SnapsToDevicePixels="True" x:Name="_parent"
+                    <Border Padding="0,0,2,0"
+                            CornerRadius="2" SnapsToDevicePixels="True" x:Name="_parent"
                             Background="{StaticResource contact_back_design}">
                         <Grid>
                             <Image Source="{Binding Path=Image}" x:Name="_image" 
                                       HorizontalAlignment="Left"
-                                      Height="26"
+                                      Height="26" Margin="2,0,0,0"
                                       Stretch="Uniform" IsEnabled="False"/>
-                            <StackPanel x:Name="_container" Margin="26,0,0,0">
+                            <StackPanel x:Name="_container" Margin="28,0,0,0">
                                 <TextBlock Margin="3,1,3,0" Text="{Binding Path=DisplayName}"
                                        Foreground="{StaticResource roster_name_text}" FontSize="11"
                                        TextAlignment="Left" TextTrimming="CharacterEllipsis"/>
