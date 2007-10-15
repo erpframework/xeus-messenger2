@@ -318,6 +318,16 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         private void OnKeyPress(object sender, KeyEventArgs e)
         {
+            if (e.Key == Key.Escape)
+            {
+                e.Handled = true;
+
+                if (CloseMe != null)
+                {
+                    CloseMe();
+                }
+            }
+
             if (e.Key == Key.Return &&
                 (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
             {
@@ -351,6 +361,8 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         {
             _chatStateNotificator.ChangeChatState(agsXMPP.protocol.extensions.chatstates.Chatstate.composing);
         }
+
+        public event CloseContainer CloseMe;
 
         public void Closing()
         {

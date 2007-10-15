@@ -69,8 +69,12 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                         }
 
                         RedistributeColumns();
-
                         EndInit();
+
+                        if (_multiWindows.Count == 0)
+                        {
+                            Window.GetWindow(this).Close();
+                        }
 
                         break;
                     }

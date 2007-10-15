@@ -12,6 +12,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         public event NotifyMultiWin OnMultiWinEvent;
 
         private readonly string _key = null;
+        private IFlyoutContainer _flyoutContainer = null;
 
         public enum MultiWinEvent
         {
@@ -24,6 +25,30 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         public MultiWin()
         {
             InitializeComponent();
+
+            Loaded += MultiWin_Loaded;
+            Unloaded += MultiWin_Unloaded;
+        }
+
+        void MultiWin_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Loaded -= MultiWin_Loaded;
+            Unloaded -= MultiWin_Unloaded;
+
+            if (_flyoutContainer != null)
+            {
+                _flyoutContainer.CloseMe -= _flyoutContainer_CloseMe;
+            }            
+        }
+
+        void MultiWin_Loaded(object sender, RoutedEventArgs e)
+        {
+            _flyoutContainer = ContentElement as IFlyoutContainer;
+
+            if (_flyoutContainer != null)
+            {
+                _flyoutContainer.CloseMe += _flyoutContainer_CloseMe;
+            }
         }
 
         public MultiWin(FrameworkElement element, string keyBase, string key) : this()
@@ -33,6 +58,11 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             WindowManager.Approve(Key);
 
             ContentElement = element;
+        }
+
+        void _flyoutContainer_CloseMe()
+        {
+            OnClose(this, null);
         }
 
         public double ContentMinWidth
@@ -117,7 +147,6 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         public virtual void Closing()
         {
-            
         }
     }
 }

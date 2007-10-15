@@ -486,6 +486,8 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         #endregion
 
+        public event CloseContainer CloseMe;
+
         public void Closing()
         {
             _mucRoom.LeaveRoom(Settings.Default.MucLeaveMsg);
