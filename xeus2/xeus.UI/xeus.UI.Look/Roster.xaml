@@ -8,6 +8,25 @@
   xmlns:Core="clr-namespace:xeus2.xeus.Core;assembly=" 	
   >
 
+    <DrawingBrush x:Key="contact_back_design" PresentationOptions:Freeze="True">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Geometry="F1 M 5.70833,6.25L 60.125,6.25L 60.125,58.6667L 5.70833,58.6667L 5.70833,6.25 Z ">
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush StartPoint="0.5,1.01908" EndPoint="0.5,-0.0190779">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#FF515151" Offset="0"/>
+                                    <GradientStop Color="#FF141414" Offset="1"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+    
     <DataTemplate x:Key="GroupTemplate">
         <Border Background="{DynamicResource back_list_design}" BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3">
             <Grid>
@@ -23,7 +42,7 @@
         </Border>
     </DataTemplate>
 
-    <DrawingBrush x:Key="filter_design">
+    <DrawingBrush x:Key="filter_design"  PresentationOptions:Freeze="True">
         <DrawingBrush.Drawing>
             <DrawingGroup>
                 <DrawingGroup.Children>
@@ -145,7 +164,7 @@
         <DrawingBrush.Drawing>
             <DrawingGroup>
                 <DrawingGroup.Children>
-                    <GeometryDrawing Brush="#23FFFFFF" Geometry="F1 M 139.278,12L 210.5,12L 210.5,29.3683C 199.181,27.6085 187.639,32.6841 174.889,33.6666C 162.528,34.3508 148.861,33.6841 139.278,29.3683L 139.278,12 Z "/>
+                    <GeometryDrawing Brush="#1AFFFFFF" Geometry="F1 M 136.556,19.1754L 212.722,19.1754L 212.722,34.8421C 200.056,35.8421 187.389,36.8421 174.694,36.8421C 162,36.8421 149.278,35.8421 136.556,34.8421L 136.556,19.1754 Z "/>
                 </DrawingGroup.Children>
             </DrawingGroup>
         </DrawingBrush.Drawing>
@@ -160,14 +179,13 @@
     <DataTemplate x:Key="MetaContactSmall">
         <Grid>
             <Grid.ToolTip>
-                <Grid>
-                    <TextBlock Text=""/>
-                    <ContentPresenter Content="{Binding}" ContentTemplate="{DynamicResource ContactToolTip}"/>
-                </Grid>
+                <ContentPresenter Content="{Binding}" ContentTemplate="{DynamicResource ContactToolTip}"/>
             </Grid.ToolTip>
             
-            <Grid Margin="3,3,3,3" x:Name="_grid" ContextMenu="{DynamicResource ContactMenu}" MaxWidth="150" VerticalAlignment="Center">
-                <Grid VerticalAlignment="Bottom" x:Name="_resource" Margin="3,-1,5,0" Visibility="Visible" HorizontalAlignment="Left">
+            <Grid Margin="1,1,1,1" x:Name="_grid" ContextMenu="{DynamicResource ContactMenu}"
+                  MaxWidth="{Binding Path=UI_Item_Small_MaxWidth, Source={x:Static prop:Settings.Default}}"
+                  VerticalAlignment="Center">
+                <Grid VerticalAlignment="Bottom" x:Name="_resource" Margin="3,-1,5,0" HorizontalAlignment="Left">
                     <Border BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" Margin="0,0,0,2"
                         Background="#FFe5e5e5" BorderBrush="{DynamicResource roster_image_border}">
                         <TextBlock Margin="5,0,5,0" VerticalAlignment="Center" Foreground="#FF000000"
@@ -177,31 +195,26 @@
                 </Grid>
                 <Grid Margin="0,0,0,15" x:Name="_item" >
                     <Rectangle Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center"
-                    x:Name="_show" Panel.ZIndex="1" Margin="7,0,0,0"/>
+                                x:Name="_show" Panel.ZIndex="1" Margin="7,0,0,0"/>
                     <Rectangle Margin="1,1,1,0"
-                 Fill="{DynamicResource contact_back_big_glow_design}"
-                 VerticalAlignment="Top" Height="20" Panel.ZIndex="1" SnapsToDevicePixels="True"/>
+                             Fill="{DynamicResource contact_back_big_glow_design}"
+                             VerticalAlignment="Top" Height="20" Panel.ZIndex="1" SnapsToDevicePixels="True"/>
                     <a:SystemDropShadowChrome Color="#3000" Margin="-4,-4,1,1"/>
-                    <Border ClipToBounds="True" Padding="3,3,3,3"
-                    BorderBrush="#FFAAAAAA" BorderThickness="1,1,1,1"
-                    CornerRadius="3,3,3,3" SnapsToDevicePixels="True">
-                        <Border.Background>
-                            <LinearGradientBrush StartPoint="0.5,1.0" EndPoint="0.5,0.0">
-                                <LinearGradientBrush.GradientStops>
-                                    <GradientStop Color="#FF515151" Offset="0"/>
-                                    <GradientStop Color="#FF141414" Offset="1"/>
-                                </LinearGradientBrush.GradientStops>
-                            </LinearGradientBrush>
-                        </Border.Background>
+                    <Border Padding="2,0,2,0"
+                            BorderBrush="#FFAAAAAA" BorderThickness="1,1,1,1"
+                            CornerRadius="3,3,3,3" SnapsToDevicePixels="True" x:Name="_parent"
+                            Background="{StaticResource contact_back_design}">
                         <Grid>
-                                <Image Source="{Binding Path=Image}" x:Name="_image" 
-                                       Width="20" Height="20" HorizontalAlignment="Left"
-                                  ClipToBounds="True" Stretch="Uniform" IsEnabled="False"/>
-                            <StackPanel x:Name="_container" Margin="20,0,0,0">
-                                <TextBlock Margin="5,0,3,0" Text="{Binding Path=DisplayName}" Foreground="{StaticResource roster_name_text}" FontSize="11"
+                            <Image Source="{Binding Path=Image}" x:Name="_image" 
+                                      HorizontalAlignment="Left"
+                                      Height="26"
+                                      Stretch="Uniform" IsEnabled="False"/>
+                            <StackPanel x:Name="_container" Margin="26,0,0,0">
+                                <TextBlock Margin="3,1,3,0" Text="{Binding Path=DisplayName}"
+                                       Foreground="{StaticResource roster_name_text}" FontSize="11"
                                        TextAlignment="Left" TextTrimming="CharacterEllipsis"/>
                                 <TextBlock Text="{Binding Path=XStatusText}" Foreground="{StaticResource roster_status_text}"
-                                   Margin="6,0,4,0" FontSize="10" TextAlignment="Left" TextTrimming="CharacterEllipsis"/>
+                                       Margin="3,-3,3,2" FontSize="10" TextAlignment="Left" TextTrimming="CharacterEllipsis"/>
                             </StackPanel>
                         </Grid>
                     </Border>
@@ -255,6 +268,9 @@
 
     <DataTemplate x:Key="MetaContactMedium">
         <Grid Margin="3,3,3,3" x:Name="_grid" MaxWidth="160" MaxHeight="70" ContextMenu="{DynamicResource ContactMenu}">
+            <Grid.ToolTip>
+                <ContentPresenter Content="{Binding}" ContentTemplate="{DynamicResource ContactToolTip}"/>
+            </Grid.ToolTip>
             <Grid>
                 <Grid VerticalAlignment="Bottom" x:Name="_resource" Margin="3,-1,5,0" Visibility="Visible" HorizontalAlignment="Left">
                     <Border BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" Margin="0,0,0,2"
@@ -373,6 +389,9 @@
 
     <DataTemplate x:Key="MetaContactBig">
         <Grid Margin="3,3,3,3" x:Name="_grid" ContextMenu="{DynamicResource ContactMenu}" VerticalAlignment="Center">
+            <Grid.ToolTip>
+                <ContentPresenter Content="{Binding}" ContentTemplate="{DynamicResource ContactToolTip}"/>
+            </Grid.ToolTip>
             <Grid>
                 <Grid VerticalAlignment="Top" x:Name="_resource" Margin="0,3,0,0" MaxHeight="90">
                     <Rectangle Margin="3,10,0,0" Fill="#33000000" StrokeThickness="0" RadiusX="3" RadiusY="3"/>
