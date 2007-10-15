@@ -9,13 +9,16 @@
   >
 
     <DataTemplate x:Key="GroupTemplate">
-        <Border Background="{DynamicResource back_list_design}" BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" Padding="3,3,3,3" Margin="2,2,2,2">
+        <Border Background="{DynamicResource back_list_design}" BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3">
             <Grid>
+                <TextBlock Text="{Binding Path=Name}"/>
+                <!--
                 <Rectangle Width="24" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center" Fill="{DynamicResource group_design}"/>
                 <StackPanel Margin="32,0,0,0">
                     <TextBlock Text="{Binding Path=Name}"/>
                     <TextBlock Text="{Binding Path=Description}"/>
                 </StackPanel>
+                -->
             </Grid>
         </Border>
     </DataTemplate>

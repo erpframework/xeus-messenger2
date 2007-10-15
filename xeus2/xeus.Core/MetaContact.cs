@@ -380,6 +380,8 @@ namespace xeus2.xeus.Core
         {
             switch (property)
             {
+                case "DisplayName":
+                case "Group":
                 case "IsAvailable":
                     {
                         return true;

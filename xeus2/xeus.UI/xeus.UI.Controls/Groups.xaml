@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Core="clr-namespace:xeus2.xeus.Core"
     xmlns:ComponentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+    xmlns:Controls="clr-namespace:xeus2.xeus.UI.xeus.UI.Controls;assembly="
     Margin="10">
     <UserControl.Resources>
         <DrawingBrush x:Key="group_design">
@@ -142,20 +143,41 @@
             </DrawingBrush.Drawing>
         </DrawingBrush>
         
-        <ObjectDataProvider x:Key="GroupsDS" ObjectType="{x:Type Core:Roster}"/>
-
-        <CollectionViewSource x:Key="Groups" Source="{Binding Path=Instance.Groups, Mode=Default, Source={StaticResource GroupsDS}}">
+        <CollectionViewSource x:Key="Groups"
+                              Source="{Binding Source={x:Static Core:Roster.Instance}, Path=Groups}">
             <CollectionViewSource.SortDescriptions>
                 <ComponentModel:SortDescription PropertyName="Name" />
             </CollectionViewSource.SortDescriptions>
         </CollectionViewSource>
-        
+
+        <DataTemplate x:Key="GroupTemplate2">
+            <Border Background="{DynamicResource back_list_design}" BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="24" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center" Fill="{DynamicResource group_design}"/>
+                    <StackPanel Margin="10,0,0,0">
+                        <TextBlock Text="{Binding Path=Name}"/>
+                        <TextBlock Text="{Binding Path=Description}"/>
+                    </StackPanel>
+                    <Button Content="Move here" Margin="10,0,0,0" VerticalAlignment="Center" Click="Button_Click"/>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+
     </UserControl.Resources>
-    <Grid>
+    <StackPanel>
+        <ContentControl ContentTemplate="{DynamicResource FullContactCard}" Content="{Binding}" Margin="10,0,10,5" HorizontalAlignment="Left"/>
         <ListBox Background="{x:Null}" BorderBrush="{x:Null}" x:Name="_list"
 			ItemsSource="{Binding Source={StaticResource Groups}}"
-			ItemTemplate="{DynamicResource GroupTemplate}" 
+			ItemTemplate="{DynamicResource GroupTemplate2}" 
 			ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,5,0,0"/>
+        <Controls:DottedHorizontal Margin="0,10,0,0"/>
+        <StackPanel Margin="10">
+            <TextBlock Text="Create new group and move" Style="{DynamicResource LabelWizard}"/>
+        	<DockPanel>
+				<Button Content="Move here" Click="Button_Click" DockPanel.Dock="Right" Margin="10,0,0,0"/>
+				<TextBox x:Name="_groupName"/>
+			</DockPanel>
+        </StackPanel>
 
-    </Grid>
+    </StackPanel>
 </UserControl>

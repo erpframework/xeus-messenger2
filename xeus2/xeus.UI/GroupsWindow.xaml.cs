@@ -9,9 +9,9 @@ namespace xeus2.xeus.UI
     {
         public const string _keyBase = "GroupsWindow";
 
-        public GroupsWindow() : base(_keyBase, string.Empty)
+        public GroupsWindow(IContact contact) : base(_keyBase, string.Empty)
         {
-            DataContext = Roster.Instance;
+            DataContext = contact;
 
             InitializeComponent();
         }
