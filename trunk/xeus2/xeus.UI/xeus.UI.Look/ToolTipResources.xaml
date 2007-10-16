@@ -42,7 +42,7 @@
     </DataTemplate>
     
     <DataTemplate x:Key="ToolTipContactCard">
-        <Grid Margin="3,3,3,3" x:Name="_grid" ContextMenu="{DynamicResource ContactMenu}">
+        <Grid Margin="3,3,3,3" x:Name="_grid">
             <StackPanel HorizontalAlignment="Left">
                 <Border Margin="1,1,1,-3" x:Name="_imageBorder" Width="32" Height="32"
 	                                BorderBrush="{DynamicResource roster_image_border}"
@@ -75,18 +75,18 @@
                     </Border.Background>
                 </Border>
             </StackPanel>
-            <StackPanel Margin="45,0,0,0">
-                <TextBlock Margin="3,0,3,0" Text="{Binding Path=DisplayName}" Foreground="{StaticResource roster_name_text}" FontSize="11"
+            <StackPanel Margin="45,0,0,0" HorizontalAlignment="Left">
+                <TextBlock Margin="3,0,3,0" Text="{Binding Path=DisplayName}" Foreground="{DynamicResource roster_name_text}" FontSize="11"
                                        TextAlignment="Left" TextTrimming="CharacterEllipsis"/>
                 <Grid>
                     <Rectangle Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center"
                                     x:Name="_show" Panel.ZIndex="1" Margin="0,0,4,0"/>
                     <StackPanel x:Name="_statusText" Margin="4,0,4,0" >
                         <TextBlock Text="{Binding Path=XStatusText}"
-                                           Foreground="{StaticResource roster_status_text}"
+                                           Foreground="{DynamicResource roster_status_text}"
                                            FontSize="10" TextAlignment="Left" TextWrapping="Wrap" MaxHeight="30" TextTrimming="CharacterEllipsis"/>
                         <TextBlock Text="{Binding Path=Resource}"
-                                           Foreground="{StaticResource roster_status_text}"
+                                           Foreground="{DynamicResource roster_status_text}"
                                            FontSize="10" TextAlignment="Left" TextWrapping="Wrap" MaxHeight="30" TextTrimming="CharacterEllipsis"/>
                     </StackPanel>
                 </Grid>
@@ -117,10 +117,8 @@
 
     <DataTemplate x:Key="ContactToolTip">
         <StackPanel>
-            <ContentPresenter Content="{Binding}" ContentTemplate="{DynamicResource ToolTipContactCard}"/>
-            <!--
-            <ContentPresenter Content="{Binding}" ContentTemplate="{DynamicResource Client}"/>
-            -->
+            <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource ToolTipContactCard}"/>
+            <!--<ContentPresenter Content="{Binding}" ContentTemplate="{DynamicResource Client}"/>-->
         </StackPanel>
     </DataTemplate>
 
