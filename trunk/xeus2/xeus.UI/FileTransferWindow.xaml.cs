@@ -1,4 +1,5 @@
-﻿using xeus2.xeus.Core;
+﻿using xeus2.xeus.Commands;
+using xeus2.xeus.Core;
 
 namespace xeus2.xeus.UI
 {
@@ -9,11 +10,11 @@ namespace xeus2.xeus.UI
     {
         public const string _keyBase = "FileTransfer";
 
-        internal FileTransferWindow(FileTransfer fileTransfer) : base(_keyBase, string.Empty)
+        internal FileTransferWindow() : base(_keyBase, string.Empty)
         {
             InitializeComponent();
 
-            _fileTransfer.FileTransfer = fileTransfer;
+            GeneralCommands.RegisterCommands(this);
         }
     }
 }

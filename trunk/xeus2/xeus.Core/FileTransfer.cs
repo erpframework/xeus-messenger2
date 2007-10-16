@@ -17,16 +17,26 @@ using Uri=agsXMPP.Uri;
 
 namespace xeus2.xeus.Core
 {
+    public enum FileTransferMode
+    {
+        Sending,
+        Recieving,
+        Undefined
+    }
+
+    public enum FileTransferState
+    {
+        Waiting,
+        Progress,
+        Finished,
+        Cancelled
+    }
+
     internal class FileTransfer : NotifyInfoDispatcher
     {
-        #region Mode enum
+        private static readonly ObservableCollectionDisp<FileTransfer> _fileTransfers = new ObservableCollectionDisp<FileTransfer>();
 
-        public enum Mode
-        {
-            Sending,
-            Recieving,
-            Undefined
-        }
+        #region Mode enum
 
         #endregion
 
@@ -39,7 +49,7 @@ namespace xeus2.xeus.Core
         /// </summary>
         private readonly string _sid;
 
-        private readonly Mode _transferMode = Mode.Undefined;
+        private readonly FileTransferMode _transferMode = FileTransferMode.Undefined;
         private readonly XmppClientConnection _xmppConnection;
         private long _bytesTransmitted = 0;
         private string _fileDescription = null;
@@ -53,15 +63,19 @@ namespace xeus2.xeus.Core
         private string _rate;
         private string _remaining;
 
+        private string _filePath;
+
         private IQ _siIq;
         private DateTime _startDateTime;
         private IContact _to;
+
+        private FileTransferState _state = FileTransferState.Waiting;
 
         private string _transmitted;
 
         public FileTransfer(XmppClientConnection xmppCon, IQ iq, IContact from)
         {
-            _transferMode = Mode.Recieving;
+            _transferMode = FileTransferMode.Recieving;
 
             _siIq = iq;
             _si = iq.SelectSingleElement(typeof (SI)) as SI;
@@ -131,7 +145,7 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public Mode TransferMode
+        public FileTransferMode TransferMode
         {
             get
             {
@@ -191,6 +205,28 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public FileTransferState State
+        {
+            get
+            {
+                return _state;
+            }
+
+            private set
+            {
+                _state = value;
+                NotifyPropertyChanged("State");
+            }
+        }
+
+        public static ObservableCollectionDisp<FileTransfer> FileTransfers
+        {
+            get
+            {
+                return _fileTransfers;
+            }
+        }
+
         public void Refuse()
         {
             IQ iq = new IQ();
@@ -203,16 +239,21 @@ namespace xeus2.xeus.Core
             iq.Error.Code = ErrorCode.Forbidden;
             iq.Error.Type = ErrorType.cancel;
 
-            _xmppConnection.Send(iq);            
+            _xmppConnection.Send(iq);
+
+            State = FileTransferState.Cancelled;
         }
 
         public void Accept()
         {
             FeatureNeg fNeg = _si.FeatureNeg;
 
+            bool ok = false;
+
             if (fNeg != null)
             {
                 agsXMPP.protocol.x.data.Data data = fNeg.Data;
+                
                 if (data != null)
                 {
                     Field[] field = data.GetFields();
@@ -224,6 +265,7 @@ namespace xeus2.xeus.Core
                             string val = o.GetValue();
                             methods.Add(val, val);
                         }
+
                         if (methods.ContainsKey(Uri.BYTESTREAMS))
                         {
                             // supports bytestream, so choose this option
@@ -246,9 +288,16 @@ namespace xeus2.xeus.Core
 
                             _xmppConnection.OnIq += _xmppConnection_OnIq;
                             _xmppConnection.Send(sIq);
+
+                            ok = true;
                         }
                     }
                 }
+            }
+
+            if (!ok)
+            {
+                State = FileTransferState.Cancelled;
             }
         }
 
@@ -274,7 +323,6 @@ namespace xeus2.xeus.Core
         }
 
         private void HandleStreamHost(ByteStream bs, IQ iq)
-            //private void HandleStreamHost(object obj)
         {
             //IQ iq = obj as IQ;
             //ByteStream bs = iq.Query as agsXMPP.protocol.extensions.bytestreams.ByteStream;;
@@ -318,10 +366,28 @@ namespace xeus2.xeus.Core
         {
             _startDateTime = DateTime.Now;
 
+            State = FileTransferState.Progress;
+
             Storage.GetRecievedFolder().Create();
 
-            _fileStream =
-                new FileStream(Path.Combine(Storage.GetRecievedFolder().ToString(), _file.Name), FileMode.Create);
+            _filePath = Path.Combine(Storage.GetRecievedFolder().ToString(), _file.Name);
+            _fileStream = new FileStream(_filePath, FileMode.Create);
+        }
+
+        public void OpenFolder()
+        {
+            if (!string.IsNullOrEmpty(_filePath))
+            {
+                Storage.OpenShell(Path.GetDirectoryName(_filePath));
+            }
+        }
+
+        public void OpenFile()
+        {
+            if (!string.IsNullOrEmpty(_filePath))
+            {
+                Storage.OpenShell(_filePath);
+            }
         }
 
         private void SendStreamHostUsedResponse(StreamHost sh, IQ iq)
@@ -344,10 +410,12 @@ namespace xeus2.xeus.Core
                 // tslTransmitted.Text = "completed";
                 // Update Progress when complete
                 UpdateProgress();
+
+                State = FileTransferState.Finished;
             }
             else
             {
-                // not complete, some error occured or somebody canceled the transfer
+                State = FileTransferState.Cancelled;
             }
         }
 
@@ -357,11 +425,10 @@ namespace xeus2.xeus.Core
 
             _bytesTransmitted += count;
 
-
             // to udate the progress bar	
             TimeSpan ts = DateTime.Now - _lastProgressUpdate;
 
-            if (ts.Seconds >= 1)
+            if (ts.Milliseconds >= 250)
             {
                 UpdateProgress();
             }
@@ -371,7 +438,9 @@ namespace xeus2.xeus.Core
         {
             _lastProgressUpdate = DateTime.Now;
 
-            double percent = _bytesTransmitted / _fileLength * 100;
+#pragma warning disable RedundantCast
+            double percent = (double)_bytesTransmitted / (double)_fileLength * 100;
+#pragma warning restore RedundantCast
 
             ProgressPercent = (int) percent;
             Rate = GetHRByteRateString();
