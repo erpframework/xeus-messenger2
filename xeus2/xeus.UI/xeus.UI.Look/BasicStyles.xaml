@@ -252,7 +252,8 @@
     <ControlTemplate x:Key="ListBoxItemControlTemplateSimple" TargetType="{x:Type ListBoxItem}">
         <Border SnapsToDevicePixels="True" x:Name="Bd" CornerRadius="2,2,2,2" Padding="{TemplateBinding Padding}"
             BorderThickness="1,1,1,1">
-            <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
+            <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                              HorizontalAlignment="Stretch" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
         </Border>
     </ControlTemplate>
 

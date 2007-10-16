@@ -32,7 +32,7 @@ namespace xeus2.xeus.Data
             _folder = fileInfo.DirectoryName;
         }
 
-        public static void OpenShellFolder(string path)
+        public static void OpenShell(string path)
         {
             Process proc = new Process();
             proc.EnableRaisingEvents = false;

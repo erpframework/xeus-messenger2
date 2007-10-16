@@ -8,33 +8,11 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
     /// </summary>
     public partial class FileTransferControl : UserControl
     {
-        private FileTransfer _fileTransfer;
-
         public FileTransferControl()
         {
             InitializeComponent();
-        }
 
-        internal FileTransfer FileTransfer
-        {
-            get
-            {
-                return _fileTransfer;
-            }
-            set
-            {
-                _fileTransfer = value;
-            }
-        }
-
-        private void Button_Click_Accept(object sender, System.Windows.RoutedEventArgs e)
-        {
-            _fileTransfer.Accept();
-        }
-
-        private void Button_Click_Refuse(object sender, System.Windows.RoutedEventArgs e)
-        {
-            _fileTransfer.Refuse();
+            _list.ItemsSource = FileTransfer.FileTransfers;
         }
     }
 }

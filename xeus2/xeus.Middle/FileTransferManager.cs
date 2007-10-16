@@ -42,10 +42,12 @@ namespace xeus2.xeus.Middle
 
         void TransferOpenUI(XmppClientConnection xmppCon, IQ iq)
         {
+            FileTransfer fileTransfer = new FileTransfer(xmppCon, iq, FindContact(iq.From));
+            FileTransfer.FileTransfers.Add(fileTransfer);
+
             try
             {
-                FileTransfer fileTransfer = new FileTransfer(xmppCon, iq, FindContact(iq.From));
-                FileTransferWindow fileTransferWindow = new FileTransferWindow(fileTransfer);
+                FileTransferWindow fileTransferWindow = new FileTransferWindow();
 
                 fileTransferWindow.Show();
             }
