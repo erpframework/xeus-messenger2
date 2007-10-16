@@ -32,7 +32,7 @@ namespace xeus2.xeus.Core
         Cancelled
     }
 
-    internal class FileTransfer : NotifyInfoDispatcher
+    internal class FileTransfer : NotifyInfoDispatcher, IDisposable
     {
         private static readonly ObservableCollectionDisp<FileTransfer> _fileTransfers = new ObservableCollectionDisp<FileTransfer>();
 
@@ -50,7 +50,7 @@ namespace xeus2.xeus.Core
         private readonly string _sid;
 
         private readonly FileTransferMode _transferMode = FileTransferMode.Undefined;
-        private readonly XmppClientConnection _xmppConnection;
+        private XmppClientConnection _xmppConnection;
         private long _bytesTransmitted = 0;
         private string _fileDescription = null;
         private string _fileName = null;
@@ -99,6 +99,11 @@ namespace xeus2.xeus.Core
 
                 _xmppConnection = xmppCon;
             }
+        }
+
+        ~FileTransfer()
+        {
+            Dispose();
         }
 
         public string FileName
@@ -214,6 +219,12 @@ namespace xeus2.xeus.Core
 
             private set
             {
+                if (value == FileTransferState.Cancelled
+                    || value == FileTransferState.Finished)
+                {
+                    Dispose();
+                }
+
                 _state = value;
                 NotifyPropertyChanged("State");
             }
@@ -517,6 +528,20 @@ namespace xeus2.xeus.Core
             {
                 // to fast to calculate a bitrate (0 seconds)
                 return HRSize(0) + "/s";
+            }
+        }
+
+        public void Dispose()
+        {
+            if (_xmppConnection != null)
+            {
+                _xmppConnection.OnIq -= _xmppConnection_OnIq;
+                _xmppConnection = null;
+
+                _fileStream.Close();
+                _fileStream.Dispose();
+
+                _proxySocks5Socket.Disconnect();
             }
         }
     }
