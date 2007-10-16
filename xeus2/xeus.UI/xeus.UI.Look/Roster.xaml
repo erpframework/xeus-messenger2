@@ -8,6 +8,7 @@
   xmlns:Core="clr-namespace:xeus2.xeus.Core;assembly=" 	
   >
 
+
     <DrawingBrush x:Key="contact_back_design" PresentationOptions:Freeze="True">
         <DrawingBrush.Drawing>
             <DrawingGroup>
@@ -179,7 +180,7 @@
     <DataTemplate x:Key="MetaContactSmall">
         <Grid>
             <Grid.ToolTip>
-                <ContentPresenter Content="{Binding}" ContentTemplate="{DynamicResource ContactToolTip}"/>
+                <ToolTip ContentTemplate="{DynamicResource ContactToolTip}" Content="{Binding}"/>
             </Grid.ToolTip>
             
             <Grid Margin="1,1,1,1" x:Name="_grid" ContextMenu="{DynamicResource ContactMenu}"
@@ -208,8 +209,8 @@
                         <Grid>
                             <Image Source="{Binding Path=Image}" x:Name="_image" 
                                       HorizontalAlignment="Left"
-                                      Height="26" Margin="2,0,0,0"
-                                      Stretch="Uniform" IsEnabled="False"/>
+                                      Height="24" Width="24" Margin="2,0,0,0"
+                                      Stretch="UniformToFill" IsEnabled="False"/>
                             <StackPanel x:Name="_container" Margin="28,0,0,0">
                                 <TextBlock Margin="3,1,3,0" Text="{Binding Path=DisplayName}"
                                        Foreground="{StaticResource roster_name_text}" FontSize="11"
@@ -270,7 +271,7 @@
     <DataTemplate x:Key="MetaContactMedium">
         <Grid Margin="3,3,3,3" x:Name="_grid" MaxWidth="160" MaxHeight="70" ContextMenu="{DynamicResource ContactMenu}">
             <Grid.ToolTip>
-                <ContentPresenter Content="{Binding}" ContentTemplate="{DynamicResource ContactToolTip}"/>
+                <ToolTip ContentTemplate="{DynamicResource ContactToolTip}" Content="{Binding}"/>
             </Grid.ToolTip>
             <Grid>
                 <Grid VerticalAlignment="Bottom" x:Name="_resource" Margin="3,-1,5,0" Visibility="Visible" HorizontalAlignment="Left">
@@ -391,7 +392,7 @@
     <DataTemplate x:Key="MetaContactBig">
         <Grid Margin="3,3,3,3" x:Name="_grid" ContextMenu="{DynamicResource ContactMenu}" VerticalAlignment="Center">
             <Grid.ToolTip>
-                <ContentPresenter Content="{Binding}" ContentTemplate="{DynamicResource ContactToolTip}"/>
+                <ToolTip ContentTemplate="{DynamicResource ContactToolTip}" Content="{Binding}"/>
             </Grid.ToolTip>
             <Grid>
                 <Grid VerticalAlignment="Top" x:Name="_resource" Margin="0,3,0,0" MaxHeight="90">
