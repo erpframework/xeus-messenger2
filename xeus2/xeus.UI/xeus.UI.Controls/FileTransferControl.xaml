@@ -120,8 +120,8 @@
                     <Button Content="Accept" Margin="5,0,5,0" Command="xeus2_xeus_Commands:GeneralCommands.AcceptFileTransfer" CommandParameter="{Binding}" />
                     <Button Content="Refuse" Margin="5,0,5,0" Command="xeus2_xeus_Commands:GeneralCommands.RejectFileTransfer" CommandParameter="{Binding}" />
                     <Button Content="Close" Margin="5,0,5,0" Command="xeus2_xeus_Commands:GeneralCommands.RemoveFileTransfer" CommandParameter="{Binding}" />
-                    <Button Content="Open file" Margin="5,0,5,0" Command="xeus2_xeus_Commands:GeneralCommands.OpenFileFolder" CommandParameter="{Binding}" />
-                    <Button Content="Open location" Margin="5,0,5,0" Command="xeus2_xeus_Commands:GeneralCommands.OpenFile" CommandParameter="{Binding}" />
+                    <Button Content="Open location" Margin="5,0,5,0" Command="xeus2_xeus_Commands:GeneralCommands.OpenFileFolder" CommandParameter="{Binding}" />
+                    <Button Content="Open file" Margin="5,0,5,0" Command="xeus2_xeus_Commands:GeneralCommands.OpenFile" CommandParameter="{Binding}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
@@ -160,13 +160,13 @@
                     <DataTrigger.Value>
                         <Core:FileTransferState>Finished</Core:FileTransferState>
                     </DataTrigger.Value>
-                    <Setter  TargetName="_state" Property="Rectangle.Fill" Value="{DynamicResource delete_design}"/>
+                    <Setter  TargetName="_state" Property="Rectangle.Fill" Value="{DynamicResource download_finished_design}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=State}">
                     <DataTrigger.Value>
                         <Core:FileTransferState>Progress</Core:FileTransferState>
                     </DataTrigger.Value>
-                    <Setter  TargetName="_state" Property="Rectangle.Fill" Value="{DynamicResource download_finished_design}"/>
+                    <Setter  TargetName="_state" Property="Rectangle.Fill" Value="{DynamicResource download_design}"/>
                 </DataTrigger>
             </DataTemplate.Triggers>
 
