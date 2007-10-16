@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="xeus2.xeus.UI.xeus.UI.Controls.FileTransferControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel>
+       <ContentPresenter Content="{Binding Path=From}" ContentTemplate="{DynamicResource ToolTipContactCard}"/>
+       <TextBlock Text="{Binding Path=FileName}"/>
+       <TextBlock Text="{Binding Path=FileDescription}"/>
+       <TextBlock Text="{Binding Path=FileSize}"/>
+       <TextBlock Text="{Binding Path=Rate}"/>
+       <TextBlock Text="{Binding Path=Transmitted}"/>
+       <TextBlock Text="{Binding Path=Remaining}"/>
+       <ProgressBar Value="{Binding Path=ProgressPercent, Mode=OneWay}" Maximum="100"/>
+        <Button Content="Accept" Click="Button_Click_Accept"/>
+        <Button Content="Refuse" Click="Button_Click_Refuse"/>
+    </StackPanel>
+</UserControl>

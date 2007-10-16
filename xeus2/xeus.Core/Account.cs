@@ -7,6 +7,8 @@ using agsXMPP;
 using agsXMPP.net;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.extensions.commands;
+using agsXMPP.protocol.extensions.filetransfer;
+using agsXMPP.protocol.extensions.si;
 using agsXMPP.protocol.iq.disco;
 using agsXMPP.protocol.iq.last;
 using agsXMPP.protocol.iq.register;
@@ -19,7 +21,7 @@ using Win32_API;
 using xeus2.Properties;
 using xeus2.xeus.Data;
 using xeus2.xeus.Middle;
-using Search=xeus2.xeus.Middle.Search;
+using Search=agsXMPP.protocol.iq.search.Search;
 using Timer=System.Timers.Timer;
 using Uri=agsXMPP.Uri;
 using Version=agsXMPP.protocol.iq.version.Version;
@@ -74,17 +76,17 @@ namespace xeus2.xeus.Core
         private int _servicesDoneCount;
         private volatile bool _working = false;
 
+        private Account()
+        {
+            Prepare();
+        }
+
         public static Account Instance
         {
             get
             {
                 return _instance;
             }
-        }
-
-        Account()
-        {
-            Prepare();
         }
 
         public int MyPriority
@@ -191,7 +193,7 @@ namespace xeus2.xeus.Core
         {
             Close();
             Cleanup();
-            CreateAccount();                        
+            CreateAccount();
         }
 
         private void CreateAccount()
@@ -250,7 +252,7 @@ namespace xeus2.xeus.Core
             _discoTime.AutoReset = false;
         }
 
-        void OpenInternal(bool newAccount)
+        private void OpenInternal(bool newAccount)
         {
             XmppConnection.RegisterAccount = newAccount;
             XmppConnection.Username = Settings.Default.XmppUserName;
@@ -259,7 +261,7 @@ namespace xeus2.xeus.Core
 
             if (Settings.Default.XmppServerPort > 0)
             {
-                XmppConnection.Port = (int)Settings.Default.XmppServerPort;
+                XmppConnection.Port = (int) Settings.Default.XmppServerPort;
             }
 
             /*XmppConnection.Capabilities = Self.Caps;
@@ -269,7 +271,7 @@ namespace xeus2.xeus.Core
 
             XmppConnection.Open();
 
-            _selfContact.LoadMyAvatar();            
+            _selfContact.LoadMyAvatar();
         }
 
         public void Open()
@@ -277,19 +279,19 @@ namespace xeus2.xeus.Core
             OpenInternal(false);
         }
 
-        void XmppConnection_OnXmppError(object sender, Element e)
+        private void XmppConnection_OnXmppError(object sender, Element e)
         {
             EventError eventError = new EventError(string.Format("XMPP Error: {0}", e), null);
             Events.Instance.OnEvent(this, eventError);
         }
 
-        void XmppConnection_OnSocketError(object sender, Exception ex)
+        private void XmppConnection_OnSocketError(object sender, Exception ex)
         {
             EventErrorConnection eventError = new EventErrorConnection("Connection error", ex);
             Events.Instance.OnEvent(this, eventError);
         }
 
-        void XmppConnection_OnRegisterError(object sender, Element e)
+        private void XmppConnection_OnRegisterError(object sender, Element e)
         {
             Events.Instance.OnEvent(this, new EventErrorRegistration(e));
         }
@@ -306,16 +308,16 @@ namespace xeus2.xeus.Core
             Events.Instance.OnEvent(this, eventError);
         }
 
-        void XmppConnection_OnRegistered(object sender)
+        private void XmppConnection_OnRegistered(object sender)
         {
             Events.Instance.OnEvent(this, new EventInfoRegistrationSuccess("Account successfully created"));
         }
 
-        void XmppConnection_OnBinded(object sender)
+        private void XmppConnection_OnBinded(object sender)
         {
         }
 
-        void XmppConnection_OnPasswordChanged(object sender)
+        private void XmppConnection_OnPasswordChanged(object sender)
         {
             throw new NotImplementedException();
         }
@@ -415,28 +417,22 @@ namespace xeus2.xeus.Core
 
         private void _xmppConnection_OnIq(object sender, IQ iq)
         {
-            if (iq != null)
+            if (iq != null && iq.HasTag(typeof (SI)))
             {
-                // No Iq with query
-                /*
-                if (iq.HasTag(typeof (SI)))
+                if (iq.Type == IqType.set)
                 {
-                    if (iq.Type == IqType.set)
-                    {
-                        SI si =
-                            iq.SelectSingleElement(typeof (SI)) as SI;
+                    SI si = iq.SelectSingleElement(typeof (SI)) as SI;
 
+                    if (si != null)
+                    {
                         File file = si.File;
 
                         if (file != null)
                         {
-                            TransferWindow.Transfer(XmppConnection, iq);
+                            FileTransferManager.Instance.TransferOpen(_xmppConnection, iq);
                         }
                     }
-                    else if (iq.Type == IqType.result)
-                    {
-                    }
-                }*/
+                }
             }
 
             if (iq != null && iq.Type == IqType.get)
@@ -684,7 +680,7 @@ namespace xeus2.xeus.Core
         {
             Service service = data as Service;
 
-            agsXMPP.protocol.iq.search.Search search = iq.Query as agsXMPP.protocol.iq.search.Search;
+            Search search = iq.Query as Search;
 
             if (iq.Error != null)
             {
@@ -694,7 +690,7 @@ namespace xeus2.xeus.Core
             }
             else if (iq.Type == IqType.result && search != null)
             {
-                Search.Instance.DisplaySearchResult(search, (Service) data);
+                Middle.Search.Instance.DisplaySearchResult(search, (Service) data);
 
                 EventInfo eventinfo = new EventInfo(string.Format(Resources.Even_SearchSucceeded, service.Name));
                 Events.Instance.OnEvent(this, eventinfo);
@@ -724,7 +720,7 @@ namespace xeus2.xeus.Core
 
         private void OnServiceRegistered(object sender, IQ iq, object data)
         {
-            Service service = (Service)data;
+            Service service = (Service) data;
 
             if (iq.Error != null)
             {
@@ -736,7 +732,8 @@ namespace xeus2.xeus.Core
             {
                 service.IsRegistered = true;
 
-                EventInfoRegistrationSuccess eventinfo = new EventInfoRegistrationSuccess(string.Format(Resources.Event_RegistrationSucceeded, service.Name));
+                EventInfoRegistrationSuccess eventinfo =
+                    new EventInfoRegistrationSuccess(string.Format(Resources.Event_RegistrationSucceeded, service.Name));
                 Events.Instance.OnEvent(this, eventinfo);
             }
         }
@@ -778,7 +775,7 @@ namespace xeus2.xeus.Core
 
         private void OnRegisterServiceGetSearch(object sender, IQ iq, object data)
         {
-            agsXMPP.protocol.iq.search.Search search = iq.Query as agsXMPP.protocol.iq.search.Search;
+            Search search = iq.Query as Search;
 
             if (iq.Error != null)
             {
@@ -791,7 +788,7 @@ namespace xeus2.xeus.Core
             }
             else if (iq.Type == IqType.result && search != null)
             {
-                Search.Instance.DisplaySearch(search, (Service) data);
+                Middle.Search.Instance.DisplaySearch(search, (Service) data);
             }
         }
 
@@ -818,7 +815,7 @@ namespace xeus2.xeus.Core
         {
             if (iq.Error != null)
             {
-                Service service = (Service)data;
+                Service service = (Service) data;
 
                 EventError eventError = new EventError(string.Format("Service '{0}' unregistraition failed",
                                                                      service.Name), iq.Error);
@@ -827,12 +824,13 @@ namespace xeus2.xeus.Core
             }
             else if (iq.Type == IqType.result)
             {
-                Service service = (Service)data;
+                Service service = (Service) data;
 
                 service.IsRegistered = false;
 
-                EventInfoUnregistered eventInfo = new EventInfoUnregistered(string.Format("Service '{0}' unregistraition completed",
-                                                                            service.Name));
+                EventInfoUnregistered eventInfo =
+                    new EventInfoUnregistered(string.Format("Service '{0}' unregistraition completed",
+                                                            service.Name));
 
                 Events.Instance.OnEvent(this, eventInfo);
 

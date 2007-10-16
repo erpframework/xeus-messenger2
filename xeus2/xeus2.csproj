@@ -144,6 +144,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="xeus.UI\FileTransferWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="xeus.UI\GroupsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -225,6 +229,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="xeus.UI\xeus.UI.Controls\DottedHorizontal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="xeus.UI\xeus.UI.Controls\FileTransferControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -426,6 +434,7 @@
     <Compile Include="xeus.Core\EventMucRoom.cs" />
     <Compile Include="xeus.Core\Events.cs" />
     <Compile Include="xeus.Core\EventStatusChanged.cs" />
+    <Compile Include="xeus.Core\FileTransfer.cs" />
     <Compile Include="xeus.Core\Group.cs" />
     <Compile Include="xeus.Core\Groups.cs" />
     <Compile Include="xeus.Core\HeadlineMessage.cs" />
@@ -434,6 +443,7 @@
     <Compile Include="xeus.Core\IContact.cs" />
     <Compile Include="xeus.Core\IJid.cs" />
     <Compile Include="xeus.Core\InlineMethod.cs" />
+    <Compile Include="xeus.Core\JEP65Socket.cs" />
     <Compile Include="xeus.Core\Message.cs" />
     <Compile Include="xeus.Core\MessageBase.cs" />
     <Compile Include="xeus.Core\MetaContact.cs" />
@@ -478,6 +488,7 @@
     <Compile Include="xeus.Middle\ChangeMucTopic.cs" />
     <Compile Include="xeus.Middle\Chat.cs" />
     <Compile Include="xeus.Middle\CommandExecutor.cs" />
+    <Compile Include="xeus.Middle\FileTransferManager.cs" />
     <Compile Include="xeus.Middle\Groups.cs" />
     <Compile Include="xeus.Middle\Headlines.cs" />
     <Compile Include="xeus.Middle\INotification.cs" />
@@ -516,6 +527,9 @@
     <Compile Include="xeus.UI\CommandExecute.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>CommandExecute.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xeus.UI\FileTransferWindow.xaml.cs">
+      <DependentUpon>FileTransferWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\FilterRoster.cs" />
     <Compile Include="xeus.UI\GroupsWindow.xaml.cs">
@@ -601,6 +615,9 @@
     </Compile>
     <Compile Include="xeus.UI\xeus.UI.Controls\DottedHorizontal.xaml.cs">
       <DependentUpon>DottedHorizontal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xeus.UI\xeus.UI.Controls\FileTransferControl.xaml.cs">
+      <DependentUpon>FileTransferControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\xeus.UI.Controls\FilterDisplay.xaml.cs">
       <DependentUpon>FilterDisplay.xaml</DependentUpon>
