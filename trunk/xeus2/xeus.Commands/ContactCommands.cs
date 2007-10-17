@@ -24,6 +24,9 @@ namespace xeus2.xeus.Commands
         private static readonly RoutedUICommand _displayGroups =
             new RoutedUICommand("Move to Group ...", "DisplayGroups", typeof(RoutedUICommand));
 
+        private static readonly RoutedUICommand _sendFile =
+            new RoutedUICommand("Send file", "SendFile", typeof(RoutedUICommand));
+
         public static RoutedUICommand DisplayVCard
         {
             get
@@ -64,6 +67,14 @@ namespace xeus2.xeus.Commands
             }
         }
 
+        public static RoutedUICommand SendFile
+        {
+            get
+            {
+                return _sendFile;
+            }
+        }
+
         public static void RegisterCommands(Window window)
         {
             window.CommandBindings.Add(
@@ -80,6 +91,21 @@ namespace xeus2.xeus.Commands
 
             window.CommandBindings.Add(
                 new CommandBinding(_displayGroups, ExecuteDisplayGroups, CanExecuteDisplayGroups));
+
+            window.CommandBindings.Add(
+                new CommandBinding(_sendFile, ExecuteSendFile, CanExecuteSendFile));
+        }
+
+        private static void CanExecuteSendFile(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = (e.Parameter is IContact);
+            e.Handled = true;
+        }
+
+        private static void ExecuteSendFile(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            Middle.FileTransferManager.Instance.SendFile((IContact)e.Parameter);
         }
 
         private static void CanExecuteDisplayGroups(object sender, CanExecuteRoutedEventArgs e)

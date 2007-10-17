@@ -19,6 +19,9 @@ namespace xeus2.xeus.Commands
         private static readonly RoutedUICommand _removeFileTransfer =
             new RoutedUICommand("Remove File Transfer", "RemoveFileTransfer", typeof(RoutedUICommand));
 
+        private static readonly RoutedUICommand _sendFile =
+            new RoutedUICommand("Send File", "SendFile", typeof(RoutedUICommand));
+
         private static readonly RoutedUICommand _removeFinishedFileTransfers =
             new RoutedUICommand("Remove Finished File Transfer", "RemoveFinishedFileTransfer", typeof(RoutedUICommand));
 
@@ -84,6 +87,14 @@ namespace xeus2.xeus.Commands
             }
         }
 
+        public static RoutedUICommand SendFile
+        {
+            get
+            {
+                return _sendFile;
+            }
+        }
+
         public static void RegisterCommands(Window window)
         {
             window.CommandBindings.Add(
@@ -106,13 +117,33 @@ namespace xeus2.xeus.Commands
 
             window.CommandBindings.Add(
                 new CommandBinding(_openFileFolder, ExecuteOpenFileFolder, CanExecuteOpenFileFolder));
+
+            window.CommandBindings.Add(
+                new CommandBinding(_sendFile, ExecuteSendFile, CanExecuteSendFile));
+        }
+
+        private static void CanExecuteSendFile(object sender, CanExecuteRoutedEventArgs e)
+        {
+            FileTransfer fileTransfer = e.Parameter as FileTransfer;
+
+            e.CanExecute = (fileTransfer != null
+                            && fileTransfer.TransferMode == FileTransferMode.Sending
+                            && fileTransfer.State == FileTransferState.Waiting);
+            e.Handled = true;
+        }
+
+        private static void ExecuteSendFile(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            ((FileTransfer)e.Parameter).Send();
         }
 
         private static void CanExecuteOpenFileFolder(object sender, CanExecuteRoutedEventArgs e)
         {
             FileTransfer fileTransfer = e.Parameter as FileTransfer;
 
-            e.CanExecute = (fileTransfer != null && fileTransfer.State == FileTransferState.Finished);
+            e.CanExecute = (fileTransfer != null
+                                && fileTransfer.State == FileTransferState.Finished);
             e.Handled = true;
         }
 
@@ -126,7 +157,8 @@ namespace xeus2.xeus.Commands
         {
             FileTransfer fileTransfer = e.Parameter as FileTransfer;
 
-            e.CanExecute = (fileTransfer != null && fileTransfer.State == FileTransferState.Finished);
+            e.CanExecute = (fileTransfer != null
+                                && fileTransfer.State == FileTransferState.Finished);
             e.Handled = true;
         }
 
@@ -184,7 +216,9 @@ namespace xeus2.xeus.Commands
         {
             FileTransfer fileTransfer = e.Parameter as FileTransfer;
 
-            e.CanExecute = (fileTransfer != null && fileTransfer.State == FileTransferState.Waiting);
+            e.CanExecute = (fileTransfer != null
+                                && fileTransfer.TransferMode == FileTransferMode.Recieving
+                                && fileTransfer.State == FileTransferState.Waiting);
             e.Handled = true;
         }
 
@@ -198,7 +232,9 @@ namespace xeus2.xeus.Commands
         {
             FileTransfer fileTransfer = e.Parameter as FileTransfer;
 
-            e.CanExecute = (fileTransfer != null && fileTransfer.State == FileTransferState.Waiting);
+            e.CanExecute = (fileTransfer != null
+                                && fileTransfer.TransferMode == FileTransferMode.Recieving
+                                && fileTransfer.State == FileTransferState.Waiting);
             e.Handled = true;
         }
 

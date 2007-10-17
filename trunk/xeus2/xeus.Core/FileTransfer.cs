@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using agsXMPP;
+using agsXMPP.Collections;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.extensions.bytestreams;
 using agsXMPP.protocol.extensions.featureneg;
+using agsXMPP.protocol.extensions.filetransfer;
 using agsXMPP.protocol.extensions.si;
 using agsXMPP.protocol.x.data;
 using MiniClient;
 using xeus2.Properties;
 using xeus2.xeus.Data;
+using xeus2.xeus.Utilities;
 using File=agsXMPP.protocol.extensions.filetransfer.File;
 using Uri=agsXMPP.Uri;
 
@@ -34,44 +39,50 @@ namespace xeus2.xeus.Core
 
     internal class FileTransfer : NotifyInfoDispatcher, IDisposable
     {
-        private static readonly ObservableCollectionDisp<FileTransfer> _fileTransfers = new ObservableCollectionDisp<FileTransfer>();
-
-        #region Mode enum
-
-        #endregion
+        private static readonly ObservableCollectionDisp<FileTransfer> _fileTransfers =
+            new ObservableCollectionDisp<FileTransfer>();
 
         private readonly File _file;
-        private readonly long _fileLength;
         private readonly SI _si;
 
-        /// <summary>
-        /// SID of the filetransfer
-        /// </summary>
-        private readonly string _sid;
-
         private readonly FileTransferMode _transferMode = FileTransferMode.Undefined;
-        private XmppClientConnection _xmppConnection;
         private long _bytesTransmitted = 0;
         private string _fileDescription = null;
+        private long _fileLength;
         private string _fileName = null;
+        private string _filePath;
         private FileStream _fileStream;
         private IContact _from;
         private DateTime _lastProgressUpdate;
+        private JEP65Socket _p2pSocks5Socket;
         private int _progressPercent = 0;
         private JEP65Socket _proxySocks5Socket;
         private string _proxyUrl = Settings.Default.XmppBytestreamProxy;
         private string _rate;
         private string _remaining;
 
-        private string _filePath;
+        /// <summary>
+        /// SID of the filetransfer
+        /// </summary>
+        private string _sid;
 
         private IQ _siIq;
         private DateTime _startDateTime;
-        private IContact _to;
 
         private FileTransferState _state = FileTransferState.Waiting;
+        private IContact _to;
 
         private string _transmitted;
+        private XmppClientConnection _xmppConnection;
+
+        public FileTransfer(XmppClientConnection xmppCon, IContact recipient, string filename)
+        {
+            _transferMode = FileTransferMode.Sending;
+
+            _to = recipient;
+            _fileName = filename;
+            _xmppConnection = xmppCon;
+        }
 
         public FileTransfer(XmppClientConnection xmppCon, IQ iq, IContact from)
         {
@@ -99,11 +110,6 @@ namespace xeus2.xeus.Core
 
                 _xmppConnection = xmppCon;
             }
-        }
-
-        ~FileTransfer()
-        {
-            Dispose();
         }
 
         public string FileName
@@ -226,7 +232,9 @@ namespace xeus2.xeus.Core
                 }
 
                 _state = value;
+
                 NotifyPropertyChanged("State");
+                WPFUtils.RefreshCommands();
             }
         }
 
@@ -236,6 +244,40 @@ namespace xeus2.xeus.Core
             {
                 return _fileTransfers;
             }
+        }
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            if (_xmppConnection != null)
+            {
+                _xmppConnection.OnIq -= _xmppConnection_OnIq;
+                _xmppConnection = null;
+
+                if (_fileStream != null)
+                {
+                    _fileStream.Close();
+                    _fileStream.Dispose();
+                }
+
+                if (_proxySocks5Socket != null)
+                {
+                    _proxySocks5Socket.Disconnect();
+                }
+
+                if (_p2pSocks5Socket != null)
+                {
+                    _p2pSocks5Socket.Disconnect();
+                }
+            }
+        }
+
+        #endregion
+
+        ~FileTransfer()
+        {
+            Dispose();
         }
 
         public void Refuse()
@@ -264,7 +306,7 @@ namespace xeus2.xeus.Core
             if (fNeg != null)
             {
                 agsXMPP.protocol.x.data.Data data = fNeg.Data;
-                
+
                 if (data != null)
                 {
                     Field[] field = data.GetFields();
@@ -340,7 +382,7 @@ namespace xeus2.xeus.Core
             //ByteStream bs = iq.Query as ByteStream;
             if (bs != null)
             {
-                _proxySocks5Socket = new JEP65Socket();
+                _proxySocks5Socket = new JEP65Socket(_fileLength);
                 _proxySocks5Socket.OnConnect += m_s5Sock_OnConnect;
                 _proxySocks5Socket.OnReceive += m_s5Sock_OnReceive;
                 _proxySocks5Socket.OnDisconnect += m_s5Sock_OnDisconnect;
@@ -450,7 +492,7 @@ namespace xeus2.xeus.Core
             _lastProgressUpdate = DateTime.Now;
 
 #pragma warning disable RedundantCast
-            double percent = (double)_bytesTransmitted / (double)_fileLength * 100;
+            double percent = (double) _bytesTransmitted / (double) _fileLength * 100;
 #pragma warning restore RedundantCast
 
             ProgressPercent = (int) percent;
@@ -531,18 +573,262 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public void Dispose()
+        private void SendSiIq()
         {
-            if (_xmppConnection != null)
+            SIIq iq = new SIIq();
+            iq.To = _to.FullJid;
+            iq.Type = IqType.set;
+
+            _fileLength = new FileInfo(_fileName).Length;
+
+            File afile;
+            afile = new File(
+                Path.GetFileName(_fileName), _fileLength);
+
+            afile.Description = FileDescription;
+            afile.Range = new Range();
+
+            FeatureNeg fNeg = new FeatureNeg();
+
+            agsXMPP.protocol.x.data.Data data = new agsXMPP.protocol.x.data.Data(XDataFormType.form);
+            Field f = new Field(FieldType.List_Single);
+            f.Var = "stream-method";
+            f.AddOption().SetValue(Uri.BYTESTREAMS);
+            data.AddField(f);
+
+            fNeg.Data = data;
+
+            iq.SI.File = afile;
+            iq.SI.FeatureNeg = fNeg;
+            iq.SI.Profile = Uri.SI_FILE_TRANSFER;
+
+            _sid = Guid.NewGuid().ToString();
+            iq.SI.Id = _sid;
+
+            _xmppConnection.IqGrabber.SendIq(iq, new IqCB(SiIqResult), null);
+        }
+
+        private void SiIqResult(object sender, IQ iq, object data)
+        {
+            // Parse the result of the form
+            if (iq.Type == IqType.result)
             {
-                _xmppConnection.OnIq -= _xmppConnection_OnIq;
-                _xmppConnection = null;
-
-                _fileStream.Close();
-                _fileStream.Dispose();
-
-                _proxySocks5Socket.Disconnect();
+                SI si = iq.SelectSingleElement(typeof (SI)) as SI;
+                if (si != null)
+                {
+                    FeatureNeg fNeg = si.FeatureNeg;
+                    if (SelectedByteStream(fNeg))
+                    {
+                        SendStreamHosts();
+                    }
+                }
             }
+            else if (iq.Type == IqType.error)
+            {
+                Error err = iq.Error;
+                if (err != null)
+                {
+                    switch ((int) err.Code)
+                    {
+                        case 403:
+                            State = FileTransferState.Cancelled;
+                            break;
+                        default:
+                            State = FileTransferState.Cancelled;
+                            break;
+                    }
+                }
+
+                OnTransferFinish(this);
+            }
+        }
+
+        protected virtual void OnTransferFinish(object sender)
+        {
+        }
+
+        private void SendStreamHosts()
+        {
+            ByteStreamIq bsIq = new ByteStreamIq();
+            bsIq.To = _to.FullJid;
+            bsIq.Type = IqType.set;
+
+            bsIq.Query.Sid = _sid;
+
+            string hostname = Dns.GetHostName();
+
+            IPHostEntry iphe = Dns.GetHostEntry(hostname);
+
+            for (int i = 0; i < iphe.AddressList.Length; i++)
+            {
+                Console.WriteLine("IP address: {0}", iphe.AddressList[i]);
+                bsIq.Query.AddStreamHost(Account.Instance.Self.FullJid, iphe.AddressList[i].ToString(), 1000);
+            }
+
+            bsIq.Query.AddStreamHost(new Jid(_proxyUrl), _proxyUrl, 7777);
+
+            _p2pSocks5Socket = new JEP65Socket();
+            _p2pSocks5Socket.Initiator = _xmppConnection.MyJID;
+            _p2pSocks5Socket.Target = _to.FullJid;
+            _p2pSocks5Socket.SID = _sid;
+            _p2pSocks5Socket.OnConnect += _socket_OnConnect;
+            _p2pSocks5Socket.OnDisconnect += _socket_OnDisconnect;
+            _p2pSocks5Socket.Listen(1000);
+
+
+            _xmppConnection.IqGrabber.SendIq(bsIq, new IqCB(SendStreamHostsResult), null);
+        }
+
+        private void _socket_OnDisconnect(object sender)
+        {
+        }
+
+        private void _socket_OnConnect(object sender)
+        {
+        }
+
+        private void SendStreamHostsResult(object sender, IQ iq, object data)
+        {
+            //  <iq xmlns="jabber:client" type="result" to="gnauck@jabber.org/Psi" id="aab6a">
+            //      <query xmlns="http://jabber.org/protocol/bytestreams">
+            //          <streamhost-used jid="gnauck@jabber.org/Psi" />
+            //      </query>
+            //  </iq>          
+            if (iq.Type == IqType.result)
+            {
+                ByteStream bs = iq.Query as ByteStream;
+                if (bs != null)
+                {
+                    Jid sh = bs.StreamHostUsed.Jid;
+
+                    if (sh != null & sh.Equals(Account.Instance.Self.FullJid, new FullJidComparer()))
+                    {
+                        // direct connection
+                        SendFile(null);
+                    }
+                    if (sh != null & sh.Equals(new Jid(_proxyUrl), new FullJidComparer()))
+                    {
+                        _p2pSocks5Socket = new JEP65Socket();
+                        _p2pSocks5Socket.Address = _proxyUrl;
+                        _p2pSocks5Socket.Port = 7777;
+                        _p2pSocks5Socket.Target = _to.FullJid;
+                        _p2pSocks5Socket.Initiator = Account.Instance.Self.FullJid;
+                        _p2pSocks5Socket.SID = _sid;
+                        _p2pSocks5Socket.ConnectTimeout = 5000;
+                        _p2pSocks5Socket.SyncConnect();
+
+                        if (_p2pSocks5Socket.Connected)
+                        {
+                            ActivateBytestream(new Jid(_proxyUrl));
+                        }
+                    }
+                }
+            }
+            else
+            {
+                State = FileTransferState.Cancelled;
+            }
+        }
+
+        private void SendFile(IAsyncResult ar)
+        {
+            const int BUFFERSIZE = 1024;
+            byte[] buffer = new byte[BUFFERSIZE];
+            FileStream fs;
+            // AsyncResult is null when we call this function the 1st time
+            if (ar == null)
+            {
+                _startDateTime = DateTime.Now;
+                fs = new FileStream(_fileName, FileMode.Open);
+            }
+            else
+            {
+                if (_p2pSocks5Socket.Socket.Connected)
+                {
+                    _p2pSocks5Socket.Socket.EndReceive(ar);
+                }
+
+                fs = ar.AsyncState as FileStream;
+
+                // Windows Forms are not Thread Safe, we need to invoke this :(
+                // We're not in the UI thread, so we need to call BeginInvoke
+                // to udate the progress bar
+                TimeSpan ts = DateTime.Now - _lastProgressUpdate;
+
+                if (ts.Milliseconds >= 250)
+                {
+                    UpdateProgress();
+                }
+            }
+
+            int len = fs.Read(buffer, 0, BUFFERSIZE);
+            _bytesTransmitted += len;
+
+            if (len > 0)
+            {
+                _p2pSocks5Socket.Socket.BeginSend(buffer, 0, len, SocketFlags.None, SendFile, fs);
+            }
+            else
+            {
+                // Update Pogress when finished
+                UpdateProgress();
+
+                fs.Close();
+                fs.Dispose();
+
+                if (_p2pSocks5Socket != null && _p2pSocks5Socket.Connected)
+                {
+                    _p2pSocks5Socket.Disconnect();
+                }
+            }
+        }
+
+        private void ActivateBytestream(Jid streamHost)
+        {
+            ByteStreamIq bsIq = new ByteStreamIq();
+
+            bsIq.To = streamHost;
+            bsIq.Type = IqType.set;
+
+            bsIq.Query.Sid = _sid;
+            bsIq.Query.Activate = new Activate(_to.FullJid);
+
+            _xmppConnection.IqGrabber.SendIq(bsIq, new IqCB(ActivateBytestreamResult), null);
+        }
+
+        private void ActivateBytestreamResult(object sender, IQ iq, object dat)
+        {
+            if (iq.Type == IqType.result)
+            {
+                SendFile(null);
+            }
+        }
+
+        private bool SelectedByteStream(FeatureNeg fn)
+        {
+            if (fn != null)
+            {
+                agsXMPP.protocol.x.data.Data data = fn.Data;
+                if (data != null)
+                {
+                    foreach (Field field in data.GetFields())
+                    {
+                        if (field != null && field.Var == "stream-method")
+                        {
+                            if (field.GetValue() == Uri.BYTESTREAMS)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        public void Send()
+        {
+            SendSiIq();
         }
     }
 }

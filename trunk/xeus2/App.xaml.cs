@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Threading;
 using xeus2.Properties;
 using xeus2.xeus.Core;

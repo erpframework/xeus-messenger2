@@ -173,5 +173,16 @@ namespace xeus2.xeus.Utilities
             lv.Cursor = oldCursor;
         }
 
+        static void RefreshCommandsInternal()
+        {
+            CommandManager.InvalidateRequerySuggested();
+        }
+
+        public static void RefreshCommands()
+        {
+            App.InvokeSafe(App._dispatcherPriority, new RefreshCommandHandler(RefreshCommandsInternal));
+        }
+
+        delegate void RefreshCommandHandler();
     }
 }

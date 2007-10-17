@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using agsXMPP;
 using agsXMPP.protocol.client;
+using Microsoft.Win32;
 using xeus2.xeus.Core;
 using xeus2.xeus.UI;
 
@@ -58,6 +59,24 @@ namespace xeus2.xeus.Middle
             }
         }
 
+        void TransferOpenUI(XmppClientConnection xmppCon, IContact contact, string filename)
+        {
+            FileTransfer fileTransfer = new FileTransfer(xmppCon, contact, filename);
+            FileTransfer.FileTransfers.Add(fileTransfer);
+
+            try
+            {
+                FileTransferWindow fileTransferWindow = new FileTransferWindow();
+
+                fileTransferWindow.Show();
+            }
+
+            catch (WindowExistsException e)
+            {
+                e.ActivateControl();
+            }
+        }
+
         public void TransferOpen(XmppClientConnection xmppCon, IQ iq)
         {
             App.InvokeSafe(App._dispatcherPriority,
@@ -70,5 +89,29 @@ namespace xeus2.xeus.Middle
 
         #endregion
 
+        private delegate void SendCallback(IContact contact);
+
+        public void SendFile(IContact contact)
+        {
+            App.InvokeSafe(App._dispatcherPriority,
+                           new SendCallback(SendFileInternal), contact);
+        }
+
+        void SendFileInternal(IContact contact)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            // dlg.FileName = "Document"; // Default file name
+            dlg.DefaultExt = ".*"; // Default file extension
+            dlg.Filter = "Word Processor Files (.*)|*.*"; // Filter files by extension
+
+            // Show open file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process open file dialog box results
+            if (result == true)
+            {
+                TransferOpenUI(Account.Instance.XmppConnection, contact, dlg.FileName);
+            }            
+        }
     }
 }
