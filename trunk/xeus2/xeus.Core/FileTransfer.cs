@@ -352,7 +352,11 @@ namespace xeus2.xeus.Core
                 }
             }
 
-            if (!ok)
+            if (ok)
+            {
+                State = FileTransferState.WaitingForResponse;
+            }
+            else
             {
                 State = FileTransferState.Error;
                 EventErrorFileTransfer transfer = new EventErrorFileTransfer("Error while negotiating file transfer conditions");
