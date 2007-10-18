@@ -196,7 +196,7 @@ namespace MiniClient
                 // Timeout
                 _connectTimeoutTimer.Interval = ConnectTimeout;
                 _connectTimeoutTimer.Elapsed += connectTimeoutTimer_Elapsed;
-                _connectTimeoutTimer.Start();
+                //_connectTimeoutTimer.Start();
 
                 Monitor.Wait(_lock);
                 Console.WriteLine("Release Lock");
@@ -216,14 +216,30 @@ namespace MiniClient
             m_SocksConnected = false;
 
             IPHostEntry ipHostInfo = Dns.GetHostEntry(Address);
-            //IPHostEntry ipHostInfo = Dns.GetHostByAddress(Address);
-            //Dns.GetHostEntry
-            IPAddress ipAddress = ipHostInfo.AddressList[0]; // IPAddress.Parse(address);
-            IPEndPoint endPoint = new IPEndPoint(ipAddress, Port);
 
-            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            IPAddress ipHost = null;
 
-            _socket.BeginConnect(endPoint, EndConnect, null);
+            foreach (IPAddress ipAddress in ipHostInfo.AddressList)
+            {
+                if (ipAddress.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    ipHost = ipAddress;
+                    break;
+                }
+            }
+
+            if (ipHost != null)
+            {
+                IPEndPoint endPoint = new IPEndPoint(ipHost, Port);
+
+                _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+                _socket.BeginConnect(endPoint, EndConnect, null);
+            }
+            else
+            {
+                Disconnect();
+            }
         }
 
         /// <summary>

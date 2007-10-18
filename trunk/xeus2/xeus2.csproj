@@ -423,12 +423,14 @@
     <Compile Include="xeus.Core\EventError.cs" />
     <Compile Include="xeus.Core\EventErrorAuth.cs" />
     <Compile Include="xeus.Core\EventErrorConnection.cs" />
+    <Compile Include="xeus.Core\EventErrorFileTransfer.cs" />
     <Compile Include="xeus.Core\EventErrorProtocol.cs" />
     <Compile Include="xeus.Core\EventErrorRegistration.cs" />
     <Compile Include="xeus.Core\EventException.cs" />
     <Compile Include="xeus.Core\EventFatal.cs" />
     <Compile Include="xeus.Core\EventHeadlineMessage.cs" />
     <Compile Include="xeus.Core\EventInfo.cs" />
+    <Compile Include="xeus.Core\EventInfoFileTransfer.cs" />
     <Compile Include="xeus.Core\EventInfoRegistrationSuccess.cs" />
     <Compile Include="xeus.Core\EventInfoUnregistered.cs" />
     <Compile Include="xeus.Core\EventMucRoom.cs" />
