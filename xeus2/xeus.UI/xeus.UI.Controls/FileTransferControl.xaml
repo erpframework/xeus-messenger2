@@ -64,45 +64,9 @@
             </DrawingBrush.Drawing>
         </DrawingBrush>
         
-        <DrawingBrush x:Key="filedownload_design" Stretch="Uniform">
-            <DrawingBrush.Drawing>
-                <DrawingGroup>
-                	<GeometryDrawing Geometry="F1 M -36.5308,-40.3083C -36.5533,-39.3949 -41.0032,-38.6556 -46.4892,-38.6556C -51.9751,-38.6556 -56.425,-39.3949 -56.4475,-40.3153L -56.4475,-57.1417L -36.5308,-57.1417L -36.5308,-40.3153 Z ">
-                		<GeometryDrawing.Pen>
-                			<Pen LineJoin="Round" Brush="#FF3C3C3C"/>
-                		</GeometryDrawing.Pen>
-                		<GeometryDrawing.Brush>
-                			<LinearGradientBrush StartPoint="-2.73564e-006,0.5" EndPoint="1,0.5">
-                				<GradientStop Color="#FFF3E0A9" Offset="0"/>
-                				<GradientStop Color="#FFA69502" Offset="1"/>
-                			</LinearGradientBrush>
-                		</GeometryDrawing.Brush>
-                	</GeometryDrawing>
-                	<GeometryDrawing Geometry="F1 M -46.4892,-58.8431C -40.9893,-58.8431 -36.5308,-58.1 -36.5308,-57.1833C -36.5308,-56.2667 -40.9893,-55.5236 -46.4892,-55.5236C -51.989,-55.5236 -56.4475,-56.2667 -56.4475,-57.1833C -56.4475,-58.1 -51.989,-58.8431 -46.4892,-58.8431 Z ">
-                		<GeometryDrawing.Pen>
-                			<Pen LineJoin="Round" Brush="#FF3C3C3C"/>
-                		</GeometryDrawing.Pen>
-                		<GeometryDrawing.Brush>
-                			<LinearGradientBrush StartPoint="0.17867,0.190936" EndPoint="1.07035,0.190936">
-                				<LinearGradientBrush.RelativeTransform>
-                					<TransformGroup>
-                						<SkewTransform CenterX="0.17867" CenterY="0.190936" AngleX="-12.0081" AngleY="0"/>
-                						<RotateTransform CenterX="0.17867" CenterY="0.190936" Angle="43.8854"/>
-                					</TransformGroup>
-                				</LinearGradientBrush.RelativeTransform>
-                				<GradientStop Color="#FFF1DD92" Offset="0.0127119"/>
-                				<GradientStop Color="#FF947711" Offset="0.995763"/>
-                			</LinearGradientBrush>
-                		</GeometryDrawing.Brush>
-                	</GeometryDrawing>
-                	<GeometryDrawing Brush="#34000000" Geometry="F1 M -37.4558,-55.4917L -39.753,-54.975L -42.6697,-54.725L -42.6975,-39.5306L -38.9752,-40.1083L -37.4891,-40.5695L -37.4558,-55.4917 Z "/>
-                </DrawingGroup>
-            </DrawingBrush.Drawing>
-        </DrawingBrush>
-        
         <DataTemplate DataType="{x:Type Core:FileTransfer}">
             <StackPanel>
-                <ContentPresenter Content="{Binding Path=From}" ContentTemplate="{DynamicResource ToolTipContactCard}"/>
+                <ContentPresenter Content="{Binding Path=Contact}" ContentTemplate="{DynamicResource ToolTipContactCard}"/>
 				<Grid>
 						<Rectangle Width="32" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Fill="{DynamicResource filedownload_design}"/>
 						<Rectangle Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Fill="{DynamicResource wait_design}" Margin="16,16,0,0" x:Name="_state"/>

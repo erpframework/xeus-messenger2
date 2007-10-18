@@ -122,7 +122,9 @@ namespace xeus2.xeus.Middle
                     || myEvent is EventHeadlineMessage
                     || myEvent is EventErrorRegistration
                     || myEvent is EventInfoRegistrationSuccess
-                    || myEvent is EventInfoUnregistered)
+                    || myEvent is EventInfoUnregistered
+                    || myEvent is EventInfoFileTransfer
+                    || myEvent is EventErrorFileTransfer)
                 {
                     bool notify = true;
 

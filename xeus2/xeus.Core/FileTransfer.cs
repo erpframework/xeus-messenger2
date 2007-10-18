@@ -32,8 +32,10 @@ namespace xeus2.xeus.Core
     public enum FileTransferState
     {
         Waiting,
+        WaitingForResponse,
         Progress,
         Finished,
+        Error,
         Cancelled
     }
 
@@ -43,21 +45,22 @@ namespace xeus2.xeus.Core
             new ObservableCollectionDisp<FileTransfer>();
 
         private readonly File _file;
+        private readonly string _proxyUrl = Settings.Default.XmppBytestreamProxy;
         private readonly SI _si;
+        private readonly IQ _siIq;
 
         private readonly FileTransferMode _transferMode = FileTransferMode.Undefined;
         private long _bytesTransmitted = 0;
+        private IContact _contact;
         private string _fileDescription = null;
         private long _fileLength;
         private string _fileName = null;
         private string _filePath;
         private FileStream _fileStream;
-        private IContact _from;
         private DateTime _lastProgressUpdate;
         private JEP65Socket _p2pSocks5Socket;
         private int _progressPercent = 0;
         private JEP65Socket _proxySocks5Socket;
-        private string _proxyUrl = Settings.Default.XmppBytestreamProxy;
         private string _rate;
         private string _remaining;
 
@@ -66,11 +69,10 @@ namespace xeus2.xeus.Core
         /// </summary>
         private string _sid;
 
-        private IQ _siIq;
         private DateTime _startDateTime;
 
         private FileTransferState _state = FileTransferState.Waiting;
-        private IContact _to;
+        private StreamHost _streamHostProxy = null;
 
         private string _transmitted;
         private XmppClientConnection _xmppConnection;
@@ -79,7 +81,7 @@ namespace xeus2.xeus.Core
         {
             _transferMode = FileTransferMode.Sending;
 
-            _to = recipient;
+            _contact = recipient;
             _fileName = filename;
             _xmppConnection = xmppCon;
         }
@@ -96,9 +98,9 @@ namespace xeus2.xeus.Core
                 // get SID for file transfer
                 _sid = _si.Id;
                 _file = _si.File;
-                _from = from;
+                _contact = from;
 
-                From = from;
+                Contact = from;
 
                 if (_file != null)
                 {
@@ -144,15 +146,15 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public IContact From
+        public IContact Contact
         {
             get
             {
-                return _from;
+                return _contact;
             }
             private set
             {
-                _from = value;
+                _contact = value;
             }
         }
 
@@ -226,6 +228,7 @@ namespace xeus2.xeus.Core
             private set
             {
                 if (value == FileTransferState.Cancelled
+                    || value == FileTransferState.Error
                     || value == FileTransferState.Finished)
                 {
                     Dispose();
@@ -310,6 +313,7 @@ namespace xeus2.xeus.Core
                 if (data != null)
                 {
                     Field[] field = data.GetFields();
+
                     if (field.Length == 1)
                     {
                         Dictionary<string, string> methods = new Dictionary<string, string>();
@@ -350,7 +354,9 @@ namespace xeus2.xeus.Core
 
             if (!ok)
             {
-                State = FileTransferState.Cancelled;
+                State = FileTransferState.Error;
+                EventErrorFileTransfer transfer = new EventErrorFileTransfer("Error while negotiating file transfer conditions");
+                Events.Instance.OnEvent(this, transfer);
             }
         }
 
@@ -383,6 +389,7 @@ namespace xeus2.xeus.Core
             if (bs != null)
             {
                 _proxySocks5Socket = new JEP65Socket(_fileLength);
+                _proxySocks5Socket.ConnectTimeout = ConnectionTimeout;
                 _proxySocks5Socket.OnConnect += m_s5Sock_OnConnect;
                 _proxySocks5Socket.OnReceive += m_s5Sock_OnReceive;
                 _proxySocks5Socket.OnDisconnect += m_s5Sock_OnDisconnect;
@@ -401,10 +408,11 @@ namespace xeus2.xeus.Core
                         _proxySocks5Socket.Address = sHost.Host;
                         _proxySocks5Socket.Port = sHost.Port;
                         _proxySocks5Socket.Target = Account.Instance.Self.FullJid;
-                        _proxySocks5Socket.Initiator = _from.FullJid;
+                        _proxySocks5Socket.Initiator = _contact.FullJid;
                         _proxySocks5Socket.SID = _sid;
                         _proxySocks5Socket.ConnectTimeout = 5000;
                         _proxySocks5Socket.SyncConnect();
+
                         if (_proxySocks5Socket.Connected)
                         {
                             SendStreamHostUsedResponse(sHost, iq);
@@ -445,7 +453,7 @@ namespace xeus2.xeus.Core
 
         private void SendStreamHostUsedResponse(StreamHost sh, IQ iq)
         {
-            ByteStreamIq bsIQ = new ByteStreamIq(IqType.result, _from.FullJid);
+            ByteStreamIq bsIQ = new ByteStreamIq(IqType.result, _contact.FullJid);
             bsIQ.Id = iq.Id;
 
             bsIQ.Query.StreamHostUsed = new StreamHostUsed(sh.Jid);
@@ -459,9 +467,6 @@ namespace xeus2.xeus.Core
 
             if (_bytesTransmitted == _fileLength)
             {
-                // completed
-                // tslTransmitted.Text = "completed";
-                // Update Progress when complete
                 UpdateProgress();
 
                 State = FileTransferState.Finished;
@@ -576,7 +581,7 @@ namespace xeus2.xeus.Core
         private void SendSiIq()
         {
             SIIq iq = new SIIq();
-            iq.To = _to.FullJid;
+            iq.To = _contact.FullJid;
             iq.Type = IqType.set;
 
             _fileLength = new FileInfo(_fileName).Length;
@@ -606,6 +611,8 @@ namespace xeus2.xeus.Core
             iq.SI.Id = _sid;
 
             _xmppConnection.IqGrabber.SendIq(iq, new IqCB(SiIqResult), null);
+
+            State = FileTransferState.WaitingForResponse;
         }
 
         private void SiIqResult(object sender, IQ iq, object data)
@@ -619,7 +626,7 @@ namespace xeus2.xeus.Core
                     FeatureNeg fNeg = si.FeatureNeg;
                     if (SelectedByteStream(fNeg))
                     {
-                        SendStreamHosts();
+                        DiscoProxy();
                     }
                 }
             }
@@ -647,10 +654,40 @@ namespace xeus2.xeus.Core
         {
         }
 
+        private void DiscoProxy()
+        {
+            ByteStreamIq bsIq = new ByteStreamIq();
+            bsIq.To = new Jid(_proxyUrl);
+            bsIq.Type = IqType.get;
+
+            _xmppConnection.IqGrabber.SendIq(bsIq, new IqCB(OnProxyDiscoResult), null);
+        }
+
+        private void OnProxyDiscoResult(object sender, IQ iq, object data)
+        {
+            _streamHostProxy = null;
+
+            if (iq.Error == null &&
+                iq.Type == IqType.result)
+            {
+                ByteStream byteStream = iq.Query as ByteStream;
+
+                if (byteStream != null
+                    && byteStream.GetStreamHosts().Length > 0)
+                {
+                    _streamHostProxy = byteStream.GetStreamHosts()[0];
+                }
+            }
+
+            SendStreamHosts();
+        }
+
+        private const int ConnectionTimeout = 60000;
+
         private void SendStreamHosts()
         {
             ByteStreamIq bsIq = new ByteStreamIq();
-            bsIq.To = _to.FullJid;
+            bsIq.To = _contact.FullJid;
             bsIq.Type = IqType.set;
 
             bsIq.Query.Sid = _sid;
@@ -662,19 +699,22 @@ namespace xeus2.xeus.Core
             for (int i = 0; i < iphe.AddressList.Length; i++)
             {
                 Console.WriteLine("IP address: {0}", iphe.AddressList[i]);
-                bsIq.Query.AddStreamHost(Account.Instance.Self.FullJid, iphe.AddressList[i].ToString(), 1000);
+                //bsIq.Query.AddStreamHost(Account.Instance.Self.FullJid, iphe.AddressList[i].ToString(), 1000);
             }
 
-            bsIq.Query.AddStreamHost(new Jid(_proxyUrl), _proxyUrl, 7777);
+            if (_streamHostProxy != null)
+            {
+                bsIq.Query.AddStreamHost(_streamHostProxy);
+            }
 
             _p2pSocks5Socket = new JEP65Socket();
+            _p2pSocks5Socket.ConnectTimeout = ConnectionTimeout;
             _p2pSocks5Socket.Initiator = _xmppConnection.MyJID;
-            _p2pSocks5Socket.Target = _to.FullJid;
+            _p2pSocks5Socket.Target = _contact.FullJid;
             _p2pSocks5Socket.SID = _sid;
             _p2pSocks5Socket.OnConnect += _socket_OnConnect;
             _p2pSocks5Socket.OnDisconnect += _socket_OnDisconnect;
             _p2pSocks5Socket.Listen(1000);
-
 
             _xmppConnection.IqGrabber.SendIq(bsIq, new IqCB(SendStreamHostsResult), null);
         }
@@ -689,37 +729,39 @@ namespace xeus2.xeus.Core
 
         private void SendStreamHostsResult(object sender, IQ iq, object data)
         {
-            //  <iq xmlns="jabber:client" type="result" to="gnauck@jabber.org/Psi" id="aab6a">
-            //      <query xmlns="http://jabber.org/protocol/bytestreams">
-            //          <streamhost-used jid="gnauck@jabber.org/Psi" />
-            //      </query>
-            //  </iq>          
             if (iq.Type == IqType.result)
             {
                 ByteStream bs = iq.Query as ByteStream;
+
                 if (bs != null)
                 {
                     Jid sh = bs.StreamHostUsed.Jid;
 
-                    if (sh != null & sh.Equals(Account.Instance.Self.FullJid, new FullJidComparer()))
+                    if (sh != null)
                     {
-                        // direct connection
-                        SendFile(null);
-                    }
-                    if (sh != null & sh.Equals(new Jid(_proxyUrl), new FullJidComparer()))
-                    {
-                        _p2pSocks5Socket = new JEP65Socket();
-                        _p2pSocks5Socket.Address = _proxyUrl;
-                        _p2pSocks5Socket.Port = 7777;
-                        _p2pSocks5Socket.Target = _to.FullJid;
-                        _p2pSocks5Socket.Initiator = Account.Instance.Self.FullJid;
-                        _p2pSocks5Socket.SID = _sid;
-                        _p2pSocks5Socket.ConnectTimeout = 5000;
-                        _p2pSocks5Socket.SyncConnect();
-
-                        if (_p2pSocks5Socket.Connected)
+                        if (sh.Equals(Account.Instance.Self.FullJid, new FullJidComparer()))
                         {
-                            ActivateBytestream(new Jid(_proxyUrl));
+                            // direct connection
+                            SendFile(null);
+                        }
+
+                        if (_streamHostProxy != null
+                            && sh.Equals(_streamHostProxy.Jid, new FullJidComparer()))
+                        {
+                            _p2pSocks5Socket = new JEP65Socket();
+                            _p2pSocks5Socket.ConnectTimeout = ConnectionTimeout;
+                            _p2pSocks5Socket.Address = _streamHostProxy.Host;
+                            _p2pSocks5Socket.Port = _streamHostProxy.Port;
+                            _p2pSocks5Socket.Target = _contact.FullJid;
+                            _p2pSocks5Socket.Initiator = Account.Instance.Self.FullJid;
+                            _p2pSocks5Socket.SID = _sid;
+                            _p2pSocks5Socket.ConnectTimeout = 5000;
+                            _p2pSocks5Socket.SyncConnect();
+
+                            if (_p2pSocks5Socket.Connected)
+                            {
+                                ActivateBytestream(_streamHostProxy.Jid);
+                            }
                         }
                     }
                 }
@@ -735,6 +777,9 @@ namespace xeus2.xeus.Core
             const int BUFFERSIZE = 1024;
             byte[] buffer = new byte[BUFFERSIZE];
             FileStream fs;
+
+            State = FileTransferState.Progress;
+
             // AsyncResult is null when we call this function the 1st time
             if (ar == null)
             {
@@ -780,6 +825,8 @@ namespace xeus2.xeus.Core
                 {
                     _p2pSocks5Socket.Disconnect();
                 }
+
+                State = FileTransferState.Finished;
             }
         }
 
@@ -791,7 +838,7 @@ namespace xeus2.xeus.Core
             bsIq.Type = IqType.set;
 
             bsIq.Query.Sid = _sid;
-            bsIq.Query.Activate = new Activate(_to.FullJid);
+            bsIq.Query.Activate = new Activate(_contact.FullJid);
 
             _xmppConnection.IqGrabber.SendIq(bsIq, new IqCB(ActivateBytestreamResult), null);
         }

@@ -50,42 +50,42 @@ namespace xeus2.xeus.Core
             _idleTimer.Elapsed += _idleTimer_Elapsed;
             _idleTimer.Start();
 
-            _caps = new Capabilities(TextUtil.GenerateVerAttribute(_discoInfo),
-                                     "http://xeus.net/#2.0");
-
-            /*
+            
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.BYTESTREAMS));
-            _caps.AddExtension("bs");
+            //_caps.AddExtension("bs");
 
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.CAPS));
-            _caps.AddExtension("caps");
+            //_caps.AddExtension("caps");
 
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.COMMANDS));
-            _caps.AddExtension("cmd");
+            //_caps.AddExtension("cmd");
 
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.CHATSTATES));
-            _caps.AddExtension("cs");
+            //_caps.AddExtension("cs");
 
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.DISCO_INFO));
-            _caps.AddExtension("di");
+            //_caps.AddExtension("di");
 
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.VCARD_UPDATE));
-            _caps.AddExtension("vcup");
+            //_caps.AddExtension("vcup");
 
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.VCARD));
-            _caps.AddExtension("vc");
+            //_caps.AddExtension("vc");
 
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.IQ_LAST));
-            _caps.AddExtension("las");
+            //_caps.AddExtension("las");
 
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC_ADMIN));
-            _caps.AddExtension("adm");
+            //_caps.AddExtension("adm");
 
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC_OWNER));
-            _caps.AddExtension("own");
+            //_caps.AddExtension("own");
 
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC_USER));
-            _caps.AddExtension("usr");*/
+            //_caps.AddExtension("usr");
+
+            _caps = new Capabilities(TextUtil.GenerateVerAttribute(_discoInfo),
+                                     "http://xeus.net/#2.0");
 
             _discoInfo.AddIdentity(_identity);
         }
