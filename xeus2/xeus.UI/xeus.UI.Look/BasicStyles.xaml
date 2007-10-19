@@ -852,7 +852,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style TargetType="{x:Type Button}">
+   
+    <Style x:Key="BasicButton" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="#FF000000"/>
         <Setter Property="MinHeight" Value="22"/>
         <Setter Property="Foreground" Value="#FFFFFFFF"/>
@@ -945,6 +946,17 @@
                 </Setter>
             </Style>
         </Style.BasedOn>
+    </Style>
+
+    <Style x:Key="CommandInvisibleButton" TargetType="{x:Type Button}" BasedOn="{StaticResource BasicButton}">
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BasicButton}">
     </Style>
 
     <Style x:Key="MegaTextBlockStyle" TargetType="{x:Type TextBlock}">

@@ -685,7 +685,8 @@ namespace MiniClient
             int lengthVariable = m_ReadBuffer[4]; // Note: MUST be 0x28 == Dec. 40
 
             string Hash = Encoding.ASCII.GetString(m_ReadBuffer, 5, lengthVariable);
-            string Hash2 = BuildHash();
+
+            /*string Hash2 = BuildHash();
 
             if (string.Compare(Hash, Hash2, true) == 0)
             {
@@ -693,7 +694,7 @@ namespace MiniClient
             else
             {
                 throw new Exception("Hash does not match");
-            }
+            }*/
 
             //buffer[4] = (byte)length;
             //Encoding.ASCII.GetBytes(Hash, 0, length, buffer, 5);

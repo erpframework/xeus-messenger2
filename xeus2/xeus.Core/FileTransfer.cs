@@ -259,22 +259,22 @@ namespace xeus2.xeus.Core
             {
                 _xmppConnection.OnIq -= _xmppConnection_OnIq;
                 _xmppConnection = null;
+            }
 
-                if (_fileStream != null)
-                {
-                    _fileStream.Close();
-                    _fileStream.Dispose();
-                }
+            if (_fileStream != null)
+            {
+                _fileStream.Close();
+                _fileStream.Dispose();
+            }
 
-                if (_proxySocks5Socket != null)
-                {
-                    _proxySocks5Socket.Disconnect();
-                }
+            if (_proxySocks5Socket != null)
+            {
+                _proxySocks5Socket.Disconnect();
+            }
 
-                if (_p2pSocks5Socket != null)
-                {
-                    _p2pSocks5Socket.Disconnect();
-                }
+            if (_p2pSocks5Socket != null)
+            {
+                _p2pSocks5Socket.Disconnect();
             }
         }
 
@@ -468,9 +468,6 @@ namespace xeus2.xeus.Core
 
         private void m_s5Sock_OnDisconnect(object sender)
         {
-            _fileStream.Close();
-            _fileStream.Dispose();
-
             if (_bytesTransmitted == _fileLength)
             {
                 UpdateProgress();
