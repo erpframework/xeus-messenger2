@@ -48,6 +48,8 @@ namespace xeus2.xeus.Core
         private readonly string _proxyUrl = Settings.Default.XmppBytestreamProxy;
         private readonly SI _si;
         private readonly IQ _siIq;
+        
+        private string _sID = null;
 
         private readonly FileTransferMode _transferMode = FileTransferMode.Undefined;
         private long _bytesTransmitted = 0;
@@ -591,8 +593,7 @@ namespace xeus2.xeus.Core
             _fileLength = new FileInfo(_fileName).Length;
 
             File afile;
-            afile = new File(
-                Path.GetFileName(_fileName), _fileLength);
+            afile = new File(Path.GetFileName(_fileName), _fileLength);
 
             afile.Description = FileDescription;
             afile.Range = new Range();
@@ -700,15 +701,17 @@ namespace xeus2.xeus.Core
 
             IPHostEntry iphe = Dns.GetHostEntry(hostname);
 
-            for (int i = 0; i < iphe.AddressList.Length; i++)
-            {
-                Console.WriteLine("IP address: {0}", iphe.AddressList[i]);
-                //bsIq.Query.AddStreamHost(Account.Instance.Self.FullJid, iphe.AddressList[i].ToString(), 1000);
-            }
-
             if (_streamHostProxy != null)
             {
                 bsIq.Query.AddStreamHost(_streamHostProxy);
+            }
+
+            foreach (IPAddress address in iphe.AddressList)
+            {
+                if (address.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    bsIq.Query.AddStreamHost(Account.Instance.Self.FullJid, address.ToString(), MyPort);
+                }
             }
 
             _p2pSocks5Socket = new JEP65Socket();
@@ -718,10 +721,12 @@ namespace xeus2.xeus.Core
             _p2pSocks5Socket.SID = _sid;
             _p2pSocks5Socket.OnConnect += _socket_OnConnect;
             _p2pSocks5Socket.OnDisconnect += _socket_OnDisconnect;
-            _p2pSocks5Socket.Listen(1000);
+            _p2pSocks5Socket.Listen(MyPort);
 
             _xmppConnection.IqGrabber.SendIq(bsIq, new IqCB(SendStreamHostsResult), null);
         }
+
+        private const int MyPort = 1000;
 
         private void _socket_OnDisconnect(object sender)
         {
@@ -867,6 +872,12 @@ namespace xeus2.xeus.Core
             if (iq.Type == IqType.result)
             {
                 SendFile(null);
+            }
+            else
+            {
+                EventErrorFileTransfer transfer = new EventErrorFileTransfer("Error activating file stream");
+                Events.Instance.OnEvent(this, transfer);
+                State = FileTransferState.Error;
             }
         }
 

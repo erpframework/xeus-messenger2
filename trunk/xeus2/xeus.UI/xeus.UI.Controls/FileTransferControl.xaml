@@ -133,7 +133,12 @@
                     </DataTrigger.Value>
                     <Setter  TargetName="_state" Property="Rectangle.Fill" Value="{DynamicResource download_design}"/>
                 </DataTrigger>
-            </DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Path=State}">
+                    <DataTrigger.Value>
+                        <Core:FileTransferState>Error</Core:FileTransferState>
+                    </DataTrigger.Value>
+                    <Setter  TargetName="_state" Property="Rectangle.Fill" Value="{DynamicResource error2_design}"/>
+                </DataTrigger>            </DataTemplate.Triggers>
 
         </DataTemplate>
         
