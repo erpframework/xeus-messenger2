@@ -5,9 +5,9 @@
   xmlns:prop="clr-namespace:xeus2.Properties"
   xmlns:xeus2_xeus_Control="clr-namespace:xeus2.xeus.UI.xeus.UI.Controls"
   xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
-  xmlns:Core="clr-namespace:xeus2.xeus.Core;assembly=" 	
+  xmlns:Core="clr-namespace:xeus2.xeus.Core;assembly="
+  xmlns:Look="clr-namespace:xeus2.xeus.UI.xeus.UI.Look" 	
   >
-
 
     <DrawingBrush x:Key="contact_back_design" PresentationOptions:Freeze="True">
         <DrawingBrush.Drawing>
@@ -177,11 +177,20 @@
         <WrapPanel IsItemsHost="True" />
     </ItemsPanelTemplate>
 
+    <Look:ConvertContactZoom x:Key="ConvertZoom" />
+                        
     <DataTemplate x:Key="MetaContactSmall">
         <Grid>
             <Grid.ToolTip>
                 <ToolTip ContentTemplate="{DynamicResource ContactToolTip}" Content="{Binding}"/>
             </Grid.ToolTip>
+
+            <Grid.LayoutTransform>
+                <ScaleTransform CenterX="0" CenterY="0"
+                                ScaleTransform.ScaleX="{Binding Path=Show, Converter={StaticResource ConvertZoom}}"
+                                ScaleTransform.ScaleY="{Binding Path=Show, Converter={StaticResource ConvertZoom}}">
+                </ScaleTransform>
+            </Grid.LayoutTransform>
             
             <Grid Margin="1,1,1,1" x:Name="_grid" ContextMenu="{DynamicResource ContactMenu}"
                   MaxWidth="{Binding Path=UI_Item_Small_MaxWidth, Source={x:Static prop:Settings.Default}}"
@@ -273,6 +282,14 @@
             <Grid.ToolTip>
                 <ToolTip ContentTemplate="{DynamicResource ContactToolTip}" Content="{Binding}"/>
             </Grid.ToolTip>
+
+            <Grid.LayoutTransform>
+                <ScaleTransform CenterX="0" CenterY="0"
+                                ScaleTransform.ScaleX="{Binding Path=Show, Converter={StaticResource ConvertZoom}}"
+                                ScaleTransform.ScaleY="{Binding Path=Show, Converter={StaticResource ConvertZoom}}">
+                </ScaleTransform>
+            </Grid.LayoutTransform>
+
             <Grid>
                 <Grid VerticalAlignment="Bottom" x:Name="_resource" Margin="3,-1,5,0" Visibility="Visible" HorizontalAlignment="Left">
                     <Border BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" Margin="0,0,0,2"
@@ -394,6 +411,14 @@
             <Grid.ToolTip>
                 <ToolTip ContentTemplate="{DynamicResource ContactToolTip}" Content="{Binding}"/>
             </Grid.ToolTip>
+
+            <Grid.LayoutTransform>
+                <ScaleTransform CenterX="0" CenterY="0"
+                                ScaleTransform.ScaleX="{Binding Path=Show, Converter={StaticResource ConvertZoom}}"
+                                ScaleTransform.ScaleY="{Binding Path=Show, Converter={StaticResource ConvertZoom}}">
+                </ScaleTransform>
+            </Grid.LayoutTransform>
+
             <Grid>
                 <Grid VerticalAlignment="Top" x:Name="_resource" Margin="0,3,0,0" MaxHeight="90">
                     <Rectangle Margin="3,10,0,0" Fill="#33000000" StrokeThickness="0" RadiusX="3" RadiusY="3"/>

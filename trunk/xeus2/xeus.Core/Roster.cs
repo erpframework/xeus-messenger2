@@ -826,6 +826,25 @@ namespace xeus2.xeus.Core
             Account.Instance.XmppConnection.RosterManager.UpdateRosterItem(contact.Jid, contact.NickName, group);
         }
 
+        public bool IsGroupExpanded(string expanderName)
+        {
+            lock (Groups._syncObject)
+            {
+                Group group = Groups.FindGroup(expanderName);
+
+                if (group != null)
+                {
+                    return group.IsExpanded;
+                }
+                else
+                {
+                    Groups.Add(new Group(expanderName, true));
+                }
+            }
+
+            return true;
+        }
+
         #region Nested type: MessageCallback
 
         private delegate void MessageCallback(agsXMPP.protocol.client.Message msg);

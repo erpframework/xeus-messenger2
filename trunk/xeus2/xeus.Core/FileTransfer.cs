@@ -267,12 +267,12 @@ namespace xeus2.xeus.Core
                 _fileStream.Dispose();
             }
 
-            if (_proxySocks5Socket != null)
+            if (_proxySocks5Socket != null && _proxySocks5Socket.Connected)
             {
                 _proxySocks5Socket.Disconnect();
             }
 
-            if (_p2pSocks5Socket != null)
+            if (_p2pSocks5Socket != null && _p2pSocks5Socket.Connected)
             {
                 _p2pSocks5Socket.Disconnect();
             }
@@ -416,7 +416,7 @@ namespace xeus2.xeus.Core
                         _proxySocks5Socket.Target = Account.Instance.Self.FullJid;
                         _proxySocks5Socket.Initiator = _contact.FullJid;
                         _proxySocks5Socket.SID = _sid;
-                        _proxySocks5Socket.ConnectTimeout = 5000;
+                        _proxySocks5Socket.ConnectTimeout = ConnectionTimeout;
                         _proxySocks5Socket.SyncConnect();
 
                         if (_proxySocks5Socket.Connected)
@@ -684,7 +684,7 @@ namespace xeus2.xeus.Core
             SendStreamHosts();
         }
 
-        private const int ConnectionTimeout = 60000;
+        private const int ConnectionTimeout = 2000;
 
         private void SendStreamHosts()
         {
@@ -698,17 +698,18 @@ namespace xeus2.xeus.Core
 
             IPHostEntry iphe = Dns.GetHostEntry(hostname);
 
-            if (_streamHostProxy != null)
-            {
-                bsIq.Query.AddStreamHost(_streamHostProxy);
-            }
-
+ 
             foreach (IPAddress address in iphe.AddressList)
             {
                 if (address.AddressFamily == AddressFamily.InterNetwork)
                 {
                     bsIq.Query.AddStreamHost(Account.Instance.Self.FullJid, address.ToString(), MyPort);
                 }
+            }
+
+            if (_streamHostProxy != null)
+            {
+                bsIq.Query.AddStreamHost(_streamHostProxy);
             }
 
             _p2pSocks5Socket = new JEP65Socket();
@@ -761,7 +762,6 @@ namespace xeus2.xeus.Core
                             _p2pSocks5Socket.Target = _contact.FullJid;
                             _p2pSocks5Socket.Initiator = Account.Instance.Self.FullJid;
                             _p2pSocks5Socket.SID = _sid;
-                            _p2pSocks5Socket.ConnectTimeout = 60000;
                             _p2pSocks5Socket.SyncConnect();
 
                             if (_p2pSocks5Socket.Connected)
