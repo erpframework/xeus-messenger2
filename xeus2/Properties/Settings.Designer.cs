@@ -490,5 +490,17 @@ namespace xeus2.Properties {
                 this["UI_Item_Small_MaxWidth"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.75")]
+        public double UI_Item_Zoom_Away {
+            get {
+                return ((double)(this["UI_Item_Zoom_Away"]));
+            }
+            set {
+                this["UI_Item_Zoom_Away"] = value;
+            }
+        }
     }
 }

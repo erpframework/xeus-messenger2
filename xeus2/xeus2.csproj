@@ -467,6 +467,7 @@
     <Compile Include="xeus.Core\RecentItems.cs" />
     <Compile Include="xeus.Core\RegisteredService.cs" />
     <Compile Include="xeus.Core\Roster.cs" />
+    <Compile Include="xeus.Core\RosterSort.cs" />
     <Compile Include="xeus.Core\SearchResult.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -479,16 +480,6 @@
     <Compile Include="xeus.Core\Transports.cs" />
     <Compile Include="xeus.Core\VCard.cs" />
     <Compile Include="xeus.Core\xeus.Data\MucMarkManager.cs" />
-    <Compile Include="xeus.Core\xeus.Sockets\AuthMethod.cs" />
-    <Compile Include="xeus.Core\xeus.Sockets\AuthNone.cs" />
-    <Compile Include="xeus.Core\xeus.Sockets\AuthUserPass.cs" />
-    <Compile Include="xeus.Core\xeus.Sockets\IAsyncProxyResult.cs" />
-    <Compile Include="xeus.Core\xeus.Sockets\ProxyException.cs" />
-    <Compile Include="xeus.Core\xeus.Sockets\ProxySocket.cs" />
-    <Compile Include="xeus.Core\xeus.Sockets\Socks4Handler.cs" />
-    <Compile Include="xeus.Core\xeus.Sockets\Socks5Handler.cs" />
-    <Compile Include="xeus.Core\xeus.Sockets\SocksHandler.cs" />
-    <Compile Include="xeus.Core\xeus.Sockets\TestApp.cs" />
     <Compile Include="xeus.Core\XeusException.cs" />
     <Compile Include="xeus.Core\XeusHyperlink.cs" />
     <Compile Include="xeus.Core\xeus.Data\Database.cs" />
@@ -698,6 +689,7 @@
     <Compile Include="xeus.UI\xeus.UI.Controls\VCardControl.xaml.cs">
       <DependentUpon>VCardControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="xeus.UI\xeus.UI.Look\ConvertContactZoom.cs" />
     <Compile Include="xeus.UI\xeus.UI.Look\EnumToBoolConverter.cs" />
     <Compile Include="xeus.UI\xeus.UI.Look\HistoryTemplateSelector.cs" />
     <Compile Include="xeus.UI\xeus.UI.Look\ServiceTemplateSelector.cs" />

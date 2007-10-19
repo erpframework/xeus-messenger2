@@ -194,7 +194,7 @@ namespace MiniClient
                 Connect();
 
                 // Timeout
-                _connectTimeoutTimer.Interval = /*ConnectTimeout*/1000;
+                _connectTimeoutTimer.Interval = ConnectTimeout;
                 _connectTimeoutTimer.Elapsed += connectTimeoutTimer_Elapsed;
                 _connectTimeoutTimer.Start();
 

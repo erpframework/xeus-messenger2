@@ -40,6 +40,9 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             ItemSize = Settings.Default.UI_RosterItemSize;
 
             Roster.Instance.NeedRefresh += Instance_NeedRefresh;
+
+            ListCollectionView listCollectionView = (ListCollectionView)CollectionViewSource.GetDefaultView(_roster.ItemsSource);
+            listCollectionView.CustomSort = new RosterSort();
         }
 
         void Instance_NeedRefresh()
@@ -149,7 +152,12 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 expander.DataContext = group;
             }
 
-            expander.IsExpanded = IsExpanded(expanderName);
+            bool expanded = Roster.Instance.IsGroupExpanded(expanderName);
+
+            if (expanded != expander.IsExpanded)
+            {
+               expander.IsExpanded = Roster.Instance.IsGroupExpanded(expanderName);
+            }
         }
 
         private void OnExpanded(object sender, RoutedEventArgs e)
@@ -166,25 +174,6 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             Group group = (Group)expander.DataContext;
 
             group.IsExpanded = false;
-        }
-
-        private bool IsExpanded(string expanderName)
-        {
-            lock (Roster.Instance.Groups._syncObject)
-            {
-                Group group = Roster.Instance.Groups.FindGroup(expanderName);
-
-                if (group != null)
-                {
-                    return group.IsExpanded;
-                }
-                else
-                {
-                    Roster.Instance.Groups.Add(new Group(expanderName, true));
-                }
-            }
-
-            return true;
         }
     }
 }
