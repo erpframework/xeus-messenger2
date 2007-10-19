@@ -204,7 +204,7 @@ namespace xeus2.xeus.Commands
 
             e.CanExecute = (fileTransfer != null
                                 && (fileTransfer.State == FileTransferState.Waiting
-                                    || fileTransfer.State == FileTransferState.Waiting
+                                    || fileTransfer.State == FileTransferState.Error
                                     || fileTransfer.State == FileTransferState.Finished
                                     || fileTransfer.State == FileTransferState.Cancelled));
             e.Handled = true;
