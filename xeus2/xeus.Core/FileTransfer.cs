@@ -759,7 +759,7 @@ namespace xeus2.xeus.Core
                             _p2pSocks5Socket.Target = _contact.FullJid;
                             _p2pSocks5Socket.Initiator = Account.Instance.Self.FullJid;
                             _p2pSocks5Socket.SID = _sid;
-                            _p2pSocks5Socket.ConnectTimeout = 5000;
+                            _p2pSocks5Socket.ConnectTimeout = 60000;
                             _p2pSocks5Socket.SyncConnect();
 
                             if (_p2pSocks5Socket.Connected)
@@ -773,6 +773,17 @@ namespace xeus2.xeus.Core
             else
             {
                 State = FileTransferState.Cancelled;
+            }
+        }
+
+        void CloseFile(FileStream fs)
+        {
+            fs.Close();
+            fs.Dispose();
+
+            if (_p2pSocks5Socket != null && _p2pSocks5Socket.Connected)
+            {
+                _p2pSocks5Socket.Disconnect();
             }
         }
 
@@ -815,20 +826,24 @@ namespace xeus2.xeus.Core
 
             if (len > 0)
             {
-                _p2pSocks5Socket.Socket.BeginSend(buffer, 0, len, SocketFlags.None, SendFile, fs);
+                try
+                {
+                    _p2pSocks5Socket.Socket.BeginSend(buffer, 0, len, SocketFlags.None, SendFile, fs);
+                }
+
+                catch
+                {
+                    CloseFile(fs);
+
+                    State = FileTransferState.Error;
+                }
             }
             else
             {
                 // Update Pogress when finished
                 UpdateProgress();
 
-                fs.Close();
-                fs.Dispose();
-
-                if (_p2pSocks5Socket != null && _p2pSocks5Socket.Connected)
-                {
-                    _p2pSocks5Socket.Disconnect();
-                }
+                CloseFile(fs);
 
                 State = FileTransferState.Finished;
             }
@@ -880,6 +895,11 @@ namespace xeus2.xeus.Core
         public void Send()
         {
             SendSiIq();
+        }
+
+        public void Cancel()
+        {
+            
         }
     }
 }
