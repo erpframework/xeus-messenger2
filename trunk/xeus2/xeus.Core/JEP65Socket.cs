@@ -94,11 +94,11 @@ namespace MiniClient
             }
         }
 
-        //public long ConnectTimeout
-        //{
-        //    get { return m_ConnectTimeout; }
-        //    set { m_ConnectTimeout = value; }
-        //}
+        public long ConnectTimeout
+        {
+            get { return m_ConnectTimeout; }
+            set { m_ConnectTimeout = value; }
+        }
 
         public Socket Socket
         {
@@ -196,7 +196,7 @@ namespace MiniClient
                 // Timeout
                 _connectTimeoutTimer.Interval = ConnectTimeout;
                 _connectTimeoutTimer.Elapsed += connectTimeoutTimer_Elapsed;
-                //_connectTimeoutTimer.Start();
+                _connectTimeoutTimer.Start();
 
                 Monitor.Wait(_lock);
                 Console.WriteLine("Release Lock");
@@ -477,6 +477,7 @@ namespace MiniClient
         #region << Async Receive >>
 
         private long _receivedBytes = 0;
+        private long m_ConnectTimeout = 10000;
 
         public JEP65Socket()
         {
