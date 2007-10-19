@@ -94,7 +94,7 @@ namespace xeus2.xeus.Core
                     return false;
                 }
 
-                return _discoInfo.HasFeature(Uri.BYTESTREAMS);
+                return string.IsNullOrEmpty(Jid.User) && _discoInfo.HasFeature(Uri.BYTESTREAMS);
 
                 /*
                 foreach (DiscoIdentity identity in _discoInfo.GetIdentities())
