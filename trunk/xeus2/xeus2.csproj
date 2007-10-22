@@ -437,6 +437,7 @@
     <Compile Include="xeus.Core\Events.cs" />
     <Compile Include="xeus.Core\EventStatusChanged.cs" />
     <Compile Include="xeus.Core\FileTransfer.cs" />
+    <Compile Include="xeus.Core\FileTransferBase.cs" />
     <Compile Include="xeus.Core\Group.cs" />
     <Compile Include="xeus.Core\Groups.cs" />
     <Compile Include="xeus.Core\HeadlineMessage.cs" />

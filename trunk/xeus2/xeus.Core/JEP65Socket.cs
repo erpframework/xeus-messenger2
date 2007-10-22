@@ -421,6 +421,7 @@ namespace MiniClient
                 // first, shutdown the socket
                 _socket.Shutdown(SocketShutdown.Both);
             }
+            
             catch
             {
             }
@@ -431,11 +432,13 @@ namespace MiniClient
                 // async operations
                 _socket.Close();
             }
+
             catch
             {
             }
 
             m_SocksConnected = false;
+
             FireOnDisconnect();
         }
 

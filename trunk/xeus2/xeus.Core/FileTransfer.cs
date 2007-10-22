@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 using agsXMPP;
 using agsXMPP.Collections;
@@ -16,82 +15,36 @@ using agsXMPP.protocol.x.data;
 using MiniClient;
 using xeus2.Properties;
 using xeus2.xeus.Data;
-using xeus2.xeus.Utilities;
 using File=agsXMPP.protocol.extensions.filetransfer.File;
 using Uri=agsXMPP.Uri;
 
 namespace xeus2.xeus.Core
 {
-    public enum FileTransferMode
+    internal class FileTransfer : FileTransferBase
     {
-        Sending,
-        Recieving,
-        Undefined
-    }
-
-    public enum FileTransferState
-    {
-        Waiting,
-        WaitingForResponse,
-        Progress,
-        Finished,
-        Error,
-        Cancelled
-    }
-
-    internal class FileTransfer : NotifyInfoDispatcher, IDisposable
-    {
-        private static readonly ObservableCollectionDisp<FileTransfer> _fileTransfers =
-            new ObservableCollectionDisp<FileTransfer>();
-
+        private const int ConnectionTimeout = 2000;
+        private const int MyPort = 1000;
         private readonly File _file;
         private readonly string _proxyUrl = Settings.Default.XmppBytestreamProxy;
         private readonly SI _si;
         private readonly IQ _siIq;
-        
-        private string _sID = null;
 
-        private readonly FileTransferMode _transferMode = FileTransferMode.Undefined;
-        private long _bytesTransmitted = 0;
-        private IContact _contact;
-        private string _fileDescription = null;
-        private long _fileLength;
-        private string _fileName = null;
-        private string _filePath;
-        private FileStream _fileStream;
-        private DateTime _lastProgressUpdate;
         private JEP65Socket _p2pSocks5Socket;
-        private int _progressPercent = 0;
         private JEP65Socket _proxySocks5Socket;
-        private string _rate;
-        private string _remaining;
 
-        /// <summary>
-        /// SID of the filetransfer
-        /// </summary>
-        private string _sid;
-
-        private DateTime _startDateTime;
-
-        private FileTransferState _state = FileTransferState.Waiting;
         private StreamHost _streamHostProxy = null;
 
-        private string _transmitted;
         private XmppClientConnection _xmppConnection;
 
         public FileTransfer(XmppClientConnection xmppCon, IContact recipient, string filename)
+            : base(recipient, filename)
         {
-            _transferMode = FileTransferMode.Sending;
-
-            _contact = recipient;
-            _fileName = filename;
             _xmppConnection = xmppCon;
         }
 
         public FileTransfer(XmppClientConnection xmppCon, IQ iq, IContact from)
+            : base(from)
         {
-            _transferMode = FileTransferMode.Recieving;
-
             _siIq = iq;
             _si = iq.SelectSingleElement(typeof (SI)) as SI;
 
@@ -100,7 +53,6 @@ namespace xeus2.xeus.Core
                 // get SID for file transfer
                 _sid = _si.Id;
                 _file = _si.File;
-                _contact = from;
 
                 Contact = from;
 
@@ -116,155 +68,14 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public string FileName
+        public new void Dispose()
         {
-            get
-            {
-                return _fileName;
-            }
-            private set
-            {
-                _fileName = value;
-            }
-        }
+            base.Dispose();
 
-        public string FileDescription
-        {
-            get
-            {
-                return _fileDescription;
-            }
-            private set
-            {
-                _fileDescription = value;
-            }
-        }
-
-        public string FileSize
-        {
-            get
-            {
-                return HRSize(_fileLength);
-            }
-        }
-
-        public IContact Contact
-        {
-            get
-            {
-                return _contact;
-            }
-            private set
-            {
-                _contact = value;
-            }
-        }
-
-        public FileTransferMode TransferMode
-        {
-            get
-            {
-                return _transferMode;
-            }
-        }
-
-        public int ProgressPercent
-        {
-            get
-            {
-                return _progressPercent;
-            }
-            private set
-            {
-                _progressPercent = value;
-                NotifyPropertyChanged("ProgressPercent");
-            }
-        }
-
-        public string Rate
-        {
-            get
-            {
-                return _rate;
-            }
-            set
-            {
-                _rate = value;
-                NotifyPropertyChanged("Rate");
-            }
-        }
-
-        public string Transmitted
-        {
-            get
-            {
-                return _transmitted;
-            }
-            set
-            {
-                _transmitted = value;
-                NotifyPropertyChanged("Transmitted");
-            }
-        }
-
-        public string Remaining
-        {
-            get
-            {
-                return _remaining;
-            }
-            set
-            {
-                _remaining = value;
-                NotifyPropertyChanged("Remaining");
-            }
-        }
-
-        public FileTransferState State
-        {
-            get
-            {
-                return _state;
-            }
-
-            private set
-            {
-                if (value == FileTransferState.Cancelled
-                    || value == FileTransferState.Error
-                    || value == FileTransferState.Finished)
-                {
-                    Dispose();
-                }
-
-                _state = value;
-
-                NotifyPropertyChanged("State");
-                WPFUtils.RefreshCommands();
-            }
-        }
-
-        public static ObservableCollectionDisp<FileTransfer> FileTransfers
-        {
-            get
-            {
-                return _fileTransfers;
-            }
-        }
-
-        #region IDisposable Members
-
-        public void Dispose()
-        {
             if (_xmppConnection != null)
             {
                 _xmppConnection.OnIq -= _xmppConnection_OnIq;
                 _xmppConnection = null;
-            }
-
-            if (_fileStream != null)
-            {
-                _fileStream.Close();
-                _fileStream.Dispose();
             }
 
             if (_proxySocks5Socket != null && _proxySocks5Socket.Connected)
@@ -277,8 +88,6 @@ namespace xeus2.xeus.Core
                 _p2pSocks5Socket.Disconnect();
             }
         }
-
-        #endregion
 
         ~FileTransfer()
         {
@@ -361,7 +170,8 @@ namespace xeus2.xeus.Core
             else
             {
                 State = FileTransferState.Error;
-                EventErrorFileTransfer transfer = new EventErrorFileTransfer("Error while negotiating file transfer conditions");
+                EventErrorFileTransfer transfer =
+                    new EventErrorFileTransfer("Error while negotiating file transfer conditions");
                 Events.Instance.OnEvent(this, transfer);
             }
         }
@@ -414,7 +224,7 @@ namespace xeus2.xeus.Core
                         _proxySocks5Socket.Address = sHost.Host;
                         _proxySocks5Socket.Port = sHost.Port;
                         _proxySocks5Socket.Target = Account.Instance.Self.FullJid;
-                        _proxySocks5Socket.Initiator = _contact.FullJid;
+                        _proxySocks5Socket.Initiator = Contact.FullJid;
                         _proxySocks5Socket.SID = _sid;
                         _proxySocks5Socket.ConnectTimeout = ConnectionTimeout;
                         _proxySocks5Socket.SyncConnect();
@@ -459,7 +269,7 @@ namespace xeus2.xeus.Core
 
         private void SendStreamHostUsedResponse(StreamHost sh, IQ iq)
         {
-            ByteStreamIq bsIQ = new ByteStreamIq(IqType.result, _contact.FullJid);
+            ByteStreamIq bsIQ = new ByteStreamIq(IqType.result, Contact.FullJid);
             bsIQ.Id = iq.Id;
 
             bsIQ.Query.StreamHostUsed = new StreamHostUsed(sh.Jid);
@@ -485,112 +295,18 @@ namespace xeus2.xeus.Core
             _fileStream.Write(data, 0, count);
 
             _bytesTransmitted += count;
-
-            // to udate the progress bar	
-            TimeSpan ts = DateTime.Now - _lastProgressUpdate;
-
-            if (ts.Milliseconds >= 250)
-            {
-                UpdateProgress();
-            }
-        }
-
-        private void UpdateProgress()
-        {
-            _lastProgressUpdate = DateTime.Now;
-
-#pragma warning disable RedundantCast
-            double percent = (double) _bytesTransmitted / (double) _fileLength * 100;
-#pragma warning restore RedundantCast
-
-            ProgressPercent = (int) percent;
-            Rate = GetHRByteRateString();
-            Transmitted = HRSize(_bytesTransmitted);
-            Remaining = GetHRRemainingTime();
-        }
-
-        private string GetHRRemainingTime()
-        {
-            float fRemaingTime = 0;
-            float fTotalNumberOfBytes = _fileLength;
-            float fPartialNumberOfBytes = _bytesTransmitted;
-            float fBytesPerSecond = GetBytePerSecond();
-
-            if (fBytesPerSecond != 0)
-            {
-                fRemaingTime = (fTotalNumberOfBytes - fPartialNumberOfBytes) / fBytesPerSecond;
-            }
-
-            TimeSpan ts = TimeSpan.FromSeconds(fRemaingTime);
-
-            return String.Format("{0:00}h {1:00}m {2:00}s",
-                                 ts.Hours, ts.Minutes, ts.Seconds);
-        }
-
-        private long GetBytePerSecond()
-        {
-            TimeSpan ts = DateTime.Now - _startDateTime;
-            double dBytesPerSecond = _bytesTransmitted / ts.TotalSeconds;
-
-            return (long) dBytesPerSecond;
-        }
-
-        private static string HRSize(long lBytes)
-        {
-            StringBuilder sb = new StringBuilder();
-            string strUnits = "Bytes";
-            float fAdjusted;
-
-            if (lBytes > 1024)
-            {
-                if (lBytes < 1024 * 1024)
-                {
-                    strUnits = "KB";
-                    fAdjusted = Convert.ToSingle(lBytes) / 1024;
-                }
-                else
-                {
-                    strUnits = "MB";
-                    fAdjusted = Convert.ToSingle(lBytes) / 1048576;
-                }
-                sb.AppendFormat("{0:0.0} {1}", fAdjusted, strUnits);
-            }
-            else
-            {
-                fAdjusted = Convert.ToSingle(lBytes);
-                sb.AppendFormat("{0:0} {1}", fAdjusted, strUnits);
-            }
-
-            return sb.ToString();
-        }
-
-        private string GetHRByteRateString()
-        {
-            TimeSpan ts = DateTime.Now - _startDateTime;
-
-            if (ts.TotalSeconds != 0)
-            {
-                double dBytesPerSecond = _bytesTransmitted / ts.TotalSeconds;
-                long lBytesPerSecond = Convert.ToInt64(dBytesPerSecond);
-                return HRSize(lBytesPerSecond) + "/s";
-            }
-            else
-            {
-                // to fast to calculate a bitrate (0 seconds)
-                return HRSize(0) + "/s";
-            }
         }
 
         private void SendSiIq()
         {
             SIIq iq = new SIIq();
-            iq.To = _contact.FullJid;
+            iq.To = Contact.FullJid;
             iq.Type = IqType.set;
 
-            _fileLength = new FileInfo(_fileName).Length;
+            _fileLength = new FileInfo(FileName).Length;
 
             File afile;
-            afile = new File(Path.GetFileName(_fileName), _fileLength);
+            afile = new File(Path.GetFileName(FileName), _fileLength);
 
             afile.Description = FileDescription;
             afile.Range = new Range();
@@ -684,12 +400,10 @@ namespace xeus2.xeus.Core
             SendStreamHosts();
         }
 
-        private const int ConnectionTimeout = 2000;
-
         private void SendStreamHosts()
         {
             ByteStreamIq bsIq = new ByteStreamIq();
-            bsIq.To = _contact.FullJid;
+            bsIq.To = Contact.FullJid;
             bsIq.Type = IqType.set;
 
             bsIq.Query.Sid = _sid;
@@ -698,7 +412,7 @@ namespace xeus2.xeus.Core
 
             IPHostEntry iphe = Dns.GetHostEntry(hostname);
 
- 
+
             foreach (IPAddress address in iphe.AddressList)
             {
                 if (address.AddressFamily == AddressFamily.InterNetwork)
@@ -715,23 +429,23 @@ namespace xeus2.xeus.Core
             _p2pSocks5Socket = new JEP65Socket();
             _p2pSocks5Socket.ConnectTimeout = ConnectionTimeout;
             _p2pSocks5Socket.Initiator = _xmppConnection.MyJID;
-            _p2pSocks5Socket.Target = _contact.FullJid;
+            _p2pSocks5Socket.Target = Contact.FullJid;
             _p2pSocks5Socket.SID = _sid;
             _p2pSocks5Socket.OnConnect += _socket_OnConnect;
-            _p2pSocks5Socket.OnDisconnect += _socket_OnDisconnect;
+            //_p2pSocks5Socket.OnDisconnect += _socket_OnDisconnect;
             _p2pSocks5Socket.Listen(MyPort);
 
             _xmppConnection.IqGrabber.SendIq(bsIq, new IqCB(SendStreamHostsResult), null);
         }
 
-        private const int MyPort = 1000;
-
+        /*
         private void _socket_OnDisconnect(object sender)
         {
-        }
+        }*/
 
         private void _socket_OnConnect(object sender)
         {
+            State = FileTransferState.Progress;
         }
 
         private void SendStreamHostsResult(object sender, IQ iq, object data)
@@ -759,7 +473,7 @@ namespace xeus2.xeus.Core
                             _p2pSocks5Socket.ConnectTimeout = ConnectionTimeout;
                             _p2pSocks5Socket.Address = _streamHostProxy.Host;
                             _p2pSocks5Socket.Port = _streamHostProxy.Port;
-                            _p2pSocks5Socket.Target = _contact.FullJid;
+                            _p2pSocks5Socket.Target = Contact.FullJid;
                             _p2pSocks5Socket.Initiator = Account.Instance.Self.FullJid;
                             _p2pSocks5Socket.SID = _sid;
                             _p2pSocks5Socket.SyncConnect();
@@ -778,7 +492,7 @@ namespace xeus2.xeus.Core
             }
         }
 
-        void CloseFile(FileStream fs)
+        private void CloseFile(FileStream fs)
         {
             fs.Close();
             fs.Dispose();
@@ -801,7 +515,7 @@ namespace xeus2.xeus.Core
             if (ar == null)
             {
                 _startDateTime = DateTime.Now;
-                fs = new FileStream(_fileName, FileMode.Open);
+                fs = new FileStream(FileName, FileMode.Open);
             }
             else
             {
@@ -810,17 +524,8 @@ namespace xeus2.xeus.Core
                     _p2pSocks5Socket.Socket.EndReceive(ar);
                 }
 
-                fs = ar.AsyncState as FileStream;
-
-                // Windows Forms are not Thread Safe, we need to invoke this :(
-                // We're not in the UI thread, so we need to call BeginInvoke
-                // to udate the progress bar
-                TimeSpan ts = DateTime.Now - _lastProgressUpdate;
-
-                if (ts.Milliseconds >= 250)
-                {
-                    UpdateProgress();
-                }
+                fs = (FileStream) ar.AsyncState;
+                UpdateProgress();
             }
 
             int len = fs.Read(buffer, 0, BUFFERSIZE);
@@ -859,7 +564,7 @@ namespace xeus2.xeus.Core
             bsIq.Type = IqType.set;
 
             bsIq.Query.Sid = _sid;
-            bsIq.Query.Activate = new Activate(_contact.FullJid);
+            bsIq.Query.Activate = new Activate(Contact.FullJid);
 
             _xmppConnection.IqGrabber.SendIq(bsIq, new IqCB(ActivateBytestreamResult), null);
         }
@@ -907,7 +612,6 @@ namespace xeus2.xeus.Core
 
         public void Cancel()
         {
-            
         }
     }
 }
