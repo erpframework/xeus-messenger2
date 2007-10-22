@@ -38,16 +38,17 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         {
             switch (_chatBase.ChatState)
             {
-                case agsXMPP.protocol.extensions.chatstates.Chatstate.active:
+                // most of clients don't support this correctly
+                /*case agsXMPP.protocol.extensions.chatstates.Chatstate.active:
                 case agsXMPP.protocol.extensions.chatstates.Chatstate.paused:
                     {
                         Opacity = 0.15;
                         Visibility = Visibility.Visible;
                         break;
-                    }
+                    }*/
                 case agsXMPP.protocol.extensions.chatstates.Chatstate.composing:
                     {
-                        Opacity = 1.0;
+                        /*Opacity = 1.0;*/
                         Visibility = Visibility.Visible;
                         break;
                     }
