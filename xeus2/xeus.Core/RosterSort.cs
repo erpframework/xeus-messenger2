@@ -17,6 +17,9 @@ namespace xeus2.xeus.Core
             }
             else
             {
+                return string.Compare(itemX.Group, itemY.Group, true);
+
+                /*
                 bool isSysGroupX = Roster.Instance.IsGroupExpanded(itemX.Group);
                 bool isSysGroupY = Roster.Instance.IsGroupExpanded(itemY.Group);
 
@@ -27,7 +30,7 @@ namespace xeus2.xeus.Core
                 else
                 {
                     return (isSysGroupX) ? 1 : -1;
-                }
+                }*/
             }
         }
 
