@@ -177,20 +177,12 @@
         <WrapPanel IsItemsHost="True" />
     </ItemsPanelTemplate>
 
-    <Look:ConvertContactZoom x:Key="ConvertZoom" />
-                        
+                       
     <DataTemplate x:Key="MetaContactSmall">
         <Grid>
             <Grid.ToolTip>
                 <ToolTip ContentTemplate="{DynamicResource ContactToolTip}" Content="{Binding}"/>
             </Grid.ToolTip>
-
-            <Grid.LayoutTransform>
-                <ScaleTransform CenterX="0" CenterY="0"
-                                ScaleTransform.ScaleX="{Binding Path=Show, Converter={StaticResource ConvertZoom}}"
-                                ScaleTransform.ScaleY="{Binding Path=Show, Converter={StaticResource ConvertZoom}}">
-                </ScaleTransform>
-            </Grid.LayoutTransform>
             
             <Grid Margin="1,1,1,1" x:Name="_grid" ContextMenu="{DynamicResource ContactMenu}"
                   MaxWidth="{Binding Path=UI_Item_Small_MaxWidth, Source={x:Static prop:Settings.Default}}"
@@ -282,13 +274,6 @@
             <Grid.ToolTip>
                 <ToolTip ContentTemplate="{DynamicResource ContactToolTip}" Content="{Binding}"/>
             </Grid.ToolTip>
-
-            <Grid.LayoutTransform>
-                <ScaleTransform CenterX="0" CenterY="0"
-                                ScaleTransform.ScaleX="{Binding Path=Show, Converter={StaticResource ConvertZoom}}"
-                                ScaleTransform.ScaleY="{Binding Path=Show, Converter={StaticResource ConvertZoom}}">
-                </ScaleTransform>
-            </Grid.LayoutTransform>
 
             <Grid>
                 <Grid VerticalAlignment="Bottom" x:Name="_resource" Margin="3,-1,5,0" Visibility="Visible" HorizontalAlignment="Left">
@@ -411,13 +396,6 @@
             <Grid.ToolTip>
                 <ToolTip ContentTemplate="{DynamicResource ContactToolTip}" Content="{Binding}"/>
             </Grid.ToolTip>
-
-            <Grid.LayoutTransform>
-                <ScaleTransform CenterX="0" CenterY="0"
-                                ScaleTransform.ScaleX="{Binding Path=Show, Converter={StaticResource ConvertZoom}}"
-                                ScaleTransform.ScaleY="{Binding Path=Show, Converter={StaticResource ConvertZoom}}">
-                </ScaleTransform>
-            </Grid.LayoutTransform>
 
             <Grid>
                 <Grid VerticalAlignment="Top" x:Name="_resource" Margin="0,3,0,0" MaxHeight="90">

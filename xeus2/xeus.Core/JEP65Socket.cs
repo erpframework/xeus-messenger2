@@ -94,7 +94,7 @@ namespace MiniClient
             }
         }
 
-        public long ConnectTimeout
+        public new long ConnectTimeout
         {
             get { return m_ConnectTimeout; }
             set { m_ConnectTimeout = value; }
