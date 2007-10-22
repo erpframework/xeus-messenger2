@@ -14,6 +14,7 @@ using agsXMPP.protocol.iq.last;
 using agsXMPP.protocol.iq.register;
 using agsXMPP.protocol.iq.roster;
 using agsXMPP.protocol.iq.search;
+using agsXMPP.protocol.iq.time;
 using agsXMPP.protocol.x.muc;
 using agsXMPP.protocol.x.muc.iq.owner;
 using agsXMPP.Xml.Dom;
@@ -474,6 +475,17 @@ namespace xeus2.xeus.Core
 
                         last.Seconds = (int) (Win32.GetIdleTime() / 1000);
                         iq.AddChild(last);
+
+                        XmppConnection.Send(iq);
+                    }
+                    else if (query.GetType() == typeof(Time))
+                    {
+                        iq.SwitchDirection();
+                        iq.Type = IqType.result;
+
+                        Time time = (Time)iq.Query;
+                        time.Tz = String.Format("{0:zzzz}", DateTime.Now);
+                        time.Utc = String.Format("{0:yyyy-MM-ddTHH:mm:ssZ}", DateTime.UtcNow);
 
                         XmppConnection.Send(iq);
                     }

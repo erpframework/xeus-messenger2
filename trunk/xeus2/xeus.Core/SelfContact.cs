@@ -49,7 +49,6 @@ namespace xeus2.xeus.Core
             _idleTimer.AutoReset = true;
             _idleTimer.Elapsed += _idleTimer_Elapsed;
             _idleTimer.Start();
-
             
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.BYTESTREAMS));
             //_caps.AddExtension("bs");
@@ -84,8 +83,9 @@ namespace xeus2.xeus.Core
             _discoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC_USER));
             //_caps.AddExtension("usr");
 
-            _caps = new Capabilities(TextUtil.GenerateVerAttribute(_discoInfo),
-                                     "http://xeus.net/#2.0");
+            _discoInfo.AddFeature(new DiscoFeature("urn:xmpp:time"));
+
+           _caps = new Capabilities(TextUtil.GenerateVerAttribute(_discoInfo), "http://xeus.net/#2.0");
 
             _discoInfo.AddIdentity(_identity);
         }
