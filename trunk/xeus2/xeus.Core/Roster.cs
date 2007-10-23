@@ -32,12 +32,11 @@ namespace xeus2.xeus.Core
 
         private readonly List<ContactChat> _chats = new List<ContactChat>();
         private readonly object _chatsLock = new object();
+        private readonly Groups _groups = new Groups();
         private readonly ObservableCollectionDisp<MetaContact> _items = new ObservableCollectionDisp<MetaContact>();
         private readonly Dictionary<string, Contact> _realContacts = new Dictionary<string, Contact>();
 
         private readonly Timer _timerRefresh = new Timer();
-
-        private readonly Groups _groups = new Groups();
 
         public Roster()
         {
@@ -616,7 +615,7 @@ namespace xeus2.xeus.Core
             return contact;
         }
 
-        private void AddRosterItem(RosterItem item)
+        private Contact AddRosterItem(RosterItem item)
         {
             Contact contact;
 
@@ -655,6 +654,8 @@ namespace xeus2.xeus.Core
                 contact.SetVcard(vcard);
                 contact.HasVCardRecieved = false;
             }
+
+            return contact;
         }
 
         public void NotifyNeedRefresh()
@@ -707,8 +708,6 @@ namespace xeus2.xeus.Core
             }
             else
             {
-                //RosterManager rosterManager = new RosterManager(Account.Instance.XmppConnection);
-
                 Account.Instance.XmppConnection.RosterManager.RemoveRosterItem(contactInterface.Jid);
             }
         }
@@ -721,27 +720,27 @@ namespace xeus2.xeus.Core
 
                 if (contact == null)
                 {
-                    throw new NotImplementedException("Message from contact not in roster");
+                    RosterItem rosterItem = new RosterItem(message.From);
+
+                    contact = AddRosterItem(rosterItem);
                 }
-                else
+
+                List<ContactChat> contactChats = GetContactChats(contact);
+
+                foreach (ContactChat chat in contactChats)
                 {
-                    List<ContactChat> contactChats = GetContactChats(contact);
-
-                    foreach (ContactChat chat in contactChats)
-                    {
-                        if (message.Body != null)
-                        {
-                            chat.Messages.Add(message);
-                        }
-
-                        chat.ChatState = chatstate;
-                    }
-
                     if (message.Body != null)
                     {
-                        RecentItems.Instance.Add(contact);
-                        Events.Instance.OnEvent(this, new EventChatMessage(contact, message, (contactChats.Count > 0)));
+                        chat.Messages.Add(message);
                     }
+
+                    chat.ChatState = chatstate;
+                }
+
+                if (message.Body != null)
+                {
+                    RecentItems.Instance.Add(contact);
+                    Events.Instance.OnEvent(this, new EventChatMessage(contact, message, (contactChats.Count > 0)));
                 }
             }
         }
@@ -810,14 +809,14 @@ namespace xeus2.xeus.Core
 
                 // Ask for subscription now
                 Account.Instance.GetPresenceManager().Subcribe(registeredService.UserNewJid);
-           }
+            }
         }
 
         public void AddContact(Jid jid)
         {
             Account.Instance.XmppConnection.RosterManager.AddRosterItem(jid);
 
-                // Ask for subscription now
+            // Ask for subscription now
             Account.Instance.GetPresenceManager().Subcribe(jid);
         }
 
@@ -847,11 +846,11 @@ namespace xeus2.xeus.Core
 
         public IContact FindContactOrGetNew(Jid jid)
         {
-            Contact contact = null;
+            Contact contact;
 
-            lock (Roster.Instance.Items._syncObject)
+            lock (Items._syncObject)
             {
-                contact = Roster.Instance.FindContact(jid);
+                contact = FindContact(jid);
             }
 
             if (contact == null)
@@ -864,7 +863,6 @@ namespace xeus2.xeus.Core
 
             return contact;
         }
-
 
         #region Nested type: MessageCallback
 
