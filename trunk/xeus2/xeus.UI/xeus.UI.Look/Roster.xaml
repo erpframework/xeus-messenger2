@@ -42,7 +42,7 @@
             </Grid>
         </Border>
     </DataTemplate>
-
+    
     <DrawingBrush x:Key="filter_design"  PresentationOptions:Freeze="True">
         <DrawingBrush.Drawing>
             <DrawingGroup>
@@ -184,45 +184,40 @@
                 <ToolTip ContentTemplate="{DynamicResource ContactToolTip}" Content="{Binding}"/>
             </Grid.ToolTip>
             
-            <Grid Margin="1,1,1,1" x:Name="_grid" ContextMenu="{DynamicResource ContactMenu}"
-                  MaxWidth="{Binding Path=UI_Item_Small_MaxWidth, Source={x:Static prop:Settings.Default}}"
-                  VerticalAlignment="Center">
-                <Grid VerticalAlignment="Bottom" x:Name="_resource" Margin="3,-1,5,0" HorizontalAlignment="Left">
-                    <Border BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" Margin="0,0,0,2"
-                        Background="#FFe5e5e5" BorderBrush="{DynamicResource roster_image_border}">
+            <StackPanel Margin="1,1,1,1" x:Name="_grid" ContextMenu="{DynamicResource ContactMenu}"
+                  MaxWidth="{Binding Path=UI_Item_Small_MaxWidth, Source={x:Static prop:Settings.Default}}">
+                <Grid x:Name="_item" >
+                    <a:SystemDropShadowChrome Color="#4000" Margin="-8,-8,1,1"/>
+                    <Border CornerRadius="2" SnapsToDevicePixels="True" x:Name="_parent"
+                            Background="{StaticResource contact_back_design}">
+                        <StackPanel Orientation="Horizontal">
+                            <Grid>
+                            <Image Margin="2,2,0,2" Source="{Binding Path=Image}" x:Name="_image" 
+                                      Height="24" Width="24"
+                                      Stretch="UniformToFill" VerticalAlignment="Center"/>
+                            <Rectangle Width="14" Height="14" VerticalAlignment="Bottom"
+                                       HorizontalAlignment="Right" x:Name="_show" Margin="0,0,-4,-3"/>
+                            </Grid>
+                            <StackPanel x:Name="_container" Margin="2,2,4,2">
+                                <TextBlock Text="{Binding Path=DisplayName}"
+                                       Foreground="{StaticResource roster_name_text}" FontSize="11"
+                                       TextAlignment="Left" TextTrimming="CharacterEllipsis"/>
+                                <TextBlock Text="{Binding Path=XStatusText}" Foreground="{StaticResource roster_status_text}"
+                                       FontSize="10" TextAlignment="Left" TextTrimming="CharacterEllipsis"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+                <Grid x:Name="_resource" Margin="3,-3,5,0" Visibility="Collapsed"
+                      HorizontalAlignment="Left" ZIndex="-1">
+                    <Border BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" Background="#FFe5e5e5"
+                            BorderBrush="{DynamicResource roster_image_border}">
                         <TextBlock Margin="5,0,5,0" VerticalAlignment="Center" Foreground="#FF000000"
                                Text="{Binding Path=Resource}" FontSize="10" TextTrimming="CharacterEllipsis" HorizontalAlignment="Left">
                         </TextBlock>
                     </Border>
                 </Grid>
-                <Grid Margin="0,0,0,15" x:Name="_item" >
-                    <Rectangle Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                x:Name="_show" Panel.ZIndex="1" Margin="7,0,0,0"/>
-                    <!--
-                    <Rectangle Margin="1,1,1,0"
-                             Fill="{DynamicResource contact_back_big_glow_design}"
-                             VerticalAlignment="Top" Height="20" Panel.ZIndex="1" SnapsToDevicePixels="True"/>
-                     -->
-                    <a:SystemDropShadowChrome Color="#3000" Margin="-4,-4,1,1"/>
-                    <Border Padding="0,0,2,0"
-                            CornerRadius="2" SnapsToDevicePixels="True" x:Name="_parent"
-                            Background="{StaticResource contact_back_design}">
-                        <Grid>
-                            <Image Source="{Binding Path=Image}" x:Name="_image" 
-                                      HorizontalAlignment="Left"
-                                      Height="24" Width="24" Margin="2,0,0,0"
-                                      Stretch="UniformToFill" IsEnabled="False"/>
-                            <StackPanel x:Name="_container" Margin="28,0,0,0">
-                                <TextBlock Margin="3,1,3,0" Text="{Binding Path=DisplayName}"
-                                       Foreground="{StaticResource roster_name_text}" FontSize="11"
-                                       TextAlignment="Left" TextTrimming="CharacterEllipsis"/>
-                                <TextBlock Text="{Binding Path=XStatusText}" Foreground="{StaticResource roster_status_text}"
-                                       Margin="3,-3,3,2" FontSize="10" TextAlignment="Left" TextTrimming="CharacterEllipsis"/>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-                </Grid>
-            </Grid>
+            </StackPanel>
             <Border x:Name="_uptime" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2"
                         Background="#FFe5e5e5" BorderBrush="{DynamicResource roster_image_border}"
                         HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3,0,0,3"
@@ -233,6 +228,12 @@
         </Grid>
         
         <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}, AncestorLevel=1}, Path=IsSelected}" Value="True">
+                <Setter Property="Visibility" Value="Visible" TargetName="_resource" />
+                <Setter Property="Width" Value="32" TargetName="_image" />
+                <Setter Property="Height" Value="32" TargetName="_image" />
+            </DataTrigger>
+
             <DataTrigger Binding="{Binding Path=IsAvailable}" Value="False">
                 <Setter Property="Opacity" TargetName="_grid" Value="0.35"/>
             </DataTrigger>
@@ -252,19 +253,15 @@
 
             <DataTrigger Binding="{Binding Path=Show}" Value="dnd">
                 <Setter Property="Fill" TargetName="_show" Value="{DynamicResource dnd_design}"/>
-                <Setter Property="Visibility" TargetName="_image" Value="Hidden"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Show}" Value="away">
                 <Setter Property="Fill" TargetName="_show" Value="{DynamicResource away_design}"/>
-                <Setter Property="Visibility" TargetName="_image" Value="Hidden"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Show}" Value="xa">
                 <Setter Property="Fill" TargetName="_show" Value="{DynamicResource xaway_design}"/>
-                <Setter Property="Visibility" TargetName="_image" Value="Hidden"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Show}" Value="chat">
                 <Setter Property="Fill" TargetName="_show" Value="{DynamicResource chat_design}"/>
-                <Setter Property="Visibility" TargetName="_image" Value="Hidden"/>
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
