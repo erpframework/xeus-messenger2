@@ -39,6 +39,11 @@ namespace xeus2.xeus.Middle
                         DismissChatMessageNotification();
                         break;
                     }
+                case TrayIcon.TrayState.NewFile:
+                    {
+                        DismissFileNotification();
+                        break;
+                    }
                 case TrayIcon.TrayState.Normal:
                     {
                         if (e.Button == MouseButtons.Left)
@@ -62,6 +67,17 @@ namespace xeus2.xeus.Middle
             }
         }
 
+        void DismissFileNotification()
+        {
+            EventInfoFileTransfer eventInfoFileTransfer = Notification.GetFirstEvent<EventInfoFileTransfer>();
+
+            if (eventInfoFileTransfer != null)
+            {
+                Notification.DismissNotification(eventInfoFileTransfer);
+                FileTransferManager.Instance.TransferOpen(eventInfoFileTransfer.Iq);
+            }
+        }
+
         public void RefreshStatus()
         {
             Event lastEvent = Notification.GetFirstEvent<Event>();
@@ -75,6 +91,11 @@ namespace xeus2.xeus.Middle
             {
                 _trayIcon.State = TrayIcon.TrayState.NewMessage;
                 _trayIcon.NotifyIcon.Text = string.Format("Message from {0}", ((EventChatMessage) lastEvent).Contact.DisplayName);
+            }
+            else if (lastEvent is EventInfoFileTransfer)
+            {
+                _trayIcon.State = TrayIcon.TrayState.NewFile;
+                _trayIcon.NotifyIcon.Text = lastEvent.Message;
             }
         }
     }

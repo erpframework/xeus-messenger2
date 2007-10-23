@@ -22,7 +22,7 @@ namespace xeus2.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "2.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace xeus2.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("xeus2.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace xeus2.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -60,10 +60,17 @@ namespace xeus2.Properties {
             }
         }
         
+        public static System.Drawing.Icon cd_rom {
+            get {
+                object obj = ResourceManager.GetObject("cd_rom", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to \nThis service is already registered.
         /// </summary>
-        internal static string Constant_AlreadyRegistered {
+        public static string Constant_AlreadyRegistered {
             get {
                 return ResourceManager.GetString("Constant_AlreadyRegistered", resourceCulture);
             }
@@ -72,7 +79,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
-        internal static string Constant_Email {
+        public static string Constant_Email {
             get {
                 return ResourceManager.GetString("Constant_Email", resourceCulture);
             }
@@ -81,7 +88,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Enter email for Search.
         /// </summary>
-        internal static string Constant_EnterEmailForSearch {
+        public static string Constant_EnterEmailForSearch {
             get {
                 return ResourceManager.GetString("Constant_EnterEmailForSearch", resourceCulture);
             }
@@ -90,7 +97,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Enter an e-mail address for this Service.
         /// </summary>
-        internal static string Constant_EnterEmailForService {
+        public static string Constant_EnterEmailForService {
             get {
                 return ResourceManager.GetString("Constant_EnterEmailForService", resourceCulture);
             }
@@ -99,7 +106,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Enter first name for Search.
         /// </summary>
-        internal static string Constant_EnterFirstNameForSearch {
+        public static string Constant_EnterFirstNameForSearch {
             get {
                 return ResourceManager.GetString("Constant_EnterFirstNameForSearch", resourceCulture);
             }
@@ -108,7 +115,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Enter last name for Search.
         /// </summary>
-        internal static string Constant_EnterLastNameForSearch {
+        public static string Constant_EnterLastNameForSearch {
             get {
                 return ResourceManager.GetString("Constant_EnterLastNameForSearch", resourceCulture);
             }
@@ -117,7 +124,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Enter you login name for this Service.
         /// </summary>
-        internal static string Constant_EnterLoginNameForService {
+        public static string Constant_EnterLoginNameForService {
             get {
                 return ResourceManager.GetString("Constant_EnterLoginNameForService", resourceCulture);
             }
@@ -126,7 +133,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Enter nickname for Search.
         /// </summary>
-        internal static string Constant_EnterNicknameForSearch {
+        public static string Constant_EnterNicknameForSearch {
             get {
                 return ResourceManager.GetString("Constant_EnterNicknameForSearch", resourceCulture);
             }
@@ -135,7 +142,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Enter your password for this Service.
         /// </summary>
-        internal static string Constant_EnterPasswordForService {
+        public static string Constant_EnterPasswordForService {
             get {
                 return ResourceManager.GetString("Constant_EnterPasswordForService", resourceCulture);
             }
@@ -144,7 +151,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to First name.
         /// </summary>
-        internal static string Constant_FirstName {
+        public static string Constant_FirstName {
             get {
                 return ResourceManager.GetString("Constant_FirstName", resourceCulture);
             }
@@ -153,7 +160,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to General.
         /// </summary>
-        internal static string Constant_General {
+        public static string Constant_General {
             get {
                 return ResourceManager.GetString("Constant_General", resourceCulture);
             }
@@ -162,7 +169,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Incomplete data from server.
         /// </summary>
-        internal static string Constant_IncompleteData {
+        public static string Constant_IncompleteData {
             get {
                 return ResourceManager.GetString("Constant_IncompleteData", resourceCulture);
             }
@@ -171,7 +178,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to JID.
         /// </summary>
-        internal static string Constant_Jid {
+        public static string Constant_Jid {
             get {
                 return ResourceManager.GetString("Constant_Jid", resourceCulture);
             }
@@ -180,7 +187,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Last name.
         /// </summary>
-        internal static string Constant_LastName {
+        public static string Constant_LastName {
             get {
                 return ResourceManager.GetString("Constant_LastName", resourceCulture);
             }
@@ -189,7 +196,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Nickname.
         /// </summary>
-        internal static string Constant_Nickname {
+        public static string Constant_Nickname {
             get {
                 return ResourceManager.GetString("Constant_Nickname", resourceCulture);
             }
@@ -198,7 +205,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to No Message.
         /// </summary>
-        internal static string Constant_NoMessage {
+        public static string Constant_NoMessage {
             get {
                 return ResourceManager.GetString("Constant_NoMessage", resourceCulture);
             }
@@ -207,7 +214,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
-        internal static string Constant_Password {
+        public static string Constant_Password {
             get {
                 return ResourceManager.GetString("Constant_Password", resourceCulture);
             }
@@ -216,7 +223,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Unknown Service.
         /// </summary>
-        internal static string Constant_UnknownService {
+        public static string Constant_UnknownService {
             get {
                 return ResourceManager.GetString("Constant_UnknownService", resourceCulture);
             }
@@ -225,7 +232,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to User Name.
         /// </summary>
-        internal static string Constant_UserName {
+        public static string Constant_UserName {
             get {
                 return ResourceManager.GetString("Constant_UserName", resourceCulture);
             }
@@ -234,7 +241,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Error {0} - {1}.
         /// </summary>
-        internal static string Error_CodeMsg {
+        public static string Error_CodeMsg {
             get {
                 return ResourceManager.GetString("Error_CodeMsg", resourceCulture);
             }
@@ -243,7 +250,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Command result failed for &apos;{0}&apos;.
         /// </summary>
-        internal static string Error_CommandResultFailed {
+        public static string Error_CommandResultFailed {
             get {
                 return ResourceManager.GetString("Error_CommandResultFailed", resourceCulture);
             }
@@ -252,7 +259,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Discovery failed for &apos;{0}&apos;.
         /// </summary>
-        internal static string Error_DiscoFailed {
+        public static string Error_DiscoFailed {
             get {
                 return ResourceManager.GetString("Error_DiscoFailed", resourceCulture);
             }
@@ -261,7 +268,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Invalid contact property name &apos;{0}&apos;.
         /// </summary>
-        internal static string Error_InvalidContactProp {
+        public static string Error_InvalidContactProp {
             get {
                 return ResourceManager.GetString("Error_InvalidContactProp", resourceCulture);
             }
@@ -270,7 +277,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to DisplayName can&apos;t be used here.
         /// </summary>
-        internal static string Error_InvDisplayName {
+        public static string Error_InvDisplayName {
             get {
                 return ResourceManager.GetString("Error_InvDisplayName", resourceCulture);
             }
@@ -279,7 +286,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Room nickname request for &apos;{0}&apos; failed.
         /// </summary>
-        internal static string Error_RoomNickFailed {
+        public static string Error_RoomNickFailed {
             get {
                 return ResourceManager.GetString("Error_RoomNickFailed", resourceCulture);
             }
@@ -288,7 +295,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Service discovery of &apos;{0}&apos; failed - Error {1}.
         /// </summary>
-        internal static string Error_ServiceDiscoFailed {
+        public static string Error_ServiceDiscoFailed {
             get {
                 return ResourceManager.GetString("Error_ServiceDiscoFailed", resourceCulture);
             }
@@ -297,7 +304,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; Service search succeeded.
         /// </summary>
-        internal static string Even_SearchSucceeded {
+        public static string Even_SearchSucceeded {
             get {
                 return ResourceManager.GetString("Even_SearchSucceeded", resourceCulture);
             }
@@ -306,7 +313,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Client &apos;{0}&apos; is now connected to your account &apos;{2}&apos; - priority {1}, status &apos;{2}&apos;.
         /// </summary>
-        internal static string Event_AnotherClient {
+        public static string Event_AnotherClient {
             get {
                 return ResourceManager.GetString("Event_AnotherClient", resourceCulture);
             }
@@ -315,7 +322,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; priority is higher than yours.
         /// </summary>
-        internal static string Event_AnotherClientHigher {
+        public static string Event_AnotherClientHigher {
             get {
                 return ResourceManager.GetString("Event_AnotherClientHigher", resourceCulture);
             }
@@ -324,7 +331,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; priority is lower than yours.
         /// </summary>
-        internal static string Event_AnotherClientLower {
+        public static string Event_AnotherClientLower {
             get {
                 return ResourceManager.GetString("Event_AnotherClientLower", resourceCulture);
             }
@@ -333,7 +340,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Authorization failed.
         /// </summary>
-        internal static string Event_AuthFailed {
+        public static string Event_AuthFailed {
             get {
                 return ResourceManager.GetString("Event_AuthFailed", resourceCulture);
             }
@@ -342,7 +349,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Command {0} cancelled.
         /// </summary>
-        internal static string Event_CommandCancelled {
+        public static string Event_CommandCancelled {
             get {
                 return ResourceManager.GetString("Event_CommandCancelled", resourceCulture);
             }
@@ -351,7 +358,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Command execution of service {0} failed.
         /// </summary>
-        internal static string Event_CommandExecFailed {
+        public static string Event_CommandExecFailed {
             get {
                 return ResourceManager.GetString("Event_CommandExecFailed", resourceCulture);
             }
@@ -360,7 +367,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Presence of contact &apos;{0}&apos; has changed from &apos;{1}&apos; to &apos;{2}&apos;.
         /// </summary>
-        internal static string Event_PresenceChange {
+        public static string Event_PresenceChange {
             get {
                 return ResourceManager.GetString("Event_PresenceChange", resourceCulture);
             }
@@ -369,7 +376,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Getting registration Info of Service &apos;{0}&apos;.
         /// </summary>
-        internal static string Event_RegInfoFailed {
+        public static string Event_RegInfoFailed {
             get {
                 return ResourceManager.GetString("Event_RegInfoFailed", resourceCulture);
             }
@@ -378,7 +385,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; Service registration failed with &apos;{1}&apos;.
         /// </summary>
-        internal static string Event_RegistrationFailed {
+        public static string Event_RegistrationFailed {
             get {
                 return ResourceManager.GetString("Event_RegistrationFailed", resourceCulture);
             }
@@ -387,7 +394,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; Service registration succeeded.
         /// </summary>
-        internal static string Event_RegistrationSucceeded {
+        public static string Event_RegistrationSucceeded {
             get {
                 return ResourceManager.GetString("Event_RegistrationSucceeded", resourceCulture);
             }
@@ -396,7 +403,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; Service search failed with &apos;{1}&apos;.
         /// </summary>
-        internal static string Event_SearchFailed {
+        public static string Event_SearchFailed {
             get {
                 return ResourceManager.GetString("Event_SearchFailed", resourceCulture);
             }
@@ -405,7 +412,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Getting search Info of Service &apos;{0}&apos;.
         /// </summary>
-        internal static string Event_SearchInfoFailed {
+        public static string Event_SearchInfoFailed {
             get {
                 return ResourceManager.GetString("Event_SearchInfoFailed", resourceCulture);
             }
@@ -414,7 +421,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Presence infocoming from unknow contact &apos;{0}&apos; ({1}).
         /// </summary>
-        internal static string Event_UnknownPresence {
+        public static string Event_UnknownPresence {
             get {
                 return ResourceManager.GetString("Event_UnknownPresence", resourceCulture);
             }
@@ -423,20 +430,20 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to MUC {0} configuration failed with &apos;{1}&apos;.
         /// </summary>
-        internal static string EventError_MucConfigFailed {
+        public static string EventError_MucConfigFailed {
             get {
                 return ResourceManager.GetString("EventError_MucConfigFailed", resourceCulture);
             }
         }
         
-        internal static System.Drawing.Icon message {
+        public static System.Drawing.Icon message {
             get {
                 object obj = ResourceManager.GetObject("message", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
         
-        internal static System.Drawing.Icon message_trans {
+        public static System.Drawing.Icon message_trans {
             get {
                 object obj = ResourceManager.GetObject("message_trans", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -446,7 +453,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Unknow Status Code.
         /// </summary>
-        internal static string MucStatus_000 {
+        public static string MucStatus_000 {
             get {
                 return ResourceManager.GetString("MucStatus_000", resourceCulture);
             }
@@ -455,7 +462,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Any occupant is allowed to see full JIDs.
         /// </summary>
-        internal static string MucStatus_100 {
+        public static string MucStatus_100 {
             get {
                 return ResourceManager.GetString("MucStatus_100", resourceCulture);
             }
@@ -464,7 +471,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Affiliation changed while not in the room.
         /// </summary>
-        internal static string MucStatus_101 {
+        public static string MucStatus_101 {
             get {
                 return ResourceManager.GetString("MucStatus_101", resourceCulture);
             }
@@ -473,7 +480,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Room now shows unavailable members.
         /// </summary>
-        internal static string MucStatus_102 {
+        public static string MucStatus_102 {
             get {
                 return ResourceManager.GetString("MucStatus_102", resourceCulture);
             }
@@ -482,7 +489,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Room now does not show unavailable members.
         /// </summary>
-        internal static string MucStatus_103 {
+        public static string MucStatus_103 {
             get {
                 return ResourceManager.GetString("MucStatus_103", resourceCulture);
             }
@@ -491,7 +498,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Non-privacy-related room configuration change has occurred.
         /// </summary>
-        internal static string MucStatus_104 {
+        public static string MucStatus_104 {
             get {
                 return ResourceManager.GetString("MucStatus_104", resourceCulture);
             }
@@ -500,7 +507,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Presence refers to one of its own room occupants.
         /// </summary>
-        internal static string MucStatus_110 {
+        public static string MucStatus_110 {
             get {
                 return ResourceManager.GetString("MucStatus_110", resourceCulture);
             }
@@ -509,7 +516,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Room logging is now enabled.
         /// </summary>
-        internal static string MucStatus_170 {
+        public static string MucStatus_170 {
             get {
                 return ResourceManager.GetString("MucStatus_170", resourceCulture);
             }
@@ -518,7 +525,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Room logging is now disabled.
         /// </summary>
-        internal static string MucStatus_171 {
+        public static string MucStatus_171 {
             get {
                 return ResourceManager.GetString("MucStatus_171", resourceCulture);
             }
@@ -527,7 +534,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The room is now non-anonymous.
         /// </summary>
-        internal static string MucStatus_172 {
+        public static string MucStatus_172 {
             get {
                 return ResourceManager.GetString("MucStatus_172", resourceCulture);
             }
@@ -536,7 +543,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Room is now semi-anonymous.
         /// </summary>
-        internal static string MucStatus_173 {
+        public static string MucStatus_173 {
             get {
                 return ResourceManager.GetString("MucStatus_173", resourceCulture);
             }
@@ -545,7 +552,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Room is now fully-anonymous.
         /// </summary>
-        internal static string MucStatus_174 {
+        public static string MucStatus_174 {
             get {
                 return ResourceManager.GetString("MucStatus_174", resourceCulture);
             }
@@ -554,7 +561,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to A new room has been created.
         /// </summary>
-        internal static string MucStatus_201 {
+        public static string MucStatus_201 {
             get {
                 return ResourceManager.GetString("MucStatus_201", resourceCulture);
             }
@@ -563,7 +570,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Service has assigned or modified the roomnick.
         /// </summary>
-        internal static string MucStatus_210 {
+        public static string MucStatus_210 {
             get {
                 return ResourceManager.GetString("MucStatus_210", resourceCulture);
             }
@@ -572,7 +579,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Banned from the room.
         /// </summary>
-        internal static string MucStatus_301 {
+        public static string MucStatus_301 {
             get {
                 return ResourceManager.GetString("MucStatus_301", resourceCulture);
             }
@@ -581,7 +588,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to New room nickname.
         /// </summary>
-        internal static string MucStatus_303 {
+        public static string MucStatus_303 {
             get {
                 return ResourceManager.GetString("MucStatus_303", resourceCulture);
             }
@@ -590,7 +597,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kicked from the room.
         /// </summary>
-        internal static string MucStatus_307 {
+        public static string MucStatus_307 {
             get {
                 return ResourceManager.GetString("MucStatus_307", resourceCulture);
             }
@@ -599,7 +606,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Removed from the room because of an affiliation change.
         /// </summary>
-        internal static string MucStatus_321 {
+        public static string MucStatus_321 {
             get {
                 return ResourceManager.GetString("MucStatus_321", resourceCulture);
             }
@@ -608,7 +615,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Removed from the room because the room has been changed to members-only and the user is not a member.
         /// </summary>
-        internal static string MucStatus_322 {
+        public static string MucStatus_322 {
             get {
                 return ResourceManager.GetString("MucStatus_322", resourceCulture);
             }
@@ -617,7 +624,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Being removed from the room because of a system shutdown.
         /// </summary>
-        internal static string MucStatus_332 {
+        public static string MucStatus_332 {
             get {
                 return ResourceManager.GetString("MucStatus_332", resourceCulture);
             }
@@ -626,7 +633,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Moderator.
         /// </summary>
-        internal static string Role_Moderator {
+        public static string Role_Moderator {
             get {
                 return ResourceManager.GetString("Role_Moderator", resourceCulture);
             }
@@ -635,7 +642,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to None.
         /// </summary>
-        internal static string Role_None {
+        public static string Role_None {
             get {
                 return ResourceManager.GetString("Role_None", resourceCulture);
             }
@@ -644,7 +651,7 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Participant.
         /// </summary>
-        internal static string Role_Participant {
+        public static string Role_Participant {
             get {
                 return ResourceManager.GetString("Role_Participant", resourceCulture);
             }
@@ -653,15 +660,22 @@ namespace xeus2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Visitor.
         /// </summary>
-        internal static string Role_Visitor {
+        public static string Role_Visitor {
             get {
                 return ResourceManager.GetString("Role_Visitor", resourceCulture);
             }
         }
         
-        internal static System.Drawing.Icon xeus {
+        public static System.Drawing.Icon xeus {
             get {
                 object obj = ResourceManager.GetObject("xeus", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        public static System.Drawing.Icon xeus_full {
+            get {
+                object obj = ResourceManager.GetObject("xeus_full", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

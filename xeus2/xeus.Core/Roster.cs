@@ -845,6 +845,27 @@ namespace xeus2.xeus.Core
             return true;
         }
 
+        public IContact FindContactOrGetNew(Jid jid)
+        {
+            Contact contact = null;
+
+            lock (Roster.Instance.Items._syncObject)
+            {
+                contact = Roster.Instance.FindContact(jid);
+            }
+
+            if (contact == null)
+            {
+                Presence presence = new Presence(ShowType.NONE, string.Empty);
+                presence.From = jid;
+
+                contact = new Contact(presence);
+            }
+
+            return contact;
+        }
+
+
         #region Nested type: MessageCallback
 
         private delegate void MessageCallback(agsXMPP.protocol.client.Message msg);

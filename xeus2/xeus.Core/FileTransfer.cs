@@ -40,6 +40,8 @@ namespace xeus2.xeus.Core
             : base(recipient, filename)
         {
             _xmppConnection = xmppCon;
+
+            _fileLength = new FileInfo(filename).Length;
         }
 
         public FileTransfer(XmppClientConnection xmppCon, IQ iq, IContact from)
@@ -302,8 +304,6 @@ namespace xeus2.xeus.Core
             SIIq iq = new SIIq();
             iq.To = Contact.FullJid;
             iq.Type = IqType.set;
-
-            _fileLength = new FileInfo(FileName).Length;
 
             File afile;
             afile = new File(Path.GetFileName(FileName), _fileLength);

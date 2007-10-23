@@ -430,7 +430,8 @@ namespace xeus2.xeus.Core
 
                         if (file != null)
                         {
-                            FileTransferManager.Instance.TransferOpen(_xmppConnection, iq);
+                            EventInfoFileTransfer eventInfoFileTransfer = new EventInfoFileTransfer(iq);
+                            Events.Instance.OnEvent(this, eventInfoFileTransfer);
                         }
                     }
                 }
