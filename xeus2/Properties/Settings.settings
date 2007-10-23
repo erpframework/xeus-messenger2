@@ -117,7 +117,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="UI_Item_Small_MaxWidth" Type="System.UInt32" Scope="User">
-      <Value Profile="(Default)">100</Value>
+      <Value Profile="(Default)">150</Value>
     </Setting>
     <Setting Name="UI_Item_Zoom_Away" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0.75</Value>

@@ -481,7 +481,7 @@ namespace xeus2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        [global::System.Configuration.DefaultSettingValueAttribute("150")]
         public uint UI_Item_Small_MaxWidth {
             get {
                 return ((uint)(this["UI_Item_Small_MaxWidth"]));
