@@ -1,6 +1,4 @@
-﻿using xeus2.xeus.Core;
-
-namespace xeus2.xeus.Middle
+﻿namespace xeus2.xeus.Middle
 {
     internal interface INotification
     {

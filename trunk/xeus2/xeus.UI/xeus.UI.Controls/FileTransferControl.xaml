@@ -211,6 +211,13 @@
 
 				</StackPanel>
             <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Path=Description}" Value="">
+                    <Setter TargetName="_description" Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Description}" Value="{x:Null}">
+                    <Setter TargetName="_description" Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+
                 <DataTrigger Binding="{Binding Path=State}">
                     <DataTrigger.Value>
                         <Core:FileTransferState>Waiting</Core:FileTransferState>
@@ -253,8 +260,7 @@
     <StackPanel>
         <ListBox Background="{x:Null}" BorderBrush="{x:Null}" x:Name="_list"
             ItemContainerStyle="{DynamicResource ListBoxItemSimple}"
-			ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,5,0,0"
-            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+			ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,5,0,0"/>
         <Controls:DottedHorizontal/>
         <Button Content="Remove finished" HorizontalAlignment="Center"
                 Margin="5,0,5,0" Command="xeus2_xeus_Commands:GeneralCommands.RemoveFinishedFileTransfers"/>

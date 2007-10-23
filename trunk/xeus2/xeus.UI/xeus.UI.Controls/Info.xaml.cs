@@ -1,7 +1,8 @@
-﻿using System;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.Timers;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using xeus2.xeus.Core;
 using xeus2.xeus.Middle;
 
@@ -12,11 +13,9 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
     /// </summary>
     public partial class Info : UserControl
     {
-        readonly Timer _display = new Timer();
+        private readonly Timer _display = new Timer();
 
         private Event _eventToDisplay = null;
-
-        private delegate void RedisplayCallback();
 
         public Info()
         {
@@ -35,7 +34,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _eventToDisplay = null;
         }
 
-        void Notifications_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void Notifications_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
@@ -89,29 +88,29 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             RefreshNavigation();
         }
 
-        void RefreshNavigation()
+        private void RefreshNavigation()
         {
             lock (Notification.Notifications._syncObject)
             {
                 _buttons.Visibility = (Notification.Notifications.Count > 1)
-                                       ? System.Windows.Visibility.Visible
-                                       : System.Windows.Visibility.Collapsed;
+                                          ? Visibility.Visible
+                                          : Visibility.Collapsed;
 
                 int index = Notification.Notifications.IndexOf(_content.Content as Event);
 
                 _count.Text = string.Format("{0} of {1}", index + 1, Notification.Notifications.Count);
 
                 _next.Visibility = (index + 1 < Notification.Notifications.Count)
-                                       ? System.Windows.Visibility.Visible
-                                       : System.Windows.Visibility.Hidden;
+                                       ? Visibility.Visible
+                                       : Visibility.Hidden;
 
                 _prev.Visibility = (index - 1 >= 0)
-                                       ? System.Windows.Visibility.Visible
-                                       : System.Windows.Visibility.Hidden;
+                                       ? Visibility.Visible
+                                       : Visibility.Hidden;
             }
         }
 
-        void _display_Elapsed(object sender, ElapsedEventArgs e)
+        private void _display_Elapsed(object sender, ElapsedEventArgs e)
         {
             App.InvokeSafe(App._dispatcherPriority, new RedisplayCallback(Redisplay));
         }
@@ -127,7 +126,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             }
         }
 
-        private void _next_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void _next_Click(object sender, RoutedEventArgs e)
         {
             lock (Notification.Notifications._syncObject)
             {
@@ -142,7 +141,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             }
         }
 
-        private void _prev_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void _prev_Click(object sender, RoutedEventArgs e)
         {
             lock (Notification.Notifications._syncObject)
             {
@@ -157,19 +156,31 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             }
         }
 
-        private void _content_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void _content_MouseDown(object sender, MouseButtonEventArgs e)
         {
             EventChatMessage eventChatMessage = _content.Content as EventChatMessage;
+            EventInfoFileTransfer eventInfoFileTransfer = _content.Content as EventInfoFileTransfer;
 
             if (eventChatMessage != null)
             {
                 Notification.DismissChatMessageNotification(eventChatMessage.Contact);
                 Middle.Chat.Instance.DisplayChat(eventChatMessage.Contact);
             }
+            else if (eventInfoFileTransfer != null)
+            {
+                Notification.DismissNotification(eventInfoFileTransfer);
+                FileTransferManager.Instance.TransferOpen(eventInfoFileTransfer.Iq);
+            }
             else
             {
                 Notification.DismissNotificationType(_content.Content.GetType());
             }
         }
+
+        #region Nested type: RedisplayCallback
+
+        private delegate void RedisplayCallback();
+
+        #endregion
     }
 }

@@ -21,29 +21,10 @@ namespace xeus2.xeus.Middle
             }
         }
 
-        static IContact FindContact(Jid jid)
+        void TransferOpenUI(IQ iq)
         {
-            Contact contact = null;
-
-            lock (Roster.Instance.Items._syncObject)
-            {
-                contact = Roster.Instance.FindContact(jid);
-            }
-
-            if (contact == null)
-            {
-                Presence presence = new Presence(ShowType.NONE, string.Empty);
-                presence.From = jid;
-
-                contact = new Contact(presence);
-            }
-
-            return contact;
-        }
-
-        void TransferOpenUI(XmppClientConnection xmppCon, IQ iq)
-        {
-            FileTransfer fileTransfer = new FileTransfer(xmppCon, iq, FindContact(iq.From));
+            FileTransfer fileTransfer = new FileTransfer(Account.Instance.XmppConnection, iq,
+                                                            Roster.Instance.FindContactOrGetNew(iq.From));
             FileTransfer.FileTransfers.Add(fileTransfer);
 
             try
@@ -59,9 +40,9 @@ namespace xeus2.xeus.Middle
             }
         }
 
-        void TransferOpenUI(XmppClientConnection xmppCon, IContact contact, string filename)
+        void TransferOpenUI(IContact contact, string filename)
         {
-            FileTransfer fileTransfer = new FileTransfer(xmppCon, contact, filename);
+            FileTransfer fileTransfer = new FileTransfer(Account.Instance.XmppConnection, contact, filename);
             FileTransfer.FileTransfers.Add(fileTransfer);
 
             try
@@ -77,15 +58,15 @@ namespace xeus2.xeus.Middle
             }
         }
 
-        public void TransferOpen(XmppClientConnection xmppCon, IQ iq)
+        public void TransferOpen(IQ iq)
         {
             App.InvokeSafe(App._dispatcherPriority,
-                           new DisplayCallback(TransferOpenUI), xmppCon, iq);
+                           new DisplayCallback(TransferOpenUI), iq);
         }
 
         #region Nested type: DisplayCallback
 
-        private delegate void DisplayCallback(XmppClientConnection xmppCon, IQ iq);
+        private delegate void DisplayCallback(IQ iq);
 
         #endregion
 
@@ -100,17 +81,14 @@ namespace xeus2.xeus.Middle
         void SendFileInternal(IContact contact)
         {
             OpenFileDialog dlg = new OpenFileDialog();
-            // dlg.FileName = "Document"; // Default file name
-            dlg.DefaultExt = ".*"; // Default file extension
-            dlg.Filter = "Word Processor Files (.*)|*.*"; // Filter files by extension
+            dlg.DefaultExt = ".*";
+            dlg.Filter = "All files (.*)|*.*";
 
-            // Show open file dialog box
             Nullable<bool> result = dlg.ShowDialog();
 
-            // Process open file dialog box results
             if (result == true)
             {
-                TransferOpenUI(Account.Instance.XmppConnection, contact, dlg.FileName);
+                TransferOpenUI(contact, dlg.FileName);
             }            
         }
     }
