@@ -77,7 +77,7 @@ namespace xeus2.xeus.Core
                     {
                         foreach (MucMark mucMark in e.NewItems)
                         {
-                            _mucMarks.Add(mucMark.Jid.ToString(), mucMark);
+                            _mucMarks[mucMark.Jid.ToString()] = mucMark;
                         }
 
                         break;
