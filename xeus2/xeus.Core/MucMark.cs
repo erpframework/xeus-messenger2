@@ -1,5 +1,4 @@
 using System;
-using System.Data.Common;
 using agsXMPP;
 using agsXMPP.protocol.extensions.bookmarks;
 using agsXMPP.protocol.iq.disco;
@@ -14,6 +13,8 @@ namespace xeus2.xeus.Core
         private readonly string _name;
         private Service _service;
         private readonly DateTime _time;
+
+        private bool _autoJoin = false;
 
         public MucMark(Service service)
         {
@@ -41,6 +42,7 @@ namespace xeus2.xeus.Core
 
             _jid = conference.Jid;
             _name = conference.Name;
+            _autoJoin = conference.AutoJoin;
             _time = DateTime.Now;
         }
 
@@ -128,6 +130,19 @@ namespace xeus2.xeus.Core
             get
             {
                 return string.Format("{0} ({1})", Name, Time);
+            }
+        }
+
+        public bool AutoJoin
+        {
+            get
+            {
+                return _autoJoin;
+            }
+
+            set
+            {
+                _autoJoin = value;
             }
         }
     }

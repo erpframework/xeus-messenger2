@@ -13,7 +13,7 @@
         <DrawingBrush.Drawing>
             <DrawingGroup>
                 <DrawingGroup.Children>
-                    <GeometryDrawing Brush="#FF000000" Geometry="F1 M 3.75,1.52778L 28.6944,1.52778C 29.799,1.52778 30.6944,2.42321 30.6944,3.52778L 30.6944,28.4722C 30.6944,29.5768 29.799,30.4722 28.6944,30.4722L 3.75,30.4722C 2.64543,30.4722 1.75,29.5768 1.75,28.4722L 1.75,3.52778C 1.75,2.42321 2.64543,1.52778 3.75,1.52778 Z "/>
+                    <GeometryDrawing Brush="#FF000000" Geometry="F1 M 4.41667,1.52778L 28.0278,1.52778C 29.5005,1.52778 30.6944,2.72169 30.6944,4.19444L 30.6944,27.8056C 30.6944,29.2783 29.5005,30.4722 28.0278,30.4722L 4.41667,30.4722C 2.94391,30.4722 1.75,29.2783 1.75,27.8056L 1.75,4.19444C 1.75,2.72169 2.94391,1.52778 4.41667,1.52778 Z "/>
                 </DrawingGroup.Children>
             </DrawingGroup>
         </DrawingBrush.Drawing>
@@ -197,27 +197,27 @@
                   MaxWidth="{Binding Path=UI_Item_Small_MaxWidth, Source={x:Static prop:Settings.Default}}">
                     <a:SystemDropShadowChrome Color="#4000" Margin="-8,-8,1,1"/>
                     <Border CornerRadius="2" x:Name="_parent"
-                            Background="{StaticResource contact_back_design}">
-                        <Grid>
-                            <Grid x:Name="_container" Margin="30,2,4,2" SnapsToDevicePixels="True">
+                                Background="{StaticResource contact_back_design}">
+                        <Grid SnapsToDevicePixels="True">
+                            <Grid x:Name="_container" Margin="30,2,4,2">
                                 <TextBlock Text="{Binding Path=DisplayName}"
-                                       Foreground="{StaticResource roster_name_text}" FontSize="11"
-                                       TextTrimming="WordEllipsis"/>
+                                           Foreground="{StaticResource roster_name_text}" FontSize="11"
+                                           TextTrimming="WordEllipsis"/>
                                 <TextBlock Margin="0,14,0,0"
-                                    Text="{Binding Path=XStatusText}" Foreground="{StaticResource roster_status_text}"
-                                       FontSize="10"
-                                       TextTrimming="WordEllipsis"/>
+                                        Text="{Binding Path=XStatusText}" Foreground="{StaticResource roster_status_text}"
+                                           FontSize="10"
+                                           TextTrimming="WordEllipsis"/>
                             </Grid>
-                        <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Margin="2,2,4,2" Source="{Binding Path=Image}" x:Name="_image" 
-                                          Height="24" Width="24"
-                                          Stretch="UniformToFill" VerticalAlignment="Center"
-                                          OpacityMask="{StaticResource opacity_design}"/>
-                            <Rectangle Width="16" Height="16" VerticalAlignment="Bottom"
-                                           HorizontalAlignment="Right" x:Name="_show"
-                                           Margin="0,0,-2,-2" Panel.ZIndex="10"/>
+                            <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Image Margin="2,2,4,2" Source="{Binding Path=Image}" x:Name="_image" 
+                                              Height="24"
+                                              Stretch="Uniform" VerticalAlignment="Center"
+                                              OpacityMask="{StaticResource opacity_design}"/>
+                                <Rectangle Width="16" Height="16" VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Right" x:Name="_show"
+                                               Margin="0,0,-2,-2" Panel.ZIndex="10"/>
+                            </Grid>
                         </Grid>
-                    </Grid>
                     </Border>
                 <!--
                 <Grid x:Name="_resource" Margin="3,-3,5,0" Visibility="Collapsed"
