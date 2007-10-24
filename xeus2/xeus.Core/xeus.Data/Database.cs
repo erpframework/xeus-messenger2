@@ -255,7 +255,7 @@ namespace xeus2.xeus.Data
                                           + "INNER JOIN [Contact] ON ([Contact].[Jid]=[Message].[From] "
                                           + "OR [Contact].[Jid]=[Message].[To]) "
                                           + "AND [Contact].[Jid]=@jid AND [Type]='chat'"
-                                          + "ORDER BY [Message].[DateTime] "
+                                          + "ORDER BY [Message].[DateTime] DESC "
                                           + "LIMIT {0};", maxMessages);
 
                     command.Parameters.Add(new SQLiteParameter("jid", contact.Jid.Bare));
@@ -264,7 +264,7 @@ namespace xeus2.xeus.Data
 
                     while (reader.Read())
                     {
-                        messages.Add(new Message(reader));
+                        messages.Insert(0, new Message(reader));
                     }
 
                     reader.Close();

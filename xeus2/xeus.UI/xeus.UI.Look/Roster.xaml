@@ -9,6 +9,16 @@
   xmlns:Look="clr-namespace:xeus2.xeus.UI.xeus.UI.Look" 	
   >
 
+    <DrawingBrush x:Key="opacity_design" PresentationOptions:Freeze="True">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#FF000000" Geometry="F1 M 3.75,1.52778L 28.6944,1.52778C 29.799,1.52778 30.6944,2.42321 30.6944,3.52778L 30.6944,28.4722C 30.6944,29.5768 29.799,30.4722 28.6944,30.4722L 3.75,30.4722C 2.64543,30.4722 1.75,29.5768 1.75,28.4722L 1.75,3.52778C 1.75,2.42321 2.64543,1.52778 3.75,1.52778 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+    
     <DrawingBrush x:Key="contact_back_design" PresentationOptions:Freeze="True">
         <DrawingBrush.Drawing>
             <DrawingGroup>
@@ -177,39 +187,39 @@
         <WrapPanel IsItemsHost="True" />
     </ItemsPanelTemplate>
 
-                       
     <DataTemplate x:Key="MetaContactSmall">
         <Grid>
             <Grid.ToolTip>
                 <ToolTip ContentTemplate="{DynamicResource ContactToolTip}" Content="{Binding}"/>
             </Grid.ToolTip>
             
-            <StackPanel Margin="1,1,1,1" x:Name="_grid" ContextMenu="{DynamicResource ContactMenu}"
+            <Grid Margin="1,1,1,1" x:Name="_grid" ContextMenu="{DynamicResource ContactMenu}"
                   MaxWidth="{Binding Path=UI_Item_Small_MaxWidth, Source={x:Static prop:Settings.Default}}">
-                <Grid x:Name="_item" >
                     <a:SystemDropShadowChrome Color="#4000" Margin="-8,-8,1,1"/>
-                    <Border CornerRadius="2" SnapsToDevicePixels="True" x:Name="_parent"
+                    <Border CornerRadius="2" x:Name="_parent"
                             Background="{StaticResource contact_back_design}">
                         <Grid>
-                            <Grid HorizontalAlignment="Left">
-                                <Image Margin="2,2,5,5" Source="{Binding Path=Image}" x:Name="_image" 
-                                          Height="24" Width="24"
-                                          Stretch="UniformToFill" VerticalAlignment="Center"/>
-                                <Rectangle Width="14" Height="14" VerticalAlignment="Bottom"
-                                           HorizontalAlignment="Right" x:Name="_show"/>
-                            </Grid>
-                            <Grid x:Name="_container" Margin="28,2,4,2">
+                            <Grid x:Name="_container" Margin="30,2,4,2" SnapsToDevicePixels="True">
                                 <TextBlock Text="{Binding Path=DisplayName}"
                                        Foreground="{StaticResource roster_name_text}" FontSize="11"
                                        TextTrimming="WordEllipsis"/>
-                                <TextBlock Margin="0,12,0,0"
+                                <TextBlock Margin="0,14,0,0"
                                     Text="{Binding Path=XStatusText}" Foreground="{StaticResource roster_status_text}"
                                        FontSize="10"
                                        TextTrimming="WordEllipsis"/>
                             </Grid>
+                        <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Margin="2,2,4,2" Source="{Binding Path=Image}" x:Name="_image" 
+                                          Height="24" Width="24"
+                                          Stretch="UniformToFill" VerticalAlignment="Center"
+                                          OpacityMask="{StaticResource opacity_design}"/>
+                            <Rectangle Width="16" Height="16" VerticalAlignment="Bottom"
+                                           HorizontalAlignment="Right" x:Name="_show"
+                                           Margin="0,0,-2,-2" Panel.ZIndex="10"/>
                         </Grid>
+                    </Grid>
                     </Border>
-                </Grid>
+                <!--
                 <Grid x:Name="_resource" Margin="3,-3,5,0" Visibility="Collapsed"
                       HorizontalAlignment="Left" ZIndex="-1">
                     <Border BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" Background="#FFe5e5e5"
@@ -218,8 +228,9 @@
                                Text="{Binding Path=Resource}" FontSize="10" TextTrimming="CharacterEllipsis" HorizontalAlignment="Left">
                         </TextBlock>
                     </Border>
-                </Grid>
-            </StackPanel>
+                </Grid>-->
+            </Grid>
+            <!--
             <Border x:Name="_uptime" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2"
                         Background="#FFe5e5e5" BorderBrush="{DynamicResource roster_image_border}"
                         HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3,0,0,3"
@@ -227,38 +238,47 @@
                 <TextBlock Text="{Binding Path=LastOnlineTime}" Foreground="#FF000000"
                            FontSize="9"/>
             </Border>
+            -->
         </Grid>
         
         <DataTemplate.Triggers>
+            <!--
             <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}, AncestorLevel=1}, Path=IsSelected}" Value="True">
                 <Setter Property="Visibility" Value="Visible" TargetName="_resource" />
             </DataTrigger>
+            -->
 
             <DataTrigger Binding="{Binding Path=IsAvailable}" Value="False">
                 <Setter Property="Opacity" TargetName="_grid" Value="0.35"/>
             </DataTrigger>
 
+            <!--
             <DataTrigger Binding="{Binding Path=IsAvailable}" Value="True">
                 <Setter Property="Visibility" TargetName="_uptime" Value="Collapsed"/>
             </DataTrigger>
-
             <DataTrigger Binding="{Binding Path=LastOnlineTime}" Value="{x:Null}">
                 <Setter Property="Visibility" TargetName="_uptime" Value="Collapsed"/>
             </DataTrigger>
-            
+            -->
+
+            <!--
             <DataTrigger Binding="{Binding Path=Resource}" Value="{x:Null}">
                 <Setter Property="Visibility" TargetName="_resource" Value="Collapsed"/>
                 <Setter Property="Margin" TargetName="_item" Value="0,0,0,0"/>
             </DataTrigger>
+                -->
 
             <DataTrigger Binding="{Binding Path=Show}" Value="dnd">
                 <Setter Property="Fill" TargetName="_show" Value="{DynamicResource dnd_design}"/>
+                <Setter Property="Opacity" TargetName="_image" Value="0.5"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Show}" Value="away">
                 <Setter Property="Fill" TargetName="_show" Value="{DynamicResource away_design}"/>
+                <Setter Property="Opacity" TargetName="_image" Value="0.5"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Show}" Value="xa">
                 <Setter Property="Fill" TargetName="_show" Value="{DynamicResource xaway_design}"/>
+                <Setter Property="Opacity" TargetName="_image" Value="0.5"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Show}" Value="chat">
                 <Setter Property="Fill" TargetName="_show" Value="{DynamicResource chat_design}"/>
