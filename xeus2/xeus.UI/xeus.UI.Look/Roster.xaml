@@ -10,13 +10,14 @@
   >
 
     <DrawingBrush x:Key="opacity_design" PresentationOptions:Freeze="True">
-        <DrawingBrush.Drawing>
-            <DrawingGroup>
-                <DrawingGroup.Children>
-                    <GeometryDrawing Brush="#FF000000" Geometry="F1 M 4.41667,1.52778L 28.0278,1.52778C 29.5005,1.52778 30.6944,2.72169 30.6944,4.19444L 30.6944,27.8056C 30.6944,29.2783 29.5005,30.4722 28.0278,30.4722L 4.41667,30.4722C 2.94391,30.4722 1.75,29.2783 1.75,27.8056L 1.75,4.19444C 1.75,2.72169 2.94391,1.52778 4.41667,1.52778 Z "/>
-                </DrawingGroup.Children>
-            </DrawingGroup>
-        </DrawingBrush.Drawing>
+            <DrawingBrush.Drawing>
+                <DrawingGroup>
+                    <DrawingGroup.Children>
+                        <GeometryDrawing Brush="#00F80000" Geometry="F1 M 0,0L 32,0L 32,32L 0,32L 0,0 Z "/>
+                        <GeometryDrawing Brush="#FF000000" Geometry="F1 M 3.41667,0.750002L 28.5833,0.750002C 30.0561,0.750002 31.25,1.94391 31.25,3.41667L 31.25,28.5833C 31.25,30.0561 30.0561,31.25 28.5833,31.25L 3.41667,31.25C 1.94391,31.25 0.750002,30.0561 0.750002,28.5833L 0.750002,3.41667C 0.750002,1.94391 1.94391,0.750002 3.41667,0.750002 Z "/>
+                    </DrawingGroup.Children>
+                </DrawingGroup>
+            </DrawingBrush.Drawing>
     </DrawingBrush>
     
     <DrawingBrush x:Key="contact_back_design" PresentationOptions:Freeze="True">
@@ -204,13 +205,13 @@
                                            Foreground="{StaticResource roster_name_text}" FontSize="11"
                                            TextTrimming="WordEllipsis"/>
                                 <TextBlock Margin="0,14,0,0"
-                                        Text="{Binding Path=XStatusText}" Foreground="{StaticResource roster_status_text}"
+                                           Text="{Binding Path=XStatusText}" Foreground="{StaticResource roster_status_text}"
                                            FontSize="10"
                                            TextTrimming="WordEllipsis"/>
                             </Grid>
                             <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
                                 <Image Margin="2,2,4,2" Source="{Binding Path=Image}" x:Name="_image" 
-                                              Height="24"
+                                              Height="24" Width="24"
                                               Stretch="Uniform" VerticalAlignment="Center"
                                               OpacityMask="{StaticResource opacity_design}"/>
                                 <Rectangle Width="16" Height="16" VerticalAlignment="Bottom"
