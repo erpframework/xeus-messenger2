@@ -59,7 +59,7 @@ namespace xeus2.xeus.Data
                 int i = 0;
                 foreach (MucMark mucMark in MucMarks.Instance)
                 {
-                    conferences[i++] = new Conference(mucMark.Jid, mucMark.Name, mucMark.Password);
+                    conferences[i++] = new Conference(mucMark.Jid, mucMark.Name, mucMark.Nick, mucMark.Password, mucMark.AutoJoin);
                 }
             }
 
