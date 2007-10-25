@@ -298,7 +298,21 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         void Messages_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            ScrollToBottom(false);
+            bool force = false;
+
+            if (e.NewItems != null)
+            {
+                foreach (Message message in e.NewItems)
+                {
+                    if (JidUtil.Equals(message.From, Account.Instance.Self.FullJid))
+                    {
+                        force = true;
+                        break;
+                    }
+                }
+            }
+
+            ScrollToBottom(force);
         }
 
         private void Conversation_Unloaded(object sender, RoutedEventArgs e)
@@ -328,11 +342,26 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 }
             }
 
-            if (e.Key == Key.Return &&
-                (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
+            if (e.Key == Key.Return)
             {
-                e.Handled = true;
-                OnSendMessage(sender, e);
+                if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+                {
+                    e.Handled = false;
+                    
+                    TextBox textBox = sender as TextBox;
+
+                    if (textBox != null && textBox.AcceptsReturn)
+                    {
+                        int index = textBox.CaretIndex + 1;
+                        textBox.Text = textBox.Text.Insert(textBox.CaretIndex, Environment.NewLine);
+                        textBox.CaretIndex = index;
+                    }
+                }
+                else
+                {
+                    e.Handled = true;
+                    OnSendMessage(sender, e);
+                }
             }
         }
 

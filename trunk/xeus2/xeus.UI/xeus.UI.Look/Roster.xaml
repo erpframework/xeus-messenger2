@@ -10,14 +10,14 @@
   >
 
     <DrawingBrush x:Key="opacity_design" PresentationOptions:Freeze="True">
-            <DrawingBrush.Drawing>
-                <DrawingGroup>
-                    <DrawingGroup.Children>
-                        <GeometryDrawing Brush="#00F80000" Geometry="F1 M 0,0L 32,0L 32,32L 0,32L 0,0 Z "/>
-                        <GeometryDrawing Brush="#FF000000" Geometry="F1 M 3.41667,0.750002L 28.5833,0.750002C 30.0561,0.750002 31.25,1.94391 31.25,3.41667L 31.25,28.5833C 31.25,30.0561 30.0561,31.25 28.5833,31.25L 3.41667,31.25C 1.94391,31.25 0.750002,30.0561 0.750002,28.5833L 0.750002,3.41667C 0.750002,1.94391 1.94391,0.750002 3.41667,0.750002 Z "/>
-                    </DrawingGroup.Children>
-                </DrawingGroup>
-            </DrawingBrush.Drawing>
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#00F80000" Geometry="F1 M 0,0L 32,0L 32,32L 0,32L 0,0 Z "/>
+                    <GeometryDrawing Brush="#FF000000" Geometry="F1 M 3.41667,0.750002L 28.5833,0.750002C 30.0561,0.750002 31.25,1.94391 31.25,3.41667L 31.25,28.5833C 31.25,30.0561 30.0561,31.25 28.5833,31.25L 3.41667,31.25C 1.94391,31.25 0.750002,30.0561 0.750002,28.5833L 0.750002,3.41667C 0.750002,1.94391 1.94391,0.750002 3.41667,0.750002 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
     </DrawingBrush>
     
     <DrawingBrush x:Key="contact_back_design" PresentationOptions:Freeze="True">
@@ -188,10 +188,67 @@
         <WrapPanel IsItemsHost="True" />
     </ItemsPanelTemplate>
 
+
+    <DataTemplate x:Key="PhotoWithReflection">
+        <StackPanel HorizontalAlignment="Left">
+            <Border Margin="1,1,1,-3" x:Name="_imageBorder" Width="32" Height="32"
+	                                BorderBrush="{DynamicResource roster_image_border}"
+	                                CornerRadius="3,3,3,3" ClipToBounds="True">
+                <Image Source="{Binding}" x:Name="_image"
+                       ClipToBounds="True" Stretch="UniformToFill" StretchDirection="Both" IsEnabled="False">
+                    <Image.OpacityMask>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0.5">
+                            <GradientStop Color="#DD000000" Offset="0"/>
+                            <GradientStop Color="#88FFFFFF" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Image.OpacityMask>
+                </Image>
+            </Border>
+            <Border Width="32" Height="16" Opacity="0.5" Margin="0,2,0,-3">
+                <Border.OpacityMask>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <LinearGradientBrush.GradientStops>
+                            <GradientStop Offset="0" Color="Black"/>
+                            <GradientStop Offset=".6" Color="Transparent"/>
+                        </LinearGradientBrush.GradientStops>
+                    </LinearGradientBrush>
+                </Border.OpacityMask>
+                <Border.Background>
+                    <VisualBrush Visual="{Binding ElementName=_imageBorder}">
+                        <VisualBrush.Transform>
+                            <ScaleTransform ScaleX="1" ScaleY="-1" CenterX="16" CenterY="8" />
+                        </VisualBrush.Transform>
+                    </VisualBrush>
+                </Border.Background>
+            </Border>
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="StatusImage">
+        <Rectangle x:Name="_show"/>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding}" Value="dnd">
+                <Setter Property="Fill" TargetName="_show" Value="{DynamicResource dnd_design}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding}" Value="away">
+                <Setter Property="Fill" TargetName="_show" Value="{DynamicResource away_design}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding}" Value="xa">
+                <Setter Property="Fill" TargetName="_show" Value="{DynamicResource xaway_design}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding}" Value="chat">
+                <Setter Property="Fill" TargetName="_show" Value="{DynamicResource chat_design}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding}" Value="NONE">
+                <Setter Property="Fill" TargetName="_show" Value="{DynamicResource online_design}"/>
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
     <DataTemplate x:Key="MetaContactSmall">
         <Grid>
             <Grid.ToolTip>
-                <ToolTip ContentTemplate="{DynamicResource ContactToolTip}" Content="{Binding}"/>
+                <ToolTip ContentTemplate="{DynamicResource ToolTipContactCard}" Content="{Binding}"/>
             </Grid.ToolTip>
             
             <Grid Margin="1,1,1,1" x:Name="_grid" ContextMenu="{DynamicResource ContactMenu}"
@@ -209,17 +266,20 @@
                                            FontSize="10"
                                            TextTrimming="WordEllipsis"/>
                             </Grid>
-                            <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
-                                <Image Margin="2,2,4,2" Source="{Binding Path=Image}" x:Name="_image" 
-                                              Height="24" Width="24"
-                                              Stretch="Uniform" VerticalAlignment="Center"
-                                              OpacityMask="{StaticResource opacity_design}"/>
-                                <Rectangle Width="16" Height="16" VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Right" x:Name="_show"
-                                               Margin="0,0,-2,-2" Panel.ZIndex="10"/>
+                            <Grid Margin="2,2,4,2" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Grid x:Name="_frame" OpacityMask="{StaticResource opacity_design}"
+                                      Height="24" Width="24" SnapsToDevicePixels="True">
+                                    <Image Source="{Binding Path=Image}" x:Name="_image"
+                                                  StretchDirection="Both"
+                                                  ClipToBounds="True" Stretch="UniformToFill" IsEnabled="False"
+                                                  />
+                                </Grid>
+                                <ContentPresenter Content="{Binding Path=Show}" ContentTemplate="{StaticResource StatusImage}"
+                                                   Width="16" Height="16" VerticalAlignment="Bottom"
+                                                   HorizontalAlignment="Right" x:Name="_show" Margin="0,0,-2,-2" Panel.ZIndex="10"/>
                             </Grid>
-                        </Grid>
-                    </Border>
+                    </Grid>
+                </Border>
                 <!--
                 <Grid x:Name="_resource" Margin="3,-3,5,0" Visibility="Collapsed"
                       HorizontalAlignment="Left" ZIndex="-1">
@@ -269,20 +329,21 @@
             </DataTrigger>
                 -->
 
+            <DataTrigger Binding="{Binding Path=IsImageTransparent}" Value="True">
+                <Setter Property="OpacityMask" TargetName="_frame" Value="{x:Null}"/>
+            </DataTrigger>
+            
             <DataTrigger Binding="{Binding Path=Show}" Value="dnd">
-                <Setter Property="Fill" TargetName="_show" Value="{DynamicResource dnd_design}"/>
                 <Setter Property="Opacity" TargetName="_image" Value="0.5"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Show}" Value="away">
-                <Setter Property="Fill" TargetName="_show" Value="{DynamicResource away_design}"/>
                 <Setter Property="Opacity" TargetName="_image" Value="0.5"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Show}" Value="xa">
-                <Setter Property="Fill" TargetName="_show" Value="{DynamicResource xaway_design}"/>
                 <Setter Property="Opacity" TargetName="_image" Value="0.5"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Path=Show}" Value="chat">
-                <Setter Property="Fill" TargetName="_show" Value="{DynamicResource chat_design}"/>
+            <DataTrigger Binding="{Binding Path=Show}" Value="NONE">
+                <Setter Property="Visibility" TargetName="_show" Value="Collapsed"/>
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
@@ -290,7 +351,7 @@
     <DataTemplate x:Key="MetaContactMedium">
         <Grid Margin="3,3,3,3" x:Name="_grid" MaxWidth="160" MaxHeight="70" ContextMenu="{DynamicResource ContactMenu}">
             <Grid.ToolTip>
-                <ToolTip ContentTemplate="{DynamicResource ContactToolTip}" Content="{Binding}"/>
+                <ToolTip ContentTemplate="{DynamicResource ToolTipContactCard}" Content="{Binding}"/>
             </Grid.ToolTip>
 
             <Grid>
@@ -412,7 +473,7 @@
     <DataTemplate x:Key="MetaContactBig">
         <Grid Margin="3,3,3,3" x:Name="_grid" ContextMenu="{DynamicResource ContactMenu}" VerticalAlignment="Center">
             <Grid.ToolTip>
-                <ToolTip ContentTemplate="{DynamicResource ContactToolTip}" Content="{Binding}"/>
+                <ToolTip ContentTemplate="{DynamicResource ToolTipContactCard}" Content="{Binding}"/>
             </Grid.ToolTip>
 
             <Grid>

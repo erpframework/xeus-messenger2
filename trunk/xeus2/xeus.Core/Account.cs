@@ -501,6 +501,8 @@ namespace xeus2.xeus.Core
 
         private void _xmppConnection_OnRosterEnd(object sender)
         {
+            Roster.Instance.RosterFinished();
+
             RecentItems.Instance.LoadItems();
             CapsCache.Instance.Load();
 
