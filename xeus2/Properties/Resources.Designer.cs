@@ -436,6 +436,41 @@ namespace xeus2.Properties {
             }
         }
         
+        public static System.Drawing.Bitmap logo_apple {
+            get {
+                object obj = ResourceManager.GetObject("logo_apple", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap logo_java {
+            get {
+                object obj = ResourceManager.GetObject("logo_java", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap logo_linux {
+            get {
+                object obj = ResourceManager.GetObject("logo_linux", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap logo_vista {
+            get {
+                object obj = ResourceManager.GetObject("logo_vista", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap logo_windows {
+            get {
+                object obj = ResourceManager.GetObject("logo_windows", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Icon message {
             get {
                 object obj = ResourceManager.GetObject("message", resourceCulture);

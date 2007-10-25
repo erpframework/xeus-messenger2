@@ -284,7 +284,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="MetaContactSmall">
-        <Grid>
+        <Grid ToolTipService.ShowDuration="60000">
             <Grid.ToolTip>
                 <ToolTip ContentTemplate="{DynamicResource ToolTipContactCard}" Content="{Binding}"/>
             </Grid.ToolTip>

@@ -202,6 +202,14 @@ namespace xeus2.xeus.Core
             }
         }
 
+        public string ClientNode
+        {
+            get
+            {
+                return "xeus";
+            }
+        }
+
         public void SetVersion(Version version)
         {
             throw new NotImplementedException();

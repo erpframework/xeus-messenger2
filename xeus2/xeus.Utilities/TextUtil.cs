@@ -175,5 +175,36 @@ namespace xeus2.xeus.Utilities
 
             return false;
         }
+
+        public static string GetSimplifiedOsName(agsXMPP.protocol.iq.version.Version version)
+        {
+            string os = version.Os.ToLowerInvariant();
+
+            if (os.Contains("windows"))
+            {
+                if (os.Contains("vista") || os.Contains("6."))
+                {
+                    return "Windows Vista";
+                }
+                else
+                {
+                    return "Windows XP";
+                }
+            }
+            else if (os.Contains("apple") || os.Contains("mac"))
+            {
+                return "Mac OS X";
+            }
+            else if (os.Contains("linux"))
+            {
+                return "Linux";
+            }
+            else if (os.Contains("java"))
+            {
+                return "Java";
+            }
+
+            return string.Empty;
+        }
     }
 }

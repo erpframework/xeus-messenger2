@@ -109,6 +109,8 @@ namespace xeus2.xeus.Core
             {
                 _caps = value;
                 NotifyPropertyChanged("Caps");
+                NotifyPropertyChanged("ClientNode");
+                NotifyPropertyChanged("ClientExtensions");
             }
         }
 
@@ -555,6 +557,7 @@ namespace xeus2.xeus.Core
             {
                 if (_version == null)
                 {
+                    Roster.Instance.AskVersion(this);
                     return null;
                 }
                 else
@@ -606,10 +609,11 @@ namespace xeus2.xeus.Core
             {
                 if (_version != null)
                 {
-                    return _version.Os;
+                    return TextUtil.GetSimplifiedOsName(_version);
                 }
                 else
                 {
+                    Roster.Instance.AskVersion(this);
                     return null;
                 }
             }
@@ -621,11 +625,32 @@ namespace xeus2.xeus.Core
             {
                 if (_version != null)
                 {
+                    if (_version.Name == null)
+                    {
+                        return "?";
+                    }
+
                     return _version.Name;
                 }
                 else
                 {
+                    Roster.Instance.AskVersion(this);
                     return null;
+                }
+            }
+        }
+
+        public string ClientNode
+        {
+            get
+            {
+                if (_caps == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return _caps.Node;
                 }
             }
         }
