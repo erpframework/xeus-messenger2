@@ -137,6 +137,7 @@
     <!-- Resource dictionary entries should be defined here. -->
     <SolidColorBrush x:Key="roster_name_text" Color="#FFEEEEEE" PresentationOptions:Freeze="True" />
     <SolidColorBrush x:Key="roster_status_text" Color="#FFBBBBBB" PresentationOptions:Freeze="True" />
+    <SolidColorBrush x:Key="roster_jid_text" Color="#FF89C4D3" PresentationOptions:Freeze="True" />
     <SolidColorBrush x:Key="roster_image_border" Color="#FF444444" PresentationOptions:Freeze="True" />
 
     <DataTemplate DataType="{x:Type Core:RelativeOldness}" x:Key="RelativeOldness">
@@ -165,6 +166,12 @@
                 </DataTrigger.Value>
                 <Setter  TargetName="_timeIcon" Property="Rectangle.Fill" Value="{DynamicResource time_old_design}"/>
             </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Oldness}">
+                <DataTrigger.Value>
+                    <Core:Oldness>Undefined</Core:Oldness>
+                </DataTrigger.Value>
+                <Setter  TargetName="_timeIcon" Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
 
             <DataTrigger Binding="{Binding Path=DateTime}" Value="{x:Null}">
                 <Setter  TargetName="_container" Property="Visibility" Value="Collapsed"/>
@@ -191,6 +198,16 @@
         </DrawingBrush.Drawing>
     </DrawingBrush>
 
+    <DrawingBrush x:Key="prio_design" Stretch="Uniform" PresentationOptions:Freeze="True">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#99A7D2E9" Geometry="F1 M 16.1389,5.25224L 6.61455,21.7489L 25.6632,21.7489L 16.1389,5.25224 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+    
     <DrawingBrush x:Key="contact_back_big_glow_design" PresentationOptions:Freeze="True">
         <DrawingBrush.Drawing>
             <DrawingGroup>
@@ -257,6 +274,15 @@
         </DataTemplate.Triggers>
     </DataTemplate>
 
+    <DataTemplate x:Key="Priority">
+        <Grid SnapsToDevicePixels="True">
+            <Rectangle x:Name="_priority" Width="8" Height="8" Fill="{StaticResource prio_design}"
+                       VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <TextBlock Margin="9,0,0,0"
+                Text="{Binding}" Foreground="{StaticResource roster_status_text}" FontSize="10"/>
+        </Grid>
+    </DataTemplate>
+
     <DataTemplate x:Key="MetaContactSmall">
         <Grid>
             <Grid.ToolTip>
@@ -268,30 +294,30 @@
                     <a:SystemDropShadowChrome Color="#4000" Margin="-8,-8,1,1"/>
                     <Border CornerRadius="2" x:Name="_parent"
                                 Background="{StaticResource contact_back_design}">
-                        <Grid SnapsToDevicePixels="True">
-                            <StackPanel x:Name="_container" Margin="30,2,4,2">
+                    <Grid SnapsToDevicePixels="True">
+                        <StackPanel x:Name="_container" Margin="30,2,4,2">
                                 <TextBlock Text="{Binding Path=DisplayName}"
                                            Foreground="{StaticResource roster_name_text}" FontSize="11"
                                            TextTrimming="WordEllipsis"/>
-                                <TextBlock Margin="0,-2,0,0" x:Name="_xStatus"
+                            <TextBlock Margin="0,-2,0,0" x:Name="_xStatus"
                                            Text="{Binding Path=XStatusText}" Foreground="{StaticResource roster_status_text}"
                                            FontSize="10"
                                            TextTrimming="WordEllipsis"/>
-                                <ContentPresenter x:Name="_uptime" ContentTemplate="{StaticResource RelativeOldness}"
+                            <ContentPresenter x:Name="_uptime" ContentTemplate="{StaticResource RelativeOldness}"
                                                     Content="{Binding Path=LastOnline}"/>
-                            </StackPanel>
-                            <Grid Margin="2,2,4,2" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                <Grid x:Name="_frame" OpacityMask="{StaticResource opacity_design}"
+                        </StackPanel>
+                        <Grid Margin="2,2,4,2" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Grid x:Name="_frame" OpacityMask="{StaticResource opacity_design}"
                                       Height="24" Width="24" SnapsToDevicePixels="True">
-                                    <Image Source="{Binding Path=Image}" x:Name="_image"
+                                <Image Source="{Binding Path=Image}" x:Name="_image"
                                                   StretchDirection="Both"
                                                   ClipToBounds="True" Stretch="UniformToFill" IsEnabled="False"
                                                   />
-                                </Grid>
-                                <ContentPresenter Content="{Binding Path=Show}" ContentTemplate="{StaticResource StatusImage}"
+                            </Grid>
+                            <ContentPresenter Content="{Binding Path=Show}" ContentTemplate="{StaticResource StatusImage}"
                                                    Width="16" Height="16" VerticalAlignment="Bottom"
                                                    HorizontalAlignment="Right" x:Name="_show" Margin="0,0,-2,-2" Panel.ZIndex="10"/>
-                            </Grid>
+                        </Grid>
                     </Grid>
                 </Border>
             </Grid>

@@ -16,14 +16,14 @@
                         <Themes:SystemDropShadowChrome Color="#5000" Margin="-2,-2,1,1"/>
                         <Border Background="{DynamicResource back_x_design}" BorderBrush="#FF676767"
                             BorderThickness="1,1,1,1" CornerRadius="4,4,4,4" Padding="5">
-                                <ContentPresenter TextBlock.Foreground="White" TextBlock.FontSize="12"/>
+                            <ContentPresenter TextBlock.Foreground="White" TextBlock.FontSize="12"/>
                         </Border>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <!--
     <DataTemplate x:Key="Client">
         <StackPanel>
@@ -53,24 +53,29 @@
                                       Panel.ZIndex="1" Margin="0,0,-4,-4"/>
             </Grid>
             <StackPanel Margin="45,0,0,0" HorizontalAlignment="Left">
-                <TextBlock Text="{Binding Path=DisplayName}" Foreground="{DynamicResource roster_name_text}" FontSize="11"
-                                       TextAlignment="Left" TextTrimming="CharacterEllipsis"/>
-                <Grid>
-                    <StackPanel>
-                        <Border x:Name="_resource" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2"
-                                Background="#FFe5e5e5" HorizontalAlignment="Left"
-                                BorderBrush="{DynamicResource roster_image_border}">
-                            <TextBlock Margin="5,0,5,0" VerticalAlignment="Center" Foreground="#FF000000"
-                               Text="{Binding Path=Resource}" FontSize="10" HorizontalAlignment="Left">
-                            </TextBlock>
-                        </Border>
-                        <TextBlock x:Name="_xStatus" Text="{Binding Path=XStatusText}"
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Path=DisplayName}" Foreground="{DynamicResource roster_name_text}"
+                           FontSize="11" TextAlignment="Left"/>
+                    <ContentPresenter x:Name="_prio" ContentTemplate="{StaticResource Priority}"
+                                    Margin="4,0,0,0"
+                                    VerticalAlignment="Bottom" Content="{Binding Path=Priority}"/>
+                </StackPanel>
+                <TextBlock Text="{Binding Path=Jid}" Foreground="{DynamicResource roster_jid_text}"
+                           FontSize="11" TextAlignment="Left"/>
+                <StackPanel>
+                    <TextBlock x:Name="_xStatus" Text="{Binding Path=XStatusText}"
                                            Foreground="{DynamicResource roster_status_text}"
                                            FontSize="10" TextAlignment="Left" TextWrapping="Wrap"/>
-                        <ContentPresenter x:Name="_uptime" ContentTemplate="{StaticResource RelativeOldness}"
+                    <ContentPresenter x:Name="_uptime" ContentTemplate="{StaticResource RelativeOldness}"
                                 Content="{Binding Path=LastOnline}"/>
-                    </StackPanel>
-                </Grid>
+                    <Border x:Name="_resource" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2"
+                                Background="#FFe5e5e5" HorizontalAlignment="Left"
+                                BorderBrush="{DynamicResource roster_image_border}">
+                        <TextBlock Margin="5,0,5,0" VerticalAlignment="Center" Foreground="#FF000000"
+                               Text="{Binding Path=Resource}" FontSize="10" HorizontalAlignment="Left">
+                        </TextBlock>
+                    </Border>
+                </StackPanel>
             </StackPanel>
         </Grid>
         <DataTemplate.Triggers>
@@ -79,6 +84,7 @@
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=IsAvailable}" Value="False">
                 <Setter Property="Visibility" TargetName="_xStatus" Value="Collapsed"/>
+                <Setter Property="Visibility" TargetName="_prio" Value="Collapsed"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Resource}" Value="{x:Null}">
                 <Setter Property="Visibility" TargetName="_resource" Value="Collapsed"/>
