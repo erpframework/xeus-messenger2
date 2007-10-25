@@ -352,11 +352,26 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         private void OnKeyPress(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Return &&
-                (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
+            if (e.Key == Key.Return)
             {
-                e.Handled = true;
-                OnSendMessage(sender, e);
+                if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+                {
+                    e.Handled = false;
+
+                    TextBox textBox = sender as TextBox;
+
+                    if (textBox != null && textBox.AcceptsReturn)
+                    {
+                        int index = textBox.CaretIndex + 1;
+                        textBox.Text = textBox.Text.Insert(textBox.CaretIndex, Environment.NewLine);
+                        textBox.CaretIndex = index;
+                    }
+                }
+                else
+                {
+                    e.Handled = true;
+                    OnSendMessage(sender, e);
+                }
             }
         }
 

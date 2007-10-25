@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Timers;
 using agsXMPP;
 using agsXMPP.protocol.client;
@@ -15,6 +16,7 @@ using xeus2.xeus.Data;
 using xeus2.xeus.Middle;
 using xeus2.xeus.Utilities;
 using Avatar=agsXMPP.protocol.x.Avatar;
+using Timer=System.Timers.Timer;
 using Uri=agsXMPP.Uri;
 using Version=agsXMPP.protocol.iq.version.Version;
 
@@ -72,8 +74,19 @@ namespace xeus2.xeus.Core
 
         public event NeedRefreshHandler NeedRefresh;
 
+        private readonly object _lockPresence = new object();
+        private bool _rosterFinished = false;
+
         public void OnPresence(object sender, Presence presence)
         {
+            lock (_lockPresence)
+            {
+                if (!_rosterFinished)
+                {
+                    Monitor.Wait(_lockPresence);
+                }
+            }
+
             App.InvokeSafe(App._dispatcherPriority,
                            new PresenceCallback(OnPresence), presence);
         }
@@ -582,6 +595,16 @@ namespace xeus2.xeus.Core
         {
             App.InvokeSafe(App._dispatcherPriority,
                            new RosterItemCallback(OnRosterItem), item);
+        }
+
+        public void RosterFinished()
+        {
+            lock (_lockPresence)
+            {
+                Monitor.Pulse(_lockPresence);
+            }
+
+            _rosterFinished = true;
         }
 
         private void OnRosterItem(RosterItem item)
