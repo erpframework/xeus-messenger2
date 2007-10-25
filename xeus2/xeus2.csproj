@@ -466,6 +466,7 @@
     <Compile Include="xeus.Core\Recent.cs" />
     <Compile Include="xeus.Core\RecentItems.cs" />
     <Compile Include="xeus.Core\RegisteredService.cs" />
+    <Compile Include="xeus.Core\RelativeOldness.cs" />
     <Compile Include="xeus.Core\Roster.cs" />
     <Compile Include="xeus.Core\RosterSort.cs" />
     <Compile Include="xeus.Core\SearchResult.cs">

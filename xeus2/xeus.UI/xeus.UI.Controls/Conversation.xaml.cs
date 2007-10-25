@@ -227,7 +227,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         private void SelectItem(Message item)
         {
-            if (App.Current.Dispatcher.CheckAccess())
+            if (App.CheckAccessSafe())
             {
                 _inlineSearch.NotFound = true;
 

@@ -94,19 +94,19 @@ namespace xeus2.xeus.Core
         {
             Brush timeBrush;
 
-            switch (mucMessage.MessageOldness)
+            switch (mucMessage.DateTime.Oldness)
             {
-                case MessageOldness.Recent:
+                case Oldness.Recent:
                     {
                         timeBrush = _timeRecentBackground;
                         break;
                     }
-                case MessageOldness.Older:
+                case Oldness.Older:
                     {
                         timeBrush = _timeOlderBackground;
                         break;
                     }
-                case MessageOldness.Old:
+                case Oldness.Old:
                     {
                         timeBrush = _timeOldBackground;
                         break;
@@ -231,11 +231,12 @@ namespace xeus2.xeus.Core
         {
             foreach (Rectangle time in _relativeTimes)
             {
-                string text;
+                string text = string.Empty;
 
                 MessageBase message = (MessageBase)time.DataContext;
-                DateTime dateTime = message.DateTime;
-                text = string.Format("{0}\n{1}", dateTime, TimeUtilities.FormatRelativeTime(dateTime));
+
+                text = string.Format("{0}\n{1}", message.DateTime.DateTime.Value,
+                                                    message.DateTime.RelativeTime);
 
                 Brush brush = GetMessageTimeBrush(message);
 
@@ -245,11 +246,6 @@ namespace xeus2.xeus.Core
                 }
 
                 time.ToolTip = text;
-            }
-
-            if (_lastMessage != null)
-            {
-                _lastMessage.RefreshRelativeTime();
             }
         }
 

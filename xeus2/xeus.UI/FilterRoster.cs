@@ -13,8 +13,8 @@ namespace xeus2.xeus.UI
 
         readonly Timer _refreshTimer = new Timer(500);
 
-        private bool _displayOffline = false;
-        private bool _displayServices = false;
+        private bool _displayOffline = Settings.Default.UI_DisplayOfflineContacts;
+        private bool _displayServices = Settings.Default.UI_DisplayServices;
 
         public FilterRoster(ICollectionView collectionView, TextBox searchBox)
         {

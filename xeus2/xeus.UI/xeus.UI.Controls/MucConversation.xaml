@@ -115,8 +115,8 @@
         </Border>
 
         <StackPanel Margin="5,5,5,5" DockPanel.Dock="Bottom">
-            <ContentPresenter ContentTemplate="{StaticResource MessageOldness}"
-                        Content="{Binding Path=LastMessage}"  Margin="5,0,5,5"/>
+            <ContentPresenter ContentTemplate="{StaticResource RelativeOldness}"
+                        Content="{Binding Path=LastMessage.DateTime}"  Margin="5,0,5,5"/>
             <Grid>
                 <Button Click="OnSendMessage" Content="Send" VerticalAlignment="Bottom" DockPanel.Dock="Right" HorizontalAlignment="Right" Width="50"/>
                 <TextBox x:Name="_text" MinWidth="100"

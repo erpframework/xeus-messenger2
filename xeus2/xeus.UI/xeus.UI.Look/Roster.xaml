@@ -19,6 +19,25 @@
             </DrawingGroup>
         </DrawingBrush.Drawing>
     </DrawingBrush>
+
+    <DrawingBrush x:Key="imagemask_design">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Geometry="F1 M 22.1875,18.1792L 45.6875,18.1792L 45.6875,41.6792L 22.1875,41.6792L 22.1875,18.1792 Z ">
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush StartPoint="0.146447,0.146447" EndPoint="0.853553,0.853553">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#9F000000" Offset="0"/>
+                                    <GradientStop Color="#FFFFFFFF" Offset="1"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
     
     <DrawingBrush x:Key="contact_back_design" PresentationOptions:Freeze="True">
         <DrawingBrush.Drawing>
@@ -120,35 +139,35 @@
     <SolidColorBrush x:Key="roster_status_text" Color="#FFBBBBBB" PresentationOptions:Freeze="True" />
     <SolidColorBrush x:Key="roster_image_border" Color="#FF444444" PresentationOptions:Freeze="True" />
 
-    <DataTemplate DataType="{x:Type Core:MessageBase}" x:Key="MessageOldness">
-        <Grid ToolTip="Last Message">
-            <Rectangle Width="16" Height="16" Fill="{DynamicResource time_oldest_design}"
-                   x:Name="_timeIcon" DockPanel.Dock="Right" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+    <DataTemplate DataType="{x:Type Core:RelativeOldness}" x:Key="RelativeOldness">
+        <StackPanel Orientation="Horizontal" x:Name="_container">
             <TextBlock Text="{Binding Path=RelativeTime}"
-					ToolTip="{Binding Path=DateTime}" Foreground="{DynamicResource DefaultTextBrush2}" HorizontalAlignment="Left"
-                   Margin="20,0,0,0" VerticalAlignment="Top" FontSize="11" TextWrapping="Wrap"/>
-        </Grid>
+					ToolTip="{Binding Path=DateTime}" Foreground="{DynamicResource DefaultTextBrush2}"
+                    VerticalAlignment="Top" FontSize="10"/>
+            <Rectangle Margin="5,0,0,0" Width="16" Height="16" Fill="{DynamicResource time_oldest_design}" x:Name="_timeIcon" />
+        </StackPanel>
         <DataTemplate.Triggers>
-            <DataTrigger Binding="{Binding Path=MessageOldness}">
+            <DataTrigger Binding="{Binding Path=Oldness}">
                 <DataTrigger.Value>
-                    <Core:MessageOldness>Recent</Core:MessageOldness>
+                    <Core:Oldness>Recent</Core:Oldness>
                 </DataTrigger.Value>
                 <Setter  TargetName="_timeIcon" Property="Rectangle.Fill" Value="{DynamicResource time_now_design}"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Path=MessageOldness}">
+            <DataTrigger Binding="{Binding Path=Oldness}">
                 <DataTrigger.Value>
-                    <Core:MessageOldness>Older</Core:MessageOldness>
+                    <Core:Oldness>Older</Core:Oldness>
                 </DataTrigger.Value>
                 <Setter  TargetName="_timeIcon" Property="Rectangle.Fill" Value="{DynamicResource time_older_design}"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Path=MessageOldness}">
+            <DataTrigger Binding="{Binding Path=Oldness}">
                 <DataTrigger.Value>
-                    <Core:MessageOldness>Old</Core:MessageOldness>
+                    <Core:Oldness>Old</Core:Oldness>
                 </DataTrigger.Value>
                 <Setter  TargetName="_timeIcon" Property="Rectangle.Fill" Value="{DynamicResource time_old_design}"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Path=RelativeTime}" Value="{x:Null}">
-                <Setter  TargetName="_timeIcon" Property="Visibility" Value="Hidden"/>
+
+            <DataTrigger Binding="{Binding Path=DateTime}" Value="{x:Null}">
+                <Setter  TargetName="_container" Property="Visibility" Value="Collapsed"/>
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
@@ -182,29 +201,22 @@
         </DrawingBrush.Drawing>
     </DrawingBrush>
 
-
     <ItemsPanelTemplate x:Key="ItemsPanelTemplateRoster">
         <!--<VirtualizingStackPanel IsItemsHost="True"/>-->
         <WrapPanel IsItemsHost="True" />
     </ItemsPanelTemplate>
 
-
     <DataTemplate x:Key="PhotoWithReflection">
-        <StackPanel HorizontalAlignment="Left">
-            <Border Margin="1,1,1,-3" x:Name="_imageBorder" Width="32" Height="32"
-	                                BorderBrush="{DynamicResource roster_image_border}"
-	                                CornerRadius="3,3,3,3" ClipToBounds="True">
+        <StackPanel>
+            <Grid x:Name="_frame" OpacityMask="{StaticResource opacity_design}"
+                                      Height="32" Width="32" SnapsToDevicePixels="True">
                 <Image Source="{Binding}" x:Name="_image"
-                       ClipToBounds="True" Stretch="UniformToFill" StretchDirection="Both" IsEnabled="False">
-                    <Image.OpacityMask>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0.5">
-                            <GradientStop Color="#DD000000" Offset="0"/>
-                            <GradientStop Color="#88FFFFFF" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Image.OpacityMask>
-                </Image>
-            </Border>
-            <Border Width="32" Height="16" Opacity="0.5" Margin="0,2,0,-3">
+                                StretchDirection="Both"
+                                ClipToBounds="True" Stretch="UniformToFill"
+                                IsEnabled="False"
+                                OpacityMask="{StaticResource imagemask_design}"/>
+            </Grid>
+            <Border Width="32" Height="16" Opacity="0.75">
                 <Border.OpacityMask>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                         <LinearGradientBrush.GradientStops>
@@ -214,7 +226,7 @@
                     </LinearGradientBrush>
                 </Border.OpacityMask>
                 <Border.Background>
-                    <VisualBrush Visual="{Binding ElementName=_imageBorder}">
+                    <VisualBrush Visual="{Binding ElementName=_frame}">
                         <VisualBrush.Transform>
                             <ScaleTransform ScaleX="1" ScaleY="-1" CenterX="16" CenterY="8" />
                         </VisualBrush.Transform>
@@ -257,15 +269,17 @@
                     <Border CornerRadius="2" x:Name="_parent"
                                 Background="{StaticResource contact_back_design}">
                         <Grid SnapsToDevicePixels="True">
-                            <Grid x:Name="_container" Margin="30,2,4,2">
+                            <StackPanel x:Name="_container" Margin="30,2,4,2">
                                 <TextBlock Text="{Binding Path=DisplayName}"
                                            Foreground="{StaticResource roster_name_text}" FontSize="11"
                                            TextTrimming="WordEllipsis"/>
-                                <TextBlock Margin="0,14,0,0"
+                                <TextBlock Margin="0,-2,0,0" x:Name="_xStatus"
                                            Text="{Binding Path=XStatusText}" Foreground="{StaticResource roster_status_text}"
                                            FontSize="10"
                                            TextTrimming="WordEllipsis"/>
-                            </Grid>
+                                <ContentPresenter x:Name="_uptime" ContentTemplate="{StaticResource RelativeOldness}"
+                                                    Content="{Binding Path=LastOnline}"/>
+                            </StackPanel>
                             <Grid Margin="2,2,4,2" HorizontalAlignment="Left" VerticalAlignment="Top">
                                 <Grid x:Name="_frame" OpacityMask="{StaticResource opacity_design}"
                                       Height="24" Width="24" SnapsToDevicePixels="True">
@@ -280,26 +294,7 @@
                             </Grid>
                     </Grid>
                 </Border>
-                <!--
-                <Grid x:Name="_resource" Margin="3,-3,5,0" Visibility="Collapsed"
-                      HorizontalAlignment="Left" ZIndex="-1">
-                    <Border BorderThickness="1,1,1,1" CornerRadius="2,2,2,2" Background="#FFe5e5e5"
-                            BorderBrush="{DynamicResource roster_image_border}">
-                        <TextBlock Margin="5,0,5,0" VerticalAlignment="Center" Foreground="#FF000000"
-                               Text="{Binding Path=Resource}" FontSize="10" TextTrimming="CharacterEllipsis" HorizontalAlignment="Left">
-                        </TextBlock>
-                    </Border>
-                </Grid>-->
             </Grid>
-            <!--
-            <Border x:Name="_uptime" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2"
-                        Background="#FFe5e5e5" BorderBrush="{DynamicResource roster_image_border}"
-                        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3,0,0,3"
-                        Padding="2,0,0,2">
-                <TextBlock Text="{Binding Path=LastOnlineTime}" Foreground="#FF000000"
-                           FontSize="9"/>
-            </Border>
-            -->
         </Grid>
         
         <DataTemplate.Triggers>
@@ -308,6 +303,13 @@
                 <Setter Property="Visibility" Value="Visible" TargetName="_resource" />
             </DataTrigger>
             -->
+
+            <DataTrigger Binding="{Binding Path=IsAvailable}" Value="True">
+                <Setter Property="Visibility" TargetName="_uptime" Value="Collapsed"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=IsAvailable}" Value="False">
+                <Setter Property="Visibility" TargetName="_xStatus" Value="Collapsed"/>
+            </DataTrigger>
 
             <DataTrigger Binding="{Binding Path=IsAvailable}" Value="False">
                 <Setter Property="Opacity" TargetName="_grid" Value="0.35"/>

@@ -45,37 +45,46 @@
 
     <DataTemplate x:Key="ToolTipContactCard">
         <Grid Margin="1" x:Name="_grid">
-            <ContentPresenter Content="{Binding Path=Image}" ContentTemplate="{DynamicResource PhotoWithReflection}"/>
+            <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+                <ContentPresenter Content="{Binding Path=Image}" ContentTemplate="{DynamicResource PhotoWithReflection}"/>
+                <ContentPresenter Content="{Binding Path=Show}"
+                                  x:Name="_show" ContentTemplate="{DynamicResource StatusImage}"
+                                      Width="16" Height="16" HorizontalAlignment="Right" VerticalAlignment="Top"
+                                      Panel.ZIndex="1" Margin="0,0,-4,-4"/>
+            </Grid>
             <StackPanel Margin="45,0,0,0" HorizontalAlignment="Left">
-                <TextBlock Margin="3,0,3,0" Text="{Binding Path=DisplayName}" Foreground="{DynamicResource roster_name_text}" FontSize="11"
+                <TextBlock Text="{Binding Path=DisplayName}" Foreground="{DynamicResource roster_name_text}" FontSize="11"
                                        TextAlignment="Left" TextTrimming="CharacterEllipsis"/>
                 <Grid>
-                    <ContentPresenter Content="{Binding Path=Show}" ContentTemplate="{DynamicResource StatusImage}"
-                                      Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                      Panel.ZIndex="1" Margin="0,0,4,0"/>
-                    <StackPanel x:Name="_statusText" Margin="4,0,4,0" >
-                        <TextBlock Text="{Binding Path=XStatusText}"
+                    <StackPanel>
+                        <Border x:Name="_resource" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2"
+                                Background="#FFe5e5e5" HorizontalAlignment="Left"
+                                BorderBrush="{DynamicResource roster_image_border}">
+                            <TextBlock Margin="5,0,5,0" VerticalAlignment="Center" Foreground="#FF000000"
+                               Text="{Binding Path=Resource}" FontSize="10" HorizontalAlignment="Left">
+                            </TextBlock>
+                        </Border>
+                        <TextBlock x:Name="_xStatus" Text="{Binding Path=XStatusText}"
                                            Foreground="{DynamicResource roster_status_text}"
-                                           FontSize="10" TextAlignment="Left" TextWrapping="Wrap" MaxHeight="30" TextTrimming="CharacterEllipsis"/>
-                        <TextBlock Text="{Binding Path=Resource}"
-                                           Foreground="{DynamicResource roster_status_text}"
-                                           FontSize="10" TextAlignment="Left" TextWrapping="Wrap" MaxHeight="30" TextTrimming="CharacterEllipsis"/>
+                                           FontSize="10" TextAlignment="Left" TextWrapping="Wrap"/>
+                        <ContentPresenter x:Name="_uptime" ContentTemplate="{StaticResource RelativeOldness}"
+                                Content="{Binding Path=LastOnline}"/>
                     </StackPanel>
                 </Grid>
             </StackPanel>
         </Grid>
         <DataTemplate.Triggers>
-            <DataTrigger Binding="{Binding Path=Show}" Value="dnd">
-                <Setter Property="Margin" TargetName="_statusText" Value="20,0,0,0"/>
+            <DataTrigger Binding="{Binding Path=IsAvailable}" Value="True">
+                <Setter Property="Visibility" TargetName="_uptime" Value="Collapsed"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Path=Show}" Value="away">
-                <Setter Property="Margin" TargetName="_statusText" Value="20,0,0,0"/>
+            <DataTrigger Binding="{Binding Path=IsAvailable}" Value="False">
+                <Setter Property="Visibility" TargetName="_xStatus" Value="Collapsed"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Path=Show}" Value="xa">
-                <Setter Property="Margin" TargetName="_statusText" Value="20,0,0,0"/>
+            <DataTrigger Binding="{Binding Path=Resource}" Value="{x:Null}">
+                <Setter Property="Visibility" TargetName="_resource" Value="Collapsed"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Path=Show}" Value="chat">
-                <Setter Property="Margin" TargetName="_statusText" Value="20,0,0,0"/>
+            <DataTrigger Binding="{Binding Path=Show}" Value="NONE">
+                <Setter Property="Visibility" TargetName="_show" Value="Collapsed"/>
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>

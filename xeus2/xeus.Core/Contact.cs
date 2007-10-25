@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SQLite;
 using System.Text;
 using System.Windows.Media.Imaging;
 using agsXMPP;
@@ -15,6 +14,7 @@ using agsXMPP.Xml.Dom;
 using xeus2.Properties;
 using xeus2.xeus.Data;
 using xeus2.xeus.Utilities;
+using Version=agsXMPP.protocol.iq.version.Version;
 
 namespace xeus2.xeus.Core
 {
@@ -27,33 +27,36 @@ namespace xeus2.xeus.Core
         #endregion
 
         private static readonly PresenceCompare _presenceCompare = new PresenceCompare();
+        private readonly int _metaId;
         private readonly Dictionary<string, Presence> _presences = new Dictionary<string, Presence>(3);
         private readonly object _presencesLock = new object();
-
-        private string _searchLowerText = string.Empty;
-
-        private RosterItem _rosterItem = null;
-        private readonly int _metaId;
-        private string _customName;
-        private string _fullName;
-
-        private bool _hasVCardRecieved = false;
-        private bool _hasDiscoRecieved = false;
-
-        private BitmapImage _image;
-        private string _nickName;
-        private Presence _presence = null;
-        private string _statusText = "Not available";
-        private string _xStatusText;
         private string _avatarHash = String.Empty;
+        private Capabilities _caps = null;
+        private VCard _card = null;
 
+        private string _customName;
         private DiscoInfo _discoInfo = null;
         private DiscoInfo _extendedDiscoInfo = null;
+        private string _fullName;
+
+        private bool _hasDiscoRecieved = false;
+        private bool _hasVCardRecieved = false;
+
+        private BitmapImage _image;
+        private bool _iqAvatarLoadedFromCache = false;
+        private RelativeOldness _lastOnline = null;
+        private string _nickName;
+        private Presence _presence = null;
+        private RosterItem _rosterItem = null;
+        private string _searchLowerText = string.Empty;
+        private string _statusText = "Not available";
+        private Version _version = null;
+        private string _xStatusText;
 
         public Contact(IDataRecord reader, RosterItem rosterItem)
         {
             _rosterItem = rosterItem;
-            _metaId = (int)(Int64)reader["MetaId"];
+            _metaId = (int) (Int64) reader["MetaId"];
 
             if (!reader.IsDBNull(reader.GetOrdinal("CustomName")))
             {
@@ -96,18 +99,87 @@ namespace xeus2.xeus.Core
             }
         }
 
-        #region IContact Members
-
-        public Dictionary<string, object> GetData()
+        public Capabilities Caps
         {
-            Dictionary<string, object> data = new Dictionary<string, object>();
-
-            data.Add("Jid", Jid.Bare);
-            data.Add("MetaId", MetaId);
-            data.Add("CustomName", CustomName);
-
-            return data;
+            get
+            {
+                return _caps;
+            }
+            set
+            {
+                _caps = value;
+                NotifyPropertyChanged("Caps");
+            }
         }
+
+        public string AvatarHash
+        {
+            get
+            {
+                return _avatarHash;
+            }
+        }
+
+        public int MetaId
+        {
+            get
+            {
+                return _metaId;
+            }
+        }
+
+        public bool HasDiscoRecieved
+        {
+            get
+            {
+                return _hasDiscoRecieved;
+            }
+        }
+
+        public DiscoInfo Disco
+        {
+            get
+            {
+                return _discoInfo;
+            }
+            set
+            {
+                _discoInfo = value;
+                NotifyPropertyChanged("Disco");
+            }
+        }
+
+        public DiscoInfo ExtendedDisco
+        {
+            get
+            {
+                return _extendedDiscoInfo;
+            }
+            set
+            {
+                _extendedDiscoInfo = value;
+                NotifyPropertyChanged("ExtendedDisco");
+            }
+        }
+
+        public RosterItem RosterItem
+        {
+            get
+            {
+                return _rosterItem;
+            }
+
+            set
+            {
+                _rosterItem = value;
+
+                NotifyPropertyChanged("RosterItem");
+                NotifyPropertyChanged("Group");
+                NotifyPropertyChanged("IsService");
+            }
+        }
+
+        #region IContact Members
 
         public string DisplayName
         {
@@ -156,13 +228,6 @@ namespace xeus2.xeus.Core
                 }
             }
         }
-
-        private bool _iqAvatarLoadedFromCache = false;
-
-        private Capabilities _caps = null;
-        private DateTime? _lastOnline = null ;
-        private VCard _card = null;
-        private agsXMPP.protocol.iq.version.Version _version = null;
 
         public Presence Presence
         {
@@ -250,7 +315,7 @@ namespace xeus2.xeus.Core
                     }
                 }
 
-                Capabilities capabilities = _presence.SelectSingleElement(typeof(Capabilities)) as Capabilities;
+                Capabilities capabilities = _presence.SelectSingleElement(typeof (Capabilities)) as Capabilities;
 
                 if (capabilities != null)
                 {
@@ -289,27 +354,6 @@ namespace xeus2.xeus.Core
                 if (!IsAvailable)
                 {
                     AskForLastTime();
-                }
-            }
-        }
-
-        private void AskForLastTime()
-        {
-            LastIq lastIq = new LastIq(IqType.get);
-            lastIq.From = Account.Instance.Self.Jid;
-            lastIq.To = Jid;
-            Account.Instance.XmppConnection.IqGrabber.SendIq(lastIq, OnLastIqResult, null);
-        }
-
-        void OnLastIqResult(object sender, IQ iq, object data)
-        {
-            if (iq.Type == IqType.result)
-            {
-                Last last = iq.Query as Last;
-
-                if (last != null)
-                {
-                    SetLastOnline(last);
                 }
             }
         }
@@ -496,7 +540,7 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public void SetVersion(agsXMPP.protocol.iq.version.Version version)
+        public void SetVersion(Version version)
         {
             _version = version;
 
@@ -520,19 +564,6 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public Capabilities Caps
-        {
-            get
-            {
-                return _caps;
-            }
-            set
-            {
-                _caps = value;
-                NotifyPropertyChanged("Caps");
-            }
-        }
-
         public VCard Card
         {
             get
@@ -541,68 +572,11 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public DateTime? LastOnlineTime
+        public RelativeOldness LastOnline
         {
             get
             {
                 return _lastOnline;
-            }
-        }
-
-        #endregion
-
-        public override string ToString()
-        {
-            return DisplayName;
-        }
-
-        public string AvatarHash
-        {
-            get
-            {
-                return _avatarHash;
-            }
-        }
-
-        public int MetaId
-        {
-            get
-            {
-                return _metaId;
-            }
-        }
-
-        public bool HasDiscoRecieved
-        {
-            get
-            {
-                return _hasDiscoRecieved;
-            }
-        }
-
-        public DiscoInfo Disco
-        {
-            get
-            {
-                return _discoInfo;
-            }
-            set
-            {
-                _discoInfo = value;
-                NotifyPropertyChanged("Disco");
-            }
-        }
-
-        public DiscoInfo ExtendedDisco
-        {
-            get
-            {
-                return _extendedDiscoInfo;
-            }
-            set
-            {
-                _extendedDiscoInfo = value;
-                NotifyPropertyChanged("ExtendedDisco");
             }
         }
 
@@ -656,24 +630,46 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public RosterItem RosterItem
+        #endregion
+
+        public Dictionary<string, object> GetData()
         {
-            get
-            {
-                return _rosterItem;
-            }
+            Dictionary<string, object> data = new Dictionary<string, object>();
 
-            set
-            {
-                _rosterItem = value;
+            data.Add("Jid", Jid.Bare);
+            data.Add("MetaId", MetaId);
+            data.Add("CustomName", CustomName);
 
-                NotifyPropertyChanged("RosterItem");
-                NotifyPropertyChanged("Group");
-                NotifyPropertyChanged("IsService");
+            return data;
+        }
+
+        private void AskForLastTime()
+        {
+            LastIq lastIq = new LastIq(IqType.get);
+            lastIq.From = Account.Instance.Self.Jid;
+            lastIq.To = Jid;
+            Account.Instance.XmppConnection.IqGrabber.SendIq(lastIq, OnLastIqResult, null);
+        }
+
+        private void OnLastIqResult(object sender, IQ iq, object data)
+        {
+            if (iq.Type == IqType.result)
+            {
+                Last last = iq.Query as Last;
+
+                if (last != null)
+                {
+                    SetLastOnline(last);
+                }
             }
         }
 
-        void BuildSearchText()
+        public override string ToString()
+        {
+            return DisplayName;
+        }
+
+        private void BuildSearchText()
         {
             StringBuilder builder = new StringBuilder();
 
@@ -701,7 +697,7 @@ namespace xeus2.xeus.Core
 
         public void SetVcard(Vcard vcard)
         {
-            if (App.Current.Dispatcher.CheckAccess())
+            if (App.CheckAccessSafe())
             {
                 _hasVCardRecieved = true;
                 NotifyPropertyChanged("HasVCardRecieved");
@@ -741,9 +737,9 @@ namespace xeus2.xeus.Core
 
         public void SetLastOnline(Last last)
         {
-            _lastOnline = DateTime.Now.Subtract(new TimeSpan(0, 0, last.Seconds));
+            _lastOnline = new RelativeOldness(DateTime.Now.Subtract(new TimeSpan(0, 0, last.Seconds)));
 
-            NotifyPropertyChanged("LastOnlineTime");
+            NotifyPropertyChanged("LastOnline");
         }
 
         public void SetIqAvatar(byte[] data)

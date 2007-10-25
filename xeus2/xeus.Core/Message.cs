@@ -23,7 +23,8 @@ namespace xeus2.xeus.Core
             _from = new Jid((string)reader["From"]);
             _to = new Jid((string)reader["To"]);
             _body = (string)reader["Body"];
-            _dateTime = DateTime.FromBinary((Int64)reader["DateTime"]);
+            
+            DateTime = new RelativeOldness(System.DateTime.FromBinary((Int64)reader["DateTime"]));
         }
 
         public Dictionary<string, object> GetData()
@@ -32,7 +33,16 @@ namespace xeus2.xeus.Core
 
             data.Add("From", From.Bare);
             data.Add("To", To.Bare);
-            data.Add("DateTime", DateTime.ToBinary());
+
+            if (DateTime.DateTime == null)
+            {
+                data.Add("DateTime", System.DateTime.MinValue.ToBinary());
+            }
+            else
+            {
+                data.Add("DateTime", DateTime.DateTime.Value.ToBinary());
+            }
+            
             data.Add("Body", Body);
             data.Add("Type", "chat");
 

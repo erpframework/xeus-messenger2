@@ -16,7 +16,7 @@ namespace xeus2.xeus.Core
 
             if (_message.XDelay != null)
             {
-                _dateTime = _message.XDelay.Stamp;
+                DateTime = new RelativeOldness(_message.XDelay.Stamp);
             }
         }
 
@@ -26,7 +26,14 @@ namespace xeus2.xeus.Core
 
             data.Add("From", _message.From);
             data.Add("To", _message.To);
-            data.Add("DateTime", DateTime.ToBinary());
+            if (DateTime.DateTime == null)
+            {
+                data.Add("DateTime", System.DateTime.MinValue.ToBinary());
+            }
+            else
+            {
+                data.Add("DateTime", DateTime.DateTime.Value.ToBinary());
+            }
             data.Add("Body", Body);
             data.Add("Type", "muc");
 

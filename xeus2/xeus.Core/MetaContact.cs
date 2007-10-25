@@ -234,11 +234,11 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public DateTime? LastOnlineTime
+        public RelativeOldness LastOnline
         {
             get
             {
-                return (DateTime?) GetValueSafe("LastOnlineTime");
+                return (RelativeOldness)GetValueSafe("LastOnline");
             }
         }
 
