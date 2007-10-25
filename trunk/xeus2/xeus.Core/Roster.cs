@@ -493,6 +493,7 @@ namespace xeus2.xeus.Core
             if (iq.Type == IqType.error || iq.Error != null)
             {
                 // no version info
+                contact.SetVersion(new Version());
             }
             else if (iq.Type == IqType.result
                      && iq.Query is Version)

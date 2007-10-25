@@ -817,5 +817,12 @@
   <ItemGroup>
     <Resource Include="xeus.UI\xeus.Images\cd-rom.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="xeus.UI\xeus.Images\logo_apple.png" />
+    <Resource Include="xeus.UI\xeus.Images\logo_java.png" />
+    <Resource Include="xeus.UI\xeus.Images\logo_linux.png" />
+    <Resource Include="xeus.UI\xeus.Images\logo_vista.png" />
+    <Resource Include="xeus.UI\xeus.Images\logo_windows.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
