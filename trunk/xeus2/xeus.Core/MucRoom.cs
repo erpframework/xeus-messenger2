@@ -232,7 +232,7 @@ namespace xeus2.xeus.Core
             if (previousMessage == null
                 || previousMessage.Sender != message.Sender
                 ||
-                (message.DateTime - previousMessage.DateTime >
+                (message.DateTime.DateTime - previousMessage.DateTime.DateTime >
                  TimeSpan.FromMinutes(Settings.Default.UI_GroupMessagesByMinutes)))
             {
                 if (!string.IsNullOrEmpty(message.Sender))

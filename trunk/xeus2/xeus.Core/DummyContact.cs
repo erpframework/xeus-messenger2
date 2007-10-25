@@ -163,11 +163,13 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public DateTime? LastOnlineTime
+        RelativeOldness _relativeOldness = new RelativeOldness();
+
+        public RelativeOldness LastOnline
         {
             get
             {
-                return DateTime.Now;
+                return _relativeOldness;
             }
         }
 

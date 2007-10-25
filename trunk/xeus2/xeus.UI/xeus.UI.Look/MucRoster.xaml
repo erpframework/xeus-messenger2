@@ -576,7 +576,7 @@
         <DrawingBrush.Drawing>
             <DrawingGroup>
                 <DrawingGroup.Children>
-                    <GeometryDrawing Geometry="F1 M 160.05,24.0999C 236.238,24.0999 298,85.8623 298,162.05C 298,238.238 236.238,300 160.05,300C 83.8622,300 22.0999,238.238 22.0999,162.05C 22.0999,85.8623 83.8622,24.0999 160.05,24.0999 Z ">
+                    <GeometryDrawing Geometry="F1 M 148.8,-0.699982C 231.09,-0.699982 297.8,66.0096 297.8,148.3C 297.8,230.59 231.09,297.3 148.8,297.3C 66.5096,297.3 -0.199997,230.59 -0.199997,148.3C -0.199997,66.0096 66.5096,-0.699982 148.8,-0.699982 Z ">
                         <GeometryDrawing.Brush>
                             <RadialGradientBrush RadiusX="0.5" RadiusY="0.5" Center="0.5,0.5" GradientOrigin="0.5,0.5">
                                 <RadialGradientBrush.GradientStops>
@@ -591,7 +591,7 @@
                     </GeometryDrawing>
                     <GeometryDrawing Geometry="F1 M 148.8,27.299C 215.627,27.299 269.801,81.473 269.801,148.3C 269.801,215.127 215.627,269.301 148.8,269.301C 81.973,269.301 27.799,215.127 27.799,148.3C 27.799,81.473 81.973,27.299 148.8,27.299 Z ">
                         <GeometryDrawing.Pen>
-                            <Pen Thickness="20" LineJoin="Round" Brush="#88EDEDED"/>
+                            <Pen Thickness="20" LineJoin="Round" Brush="#FFEDEDED"/>
                         </GeometryDrawing.Pen>
                         <GeometryDrawing.Brush>
                             <RadialGradientBrush RadiusX="0.479445" RadiusY="0.479445" Center="0.5,0.5" GradientOrigin="0.5,0.5">
@@ -617,7 +617,7 @@
         <DrawingBrush.Drawing>
             <DrawingGroup>
                 <DrawingGroup.Children>
-                    <GeometryDrawing Geometry="F1 M 160.05,24.0999C 236.238,24.0999 298,85.8623 298,162.05C 298,238.238 236.238,300 160.05,300C 83.8622,300 22.0999,238.238 22.0999,162.05C 22.0999,85.8623 83.8622,24.0999 160.05,24.0999 Z ">
+                    <GeometryDrawing Geometry="F1 M 148.8,-0.699982C 231.09,-0.699982 297.8,66.0096 297.8,148.3C 297.8,230.59 231.09,297.3 148.8,297.3C 66.5096,297.3 -0.200003,230.59 -0.200003,148.3C -0.200003,66.0096 66.5096,-0.699982 148.8,-0.699982 Z ">
                         <GeometryDrawing.Brush>
                             <RadialGradientBrush RadiusX="0.5" RadiusY="0.5" Center="0.5,0.5" GradientOrigin="0.5,0.5">
                                 <RadialGradientBrush.GradientStops>
@@ -632,7 +632,7 @@
                     </GeometryDrawing>
                     <GeometryDrawing Geometry="F1 M 148.8,27.299C 215.627,27.299 269.801,81.473 269.801,148.3C 269.801,215.127 215.627,269.301 148.8,269.301C 81.973,269.301 27.799,215.127 27.799,148.3C 27.799,81.473 81.973,27.299 148.8,27.299 Z ">
                         <GeometryDrawing.Pen>
-                            <Pen Thickness="20" LineJoin="Round" Brush="#88EDEDED"/>
+                            <Pen Thickness="20" LineJoin="Round" Brush="#FFEDEDED"/>
                         </GeometryDrawing.Pen>
                         <GeometryDrawing.Brush>
                             <RadialGradientBrush RadiusX="0.479445" RadiusY="0.479445" Center="0.5,0.5" GradientOrigin="0.5,0.5">
@@ -658,7 +658,7 @@
         <DrawingBrush.Drawing>
             <DrawingGroup>
                 <DrawingGroup.Children>
-                    <GeometryDrawing Geometry="F1 M 160.05,24.0999C 236.238,24.0999 298,85.8623 298,162.05C 298,238.238 236.238,300 160.05,300C 83.8622,300 22.0999,238.238 22.0999,162.05C 22.0999,85.8623 83.8622,24.0999 160.05,24.0999 Z ">
+                    <GeometryDrawing Geometry="F1 M 148.8,-0.699982C 231.09,-0.699982 297.8,66.0096 297.8,148.3C 297.8,230.59 231.09,297.3 148.8,297.3C 66.5096,297.3 -0.199997,230.59 -0.199997,148.3C -0.199997,66.0096 66.5096,-0.699982 148.8,-0.699982 Z ">
                         <GeometryDrawing.Brush>
                             <RadialGradientBrush RadiusX="0.5" RadiusY="0.5" Center="0.5,0.5" GradientOrigin="0.5,0.5">
                                 <RadialGradientBrush.GradientStops>
@@ -673,7 +673,7 @@
                     </GeometryDrawing>
                     <GeometryDrawing Geometry="F1 M 148.8,27.299C 215.627,27.299 269.801,81.473 269.801,148.3C 269.801,215.127 215.627,269.301 148.8,269.301C 81.973,269.301 27.799,215.127 27.799,148.3C 27.799,81.473 81.973,27.299 148.8,27.299 Z ">
                         <GeometryDrawing.Pen>
-                            <Pen Thickness="20" LineJoin="Round" Brush="#88EDEDED"/>
+                            <Pen Thickness="20" LineJoin="Round" Brush="#FFEDEDED"/>
                         </GeometryDrawing.Pen>
                         <GeometryDrawing.Brush>
                             <RadialGradientBrush RadiusX="0.479445" RadiusY="0.479445" Center="0.5,0.5" GradientOrigin="0.5,0.5">
@@ -698,7 +698,7 @@
         <DrawingBrush.Drawing>
             <DrawingGroup>
                 <DrawingGroup.Children>
-                    <GeometryDrawing Geometry="F1 M 154.777,15.8866C 230.964,15.8866 292.727,77.6489 292.727,153.837C 292.727,230.024 230.964,291.787 154.777,291.787C 78.5889,291.787 16.8265,230.024 16.8265,153.837C 16.8265,77.6489 78.5889,15.8866 154.777,15.8866 Z ">
+                    <GeometryDrawing Geometry="F1 M 149,-1C 231.29,-1 298,65.7096 298,148C 298,230.29 231.29,297 149,297C 66.7096,297 8.58307e-006,230.29 8.58307e-006,148C 8.58307e-006,65.7096 66.7096,-1 149,-1 Z ">
                         <GeometryDrawing.Brush>
                             <RadialGradientBrush RadiusX="0.5" RadiusY="0.5" Center="0.5,0.5" GradientOrigin="0.5,0.5">
                                 <RadialGradientBrush.GradientStops>
@@ -713,7 +713,7 @@
                     </GeometryDrawing>
                     <GeometryDrawing Geometry="F1 M 149,30.222C 214.047,30.222 266.778,82.953 266.778,148C 266.778,213.047 214.047,265.778 149,265.778C 83.953,265.778 31.222,213.047 31.222,148C 31.222,82.953 83.953,30.222 149,30.222 Z ">
                         <GeometryDrawing.Pen>
-                            <Pen Thickness="20" LineJoin="Round" Brush="#88EDEDED"/>
+                            <Pen Thickness="20" LineJoin="Round" Brush="#FFEDEDED"/>
                         </GeometryDrawing.Pen>
                         <GeometryDrawing.Brush>
                             <RadialGradientBrush RadiusX="0.478445" RadiusY="0.478445" Center="0.5,0.5" GradientOrigin="0.5,0.5">
@@ -738,7 +738,7 @@
         <DrawingBrush.Drawing>
             <DrawingGroup>
                 <DrawingGroup.Children>
-                    <GeometryDrawing Geometry="F1 M 160.05,24.0999C 236.238,24.0999 298,85.8623 298,162.05C 298,238.238 236.238,300 160.05,300C 83.8622,300 22.0999,238.238 22.0999,162.05C 22.0999,85.8623 83.8622,24.0999 160.05,24.0999 Z ">
+                    <GeometryDrawing Geometry="F1 M 148.8,-0.699982C 231.09,-0.699982 297.8,66.0096 297.8,148.3C 297.8,230.59 231.09,297.3 148.8,297.3C 66.5096,297.3 -0.199997,230.59 -0.199997,148.3C -0.199997,66.0096 66.5096,-0.699982 148.8,-0.699982 Z ">
                         <GeometryDrawing.Brush>
                             <RadialGradientBrush RadiusX="0.5" RadiusY="0.5" Center="0.5,0.5" GradientOrigin="0.5,0.5">
                                 <RadialGradientBrush.GradientStops>
@@ -753,7 +753,7 @@
                     </GeometryDrawing>
                     <GeometryDrawing Geometry="F1 M 148.8,27.299C 215.627,27.299 269.801,81.473 269.801,148.3C 269.801,215.127 215.627,269.301 148.8,269.301C 81.973,269.301 27.799,215.127 27.799,148.3C 27.799,81.473 81.973,27.299 148.8,27.299 Z ">
                         <GeometryDrawing.Pen>
-                            <Pen Thickness="20" LineJoin="Round" Brush="#88EDEDED"/>
+                            <Pen Thickness="20" LineJoin="Round" Brush="#FFEDEDED"/>
                         </GeometryDrawing.Pen>
                         <GeometryDrawing.Brush>
                             <RadialGradientBrush RadiusX="0.479445" RadiusY="0.479445" Center="0.5,0.5" GradientOrigin="0.5,0.5">

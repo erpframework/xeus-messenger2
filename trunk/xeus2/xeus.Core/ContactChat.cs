@@ -156,7 +156,7 @@ namespace xeus2.xeus.Core
 
             if (previousMessage == null
                 || !JidUtil.BareEquals(previousMessage.From, message.From)
-                || (message.DateTime - previousMessage.DateTime >
+                || (message.DateTime.DateTime - previousMessage.DateTime.DateTime >
                     TimeSpan.FromMinutes(Settings.Default.UI_GroupMessagesByMinutes)))
             {
                 if (sender != null)

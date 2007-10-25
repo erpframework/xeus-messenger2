@@ -342,7 +342,7 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public DateTime? LastOnlineTime
+        public RelativeOldness LastOnline
         {
             get
             {

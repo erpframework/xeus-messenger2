@@ -348,9 +348,12 @@ namespace xeus2.xeus.Data
             {
                 Dictionary<string, object> values = message.GetData();
 
-                if (!MucMessageExists(message.Sender, message.DateTime))
+                if (message.DateTime.DateTime.Value != null)
                 {
-                    Insert(values, "Message", false, _connection);
+                    if (!MucMessageExists(message.Sender, message.DateTime.DateTime.Value))
+                    {
+                        Insert(values, "Message", false, _connection);
+                    }
                 }
             }
 

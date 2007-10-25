@@ -1,12 +1,9 @@
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Input;
 using xeus2.Properties;
 using xeus2.xeus.Core;
-using xeus2.xeus.Data;
 
 namespace xeus2.xeus.UI.xeus.UI.Controls
 {
@@ -41,13 +38,9 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
             Roster.Instance.NeedRefresh += Instance_NeedRefresh;
 
-            ListCollectionView listCollectionView = (ListCollectionView)CollectionViewSource.GetDefaultView(_roster.ItemsSource);
+            ListCollectionView listCollectionView =
+                (ListCollectionView) CollectionViewSource.GetDefaultView(_roster.ItemsSource);
             listCollectionView.CustomSort = new RosterSort();
-        }
-
-        void Instance_NeedRefresh()
-        {
-            CollectionView.Refresh();
         }
 
         public ICollectionView CollectionView
@@ -105,6 +98,11 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             }
         }
 
+        private void Instance_NeedRefresh()
+        {
+            CollectionView.Refresh();
+        }
+
         public void SaveExpanderState()
         {
             Roster.Instance.Groups.SaveState();
@@ -137,7 +135,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         private void OnLoadedExpander(object sender, RoutedEventArgs e)
         {
-            Expander expander = (Expander)sender;
+            Expander expander = (Expander) sender;
             string expanderName = ((CollectionViewGroup) expander.DataContext).Name.ToString();
 
             lock (Roster.Instance.Groups._syncObject)
@@ -156,22 +154,22 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
             if (expanded != expander.IsExpanded)
             {
-               expander.IsExpanded = Roster.Instance.IsGroupExpanded(expanderName);
+                expander.IsExpanded = Roster.Instance.IsGroupExpanded(expanderName);
             }
         }
 
         private void OnExpanded(object sender, RoutedEventArgs e)
         {
-            Expander expander = (Expander)sender;
-            Group group = (Group)expander.DataContext;
+            Expander expander = (Expander) sender;
+            Group group = (Group) expander.DataContext;
 
             group.IsExpanded = true;
         }
 
         private void OnCollapsed(object sender, RoutedEventArgs e)
         {
-            Expander expander = (Expander)sender;
-            Group group = (Group)expander.DataContext;
+            Expander expander = (Expander) sender;
+            Group group = (Group) expander.DataContext;
 
             group.IsExpanded = false;
         }
