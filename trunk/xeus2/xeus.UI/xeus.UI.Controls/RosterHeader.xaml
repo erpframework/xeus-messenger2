@@ -14,9 +14,12 @@
                 <Grid Background="{DynamicResource header_back}">
 						<StackPanel Orientation="Horizontal">
 							<Border x:Name="_imageBorder" HorizontalAlignment="Center" VerticalAlignment="Center"
-								BorderBrush="{DynamicResource roster_image_border}" Width="40" Height="40" Margin="2">
+								Width="40" Height="40" Margin="2"
+                                     SnapsToDevicePixels="True" OpacityMask="{DynamicResource opacity_design}">
 								<Image Source="{Binding Path=Image}" x:Name="_image"
-									Stretch="UniformToFill" IsEnabled="False"/>
+                                       StretchDirection="Both" 
+									   ClipToBounds="True" 
+                                       Stretch="UniformToFill" IsEnabled="False"/>
 							</Border>
 							<Border ClipToBounds="True" Padding="1,1,1,1"
 								BorderThickness="1,1,1,1"
@@ -37,9 +40,11 @@
 					</Grid>
             </Border>
             <DataTemplate.Triggers>
+                <!--
                 <DataTrigger Binding="{Binding Path=IsImageTransparent}" Value="False">
                     <Setter Property="Border.BorderThickness" TargetName="_imageBorder" Value="1,1,1,1"/>
                 </DataTrigger>
+                -->
             </DataTemplate.Triggers>
         </DataTemplate>
     </UserControl.Resources>

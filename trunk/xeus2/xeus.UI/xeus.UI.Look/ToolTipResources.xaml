@@ -30,7 +30,7 @@
             <Grid x:Name="_acquiring" Visibility="Collapsed">
                 <Rectangle Width="16" Height="16" Fill="{DynamicResource wait_design}"
                            HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBlock Margin="20,0,0,0" Text="Acquiring contact client information"
+                <TextBlock Margin="20,0,0,0" Text="Acquiring user client information"
                            Foreground="{DynamicResource roster_status_text}"
                            FontSize="10" TextAlignment="Left" />
             </Grid>
@@ -78,7 +78,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="ToolTipContactCard">
-        <Grid Margin="1" x:Name="_grid">
+        <Grid x:Name="_grid" HorizontalAlignment="Left">
             <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
                 <ContentPresenter Content="{Binding Path=Image}" ContentTemplate="{DynamicResource PhotoWithReflection}"/>
                 <ContentPresenter Content="{Binding Path=Show}"
