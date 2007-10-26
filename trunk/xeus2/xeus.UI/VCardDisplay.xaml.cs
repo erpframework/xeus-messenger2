@@ -23,11 +23,6 @@ namespace xeus2.xeus.UI
             ContactCommands.RegisterCommands(this);
 
             Roster.Instance.SetFreshVcard(contact, 0);
-
-            if (string.IsNullOrEmpty(contact.ClientName))
-            {
-                Roster.Instance.AskVersion(contact);
-            }
         }
 
         protected void OnDropFile(object sender, DragEventArgs e)
