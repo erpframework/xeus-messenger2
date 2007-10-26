@@ -178,7 +178,12 @@ namespace xeus2.xeus.Utilities
 
         public static string GetSimplifiedOsName(agsXMPP.protocol.iq.version.Version version)
         {
-            string os = version.Os.ToLowerInvariant();
+            if (string.IsNullOrEmpty(version.Os))
+            {
+                return "Unknown";
+            }
+
+            string os = version.Os.ToLowerInvariant().Trim();
 
             if (os.Contains("windows"))
             {
@@ -195,7 +200,7 @@ namespace xeus2.xeus.Utilities
             {
                 return "Mac OS X";
             }
-            else if (os.Contains("linux"))
+            else if (os.Contains("linux") || os.Contains("bsd") || os.Contains("unix"))
             {
                 return "Linux";
             }

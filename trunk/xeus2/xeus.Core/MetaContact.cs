@@ -260,14 +260,6 @@ namespace xeus2.xeus.Core
             }
         }
 
-        public string ClientNode
-        {
-            get
-            {
-                return (string)GetValueSafe("ClientNode");
-            }
-        }
-
         public string ClientOS
         {
             get

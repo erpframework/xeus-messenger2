@@ -118,11 +118,6 @@ namespace xeus2.xeus.Core
             get;
         }
 
-        string ClientNode
-        {
-            get;
-        }
-
         bool HasFeature(string feature);
 
         void SetVersion(Version version);
