@@ -335,6 +335,13 @@ namespace xeus2.xeus.Core
                 NotifyPropertyChanged("Priority");
                 NotifyPropertyChanged("Resource");
 
+                if (_version == null)
+                {
+                    NotifyPropertyChanged("ClientVersion");
+                    NotifyPropertyChanged("ClientName");
+                    NotifyPropertyChanged("ClientOS");
+                }
+
                 if (!_iqAvatarLoadedFromCache)
                 {
                     string hash;

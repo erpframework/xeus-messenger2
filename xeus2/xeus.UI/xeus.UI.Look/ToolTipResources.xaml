@@ -26,7 +26,7 @@
     </Style>
 
     <DataTemplate x:Key="Client">
-        <StackPanel x:Name="_client" Orientation="Horizontal">
+        <Grid x:Name="_client">
             <Grid x:Name="_acquiring" Visibility="Collapsed">
                 <Rectangle Width="16" Height="16" Fill="{DynamicResource wait_design}"
                            HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -34,9 +34,8 @@
                            Foreground="{DynamicResource roster_status_text}"
                            FontSize="10" TextAlignment="Left" />
             </Grid>
-            <Grid x:Name="_data">
-                <StackPanel Orientation="Horizontal"
-                            MaxWidth="{Binding Path=ActualWidth, ElementName=_acquiring, Mode=Default}">
+            <Grid x:Name="_data" Visibility="Visible">
+                <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding Path=ClientName}"
                                            Foreground="{DynamicResource roster_status_text}"
                                            FontSize="10" TextAlignment="Left" TextTrimming="WordEllipsis"/>
@@ -46,7 +45,7 @@
                     <Image x:Name="_osLogo" Margin="3,0,0,0" Width="16" Height="16" VerticalAlignment="Center"/>
                 </StackPanel>
             </Grid>
-        </StackPanel>
+        </Grid>
         <DataTemplate.Triggers>
             <DataTrigger Binding="{Binding Path=ClientName}" Value="{x:Null}">
                 <Setter Property="Visibility" TargetName="_acquiring" Value="Visible"/>
@@ -105,7 +104,7 @@
                 </StackPanel>
                 <TextBlock Text="{Binding Path=Jid}" Foreground="{DynamicResource roster_jid_text}"
                            FontSize="11" TextAlignment="Left"/>
-                <StackPanel x:Name="_data">
+                <StackPanel>
                     <TextBlock x:Name="_xStatus" Text="{Binding Path=XStatusText}"
                                            Foreground="{DynamicResource roster_status_text}"
                                            FontSize="10" TextAlignment="Left" />
@@ -118,10 +117,9 @@
                                Text="{Binding Path=Resource}" FontSize="10" HorizontalAlignment="Left">
                         </TextBlock>
                     </Border>
-                    <Controls:DottedHorizontal Margin="4" Width="50"/>
-                    <ContentPresenter x:Name="_client" ContentTemplate="{StaticResource Client}"
-                                Content="{Binding}" HorizontalAlignment="Left"/>
                 </StackPanel>
+                <Controls:DottedHorizontal Margin="4" Width="50" SnapsToDevicePixels="True"/>
+                <ContentPresenter ContentTemplate="{StaticResource Client}" Content="{Binding}"/>
             </StackPanel>
         </Grid>
         <DataTemplate.Triggers>
