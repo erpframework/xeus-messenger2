@@ -44,6 +44,8 @@ namespace xeus2.xeus.Core
         public RelativeOldness(DateTime dateTime) : this()
         {
             _dateTime = dateTime;
+            
+            RefreshRelativeTime();
         }
 
         private Oldness _oldness = Oldness.Undefined;

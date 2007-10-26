@@ -522,12 +522,22 @@ namespace xeus2.xeus.Core
 
         public static string GetKey(DiscoItem discoItem)
         {
-            return string.Format("{0}/{1}", discoItem.Jid, discoItem.Node);
+            if (string.IsNullOrEmpty(discoItem.Node))
+            {
+                return
+                    string.Format("{0}/", discoItem.Jid.ToString().ToLowerInvariant());
+            }
+            else
+            {
+                return
+                    string.Format("{0}/{1}", discoItem.Jid.ToString().ToLowerInvariant(),
+                                  discoItem.Node.ToLowerInvariant());
+            }
         }
 
         public static string GetKey(Jid jid)
         {
-            return string.Format("{0}/", jid);
+            return string.Format("{0}/", jid.ToString().ToLowerInvariant());
         }
 
         public override string ToString()

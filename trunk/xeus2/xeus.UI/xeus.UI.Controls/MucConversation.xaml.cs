@@ -382,7 +382,21 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 _scrollViewer = (ScrollViewer) _flowViewer.Template.FindName("PART_ContentHost", _flowViewer);
             }
 
-            if (_scrollViewer.VerticalOffset >= _scrollViewer.ScrollableHeight - 15.0)
+            bool force = false;
+
+            if (e.NewItems != null)
+            {
+                foreach (MucMessage message in e.NewItems)
+                {
+                    if (message.Sender == _mucRoom.Me.Nick)
+                    {
+                        force = true;
+                        break;
+                    }
+                }
+            }
+
+            if (force || _scrollViewer.VerticalOffset >= _scrollViewer.ScrollableHeight - 15.0)
             {
                 _scrollViewer.ScrollToBottom();
             }

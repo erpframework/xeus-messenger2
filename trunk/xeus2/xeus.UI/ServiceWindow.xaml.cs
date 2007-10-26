@@ -21,6 +21,12 @@ namespace xeus2.xeus.UI
             GeneralCommands.RegisterCommands(this);
 
             DataContext = Account.Instance;
+
+            if (Core.Services.Instance.Transports.Count == 0
+                && ServiceCommands.DiscoveryServices.CanExecute(null, null))
+            {
+                ServiceCommands.DiscoveryServices.Execute(null, null);
+            }
         }
 
         public override void EndInit()

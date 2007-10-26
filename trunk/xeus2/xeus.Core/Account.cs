@@ -634,11 +634,11 @@ namespace xeus2.xeus.Core
             }
             else if (iq.Type == IqType.result && iq.Query is DiscoInfo)
             {
-                DiscoInfo di = iq.Query as DiscoInfo;
+                DiscoInfo di = (DiscoInfo)iq.Query;
 
-                DiscoverySessionData sessionData = data as DiscoverySessionData;
+                DiscoverySessionData sessionData = (DiscoverySessionData)data;
 
-                DiscoItem discoItem = sessionData.Data as DiscoItem;
+                DiscoItem discoItem = (DiscoItem)sessionData.Data;
 
                 Services.Instance.OnServiceItemInfo(discoItem, di);
 

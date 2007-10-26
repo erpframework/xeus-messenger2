@@ -204,7 +204,10 @@ namespace xeus2.xeus.Core
                     
                     if (service.IsBytestremProxy)
                     {
-                        Settings.Default.XmppBytestreamProxy = service.Jid.ToString();
+                        if (string.IsNullOrEmpty(Settings.Default.XmppBytestreamProxy))
+                        {
+                            Settings.Default.XmppBytestreamProxy = service.Jid.ToString();
+                        }
                     }
                 }
             }
