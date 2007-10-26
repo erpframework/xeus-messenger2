@@ -8,7 +8,7 @@
 	Background="{DynamicResource back_x_design}" MaxHeight="800" MaxWidth="500"
      >
 	<StackPanel>
-		<ContentPresenter AllowDrop="True" Drop="OnDropFile" DragOver="OnDragOver" ContentTemplate="{DynamicResource FullContactCard}" Content="{Binding}" Margin="10,10,10,10"/>
+		<ContentPresenter AllowDrop="True" Drop="OnDropFile" DragOver="OnDragOver" ContentTemplate="{DynamicResource ToolTipContactCard}" Content="{Binding}" Margin="10,10,10,10"/>
     	<Controls:VCardControl Margin="10,10,10,10" DataContext="{Binding}" MaxWidth="350"/>
 	</StackPanel>
 </UI:BaseWindow>
