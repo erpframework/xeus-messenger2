@@ -68,5 +68,5 @@
 
     </UserControl.Resources>
 
-    <ContentPresenter Content="{Binding}" ContentTemplate="{DynamicResource Client}"/>
+    <ContentPresenter Content="{Binding Path=Card}"/>
 </UserControl>
