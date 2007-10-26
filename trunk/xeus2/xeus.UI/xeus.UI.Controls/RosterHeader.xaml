@@ -9,19 +9,44 @@
     >
 
     <UserControl.Resources>
+        <DrawingBrush x:Key="photoframe_design">
+            <DrawingBrush.Drawing>
+                <DrawingGroup>
+                    <DrawingGroup.Children>
+                        <GeometryDrawing Brush="#34000000" Geometry="F1 M 46.6601,58.2223C 50.997,57.9236 55.3339,57.625 59.7143,57.625C 64.0948,57.625 68.5188,57.9236 72.9428,58.2223C 73.6026,58.2223 74.1374,58.7572 74.1374,59.417C 74.4361,63.7559 74.7348,68.0949 74.7348,72.4754C 74.7348,76.8558 74.4361,81.2777 74.1374,85.6997C 74.1374,86.3595 73.6026,86.8943 72.9428,86.8943C 68.5685,87.193 64.1943,87.4917 59.8139,87.4917C 55.4334,87.4917 51.0467,87.193 46.6601,86.8943C 46.0003,86.8943 45.4654,86.3595 45.4654,85.6997C 45.1667,81.2777 44.8681,76.8558 44.8681,72.4754C 44.8681,68.0949 45.1667,63.7559 45.4654,59.417C 45.4654,58.7572 46.0003,58.2223 46.6601,58.2223 Z M 48.9125,60.4748C 48.2527,60.4748 47.7178,61.0096 47.7178,61.6694L 47.7178,83.4472C 47.7178,84.107 48.2527,84.6419 48.9125,84.6419L 70.6903,84.6419C 71.3501,84.6419 71.885,84.107 71.885,83.4472L 71.885,61.6694C 71.885,61.0096 71.3501,60.4748 70.6903,60.4748L 48.9125,60.4748 Z "/>
+                        <GeometryDrawing Geometry="F1 M 45.132,56.75C 49.9722,56.4167 54.8125,56.0833 59.7014,56.0833C 64.5903,56.0833 69.5278,56.4167 74.4653,56.75C 75.2017,56.75 75.7986,57.3469 75.7986,58.0833C 76.132,62.9259 76.4653,67.7685 76.4653,72.6574C 76.4653,77.5463 76.132,82.4815 75.7986,87.4167C 75.7986,88.153 75.2017,88.75 74.4653,88.75C 69.5834,89.0833 64.7014,89.4167 59.8125,89.4167C 54.9236,89.4167 50.0278,89.0833 45.132,88.75C 44.3956,88.75 43.7986,88.153 43.7986,87.4167C 43.4653,82.4815 43.132,77.5463 43.132,72.6574C 43.132,67.7685 43.4653,62.9259 43.7986,58.0833C 43.7986,57.3469 44.3956,56.75 45.132,56.75 Z M 47.6459,59.2639C 46.9095,59.2639 46.3125,59.8608 46.3125,60.5972L 46.3125,84.9028C 46.3125,85.6391 46.9095,86.2361 47.6459,86.2361L 71.9514,86.2361C 72.6878,86.2361 73.2847,85.6391 73.2847,84.9028L 73.2847,60.5972C 73.2847,59.8608 72.6878,59.2639 71.9514,59.2639L 47.6459,59.2639 Z ">
+                            <GeometryDrawing.Pen>
+                                <Pen Thickness="0.2" LineJoin="Round" Brush="#FF5D5D5D"/>
+                            </GeometryDrawing.Pen>
+                            <GeometryDrawing.Brush>
+                                <LinearGradientBrush StartPoint="0.849135,0.874401" EndPoint="0.150865,0.125599">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#FF6DAEC9" Offset="0"/>
+                                        <GradientStop Color="#FFD5F3FF" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </GeometryDrawing.Brush>
+                        </GeometryDrawing>
+                    </DrawingGroup.Children>
+                </DrawingGroup>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+
         <DataTemplate DataType="{x:Type xeus2_xeus_Core:SelfContact}">
             <Border>
                 <Grid Background="{DynamicResource header_back}">
 						<StackPanel Orientation="Horizontal">
-							<Border x:Name="_imageBorder" HorizontalAlignment="Center" VerticalAlignment="Center"
-								Width="40" Height="40" Margin="2"
-                                     SnapsToDevicePixels="True" OpacityMask="{DynamicResource opacity_design}">
-								<Image Source="{Binding Path=Image}" x:Name="_image"
+                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center"
+                                    SnapsToDevicePixels="True">
+                            <Border Margin="2" Width="40" Height="40" OpacityMask="{DynamicResource opacity_design}">
+                                <Image Source="{Binding Path=Image}" x:Name="_image"
                                        StretchDirection="Both" 
-									   ClipToBounds="True" 
+									   ClipToBounds="True" Margin="-1"
                                        Stretch="UniformToFill" IsEnabled="False"/>
-							</Border>
-							<Border ClipToBounds="True" Padding="1,1,1,1"
+                            </Border>
+                            <Rectangle x:Name="_imageBorder" Margin="1"/>
+                        </Grid>
+                        <Border ClipToBounds="True" Padding="1,1,1,1"
 								BorderThickness="1,1,1,1"
 								CornerRadius="3,3,3,3" SnapsToDevicePixels="True">
 								<StackPanel>
@@ -40,11 +65,9 @@
 					</Grid>
             </Border>
             <DataTemplate.Triggers>
-                <!--
                 <DataTrigger Binding="{Binding Path=IsImageTransparent}" Value="False">
-                    <Setter Property="Border.BorderThickness" TargetName="_imageBorder" Value="1,1,1,1"/>
+                    <Setter Property="Fill" TargetName="_imageBorder" Value="{StaticResource photoframe_design}"/>
                 </DataTrigger>
-                -->
             </DataTemplate.Triggers>
         </DataTemplate>
     </UserControl.Resources>

@@ -165,7 +165,7 @@
 
     </UserControl.Resources>
     <StackPanel>
-        <ContentControl ContentTemplate="{DynamicResource FullContactCard}" Content="{Binding}" Margin="10,0,10,5" HorizontalAlignment="Left"/>
+        <ContentControl ContentTemplate="{DynamicResource ToolTipContactCard}" Content="{Binding}" Margin="10,0,10,5" HorizontalAlignment="Left"/>
         <ListBox Background="{x:Null}" BorderBrush="{x:Null}" x:Name="_list"
 			ItemsSource="{Binding Source={StaticResource Groups}}"
 			ItemTemplate="{StaticResource GroupTemplate2}"

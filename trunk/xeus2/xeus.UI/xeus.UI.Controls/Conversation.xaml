@@ -5,7 +5,7 @@
     >
     <DockPanel>
         <Border Background="{DynamicResource back_x_design}" BorderBrush="{DynamicResource DefaultTextBrush2}" DockPanel.Dock="Top">
-                <ContentControl ContentTemplate="{DynamicResource FullContactCard}" Content="{Binding Path=Contact}"
+                <ContentControl ContentTemplate="{DynamicResource ToolTipContactCard}" Content="{Binding Path=Contact}"
                             Margin="10,0,10,5" HorizontalAlignment="Left"/>
         </Border>
 

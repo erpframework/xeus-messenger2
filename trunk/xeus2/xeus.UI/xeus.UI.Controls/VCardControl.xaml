@@ -68,9 +68,5 @@
 
     </UserControl.Resources>
 
-    <StackPanel>
-        <ContentPresenter Content="{Binding Path=Card}"/>
-        <Controls:DottedHorizontal Margin="0,5,0,5"/>
-        <ContentPresenter Content="{Binding}" ContentTemplate="{DynamicResource Client}"/>
-    </StackPanel>
+    <ContentPresenter Content="{Binding}" ContentTemplate="{DynamicResource Client}"/>
 </UserControl>
