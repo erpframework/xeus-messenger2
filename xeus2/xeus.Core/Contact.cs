@@ -109,8 +109,6 @@ namespace xeus2.xeus.Core
             {
                 _caps = value;
                 NotifyPropertyChanged("Caps");
-                NotifyPropertyChanged("ClientNode");
-                NotifyPropertyChanged("ClientExtensions");
             }
         }
 
@@ -551,22 +549,6 @@ namespace xeus2.xeus.Core
             NotifyPropertyChanged("ClientOS");
         }
 
-        public string ClientVersion
-        {
-            get
-            {
-                if (_version == null)
-                {
-                    Roster.Instance.AskVersion(this);
-                    return null;
-                }
-                else
-                {
-                    return _version.Ver;
-                }
-            }
-        }
-
         public VCard Card
         {
             get
@@ -603,6 +585,33 @@ namespace xeus2.xeus.Core
             }
         }
 
+        private bool _versionAsked = false;
+
+        void AskVersion()
+        {
+            if (!_versionAsked && IsAvailable)
+            {
+                _versionAsked = true;
+                Roster.Instance.AskVersion(this);
+            }
+        }
+
+        public string ClientVersion
+        {
+            get
+            {
+                if (_version == null)
+                {
+                    AskVersion();
+                    return null;
+                }
+                else
+                {
+                    return _version.Ver;
+                }
+            }
+        }
+
         public string ClientOS
         {
             get
@@ -613,7 +622,7 @@ namespace xeus2.xeus.Core
                 }
                 else
                 {
-                    Roster.Instance.AskVersion(this);
+                    AskVersion();
                     return null;
                 }
             }
@@ -634,23 +643,13 @@ namespace xeus2.xeus.Core
                 }
                 else
                 {
-                    Roster.Instance.AskVersion(this);
-                    return null;
-                }
-            }
-        }
+                    if (!IsAvailable)
+                    {
+                        return "?";
+                    }
 
-        public string ClientNode
-        {
-            get
-            {
-                if (_caps == null)
-                {
+                    AskVersion();
                     return null;
-                }
-                else
-                {
-                    return _caps.Node;
                 }
             }
         }

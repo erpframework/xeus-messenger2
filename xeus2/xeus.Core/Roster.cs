@@ -490,15 +490,14 @@ namespace xeus2.xeus.Core
         {
             IContact contact = (IContact) data;
 
-            if (iq.Type == IqType.error || iq.Error != null)
+            if (iq.Type == IqType.result && iq.Query is Version)
+            {
+                contact.SetVersion((Version) iq.Query);
+            }
+            else
             {
                 // no version info
                 contact.SetVersion(new Version());
-            }
-            else if (iq.Type == IqType.result
-                     && iq.Query is Version)
-            {
-                contact.SetVersion((Version) iq.Query);
             }
         }
 

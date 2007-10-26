@@ -519,13 +519,5 @@ namespace xeus2.xeus.Core
 
             Account.Instance.SendMyPresence();
         }
-
-        public string ClientNode
-        {
-            get
-            {
-                return "xeus";
-            }
-        }
     }
 }

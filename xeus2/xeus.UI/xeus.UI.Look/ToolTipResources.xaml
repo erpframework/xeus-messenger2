@@ -35,14 +35,15 @@
                            FontSize="10" TextAlignment="Left" />
             </Grid>
             <Grid x:Name="_data">
-                <StackPanel Orientation="Horizontal">
-                    <Image x:Name="_osLogo" Width="16" Height="16" VerticalAlignment="Center"/>
-                    <TextBlock Margin="5,0,0,0" Text="{Binding Path=ClientName}"
+                <StackPanel Orientation="Horizontal"
+                            MaxWidth="{Binding Path=ActualWidth, ElementName=_acquiring, Mode=Default}">
+                    <TextBlock Text="{Binding Path=ClientName}"
                                            Foreground="{DynamicResource roster_status_text}"
-                                           FontSize="10" TextAlignment="Left" />
+                                           FontSize="10" TextAlignment="Left" TextTrimming="WordEllipsis"/>
                     <TextBlock Text="{Binding Path=ClientVersion}" Margin="3,0,0,0"
                                            Foreground="{DynamicResource roster_status_text}"
-                                           FontSize="10" TextAlignment="Left" />
+                                           FontSize="10" TextAlignment="Left" TextTrimming="WordEllipsis"/>
+                    <Image x:Name="_osLogo" Margin="3,0,0,0" Width="16" Height="16" VerticalAlignment="Center"/>
                 </StackPanel>
             </Grid>
         </StackPanel>
@@ -55,21 +56,29 @@
             <DataTrigger Binding="{Binding Path=ClientName}" Value="?">
                 <Setter Property="Visibility" TargetName="_client" Value="Collapsed"/>
             </DataTrigger>
-           
+
+            <DataTrigger Binding="{Binding Path=Source, ElementName=_osLogo}" Value="{x:Null}">
+                <Setter Property="Visibility" TargetName="_osLogo" Value="Collapsed"/>
+            </DataTrigger>
             <DataTrigger Binding="{Binding Path=ClientOS}" Value="Mac OS X">
                 <Setter Property="Source" TargetName="_osLogo" Value="../xeus.Images/logo_apple.png"/>
+                <Setter Property="ToolTip" TargetName="_osLogo" Value="Mac OS"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=ClientOS}" Value="Windows XP">
                 <Setter Property="Source" TargetName="_osLogo" Value="../xeus.Images/logo_windows.png"/>
+                <Setter Property="ToolTip" TargetName="_osLogo" Value="Windows XP"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=ClientOS}" Value="Windows Vista">
                 <Setter Property="Source" TargetName="_osLogo" Value="../xeus.Images/logo_vista.png"/>
+                <Setter Property="ToolTip" TargetName="_osLogo" Value="Windows Vista"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=ClientOS}" Value="Linux">
                 <Setter Property="Source" TargetName="_osLogo" Value="../xeus.Images/logo_linux.png"/>
+                <Setter Property="ToolTip" TargetName="_osLogo" Value="Linux / Unix / BSD"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=ClientOS}" Value="Java">
                 <Setter Property="Source" TargetName="_osLogo" Value="../xeus.Images/logo_java.png"/>
+                <Setter Property="ToolTip" TargetName="_osLogo" Value="Java / Mobile device"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=ClientOS}" Value="">
                 <Setter Property="Visibility" TargetName="_osLogo" Value="Collapsed"/>
