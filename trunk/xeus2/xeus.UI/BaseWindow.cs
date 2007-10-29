@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using xeus2.xeus.Commands;
 
 namespace xeus2.xeus.UI
 {
@@ -73,6 +74,13 @@ namespace xeus2.xeus.UI
 
         private void BaseWindow_Initialized(object sender, EventArgs e)
         {
+            MucCommands.RegisterCommands(this);
+            AccountCommands.RegisterCommands(this.CommandBindings);
+            GeneralCommands.RegisterCommands(this);
+            ContactCommands.RegisterCommands(this);
+            RosterCommands.RegisterCommands(this);
+            ServiceCommands.RegisterCommands(this);
+
             WindowManager.Add(_key, this);
 
             Initialized -= BaseWindow_Initialized;

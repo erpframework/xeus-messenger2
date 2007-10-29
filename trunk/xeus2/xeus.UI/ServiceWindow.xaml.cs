@@ -18,8 +18,6 @@ namespace xeus2.xeus.UI
         {
             InitializeComponent();
 
-            GeneralCommands.RegisterCommands(this);
-
             DataContext = Account.Instance;
 
             if (Core.Services.Instance.Transports.Count == 0
@@ -38,9 +36,6 @@ namespace xeus2.xeus.UI
             new TextFilterMucMark(_mucMarksResult.ItemsSource as ListCollectionView, _filterMucMarks);
 
             new TextFilterMucRoom(_mucResult.ItemsSource as ListCollectionView, _filterMuc, _checkDispEmpty);
-
-            ServiceCommands.RegisterCommands(this);
-            MucCommands.RegisterCommands(this);
         }
 
         private void MucMarkDblClick(object sender, MouseEventArgs args)

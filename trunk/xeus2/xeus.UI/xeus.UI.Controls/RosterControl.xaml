@@ -4,10 +4,12 @@
     xmlns:xeus2_xeus_Core="clr-namespace:xeus2.xeus.Core"
     xmlns:xeus2_xeus_Control="clr-namespace:xeus2.xeus.UI.xeus.UI.Controls"
   	xmlns:xeus2_xeus_Commands="clr-namespace:xeus2.xeus.Commands"
+  	xmlns:zap="clr-namespace:Microsoft.Samples.KMoore.WPFSamples.AnimatingTilePanel"
     x:Class="xeus2.xeus.UI.xeus.UI.Controls.RosterControl"
     xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" 	
     xmlns:d="http://schemas.microsoft.com/expression/blend/2006"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Properties="clr-namespace:xeus2.Properties;assembly=" mc:Ignorable="d"
     Background="{x:Null}"
    >
 
@@ -87,10 +89,20 @@
             </DrawingBrush.Drawing>
         </DrawingBrush>
 
+        <ItemsPanelTemplate x:Key="ItemsPanelTemplateRoster">
+            <!--<VirtualizingStackPanel IsItemsHost="True"/>
+            <WrapPanel IsItemsHost="True" />-->
+            <zap:AniTilePanel IsItemsHost="True"
+                              Attraction="3" Dampening="0.75"
+                              ItemWidth="{Binding Path=UI_Item_Small_MaxWidth, Source={x:Static Properties:Settings.Default}}"
+                              ItemHeight="{Binding Path=UI_Item_Small_MaxHeight, Source={x:Static Properties:Settings.Default}}"/>
+        </ItemsPanelTemplate>
+
+
     </UserControl.Resources>
     <Grid>
         <ListBox ItemsSource="{Binding Source={StaticResource Contacts}}"
-		ItemsPanel="{DynamicResource ItemsPanelTemplateRoster}"
+		ItemsPanel="{StaticResource ItemsPanelTemplateRoster}"
         ItemTemplate="{DynamicResource MetaContactSmall}" 
         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
         MouseDoubleClick="RosterMouseDoubleClick" Background="{x:Null}"

@@ -60,12 +60,6 @@ namespace xeus2
         {
             base.EndInit();
 
-            ServiceCommands.RegisterCommands(this);
-            AccountCommands.RegisterCommands(CommandBindings);
-            RosterCommands.RegisterCommands(this);
-            GeneralCommands.RegisterCommands(this);
-            ContactCommands.RegisterCommands(this);
-
             _header.SetSelfContact(Account.Instance.Self);
 
             Account.Instance.Open();

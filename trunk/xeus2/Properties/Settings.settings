@@ -122,5 +122,8 @@
     <Setting Name="UI_Item_Zoom_Away" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0.75</Value>
     </Setting>
+    <Setting Name="UI_Item_Small_MaxHeight" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">40</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -218,11 +218,6 @@
         </DrawingBrush.Drawing>
     </DrawingBrush>
 
-    <ItemsPanelTemplate x:Key="ItemsPanelTemplateRoster">
-        <!--<VirtualizingStackPanel IsItemsHost="True"/>-->
-        <WrapPanel IsItemsHost="True" />
-    </ItemsPanelTemplate>
-
     <DataTemplate x:Key="PhotoWithReflection">
         <StackPanel>
             <Grid x:Name="_frame" OpacityMask="{StaticResource opacity_design}"
@@ -289,8 +284,9 @@
                 <ToolTip ContentTemplate="{DynamicResource ToolTipContactCard}" Content="{Binding}"/>
             </Grid.ToolTip>
             
-            <Grid Margin="1,1,1,1" x:Name="_grid" ContextMenu="{DynamicResource ContactMenu}"
-                  MaxWidth="{Binding Path=UI_Item_Small_MaxWidth, Source={x:Static prop:Settings.Default}}">
+            <Grid x:Name="_grid" ContextMenu="{DynamicResource ContactMenu}"
+                    MaxWidth="{Binding Path=UI_Item_Small_MaxWidth, Source={x:Static prop:Settings.Default}}"
+                    MaxHeight="{Binding Path=UI_Item_Small_MaxHeight, Source={x:Static prop:Settings.Default}}">
                     <a:SystemDropShadowChrome Color="#4000" Margin="-8,-8,1,1"/>
                     <Border CornerRadius="2" x:Name="_parent"
                                 Background="{StaticResource contact_back_design}">
