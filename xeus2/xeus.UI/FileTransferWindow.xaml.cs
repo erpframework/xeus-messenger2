@@ -13,8 +13,6 @@ namespace xeus2.xeus.UI
         internal FileTransferWindow() : base(_keyBase, string.Empty)
         {
             InitializeComponent();
-
-            GeneralCommands.RegisterCommands(this);
         }
     }
 }

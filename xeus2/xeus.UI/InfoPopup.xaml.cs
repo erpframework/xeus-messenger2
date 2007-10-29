@@ -19,8 +19,6 @@ namespace xeus2.xeus.UI
         {
             InitializeComponent();
 
-            AccountCommands.RegisterCommands(CommandBindings);
-
             _originalOpacity = _info.Opacity;
             _info.SizeChanged += _info_SizeChanged;
 

@@ -11,9 +11,6 @@ namespace xeus2.xeus.UI
 
         public AddContact() : base(_keyBase, string.Empty)
         {
-            AccountCommands.RegisterCommands(CommandBindings);
-            ContactCommands.RegisterCommands(this);
-
             InitializeComponent();
         }
     }

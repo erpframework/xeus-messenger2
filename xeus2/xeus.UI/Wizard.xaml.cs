@@ -12,9 +12,6 @@ namespace xeus2.xeus.UI
 
         public Wizard() : base(_keyBase, string.Empty)
         {
-            AccountCommands.RegisterCommands(CommandBindings);
-            ServiceCommands.RegisterCommands(this);
-
             InitializeComponent();
         }
     }

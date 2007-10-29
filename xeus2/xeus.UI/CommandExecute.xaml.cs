@@ -37,8 +37,6 @@ namespace xeus2.xeus.UI
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
-
-            ServiceCommands.RegisterCommands(this);
         }
 
         public agsXMPP.protocol.x.data.Data GetResult()

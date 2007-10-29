@@ -709,6 +709,7 @@
     <Compile Include="xeus.UI\xeus.UI.Wizards\TransportsWizard.xaml.cs">
       <DependentUpon>TransportsWizard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="xeus.UI\xeus.UI.Zap\AniTilePanel.cs" />
     <Compile Include="xeus.UI\xeus.UI.Zap\ZapDecorator.cs" />
     <Compile Include="xeus.UI\xeus.UI.Zap\ZapItemsControl.cs" />
     <Compile Include="xeus.UI\xeus.UI.Zap\ZapPanel.cs" />

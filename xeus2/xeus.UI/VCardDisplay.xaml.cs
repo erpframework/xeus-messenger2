@@ -20,8 +20,6 @@ namespace xeus2.xeus.UI
 
             InitializeComponent();
 
-            ContactCommands.RegisterCommands(this);
-
             Roster.Instance.SetFreshVcard(contact, 0);
         }
 

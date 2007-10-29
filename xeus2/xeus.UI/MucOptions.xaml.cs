@@ -25,9 +25,6 @@ namespace xeus2.xeus.UI
 
             _muc.Setup(mucRoom);
 
-            MucCommands.RegisterCommands(this);
-            GeneralCommands.RegisterCommands(this);
-
             _affOwner.AffContacts.SetupAffiliations(mucRoom, Affiliation.owner);
             _affOwner.AffContacts.OnChange += OnChange;
 

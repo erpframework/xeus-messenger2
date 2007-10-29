@@ -502,5 +502,17 @@ namespace xeus2.Properties {
                 this["UI_Item_Zoom_Away"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("40")]
+        public double UI_Item_Small_MaxHeight {
+            get {
+                return ((double)(this["UI_Item_Small_MaxHeight"]));
+            }
+            set {
+                this["UI_Item_Small_MaxHeight"] = value;
+            }
+        }
     }
 }

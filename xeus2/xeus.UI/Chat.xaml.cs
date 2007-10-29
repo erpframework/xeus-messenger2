@@ -15,8 +15,6 @@ namespace xeus2.xeus.UI
         {
             InitializeComponent();
 
-            GeneralCommands.RegisterCommands(this);
-
             _multi.MultiWinContainerProvider = Middle.Chat.Instance;
         }
 
