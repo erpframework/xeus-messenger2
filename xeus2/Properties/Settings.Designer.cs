@@ -514,5 +514,101 @@ namespace xeus2.Properties {
                 this["UI_Item_Small_MaxHeight"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("220")]
+        public double UI_Item_Medium_MaxWidth {
+            get {
+                return ((double)(this["UI_Item_Medium_MaxWidth"]));
+            }
+            set {
+                this["UI_Item_Medium_MaxWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public double UI_Item_Big_MaxWidth {
+            get {
+                return ((double)(this["UI_Item_Big_MaxWidth"]));
+            }
+            set {
+                this["UI_Item_Big_MaxWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("90")]
+        public double UI_Item_Medium_MaxHeight {
+            get {
+                return ((double)(this["UI_Item_Medium_MaxHeight"]));
+            }
+            set {
+                this["UI_Item_Medium_MaxHeight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("130")]
+        public double UI_Item_Big_MaxHeight {
+            get {
+                return ((double)(this["UI_Item_Big_MaxHeight"]));
+            }
+            set {
+                this["UI_Item_Big_MaxHeight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public double UI_Panel_ItemWidth {
+            get {
+                return ((double)(this["UI_Panel_ItemWidth"]));
+            }
+            set {
+                this["UI_Panel_ItemWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public double UI_Panel_ItemHeight {
+            get {
+                return ((double)(this["UI_Panel_ItemHeight"]));
+            }
+            set {
+                this["UI_Panel_ItemHeight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public double UI_Panel_Attraction {
+            get {
+                return ((double)(this["UI_Panel_Attraction"]));
+            }
+            set {
+                this["UI_Panel_Attraction"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.75")]
+        public double UI_Panel_Dampening {
+            get {
+                return ((double)(this["UI_Panel_Dampening"]));
+            }
+            set {
+                this["UI_Panel_Dampening"] = value;
+            }
+        }
     }
 }

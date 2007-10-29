@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -55,7 +54,7 @@ namespace Microsoft.Samples.KMoore.WPFSamples.AnimatingTilePanel
 
             // Calculate the width and height this results in
             double width = childrenPerRow * ItemWidth;
-            double height = ItemHeight * (Math.Ceiling((double)Children.Count / childrenPerRow));
+            double height = ItemHeight * (Math.Ceiling((double) Children.Count / childrenPerRow));
             return new Size(width, height);
         }
 
@@ -66,17 +65,17 @@ namespace Microsoft.Samples.KMoore.WPFSamples.AnimatingTilePanel
             int childrenPerRow = Math.Max(1, (int) Math.Floor(finalSize.Width / ItemWidth));
 
             Size theChildSize = new Size(ItemWidth, ItemHeight);
+
             for (int i = 0; i < Children.Count; i++)
             {
                 UIElement child = Children[i];
 
                 // Figure out where the child goes
                 Point newOffset =
-                    CalcChildOffset(i, childrenPerRow, ItemWidth, ItemHeight, finalSize.Width, Children.Count);
+                    CalcChildOffset(i, childrenPerRow, ItemWidth, ItemHeight, finalSize.Width);
 
                 //set the location attached DP
                 child.SetValue(ChildTargetProperty, newOffset);
-
 
                 if (child.ReadLocalValue(ChildLocationProperty) == DependencyProperty.UnsetValue)
                 {
@@ -219,9 +218,10 @@ namespace Microsoft.Samples.KMoore.WPFSamples.AnimatingTilePanel
         {
             long nowTick = DateTime.Now.Ticks;
             long diff = nowTick - _lastTick;
+
             _lastTick = nowTick;
 
-            double seconds = SecondsFromTicks(diff);
+            double seconds = diff / 10000000.0; //1 tick = 100-nanoseconds, so 10,000,000
 
             double dampening = Dampening;
             double attractionFactor = Attraction;
@@ -232,7 +232,6 @@ namespace Microsoft.Samples.KMoore.WPFSamples.AnimatingTilePanel
             }
         }
 
-
         private static void updateElement(UIElement element, double seconds, double dampening, double attractionFactor)
         {
             Point current = (Point) element.GetValue(ChildLocationProperty);
@@ -241,13 +240,8 @@ namespace Microsoft.Samples.KMoore.WPFSamples.AnimatingTilePanel
 
             Vector diff = target - current;
 
-            //_count++;
-
             if (diff.Length > Diff || velocity.Length > Diff)
             {
-                //_goodCount++;
-
-
                 velocity.X *= dampening;
                 velocity.Y *= dampening;
 
@@ -256,7 +250,7 @@ namespace Microsoft.Samples.KMoore.WPFSamples.AnimatingTilePanel
                 Vector delta = velocity * seconds * attractionFactor;
 
                 //velocity shouldn't be greater than...maxVelocity?
-                double maxVelocity = 100;
+                const double maxVelocity = 100;
                 delta *= (delta.Length > maxVelocity) ? (maxVelocity / delta.Length) : 1;
 
                 current += delta;
@@ -268,25 +262,12 @@ namespace Microsoft.Samples.KMoore.WPFSamples.AnimatingTilePanel
 
         // Given a child index, child size and children per row, figure out where the child goes
         private static Point CalcChildOffset(int index, int childrenPerRow, double itemWidth, double itemHeight,
-                                             double panelWidth, int totalChildren)
+                                             double panelWidth)
         {
-            double fudge = 0;
-            if (totalChildren > childrenPerRow)
-            {
-                fudge = (panelWidth - childrenPerRow * itemWidth) / childrenPerRow;
-                Debug.Assert(fudge >= 0);
-            }
-
+            double fudge = (panelWidth - childrenPerRow * itemWidth) / childrenPerRow;
             int row = index / childrenPerRow;
             int column = index % childrenPerRow;
-            return new Point(.5 * fudge + column * (itemWidth + fudge), row * itemHeight);
-        }
-
-
-        private static double SecondsFromTicks(long diff)
-        {
-            double seconds = diff / (double) 10000000; //1 tick = 100-nanoseconds, so 10,000,000
-            return seconds;
+            return new Point(0.5 * fudge + column * (itemWidth + fudge), row * itemHeight);
         }
 
         #endregion

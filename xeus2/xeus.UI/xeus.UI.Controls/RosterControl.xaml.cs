@@ -2,6 +2,8 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
+using Microsoft.Samples.KMoore.WPFSamples.AnimatingTilePanel;
 using xeus2.Properties;
 using xeus2.xeus.Core;
 
@@ -72,6 +74,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                             }
 
                             ChangeTemplate(_dataTemplateBig);
+
                             break;
                         }
                     case RosterItemSize.Medium:
@@ -82,6 +85,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                             }
 
                             ChangeTemplate(_dataTemplateMedium);
+
                             break;
                         }
                     default:
@@ -92,6 +96,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                             }
 
                             ChangeTemplate(_dataTemplateSmall);
+
                             break;
                         }
                 }

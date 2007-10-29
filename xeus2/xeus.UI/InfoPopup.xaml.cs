@@ -2,7 +2,6 @@ using System;
 using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Forms;
-using xeus2.xeus.Commands;
 using xeus2.xeus.Middle;
 using MouseEventArgs=System.Windows.Input.MouseEventArgs;
 
@@ -13,7 +12,7 @@ namespace xeus2.xeus.UI
     /// </summary>
     public partial class InfoPopup
     {
-        private double _originalOpacity = 1.0;
+        private readonly double _originalOpacity = 1.0;
 
         public InfoPopup()
         {

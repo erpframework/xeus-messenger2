@@ -16,6 +16,11 @@ namespace xeus2.xeus.Core
             _from = message.From;
             _to = message.To;
             _body = message.Body;
+
+            if (message.XDelay != null)
+            {
+                DateTime = new RelativeOldness(message.XDelay.Stamp);
+            }
         }
 
         internal Message(IDataRecord reader)
