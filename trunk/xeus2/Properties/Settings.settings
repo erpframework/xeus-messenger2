@@ -144,10 +144,10 @@
       <Value Profile="(Default)">50</Value>
     </Setting>
     <Setting Name="UI_Panel_Attraction" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">3</Value>
+      <Value Profile="(Default)">4</Value>
     </Setting>
     <Setting Name="UI_Panel_Dampening" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">0.75</Value>
+      <Value Profile="(Default)">0.65</Value>
     </Setting>
   </Settings>
 </SettingsFile>

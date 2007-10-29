@@ -589,7 +589,7 @@ namespace xeus2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
         public double UI_Panel_Attraction {
             get {
                 return ((double)(this["UI_Panel_Attraction"]));
@@ -601,7 +601,7 @@ namespace xeus2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.75")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.65")]
         public double UI_Panel_Dampening {
             get {
                 return ((double)(this["UI_Panel_Dampening"]));

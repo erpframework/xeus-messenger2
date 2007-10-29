@@ -14,6 +14,14 @@ namespace xeus2.xeus.Core
             Database.StoreGroups(this);
         }
 
+        public void Refresh()
+        {
+            foreach (Group group in this)
+            {
+                group.Refresh();
+            }
+        }
+
         public Group FindGroup(string name)
         {
             foreach (Group group in this)

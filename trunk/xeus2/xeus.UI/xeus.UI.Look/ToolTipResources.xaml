@@ -105,18 +105,20 @@
                 <TextBlock Text="{Binding Path=Jid}" Foreground="{DynamicResource roster_jid_text}"
                            FontSize="11" TextAlignment="Left"/>
                 <StackPanel>
-                    <TextBlock x:Name="_xStatus" Text="{Binding Path=XStatusText}"
+                    <WrapPanel>
+                        <TextBlock x:Name="_xStatus" Text="{Binding Path=XStatusText}"
                                            Foreground="{DynamicResource roster_status_text}"
                                            FontSize="10" TextAlignment="Left" TextWrapping="WrapWithOverflow" />
-                    <ContentPresenter x:Name="_uptime" ContentTemplate="{StaticResource RelativeOldness}"
-                                Content="{Binding Path=LastOnline}"/>
-                    <Border x:Name="_resource" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2"
+                        <Border x:Name="_resource" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2"
                                 Background="#FFe5e5e5" HorizontalAlignment="Left"
                                 BorderBrush="{DynamicResource roster_image_border}">
-                        <TextBlock Margin="5,0,5,0" VerticalAlignment="Center" Foreground="#FF000000"
+                            <TextBlock Margin="5,0,5,0" VerticalAlignment="Center" Foreground="#FF000000"
                                Text="{Binding Path=Resource}" FontSize="10" HorizontalAlignment="Left">
-                        </TextBlock>
-                    </Border>
+                            </TextBlock>
+                        </Border>
+                    </WrapPanel>
+                    <ContentPresenter x:Name="_uptime" ContentTemplate="{StaticResource RelativeOldness}"
+                                Content="{Binding Path=LastOnline}"/>
                 </StackPanel>
                 <Controls:DottedHorizontal Margin="4" Width="50" SnapsToDevicePixels="True"/>
                 <ContentPresenter ContentTemplate="{StaticResource Client}" Content="{Binding}"/>

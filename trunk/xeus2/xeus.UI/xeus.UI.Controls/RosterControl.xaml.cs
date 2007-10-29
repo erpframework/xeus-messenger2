@@ -106,6 +106,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         private void Instance_NeedRefresh()
         {
             CollectionView.Refresh();
+            Roster.Instance.Groups.Refresh();
         }
 
         public void SaveExpanderState()

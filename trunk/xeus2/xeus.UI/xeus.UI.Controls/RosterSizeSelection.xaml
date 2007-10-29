@@ -90,14 +90,16 @@
 
     </UserControl.Resources>
 
+    <!--
     <UserControl.RenderTransform>
         <TransformGroup>
-            <ScaleTransform ScaleX="0.6" ScaleY="0.6"/>
+            <ScaleTransform ScaleX="0.8" ScaleY="0.8"/>
             <SkewTransform AngleX="0" AngleY="0"/>
             <RotateTransform Angle="0"/>
             <TranslateTransform X="0" Y="0"/>
         </TransformGroup>
     </UserControl.RenderTransform>
+    -->
 
     <Grid>
         <Rectangle Opacity="0.5" Fill="{DynamicResource chat_back_design}" Stroke="{DynamicResource DefaultBorderBrush}" RadiusX="3" RadiusY="3"/>
@@ -106,10 +108,12 @@
                     Command="rostercmd:RosterCommands.ViewSmall">
                 <ContentPresenter x:Name="_small" ContentTemplate="{DynamicResource MetaContactSmall}"/>
             </Button>
+            <!--
             <Button Style="{DynamicResource ButtonStyleContainer}" Click="Button_Click"
                     Command="rostercmd:RosterCommands.ViewMedium">
                 <ContentPresenter x:Name="_medium" ContentTemplate="{DynamicResource MetaContactMedium}"/>
             </Button>
+            -->
             <Button Style="{DynamicResource ButtonStyleContainer}" Click="Button_Click"
                     Command="rostercmd:RosterCommands.ViewBig">
                 <ContentPresenter x:Name="_big" ContentTemplate="{DynamicResource MetaContactBig}"/>

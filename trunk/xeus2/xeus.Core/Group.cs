@@ -87,5 +87,19 @@ namespace xeus2.xeus.Core
             return data;
         }
 
+        public string GroupDetails
+        {
+            get
+            {
+                Roster.GroupStatus groupStatus = Roster.Instance.GetGroupStatus(Name);
+
+                return string.Format("{0} online of {1} in the group", groupStatus._online, groupStatus._total);
+            }
+        }
+
+        internal void Refresh()
+        {
+            NotifyPropertyChanged("GroupDetails");
+        }
     }
 }

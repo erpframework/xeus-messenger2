@@ -888,6 +888,37 @@ namespace xeus2.xeus.Core
             return contact;
         }
 
+        public class GroupStatus
+        {
+            public int _online = 0;
+            public int _offline = 0;
+            public int _total = 0;
+        }
+
+        public GroupStatus GetGroupStatus(string group)
+        {
+            GroupStatus groupStatus = new GroupStatus();
+
+            foreach (Contact contact in _realContacts.Values)
+            {
+                if (contact.Group == group)
+                {
+                    if (contact.IsAvailable)
+                    {
+                        groupStatus._online++;
+                    }
+                    else
+                    {
+                        groupStatus._offline++;
+                    }
+                }
+            }
+
+            groupStatus._total = groupStatus._online + groupStatus._offline;
+
+            return groupStatus;
+        }
+
         #region Nested type: MessageCallback
 
         private delegate void MessageCallback(agsXMPP.protocol.client.Message msg);
