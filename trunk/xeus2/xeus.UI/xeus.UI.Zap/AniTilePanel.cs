@@ -33,12 +33,12 @@ namespace Microsoft.Samples.KMoore.WPFSamples.AnimatingTilePanel
         // Measures the children
         protected override Size MeasureOverride(Size availableSize)
         {
-            /*Size theChildSize = new Size(ItemWidth, ItemHeight);
+            Size theChildSize = new Size(ItemWidth, ItemHeight);
 
             foreach (UIElement child in Children)
             {
                 child.Measure(theChildSize);
-            }*/
+            }
 
             int childrenPerRow;
 
