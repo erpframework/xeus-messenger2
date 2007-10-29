@@ -41,7 +41,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                     }
                 }
 
-                _small.Content = _medium.Content = _big.Content = contact;
+                _small.Content = /*_medium.Content =*/ _big.Content = contact;
             }
         }
 

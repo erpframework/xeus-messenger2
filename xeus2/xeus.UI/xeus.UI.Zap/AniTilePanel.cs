@@ -33,12 +33,13 @@ namespace Microsoft.Samples.KMoore.WPFSamples.AnimatingTilePanel
         // Measures the children
         protected override Size MeasureOverride(Size availableSize)
         {
+            /*
             Size theChildSize = new Size(ItemWidth, ItemHeight);
 
             foreach (UIElement child in Children)
             {
                 child.Measure(theChildSize);
-            }
+            }*/
 
             int childrenPerRow;
 
@@ -66,13 +67,16 @@ namespace Microsoft.Samples.KMoore.WPFSamples.AnimatingTilePanel
 
             Size theChildSize = new Size(ItemWidth, ItemHeight);
 
+            double itemWidth = ItemWidth;
+            double itemHeight = ItemHeight;
+
             for (int i = 0; i < Children.Count; i++)
             {
                 UIElement child = Children[i];
 
                 // Figure out where the child goes
                 Point newOffset =
-                    CalcChildOffset(i, childrenPerRow, ItemWidth, ItemHeight, finalSize.Width);
+                    CalcChildOffset(i, childrenPerRow, itemWidth, itemHeight, finalSize.Width);
 
                 //set the location attached DP
                 child.SetValue(ChildTargetProperty, newOffset);
