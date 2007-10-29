@@ -279,6 +279,8 @@ namespace xeus2.xeus.Commands
         private static void ExecuteViewSmall(object sender, ExecutedRoutedEventArgs e)
         {
             Settings.Default.UI_RosterItemSize = RosterItemSize.Small;
+            Settings.Default.UI_Panel_ItemHeight = Settings.Default.UI_Item_Small_MaxHeight;
+            Settings.Default.UI_Panel_ItemWidth = Settings.Default.UI_Item_Small_MaxWidth;
         }
 
         private static void CanExecuteViewMedium(object sender, CanExecuteRoutedEventArgs e)
@@ -290,6 +292,8 @@ namespace xeus2.xeus.Commands
         private static void ExecuteViewMedium(object sender, ExecutedRoutedEventArgs e)
         {
             Settings.Default.UI_RosterItemSize = RosterItemSize.Medium;
+            Settings.Default.UI_Panel_ItemHeight = Settings.Default.UI_Item_Medium_MaxHeight;
+            Settings.Default.UI_Panel_ItemWidth = Settings.Default.UI_Item_Medium_MaxWidth;
         }
 
         private static void CanExecuteViewBig(object sender, CanExecuteRoutedEventArgs e)
@@ -301,6 +305,8 @@ namespace xeus2.xeus.Commands
         private static void ExecuteViewBig(object sender, ExecutedRoutedEventArgs e)
         {
             Settings.Default.UI_RosterItemSize = RosterItemSize.Big;
+            Settings.Default.UI_Panel_ItemHeight = Settings.Default.UI_Item_Big_MaxHeight;
+            Settings.Default.UI_Panel_ItemWidth = Settings.Default.UI_Item_Big_MaxWidth;
         }
     }
 }

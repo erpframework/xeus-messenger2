@@ -125,5 +125,29 @@
     <Setting Name="UI_Item_Small_MaxHeight" Type="System.Double" Scope="User">
       <Value Profile="(Default)">40</Value>
     </Setting>
+    <Setting Name="UI_Item_Medium_MaxWidth" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">220</Value>
+    </Setting>
+    <Setting Name="UI_Item_Big_MaxWidth" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="UI_Item_Medium_MaxHeight" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">90</Value>
+    </Setting>
+    <Setting Name="UI_Item_Big_MaxHeight" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">130</Value>
+    </Setting>
+    <Setting Name="UI_Panel_ItemWidth" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="UI_Panel_ItemHeight" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">50</Value>
+    </Setting>
+    <Setting Name="UI_Panel_Attraction" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="UI_Panel_Dampening" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.75</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

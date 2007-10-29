@@ -8,11 +8,6 @@
     >
 
     <UserControl.Resources>
-        <!--
-        <xeus2_xeus_Core:DummyContact x:Key="_dc1" />
-        <xeus2_xeus_Core:DummyContact x:Key="_dc2" />
-        -->
-
         <Style x:Key="ButtonStyleContainer" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="#FF000000"/>
             <Setter Property="MinHeight" Value="22"/>

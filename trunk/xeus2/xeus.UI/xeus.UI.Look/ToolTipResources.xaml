@@ -107,7 +107,7 @@
                 <StackPanel>
                     <TextBlock x:Name="_xStatus" Text="{Binding Path=XStatusText}"
                                            Foreground="{DynamicResource roster_status_text}"
-                                           FontSize="10" TextAlignment="Left" />
+                                           FontSize="10" TextAlignment="Left" TextWrapping="WrapWithOverflow" />
                     <ContentPresenter x:Name="_uptime" ContentTemplate="{StaticResource RelativeOldness}"
                                 Content="{Binding Path=LastOnline}"/>
                     <Border x:Name="_resource" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2"

@@ -384,7 +384,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
             bool force = false;
 
-            if (e.NewItems != null)
+            if (e.NewItems != null && _mucRoom.Me != null)
             {
                 foreach (MucMessage message in e.NewItems)
                 {

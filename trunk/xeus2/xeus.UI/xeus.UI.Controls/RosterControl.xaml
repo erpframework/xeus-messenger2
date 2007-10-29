@@ -93,9 +93,9 @@
             <!--<VirtualizingStackPanel IsItemsHost="True"/>
             <WrapPanel IsItemsHost="True" />-->
             <zap:AniTilePanel IsItemsHost="True"
-                              Attraction="3" Dampening="0.75"
-                              ItemWidth="{Binding Path=UI_Item_Small_MaxWidth, Source={x:Static Properties:Settings.Default}}"
-                              ItemHeight="{Binding Path=UI_Item_Small_MaxHeight, Source={x:Static Properties:Settings.Default}}"/>
+                              ItemWidth="{Binding Path=UI_Panel_ItemWidth, Source={x:Static Properties:Settings.Default}}"                              ItemHeight="{Binding Path=UI_Panel_ItemHeight, Source={x:Static Properties:Settings.Default}}"
+                              Attraction="{Binding Path=UI_Panel_Attraction, Source={x:Static Properties:Settings.Default}}"
+                              Dampening="{Binding Path=UI_Panel_Dampening, Source={x:Static Properties:Settings.Default}}"/>
         </ItemsPanelTemplate>
 
 
@@ -118,7 +118,8 @@
                                             <Expander.Header>
                                                 <ContentPresenter Content="{Binding}" ContentTemplate="{DynamicResource GroupTemplate}"/>
                                             </Expander.Header>
-                                            <ItemsPresenter/>
+                                            <ItemsPresenter>
+                                            </ItemsPresenter>
                                         </Expander>
                                     </ControlTemplate>
                                 </Setter.Value>
