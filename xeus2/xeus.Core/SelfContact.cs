@@ -221,7 +221,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                throw new NotImplementedException();
+                return (_presence != null && _presence.Type == PresenceType.available);
             }
         }
 
@@ -346,7 +346,7 @@ namespace xeus2.xeus.Core
         {
             get
             {
-                throw new NotImplementedException();
+                return new RelativeOldness(DateTime.Now);
             }
         }
 

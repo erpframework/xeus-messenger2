@@ -483,8 +483,8 @@
             BorderThickness="1,1,1,1" CornerRadius="3,3,3,3">
             <Grid>
                 <xeus2_xeus_Controls:RosterControl x:Name="_roster"/>
-                <xeus2_xeus_Controls:FilterDisplay Margin="10,-10,10,10"
-						x:Name="_filterDisplay" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                <xeus2_xeus_Controls:FilterDisplay Margin="10,10,10,10"
+						x:Name="_filterDisplay" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Grid>
         </Border>
     </DockPanel>
