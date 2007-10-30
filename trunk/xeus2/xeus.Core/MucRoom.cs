@@ -153,11 +153,15 @@ namespace xeus2.xeus.Core
 
         public void SendPresence(ShowType showType, string status)
         {
-            Presence presence = new Presence(showType, status);
-            presence.From = _me.MucJid;
-            presence.To = _service.Jid;
+            if (_me.Show != showType
+                || _me.StatusText != status)
+            {
+                Presence presence = new Presence(showType, status);
+                presence.From = Account.Instance.Self.FullJid;
+                presence.To = _me.MucJid;
 
-            _xmppClientConnection.Send(presence);
+                _xmppClientConnection.Send(presence);
+            }
         }
 
         private void Instance_OnEventRaised(object sender, Event myEvent)
@@ -599,6 +603,8 @@ namespace xeus2.xeus.Core
                     {
                         _me = contact;
                         NotifyPropertyChanged("Me");
+
+                        SendPresence(Account.Instance.Self.MyShow, Account.Instance.Self.StatusText);
                     }
                 }
             }
