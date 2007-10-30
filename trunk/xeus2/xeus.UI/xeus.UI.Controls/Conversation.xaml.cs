@@ -94,6 +94,8 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             Unloaded += Conversation_Unloaded;
 
             ScrollToBottom(true);
+
+            _flowViewer.Visibility = Visibility.Visible;
         }
 
         void Notification_NegotiateAddNotification(Event myEvent, NegotiateNotification negotiateNotification)

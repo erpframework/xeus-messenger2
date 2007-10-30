@@ -128,9 +128,17 @@
 
         <Border Background="{DynamicResource chat_back_design}" BorderBrush="{DynamicResource DefaultTextBrush2}">
             <Grid>
+                <Border HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="_wait"
+					Background="#22000000" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" Padding="5,5,5,5">
+                    <Grid>
+                        <Rectangle Width="16" Height="16" Fill="{DynamicResource wait_design}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock Margin="35,0,0,0" VerticalAlignment="Center" Text="Loading chat messages"/>
+                    </Grid>
+                </Border>
                 <FlowDocumentScrollViewer x:Name="_flowViewer" Margin="2,2,2,2"
-	        Document="{Binding Path=ChatDocument}"
-	        DockPanel.Dock="Top" MaxZoom="300" MinZoom="50" ZoomIncrement="5" Style="{DynamicResource BasicFlowDocumentScrollViewerStyle}" />
+	                Document="{Binding Path=ChatDocument}"
+                    Visibility="Hidden"
+	                DockPanel.Dock="Top" MaxZoom="300" MinZoom="50" ZoomIncrement="5" Style="{DynamicResource BasicFlowDocumentScrollViewerStyle}" />
                 <xeus2_xeus_Controls:Chatstate Margin="10,5,10,0" VerticalAlignment="Top" HorizontalAlignment="Right"/>
                 <xeus2_xeus_Controls:SearchText x:Name="_inlineSearch"
                                                 Margin="10,0,10,5" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>

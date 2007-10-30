@@ -17,6 +17,7 @@ using xeus2.xeus.Utilities;
 using Brush=System.Windows.Media.Brush;
 using Timer=System.Timers.Timer;
 using Uri=System.Uri;
+using System.Windows.Controls;
 
 namespace xeus2.xeus.Core
 {
@@ -137,6 +138,8 @@ namespace xeus2.xeus.Core
 
         static readonly object _brushLock = new object();
 
+        private static DataTemplate _emoTemplate;
+
         protected static void LoadBrushes()
         {
             lock (_brushLock)
@@ -168,6 +171,8 @@ namespace xeus2.xeus.Core
                     _eventLeft = StyleManager.GetBrush("event_left_muc_design");
                     _eventJoined = StyleManager.GetBrush("event_joined_muc_design");
                     _eventChangedNick = StyleManager.GetBrush("event_nickchange_muc_design");
+
+                    _emoTemplate = (DataTemplate)App.Current.FindResource("EmoDisplay");
                 }
             }
         }
@@ -260,6 +265,52 @@ namespace xeus2.xeus.Core
             return rect;
         }
 
+        static void InsertEmos(Paragraph paragraph, string text)
+        {
+            string[] emotedText = Emoticons.SplitText(text);
+            string[] emos = text.Split(emotedText, StringSplitOptions.RemoveEmptyEntries);
+
+            bool startsWithText = false;
+
+            if (emotedText.Length > 0)
+            {
+                startsWithText = text.StartsWith(emotedText[0]);
+            }
+
+            for (int j = 0; j < emotedText.Length || j < emos.Length; j++)
+            {
+                if (startsWithText && emotedText.Length > j)
+                {
+                    paragraph.Inlines.Add(emotedText[j]);
+                }
+
+                if (emos.Length > j)
+                {
+                    string emocode = Emoticons.GetEmoCode(emos[j]);
+
+                    if (emocode == null)
+                    {
+                        paragraph.Inlines.Add(emos[j]);
+                    }
+                    else
+                    {
+                        ContentPresenter presenter = new ContentPresenter();
+                        presenter.Width = 20;
+                        presenter.Height = 20;
+                        presenter.Content = Emoticons.GetEmoCode(emos[j].Trim());
+                        presenter.ContentTemplate = _emoTemplate;
+                        paragraph.Inlines.Add(presenter);
+                    }
+                }
+
+
+                if (!startsWithText && emotedText.Length > j)
+                {
+                    paragraph.Inlines.Add(emotedText[j]);
+                }
+            }
+        }
+
         protected void FormatParagraph(Paragraph paragraph, string body)
         {
             if (body.TrimStart().StartsWith("/me "))
@@ -268,8 +319,6 @@ namespace xeus2.xeus.Core
                 body = body.Replace("/me ", String.Empty);
                 paragraph.Foreground = _meTextBrush;
             }
-
-            // smileys
 
             MatchCollection matches = _urlregex.Matches(body);
 
@@ -284,13 +333,21 @@ namespace xeus2.xeus.Core
 
                 string[] bodies = body.Split(founds, StringSplitOptions.RemoveEmptyEntries);
 
+                bool startsWithText = false;
+
+                if (bodies.Length > 0)
+                {
+                    startsWithText = body.StartsWith(bodies[0]);
+                }
+
                 for (int j = 0; j < bodies.Length || j < founds.Length; j++)
                 {
                     bool wrongUri = false;
 
-                    if (bodies.Length > j)
+                    if (startsWithText && bodies.Length > j)
                     {
-                        paragraph.Inlines.Add(bodies[j]);
+                        //paragraph.Inlines.Add(bodies[j]);
+                        InsertEmos(paragraph, bodies[j]);
                     }
 
                     if (founds.Length > j)
@@ -326,11 +383,19 @@ namespace xeus2.xeus.Core
                             paragraph.Inlines.Add(hyperlink);
                         }
                     }
+
+                    if (!startsWithText && bodies.Length > j)
+                    {
+                        //paragraph.Inlines.Add(bodies[j]);
+                        InsertEmos(paragraph, bodies[j]);
+                    }
+
                 }
             }
             else
             {
-                paragraph.Inlines.Add(body);
+                //paragraph.Inlines.Add(body);
+                InsertEmos(paragraph, body);
             }
         }
 
