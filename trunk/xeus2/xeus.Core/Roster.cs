@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Threading;
 using System.Timers;
+using System.Windows.Threading;
 using agsXMPP;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.extensions.caps;
@@ -17,7 +19,6 @@ using xeus2.xeus.Data;
 using xeus2.xeus.Middle;
 using xeus2.xeus.Utilities;
 using Avatar=agsXMPP.protocol.x.Avatar;
-using Timer=System.Timers.Timer;
 using Uri=agsXMPP.Uri;
 using Version=agsXMPP.protocol.iq.version.Version;
 
@@ -39,14 +40,20 @@ namespace xeus2.xeus.Core
         private readonly ObservableCollectionDisp<MetaContact> _items = new ObservableCollectionDisp<MetaContact>();
         private readonly Dictionary<string, Contact> _realContacts = new Dictionary<string, Contact>();
 
-        private readonly Timer _timerRefresh = new Timer();
+        private readonly DispatcherTimer _timerRefresh = new DispatcherTimer();
 
         public Roster()
         {
-            _timerRefresh.AutoReset = false;
-            _timerRefresh.Interval = 1000.0;
+            _timerRefresh.IsEnabled = false;
+            _timerRefresh.Interval = new TimeSpan(0, 0, 0, 1);
 
-            _timerRefresh.Elapsed += _timerRefresh_Elapsed;
+            _timerRefresh.Tick += _timerRefresh_Tick;
+        }
+
+        void _timerRefresh_Tick(object sender, EventArgs e)
+        {
+            _timerRefresh.Stop();
+            TimerRefresh();
         }
 
         public static Roster Instance
@@ -133,11 +140,12 @@ namespace xeus2.xeus.Core
             }
         }
 
+        /*
         private void _timerRefresh_Elapsed(object sender, ElapsedEventArgs e)
         {
             App.InvokeSafe(App._dispatcherPriority,
                            new RefreshCallback(TimerRefresh));
-        }
+        }*/
 
         private void TimerRefresh()
         {

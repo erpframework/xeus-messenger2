@@ -1,7 +1,7 @@
-﻿using System.ComponentModel;
-using System.Timers;
-using System.Windows;
+﻿using System;
+using System.ComponentModel;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using xeus2.Properties;
 using xeus2.xeus.Core;
 
@@ -11,7 +11,7 @@ namespace xeus2.xeus.UI
     {
         private readonly ICollectionView _collectionView;
 
-        readonly Timer _refreshTimer = new Timer(500);
+        private readonly DispatcherTimer _refreshTimer = new DispatcherTimer();
 
         private bool _displayOffline = Settings.Default.UI_DisplayOfflineContacts;
         private bool _displayServices = Settings.Default.UI_DisplayServices;
@@ -19,7 +19,8 @@ namespace xeus2.xeus.UI
         public FilterRoster(ICollectionView collectionView, TextBox searchBox)
         {
             _collectionView = collectionView;
-            _refreshTimer.AutoReset = false;
+            _refreshTimer.IsEnabled = false;
+            _refreshTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
 
             Settings.Default.PropertyChanged += delegate(object sender, PropertyChangedEventArgs e)
                                                     {
@@ -30,7 +31,7 @@ namespace xeus2.xeus.UI
                                                                 {
                                                                     _displayOffline =
                                                                         Settings.Default.UI_DisplayOfflineContacts;
-                                                                    
+
                                                                     _displayServices =
                                                                         Settings.Default.UI_DisplayServices;
 
@@ -41,10 +42,10 @@ namespace xeus2.xeus.UI
                                                     };
 
             searchBox.TextChanged += delegate
-                                                 {
-                                                     _refreshTimer.Stop();
-                                                     _refreshTimer.Start();
-                                                 };
+                                         {
+                                             _refreshTimer.Stop();
+                                             _refreshTimer.Start();
+                                         };
 
             collectionView.Filter = delegate(object obj)
                                         {
@@ -73,14 +74,14 @@ namespace xeus2.xeus.UI
                                             }
                                         };
 
-            _refreshTimer.Elapsed += _refreshTimer_Elapsed;
+            _refreshTimer.Tick += _refreshTimer_Tick;
         }
 
-        private delegate void RefreshCallback();
-
-        void _refreshTimer_Elapsed(object sender, ElapsedEventArgs e)
+        private void _refreshTimer_Tick(object sender, EventArgs e)
         {
-            App.InvokeSafe(App._dispatcherPriority, new RefreshCallback(Refresh));
+            _refreshTimer.Stop();
+
+            Refresh();
         }
 
         private void Refresh()

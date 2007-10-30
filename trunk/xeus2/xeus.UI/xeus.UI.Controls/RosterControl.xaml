@@ -129,7 +129,9 @@
                 </GroupStyle>
             </ListBox.GroupStyle>
         </ListBox>
+        <!--
         <Rectangle HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="32" Height="32"                   Fill="{StaticResource xeus_logo_back_design}" Margin="0,0,5,5" Opacity="0.5"
                    IsHitTestVisible="False"/>
+        -->
     </Grid>
 </UserControl>

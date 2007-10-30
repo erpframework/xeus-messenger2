@@ -86,7 +86,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="ToolTipContactCard">
-        <Grid x:Name="_grid" HorizontalAlignment="Left">
+        <Grid x:Name="_grid" HorizontalAlignment="Left" MaxWidth="250">
             <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
                 <ContentPresenter Content="{Binding Path=Image}" ContentTemplate="{DynamicResource PhotoWithReflection}"/>
                 <ContentPresenter Content="{Binding Path=Show}"

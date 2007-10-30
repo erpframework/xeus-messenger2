@@ -78,16 +78,16 @@
                             <Pen LineJoin="Round" Brush="#FF3C3C3C"/>
                         </GeometryDrawing.Pen>
                         <GeometryDrawing.Brush>
-                            <LinearGradientBrush StartPoint="0.0374675,0.396886" EndPoint="1.02041,0.396886">
+                            <LinearGradientBrush StartPoint="0.0374675,0.396887" EndPoint="1.02041,0.396887">
                                 <LinearGradientBrush.RelativeTransform>
                                     <TransformGroup>
-                                        <SkewTransform CenterX="0.0374675" CenterY="0.396886" AngleX="5.36043" AngleY="0"/>
-                                        <RotateTransform CenterX="0.0374675" CenterY="0.396886" Angle="13.2174"/>
+                                        <SkewTransform CenterX="0.0374675" CenterY="0.396887" AngleX="5.36037" AngleY="0"/>
+                                        <RotateTransform CenterX="0.0374675" CenterY="0.396887" Angle="13.2174"/>
                                     </TransformGroup>
                                 </LinearGradientBrush.RelativeTransform>
                                 <LinearGradientBrush.GradientStops>
-                                    <GradientStop Color="#FF0E1417" Offset="0"/>
-                                    <GradientStop Color="#FF617E8D" Offset="1"/>
+                                    <GradientStop Color="#FFE53C1D" Offset="0"/>
+                                    <GradientStop Color="#FF8D7061" Offset="1"/>
                                 </LinearGradientBrush.GradientStops>
                             </LinearGradientBrush>
                         </GeometryDrawing.Brush>
@@ -100,7 +100,7 @@
                             <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
                                 <LinearGradientBrush.GradientStops>
                                     <GradientStop Color="#FFE8FAFF" Offset="0"/>
-                                    <GradientStop Color="#FF2B4352" Offset="1"/>
+                                    <GradientStop Color="#FFFF5700" Offset="1"/>
                                 </LinearGradientBrush.GradientStops>
                             </LinearGradientBrush>
                         </GeometryDrawing.Brush>
@@ -119,8 +119,8 @@
                                     </TransformGroup>
                                 </LinearGradientBrush.RelativeTransform>
                                 <LinearGradientBrush.GradientStops>
-                                    <GradientStop Color="#FF0E1417" Offset="0"/>
-                                    <GradientStop Color="#FF617E8D" Offset="1"/>
+                                    <GradientStop Color="#FFC75B2E" Offset="0"/>
+                                    <GradientStop Color="#FFFABFB0" Offset="1"/>
                                 </LinearGradientBrush.GradientStops>
                             </LinearGradientBrush>
                         </GeometryDrawing.Brush>
