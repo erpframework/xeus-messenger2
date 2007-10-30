@@ -21,6 +21,7 @@ namespace xeus2.xeus.Middle
             {
                 UI.MucOptions mucOptions = new UI.MucOptions(mucRoom);
                 mucOptions.Show();
+                mucOptions.Activate();
             }
 
             catch (WindowExistsException e)

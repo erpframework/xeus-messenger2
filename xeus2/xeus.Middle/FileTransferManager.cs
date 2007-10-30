@@ -32,6 +32,7 @@ namespace xeus2.xeus.Middle
                 FileTransferWindow fileTransferWindow = new FileTransferWindow();
 
                 fileTransferWindow.Show();
+                fileTransferWindow.Activate();
             }
 
             catch (WindowExistsException e)
@@ -50,6 +51,7 @@ namespace xeus2.xeus.Middle
                 FileTransferWindow fileTransferWindow = new FileTransferWindow();
 
                 fileTransferWindow.Show();
+                fileTransferWindow.Activate();
             }
 
             catch (WindowExistsException e)

@@ -178,10 +178,13 @@ namespace xeus2.xeus.Core
 
         protected void GenerateChatDocument(IList messages)
         {
+            /*
             App.InvokeSafe(App._dispatcherPriority, new GenerateChatDocumentCallback(GenerateChatDocumentInternal), messages);
+             */
+            GenerateChatDocumentInternal(messages);
         }
 
-        object _generateLock = new object();
+        readonly object _generateLock = new object();
 
         void GenerateChatDocumentInternal(IList messages)
         {

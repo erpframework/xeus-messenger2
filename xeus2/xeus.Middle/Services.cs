@@ -29,6 +29,7 @@ namespace xeus2.xeus.Middle
                 }*/
 
                 serviceWindow.Show();
+                serviceWindow.Activate();
             }
 
             catch (WindowExistsException e)

@@ -24,6 +24,7 @@ namespace xeus2.xeus.Middle
                 AskAuthorization authorization = new AskAuthorization(contact);
 
                 authorization.Show();
+                authorization.Activate();
             }
 
             catch (WindowExistsException e)
@@ -39,6 +40,7 @@ namespace xeus2.xeus.Middle
                 AskAuthorization authorization = new AskAuthorization(presence);
 
                 authorization.Show();
+                authorization.Activate();
             }
 
             catch (WindowExistsException e)

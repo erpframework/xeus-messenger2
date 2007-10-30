@@ -50,6 +50,22 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             Loaded += MucConversation_Loaded;
 
             _text.Loaded += _text_Loaded;
+
+            Account.Instance.Self.PropertyChanged += Self_PropertyChanged;
+        }
+
+        void Self_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "Show":
+                case "StatusText":
+                case "MyShow":
+                    {
+                        _mucRoom.SendPresence(Account.Instance.Self.MyShow, Account.Instance.Self.StatusText);
+                        break;
+                    }
+            }
         }
 
         private void MucConversation_Loaded(object sender, RoutedEventArgs e)
@@ -348,6 +364,8 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _inlineSearch.Closed -= _inlineSearch_Closed;
 
             _chatStateNotificator.StateChanged -= _chatStateNotificator_StateChanged;
+
+            Account.Instance.Self.PropertyChanged -= Self_PropertyChanged;
         }
 
         private void OnKeyPress(object sender, KeyEventArgs e)

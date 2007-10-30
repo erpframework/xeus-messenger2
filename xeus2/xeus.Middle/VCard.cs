@@ -27,6 +27,7 @@ namespace xeus2.xeus.Middle
             {
                 VCardDisplay vCardDisplay = new VCardDisplay(contact);
                 vCardDisplay.Show();
+                vCardDisplay.Activate();
             }
 
             catch (WindowExistsException e)

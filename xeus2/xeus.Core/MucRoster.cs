@@ -59,28 +59,31 @@ namespace xeus2.xeus.Core
 					}
 				}
 
-                message.Append(contact.Nick);
-
-                if (join)
+                if (presence.Type != contact.Presence.Type)
                 {
-                    message.AppendFormat(" is {0}", contact.Role);
+                    message.Append(contact.Nick);
 
-                    if (contact.Affiliation != Affiliation.none)
+                    if (join)
                     {
-                        message.AppendFormat(" and {0}", contact.Affiliation);
+                        message.AppendFormat(" is {0}", contact.Role);
+
+                        if (contact.Affiliation != Affiliation.none)
+                        {
+                            message.AppendFormat(" and {0}", contact.Affiliation);
+                        }
+
+                        eventMucRoom =
+                            new EventMucRoom(TypicalEvent.Joined, mucRoom, contact.Presence.MucUser, message.ToString());
+                    }
+                    else
+                    {
+                        message.Append(" has left the room");
+                        eventMucRoom =
+                            new EventMucRoom(TypicalEvent.Left, mucRoom, contact.Presence.MucUser, message.ToString());
                     }
 
-                    eventMucRoom =
-                        new EventMucRoom(TypicalEvent.Joined, mucRoom, contact.Presence.MucUser, message.ToString());
+                    Events.Instance.OnEvent(this, eventMucRoom, DispatcherPriority.ApplicationIdle);
                 }
-                else
-                {
-                    message.Append(" has left the room");
-                    eventMucRoom =
-                        new EventMucRoom(TypicalEvent.Left, mucRoom, contact.Presence.MucUser, message.ToString());
-                }
-
-			    Events.Instance.OnEvent(this, eventMucRoom, DispatcherPriority.ApplicationIdle);
 
 			    return contact;
 			}

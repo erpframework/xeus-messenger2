@@ -3,6 +3,7 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using xeus2.xeus.Commands;
 using xeus2.xeus.Core;
 using xeus2.xeus.Middle;
 
@@ -163,8 +164,10 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
             if (eventChatMessage != null)
             {
-                Notification.DismissChatMessageNotification(eventChatMessage.Contact);
-                Middle.Chat.Instance.DisplayChat(eventChatMessage.Contact);
+                if (AccountCommands.DisplayChat.CanExecute(eventChatMessage.Contact, (UIElement)sender))
+                {
+                    AccountCommands.DisplayChat.Execute(eventChatMessage.Contact, (UIElement)sender);
+                }
             }
             else if (eventInfoFileTransfer != null)
             {

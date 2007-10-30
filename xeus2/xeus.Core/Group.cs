@@ -93,7 +93,7 @@ namespace xeus2.xeus.Core
             {
                 Roster.GroupStatus groupStatus = Roster.Instance.GetGroupStatus(Name);
 
-                return string.Format("{0} online of {1} in the group", groupStatus._online, groupStatus._total);
+                return string.Format("({0} available of {1})", groupStatus._online, groupStatus._total);
             }
         }
 

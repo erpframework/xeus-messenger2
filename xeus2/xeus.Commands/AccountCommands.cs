@@ -27,6 +27,9 @@ namespace xeus2.xeus.Commands
         private static readonly RoutedUICommand _login =
             new RoutedUICommand("Login", "login", typeof(AccountCommands));
 
+        private static readonly RoutedUICommand _displayChat =
+            new RoutedUICommand("Display Chat", "DisplayChat", typeof(AccountCommands));
+
         public static RoutedUICommand DisplayLogin
         {
             get
@@ -83,6 +86,14 @@ namespace xeus2.xeus.Commands
             }
         }
 
+        public static RoutedUICommand DisplayChat
+        {
+            get
+            {
+                return _displayChat;
+            }
+        }
+
         public static void RegisterCommands(CommandBindingCollection commandBindings)
         {
             commandBindings.Add(
@@ -105,6 +116,22 @@ namespace xeus2.xeus.Commands
 
             commandBindings.Add(
                 new CommandBinding(_login, ExecuteLogin, CanExecuteLogin));
+
+            commandBindings.Add(
+                new CommandBinding(_displayChat, ExecuteDisplayChat, CanExecuteDisplayChat));
+        }
+
+        private static void CanExecuteDisplayChat(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = e.Parameter is IContact;
+            e.Handled = true;
+        }
+
+        private static void ExecuteDisplayChat(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            Chat.Instance.DisplayChat((IContact)e.Parameter);
         }
 
         private static void CanExecuteDisplayAddContact(object sender, CanExecuteRoutedEventArgs e)

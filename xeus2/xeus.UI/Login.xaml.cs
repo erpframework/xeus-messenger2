@@ -13,34 +13,5 @@ namespace xeus2.xeus.UI
 		{
 			InitializeComponent() ;
 		}
-
-		public string Password
-		{
-			get
-			{
-				return _password.Password ;
-			}
-		}
-
-		public string Server
-		{
-			get
-			{
-				return _server.Text ;
-			}
-		}
-
-		public string User
-		{
-			get
-			{
-				return _user.Text ;
-			}
-		}
-
-		protected void OnLogin( object sender, RoutedEventArgs eventArgs )
-		{
-			DialogResult = true;
-		}
 	}
 }

@@ -27,6 +27,7 @@ namespace xeus2.xeus.Middle
             {
                 GetMucWindow();
                 _muc.Show();
+                _muc.Activate();
 
                 return _muc._multi;
             }
@@ -76,6 +77,7 @@ namespace xeus2.xeus.Middle
 
             _muc.AddMuc(service, nick, password);
             _muc.Show();
+            _muc.Activate();
         }
     }
 }

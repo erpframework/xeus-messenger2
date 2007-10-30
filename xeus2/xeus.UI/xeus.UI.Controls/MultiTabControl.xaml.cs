@@ -186,6 +186,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                             flyout.Height = tabItem.Container.ActualHeight;
 
                             flyout.Show();
+                            flyout.Activate();
                             break;
                         }
                 }
