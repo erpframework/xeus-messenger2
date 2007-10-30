@@ -5,6 +5,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using Microsoft.Samples.KMoore.WPFSamples.AnimatingTilePanel;
 using xeus2.Properties;
+using xeus2.xeus.Commands;
 using xeus2.xeus.Core;
 
 namespace xeus2.xeus.UI.xeus.UI.Controls
@@ -135,7 +136,10 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
             if (contact != null)
             {
-                Middle.Chat.Instance.DisplayChat(contact);
+                if (AccountCommands.DisplayChat.CanExecute(contact, (UIElement)sender))
+                {
+                    AccountCommands.DisplayChat.Execute(contact, (UIElement)sender);
+                }
             }
         }
 

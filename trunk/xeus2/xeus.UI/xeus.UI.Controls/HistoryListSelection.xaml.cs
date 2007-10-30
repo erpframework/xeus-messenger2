@@ -1,6 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using xeus2.xeus.Commands;
 using xeus2.xeus.Core;
 using xeus2.xeus.Middle;
 
@@ -31,7 +32,10 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 {
                     if (recent.Item is IContact)
                     {
-                        Middle.Chat.Instance.DisplayChat((IContact) recent.Item);
+                        if (AccountCommands.DisplayChat.CanExecute((IContact)recent.Item, null))
+                        {
+                            AccountCommands.DisplayChat.Execute((IContact)recent.Item, null);
+                        }
                     }
                     else
                     {

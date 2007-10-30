@@ -21,6 +21,7 @@ namespace xeus2.xeus.Middle
             {
                 UI.Wizard wizard = new UI.Wizard();
                 wizard.Show();
+                wizard.Activate();
             }
 
             catch (WindowExistsException e)
@@ -35,6 +36,7 @@ namespace xeus2.xeus.Middle
             {
                 AddContact wizard = new AddContact();
                 wizard.Show();
+                wizard.Activate();
 
                 Core.Services.Instance.FindRegisteredServices();
             }

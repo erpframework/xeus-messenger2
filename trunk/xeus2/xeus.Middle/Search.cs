@@ -29,6 +29,7 @@ namespace xeus2.xeus.Middle
                 UI.Search searchWindow = new UI.Search(search, service);
 
                 searchWindow.Show();
+                searchWindow.Activate();
             }
 
 		    catch ( WindowExistsException e )

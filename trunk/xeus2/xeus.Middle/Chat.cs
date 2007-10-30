@@ -27,6 +27,7 @@ namespace xeus2.xeus.Middle
             {
                 GetChatWindow();
                 _chat.Show();
+                _chat.Activate();
 
                 return _chat._multi;
             }
@@ -60,6 +61,7 @@ namespace xeus2.xeus.Middle
             if (_chat.TabControl.MultiWindows.Count > 0)
             {
                 _chat.Show();
+                _chat.Activate();
             }
             else
             {

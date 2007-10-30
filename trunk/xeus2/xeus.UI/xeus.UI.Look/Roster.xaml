@@ -59,9 +59,10 @@
     </DrawingBrush>
     
     <DataTemplate x:Key="GroupTemplate">
-        <Border Background="{DynamicResource back_list_design}" CornerRadius="3,3,3,3">
+        <Border Background="{DynamicResource back_list_design}" CornerRadius="3,3,3,3"
+                Padding="3,0,3,0">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding Path=Name}"/>
+                    <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center"/>
                     <TextBlock Margin="10,0,0,0" VerticalAlignment="Center"
                                Text="{Binding Path=GroupDetails}" FontSize="9"/>
                 </StackPanel>

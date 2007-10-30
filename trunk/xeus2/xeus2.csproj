@@ -548,7 +548,6 @@
       <DependentUpon>InfoPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\Login.xaml.cs">
-      <SubType>Code</SubType>
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="xeus.UI\Muc.xaml.cs">

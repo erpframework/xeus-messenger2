@@ -31,6 +31,7 @@ namespace xeus2.xeus.Middle
 
                 headlinesWindow.DataContext = headlinesChat;
                 headlinesWindow.Show();
+                headlinesWindow.Activate();
             }
 
             catch (WindowExistsException e)

@@ -51,6 +51,7 @@ namespace xeus2.xeus.Middle
             {
                 RoomInfo roomInfo = new RoomInfo(service);
                 roomInfo.Show();
+                roomInfo.Activate();
             }
 
             catch (WindowExistsException e)
@@ -78,6 +79,7 @@ namespace xeus2.xeus.Middle
                 RoomLogin roomLogin = new RoomLogin(mucMark, null);
 
                 roomLogin.Show();
+                roomLogin.Activate();
             }
 
             catch (WindowExistsException e)
@@ -93,6 +95,7 @@ namespace xeus2.xeus.Middle
                 RoomLogin roomLogin = new RoomLogin(service, forceNick);
 
                 roomLogin.Show();
+                roomLogin.Activate();
             }
 
             catch (WindowExistsException e)

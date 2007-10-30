@@ -336,13 +336,27 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type xeus2_xeus_Core:EventPresenceChanged}">
-        <ContentPresenter Content="{Binding Path=Contact}" ContentTemplate="{DynamicResource MetaContactSmall}"/>
+        <StackPanel>
+            <ContentPresenter Content="{Binding Path=Contact}" ContentTemplate="{DynamicResource MetaContactSmall}"/>
+            <Button Margin="0,3,0,0" Command="servicecmd:AccountCommands.DisplayChat" CommandParameter="{Binding Path=Contact}"
+                        HorizontalAlignment="Right" VerticalAlignment="Bottom"
+						Content="Chat"/>
+        </StackPanel>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type xeus2_xeus_Core:EventChatMessage}">
         <Grid>
-            <ContentPresenter Content="{Binding Path=Contact}" ContentTemplate="{DynamicResource MetaContactSmall}" Margin="5,5,0,0"/>
-            <Rectangle Width="24" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Fill="{DynamicResource chaticon_design}"/>
+            <StackPanel>
+                <ContentPresenter Content="{Binding Path=Contact}" ContentTemplate="{DynamicResource MetaContactSmall}" Margin="5,5,0,0"/>
+                <Border Margin="0,5,0,0"
+                    Background="#FF1E1E1E" BorderBrush="{DynamicResource DefaultBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" Padding="5,5,5,5" MaxWidth="300">
+                    <TextBlock Text="{Binding Path=ChatMessage.Body}"
+                               MaxWidth="150" MaxHeight="50" TextTrimming="WordEllipsis" Foreground="{DynamicResource DefaultTextBrush2}"/>
+                </Border>
+            </StackPanel>
+            <Rectangle Width="24" Height="24" Opacity="0.8"
+                       HorizontalAlignment="Left" VerticalAlignment="Top"
+                       Fill="{DynamicResource chaticon_design}"/>
         </Grid>
     </DataTemplate>
 

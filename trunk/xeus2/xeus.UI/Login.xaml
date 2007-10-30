@@ -3,18 +3,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:prop="clr-namespace:xeus2.Properties"
 	xmlns:UI="clr-namespace:xeus2.xeus.UI;assembly="
+	xmlns:Wizards="clr-namespace:xeus2.xeus.UI.xeus.UI.Wizards;assembly="
     x:Class="xeus2.xeus.UI.Login"
-    Title="xeus2.xeus.UI" Height="300" Width="300"
+    Title="Connect server" 
+    Background="{DynamicResource back_x_design}"
+    SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen"
+    ResizeMode="NoResize" MaxHeight="900" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
     >
-  <StackPanel>
-    <TextBlock Text="Server"/>
-	<TextBox x:Name="_server"/>
-    <TextBlock Text="User"/>
-	<TextBox x:Name="_user"/>
-    <StackPanel x:Name="_passwordPanel">
-	    <TextBlock Text="Password"/>
-		<PasswordBox x:Name="_password"/>
-    </StackPanel>
-    <Button Content="Login" IsDefault="True" Click="OnLogin"/>
-  </StackPanel>
+    <Wizards:ConnectWizard/>
 </UI:BaseWindow>

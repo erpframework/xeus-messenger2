@@ -22,6 +22,7 @@ namespace xeus2.xeus.Middle
             {
                 UI.Registration registration = new UI.Registration(register, service);
                 registration.Show();
+                registration.Activate();
             }
 
             catch (WindowExistsException e)
