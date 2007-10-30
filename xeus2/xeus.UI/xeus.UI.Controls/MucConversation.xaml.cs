@@ -32,6 +32,8 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         private List<KeyValuePair<string, MucMessage>> _texts = null;
         private string _textToSearch = String.Empty;
 
+        readonly DispatcherTimer _timer = new DispatcherTimer();
+
         public MucConversation()
         {
             InitializeComponent();
@@ -52,6 +54,18 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             _text.Loaded += _text_Loaded;
 
             Account.Instance.Self.PropertyChanged += Self_PropertyChanged;
+
+            _timer.Interval = new TimeSpan(0,0,0,3);
+            _timer.Tick += _timer_Tick;
+            _timer.Start();
+        }
+
+        void _timer_Tick(object sender, EventArgs e)
+        {
+            _timer.Stop();
+
+            _wait.Visibility = Visibility.Collapsed;
+            _flowViewer.Visibility = Visibility.Visible;
         }
 
         void Self_PropertyChanged(object sender, PropertyChangedEventArgs e)

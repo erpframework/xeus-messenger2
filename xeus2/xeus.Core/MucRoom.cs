@@ -13,7 +13,6 @@ using agsXMPP.protocol.extensions.chatstates;
 using agsXMPP.protocol.x.muc;
 using xeus2.Properties;
 using xeus2.xeus.Commands;
-using xeus2.xeus.Data;
 using xeus2.xeus.Utilities;
 using Uri=agsXMPP.Uri;
 

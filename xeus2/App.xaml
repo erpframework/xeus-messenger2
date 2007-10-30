@@ -21,7 +21,8 @@
                 <ResourceDictionary Source="xeus.UI\xeus.UI.Look\EventsTemplates.xaml"/>
                 <ResourceDictionary Source="xeus.UI\xeus.UI.Look\ListViewResource.xaml"/>
                 <ResourceDictionary Source="xeus.UI\xeus.UI.Zap\generic.xaml"/>
-    		</ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="xeus.UI\xeus.Emotes\Emotes.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
     	</ResourceDictionary>
          
     </Application.Resources>

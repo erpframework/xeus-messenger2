@@ -8,10 +8,10 @@ namespace xeus2.xeus.Utilities
 {
     internal class Emoticons
     {
-        readonly Dictionary<string, string> _emos = new Dictionary<string, string>(50);
-        private readonly string[] _emosplits;
+        static readonly Dictionary<string, string> _emos = new Dictionary<string, string>(50);
+        static private readonly string[] _emosplits;
 
-        public Emoticons()
+        static Emoticons()
         {
             _emos.Add("0=)", "face-angel");
             _emos.Add("^j^", "face-angel");
@@ -64,16 +64,18 @@ namespace xeus2.xeus.Utilities
             _emos.Keys.CopyTo(_emosplits, 0);
         }
 
-        public string[] SplitText(string text)
+        public static string GetEmoCode(string emo)
         {
-            return text.Split(_emosplits, StringSplitOptions.RemoveEmptyEntries);
+            string emoCode;
+            
+            _emos.TryGetValue(emo, out emoCode);
+
+            return emoCode;
         }
 
-        Brush GetEmoBrush(string emo)
+        public static string[] SplitText(string text)
         {
-            Brush brush = StyleManager.GetBrush("time_now_design");
-
-            return brush;
+            return text.Split(_emosplits, StringSplitOptions.RemoveEmptyEntries);
         }
     }
 }

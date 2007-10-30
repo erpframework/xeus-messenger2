@@ -1,10 +1,8 @@
 using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
-using System.Text;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using agsXMPP;
@@ -19,10 +17,10 @@ namespace xeus2.xeus.Data
     internal static class Storage
     {
         private static readonly string _folder;
+        private static readonly SHA1Managed _sha1 = new SHA1Managed();
 
         private static BitmapImage _defaultAvatar;
         private static BitmapImage _defaultServiceAvatar;
-        private static readonly SHA1Managed _sha1 = new SHA1Managed();
 
         static Storage()
         {
@@ -108,7 +106,8 @@ namespace xeus2.xeus.Data
             try
             {
                 DirectoryInfo directoryInfo = GetCacheFolder();
-                FileInfo fileInfo = new FileInfo(string.Format("{0}\\{1:d}", directoryInfo.FullName, jid.Bare.GetHashCode()));
+                FileInfo fileInfo =
+                    new FileInfo(string.Format("{0}\\{1:d}", directoryInfo.FullName, jid.Bare.GetHashCode()));
 
                 if (fileInfo.LastWriteTime.AddDays(daysToExpire) < DateTime.Now)
                 {
@@ -222,9 +221,9 @@ namespace xeus2.xeus.Data
             return GetAvatar(string.Format("pack://application:,,,../xeus.UI/xeus.Images/{0}", name));
         }
 
-        static string GetImageDataHash(byte[] pic)
+        private static string GetImageDataHash(byte[] pic)
         {
-            return TextUtil.HexEncode(_sha1.ComputeHash(pic));            
+            return TextUtil.HexEncode(_sha1.ComputeHash(pic));
         }
 
         public static string GetPhotoHashCode(Photo photo)
@@ -291,7 +290,7 @@ namespace xeus2.xeus.Data
                     {
                         reader.Read(data, 0, data.Length);
                     }
-                    
+
                     base64 = Convert.ToBase64String(data);
                 }
             }
@@ -380,7 +379,8 @@ namespace xeus2.xeus.Data
             try
             {
                 DirectoryInfo directoryInfo = GetCacheFolder();
-                FileInfo fileInfo = new FileInfo(string.Format("{0}\\{1:d}.avatar", directoryInfo.FullName, bare.GetHashCode()));
+                FileInfo fileInfo =
+                    new FileInfo(string.Format("{0}\\{1:d}.avatar", directoryInfo.FullName, bare.GetHashCode()));
 
                 using (
                     FileStream fileStream =
