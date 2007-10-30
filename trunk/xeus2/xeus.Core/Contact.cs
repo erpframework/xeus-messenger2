@@ -363,6 +363,7 @@ namespace xeus2.xeus.Core
                 {
                     if (_version != null)
                     {
+                        _versionAsked = false;
                         _version = null;
                         NotifyPropertyChanged("ClientVersion");
                         NotifyPropertyChanged("ClientName");

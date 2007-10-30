@@ -108,13 +108,13 @@
                     <WrapPanel>
                         <TextBlock x:Name="_xStatus" Text="{Binding Path=XStatusText}"
                                            Foreground="{DynamicResource roster_status_text}"
-                                           FontSize="10" TextAlignment="Left" TextWrapping="WrapWithOverflow" />
+                                           FontSize="10" TextAlignment="Left" TextWrapping="WrapWithOverflow"
+                                   Margin="0,0,5,0"/>
                         <Border x:Name="_resource" BorderThickness="1,1,1,1" CornerRadius="2,2,2,2"
                                 Background="#FFe5e5e5" HorizontalAlignment="Left"
                                 BorderBrush="{DynamicResource roster_image_border}">
-                            <TextBlock Margin="5,0,5,0" VerticalAlignment="Center" Foreground="#FF000000"
-                               Text="{Binding Path=Resource}" FontSize="10" HorizontalAlignment="Left">
-                            </TextBlock>
+                        <TextBlock Margin="5,0,5,0" VerticalAlignment="Center" Foreground="#FF000000"
+                               Text="{Binding Path=Resource}" FontSize="10" HorizontalAlignment="Left"/>
                         </Border>
                     </WrapPanel>
                     <ContentPresenter x:Name="_uptime" ContentTemplate="{StaticResource RelativeOldness}"
