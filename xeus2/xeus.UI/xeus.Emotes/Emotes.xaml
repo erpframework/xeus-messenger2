@@ -11,14 +11,14 @@
                 <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="_grid"
                                                Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
                     <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                    <SplineDoubleKeyFrame KeyTime="00:00:00.1500000" Value="2.0"/>
-                    <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1"/>
+                    <SplineDoubleKeyFrame KeyTime="00:00:00.300000" Value="3"/>
+                    <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="1"/>
                 </DoubleAnimationUsingKeyFrames>
                 <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="_grid"
                                                Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
                     <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                    <SplineDoubleKeyFrame KeyTime="00:00:00.1500000" Value="2.0"/>
-                    <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1"/>
+                    <SplineDoubleKeyFrame KeyTime="00:00:00.300000" Value="3"/>
+                    <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="1"/>
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
         </DataTemplate.Resources>
