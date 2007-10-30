@@ -174,7 +174,7 @@ namespace xeus2.xeus.Core
 
         protected abstract Block GenerateMessage(T message, T previousMessage);
 
-        private delegate void GenerateChatDocumentCallback(IList messages);
+        // private delegate void GenerateChatDocumentCallback(IList messages);
 
         protected void GenerateChatDocument(IList messages)
         {
@@ -234,11 +234,9 @@ namespace xeus2.xeus.Core
         {
             foreach (Rectangle time in _relativeTimes)
             {
-                string text = string.Empty;
-
                 MessageBase message = (MessageBase)time.DataContext;
 
-                text = string.Format("{0}\n{1}", message.DateTime.DateTime.Value,
+                string text = string.Format("{0}\n{1}", message.DateTime.DateTime.Value,
                                                     message.DateTime.RelativeTime);
 
                 Brush brush = GetMessageTimeBrush(message);
@@ -270,6 +268,8 @@ namespace xeus2.xeus.Core
                 body = body.Replace("/me ", String.Empty);
                 paragraph.Foreground = _meTextBrush;
             }
+
+            // smileys
 
             MatchCollection matches = _urlregex.Matches(body);
 
