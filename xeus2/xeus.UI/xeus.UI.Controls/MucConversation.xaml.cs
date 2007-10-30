@@ -320,8 +320,6 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         private void SetMyAffIcon()
         {
-            _mucRoom.SendPresence(Account.Instance.Self.MyShow, Account.Instance.Self.StatusText);
-
             Brush brush;
 
             switch (_mucRoom.Me.Affiliation)

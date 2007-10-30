@@ -13,7 +13,7 @@
             <StackPanel Orientation="Horizontal" >
                 <Button Margin="4,0,3,0" x:Name="_show" Click="_status_Click"
                     HorizontalAlignment="Left" VerticalAlignment="Center"
-                    Width="12" Height="12" Background="{DynamicResource online_design}" Style="{DynamicResource ImageButtonStyle}"/>
+                    Width="16" Height="16" Background="{DynamicResource online_design}" Style="{DynamicResource ImageButtonStyle}"/>
                 <Popup AllowsTransparency="True"
                    Placement="MousePoint" StaysOpen="False" Initialized="_statusPopup_Initialized">
                     <xeus2_xeus_Controls:StatusesControl Panel.ZIndex="100"/>

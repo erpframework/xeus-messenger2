@@ -82,19 +82,8 @@ namespace xeus2.xeus.Core
 
         public event NeedRefreshHandler NeedRefresh;
 
-        private readonly object _lockPresence = new object();
-        private bool _rosterFinished = false;
-
         public void OnPresence(object sender, Presence presence)
         {
-            lock (_lockPresence)
-            {
-                if (!_rosterFinished)
-                {
-                    Monitor.Wait(_lockPresence);
-                }
-            }
-
             App.InvokeSafe(App._dispatcherPriority,
                            new PresenceCallback(OnPresence), presence);
         }
@@ -139,13 +128,6 @@ namespace xeus2.xeus.Core
                     }
             }
         }
-
-        /*
-        private void _timerRefresh_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            App.InvokeSafe(App._dispatcherPriority,
-                           new RefreshCallback(TimerRefresh));
-        }*/
 
         private void TimerRefresh()
         {
@@ -608,12 +590,6 @@ namespace xeus2.xeus.Core
 
         public void RosterFinished()
         {
-            lock (_lockPresence)
-            {
-                Monitor.Pulse(_lockPresence);
-            }
-
-            _rosterFinished = true;
         }
 
         private void OnRosterItem(RosterItem item)

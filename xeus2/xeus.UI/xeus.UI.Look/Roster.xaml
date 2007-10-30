@@ -243,24 +243,66 @@
             </Border>
         </StackPanel>
     </DataTemplate>
-
+    
     <DataTemplate x:Key="StatusImage">
-        <Rectangle x:Name="_show"/>
+        <DataTemplate.Resources>
+            <Storyboard x:Key="PumpAnim">
+                <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="_show"
+                                               Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
+                    <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1.3"/>
+                    <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="1"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="_show"
+                                               Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                    <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
+                    <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1.3"/>
+                    <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="1"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+        </DataTemplate.Resources>
+        
+        <Rectangle x:Name="_show" RenderTransformOrigin="0.5,0.5" >
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                    <SkewTransform AngleX="0" AngleY="0"/>
+                    <RotateTransform Angle="0"/>
+                    <TranslateTransform X="0" Y="0"/>
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+        </Rectangle>
+
         <DataTemplate.Triggers>
             <DataTrigger Binding="{Binding}" Value="dnd">
                 <Setter Property="Fill" TargetName="_show" Value="{DynamicResource dnd_design}"/>
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard Storyboard="{StaticResource PumpAnim}"/>
+                </DataTrigger.EnterActions>
             </DataTrigger>
             <DataTrigger Binding="{Binding}" Value="away">
                 <Setter Property="Fill" TargetName="_show" Value="{DynamicResource away_design}"/>
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard Storyboard="{StaticResource PumpAnim}"/>
+                </DataTrigger.EnterActions>
             </DataTrigger>
             <DataTrigger Binding="{Binding}" Value="xa">
                 <Setter Property="Fill" TargetName="_show" Value="{DynamicResource xaway_design}"/>
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard Storyboard="{StaticResource PumpAnim}"/>
+                </DataTrigger.EnterActions>
             </DataTrigger>
             <DataTrigger Binding="{Binding}" Value="chat">
                 <Setter Property="Fill" TargetName="_show" Value="{DynamicResource chat_design}"/>
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard Storyboard="{StaticResource PumpAnim}"/>
+                </DataTrigger.EnterActions>
             </DataTrigger>
             <DataTrigger Binding="{Binding}" Value="NONE">
                 <Setter Property="Fill" TargetName="_show" Value="{DynamicResource online_design}"/>
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard Storyboard="{StaticResource PumpAnim}"/>
+                </DataTrigger.EnterActions>
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
