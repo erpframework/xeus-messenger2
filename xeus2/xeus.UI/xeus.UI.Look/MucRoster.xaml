@@ -443,8 +443,8 @@
                         <GeometryDrawing.Brush>
                             <RadialGradientBrush RadiusX="0.5" RadiusY="0.5" Center="0.5,0.5" GradientOrigin="0.5,0.5">
                                 <RadialGradientBrush.GradientStops>
-                                    <GradientStop Color="#FF7DC1D7" Offset="0"/>
-                                    <GradientStop Color="#FF317AB2" Offset="0.991525"/>
+                                    <GradientStop Color="#FFD78B7D" Offset="0"/>
+                                    <GradientStop Color="#FFB23131" Offset="0.991525"/>
                                 </RadialGradientBrush.GradientStops>
                                 <RadialGradientBrush.RelativeTransform>
                                     <TransformGroup/>
