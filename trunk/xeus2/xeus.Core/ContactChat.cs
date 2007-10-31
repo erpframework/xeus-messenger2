@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Input;
 using agsXMPP;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.extensions.chatstates;
@@ -161,13 +161,15 @@ namespace xeus2.xeus.Core
             {
                 if (sender != null)
                 {
+                    /*
                     if (sender == Account.Instance.Self)
                     {
                         paragraph.Inlines.Add(CreateRectangle(_ownAvatarBackground));
-                    }
+                    }*/
+
+                    InsertAvatar(paragraph, sender.Image);
 
                     Bold contactName = new Bold();
-                    contactName.Cursor = Cursors.Hand;
                     contactName.Foreground = _contactForeground;
                     contactName.Inlines.Add(sender.DisplayName);
 

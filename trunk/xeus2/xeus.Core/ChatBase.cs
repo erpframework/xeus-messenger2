@@ -5,6 +5,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -177,15 +178,19 @@ namespace xeus2.xeus.Core
             }
         }
 
-        protected abstract Block GenerateMessage(T message, T previousMessage);
+        protected static void InsertAvatar(Paragraph paragraph, BitmapImage bitmapImage)
+        {
+            Image image = new Image();
+            image.Source = bitmapImage;
+            image.Width = 24;
+            image.Height = 24;
+            paragraph.Inlines.Add(image);
+        }
 
-        // private delegate void GenerateChatDocumentCallback(IList messages);
+        protected abstract Block GenerateMessage(T message, T previousMessage);
 
         protected void GenerateChatDocument(IList messages)
         {
-            /*
-            App.InvokeSafe(App._dispatcherPriority, new GenerateChatDocumentCallback(GenerateChatDocumentInternal), messages);
-             */
             GenerateChatDocumentInternal(messages);
         }
 
@@ -386,7 +391,6 @@ namespace xeus2.xeus.Core
 
                     if (!startsWithText && bodies.Length > j)
                     {
-                        //paragraph.Inlines.Add(bodies[j]);
                         InsertEmos(paragraph, bodies[j]);
                     }
 
@@ -394,7 +398,6 @@ namespace xeus2.xeus.Core
             }
             else
             {
-                //paragraph.Inlines.Add(body);
                 InsertEmos(paragraph, body);
             }
         }
