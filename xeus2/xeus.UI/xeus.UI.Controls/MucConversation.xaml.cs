@@ -32,7 +32,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         private List<KeyValuePair<string, MucMessage>> _texts = null;
         private string _textToSearch = String.Empty;
 
-        readonly DispatcherTimer _timer = new DispatcherTimer();
+        DispatcherTimer _timer = new DispatcherTimer();
 
         public MucConversation()
         {
@@ -55,14 +55,14 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
             Account.Instance.Self.PropertyChanged += Self_PropertyChanged;
 
-            _timer.Interval = new TimeSpan(0,0,0,3);
+            _timer.Interval = new TimeSpan(0,0,0,0,750);
             _timer.Tick += _timer_Tick;
-            _timer.Start();
         }
 
         void _timer_Tick(object sender, EventArgs e)
         {
             _timer.Stop();
+            _timer = null;
 
             _wait.Visibility = Visibility.Collapsed;
             _flowViewer.Visibility = Visibility.Visible;
@@ -431,6 +431,12 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             if (force || _scrollViewer.VerticalOffset >= _scrollViewer.ScrollableHeight - 15.0)
             {
                 _scrollViewer.ScrollToBottom();
+            }
+
+            if (_timer != null)
+            {
+                _timer.Stop();
+                _timer.Start();
             }
         }
 

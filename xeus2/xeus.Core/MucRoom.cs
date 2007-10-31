@@ -250,7 +250,15 @@ namespace xeus2.xeus.Core
                 {
                     if (message.Sender == Nick)
                     {
-                        paragraph.Inlines.Add(CreateRectangle(_ownAvatarBackground));
+                        // paragraph.Inlines.Add(CreateRectangle(_ownAvatarBackground));
+                        InsertAvatar(paragraph, Account.Instance.Self.Image);
+                    }
+                    else
+                    {
+                        if (message.Sender != null)
+                        {
+                            //_mucRoster.Find();
+                        }
                     }
 
                     Bold contactName = new Bold();
@@ -344,7 +352,6 @@ namespace xeus2.xeus.Core
             if (newSection)
             {
                 groupSection = new Section();
-
 
                 groupSection.Blocks.Add(paragraph);
                 groupSection.Margin = new Thickness(3.0, 10.0, 3.0, 0.0);
