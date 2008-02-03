@@ -371,7 +371,7 @@ namespace xeus2.xeus.Core
 
         private void AskForDisco(Contact contact)
         {
-            Account.Instance.DiscoMan.DisoverInformation(contact.FullJid,
+            Account.Instance.DiscoMan.DiscoverInformation(contact.FullJid,
                                                          new IqCB(OnDiscoInfoResult), contact);
         }
 
@@ -399,7 +399,7 @@ namespace xeus2.xeus.Core
                 }
                 else
                 {
-                    Account.Instance.DiscoMan.DisoverInformation(contact.FullJid,
+                    Account.Instance.DiscoMan.DiscoverInformation(contact.FullJid,
                                                                  string.Format("{0}#{1}",
                                                                                contact.Caps.Node, contact.Caps.Version),
                                                                  OnDiscoInfoCapsResult, contact);

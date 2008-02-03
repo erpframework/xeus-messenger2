@@ -383,7 +383,7 @@ namespace xeus2.xeus.Core
                             DiscoItem discoItem = (DiscoItem) _pendingCommand[0];
                             _pendingCommand.RemoveAt(0);
 
-                            _discoManager.DisoverItems(discoItem.Jid,
+                            _discoManager.DiscoverItems(discoItem.Jid,
                                                        Uri.COMMANDS,
                                                        OnCommandsServerResult,
                                                        new DiscoverySessionData(discoItem));
@@ -397,12 +397,12 @@ namespace xeus2.xeus.Core
 
                             if (string.IsNullOrEmpty(discoItem.Node))
                             {
-                                _discoManager.DisoverInformation(discoItem.Jid, new IqCB(OnDiscoInfoResult),
+                                _discoManager.DiscoverInformation(discoItem.Jid, new IqCB(OnDiscoInfoResult),
                                                                  new DiscoverySessionData(discoItem));
                             }
                             else
                             {
-                                _discoManager.DisoverInformation(discoItem.Jid, discoItem.Node,
+                                _discoManager.DiscoverInformation(discoItem.Jid, discoItem.Node,
                                                                  OnDiscoInfoResult,
                                                                  new DiscoverySessionData(discoItem));
                             }
@@ -414,12 +414,12 @@ namespace xeus2.xeus.Core
 
                             if (discoItem.Node != null)
                             {
-                                _discoManager.DisoverItems(jid, discoItem.Node, OnDiscoServerResult,
+                                _discoManager.DiscoverItems(jid, discoItem.Node, OnDiscoServerResult,
                                                            new DiscoverySessionData(discoItem));
                             }
                             else
                             {
-                                _discoManager.DisoverItems(jid, new IqCB(OnDiscoServerResult),
+                                _discoManager.DiscoverItems(jid, new IqCB(OnDiscoServerResult),
                                                            new DiscoverySessionData(discoItem));
                             }
                         }
@@ -591,7 +591,7 @@ namespace xeus2.xeus.Core
 
         private void Discovery(Jid jid)
         {
-            _discoManager.DisoverItems(jid, new IqCB(OnDiscoServerResult), new DiscoverySessionData(null));
+            _discoManager.DiscoverItems(jid, new IqCB(OnDiscoServerResult), new DiscoverySessionData(null));
         }
 
         public void AddDiscoInfo(DiscoItem discoItem)
@@ -976,7 +976,7 @@ namespace xeus2.xeus.Core
 
         public void JoinMuc(Jid jid)
         {
-            _discoManager.DisoverInformation(jid, new IqCB(OnRoomeDiscovered));
+            _discoManager.DiscoverInformation(jid, new IqCB(OnRoomeDiscovered));
         }
 
         private void OnRoomeDiscovered(object sender, IQ iq, object data)
@@ -1077,7 +1077,7 @@ namespace xeus2.xeus.Core
             {
                 mucMark.Nick = nick;
             }
-            _discoManager.DisoverInformation(mucMark.Jid, new IqCB(OnDiscoInfoResultMucRoom), mucMark);
+            _discoManager.DiscoverInformation(mucMark.Jid, new IqCB(OnDiscoInfoResultMucRoom), mucMark);
         }
 
         private void OnDiscoInfoResultMucRoom(object sender, IQ iq, object data)

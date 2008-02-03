@@ -312,7 +312,7 @@ namespace xeus2.xeus.Core
 
         private void DiscoverySingleInfo(Jid jid)
         {
-           Account.Instance.DiscoMan.DisoverInformation(jid, OnDiscoServerSingleResult, null);
+           Account.Instance.DiscoMan.DiscoverInformation(jid, OnDiscoServerSingleResult, null);
         }
 
         private void OnDiscoServerSingleResult(object sender, IQ iq, object data)
