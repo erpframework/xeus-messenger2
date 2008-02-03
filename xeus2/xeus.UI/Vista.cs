@@ -31,6 +31,24 @@ namespace xeus2.xeus.UI
             }
         }
 
+        static Graphics _desktop = null;
+        static bool _prepared = false;
+        static HwndSource _mainWindowSrc = null;
+
+        static void PrepareVistaFrame(Window window)
+        {
+            // Obtain the window handle for WPF application
+            IntPtr mainWindowPtr = new WindowInteropHelper(window).Handle;
+            _mainWindowSrc = HwndSource.FromHwnd(mainWindowPtr);
+
+            window.Background = Brushes.Transparent;
+
+            _mainWindowSrc.CompositionTarget.BackgroundColor = Colors.Transparent;
+
+            // Get System Dpi
+            _desktop = Graphics.FromHwnd(mainWindowPtr);
+        }
+
         public static void MakeVistaFrame(Window window, int top, int bottom)
         {
             try
@@ -41,17 +59,14 @@ namespace xeus2.xeus.UI
                     return;
                 }
 
-                // Obtain the window handle for WPF application
-                IntPtr mainWindowPtr = new WindowInteropHelper(window).Handle;
-                HwndSource mainWindowSrc = HwndSource.FromHwnd(mainWindowPtr);
+                if (!_prepared)
+                {
+                    _prepared = true;
+                    PrepareVistaFrame(window);
+                }
 
-                window.Background = Brushes.Transparent;
 
-                mainWindowSrc.CompositionTarget.BackgroundColor = Colors.Transparent;
-
-                // Get System Dpi
-                Graphics desktop = Graphics.FromHwnd(mainWindowPtr);
-                float DesktopDpiX = desktop.DpiX;
+                float DesktopDpiX = _desktop.DpiX;
                 //float DesktopDpiY = desktop.DpiY;
 
                 // Set Margins
@@ -65,12 +80,12 @@ namespace xeus2.xeus.UI
                 margins.cyTopHeight = Convert.ToInt32((top + 5) * (DesktopDpiX / 96));
                 margins.cyBottomHeight = Convert.ToInt32((bottom + 5) * (DesktopDpiX / 96));
 
-                int hr = DwmExtendFrameIntoClientArea(mainWindowSrc.Handle, ref margins);
+                int hr = DwmExtendFrameIntoClientArea(_mainWindowSrc.Handle, ref margins);
                 //
-                if (hr < 0)
+                /*if (hr < 0)
                 {
                     //DwmExtendFrameIntoClientArea Failed
-                }
+                }*/
             }
                 // If not Vista, paint background white.
             catch (DllNotFoundException)

@@ -39,7 +39,14 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
             Loaded += Conversation_Loaded;
 
+            SizeChanged += new SizeChangedEventHandler(Conversation_SizeChanged);
+
             _text.Loaded += _text_Loaded;
+        }
+
+        void Conversation_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            ScrollToBottom(false);
         }
 
         void Conversation_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -107,6 +114,16 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 if (JidUtil.BareEquals(messageEvent.Contact.Jid, _contactChat.Contact.Jid))
                 {
                     negotiateNotification.Raise = false;
+
+                    if (Window.GetWindow(this) is BaseWindow)
+                    {
+                        BaseWindow window = (BaseWindow)Window.GetWindow(this);
+
+                        if (!window.IsActive)
+                        {
+                            window.FlashUntilActivated();
+                        }
+                    }
                 }
             }
         }

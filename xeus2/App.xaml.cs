@@ -16,10 +16,13 @@ namespace xeus2
     /// </summary>
     public partial class App : Application
     {
-        public const DispatcherPriority _dispatcherPriority = DispatcherPriority.Background;
+        public const DispatcherPriority _dispatcherPriority = DispatcherPriority.Render;
+       
 
         public App()
         {
+            DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(App_DispatcherUnhandledException);
+
             xeus2.Properties.Resources.Culture = new CultureInfo("en-US");
 
             //Console.WriteLine("RCL: {0}", (RenderCapability.Tier >> 16));
@@ -27,6 +30,12 @@ namespace xeus2
             NotificationPopup.Instance.Initialize(new InfoPopup());
 
             Database.OpenDatabase();
+
+        }
+
+        void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            throw e.Exception;
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -87,6 +96,6 @@ namespace xeus2
             }
 
             Current.Dispatcher.Invoke(priority, method, args);
-        }
+        }      
     }
 }

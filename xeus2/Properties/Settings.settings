@@ -149,5 +149,17 @@
     <Setting Name="UI_Panel_Dampening" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0.65</Value>
     </Setting>
+    <Setting Name="XmppHttpPolling" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="XmppAutoReconnect" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="XmppReconnectSeconds" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">30</Value>
+    </Setting>
+    <Setting Name="UI_DefChatWindowWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">250</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

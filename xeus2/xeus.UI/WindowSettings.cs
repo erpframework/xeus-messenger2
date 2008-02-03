@@ -115,6 +115,11 @@ namespace xeus2.xeus.UI
         {
             Settings.Reload();
             window.WindowState = Settings.WindowState;
+
+            SizeToContent sizeMode = window.SizeToContent;
+
+            sizeMode = SizeToContent.Manual;
+
             if (Settings.Location != Rect.Empty)
             {
                 window.Left = Settings.Location.Left;
@@ -122,6 +127,8 @@ namespace xeus2.xeus.UI
                 window.Width = Settings.Location.Width;
                 window.Height = Settings.Location.Height;
             }
+
+            window.SizeToContent = sizeMode;
         }
 
         /// <summary>

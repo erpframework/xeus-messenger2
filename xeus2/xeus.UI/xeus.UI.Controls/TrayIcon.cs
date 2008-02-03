@@ -102,34 +102,39 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         #endregion
 
+        object _syncIcons = new object();
+
         private void _reloadTime_Elapsed(object sender, ElapsedEventArgs e)
         {
-            switch (_state)
+            lock (_syncIcons)
             {
-                case TrayState.Normal:
-                    {
-                        _notifyIcon.Icon = _normal.Dequeue();
-                        _normal.Enqueue(_notifyIcon.Icon);
-                        break;
-                    }
-                case TrayState.NewMessage:
-                    {
-                        _notifyIcon.Icon = _message.Dequeue();
-                        _message.Enqueue(_notifyIcon.Icon);
-                        break;
-                    }
-                case TrayState.NewFile:
-                    {
-                        _notifyIcon.Icon = _file.Dequeue();
-                        _file.Enqueue(_notifyIcon.Icon);
-                        break;
-                    }
-                case TrayState.Pending:
-                    {
-                        _notifyIcon.Icon = _pending.Dequeue();
-                        _pending.Enqueue(_notifyIcon.Icon);
-                        break;
-                    }
+                switch (_state)
+                {
+                    case TrayState.Normal:
+                        {
+                            _notifyIcon.Icon = _normal.Dequeue();
+                            _normal.Enqueue(_notifyIcon.Icon);
+                            break;
+                        }
+                    case TrayState.NewMessage:
+                        {
+                            _notifyIcon.Icon = _message.Dequeue();
+                            _message.Enqueue(_notifyIcon.Icon);
+                            break;
+                        }
+                    case TrayState.NewFile:
+                        {
+                            _notifyIcon.Icon = _file.Dequeue();
+                            _file.Enqueue(_notifyIcon.Icon);
+                            break;
+                        }
+                    case TrayState.Pending:
+                        {
+                            _notifyIcon.Icon = _pending.Dequeue();
+                            _pending.Enqueue(_notifyIcon.Icon);
+                            break;
+                        }
+                }
             }
         }
     }

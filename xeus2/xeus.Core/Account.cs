@@ -62,6 +62,7 @@ namespace xeus2.xeus.Core
         private static readonly Account _instance = new Account();
         private readonly object _discoLock = new object();
         private readonly Timer _discoTime = new Timer(250);
+        private readonly Timer _reconnectTime = new Timer(Settings.Default.XmppReconnectSeconds * 1000);
         private readonly ArrayList _pendingCommand = ArrayList.Synchronized(new ArrayList());
         private readonly ArrayList _pendingDiscoInfo = ArrayList.Synchronized(new ArrayList());
         private readonly SelfContact _selfContact = new SelfContact();
@@ -213,17 +214,6 @@ namespace xeus2.xeus.Core
         {
             _discoManager = new DiscoManager(XmppConnection);
 
-            XmppConnection.UseCompression = true;
-            XmppConnection.AutoResolveConnectServer = true;
-
-            XmppConnection.ConnectServer = null;
-
-            XmppConnection.Resource = Settings.Default.XmppResource;
-            XmppConnection.Priority = Settings.Default.XmppPriority;
-
-            XmppConnection.SocketConnectionType = SocketConnectionType.Direct;
-            XmppConnection.UseStartTLS = true;
-
             XmppConnection.AutoRoster = true;
             XmppConnection.AutoAgents = true;
 
@@ -251,6 +241,21 @@ namespace xeus2.xeus.Core
 
             _discoTime.Elapsed += _discoTime_Elapsed;
             _discoTime.AutoReset = false;
+
+            _reconnectTime.Elapsed += new ElapsedEventHandler(_reconnectTime_Elapsed);
+            _reconnectTime.AutoReset = false;
+        }
+
+        void _reconnectTime_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            Reconnect();
+        }
+
+        void Reconnect()
+        {
+            _reconnectTime.Stop();            
+
+            OpenInternal(false);
         }
 
         private void OpenInternal(bool newAccount)
@@ -259,18 +264,32 @@ namespace xeus2.xeus.Core
             XmppConnection.Username = Settings.Default.XmppUserName;
             XmppConnection.Password = Settings.Default.XmppPassword;
             XmppConnection.Server = Settings.Default.XmppServer;
+            XmppConnection.AutoResolveConnectServer = Settings.Default.XmppAutoResolve;
+
+            XmppConnection.Resource = Settings.Default.XmppResource;
+            XmppConnection.Priority = Settings.Default.XmppPriority;
+            XmppConnection.UseStartTLS = Settings.Default.XmppTLS;
+
+            XmppConnection.ConnectServer = Settings.Default.XmppConnectServer;
 
             if (Settings.Default.XmppServerPort > 0)
             {
-                XmppConnection.Port = (int) Settings.Default.XmppServerPort;
+                XmppConnection.Port = (int)Settings.Default.XmppServerPort;
             }
 
-            /*XmppConnection.Capabilities = Self.Caps;
-            XmppConnection.EnableCapabilities = true;*/
+            if (Settings.Default.XmppHttpPolling)
+            {
+                XmppConnection.SocketConnectionType = SocketConnectionType.HttpPolling;
+            }
+            else
+            {
+                XmppConnection.SocketConnectionType = SocketConnectionType.Direct;
+            }
 
             Settings.Default.Save();
 
-            XmppConnection.Open();
+            XmppConnection.Open(Settings.Default.XmppUserName,
+                Settings.Default.XmppPassword, Settings.Default.XmppResource);
 
             _selfContact.LoadMyAvatar();
         }
@@ -290,6 +309,12 @@ namespace xeus2.xeus.Core
         {
             EventErrorConnection eventError = new EventErrorConnection("Connection error", ex);
             Events.Instance.OnEvent(this, eventError);
+
+            if (Settings.Default.XmppAutoReconnect)
+            {
+                Close();
+                _reconnectTime.Start();
+            }
         }
 
         private void XmppConnection_OnRegisterError(object sender, Element e)
@@ -864,7 +889,7 @@ namespace xeus2.xeus.Core
             commandIq.To = service.Jid;
 
             Command command = new Command(service.Node);
-            command.Action = Action.execute;
+            command.Action = agsXMPP.protocol.extensions.commands.Action.execute;
 
             commandIq.AddChild(command);
 
@@ -910,9 +935,9 @@ namespace xeus2.xeus.Core
             {
                 XmppConnection.Close();
             }
-        }
+        }        
 
-        protected void ExecuteServiceCommand(ServiceCommandExecution command, Action action)
+        protected void ExecuteServiceCommand(ServiceCommandExecution command, agsXMPP.protocol.extensions.commands.Action action)
         {
             IQ commandIq = new IQ(IqType.set);
 
@@ -931,22 +956,22 @@ namespace xeus2.xeus.Core
 
         public void ServiceCommandComplete(ServiceCommandExecution command)
         {
-            ExecuteServiceCommand(command, Action.complete);
+            ExecuteServiceCommand(command, agsXMPP.protocol.extensions.commands.Action.complete);
         }
 
         public void ServiceCommandNext(ServiceCommandExecution command)
         {
-            ExecuteServiceCommand(command, Action.next);
+            ExecuteServiceCommand(command, agsXMPP.protocol.extensions.commands.Action.next);
         }
 
         public void ServiceCommandPrevious(ServiceCommandExecution command)
         {
-            ExecuteServiceCommand(command, Action.prev);
+            ExecuteServiceCommand(command, agsXMPP.protocol.extensions.commands.Action.prev);
         }
 
         public void ServiceCommandCancel(ServiceCommandExecution command)
         {
-            ExecuteServiceCommand(command, Action.cancel);
+            ExecuteServiceCommand(command, agsXMPP.protocol.extensions.commands.Action.cancel);
         }
 
         public void JoinMuc(Jid jid)

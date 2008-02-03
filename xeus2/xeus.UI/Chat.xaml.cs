@@ -1,6 +1,7 @@
 ﻿using xeus2.xeus.Commands;
 using xeus2.xeus.Core;
 using xeus2.xeus.UI.xeus.UI.Controls;
+using xeus2.xeus.Middle;
 
 namespace xeus2.xeus.UI
 {
@@ -16,6 +17,24 @@ namespace xeus2.xeus.UI
             InitializeComponent();
 
             _multi.MultiWinContainerProvider = Middle.Chat.Instance;
+
+            Activated += new System.EventHandler(Chat_Activated);
+            Closed += new System.EventHandler(Chat_Closed);
+        }
+
+        void Chat_Closed(object sender, System.EventArgs e)
+        {
+            Activated -= new System.EventHandler(Chat_Activated);
+            Closed -= new System.EventHandler(Chat_Closed);
+        }
+
+        void Chat_Activated(object sender, System.EventArgs e)
+        {
+            foreach (MultiTabItem window in _multi.MultiWindows)
+            {
+                Notification.DismissChatMessageNotification(((ContactChat)window.Container.ContentElement.DataContext).Contact);
+            }
+
         }
 
         public MultiTabControl TabControl

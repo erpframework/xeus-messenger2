@@ -217,9 +217,7 @@ namespace xeus2.xeus.Core
             {
                 _lastProgressUpdate = DateTime.Now;
 
-#pragma warning disable RedundantCast
                 double percent = (double) _bytesTransmitted / (double) _fileLength * 100;
-#pragma warning restore RedundantCast
 
                 ProgressPercent = (int) percent;
                 Rate = GetHRByteRateString();

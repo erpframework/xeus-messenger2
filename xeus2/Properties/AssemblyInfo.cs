@@ -57,9 +57,10 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
 [assembly: AssemblyVersion( "2.0.0" )]
-//[assembly: AssemblyFileVersionAttribute( "2.0.0" )]
-//[assembly: NeutralResourcesLanguage("en-US")]
-//[assembly: SatelliteContractVersion("2.0.0.0")]
+[assembly: AssemblyFileVersionAttribute("2")]
+[assembly: NeutralResourcesLanguage("")]
+[assembly: SatelliteContractVersion("2.0.0.0")]
 
-[assembly: NeutralResourcesLanguageAttribute( "en-US", UltimateResourceFallbackLocation.Satellite)]
+//[assembly: NeutralResourcesLanguageAttribute("")]
 //[assembly: AssemblyFileVersionAttribute("2.0.0")]
+//[assembly: AssemblyFileVersionAttribute("2.0")]
