@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Windows;
 using xeus2.xeus.Commands;
+using System.Timers;
+using System.Windows.Interop;
+using System.Runtime.InteropServices;
 
 namespace xeus2.xeus.UI
 {
     public class BaseWindow : Window
     {
+        [DllImport("user32.dll", PreserveSig = false)]
+        private static extern int FlashWindow(IntPtr hwnd, bool invert);
+
         private readonly string _key;
 
         private bool _hideOnMimnimize = false;
@@ -15,6 +21,8 @@ namespace xeus2.xeus.UI
             throw new NotImplementedException();
         }
 
+        IntPtr _windowPtr;
+
         public BaseWindow(string key)
         {
             _key = key;
@@ -22,10 +30,22 @@ namespace xeus2.xeus.UI
             WindowManager.Approve(_key);
 
             Initialized += BaseWindow_Initialized;
+
+            Loaded += new RoutedEventHandler(BaseWindow_Loaded);
+        }
+
+        void BaseWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            _windowPtr = new WindowInteropHelper(this).Handle;
         }
 
         public BaseWindow(string keyBase, string key) : this(WindowManager.MakeKey(keyBase, key))
         {
+        }
+
+        public void FlashUntilActivated()
+        {
+            FlashWindow(_windowPtr, true);
         }
 
         public string Key
@@ -120,6 +140,13 @@ namespace xeus2.xeus.UI
                     Hide();
                 }
             }
+        }
+
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+
+            FlashWindow(_windowPtr, false);
         }
     }
 }

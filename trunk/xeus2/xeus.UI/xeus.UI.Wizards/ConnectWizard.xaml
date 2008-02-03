@@ -7,24 +7,24 @@
     x:Class="xeus2.xeus.UI.xeus.UI.Wizards.ConnectWizard"
     Width="250" Margin="10"
     >
-	<UserControl.Resources>
-		<BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
-	</UserControl.Resources>
-	<StackPanel>
-		<Grid Margin="0,0,0,5">
-			<Rectangle Width="32" Height="32" Fill="{DynamicResource jabber_design}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-			<TextBlock Text="Connection" Margin="40,0,0,0" Foreground="#FFE2E2E2" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
-		</Grid>
-		<CheckBox x:Name="_newAccount" Style="{DynamicResource CheckBoxWizard}" Content="I want to create the new account"
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+    </UserControl.Resources>
+    <StackPanel>
+        <Grid Margin="0,0,0,5">
+            <Rectangle Width="32" Height="32" Fill="{DynamicResource jabber_design}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock Text="Connection" Margin="40,0,0,0" Foreground="#FFE2E2E2" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+        </Grid>
+        <CheckBox x:Name="_newAccount" Style="{DynamicResource CheckBoxWizard}" Content="I want to create the new account"
                   Checked="_newAccount_Checked" Unchecked="_newAccount_Unchecked"/>
-		<Controls:DottedHorizontal Margin="0,10,0,0"/>
-		<TextBlock Text="User name" Style="{DynamicResource LabelWizard}"/>
-		<TextBox Style="{DynamicResource TextBoxWizard}" Text="{Binding Path=XmppUserName, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"/>
-		<TextBlock Text="Server / Port" Style="{DynamicResource LabelWizard}"/>
-		<Grid>
-			<TextBox Style="{DynamicResource TextBoxWizard}" Text="{Binding Path=XmppServer, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}" Margin="5,5,60,0"/>
-			<TextBox Style="{DynamicResource TextBoxWizard}" Text="{Binding Path=XmppServerPort, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}" Width="50" HorizontalAlignment="Right"/>
-		</Grid>
+        <Controls:DottedHorizontal Margin="0,10,0,0"/>
+        <TextBlock Text="User name" Style="{DynamicResource LabelWizard}"/>
+        <TextBox Style="{DynamicResource TextBoxWizard}" Text="{Binding Path=XmppUserName, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"/>
+        <TextBlock Text="Server / Port" Style="{DynamicResource LabelWizard}"/>
+        <Grid>
+            <TextBox Style="{DynamicResource TextBoxWizard}" Text="{Binding Path=XmppServer, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}" Margin="5,5,60,0"/>
+            <TextBox Style="{DynamicResource TextBoxWizard}" Text="{Binding Path=XmppServerPort, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}" Width="50" HorizontalAlignment="Right"/>
+        </Grid>
         <TextBlock Text="Password" Style="{DynamicResource LabelWizard}"/>
         <PasswordBox x:Name="_password" Style="{DynamicResource PasswordWizard}"/>
         <StackPanel x:Name="_confirm" Visibility="{Binding ElementName=_newAccount, Path=IsChecked, 
@@ -33,27 +33,29 @@
             <PasswordBox x:Name="_confirmedPassword" Style="{DynamicResource PasswordWizard}"/>
         </StackPanel>
         <Controls:DottedHorizontal Margin="0,10,0,0"/>
-		<Expander Header="Advanced"
+        <Expander Header="Advanced"
 			Margin="0,5,0,0" Foreground="{DynamicResource DefaultTextBrush2}">
-			<StackPanel>
-				<TextBlock Text="Connect server" Style="{DynamicResource LabelWizard}"/>
-				<TextBox Style="{DynamicResource TextBoxWizard}" Text="{Binding Path=XmppConnectServer, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"/>
-				<CheckBox Style="{DynamicResource CheckBoxWizard}" IsChecked="{Binding Path=XmppAutoResolve, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"
+            <StackPanel>
+                <TextBlock Text="Connect server" Style="{DynamicResource LabelWizard}"/>
+                <TextBox Style="{DynamicResource TextBoxWizard}" Text="{Binding Path=XmppConnectServer, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"/>
+                <CheckBox Style="{DynamicResource CheckBoxWizard}" IsChecked="{Binding Path=XmppHttpPolling, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"
+					Content="Use HTTP Polling"/>
+                <CheckBox Style="{DynamicResource CheckBoxWizard}" IsChecked="{Binding Path=XmppAutoResolve, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"
 					Content="Auto-resolve connect server"/>
-				<TextBlock Text="Resource" Style="{DynamicResource LabelWizard}"/>
-				<TextBox Style="{DynamicResource TextBoxWizard}" Text="{Binding Path=XmppResource, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"/>
-				<TextBlock Text="Priority" Style="{DynamicResource LabelWizard}"/>
-				<Slider  Margin="5,5,5,0"
+                <TextBlock Text="Resource" Style="{DynamicResource LabelWizard}"/>
+                <TextBox Style="{DynamicResource TextBoxWizard}" Text="{Binding Path=XmppResource, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"/>
+                <TextBlock Text="Priority" Style="{DynamicResource LabelWizard}"/>
+                <Slider  Margin="5,5,5,0"
 					Minimum="-20" Value="{Binding Path=XmppPriority, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}" SmallChange="1" Maximum="20" IsSnapToTickEnabled="True"/>
-				<CheckBox Style="{DynamicResource CheckBoxWizard}" IsChecked="{Binding Path=XmppTLS, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"
+                <CheckBox Style="{DynamicResource CheckBoxWizard}" IsChecked="{Binding Path=XmppTLS, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"
 					Content="Use TLS (recommended)" />
-				<CheckBox Style="{DynamicResource CheckBoxWizard}" IsChecked="{Binding Path=XmppSSL, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"
+                <CheckBox Style="{DynamicResource CheckBoxWizard}" IsChecked="{Binding Path=XmppSSL, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"
 					Content="Use SSL"/>
-				<CheckBox Style="{DynamicResource CheckBoxWizard}" IsChecked="{Binding Path=XmppCompression, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"
+                <CheckBox Style="{DynamicResource CheckBoxWizard}" IsChecked="{Binding Path=XmppCompression, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"
 					Content="Use Compression"/>
-			</StackPanel>
-		</Expander>
-		<Button Content="Connect" Margin="10" HorizontalAlignment="Center"
+            </StackPanel>
+        </Expander>
+        <Button Content="Connect" Margin="10" HorizontalAlignment="Center"
                 Click="Button_Click" x:Name="_ok"/>
-	</StackPanel>
+    </StackPanel>
 </UserControl>

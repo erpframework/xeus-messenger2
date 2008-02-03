@@ -3,6 +3,7 @@ using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
 using xeus2.xeus.Core;
+using xeus2.Properties;
 
 namespace xeus2.xeus.UI.xeus.UI.Controls
 {
@@ -99,7 +100,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                                 }
                                 else
                                 {
-                                    _multiWinContainerProvider.ShrinkMainWindow(multiWin.Container.ContentMinWidth);
+                                    _multiWinContainerProvider.ShrinkMainWindow(Settings.Default.UI_DefChatWindowWidth);
                                 }
                             }
 

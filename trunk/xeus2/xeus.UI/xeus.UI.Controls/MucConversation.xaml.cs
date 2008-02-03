@@ -51,12 +51,19 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
             Loaded += MucConversation_Loaded;
 
+            SizeChanged += new SizeChangedEventHandler(MucConversation_SizeChanged);
+
             _text.Loaded += _text_Loaded;
 
             Account.Instance.Self.PropertyChanged += Self_PropertyChanged;
 
             _timer.Interval = new TimeSpan(0,0,0,0,750);
             _timer.Tick += _timer_Tick;
+        }
+
+        void MucConversation_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            ScrollToBottom(false);
         }
 
         void _timer_Tick(object sender, EventArgs e)
@@ -409,11 +416,6 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         private void MucMessages_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (_scrollViewer == null)
-            {
-                _scrollViewer = (ScrollViewer) _flowViewer.Template.FindName("PART_ContentHost", _flowViewer);
-            }
-
             bool force = false;
 
             if (e.NewItems != null && _mucRoom.Me != null)
@@ -426,6 +428,16 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                         break;
                     }
                 }
+            }
+
+            ScrollToBottom(force);
+        }
+
+        void ScrollToBottom(bool force)
+        {
+            if (_scrollViewer == null)
+            {
+                _scrollViewer = (ScrollViewer)_flowViewer.Template.FindName("PART_ContentHost", _flowViewer);
             }
 
             if (force || _scrollViewer.VerticalOffset >= _scrollViewer.ScrollableHeight - 15.0)
