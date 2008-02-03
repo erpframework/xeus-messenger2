@@ -12,6 +12,7 @@ using agsXMPP.protocol.x.muc;
 using xeus2.Properties;
 using xeus2.xeus.Commands;
 using xeus2.xeus.Core;
+using xeus2.xeus.Utilities;
 
 namespace xeus2.xeus.UI.xeus.UI.Controls
 {
@@ -426,6 +427,19 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                     {
                         force = true;
                         break;
+                    }
+                    else if (!string.IsNullOrEmpty(message.Body)
+                        && TextUtil.ContainsNick(_mucRoom.Me.Nick, message.Body))
+                    {
+                        if (Window.GetWindow(this) is BaseWindow)
+                        {
+                            BaseWindow window = (BaseWindow)Window.GetWindow(this);
+
+                            if (!window.IsActive)
+                            {
+                                window.FlashUntilActivated();
+                            }
+                        }
                     }
                 }
             }
