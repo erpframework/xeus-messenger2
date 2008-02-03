@@ -81,7 +81,7 @@ namespace xeus2.xeus.Core
 
         protected void DiscoverInfo(Jid jid, Service service)
         {
-            Account.Instance.DiscoMan.DisoverInformation(jid, new IqCB(OnDiscoInfoResultMucRoom), service);
+            Account.Instance.DiscoMan.DiscoverInformation(jid, new IqCB(OnDiscoInfoResultMucRoom), service);
         }
 
         private void OnDiscoInfoResultMucRoom(object sender, IQ iq, object data)
