@@ -324,8 +324,6 @@
                 <Grid.ToolTip>
                     <ToolTip ContentTemplate="{DynamicResource ToolTipContactCard}" Content="{Binding}"/>
                 </Grid.ToolTip>
-
-                <a:SystemDropShadowChrome Color="#4000" Margin="-8,-8,1,1"/>
                     <Border CornerRadius="2" x:Name="_parent"
                                 Background="{StaticResource contact_back_design}">
                     <Grid SnapsToDevicePixels="True">
