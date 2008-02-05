@@ -207,7 +207,7 @@ namespace xeus2.xeus.Core
                     _chatDocument.FontSize = 11.0;
                     _chatDocument.TextAlignment = TextAlignment.Left;
                 }
-
+                
                 foreach (T message in messages)
                 {
                     int index = Messages.IndexOf(message);
@@ -490,6 +490,17 @@ namespace xeus2.xeus.Core
             }
 
             return textRanges;
+        }
+
+        public void CloseCleanup()
+        {
+            if (_timeTimer != null)
+            {
+                _timeTimer.Stop();
+                _timeTimer.Elapsed -= _timeTimer_Elapsed;
+
+                //_chatDocument.Blocks.Clear();
+            }
         }
     }
 }
