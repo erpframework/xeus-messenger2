@@ -116,7 +116,6 @@ namespace xeus2.xeus.Core
             {
                 groupSection = new Section();
 
-
                 groupSection.Blocks.Add(paragraph);
                 groupSection.Margin = new Thickness(3.0, 10.0, 3.0, 0.0);
                 groupSection.BorderThickness = new Thickness(0.0, 2.0, 0.0, 0.0);
@@ -134,6 +133,9 @@ namespace xeus2.xeus.Core
         public void Dispose()
         {
             _messages.CollectionChanged -= _messages_CollectionChanged;
+            _messages.Clear();
+
+            CloseCleanup();
         }
 
         #endregion

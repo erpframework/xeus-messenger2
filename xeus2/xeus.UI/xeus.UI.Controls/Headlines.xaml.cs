@@ -8,6 +8,7 @@ using System.Windows.Threading;
 using xeus2.xeus.Core;
 using xeus2.xeus.Middle;
 using xeus2.xeus.Utilities;
+using System.Windows.Data;
 
 namespace xeus2.xeus.UI.xeus.UI.Controls
 {
@@ -90,10 +91,6 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
                 if (_inlineSearch.Visibility == Visibility.Visible)
                 {
                     e.Handled = _inlineSearch.SendKey(e.Key);
-                }
-                else
-                {
-                    // Instance.RemoveCurrentTab();
                 }
             }
             else if (_inlineSearch != null)
@@ -285,6 +282,26 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
         private void Conversation_Unloaded(object sender, RoutedEventArgs e)
         {
             Notification.NegotiateAddNotification -= Notification_NegotiateAddNotification;
+
+            Loaded -= Headlines_Loaded;
+            _inlineSearch.Loaded -= _inlineSearch_Loaded;
+
+            PreviewKeyDown += Conversation_PreviewKeyDown;
+
+            _flowViewer.PreviewKeyDown -= _flowViewer_PreviewKeyDown;
+
+            _headlinesChat.Messages.CollectionChanged -= Messages_CollectionChanged;
+
+            _headlinesChat.CloseCleanup();
+            _headlinesChat = null;
+
+            _inlineMethod.Finished -= _inlineMethod_Finished;
+            _inlineSearch.TextChanged -= _inlineSearch_TextChanged;
+            _inlineSearch.Closed -= _inlineSearch_Closed;
+
+            Notification.NegotiateAddNotification -= Notification_NegotiateAddNotification;
+
+            Unloaded -= Conversation_Unloaded;
         }
     }
 }

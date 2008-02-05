@@ -16,7 +16,7 @@ namespace xeus2
     /// </summary>
     public partial class App : Application
     {
-        public const DispatcherPriority _dispatcherPriority = DispatcherPriority.Render;
+        public const DispatcherPriority _dispatcherPriority = DispatcherPriority.ContextIdle;
        
 
         public App()
@@ -35,7 +35,7 @@ namespace xeus2
 
         void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            throw e.Exception;
+           throw e.Exception;
         }
 
         protected override void OnExit(ExitEventArgs e)

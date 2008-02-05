@@ -5,7 +5,7 @@
     <Border Background="{DynamicResource chat_back_design}" BorderBrush="{DynamicResource DefaultTextBrush2}">
         <Grid>
             <FlowDocumentScrollViewer x:Name="_flowViewer" Margin="2,2,2,2"
-	        Document="{Binding Path=ChatDocument}"
+                                      Document="{Binding Path=ChatDocument, Mode=OneWay}"
 	        DockPanel.Dock="Top" MaxZoom="300" MinZoom="50" ZoomIncrement="5" Style="{DynamicResource BasicFlowDocumentScrollViewerStyle}" />
             <Controls:SearchText x:Name="_inlineSearch" VerticalAlignment="Bottom" HorizontalAlignment="Center"
                                  Margin="10,0,10,5"/>
