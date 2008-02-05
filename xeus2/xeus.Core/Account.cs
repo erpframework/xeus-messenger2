@@ -256,6 +256,8 @@ namespace xeus2.xeus.Core
             _reconnectTime.Stop();            
 
             OpenInternal(false);
+
+            Notification.DismissNotificationType(typeof(EventErrorConnection));
         }
 
         private void OpenInternal(bool newAccount)
