@@ -17,7 +17,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
     /// </summary>
     public partial class Headlines : UserControl
     {
-        private delegate void SelectItemCallback(Message item);
+        private delegate void SelectItemCallback(HeadlineMessage item);
 
         private HeadlinesChat _headlinesChat = null;
 
@@ -104,7 +104,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
         private void _inlineMethod_Finished(object result)
         {
-            Message message = (Message)result;
+            HeadlineMessage message = (HeadlineMessage)result;
             SelectItem(message);
         }
 
@@ -203,7 +203,7 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             return found;
         }
 
-        private void SelectItem(Message item)
+        private void SelectItem(HeadlineMessage item)
         {
             if (App.CheckAccessSafe())
             {
@@ -259,6 +259,8 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
             }
 
             _previousTextRanges.Clear();
+            _headlinesChat.CloseCleanup();
+
         }
 
         void ScrollToBottom(bool force)
@@ -292,7 +294,6 @@ namespace xeus2.xeus.UI.xeus.UI.Controls
 
             _headlinesChat.Messages.CollectionChanged -= Messages_CollectionChanged;
 
-            _headlinesChat.CloseCleanup();
             _headlinesChat = null;
 
             _inlineMethod.Finished -= _inlineMethod_Finished;
