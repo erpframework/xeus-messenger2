@@ -423,6 +423,7 @@
     <Compile Include="xeus.Core\ChatStateNotificator.cs" />
     <Compile Include="xeus.Core\Contact.cs" />
     <Compile Include="xeus.Core\ContactChat.cs" />
+    <Compile Include="xeus.Core\DocumentPool.cs" />
     <Compile Include="xeus.Core\DummyContact.cs" />
     <Compile Include="xeus.Core\Event.cs" />
     <Compile Include="xeus.Core\EventChatMessage.cs" />
@@ -724,6 +725,7 @@
     <Compile Include="xeus.Utilities\Emoticons.cs" />
     <Compile Include="xeus.Utilities\IPropertyAccessor.cs" />
     <Compile Include="xeus.Utilities\JidUtil.cs" />
+    <Compile Include="xeus.Utilities\Pool.cs" />
     <Compile Include="xeus.Utilities\PresenceCompare.cs" />
     <Compile Include="xeus.Utilities\PropertyAccessor.cs" />
     <Compile Include="xeus.Utilities\PropertyAccessorException.cs" />
