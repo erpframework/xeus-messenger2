@@ -203,7 +203,7 @@ namespace xeus2.xeus.Core
             {
                 if (_chatDocument == null)
                 {
-                    _chatDocument = new FlowDocument();
+                    _chatDocument = DocumentPool.Instance.Get();
                     _chatDocument.FontFamily = new FontFamily("Segoe UI");
                     _chatDocument.FontSize = 11.0;
                     _chatDocument.TextAlignment = TextAlignment.Left;
@@ -500,6 +500,8 @@ namespace xeus2.xeus.Core
                 _timeTimer.Stop();
                 _timeTimer.Elapsed -= _timeTimer_Elapsed;
             }
+
+            DocumentPool.Instance.Release(_chatDocument);
         }
     }
 }
