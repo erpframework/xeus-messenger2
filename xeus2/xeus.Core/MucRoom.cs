@@ -44,7 +44,7 @@ namespace xeus2.xeus.Core
             _mucManager = new MucManager(_xmppClientConnection);
             _nick = nick;
 
-            _xmppClientConnection.MesagageGrabber.Add(service.Jid, new BareJidComparer(), MessageCallback, null);
+            _xmppClientConnection.MessageGrabber.Add(service.Jid, new BareJidComparer(), MessageCallback, null);
             _xmppClientConnection.PresenceGrabber.Add(service.Jid, new BareJidComparer(), PresenceCallback, null);
 
             _mucMessages.CollectionChanged += _mucMessages_CollectionChanged;
@@ -691,7 +691,7 @@ namespace xeus2.xeus.Core
 
         public void LeaveRoom(string message)
         {
-            _xmppClientConnection.MesagageGrabber.Remove(_service.Jid);
+            _xmppClientConnection.MessageGrabber.Remove(_service.Jid);
             _xmppClientConnection.PresenceGrabber.Remove(_service.Jid);
 
             Presence presence = new Presence();
