@@ -24,10 +24,11 @@ namespace xeus2.xeus.Data
 
         static Storage()
         {
-            string path = Assembly.GetExecutingAssembly().Location;
+            DirectoryInfo directoryInfo = new DirectoryInfo(System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData));
 
-            FileInfo fileInfo = new FileInfo(path);
-            _folder = fileInfo.DirectoryName;
+            DirectoryInfo xeus = directoryInfo.CreateSubdirectory("xeus-messenger");
+
+            _folder = xeus.FullName;
         }
 
         public static void OpenShell(string path)
