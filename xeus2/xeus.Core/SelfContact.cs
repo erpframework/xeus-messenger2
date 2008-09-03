@@ -40,7 +40,7 @@ namespace xeus2.xeus.Core
         public SelfContact()
         {
             Version.Name = "xeus";
-            Version.Ver = "2.0 pre-alpha";
+            Version.Ver = "2.0 RC0";
             Version.Os = Environment.OSVersion.ToString();
 
             _updateTimer.AutoReset = false;

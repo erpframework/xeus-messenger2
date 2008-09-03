@@ -1,4 +1,6 @@
 ﻿using agsXMPP;
+using System;
+using xeus2.Properties;
 
 namespace xeus2.xeus.Core
 {
@@ -12,6 +14,8 @@ namespace xeus2.xeus.Core
         {
             _sender = jid;
             _headline = headline;
+
+            Expiration = DateTime.Now.AddSeconds(Settings.Default.UI_Notify_Error_Exp);
         }
 
         public string Sender
