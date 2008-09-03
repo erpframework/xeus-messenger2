@@ -290,7 +290,7 @@ namespace xeus2.xeus.Data
                     command.CommandText = string.Format(
                                             "SELECT * FROM [Message] "
                                           + "WHERE [Type]='headline'"
-                                          + "ORDER BY [Message].[DateTime] "
+                                          + "ORDER BY [Message].[DateTime] DESC "
                                           + "LIMIT {0};", maxMessages);
 
                     SQLiteDataReader reader = command.ExecuteReader();

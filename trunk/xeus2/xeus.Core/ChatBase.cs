@@ -192,7 +192,6 @@ namespace xeus2.xeus.Core
         protected void GenerateChatDocument(IList messages)
         {
             GenerateChatDocumentInternal(messages);
-
         }
 
         readonly object _generateLock = new object();

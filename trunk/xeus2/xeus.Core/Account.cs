@@ -26,6 +26,7 @@ using Search=agsXMPP.protocol.iq.search.Search;
 using Timer=System.Timers.Timer;
 using Uri=agsXMPP.Uri;
 using Version=agsXMPP.protocol.iq.version.Version;
+using System.Net.NetworkInformation;
 
 namespace xeus2.xeus.Core
 {
@@ -80,7 +81,23 @@ namespace xeus2.xeus.Core
 
         private Account()
         {
+            NetworkChange.NetworkAddressChanged += NetworkChange_NetworkAddressChanged;
+
             Prepare();
+        }
+
+        void NetworkChange_NetworkAddressChanged(object sender, EventArgs e)
+        {
+            // NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+
+            EventError eventError = new EventError("Network changes", null);
+            Events.Instance.OnEvent(this, eventError);
+
+            if (Settings.Default.XmppAutoReconnect)
+            {
+                Close();
+                _reconnectTime.Start();
+            }
         }
 
         public static Account Instance
